@@ -18,7 +18,9 @@ class SMS extends Model
 
         curl_close($Curl);
 
-        return $Result;
+        $result = simplexml_load_string($Result)->status;
+        
+        return $result;
     }
 
     private static function getSMSSource($message, $phone){

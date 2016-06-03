@@ -8,11 +8,6 @@ use App\Http\Requests;
 
 class PasswordController extends Controller
 {
-    public function create()
-    {
-
-    }
-
     public function update()
     {
 
