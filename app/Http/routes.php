@@ -34,10 +34,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update/{id}', 'UserController@update');
         Route::get('show/{id}', 'UserController@show');
     });
+    Route::get('country', 'CountryController@index');
 
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/user/show/1\" method=\"post\">
+        echo "<form action=\"http://pp.dev/country\" method=\"post\">
             <input type='text' name='login'><br>
             <input type='text' name='password'><br>
             <input type=\"submit\">
