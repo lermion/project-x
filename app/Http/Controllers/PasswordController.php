@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
@@ -28,7 +29,18 @@ class PasswordController extends Controller
             return response()->json($result);
         }
         if (Auth::check()) {
+            $oldPass = $request->input('old_password');
             $user = Auth::user();
+            if(!Hash::check($oldPass, $user->password)){
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Incorrect old password",
+                        'code' => '9'
+                    ]
+                ];
+                return response()->json($result);
+            }
         } elseif ($request->session()->has('canUpdate')) {
             $userId = $request->session()->get('user_id');
             $user = User::find($userId);
@@ -46,7 +58,7 @@ class PasswordController extends Controller
         $user->password = bcrypt($password);
         $user->save();
         Auth::attempt(['login' => $user->login, 'password' => $password]);
-        
+
         return response()->json(['status'=>true,'user_id'=>$user->id]);
     }
 
