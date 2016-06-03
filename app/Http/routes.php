@@ -36,11 +36,16 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::get('country', 'CountryController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
+    Route::group(['prefix' => 'password'], function()
+    {
+        Route::post('update', 'PasswordController@update');
+        Route::post('restore', 'PasswordController@restore');
+        Route::post('validate_code', 'PasswordController@validateCode');
+    });
 
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/static_page/help\" method=\"post\">
-            <input type='text' name='login'><br>
+        echo "<form action=\"http://pp.dev/password/update\" method=\"post\">
             <input type='text' name='password'><br>
             <input type=\"submit\">
         </form>";
