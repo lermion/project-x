@@ -24,17 +24,21 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::group(['prefix' => 'auth'], function()
     {
+        Route::post('/', 'AuthController@auth');
         Route::post('create', 'AuthController@store');
         Route::post('check_sms', 'AuthController@checkSMSCode');
+        Route::get('log_out', 'AuthController@logOut');
     });
     Route::group(['prefix' => 'user'], function()
     {
         Route::post('update/{id}', 'UserController@update');
+        Route::post('show/{id}', 'UserController@show');
     });
 
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/user/update/1\" method=\"post\">
+        echo "<form action=\"http://pp.dev/user/show/1\" method=\"post\">
+            <input type='text' name='login'><br>
             <input type='text' name='password'><br>
             <input type=\"submit\">
         </form>";

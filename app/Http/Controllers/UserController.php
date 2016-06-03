@@ -28,7 +28,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return $user;
     }
 
     /**
@@ -40,8 +41,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Auth::check()){
-            if(Auth::user()->id!==$id){
+        if (Auth::check()) {
+            if (Auth::user()->id !== $id) {
                 $result = [
                     "status" => false,
                     "error" => [
@@ -51,7 +52,7 @@ class UserController extends Controller
                 ];
                 return response()->json($result);
             }
-        }elseif(!$request->session()->has('canRegistered')){
+        } elseif (!$request->session()->has('canRegistered')) {
             $result = [
                 "status" => false,
                 "error" => [
@@ -77,7 +78,7 @@ class UserController extends Controller
             return response()->json($result);
         }
         $user = User::find($id);
-        if(!$user){
+        if (!$user) {
             $result = [
                 "status" => false,
                 "error" => [
@@ -86,9 +87,9 @@ class UserController extends Controller
                 ]
             ];
             return response()->json($result);
-        }else{
+        } else {
             $user->update($request->all());
-            if($password = $request->input('password')){
+            if ($password = $request->input('password')) {
                 $user->password = bcrypt($password);
                 $user->save();
                 Auth::attempt(['login' => $user->login, 'password' => $password]);

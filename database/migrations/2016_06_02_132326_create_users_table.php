@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('country_id')->unsigned();
             $table->foreign('country_id')->references('id')->on('countries');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

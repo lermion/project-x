@@ -8,6 +8,7 @@ use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Mockery\CountValidator\Exception;
 use Validator;
 
@@ -30,7 +31,7 @@ class AuthController extends Controller
             ];
             return response()->json($result);
         }
-        $smsCode = rand(0, 10).rand(0, 10).rand(0, 10).rand(0, 10);
+        $smsCode = rand(0, 10) . rand(0, 10) . rand(0, 10) . rand(0, 10);
         $userPhone = $request->input('phone');
         $countryId = $request->input('country_id');
         try {
@@ -65,11 +66,11 @@ class AuthController extends Controller
     public function checkSMSCode(Request $request)
     {
         $smsCode = $request->input('sms_code');
-        if($request->session()->has('smsCode')){
-            if($smsCode==$request->session()->get('smsCode')){
+        if ($request->session()->has('smsCode')) {
+            if ($smsCode == $request->session()->get('smsCode')) {
                 $request->session()->put('canRegistered', true);
                 return response()->json(["status" => true]);
-            }else{
+            } else {
                 $result = [
                     "status" => false,
                     "error" => [
@@ -79,7 +80,7 @@ class AuthController extends Controller
                 ];
                 return response()->json([$result]);
             }
-        }else{
+        } else {
             $result = [
                 "status" => false,
                 "error" => [
@@ -93,6 +94,30 @@ class AuthController extends Controller
 
     public function auth(Request $request)
     {
+        $login = $request->input('login');
+        $phone = $request->input('phone');
+        $password = $request->input('password');
+        if (($login || $phone) && $password) {
+            $status = false;
+            if(Auth::attempt(['login' => $login, 'password' => $password])){
+                $status = true;
+            }elseif(Auth::attempt(['phone' => $phone, 'password' => $password])){
+                $status = true;
+            }
+            return response()->json(['status'=>$status,'user_id'=>Auth::id()]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Validation error",
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
 
+    public function logOut(){
+        Auth::logout();
     }
 }
