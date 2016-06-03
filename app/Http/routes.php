@@ -32,7 +32,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'user'], function()
     {
         Route::post('update/{id}', 'UserController@update');
-        Route::post('show/{id}', 'UserController@show');
+        Route::get('show/{id}', 'UserController@show');
     });
 
 

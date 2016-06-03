@@ -95,13 +95,12 @@ class AuthController extends Controller
     public function auth(Request $request)
     {
         $login = $request->input('login');
-        $phone = $request->input('phone');
         $password = $request->input('password');
-        if (($login || $phone) && $password) {
+        if ($login && $password) {
             $status = false;
             if(Auth::attempt(['login' => $login, 'password' => $password])){
                 $status = true;
-            }elseif(Auth::attempt(['phone' => $phone, 'password' => $password])){
+            }elseif(Auth::attempt(['phone' => $login, 'password' => $password])){
                 $status = true;
             }
             return response()->json(['status'=>$status,'user_id'=>Auth::id()]);
