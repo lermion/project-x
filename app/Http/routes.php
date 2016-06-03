@@ -25,12 +25,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'auth'], function()
     {
         Route::post('create', 'AuthController@store');
+        Route::post('check_sms', 'AuthController@checkSMSCode');
+    });
+    Route::group(['prefix' => 'user'], function()
+    {
+        Route::post('update/{id}', 'UserController@update');
     });
 
+
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/auth/create\" method=\"post\">
-            <input type='text' name='phone'><br>
-            <input type='text' name='country_id'><br>
+        echo "<form action=\"http://pp.dev/user/update/1\" method=\"post\">
+            <input type='text' name='password'><br>
             <input type=\"submit\">
         </form>";
     });

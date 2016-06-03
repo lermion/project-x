@@ -18,7 +18,7 @@ class AuthController extends Controller
         try {
             $this->validate($request, [
                 'phone' => 'required|unique:users|numeric|min:5',
-                'country_id' => 'required|numeric'
+                'country_id' => 'required|numeric|exists:countries,id'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -30,7 +30,7 @@ class AuthController extends Controller
             ];
             return response()->json($result);
         }
-        $smsCode = rand(4, 4);
+        $smsCode = rand(0, 10).rand(0, 10).rand(0, 10).rand(0, 10);
         $userPhone = $request->input('phone');
         $countryId = $request->input('country_id');
         try {
@@ -46,9 +46,9 @@ class AuthController extends Controller
             return response()->json($result);
         }
         if ($smsResult > 0) {
-            User::create(['phone' => $userPhone, 'country_id' => $countryId]);
+            $user = User::create(['phone' => $userPhone, 'country_id' => $countryId]);
             $request->session()->put('smsCode', $smsCode);
-            return response()->json(['status' => true, 'phone' => $userPhone]);
+            return response()->json(['status' => true, 'phone' => $userPhone, 'user_id' => $user->id]);
         } else {
             $result = [
                 "status" => false,
@@ -64,7 +64,31 @@ class AuthController extends Controller
 
     public function checkSMSCode(Request $request)
     {
-
+        $smsCode = $request->input('sms_code');
+        if($request->session()->has('smsCode')){
+            if($smsCode==$request->session()->get('smsCode')){
+                $request->session()->put('canRegistered', true);
+                return response()->json(["status" => true]);
+            }else{
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Incorrect code",
+                        'code' => '4'
+                    ]
+                ];
+                return response()->json([$result]);
+            }
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "No variable in the session",
+                    'code' => '5'
+                ]
+            ];
+            return response()->json([$result]);
+        }
     }
 
     public function auth(Request $request)
