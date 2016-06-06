@@ -402,9 +402,15 @@ footer {
 }
 .footer .menu {
 	width: 450px;
+	// display: flex;
+	// justify-content: space-between; 
+}
+.footer .menu-item {
+	width: 100%;
 	display: flex;
 	justify-content: space-between; 
 }
+
 .footer .menu-item a {
 	font-family:  "SFUIDisplayMedium";
 	font-size: 14.6px;
@@ -623,5 +629,5 @@ body.public {
 	background: #495b79;
 }
 .public header .header {
-	
+
 }
