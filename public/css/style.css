@@ -15,24 +15,23 @@
 html{
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
 }
 body.main-page {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
+	font-family:  "SFUIDisplayMedium"; 
+	box-sizing: border-box;
+	position: relative;
+	padding: 0 0 75px 0;
+	// padding: 40px 40px 75px 40px;
+	overflow: hidden;
 	background-image: url(../images/bc.png);
 	background-repeat:  no-repeat;
 	background-size: cover;
 	background-position: center;
-	font-family:  "SFUIDisplayMedium"; 
-	box-sizing: border-box;
-	position: relative;
-	padding: 2vh 2vh 75px 2vh;
-	// padding: 40px 40px 75px 40px;
 	color: #fff;
-	overflow: hidden;
 }
 // .main-page .place {
 // 	display: flex;
@@ -621,11 +620,13 @@ body.public {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 100vh;
-	overflow: hidden;
+	min-height: 100vh;
+	padding: 0 0 75px 0;
+	position: relative;
 }
 .public header {
 	background: #495b79;
+	width: 100%;
 }
 .public header .header {
 	width: 1025px;
@@ -650,6 +651,11 @@ body.public {
 }
 .public header .main-menu.common {
 	width: 45%;
+}
+.public header .main-menu.common .menu-item {
+	width: 100%;
+	display: flex;
+    	justify-content: space-between;
 }
 .public header .main-menu a,
 .public header  .exit,
@@ -778,4 +784,139 @@ body.public {
 .public .footer-item a:hover {
 	color: #403F3F;
 }
-.content
+.content{
+	width: 1025px;
+	margin: 0 auto;
+}
+.menu-user {
+	margin-top: 30px;
+	margin-bottom: 5px;
+}
+.menu-user a {
+	font-size: 14.6px;
+	color: #333;
+	line-height: 25px;
+	padding: 0 10px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	text-decoration: none;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s; 
+}
+.menu-user a:hover,
+.menu-user a.active {
+	border: 1px solid #495b79;
+	color: #495b79;
+	transition: all .3s ease-in-out .1s; 
+}
+.info {
+	margin-top: 30px;
+	font-family: "SFUIDisplayMedium";
+	color: #333;
+}
+.info h3 {
+	margin: 0 0 5px;
+	font-size: 20.8px;
+	line-height: 30px;
+}
+.info p {
+	font-family: "SFUIDisplayLight";
+	font-size: 14.6px;
+	line-height: 20px;
+	margin: 25px 0 0;
+}
+.info p.bold {
+	font-family: "SFUIDisplayMedium";
+}
+.info ul{
+	margin: 0;
+	padding: 0;
+}
+.info ul li {
+	list-style-type: none;
+	font-family: "SFUIDisplayLight";
+	font-size: 14.6px;
+	line-height: 20px;
+	margin: 25px 0 0;
+	padding: 0;
+}
+.info ul li:before {
+	content: '-';
+}
+@media (max-width: 1025px) {
+	.public header .header,
+	.content {
+		width: 100%;
+		padding: 0 10px;
+		box-sizing: border-box;
+	}
+} 
+@media (max-width: 800px) {
+
+	.public header .main-menu.common .drop-menu {
+		display: block;
+		width: 32px;
+		height: 20px;
+		background-image: url(../images/drop-menu.png);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 90%;
+		transform: rotate(90deg);
+		transition: all .3s ease-in-out .1s; 
+	}
+	.public header .main-menu.common .drop-menu:hover {
+		border: 1px solid #999;
+		background-image: url(../images/drop-menu-hover.png);
+		background-position: center;
+		background-repeat: no-repeat;
+		transition: all .3s ease-in-out .1s; 
+	}
+	.public header .main-menu.common .menu-item {
+		display: none;
+	}
+	.public header .main-menu:hover .menu-item  {
+		display: block;
+		position: absolute;
+		background: rgb(73, 91, 121);
+		border-radius: 3px;
+		top: 40px;
+		right: -40px;
+		width: 100px;
+		padding: 10px;
+		text-align: center;
+	} 
+	.public header .main-menu.common a {
+		line-height: 25px;
+	}
+	.public header .main-menu {
+		width: auto;
+		position: relative;
+	}
+	.public header .main-menu.common {
+		width: auto;
+	}
+}
+@media (max-width: 550px)  {
+	.menu-user {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.menu-user a {
+		margin-top: 10px;
+	}
+}
+@media (max-width: 450px) {
+	.public header .header {
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		padding: 10px;
+	}
+	.public header .registration {
+		margin-right: 30px;
+	}
+}
