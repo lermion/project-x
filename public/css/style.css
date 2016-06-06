@@ -263,7 +263,6 @@ body.main-page {
 	background-image: url(../images/phone.png); 
 	left: 0;
 }
-.city-field:hover span.city-inner,
 .sex-field:hover span.sex-inner {
 	transition: all .3s ease-in-out .1s; 
 	transform: rotate(90deg); 
@@ -779,3 +778,4 @@ body.public {
 .public .footer-item a:hover {
 	color: #403F3F;
 }
+.content
