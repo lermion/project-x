@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Country;
+use App\StaticPage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +14,43 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+         $this->call(CountryTableSeeder::class);
+         $this->call(StaticPageTableSeeder::class);
+    }
+}
+
+class CountryTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('countries')->delete();
+
+        Country::create(array('id'=>1, 'name' => 'Азербайджан'));
+        Country::create(array('id'=>2,'name' => 'Армения'));
+        Country::create(array('id'=>3,'name' => 'Белоруссия'));
+        Country::create(array('id'=>4,'name' => 'Грузия'));
+        Country::create(array('id'=>5,'name' => 'Казахстан'));
+        Country::create(array('id'=>6,'name' => 'Киргизия'));
+        Country::create(array('id'=>7,'name' => 'Молдавия'));
+        Country::create(array('id'=>8,'name' => 'Россия'));
+        Country::create(array('id'=>9,'name' => 'Таджикистан'));
+        Country::create(array('id'=>10,'name' => 'Туркмения'));
+        Country::create(array('id'=>11,'name' => 'Узбекистан'));
+        Country::create(array('id'=>12,'name' => 'Украина'));
+    }
+}
+
+class StaticPageTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('static_pages')->delete();
+
+        StaticPage::create(array('name' => 'about_service','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
+        StaticPage::create(array('name' => 'help','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
+        StaticPage::create(array('name' => 'rules','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
+        StaticPage::create(array('name' => 'advertising','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
+        StaticPage::create(array('name' => 'developers','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
+
     }
 }
