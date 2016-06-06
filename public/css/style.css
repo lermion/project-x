@@ -629,5 +629,153 @@ body.public {
 	background: #495b79;
 }
 .public header .header {
-
+	width: 1025px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.public header .logo {
+	background-image: url(../images/logotip.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 163px;
+	height: 25px; 
+} 
+.public header .main-menu {
+	width: 35%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.public header .main-menu.common {
+	width: 45%;
+}
+.public header .main-menu a,
+.public header  .exit,
+.public header  .registration {
+	padding-left: 35px;
+	color: #fff;
+	text-decoration: none;
+	line-height: 45px;
+	font-size: 14px;
+	font-family: "SFUIDisplayMedium";
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 27%;
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu.common a,
+.public header  .exit {
+	padding-left: 0;
+}
+.public header .main-menu a:hover,
+.public header  .exit:hover,
+.public header  .registration:hover {
+	color: #999;
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu .places {
+	background-image: url(../images/places.png);
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu a.places:hover {
+	background-image: url(../images/places-hover.png);
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu .chat {
+	background-image: url(../images/chat.png);
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu a.chat:hover {
+	background-image: url(../images/chat-hover.png);
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu .settings {
+	background-image: url(../images/settings.png);
+	background-size: 20%;
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .main-menu a.settings:hover {
+	background-image: url(../images/settings-hover.png); 
+	transition: all .2s ease-in-out .1s; 
+}
+.public header  .exit span {
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 60%;
+	background-image: url(../images/exite.png);
+	transition: all .2s ease-in-out .1s; 
+	width: 35px;
+	height: 35px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.public header  .exit.enter span{
+	background-position: right center;
+	background-image: url(../images/exite.png);
+	transform: rotate(180deg);
+}
+.public header .exit:hover span {
+	background-image: url(../images/exite-hover.png);
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .registration {
+	background-image: url(../images/key.png);
+	transition: all .2s ease-in-out .1s; 
+	background-size: 15%;
+}
+.public header .registration:hover {
+	background-image: url(../images/key-hover.png);
+	transition: all .2s ease-in-out .1s; 
+}
+.public header .search {
+	width: 200px;
+	position: relative;
+}
+.public header .search input {
+	background: #7988a3;
+	border-radius: 2px;
+	padding: 0 35px 0 10px;
+	color: #fff;
+	line-height: 35px;
+	transition: all .4s ease-in-out .1s; 
+	border: none;
+	box-sizing: border-box;
+	width: 100%;
+	display: inline-block;
+}
+.public header .search input:focus {
+	background: #fff;
+	color: #999;
+	outline: none;
+	transition: all .4s ease-in-out .1s; 
+}
+.public header .search span {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: transparent;
+	background-image: url(../images/search.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 55%;
+	width: 35px;
+	height: 35px;
+	transition: all .2s ease-in-out .1s; 
+}
+/*.public header .search:hover span,
+.public header .search:focus span,
+.public header .search input:focus + .public header .search span {
+	background-image: url(../images/search-hover.png);
+	transition: all .2s ease-in-out .1s; 
+}*/
+.public header .search input::-webkit-input-placeholder {color:#fff;}
+.public header .search input::-moz-placeholder          {color:#fff;}
+.public header .search input:-moz-placeholder           {color:#fff;}
+.public header .search input:-ms-input-placeholder      {color:#fff;}
+.public .footer .menu-item a:hover,
+.public .footer-item a:hover {
+	color: #403F3F;
 }
