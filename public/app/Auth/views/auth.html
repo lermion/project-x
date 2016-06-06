@@ -1,3 +1,4 @@
+<!-- <div ng-controller="authCtrl" class="main-page">     -->
 <div ng-controller="authCtrl">    
       
             <!-- <div class="check-in">
@@ -18,26 +19,18 @@
                                     <h5>Регистрация</h5>
                                     <form>
                                         <div class="city-field">
-                                                <span class="city"></span>
-                                                <select>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
-                                                        <option>Москва</option>
+                                                <span class="city"></span>                                                
+                                                <select ng-model="countryId" ng-options="country.id as country.name for country in countries" required>                                                        
                                                 </select>
                                                 <span class="city-inner"></span>
                                         </div>
                                         <div class="phone-field">
                                         <span class="phone"></span>
-                                                    <input type="tel" name="" placeholder="Введите номер телефона...">
+                                                    <input type="tel" ng-model="phoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." required>
                                         </div>
-                                        <p class="capcha-tel">Поле обязательно для заполнения</p>
+                                        <p ng-show="regErr" class="capcha-tel">Поле обязательно для заполнения</p>
                                     </form>
-                                    <button class="check-in-button">Зарегистрироваться</button>
+                                    <button class="check-in-button" ng-click="userRegister()">Зарегистрироваться</button>
                         </div> 
 <!-- end of 1 step -->
                           <!-- second  step-- city & phone -->
