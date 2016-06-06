@@ -1,0 +1,627 @@
+/* font-family: "SFUIDisplayMedium"; */
+@font-face {
+       font-family: "SFUIDisplayMedium";
+       src: url("../fonts/SFUIDisplay-Medium.otf");
+       font-style: normal;
+       font-weight: normal;
+}
+   /* font-family: "SFUIDisplayMedium"; */
+@font-face {
+       font-family: "SFUIDisplayLight";
+       src: url("../fonts/SFUIDisplay-Light.otf");
+       font-style: normal;
+       font-weight: normal;
+}
+html{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+body.main-page {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100vh;
+	background-image: url(../images/bc.png);
+	background-repeat:  no-repeat;
+	background-size: cover;
+	background-position: center;
+	font-family:  "SFUIDisplayMedium"; 
+	box-sizing: border-box;
+	position: relative;
+	padding: 2vh 2vh 75px 2vh;
+	// padding: 40px 40px 75px 40px;
+	color: #fff;
+	overflow: hidden;
+}
+// .main-page .place {
+// 	display: flex;
+//     	justify-content: flex-end;
+//     	position: relative;
+// }
+// .place-item {
+// 	display: flex;
+//     	flex-direction: column;
+//     	position: relative;
+//     	width: 155px;
+// }
+// .selection {
+// 	color: #fff;
+// 	font-size: 14.6px;
+// 	padding: 0  15px;
+// 	display: inline-block;
+// 	line-height: 30px;
+// 	text-decoration: none;
+// 	cursor: pointer;
+// 	vertical-align: middle;
+// 	transition: color .5s ease-in-out .5s;
+// }
+// .selection:hover {
+// 	color: #999;
+// 	transition: color .5s ease-in-out .5s;
+// }
+// .selection span {
+// 	background-image: url(../images/arrow.png);
+// 	background-repeat:  no-repeat;
+// 	background-position: center;
+// 	transform: rotate(180deg);
+// 	width: 20px;
+// 	height: 20px;
+// 	margin-left: 15px;
+// 	display: inline-block;
+//     	vertical-align: middle; 
+//     	transition: transform .5s ease-in-out .5s;
+// }
+// .selection span:hover {
+// 	transform: rotate(0deg);
+// 	transition: transform .5s ease-in-out .5s;
+// }
+// .selection:hover span {
+// 	transform: rotate(0deg);
+// 	transition: transform .5s ease-in-out .5s;
+// }
+// .select {
+// 	position: absolute;
+// 	top: 25px;
+// 	background: rgba(0, 0, 0, 0.4);
+// 	transition: all .5s ease-in-out .2s; 
+// 	display: none;
+// 	height: 0;
+// 	overflow: hidden;
+// }
+// .place-item:hover .select {
+// 	display: block;
+// 	transition: all .5s ease-in-out .2s; 
+// 	height: auto;
+// }
+// .select a {
+// 	display: block;
+//     	text-decoration: none;
+//     	box-sizing: border-box;
+//     	padding:  0 15px;
+//     	font-family:  "SFUIDisplayMedium"; 
+//     	font-size: 14.6px;
+//     	color: #fff;
+//     	line-height: 36px;
+//     	background: transparent;
+//     	transition: all .3s ease-in-out .3s; 
+// }
+// .select a:hover {
+// 	color: #999;
+//     	background: #000;
+//     	transition: all .3s ease-in-out .3s; 
+// }
+.check-in .form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.form .logo {
+	background-image: url(../images/logo.png);
+	background-repeat:  no-repeat;
+	background-position: center;
+	background-size: 100%;
+	width: 190px;
+	height: 125px;
+	// margin-top: 35px;
+	margin-top: 5vh;
+}
+.form h1 {
+	// margin: 70px 0 0;
+	font-family:  "SFUIDisplayMedium"; 
+	font-size: 33.3px;
+	line-height: 35px;
+	text-shadow: 3px 3px 1px #000;
+	margin: 6vh 0 0;
+}
+.form-item {
+	// margin-top: 65px;
+	margin-top: 6vh;
+	background: rgba(0, 0, 0, 0.4);
+}
+.form-item h5 {
+	font-family:  "SFUIDisplayMedium"; 
+	line-height: 62px;
+	font-size: 21px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+.form-item form {
+	width: 400px;
+	box-sizing: border-box;
+	padding: 0 20px;
+}
+.form-item form input,
+.form-item form select,
+.text-field,
+.password-field-first,
+.password-field-second {
+	width: 100%;
+	box-sizing: border-box;;
+	padding: 0 35px;
+	line-height: 37px;
+	height: 37px;
+	border-radius: 2px;
+	font-size: 14.6px;
+	font-family: Tahoma;
+	font-weight: 400;
+	background: #fff;
+	color: #999;
+	border: none;
+	margin-bottom: 10px;
+	border: 1px solid transparent;
+	transition: all .3s ease-in-out .2s; 
+}
+.form-item form input:focus,
+.form-item form select:focus,
+.text-field:focus {
+	border: 1px solid #c24f39;
+	transition: all .3s ease-in-out .2s; 
+	outline: none;
+}
+.text-field,
+.password-field-first,
+.password-field-second {
+	width: 290px;
+	margin-top: 13vh; 
+	padding:  0 15px;
+}
+.password-field-first {
+	border-radius: 3px 3px 0 0;
+	border-bottom: 1px solid #999;
+	margin-bottom: 0;
+}
+.password-field-second {
+	border-radius: 0 0 3px 3px; 
+	margin-top: 0;
+}
+.recovery .form p {
+	text-align: center;
+	width: 300px;
+	font-size: 13px;
+	margin: 0;
+
+}
+.form-item .city-field,
+.phone-field,
+.code-field,
+.name-field,
+.user-field,
+.sex-field,
+.password-field {
+	position: relative; 
+	display: block;
+	width: 100%;
+}
+// icons
+
+.form-item .city-field,
+.phone-field,
+.code-field {
+	position: relative; 
+	display: block;
+	width: 100%; 
+}
+.city-field span,
+.phone-field span,
+.code-field span,
+.name-field span,
+.user-field span,
+.sex-field span,
+.password-field span {
+	position: absolute;
+	width: 37px;
+	height: 37px;
+	top: 0;
+	background-repeat:  no-repeat;
+	background-position: center;
+	background-size: 50%;
+}
+.city-field span.city {
+	background-image: url(../images/location.png);
+	left: 0;
+}
+.sex-field span.sex {
+	background-image: url(../images/gente.png);
+	left: 0;
+}
+.city-field span.city-inner,
+.sex-field span.sex-inner {
+	background-image: url(../images/select.png);
+	background-color: #fff;
+	background-size: 100%;
+	right: 7px;
+	top: 10px;
+	width: 15px;
+	height: 15px;
+	transform: rotate(-90deg); 
+	transition: all .3s ease-in-out .1s; 
+}
+.phone-field span.phone {
+	background-image: url(../images/phone.png); 
+	left: 0;
+}
+.city-field:hover span.city-inner,
+.sex-field:hover span.sex-inner {
+	transition: all .3s ease-in-out .1s; 
+	transform: rotate(90deg); 
+}
+.code-field span.code,
+.password-field span.password {
+	background-image: url(../images/code.png); 
+	left: 0;
+}
+.name-field span.name {
+	background-image: url(../images/name.png);
+	left: 0;
+}
+.user-field span.user {
+	background-image: url(../images/user-name.png);
+	left: 0;
+}
+
+.form-item form p {
+	font-family:  "SFUIDisplayMedium"; 
+	font-size: 12.5px;
+	color: #ec6045;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	line-height: 15px;
+}
+// .check {
+//     	line-height: 63px;
+// }
+// .check label {
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	font-size: 12.5px;
+// 	font-family:  "SFUIDisplayMedium";
+// 	cursor: pointer;
+// }
+// input[type="checkbox"] {
+// 	display: none;
+// }
+// input[type="checkbox"] + label span {
+// 	display: inline-block;
+//     	width: 22px;
+//     	height: 22px;
+//     	margin: 0px 5px 0 0px;
+//     	vertical-align: middle;
+//     	background: url(../images/chackbox.png) left top no-repeat;
+//     	cursor: pointer;
+// }
+// input[type="checkbox"]:checked + label span {
+//   	background:url(../images/checked.png) 0 top no-repeat;
+// }
+.check-in-button {
+	width: 100%;
+	display: block;
+	background: #ec6045;
+	border-radius: 0;
+	font-size: 14.6px;
+	color: #fff;
+	font-family:  "SFUIDisplayMedium";
+	cursor: pointer;
+	transition: all .3s ease-in-out .3s; 
+	border: none;
+	line-height: 40px;
+}
+.check-in-button:hover,
+.check-in-button:focus {
+	transition: all .3s ease-in-out .3s; 
+	outline: none;
+	background: #DA5036;
+}
+.add-ava {
+	width: 100%;
+	margin-bottom: 10px;
+	height: 22vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 3px; 
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.4);
+	height: 72px;
+}
+.footer {
+	width: 1025px; 
+	height: 100%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center; 
+}
+.footer-item {
+	width: 275px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center; 
+}
+.footer-item a {
+	font-family: "SFUIDisplayLight";
+	font-size: 14.6px;
+	color: #fff;
+	text-decoration: none;
+	transition: all .3s ease-in-out .1s; 
+}
+.footer-item a:hover {
+	color: #999;
+	transition: all .3s ease-in-out .1s; 
+}
+.footer-item a:hover span {
+	color: #fff;
+}
+.payment {
+	display: flex;
+	justify-content: space-between;
+	width: 32%;
+}
+.payment a {
+	display: inline-block;
+	vertical-align: middle;
+}
+.payment a.mastercard {
+	background-image: url(../images/mastercard-footer.png);
+	width: 39px;
+	height: 24px;
+}
+.payment a.visa {
+	background-image: url(../images/visa-footer.png); 
+	width: 34px;
+	height: 24px; 
+}
+.footer .menu {
+	width: 450px;
+	display: flex;
+	justify-content: space-between; 
+}
+.footer .menu-item a {
+	font-family:  "SFUIDisplayMedium";
+	font-size: 14.6px;
+	color: #fff;
+	text-decoration: none;
+	transition: all .3s ease-in-out .1s; 
+}
+.footer .menu-item a:hover {
+	color: #999;
+	transition: all .3s ease-in-out .1s; 
+}
+.drop-menu {
+	display: none;
+}
+
+.registration .form .logo{
+	margin-top: 0;
+}
+.registration .form-item {
+	margin-top: 2vh;
+}
+.registration .add-ava {
+	height: 20vh;
+	margin-bottom: 5px;
+}
+.registration .form-item form input, 
+.registration .form-item form select {
+	line-height: 25px;
+    	height: 25px;
+    	margin-bottom: 4px;
+}
+.registration .city-field span,
+.registration  .phone-field span,
+.registration  .code-field span,
+.registration  .name-field span,
+.registration  .user-field span,
+.registration  .sex-field span,
+.registration  .password-field span {
+	width: 27px;
+	height: 27px;
+	background-size: 55%;
+}
+.registration .form-item form p {
+	margin-bottom: 5px;
+    	line-height: 15px;
+}
+.registration .city-field span.city-inner, 
+.registration .sex-field span.sex-inner {
+	background-size: 70%;
+    	top: 6px; 
+    	width: 15px;
+    	height: 15px;
+}
+.registration .check-in-button {
+	line-height: 28px;
+}
+
+
+.recovery {
+	height: 80vh;
+}
+.recovery .form h1{
+	margin: 21vh 0 0;
+}
+.recovery .check-in-button {
+	margin-top: 5vh;
+	width: 150px; 
+	border-radius: 3px;
+}
+.recovery .registration-button{
+	text-decoration: none;
+	color: #fff;
+	font-size: 15px;
+	line-height: 20px;
+	margin-top: 4vh; 
+}
+.recovery .registration-button:hover {
+	color: #DCDBDB;
+}
+.recovery .registration-button span {
+	display: inline-block;
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+	background-image: url(../images/key.png);
+	background-repeat:  no-repeat;
+	background-position: center;
+	background-size: 90%; 
+}
+.remember a {
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	line-height: 20px;
+	font-size: 14px;
+	margin-top: 3vh;
+}
+.remember a:hover {
+	color: #999;
+}
+.remember a:first-child {
+	margin-right: 20px;
+}
+.form h1.slogan {
+	margin-top: 15vh;
+}
+.preloader {
+	width: 50px;
+	height: 50px;
+	background-image: url(../images/load.gif);
+	background-repeat:  no-repeat;
+	background-position: center;
+	background-size: 90%; 
+	text-align: center;
+	margin: 15vh auto 0; 
+}
+
+
+@media (max-width: 1025px) {
+	.registration .form .logo {
+		width: 25%;
+    		height: 11vh;
+	}
+	.footer  {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0 15px;
+	}
+}
+@media (max-width: 800px) {
+	.footer-item {
+		width: 35%; 
+	}
+	.payment {
+		width: 36%;
+	}
+	.footer .menu {
+		width: 60%;
+	}
+}
+@media (max-width: 650px)  {
+	.drop-menu {
+		display: block;
+		width: 42px;
+		height: 20px;
+		border: 1px solid #fff;
+		background-image: url(../images/drop-menu.png);
+		background-position: center;
+		background-repeat: no-repeat;
+		transform: rotate(90deg);
+		transition: all .3s ease-in-out .1s; 
+
+	}
+	.drop-menu:hover {
+		border: 1px solid #999;
+		background-image: url(../images/drop-menu-hover.png);
+		background-position: center;
+		background-repeat: no-repeat;
+		transition: all .3s ease-in-out .1s; 
+	}
+	.footer .menu-item {
+		display: none;
+	}
+	.footer .menu:hover .menu-item  {
+		display: block;
+		position: absolute;
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 3px;
+		top: -135px;
+		right: 0;
+		width: 100px;
+		padding: 10px;
+		text-align: center;
+	} 
+	.footer .menu {
+		width: auto;
+		position: relative;
+	}
+	.footer-item {
+		width: 50%;
+	}
+}
+@media (max-width: 450px) {
+	.form h1 {
+		font-size: 30px;
+		line-height: 30px;
+		margin: 3vh 0 0;
+	}
+	.registration .form h1 {
+		font-size: 23px;
+		line-height: 23px;
+		margin: 0 0 0; 
+	}
+	.form-item form {
+		width: 100%;
+	}
+	.footer-item {
+		width: 75%;
+	}
+}
+
+
+// public.html 
+a {
+	text-decoration: none;
+}
+body.public {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+.public header {
+	background: #495b79;
+}
+.public header .header {
+	
+}
