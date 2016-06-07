@@ -1,7 +1,7 @@
 angular.module('placePeopleApp')
 	.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
 
-  $urlRouterProvider.otherwise('/auth');
+  $urlRouterProvider.otherwise('/auth/login');
 
 	  $stateProvider
 	    .state('auth', {

@@ -11,7 +11,7 @@
                     </div>
            </div>        
     </div> 
-    <div class="check-in recovery" ng-show="pwdRestore" ng-hide="pwdSend">
+    <div class="check-in recovery" ng-show="pwdRestore && !pwdSend">
            <div class="form">
                     <a class="logo" href=""></a>
                     <input class="text-field" type="text" name="" placeholder="Ваш номер телефона...">
@@ -21,7 +21,7 @@
            </div>
     </div>
 
-    <div class="check-in recovery" ng-show="pwdSend" ng-hide="newPwd">
+    <div class="check-in recovery" ng-show="pwdSend && !newPwd">
            <div class="form">
                     <a class="logo" href=""></a>
                     <input class="text-field" type="text" name="" placeholder="Введите код...">

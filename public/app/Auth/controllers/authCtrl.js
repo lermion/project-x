@@ -4,6 +4,8 @@ angular.module('placePeopleApp')
     	$timeout(function(){
     		$scope.dataLoaded = true;
     	}, 1300);
+
+    	$scope.hideForm = false;
     	
 
     	AuthService.getCountries()
@@ -16,6 +18,7 @@ angular.module('placePeopleApp')
     	$scope.phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
     	$scope.loginPage = function(){
+    		$scope.hideForm = true;
     		$state.go('login');
     	}
 
