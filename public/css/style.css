@@ -209,7 +209,8 @@ body.main-page {
 .name-field,
 .user-field,
 .sex-field,
-.password-field {
+.password-field,
+.lastname-field {
 	position: relative; 
 	display: block;
 	width: 100%;
@@ -218,7 +219,8 @@ body.main-page {
 
 .form-item .city-field,
 .phone-field,
-.code-field {
+.code-field
+.phone-field {
 	position: relative; 
 	display: block;
 	width: 100%; 
@@ -229,7 +231,8 @@ body.main-page {
 .name-field span,
 .user-field span,
 .sex-field span,
-.password-field span {
+.password-field span,
+.lastname-field span {
 	position: absolute;
 	width: 37px;
 	height: 37px;
@@ -262,6 +265,10 @@ body.main-page {
 	background-image: url(../images/phone.png); 
 	left: 0;
 }
+.lastname-field span.lastname {
+	background-image: url(../images/user-name.png); 
+	left: 0;
+}
 .sex-field:hover span.sex-inner {
 	transition: all .3s ease-in-out .1s; 
 	transform: rotate(90deg); 
@@ -275,8 +282,10 @@ body.main-page {
 	background-image: url(../images/name.png);
 	left: 0;
 }
+
+
 .user-field span.user {
-	background-image: url(../images/user-name.png);
+	background-image: url(../images/at-sign.png);
 	left: 0;
 }
 
@@ -436,8 +445,8 @@ footer {
 }
 .registration .form-item form input, 
 .registration .form-item form select {
-	line-height: 25px;
-    	height: 25px;
+	line-height: 35px;
+    	height: 35px;
     	margin-bottom: 4px;
 }
 .registration .city-field span,
@@ -446,10 +455,11 @@ footer {
 .registration  .name-field span,
 .registration  .user-field span,
 .registration  .sex-field span,
-.registration  .password-field span {
-	width: 27px;
-	height: 27px;
-	background-size: 55%;
+.registration  .password-field span,
+.registration  .lastname-field span {
+	width: 35px;
+	height: 35px;
+	background-size: 45%;
 }
 .registration .form-item form p {
 	margin-bottom: 5px;
@@ -468,7 +478,7 @@ footer {
 
 
 .recovery {
-	height: 80vh;
+	height: 100vh;
 }
 .recovery .form h1{
 	margin: 21vh 0 0;
