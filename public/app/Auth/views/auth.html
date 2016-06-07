@@ -1,148 +1,19 @@
 
 <div ng-controller="authCtrl">
-            <!-- <div class="check-in">
+            <div class="check-in" ng-hide="dataLoaded">
                        <div class="form">
                                 <a class="logo" href=""></a>
                                 <h1 class="slogan">С теми, кто в теме</h1>  
                         </div>
                         <div class="preloader"></div>
-            </div> -->
-            <!-- REGISTRATION -->
-
-            <div class="check-in recovery" ng-hide="hideForm">
+            </div>
+            
+            <div class="check-in recovery" ng-show="dataLoaded">
                <div class="form">
                         <a class="logo" href=""></a>
                         <h1>С теми, кто в теме</h1>  
-                        <button class="check-in-button" ng-click="loggingTab=true; hideForm=true;">Войти</button>
-                        <a class="registration-button" href="" ng-click="loggingTab=false; hideForm=true;"><span></span>Регистрация</a>
+                        <button class="check-in-button" ng-click="loginPage()">Войти</button>
+                        <a class="registration-button" ui-sref="reg"><span></span>Регистрация</a>
                </div>
             </div>
-
-
-
-    <div ng-show="loggingTab">
-        <!-- RECOVERY -->
-
-        <div class="check-in recovery">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <input class="text-field" type="text" name="" placeholder="Ваш номер телефона...">
-                        <p>На этот номер телефона мы oтправим вам SMS с кодом</p>
-                        <button class="check-in-button">Отправить код</button>
-                        <a class="registration-button enter-button" href="">Войти</a>
-               </div>
-        </div>
-
-        <div class="check-in recovery">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <input class="text-field" type="text" name="" placeholder="Введите код...">
-                        <p>Введите код, полученный SMS сообщением на указанный номер телефона</p>
-                        <button class="check-in-button">Востановить</button>
-                        <a class="registration-button enter-button" href="">Войти</a>
-               </div>
-        </div>
-
-         <div class="check-in recovery">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <input class="password-field-first" type="text" name="" placeholder="Придумайте новый пароль...">
-                        <input class="password-field-second" type="text" name="" placeholder="Повторите пароль...">
-                        <button class="check-in-button">Отправить</button>
-               </div>
-        </div> 
-
-         <div class="check-in recovery">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <input class="password-field-first" type="text" name="" placeholder="Логин или номер телефона...">
-                        <input class="password-field-second" type="text" name="" placeholder="Пароль...">
-                        <button class="check-in-button">Войти</button>
-                        <div class="remember">
-                            <a href="">Забыли пароль? </a>
-                            <a href="">Регистрация</a>
-                        </div>
-               </div>        
-        </div> 
-    </div><!-- END OF LOGGING TAB -->
-    <div ng-show="!loggingTab">
-        <div class="check-in" ng-hide="regConfirmed">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <h1>С теми, кто в теме</h1>  
-
-                         <!-- first  step-- city & phone -->
-                        <div class="form-item" ng-hide="regStep1">
-                                    <h5>Регистрация</h5>
-                                    <form>
-                                        <div class="city-field">
-                                                <span class="city"></span>                                                
-                                                <select ng-model="countryId" ng-options="country.id as country.name for country in countries" required>                                                        
-                                                </select>
-                                                <span class="city-inner"></span>
-                                        </div>
-                                        <div class="phone-field">
-                                        <span class="phone"></span>
-                                                    <input type="tel" ng-model="phoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="phoneNumberErr=false;" required>
-                                        </div>
-                                        <p ng-show="phoneNumberErr" class="capcha-tel">Поле обязательно для заполнения</p>
-                                    </form>
-                                    <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
-                        </div> 
-
-                        <div class="form-item" ng-show="regStep1">
-                                    <h5>Регистрация</h5>
-                                    <form>
-                                        <div class="code-field">
-                                            <span class="code"></span>
-                                                        <input type="text" name="" placeholder="Введите код..." ng-model="smsCode" required>
-                                            </div>
-                                            <p ng-show="smsCodeErr" class="capcha-code">Поле обязательно для заполнения</p>
-                                    </form>
-                                    <button class="check-in-button" ng-click="userRegisterS2()">Зарегистрироваться</button>
-                        </div>
-                        
-                </div>
-        </div> 
-
-        <div class="check-in registration" ng-show="regConfirmed && !userRegistred">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <h1>С теми, кто в теме</h1>  
-                        <div class="form-item ">
-                                    <form>
-                                        <div class="add-ava"></div>
-                                        <div class="name-field">
-                                                    <span class="name"></span>
-                                                    <input type="text" ng-model="userName" placeholder="Введите ваше имя...">
-                                        </div>
-                                        <div class="name-field">
-                                                    <span class="name"></span>
-                                                    <input type="text" ng-model="userLastName" placeholder="Введите вашу фамилию...">
-                                        </div>
-                                        <p class="capcha-name">Поле обязательно для заполнения</p>
-                                        <div class="user-field">
-                                                    <span class="user"></span>
-                                                    <input type="text" ng-model="userLogin" placeholder="Введите ваш логин...">
-                                        </div> 
-                                        <p class="capcha-user">Поле обязательно для заполнения</p>
-                                        <div class="sex-field">
-                                                <span class="sex"></span>
-                                                <select ng-model="userGender">
-                                                        <option>Мужской</option>
-                                                        <option>Женский</option>
-                                                </select>
-                                                <span class="sex-inner"></span>
-                                        </div>
-                                        <div class="password-field">
-                                                    <span class="password"></span>
-                                                    <input type="password"  ng-model="userPassword" placeholder="Введите ваш пароль...">
-                                        </div>
-                                        <p class="capcha-password">Поле обязательно для заполнения</p>
-                                    </form>
-                                    <button class="check-in-button" ng-click="userRegisterS3(userId)">Готово</button>
-                        </div>
-               </div>
-        </div>        
-    </div><!-- END OF REGISTRATION -->        
 </div>

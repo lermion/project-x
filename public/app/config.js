@@ -1,7 +1,7 @@
 angular.module('placePeopleApp')
 	.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/auth');
 
 	  $stateProvider
 	    .state('auth', {
@@ -9,11 +9,21 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Auth/views/auth.html',
 	      controller: 'authCtrl'
 	    })
-	    // .state('about', {
-	    //   url: '/about',
-	    //   templateUrl: 'assets/templates/about-us.html',
-	    //   controller: 'aboutCtrl'
-	    // })
+	    .state('reg', {
+	      url: '/auth/registration',
+	      templateUrl: '../../app/Auth/views/reg.html',
+	      controller: 'authCtrl'
+	    })
+	    .state('login', {
+	      url: '/auth/login',
+	      templateUrl: '../../app/Auth/views/login.html',
+	      controller: 'authCtrl'
+	    })
+	    .state('public', {
+	      url: '/:login',
+	      templateUrl: '../../app/Public/views/public.html',
+	      // controller: 'aboutCtrl'
+	    })
 	    // .state('about/details', {
 	    //   url: '/about/:from',
 	    //   templateUrl: 'assets/templates/about-details.html',
