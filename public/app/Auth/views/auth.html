@@ -8,11 +8,11 @@
                         <div class="preloader"></div>
             </div>
             
-            <div class="check-in recovery" ng-show="dataLoaded">
+            <div class="check-in recovery" ng-show="dataLoaded && !hideForm">
                <div class="form">
                         <a class="logo" href=""></a>
                         <h1>С теми, кто в теме</h1>  
-                        <button class="check-in-button" ng-click="loginPage()">Войти</button>
+                        <button class="check-in-button" ng-click="loginPage();">Войти</button>
                         <a class="registration-button" ui-sref="reg"><span></span>Регистрация</a>
                </div>
             </div>
