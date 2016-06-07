@@ -14,13 +14,18 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Auth/views/reg.html',
 	      controller: 'authCtrl'
 	    })
+	    .state('restore', {
+	      url: '/auth/restore',
+	      templateUrl: '../../app/Auth/views/restore.html',
+	      controller: 'authCtrl'
+	    })
 	    .state('login', {
 	      url: '/auth/login',
 	      templateUrl: '../../app/Auth/views/login.html',
 	      controller: 'authCtrl'
 	    })
-	    .state('public', {
-	      url: '/:login',
+	    .state('user', {
+	      url: '/:username',
 	      templateUrl: '../../app/Public/views/public.html',
 	      // controller: 'aboutCtrl'
 	    })

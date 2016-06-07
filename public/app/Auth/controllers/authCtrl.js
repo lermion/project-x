@@ -20,7 +20,11 @@ angular.module('placePeopleApp')
     	$scope.loginPage = function(){
     		$scope.hideForm = true;
     		$state.go('login');
-    	}
+    	};
+
+    	$scope.pwdRestore = function(){
+    		state.go('restore');
+    	};
 
     	$scope.userRegisterS1 = function(){
     		// if ($scope.countryId && $scope.phoneNumber) {
@@ -103,14 +107,14 @@ angular.module('placePeopleApp')
 			//         console.log(err);
 			//       });
 			$scope.userRegistred = true;
-	    	$state.go('public', {login: login});
+	    	$state.go('user', {username: login});
     	}
 
     	/*RECOVERY PAGE*/
 
     	$scope.login = function(){
     		var login = $scope.userLogin;    		
-    		$state.go('public', {login: login});
+    		$state.go('user', {username: login});
     	};
 
       
