@@ -20,7 +20,7 @@ body.main-page {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	min-height: 100vh;
+	height: 100vh;
 	font-family:  "SFUIDisplayMedium"; 
 	box-sizing: border-box;
 	position: relative;
@@ -31,7 +31,7 @@ body.main-page {
 	background-repeat:  no-repeat;
 	background-size: cover;
 	background-position: center;
-	color: #fff;
+	color: #fff; 
 }
 // .main-page .place {
 // 	display: flex;
@@ -538,6 +538,10 @@ footer {
 		box-sizing: border-box;
 		padding: 0 15px;
 	}
+	.form .logo {
+		width: 160px;
+    		height: 108px;
+	}
 }
 @media (max-width: 800px) {
 	.footer-item {
@@ -561,7 +565,6 @@ footer {
 		background-repeat: no-repeat;
 		transform: rotate(90deg);
 		transition: all .3s ease-in-out .1s; 
-
 	}
 	.drop-menu:hover {
 		border: 1px solid #999;
@@ -852,6 +855,7 @@ body.public {
 		width: 100%;
 		padding: 0 10px;
 		box-sizing: border-box;
+		flex-wrap: wrap;
 	}
 } 
 @media (max-width: 800px) {
@@ -897,6 +901,16 @@ body.public {
 	}
 	.public header .main-menu.common {
 		width: auto;
+	}
+	.public header .main-menu .places,
+	.public header .main-menu .chat,
+	.public header .search {
+		margin-right: 10px;
+	}
+}
+@media (max-width: 665px)  {
+	.public header .header {
+		justify-content: center;
 	}
 }
 @media (max-width: 550px)  {
