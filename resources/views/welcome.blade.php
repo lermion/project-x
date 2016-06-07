@@ -2,13 +2,13 @@
 <html lang="en" ng-app="placePeopleApp">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Place People</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <link href="../../css/style.css" rel="stylesheet">
 </head>
-<body class="main-page">
-    <div id="wrapper" ui-view ng-controller="mainCtrl"></div>
+<body ng-controller="mainCtrl" ng-class="ctrlStyle">
+    <div id="wrapper" ui-view></div>
         <footer>
                 <div class="footer">
                         <div class="footer-item">
