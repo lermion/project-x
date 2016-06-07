@@ -1,0 +1,44 @@
+<div>
+    <div class="check-in recovery" ng-hide="pwdRestore">
+           <div class="form">
+                    <a class="logo" href=""></a>
+                    <input class="password-field-first" type="text" name="" placeholder="Логин или номер телефона..." ng-model="userLogin">
+                    <input class="password-field-second" type="text" name="" placeholder="Пароль...">
+                    <button class="check-in-button" ng-click="login()">Войти</button>
+                    <div class="remember">
+                        <a href="" ng-click="pwdRestore(); pwdRestore=true;">Забыли пароль? </a>
+                        <a ui-sref="reg">Регистрация</a>
+                    </div>
+           </div>        
+    </div> 
+    <div class="check-in recovery" ng-show="pwdRestore" ng-hide="pwdSend">
+           <div class="form">
+                    <a class="logo" href=""></a>
+                    <input class="text-field" type="text" name="" placeholder="Ваш номер телефона...">
+                    <p>На этот номер телефона мы oтправим вам SMS с кодом</p>
+                    <button class="check-in-button" ng-click="pwdSend=true;">Отправить код</button>
+                    <a class="registration-button enter-button" ui-sref="login">Войти</a>
+           </div>
+    </div>
+
+    <div class="check-in recovery" ng-show="pwdSend" ng-hide="newPwd">
+           <div class="form">
+                    <a class="logo" href=""></a>
+                    <input class="text-field" type="text" name="" placeholder="Введите код...">
+                    <p>Введите код, полученный SMS сообщением на указанный номер телефона</p>
+                    <button class="check-in-button" ng-click="newPwd=true;">Востановить</button>
+                    <a class="registration-button enter-button" ui-sref="login">Войти</a>
+           </div>
+    </div>
+
+     <div class="check-in recovery" ng-show="newPwd">
+           <div class="form">
+                    <a class="logo" href=""></a>
+                    <input class="password-field-first" type="text" name="" placeholder="Придумайте новый пароль...">
+                    <input class="password-field-second" type="text" name="" placeholder="Повторите пароль...">
+                    <button class="check-in-button">Отправить</button>
+           </div>
+    </div> 
+
+    
+</div>
