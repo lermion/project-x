@@ -11,7 +11,7 @@ angular.module('placePeopleApp')
 		      }, function(err){
 		        console.log(err);
 		      });
-    	
+
     	$scope.phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
     	$scope.loginPage = function(){
@@ -90,8 +90,6 @@ angular.module('placePeopleApp')
 			var pwd = $scope.newUserPassword; 
     		var countryId = parseInt($scope.newUserCountryId);    		
     		var uId = parseInt(userId);
-
-    		console.log(firstName, lastName, login, pwd, countryId, uId);
     		    		
 			AuthService.registerUser(firstName, lastName, login, pwd, countryId, uId)
 	    		.then(function(res){
@@ -116,23 +114,57 @@ angular.module('placePeopleApp')
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
-			      });   		
-    		
+			      }); 
     	};
 
-      /*RECOVERY PAGE*/
+    	$scope.logOut = function(){
+    		AuthService.userLogOut()
+	    		.then(function(res){
+	    			$state.go('login');
+			      }, function(err){
+			        console.log(err);
+			      });
+    	}
 
-      $scope.sendRestoreSms = function(){
-      	// send restoreUserPhone
-      	$scope.smsSend=true;
-      };
-      $scope.sendRestoreCode = function(){
-      	// send restoreUserSms;
-      	$scope.smsConfirmed=true;
-      };
-      $scope.setNewPwd = function(){
-      	// check equation of restoreUserPwd and restoreUserPwdConf
-      	// send restoreUserPwd      	
-      };
+      /*RESTORE PAGE*/
+
+		$scope.sendRestoreSms = function(){
+			var phone = $scope.restoreUserPhone;
+			AuthService.sendRestoreSms(phone)
+				.then(function(res){					
+					if (res.status) {	    				
+						$scope.smsSend = true;
+					}    					        
+			      }, function(err){
+			        console.log(err);
+			      });
+		};
+		$scope.sendRestoreCode = function(){      	
+			var code = $scope.restoreUserSms;
+			AuthService.validateRestoreSms(code)
+				.then(function(res){					    			
+					if (res.status) {	    				
+						$scope.smsConfirmed = true;
+					}	    					        
+			      }, function(err){
+			        console.log(err);
+			      });
+			
+		};
+		$scope.setNewPwd = function(){      	
+			if ($scope.restoreUserPwd != $scope.restoreUserPwdConf) {
+				$scope.restoreUserPwdError = true;
+				return;
+			}
+			var pwd = $scope.restoreUserPwd;
+			AuthService.changePwd(pwd)
+				.then(function(res){					
+					if (res.status) {
+						$state.go('login');
+					}				        
+		      }, function(err){
+		        console.log(err);
+		      });
+		};
 
     }]);

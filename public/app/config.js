@@ -27,7 +27,12 @@ angular.module('placePeopleApp')
 	    .state('user', {
 	      url: '/:username',
 	      templateUrl: '../../app/Public/views/public.html',
-	    //   // controller: 'aboutCtrl'
+	      controller: 'authCtrl'
+	    })
+	    .state('static', {
+	      url: '/page/:pageName',
+	      templateUrl: '../../app/Static/views/static.html',
+	      controller: 'staticCtrl'
 	    })
 	    // .state('about/details', {
 	    //   url: '/about/:from',
