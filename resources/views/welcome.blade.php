@@ -21,11 +21,16 @@
                         <div class="menu">
                             <a class="drop-menu" href=""></a>
                             <div class="menu-item">
-                                    <a href="">О сервисе </a>
-                                    <a href="">Помощь </a>
-                                    <a href="">Правила </a>
-                                    <a href="">Реклама </a>
-                                    <a href="">Разработчикам </a>
+                                <!-- <a ui-sref="static({ pageName: about_service})">О сервисе </a>
+                                <a ui-sref="static({ pageName: help})">Помощь </a>
+                                <a ui-sref="static({ pageName: rules})">Правила </a>
+                                <a ui-sref="static({ pageName: advertising})">Реклама </a>
+                                <a ui-sref="static({ pageName: developers})">Разработчикам </a> -->
+                                <a href="">О сервисе </a>
+                                <a href="">Помощь </a>
+                                <a href="">Правила </a>
+                                <a href="">Реклама </a>
+                                <a href="">Разработчикам </a>
                             </div>
                         </div>
                 </div>
@@ -38,5 +43,7 @@
 
         <script src="../../app/Auth/controllers/authCtrl.js"></script>
         <script src="../../app/Auth/models/authService.js"></script>
+        <script src="../../app/Static/controllers/staticCtrl.js"></script>
+        <script src="../../app/Static/models/staticService.js"></script>
 </body>
 </html>
