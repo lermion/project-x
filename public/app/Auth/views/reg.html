@@ -8,15 +8,15 @@
                                     <form>
                                         <div class="city-field">
                                                 <span class="city"></span>                                                
-                                                <select ng-model="countryId" ng-options="country.id as country.name for country in countries" required>                                                        
+                                                <select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" required>                                                        
                                                 </select>
                                                 <span class="city-inner"></span>
                                         </div>
                                         <div class="phone-field">
                                         <span class="phone"></span>
-                                                    <input type="tel" ng-model="phoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="phoneNumberErr=false;" required>
+                                                    <input type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required>
                                         </div>
-                                        <p ng-show="phoneNumberErr" class="capcha-tel">Поле обязательно для заполнения</p>
+                                        <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Поле обязательно для заполнения</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
                         </div>
@@ -25,9 +25,9 @@
                                     <form>
                                         <div class="code-field">
                                             <span class="code"></span>
-                                                        <input type="text" name="" placeholder="Введите код..." ng-model="smsCode" required>
+                                                        <input type="text" name="" placeholder="Введите код..." ng-model="newUserSmsCode" required>
                                             </div>
-                                            <p ng-show="smsCodeError" class="capcha-code">Допущена ошибка при вводе кода</p>
+                                            <p ng-show="newUserSmsCodeError" class="capcha-code">Допущена ошибка при вводе кода</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS2()">Зарегистрироваться</button>
                         </div>
@@ -42,20 +42,20 @@
                                         <div class="add-ava"></div>
                                         <div class="name-field">
                                                     <span class="name"></span>
-                                                    <input type="text" ng-model="userName" placeholder="Введите ваше имя..." ng-click="userNameError=false;">
+                                                    <input type="text" ng-model="newUserName" placeholder="Введите ваше имя..." ng-click="newUserNameError=false;">
                                         </div>
-                                        <p ng-show="userNameError" class="capcha-name">Поле обязательно для заполнения</p>
+                                        <p ng-show="newUserNameError" class="capcha-name">Поле обязательно для заполнения</p>
                                         <div class="lastname-field">
                                                     <span class="lastname"></span>
-                                                    <input type="text" ng-model="userLastName" placeholder="Введите вашу фамилию..." ng-click="userLastNameError=false;">
+                                                    <input type="text" ng-model="newUserLastName" placeholder="Введите вашу фамилию..." ng-click="newUserLastNameError=false;">
                                         </div>
-                                        <p ng-show="userLastNameError" class="capcha-name">Поле обязательно для заполнения</p>
+                                        <p ng-show="newUserLastNameError" class="capcha-name">Поле обязательно для заполнения</p>
                                         <div class="user-field">
                                         <!-- Добавить знак @ перед полем логина -->
                                                     <span class="user"></span>
-                                                    <input type="text" ng-model="userLogin" placeholder="Введите ваш логин..." ng-click="userLoginError=false;">
+                                                    <input type="text" ng-model="newUserLogin" placeholder="Введите ваш логин..." ng-click="newUserLoginError=false;">
                                         </div> 
-                                        <p ng-show="userLoginError" class="capcha-user">Поле обязательно для заполнения</p>
+                                        <p ng-show="newUserLoginError" class="capcha-user">Поле обязательно для заполнения</p>
                                         <!-- <div class="sex-field">
                                                 <span class="sex"></span>
                                                 <select ng-model="userGender">
@@ -66,11 +66,11 @@
                                         </div> -->
                                         <div class="password-field">
                                                     <span class="password"></span>
-                                                    <input type="password"  ng-model="userPassword" placeholder="Введите ваш пароль..." ng-click="userPasswordError=false;">
+                                                    <input type="password"  ng-model="newUserPassword" placeholder="Введите ваш пароль..." ng-click="newUserPasswordError=false;">
                                         </div>
-                                        <p ng-show="userPasswordError" class="capcha-password">Пароль должен быть не короче 6 символов</p>
+                                        <p ng-show="newUserPasswordError" class="capcha-password">Пароль должен быть не короче 6 символов</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS3(userId)">Готово</button>
+                                    <button class="check-in-button" ng-click="userRegisterS3(newUserId)">Готово</button>
                         </div>
                </div>
         </div>        

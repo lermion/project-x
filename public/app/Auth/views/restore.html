@@ -1,30 +1,30 @@
 <div>  
-  <div class="check-in recovery" ng-show="!pwdSend">
+  <div class="check-in recovery" ng-show="!smsSend">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="text-field" type="text" name="" placeholder="Ваш номер телефона...">
+                  <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp">
                   <p>На этот номер телефона мы oтправим вам SMS с кодом</p>
-                  <button class="check-in-button" ng-click="pwdSend=true;">Отправить код</button>
+                  <button class="check-in-button" ng-click="sendRestoreSms()">Отправить код</button>
                   <a class="registration-button enter-button" ui-sref="login">Войти</a>
          </div>
   </div>
 
-  <div class="check-in recovery" ng-show="pwdSend && !newPwd">
+  <div class="check-in recovery" ng-show="smsSend && !smsConfirmed">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="text-field" type="text" name="" placeholder="Введите код...">
+                  <input class="text-field" type="text" name="" placeholder="Введите код..." ng-model="restoreUserSms">
                   <p>Введите код, полученный SMS сообщением на указанный номер телефона</p>
-                  <button class="check-in-button" ng-click="newPwd=true;">Востановить</button>
+                  <button class="check-in-button" ng-click="sendRestoreCode()">Востановить</button>
                   <a class="registration-button enter-button" ui-sref="login">Войти</a>
          </div>
   </div>
 
-   <div class="check-in recovery" ng-show="newPwd">
+   <div class="check-in recovery" ng-show="smsConfirmed">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="password-field-first" type="text" name="" placeholder="Придумайте новый пароль...">
-                  <input class="password-field-second" type="text" name="" placeholder="Повторите пароль...">
-                  <button class="check-in-button">Отправить</button>
+                  <input class="password-field-first" type="text" name="" placeholder="Придумайте новый пароль..." ng-model="restoreUserPwd">
+                  <input class="password-field-second" type="text" name="" placeholder="Повторите пароль..." ng-model="restoreUserPwdConf">
+                  <button class="check-in-button" ng-click="setNewPwd()">Отправить</button>
          </div>
   </div>
 </div> 

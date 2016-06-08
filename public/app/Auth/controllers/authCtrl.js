@@ -1,12 +1,9 @@
 angular.module('placePeopleApp')
-    .controller('authCtrl', ['$scope', '$state', '$timeout', 'AuthService', function($scope, $state, $timeout, AuthService){
+    .controller('authCtrl', ['$scope', '$state', '$timeout', '$http', 'AuthService', function($scope, $state, $timeout, $http, AuthService){
 
     	$timeout(function(){
     		$scope.dataLoaded = true;
     	}, 1300);
-
-    	$scope.hideForm = false;
-    	
 
     	AuthService.getCountries()
     		.then(function(res){
@@ -14,7 +11,7 @@ angular.module('placePeopleApp')
 		      }, function(err){
 		        console.log(err);
 		      });
-
+    	
     	$scope.phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
     	$scope.loginPage = function(){
@@ -27,96 +24,115 @@ angular.module('placePeopleApp')
     	};
 
     	$scope.userRegisterS1 = function(){
-    		// if ($scope.countryId && $scope.phoneNumber) {
-    		// 	var countryId = parseInt($scope.countryId);
-    		// 	var phoneNum = parseInt($scope.phoneNumber);
-    		// } else{
-    		// 	$scope.phoneNumberErr = true;
-    		// 	return;
-    		// }    		
-    		// AuthService.sendMessage(phoneNum, countryId)
-	    		// .then(function(res){
-	    		// 	if (res.status) {
-	    		// 		$scope.userId = res.user_id;
-	    		// 		$scope.regStep1 = true;
-	    		// 	}	    					        
-			    //   }, function(err){
-			    //     console.log(err);
-			    //   }); 
-
-			   $scope.regStep1 = true;   		
+    		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
+    			var countryId = parseInt($scope.newUserCountryId);
+    			var phoneNum = parseInt($scope.newUserPhoneNumber);
+    		} else{
+    			$scope.newUserPhoneNumberErr = true;
+    			return;
+    		}
+    		
+    		AuthService.sendMessage(phoneNum, countryId)
+	    		.then(function(res){	    			
+	    			if (res.status) {
+	    				$scope.newUserId = res.user_id;
+	    				$scope.regStep1 = true;
+	    			}	    					        
+			      }, function(err){
+			        console.log(err);
+			      });	
     	};
 
     	$scope.userRegisterS2 = function(){
-    		// if (!$scope.smsCode) {
-    		// 	$scope.smsCodeError = true;
-    		// 	return;
-    		// } else {
-    		// 	var code = parseInt($scope.smsCode);
-    		// }
-    		// AuthService.checkSms(code)
-	    	// 	.then(function(res){
-	    	// 		if (res.status) {		   				
-	    	// 			$scope.regConfirmed = true;
-	    	// 		} else {
-	    	// 	$scope.smsCodeError = true;
-	    	// }	    					        
-			   //    }, function(err){
-			   //      console.log(err);
-			   //    });
-			   $scope.regConfirmed = true;
+    		if (!$scope.newUserSmsCode) {
+    			$scope.newUserSmsCodeError = true;
+    			return;
+    		} else {
+    			var code = parseInt($scope.newUserSmsCode);
+    		}
+    		AuthService.checkSms(code)
+	    		.then(function(res){	    			
+	    			if (res.status) {		   				
+	    				$scope.regConfirmed = true;
+	    			} else {
+	    		$scope.newUserSmsCodeError = true;
+	    	}	    					        
+			      }, function(err){
+			        console.log(err);
+			      });			   
     	};
 
-    	$scope.userRegisterS3 = function(userId){			
+    	$scope.userRegisterS3 = function(userId){
+    		var errors = 0;
+    		if (!$scope.newUserName) {
+    			$scope.newUserNameError = true;
+    			errors++;
+    		}
+    		if (!$scope.newUserLastName) {
+    			$scope.newUserLastNameError = true;
+    			errors++;
+    		}
+    		if (!$scope.newUserLogin) {
+    			$scope.newUserLoginError = true;
+    			errors++;
+    		}    		
+    		if (!$scope.newUserPassword || $scope.newUserPassword.length<6) {
+    			$scope.newUserPasswordError = true;
+    			errors++;
+    		}    			
+    		if (errors > 0) {
+    			return;
+    		}
 
-    		// var errors = 0;
-    		// if (!$scope.userName) {
-    		// 	$scope.userNameError = true;
-    		// 	errors++;
-    		// }
-    		// if (!$scope.userLastName) {
-    		// 	$scope.userLastNameError = true;
-    		// 	errors++;
-    		// }
-    		// if (!$scope.userLogin) {
-    		// 	$scope.userLoginError = true;
-    		// 	errors++;
-    		// }    		
-    		// if (!$scope.userPassword || $scope.userPassword.length<6) {
-    		// 	$scope.userPasswordError = true;
-    		// 	errors++;
-    		// }    			
-    		// if (errors > 0) {
-    		// 	return;
-    		// }
+    		var firstName = $scope.newUserName;
+			var lastName = $scope.newUserLastName;
+			var login = $scope.newUserLogin.toLowerCase(); 
+			var pwd = $scope.newUserPassword; 
+    		var countryId = parseInt($scope.newUserCountryId);    		
+    		var uId = parseInt(userId);
 
-   //  		var firstName = $scope.userName;
-			// var lastName = $scope.userLastName;
-			var login = $scope.userLogin.toLowerCase(); 
-			// var pwd = $scope.userPassword; 
-   //  		var countryId = parseInt($scope.countryId);
-    		
-			// AuthService.registerUser(firstName, lastName, login, pwd, countryId, userId)
-	  //   		.then(function(res){
-	  //   			if (res.status) {
-	  //   				// console.log(res);	    				
-	  //   				$scope.userRegistred = true;
-	  //   				$location.state('/'+login);
-	  //   			}	    					        
-			//       }, function(err){
-			//         console.log(err);
-			//       });
-			$scope.userRegistred = true;
-	    	$state.go('user', {username: login});
-    	}
+    		console.log(firstName, lastName, login, pwd, countryId, uId);
+    		    		
+			AuthService.registerUser(firstName, lastName, login, pwd, countryId, uId)
+	    		.then(function(res){
+	    			if (res.status) {	
+	    				$scope.userRegistred = true;
+	    				$state.go('user', {username: login});
+	    			}	    					        
+			      }, function(err){
+			        console.log(err);
+			      });
+    	};
 
-    	/*RECOVERY PAGE*/
+    	/*LOGIN PAGE*/
 
     	$scope.login = function(){
     		var login = $scope.userLogin;    		
-    		$state.go('user', {username: login});
+    		var pwd = $scope.userPassword;    		
+    		AuthService.userLogIn(login, pwd)
+	    		.then(function(res){	    			
+	    			if (res.status) {	    				
+	    				$state.go('user', {username: login});
+	    			}	    					        
+			      }, function(err){
+			        console.log(err);
+			      });   		
+    		
     	};
 
-      
+      /*RECOVERY PAGE*/
+
+      $scope.sendRestoreSms = function(){
+      	// send restoreUserPhone
+      	$scope.smsSend=true;
+      };
+      $scope.sendRestoreCode = function(){
+      	// send restoreUserSms;
+      	$scope.smsConfirmed=true;
+      };
+      $scope.setNewPwd = function(){
+      	// check equation of restoreUserPwd and restoreUserPwdConf
+      	// send restoreUserPwd      	
+      };
 
     }]);
