@@ -13,6 +13,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/remodal-default-theme.css" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
     <link href="/css/custom.css" rel="stylesheet">
@@ -22,6 +23,7 @@
     <link href="/css/admin/style.css" rel="stylesheet" type="text/css" />
     <script src="/js/jquery.min.js"></script>
     <script src="/js/nprogress.js"></script>
+    <script src="{{ asset('libs/remodal/dist/remodal.min.js') }}"></script>
 
     <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>

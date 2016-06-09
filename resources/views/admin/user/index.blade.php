@@ -30,7 +30,15 @@
         });
         TableManageButtons.init();
     </script>
-
+    <div class="remodal" id="deleteModal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <form class="form" method='get' action="/admin/user/delete/">
+            <p class="form__title">Срок блокировки номера:</p>
+            <button period="1" class="btn btn-danger btn-xs deletePeriodBnt">Месяц</button>
+            <button period="6" class="btn btn-danger btn-xs deletePeriodBnt">Полгода</button>
+            <button period="12" class="btn btn-danger btn-xs deletePeriodBnt">Год</button>
+        </form>
+    </div>
     <div style="width:100%; height:auto; margin-bottom:20px;">
         <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
             <tr>
@@ -160,11 +168,30 @@
                     <button type="button" class="btn btn-warning btn-xs">Подозрительный</button>
                 </p>
                 <p align="center" class="m0">
-                    <a href="{{action('Admin\UserController@destroy', ['id'=>$user->id,'month'=>1])}}" class="btn btn-danger btn-xs">Удалить</a>
+                    <a userId='{{$user->id}}' class="btn btn-danger btn-xs deleteBnt">Удалить</a>
             </td>
             </tr>
             @endforeach
             </tbody>
         </table>
     </div>
+    <script>
+        var deleteBtn = $('.deleteBnt');
+        var deletePeriodBnt = $('.deletePeriodBnt');
+        var deleteModal = $('#deleteModal').remodal();
+        deleteBtn.on('click',function () {
+            deleteModal.open();
+            var form = $('#deleteModal').find('form');
+            form.attr('action',form.attr('action')+$(this).attr('userId'));
+        });
+        deletePeriodBnt.on('click',function (e) {
+            e.preventDefault();
+            var form = $('#deleteModal').find('form');
+
+            form.attr('action',form.attr('action')+'/'+$(this).attr('period'));
+            console.log($(this).attr('period'));
+            form.submit();
+            return false;
+        });
+    </script>
 @stop
