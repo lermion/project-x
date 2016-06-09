@@ -871,7 +871,11 @@ body.public {
 	}
 } 
 @media (max-width: 800px) {
-
+	.public header .main-menu a {
+		background-size: 31%;
+		padding-left: 25px;
+		font-size: 12px;
+	}
 	.public header .main-menu.common .drop-menu {
 		display: block;
 		width: 32px;
@@ -915,16 +919,15 @@ body.public {
 		width: auto;
 	}
 	.public header .main-menu .places,
-	.public header .main-menu .chat,
-	.public header .search {
+	.public header .main-menu .chat {
 		margin-right: 10px;
 	}
 }
-@media (max-width: 665px)  {
-	.public header .header {
-		justify-content: center;
-	}
-}
+// @media (max-width: 665px)  {
+// 	.public header .header {
+// 		justify-content: center;
+// 	}
+// }
 @media (max-width: 550px)  {
 	.menu-user {
 		display: flex;
@@ -951,18 +954,18 @@ body.public {
 
 .content-user {
 	background: #e9eaed;
-	padding: 32px 10px;
+	padding: 32px 0;
 	box-sizing: border-box;
 	width: 100%;
 }
-.content-user .user-page {
+.content-user #user-page {
 	width: 700px;
 	margin: 0 auto;
 	background: #fff;
 	border-radius: 2px;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1); 
 }
-.user-page .my-profile {
+#user-page .my-profile {
 	display: flex;
 	padding: 15px 20px;
 }
@@ -1106,27 +1109,30 @@ body.public {
 	background-image: url(../images/view-list-hover.png);
 	transition: all .3s ease-in-out .1s;
 }
-.user-page .my-photos {
+#user-page .my-photos {
 	display: flex;
     	flex-wrap: wrap;
 }
-.user-page .photo {
-	width: 24vh;
-	height: 24vh;
-	margin: 0 .6vh .6vh 0;
+#user-page .photo {
+	width: 231px;
+	height: 231px;
+	margin: 0 3px 3px 0;
+	// width: 33%;
+	// height: 24vh;
+	// margin: 0 .5% .5% 0;
 	overflow: hidden;
-	box-sizing: border-box;
+	box-sizing: border-box; 
 }
-.user-page .photo:nth-child(3n) {
-	margin: 0 0 .6vh 0;
+#user-page .photo:nth-child(3n) {
+	margin: 0 0 3px 0;
 }
-.user-page .photo a {
+#user-page .photo a {
 	width: 100%;
 	height: 100%;
 	display: block;
 	position: relative;
 }
-.user-page .photo a .video {
+#user-page .photo a .video {
 	position: absolute;
 	display: block;
 	width: 80px;
@@ -1143,7 +1149,7 @@ body.public {
 	background-position: center;
 	background-repeat: no-repeat; 
 }
-.user-page .photo a:hover .video {
+#user-page .photo a:hover .video {
 	background-color: rgba(0,0,0,.6);
 	background-size: 40%;
 	transition: all .3s ease-in-out .1s;
@@ -1152,6 +1158,80 @@ body.public {
 	margin-top: -35px;
 	margin-left: -35px; 
 }
-.user-page .photo a img {
+#user-page .photo a img {
 	width: 100%;
 } 
+@media (max-width: 700px) {
+	.content-user {
+		padding: 32px 0;
+	}
+	.content-user #user-page {
+		width: 500px;
+	}
+	#user-page .my-profile {
+		padding: 15px 10px;
+	}
+	.my-profile .ava {
+		margin-right: 10px;
+	}
+	.my-profile .ava a {
+		width: 120px;
+    		height: 120px;
+	}
+	.counts .counter{
+		display: flex;
+    		flex-direction: column-reverse;
+    		margin: 10px 0 10px;
+	}
+	.counts .counter p,
+	.counts .counter p.notes,
+	.counts .counter p.contacts,
+	.counts .counter p.contacts-off,
+	.counts .counter p.contacts-on {
+		padding-left: 0;
+		background-image: none;
+	}
+	.comunications .create {
+		font-size: 13px;
+		padding-left: 25px;
+	}
+	.comunications .rewrite {
+		font-size: 13px;
+	}
+	.comunications .view {
+		width: 20%;
+	}
+	#user-page .photo {
+		width: 166px;
+		height: 166px;
+		margin: 0 1px 1px 0;
+	}
+	#user-page .photo:nth-child(3n) {
+		    margin: 0 0 1px 0;
+	}
+	/*header user*/
+	.public header .exit span {
+		width: 25px;
+		height: 25px;
+		background-size: 80%;
+	}
+	.public header .search {
+		order: 1;
+		width: 100%;
+		margin-bottom: 5px;
+	}
+	/*end header user*/
+}
+@media (max-width: 500px) {
+	.public header .header {
+		justify-content: center;
+	}
+	.public header .search {
+		width: 200px;
+		margin-right: 10px;
+		order: 0;
+	}
+	.content-user #user-page {
+		width: 100%;
+	}
+}

@@ -26,7 +26,7 @@
 
 	<div class="content-user">
 		
-		<div class="user-page">
+		<div id="user-page">
 			<div class="my-profile">
 				<div class="ava">
 					<a href="">
@@ -63,6 +63,30 @@
 					</div>
 				</div>
 			</div>
+			<script type="text/javascript">
+				window.onload = function() {
+					 if (document.body.clientWidth <= '500') {
+						window.addEventListener("resize", function() { 
+							var photoSize = parseInt(document.body.clientWidth) / 3-2;
+							var photo = document.getElementsByClassName('photo');
+							for (var i = 0; i < photo.length; i++) {
+							  	photo[i].style.width = photoSize+'px';
+							  	photo[i].style.height = photoSize+'px'; 
+							}
+						}, false);
+				 };	
+  		 		}; 
+  			// 	window.onload = function() {
+					// window.addEventListener("resize", function() { 
+					// 	var photoSize = (parseInt(document.getElementById('user-page').offsetWidth) / 3) - 2;
+					// 	var photo = document.getElementsByClassName('photo');
+					// 	for (var i = 0; i < photo.length; i++) {
+					// 	  	photo[i].style.width = photoSize +'px';
+					// 	  	photo[i].style.height = photoSize +'px'; 
+					// 	}
+					// }, false);	
+  			// 	};
+			</script>
 			<div class="my-photos">
 				<div class="photo">
 					<a href="">
@@ -102,7 +126,7 @@
 				</div>
 				<div class="photo">
 					<a href="">
-						<img src="images/pic.png" alt="">
+						<img src="images/pic.png" alt=""> 
 					</a>
 				</div>
 				
