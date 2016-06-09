@@ -22,16 +22,18 @@ class AuthController extends Controller
                 'country_id' => 'required|numeric|exists:countries,id'
             ]);
         } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return response()->json($result);
+            if(!User::where('phone',$request->input('phone'))->where('password','')->first()){
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => $ex->validator->errors(),
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
         }
-        $smsCode = rand(0, 10) . rand(0, 10) . rand(0, 10) . rand(0, 10);
+        $smsCode = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
         $userPhone = $request->input('phone');
         $countryId = $request->input('country_id');
         try {
@@ -47,7 +49,12 @@ class AuthController extends Controller
             return response()->json($result);
         }
         if ($smsResult > 0) {
-            $user = User::create(['phone' => $userPhone, 'country_id' => $countryId]);
+            if($user = User::where('phone', $userPhone)->first()){
+                $user->country_id = $countryId;
+                $user->save();
+            }else{
+                $user = User::create(['phone' => $userPhone, 'country_id' => $countryId]);
+            }
             $request->session()->put('smsCode', $smsCode);
             return response()->json(['status' => true, 'phone' => $userPhone, 'user_id' => $user->id]);
         } else {
