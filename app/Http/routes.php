@@ -22,6 +22,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => 'user'], function()
         {
             Route::get('/', 'Admin\UserController@index');
+            Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
+            Route::get('show/{id}', 'Admin\UserController@show');
+        });
+        Route::group(['prefix' => 'static_page'], function()
+        {
+            Route::get('/', 'Admin\StaticPageController@index');
+            Route::get('show/{id}', 'Admin\StaticPageController@show');
         });
 
     });
@@ -39,6 +46,8 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::get('country', 'CountryController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
+    Route::get('static_page/get/name', 'StaticPageController@getNames');
+
     Route::group(['prefix' => 'password'], function()
     {
         Route::post('update', 'PasswordController@update');

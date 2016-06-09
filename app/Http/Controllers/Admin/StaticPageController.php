@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\BlackList;
-use App\User;
+use App\StaticPage;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class StaticPageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $count = $request->input('count') ? $request->input('count') : 10;
-        $users = User::paginate($count);
-        return view('admin.user.index')->with('users', $users);
+        $pages = StaticPage::all();
+        return view('admin.static_page.index')->with('pages', $pages);
     }
 
     /**
@@ -52,8 +50,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('admin.user.show')->with('user', $user);
+        $page = StaticPage::find($id);
+        return view('admin.static_page.show')->with('page', $page);
     }
 
     /**
@@ -83,16 +81,10 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @param  int  $month
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,$month)
+    public function destroy($id)
     {
-        $user = User::find($id);
-        $timestamp = strtotime('+'.$month.' month');
-        $date = date('Y:m:d', $timestamp);
-        Blacklist::create(['phone'=>$user->phone,'date'=>$date]);
-        $user->delete();
-        return redirect()->action('Admin\UserController@index');
+        //
     }
 }

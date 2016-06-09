@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaticPage extends Model
+class BlackList extends Model
 {
     protected $fillable = [
-        'name','text','description'
+        'phone','date'
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BlackList;
 use App\SMS;
 use App\User;
 use Illuminate\Contracts\Validation\ValidationException;
@@ -32,6 +33,16 @@ class AuthController extends Controller
                 ];
                 return response()->json($result);
             }
+        }
+        if(BlackList::where('phone',$request->input('phone'))->where('date','>=',(new \DateTime())->format('Y:m:d'))->first()){
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Blocked user",
+                    'code' => '10'
+                ]
+            ];
+            return response()->json($result);
         }
         $smsCode = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
         $userPhone = $request->input('phone');
