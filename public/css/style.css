@@ -31,6 +31,7 @@ body.main-page {
 	background-size: cover;
 	background-position: center;
 	color: #fff; 
+	overflow: hidden;
 }
 .check-in .form {
 	display: flex;
@@ -102,6 +103,13 @@ body.main-page {
 	transition: all .3s ease-in-out .2s; 
 	outline: none;
 }
+.form-item form select {
+	padding: 0;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
 .text-field,
 .password-field-first,
 .password-field-second {
@@ -125,7 +133,11 @@ body.main-page {
 	margin: 0;
 
 }
-.form-item .city-field,
+.form-item .city-field {
+	display: block;
+	width: 100%;
+	display: flex;
+}
 .phone-field,
 .code-field,
 .name-field,
@@ -146,17 +158,18 @@ body.main-page {
 	margin-bottom: 10px;
 	line-height: 15px;
 }
-// icons
+/* icons*/
 
-.form-item .city-field,
-.phone-field,
-.code-field
-.phone-field {
-	position: relative; 
+.city-field span{
 	display: block;
-	width: 100%; 
+	border-radius: 2px 0 0 2px;
+	background-color: #fff;
+	width: 37px;
+	height: 37px;
+	background-repeat:  no-repeat;
+	background-position: center;
+	background-size: 50%;
 }
-.city-field span,
 .phone-field span,
 .code-field span,
 .name-field span,
@@ -180,7 +193,15 @@ body.main-page {
 	background-image: url(../images/gente.png);
 	left: 0;
 }
-.city-field span.city-inner,
+.city-field span.city-inner {
+	background-image: url(../images/select.png);
+	background-color: #fff;
+	background-size: 45%;
+	width: 45px;
+	height: 37px; 
+	transition: all .3s ease-in-out .1s;  
+	border-radius: 0 2px 2px 0; 
+}
 .sex-field span.sex-inner {
 	background-image: url(../images/select.png);
 	background-color: #fff;
