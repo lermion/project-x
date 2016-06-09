@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\BlackList;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -51,7 +52,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.user.show')->with('user', $user);
     }
 
     /**
@@ -81,10 +83,16 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     * @param  int  $month
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$month)
     {
-        //
+        $user = User::find($id);
+        $timestamp = strtotime('+'.$month.' month');
+        $date = date('Y:m:d', $timestamp);
+        Blacklist::create(['phone'=>$user->phone,'date'=>$date]);
+        $user->delete();
+        return redirect()->action('Admin\UserController@index');
     }
 }

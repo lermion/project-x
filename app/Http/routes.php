@@ -22,6 +22,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => 'user'], function()
         {
             Route::get('/', 'Admin\UserController@index');
+            Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
+            Route::get('show/{id}', 'Admin\UserController@show');
         });
 
     });

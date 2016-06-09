@@ -33,8 +33,8 @@
     @foreach($users as $user)
         <tr>
             <td>{{ $user->id }}</td>
-            <td><img style="height: 70px" src="/images/user.png"></td>
-            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+            <td><a href="{{action('Admin\UserController@show', ['id'=>$user->id])}}" ><img style="height: 70px" src="/images/user.png"></a></td>
+            <td><a href="{{action('Admin\UserController@show', ['id'=>$user->id])}}" >{{ $user->first_name }} {{ $user->last_name }}</a></td>
             <td>{{ $user->gender }}</td>
             <td>{{ $user->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($user->birthday), new DateTime())->y }}</td>
             <td>{{ $user->created_at }}</td>
