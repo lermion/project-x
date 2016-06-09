@@ -25,18 +25,18 @@ class CountryTableSeeder extends Seeder {
     {
         DB::table('countries')->delete();
 
-        Country::create(array('id'=>1, 'name' => 'Азербайджан'));
-        Country::create(array('id'=>2,'name' => 'Армения'));
-        Country::create(array('id'=>3,'name' => 'Белоруссия'));
-        Country::create(array('id'=>4,'name' => 'Грузия'));
-        Country::create(array('id'=>5,'name' => 'Казахстан'));
-        Country::create(array('id'=>6,'name' => 'Киргизия'));
-        Country::create(array('id'=>7,'name' => 'Молдавия'));
-        Country::create(array('id'=>8,'name' => 'Россия'));
-        Country::create(array('id'=>9,'name' => 'Таджикистан'));
-        Country::create(array('id'=>10,'name' => 'Туркмения'));
-        Country::create(array('id'=>11,'name' => 'Узбекистан'));
-        Country::create(array('id'=>12,'name' => 'Украина'));
+        Country::create(array('id'=>1, 'code' => '994','name' => 'Азербайджан'));
+        Country::create(array('id'=>2, 'code' => '374','name' => 'Армения'));
+        Country::create(array('id'=>3, 'code' => '375','name' => 'Белоруссия'));
+        Country::create(array('id'=>4, 'code' => '995','name' => 'Грузия'));
+        Country::create(array('id'=>5, 'code' => '7','name' => 'Казахстан'));
+        Country::create(array('id'=>6, 'code' => '996','name' => 'Киргизия'));
+        Country::create(array('id'=>7, 'code' => '37','name' => 'Молдавия'));
+        Country::create(array('id'=>8, 'code' => '7','name' => 'Россия'));
+        Country::create(array('id'=>9, 'code' => '992','name' => 'Таджикистан'));
+        Country::create(array('id'=>10, 'code' => '993','name' => 'Туркмения'));
+        Country::create(array('id'=>11, 'code' => '998','name' => 'Узбекистан'));
+        Country::create(array('id'=>12, 'code' => '380','name' => 'Украина'));
     }
 }
 
