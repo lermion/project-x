@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class StaticPage extends Model
 {
     protected $fillable = [
-        'name','text'
+        'name','text','description'
     ];
 }

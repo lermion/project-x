@@ -25,6 +25,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
         });
+        Route::group(['prefix' => 'static_page'], function()
+        {
+            Route::get('/', 'Admin\StaticPageController@index');
+            Route::get('show/{id}', 'Admin\StaticPageController@show');
+        });
 
     });
     Route::group(['prefix' => 'auth'], function()

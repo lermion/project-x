@@ -75,7 +75,7 @@
                             <li><a href="/admin/user"><i class="fa fa-male"></i>Пользователи</a></li>
                             <li><a href="#"><i class="fa fa-mortar-board"></i> Модераторы</a></li>
                             <li><a href="#"><i class="fa fa-rouble"></i> Финансы</a></li>
-                            <li><a href="#"><i class="fa fa-desktop"></i> Промо</a></li>
+                            <li><a href="/admin/static_page"><i class="fa fa-desktop"></i> Промо</a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i> Письма админу</a></li>
                             <li><a href="#"><i class="fa fa-institution"></i> Услуги</a></li>
                             <li><a href="#"><i class="fa fa-trash"></i> На удаление</a></li>
