@@ -13,4 +13,8 @@ class StaticPageController extends Controller
     public function show($name){
         return StaticPage::where('name',$name)->first();
     }
+
+    public function getNames(){
+        return StaticPage::select('name','id')->get();
+    }
 }

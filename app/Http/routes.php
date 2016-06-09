@@ -41,6 +41,8 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::get('country', 'CountryController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
+    Route::get('static_page/get/name', 'StaticPageController@getNames');
+
     Route::group(['prefix' => 'password'], function()
     {
         Route::post('update', 'PasswordController@update');
