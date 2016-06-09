@@ -14,102 +14,24 @@
 }
 html{
 	width: 100%;
-	height: 100%;
+	height: auto;
 }
 body.main-page {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 100vh;
+	height: auto;
+	min-height: 100vh;
 	font-family:  "SFUIDisplayMedium"; 
 	box-sizing: border-box;
 	position: relative;
 	padding: 0 0 75px 0;
-	// padding: 40px 40px 75px 40px;
-	overflow: hidden;
 	background-image: url(../images/bc.png);
 	background-repeat:  no-repeat;
 	background-size: cover;
 	background-position: center;
 	color: #fff; 
 }
-// .main-page .place {
-// 	display: flex;
-//     	justify-content: flex-end;
-//     	position: relative;
-// }
-// .place-item {
-// 	display: flex;
-//     	flex-direction: column;
-//     	position: relative;
-//     	width: 155px;
-// }
-// .selection {
-// 	color: #fff;
-// 	font-size: 14.6px;
-// 	padding: 0  15px;
-// 	display: inline-block;
-// 	line-height: 30px;
-// 	text-decoration: none;
-// 	cursor: pointer;
-// 	vertical-align: middle;
-// 	transition: color .5s ease-in-out .5s;
-// }
-// .selection:hover {
-// 	color: #999;
-// 	transition: color .5s ease-in-out .5s;
-// }
-// .selection span {
-// 	background-image: url(../images/arrow.png);
-// 	background-repeat:  no-repeat;
-// 	background-position: center;
-// 	transform: rotate(180deg);
-// 	width: 20px;
-// 	height: 20px;
-// 	margin-left: 15px;
-// 	display: inline-block;
-//     	vertical-align: middle; 
-//     	transition: transform .5s ease-in-out .5s;
-// }
-// .selection span:hover {
-// 	transform: rotate(0deg);
-// 	transition: transform .5s ease-in-out .5s;
-// }
-// .selection:hover span {
-// 	transform: rotate(0deg);
-// 	transition: transform .5s ease-in-out .5s;
-// }
-// .select {
-// 	position: absolute;
-// 	top: 25px;
-// 	background: rgba(0, 0, 0, 0.4);
-// 	transition: all .5s ease-in-out .2s; 
-// 	display: none;
-// 	height: 0;
-// 	overflow: hidden;
-// }
-// .place-item:hover .select {
-// 	display: block;
-// 	transition: all .5s ease-in-out .2s; 
-// 	height: auto;
-// }
-// .select a {
-// 	display: block;
-//     	text-decoration: none;
-//     	box-sizing: border-box;
-//     	padding:  0 15px;
-//     	font-family:  "SFUIDisplayMedium"; 
-//     	font-size: 14.6px;
-//     	color: #fff;
-//     	line-height: 36px;
-//     	background: transparent;
-//     	transition: all .3s ease-in-out .3s; 
-// }
-// .select a:hover {
-// 	color: #999;
-//     	background: #000;
-//     	transition: all .3s ease-in-out .3s; 
-// }
 .check-in .form {
 	display: flex;
 	flex-direction: column;
@@ -215,6 +137,15 @@ body.main-page {
 	display: block;
 	width: 100%;
 }
+.recovery .form p.capcha {
+	font-family: "SFUIDisplayMedium";
+	font-size: 12.5px;
+	color: #ec6045;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	line-height: 15px;
+}
 // icons
 
 .form-item .city-field,
@@ -298,32 +229,6 @@ body.main-page {
 	margin-bottom: 10px;
 	line-height: 15px;
 }
-// .check {
-//     	line-height: 63px;
-// }
-// .check label {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	font-size: 12.5px;
-// 	font-family:  "SFUIDisplayMedium";
-// 	cursor: pointer;
-// }
-// input[type="checkbox"] {
-// 	display: none;
-// }
-// input[type="checkbox"] + label span {
-// 	display: inline-block;
-//     	width: 22px;
-//     	height: 22px;
-//     	margin: 0px 5px 0 0px;
-//     	vertical-align: middle;
-//     	background: url(../images/chackbox.png) left top no-repeat;
-//     	cursor: pointer;
-// }
-// input[type="checkbox"]:checked + label span {
-//   	background:url(../images/checked.png) 0 top no-repeat;
-// }
 .check-in-button {
 	width: 100%;
 	display: block;
@@ -537,7 +442,11 @@ footer {
 	margin: 15vh auto 0; 
 }
 
+@media (max-width: 1024px) {
+	body.main-page {
 
+	}
+}
 @media (max-width: 1025px) {
 	.registration .form .logo {
 		width: 25%;
@@ -568,19 +477,15 @@ footer {
 	.drop-menu {
 		display: block;
 		width: 42px;
-		height: 20px;
-		border: 1px solid #fff;
+		height: 32px;
+		border: 1px solid transparent;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		transform: rotate(90deg);
 		transition: all .3s ease-in-out .1s; 
 	}
-	.drop-menu:hover {
-		border: 1px solid #999;
-		background-image: url(../images/drop-menu-hover.png);
-		background-position: center;
-		background-repeat: no-repeat;
+	.footer .menu:hover .drop-menu {
+		border: 1px solid #fff;
 		transition: all .3s ease-in-out .1s; 
 	}
 	.footer .menu-item {
@@ -589,14 +494,18 @@ footer {
 	.footer .menu:hover .menu-item  {
 		display: block;
 		position: absolute;
-		background: rgba(0, 0, 0, 0.5);
+		background: rgba(0, 0, 0, 0.9);
 		border-radius: 3px;
-		top: -135px;
+		top: -155px;
 		right: 0;
-		width: 100px;
+		width: 200px;
 		padding: 10px;
 		text-align: center;
 	} 
+	.footer .menu-item a {
+		font-size: 18px;
+		display: block;
+	}
 	.footer .menu {
 		width: auto;
 		position: relative;
@@ -637,6 +546,8 @@ body.public {
 	padding: 0 0 75px 0;
 	position: relative;
 	box-sizing: border-box;
+}
+body.public.user {
 	background: #e9eaed;
 }
 .public header {
@@ -828,9 +739,10 @@ body.public {
 	transition: all .3s ease-in-out .1s; 
 }
 .info {
-	margin-top: 30px;
+	padding-top: 30px;
 	font-family: "SFUIDisplayMedium";
 	color: #333;
+	background: #fff;
 }
 .info h3 {
 	margin: 0 0 5px;
@@ -879,12 +791,11 @@ body.public {
 	.public header .main-menu.common .drop-menu {
 		display: block;
 		width: 32px;
-		height: 20px;
+		height: 32px;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 90%;
-		transform: rotate(90deg);
 		transition: all .3s ease-in-out .1s; 
 	}
 	.public header .main-menu.common .drop-menu:hover {
@@ -900,16 +811,19 @@ body.public {
 	.public header .main-menu:hover .menu-item  {
 		display: block;
 		position: absolute;
-		background: rgb(73, 91, 121);
+		background: rgb(50, 61, 80);
 		border-radius: 3px;
-		top: 40px;
-		right: -40px;
-		width: 100px;
+		top: 50px;
+		right: -80px;
+		width: 200px;
 		padding: 10px;
 		text-align: center;
+		z-index: 9;
 	} 
 	.public header .main-menu.common a {
 		line-height: 25px;
+		display: block;
+    		font-size: 18px;
 	}
 	.public header .main-menu {
 		width: auto;
@@ -957,6 +871,7 @@ body.public {
 	padding: 32px 0;
 	box-sizing: border-box;
 	width: 100%;
+	background: #fff;
 }
 .content-user #user-page {
 	width: 700px;
@@ -1004,6 +919,9 @@ body.public {
 	display: flex;
     	justify-content: space-between;
     	align-items:center;
+}
+.adaptiv {
+	display: none;
 }
 .counts .counter {
 	text-decoration: none;
@@ -1233,5 +1151,67 @@ body.public {
 	}
 	.content-user #user-page {
 		width: 100%;
+		box-shadow: 0 0 0 0 rgba(0,0,0,.1);
+		border-radius: 0;
+	}
+	.content-user {
+		padding: 0;
+	}
+	#user-page .my-profile {
+		padding: 25px 20px 0 20px;
+	}
+	.my-profile .ava a {
+		width: 70px;
+		height: 70px;
+	}
+	.my-profile .ava {
+		margin-right: 8%;
+	}
+	.adaptiv {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 20px 25px 20px;
+	}
+	.my-profile-item .comunications {
+		display: none;
+	}
+	.comunications.adaptiv .create {
+		border-radius: 4px;
+		font-size: 14.6px;
+		font-family: "SFUIDisplayMedium";
+		padding: 0 10px;
+		margin: 0;
+		line-height: 27px;
+		color: #495b79;
+		transition: all .3s ease-in-out .1s;
+		text-decoration: none;
+		background-image: none;
+		border: 1px solid #77849b;
+	}
+}
+@media (max-width: 450px) {
+	#user-page .my-profile {
+		padding: 25px 5px 0 5px;
+	}
+	.my-profile .ava {
+		margin-right: 5px;
+	}
+	.counts .counter {
+		font-size: 14px;
+	}
+	.counts .counter p {
+		font-size: 10px;
+	}
+	.adaptiv {
+		padding: 0 5px 25px 5px;
+	}
+	.comunications .rewrite,
+	.comunications.adaptiv .create {
+		padding: 0 5px;
+		font-size: 13px;
+	}
+	.comunications .view {
+		width: 18%;
 	}
 }
