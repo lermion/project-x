@@ -18,8 +18,11 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'admin'], function()
     {
-
         Route::get('/', 'Admin\HomeController@index');
+        Route::group(['prefix' => 'user'], function()
+        {
+            Route::get('/', 'Admin\UserController@index');
+        });
 
     });
     Route::group(['prefix' => 'auth'], function()
