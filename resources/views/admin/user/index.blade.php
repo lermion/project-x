@@ -160,7 +160,7 @@
                     <button type="button" class="btn btn-warning btn-xs">Подозрительный</button>
                 </p>
                 <p align="center" class="m0">
-                    <button type="button" class="btn btn-danger btn-xs">Удалить</button>
+                    <a href="{{action('Admin\UserController@destroy', ['id'=>$user->id,'month'=>1])}}" class="btn btn-danger btn-xs">Удалить</a>
             </td>
             </tr>
             @endforeach
