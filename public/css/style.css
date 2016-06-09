@@ -31,6 +31,7 @@ body.main-page {
 	background-size: cover;
 	background-position: center;
 	color: #fff; 
+	overflow: hidden;
 }
 .check-in .form {
 	display: flex;
@@ -197,10 +198,9 @@ body.main-page {
 	background-color: #fff;
 	background-size: 45%;
 	width: 45px;
-	height: 37px;
-	transform: rotate(-90deg); 
+	height: 37px; 
 	transition: all .3s ease-in-out .1s;  
-	border-radius: 0 0 2px 2px;
+	border-radius: 0 2px 2px 0; 
 }
 .sex-field span.sex-inner {
 	background-image: url(../images/select.png);
