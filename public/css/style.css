@@ -14,102 +14,24 @@
 }
 html{
 	width: 100%;
-	height: 100%;
+	height: auto;
 }
 body.main-page {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 100vh;
+	height: auto;
+	min-height: 100vh;
 	font-family:  "SFUIDisplayMedium"; 
 	box-sizing: border-box;
 	position: relative;
 	padding: 0 0 75px 0;
-	// padding: 40px 40px 75px 40px;
-	overflow: hidden;
 	background-image: url(../images/bc.png);
 	background-repeat:  no-repeat;
 	background-size: cover;
 	background-position: center;
 	color: #fff; 
 }
-// .main-page .place {
-// 	display: flex;
-//     	justify-content: flex-end;
-//     	position: relative;
-// }
-// .place-item {
-// 	display: flex;
-//     	flex-direction: column;
-//     	position: relative;
-//     	width: 155px;
-// }
-// .selection {
-// 	color: #fff;
-// 	font-size: 14.6px;
-// 	padding: 0  15px;
-// 	display: inline-block;
-// 	line-height: 30px;
-// 	text-decoration: none;
-// 	cursor: pointer;
-// 	vertical-align: middle;
-// 	transition: color .5s ease-in-out .5s;
-// }
-// .selection:hover {
-// 	color: #999;
-// 	transition: color .5s ease-in-out .5s;
-// }
-// .selection span {
-// 	background-image: url(../images/arrow.png);
-// 	background-repeat:  no-repeat;
-// 	background-position: center;
-// 	transform: rotate(180deg);
-// 	width: 20px;
-// 	height: 20px;
-// 	margin-left: 15px;
-// 	display: inline-block;
-//     	vertical-align: middle; 
-//     	transition: transform .5s ease-in-out .5s;
-// }
-// .selection span:hover {
-// 	transform: rotate(0deg);
-// 	transition: transform .5s ease-in-out .5s;
-// }
-// .selection:hover span {
-// 	transform: rotate(0deg);
-// 	transition: transform .5s ease-in-out .5s;
-// }
-// .select {
-// 	position: absolute;
-// 	top: 25px;
-// 	background: rgba(0, 0, 0, 0.4);
-// 	transition: all .5s ease-in-out .2s; 
-// 	display: none;
-// 	height: 0;
-// 	overflow: hidden;
-// }
-// .place-item:hover .select {
-// 	display: block;
-// 	transition: all .5s ease-in-out .2s; 
-// 	height: auto;
-// }
-// .select a {
-// 	display: block;
-//     	text-decoration: none;
-//     	box-sizing: border-box;
-//     	padding:  0 15px;
-//     	font-family:  "SFUIDisplayMedium"; 
-//     	font-size: 14.6px;
-//     	color: #fff;
-//     	line-height: 36px;
-//     	background: transparent;
-//     	transition: all .3s ease-in-out .3s; 
-// }
-// .select a:hover {
-// 	color: #999;
-//     	background: #000;
-//     	transition: all .3s ease-in-out .3s; 
-// }
 .check-in .form {
 	display: flex;
 	flex-direction: column;
@@ -215,6 +137,15 @@ body.main-page {
 	display: block;
 	width: 100%;
 }
+.recovery .form p.capcha {
+	font-family: "SFUIDisplayMedium";
+	font-size: 12.5px;
+	color: #ec6045;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	line-height: 15px;
+}
 // icons
 
 .form-item .city-field,
@@ -298,32 +229,6 @@ body.main-page {
 	margin-bottom: 10px;
 	line-height: 15px;
 }
-// .check {
-//     	line-height: 63px;
-// }
-// .check label {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	font-size: 12.5px;
-// 	font-family:  "SFUIDisplayMedium";
-// 	cursor: pointer;
-// }
-// input[type="checkbox"] {
-// 	display: none;
-// }
-// input[type="checkbox"] + label span {
-// 	display: inline-block;
-//     	width: 22px;
-//     	height: 22px;
-//     	margin: 0px 5px 0 0px;
-//     	vertical-align: middle;
-//     	background: url(../images/chackbox.png) left top no-repeat;
-//     	cursor: pointer;
-// }
-// input[type="checkbox"]:checked + label span {
-//   	background:url(../images/checked.png) 0 top no-repeat;
-// }
 .check-in-button {
 	width: 100%;
 	display: block;
@@ -537,7 +442,11 @@ footer {
 	margin: 15vh auto 0; 
 }
 
+@media (max-width: 1024px) {
+	body.main-page {
 
+	}
+}
 @media (max-width: 1025px) {
 	.registration .form .logo {
 		width: 25%;
@@ -568,19 +477,15 @@ footer {
 	.drop-menu {
 		display: block;
 		width: 42px;
-		height: 20px;
-		border: 1px solid #fff;
+		height: 32px;
+		border: 1px solid transparent;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		transform: rotate(90deg);
 		transition: all .3s ease-in-out .1s; 
 	}
-	.drop-menu:hover {
-		border: 1px solid #999;
-		background-image: url(../images/drop-menu-hover.png);
-		background-position: center;
-		background-repeat: no-repeat;
+	.footer .menu:hover .drop-menu {
+		border: 1px solid #fff;
 		transition: all .3s ease-in-out .1s; 
 	}
 	.footer .menu-item {
@@ -589,14 +494,18 @@ footer {
 	.footer .menu:hover .menu-item  {
 		display: block;
 		position: absolute;
-		background: rgba(0, 0, 0, 0.5);
+		background: rgba(0, 0, 0, 0.9);
 		border-radius: 3px;
-		top: -135px;
+		top: -155px;
 		right: 0;
-		width: 100px;
+		width: 200px;
 		padding: 10px;
 		text-align: center;
 	} 
+	.footer .menu-item a {
+		font-size: 18px;
+		display: block;
+	}
 	.footer .menu {
 		width: auto;
 		position: relative;
@@ -636,6 +545,10 @@ body.public {
 	min-height: 100vh;
 	padding: 0 0 75px 0;
 	position: relative;
+	box-sizing: border-box;
+}
+body.public.user {
+	background: #e9eaed;
 }
 .public header {
 	background: #495b79;
@@ -826,9 +739,10 @@ body.public {
 	transition: all .3s ease-in-out .1s; 
 }
 .info {
-	margin-top: 30px;
+	padding-top: 30px;
 	font-family: "SFUIDisplayMedium";
 	color: #333;
+	background: #fff;
 }
 .info h3 {
 	margin: 0 0 5px;
@@ -869,16 +783,19 @@ body.public {
 	}
 } 
 @media (max-width: 800px) {
-
+	.public header .main-menu a {
+		background-size: 31%;
+		padding-left: 25px;
+		font-size: 12px;
+	}
 	.public header .main-menu.common .drop-menu {
 		display: block;
 		width: 32px;
-		height: 20px;
+		height: 32px;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 90%;
-		transform: rotate(90deg);
 		transition: all .3s ease-in-out .1s; 
 	}
 	.public header .main-menu.common .drop-menu:hover {
@@ -894,16 +811,19 @@ body.public {
 	.public header .main-menu:hover .menu-item  {
 		display: block;
 		position: absolute;
-		background: rgb(73, 91, 121);
+		background: rgb(50, 61, 80);
 		border-radius: 3px;
-		top: 40px;
-		right: -40px;
-		width: 100px;
+		top: 50px;
+		right: -80px;
+		width: 200px;
 		padding: 10px;
 		text-align: center;
+		z-index: 9;
 	} 
 	.public header .main-menu.common a {
 		line-height: 25px;
+		display: block;
+    		font-size: 18px;
 	}
 	.public header .main-menu {
 		width: auto;
@@ -913,16 +833,15 @@ body.public {
 		width: auto;
 	}
 	.public header .main-menu .places,
-	.public header .main-menu .chat,
-	.public header .search {
+	.public header .main-menu .chat {
 		margin-right: 10px;
 	}
 }
-@media (max-width: 665px)  {
-	.public header .header {
-		justify-content: center;
-	}
-}
+// @media (max-width: 665px)  {
+// 	.public header .header {
+// 		justify-content: center;
+// 	}
+// }
 @media (max-width: 550px)  {
 	.menu-user {
 		display: flex;
@@ -942,5 +861,357 @@ body.public {
 	}
 	.public header .registration {
 		margin-right: 30px;
+	}
+}
+
+/* user.html */
+
+.content-user {
+	background: #e9eaed;
+	padding: 32px 0;
+	box-sizing: border-box;
+	width: 100%;
+	background: #fff;
+}
+.content-user #user-page {
+	width: 700px;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 2px;
+	box-shadow: 0 0 6px 1px rgba(0,0,0,.1); 
+}
+#user-page .my-profile {
+	display: flex;
+	padding: 15px 20px;
+}
+.my-profile .ava {
+	margin-right: 25px;
+}
+.my-profile .ava a {
+	border-radius: 50%;
+	display: block;
+	overflow: hidden;
+	width: 140px;
+    	height: 140px;
+}
+.my-profile .ava a img {
+	width: 120%;
+}
+.my-profile .my-profile-item {
+	flex-grow:33;
+}
+.my-profile-item .user-name {
+	font-size: 16.7px;
+	display: block;
+	color: #333;
+	text-decoration: none;
+	font-weight: 500;
+	line-height: 20px;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s; 
+}
+.my-profile-item .user-name:hover {
+	transition: all .3s ease-in-out .1s; 
+	color: #666
+}
+.my-profile-item .counts,
+.my-profile-item .comunications {
+	display: flex;
+    	justify-content: space-between;
+    	align-items:center;
+}
+.adaptiv {
+	display: none;
+}
+.counts .counter {
+	text-decoration: none;
+	font-size: 16.7px;
+	color: #333;
+	font-family: "SFUIDisplayMedium";
+	text-align: center;
+	cursor: pointer;
+	line-height: 20px;
+	margin: 20px 0 20px;
+}
+.counts .counter p{
+	font-size: 12.5px;
+	font-family: "SFUIDisplayLight";
+	padding-left: 30px;
+	margin: 0 0 10px 0;
+	ine-height: 20px;
+	background-position: center left;
+	background-repeat: no-repeat;
+	color: #666;
+	transition: all .3s ease-in-out .1s; 
+}
+.counts .counter:hover p {
+	color: #333;
+	transition: all .3s ease-in-out .1s; 
+}
+.counts .counter p.notes{
+	background-image: url(../images/notes.png);		
+}
+.counts .counter p.contacts{
+	background-image: url(../images/contacts.png);	
+}
+.counts .counter p.contacts-off{
+	background-image: url(../images/contacts-off.png);	
+}
+.counts .counter p.contacts-on{
+	background-image: url(../images/contacts-on.png);	
+}
+.comunications .create{
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	padding-left: 35px;
+	margin: 0;
+	line-height: 22px;
+	background-position: center left;
+	background-repeat: no-repeat;
+	color: #ec6045;
+	background-image: url(../images/create.png);
+	transition: all .3s ease-in-out .1s; 
+	text-decoration: none;
+}
+.comunications .create:hover {
+	color: #666; 
+	background-image: url(../images/create-hover.png);
+	transition: all .3s ease-in-out .1s;
+}
+.comunications .rewrite {
+	border: 1px solid transparent;
+	border-radius: 4px;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	padding: 0 10px;
+	margin: 0;
+	line-height: 27px;
+	color: #495b79;
+	transition: all .3s ease-in-out .1s; 
+	text-decoration: none;
+}
+.comunications .rewrite:hover {
+	border: 1px solid #77849b;
+	transition: all .3s ease-in-out .1s;  
+}
+.comunications .view {
+	width: 16%;
+	display: flex;
+    	justify-content: space-between;
+    	align-items:center;
+}
+.comunications .view a {
+	width: 23px;
+	height: 23px;
+	display: inline-block;
+	transition: all .3s ease-in-out .1s; 
+	background-position: center;
+	background-repeat: no-repeat;
+	text-decoration: none;
+}
+.comunications .view a.table {
+	background-image: url(../images/view-table.png);
+	transition: all .3s ease-in-out .1s;
+}
+.comunications .view a.table:hover,
+.comunications .view a.table.active {
+	background-image: url(../images/view-table-hover.png);
+	transition: all .3s ease-in-out .1s;
+}
+.comunications .view a.list {
+	background-image: url(../images/view-list.png);
+	transition: all .3s ease-in-out .1s;
+}
+.comunications .view a.list:hover,
+.comunications .view a.list.active {
+	background-image: url(../images/view-list-hover.png);
+	transition: all .3s ease-in-out .1s;
+}
+#user-page .my-photos {
+	display: flex;
+    	flex-wrap: wrap;
+}
+#user-page .photo {
+	width: 231px;
+	height: 231px;
+	margin: 0 3px 3px 0;
+	// width: 33%;
+	// height: 24vh;
+	// margin: 0 .5% .5% 0;
+	overflow: hidden;
+	box-sizing: border-box; 
+}
+#user-page .photo:nth-child(3n) {
+	margin: 0 0 3px 0;
+}
+#user-page .photo a {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+}
+#user-page .photo a .video {
+	position: absolute;
+	display: block;
+	width: 80px;
+	height: 80px;
+	background-color: rgba(0,0,0,.5);
+	z-index: 9999999;
+	top: 50%;
+	left: 50%;
+	border-radius: 50%;
+	margin-top: -40px;
+	margin-left: -40px;
+	background-image: url(../images/play.png);
+	transition: all .3s ease-in-out .1s;
+	background-position: center;
+	background-repeat: no-repeat; 
+}
+#user-page .photo a:hover .video {
+	background-color: rgba(0,0,0,.6);
+	background-size: 40%;
+	transition: all .3s ease-in-out .1s;
+	width: 70px;
+	height: 70px;
+	margin-top: -35px;
+	margin-left: -35px; 
+}
+#user-page .photo a img {
+	width: 100%;
+} 
+@media (max-width: 700px) {
+	.content-user {
+		padding: 32px 0;
+	}
+	.content-user #user-page {
+		width: 500px;
+	}
+	#user-page .my-profile {
+		padding: 15px 10px;
+	}
+	.my-profile .ava {
+		margin-right: 10px;
+	}
+	.my-profile .ava a {
+		width: 120px;
+    		height: 120px;
+	}
+	.counts .counter{
+		display: flex;
+    		flex-direction: column-reverse;
+    		margin: 10px 0 10px;
+	}
+	.counts .counter p,
+	.counts .counter p.notes,
+	.counts .counter p.contacts,
+	.counts .counter p.contacts-off,
+	.counts .counter p.contacts-on {
+		padding-left: 0;
+		background-image: none;
+	}
+	.comunications .create {
+		font-size: 13px;
+		padding-left: 25px;
+	}
+	.comunications .rewrite {
+		font-size: 13px;
+	}
+	.comunications .view {
+		width: 20%;
+	}
+	#user-page .photo {
+		width: 166px;
+		height: 166px;
+		margin: 0 1px 1px 0;
+	}
+	#user-page .photo:nth-child(3n) {
+		    margin: 0 0 1px 0;
+	}
+	/*header user*/
+	.public header .exit span {
+		width: 25px;
+		height: 25px;
+		background-size: 80%;
+	}
+	.public header .search {
+		order: 1;
+		width: 100%;
+		margin-bottom: 5px;
+	}
+	/*end header user*/
+}
+@media (max-width: 500px) {
+	.public header .header {
+		justify-content: center;
+	}
+	.public header .search {
+		width: 200px;
+		margin-right: 10px;
+		order: 0;
+	}
+	.content-user #user-page {
+		width: 100%;
+		box-shadow: 0 0 0 0 rgba(0,0,0,.1);
+		border-radius: 0;
+	}
+	.content-user {
+		padding: 0;
+	}
+	#user-page .my-profile {
+		padding: 25px 20px 0 20px;
+	}
+	.my-profile .ava a {
+		width: 70px;
+		height: 70px;
+	}
+	.my-profile .ava {
+		margin-right: 8%;
+	}
+	.adaptiv {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 20px 25px 20px;
+	}
+	.my-profile-item .comunications {
+		display: none;
+	}
+	.comunications.adaptiv .create {
+		border-radius: 4px;
+		font-size: 14.6px;
+		font-family: "SFUIDisplayMedium";
+		padding: 0 10px;
+		margin: 0;
+		line-height: 27px;
+		color: #495b79;
+		transition: all .3s ease-in-out .1s;
+		text-decoration: none;
+		background-image: none;
+		border: 1px solid #77849b;
+	}
+}
+@media (max-width: 450px) {
+	#user-page .my-profile {
+		padding: 25px 5px 0 5px;
+	}
+	.my-profile .ava {
+		margin-right: 5px;
+	}
+	.counts .counter {
+		font-size: 14px;
+	}
+	.counts .counter p {
+		font-size: 10px;
+	}
+	.adaptiv {
+		padding: 0 5px 25px 5px;
+	}
+	.comunications .rewrite,
+	.comunications.adaptiv .create {
+		padding: 0 5px;
+		font-size: 13px;
+	}
+	.comunications .view {
+		width: 18%;
 	}
 }
