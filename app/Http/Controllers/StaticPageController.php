@@ -15,6 +15,6 @@ class StaticPageController extends Controller
     }
 
     public function getNames(){
-        return StaticPage::select('name','id')->get();
+        return StaticPage::select('name','id','description')->get();
     }
 }
