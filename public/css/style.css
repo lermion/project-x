@@ -354,7 +354,11 @@ footer {
 	display: flex;
 	justify-content: space-between; 
 }
-
+.footer-item span {
+	font-family: "SFUIDisplayLight";
+	font-size: 14.6px;
+	color: #fff;
+}
 .footer .menu-item a {
 	font-family: "SFUIDisplayLight";
 	font-size: 14.6px;
