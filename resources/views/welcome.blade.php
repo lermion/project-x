@@ -18,8 +18,8 @@
                                                 <a class="visa" href=""></a>
                                     </div>
                         </div>
+                        <a class="drop-menu" href=""></a>
                         <div class="menu">
-                            <a class="drop-menu" href=""></a>
                             <div class="menu-item">
                                 <!-- <a ui-sref="static({ pageName: about_service})">О сервисе </a>
                                 <a ui-sref="static({ pageName: help})">Помощь </a>

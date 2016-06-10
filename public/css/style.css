@@ -20,12 +20,10 @@ body.main-page {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: auto;
-	min-height: 100vh;
+	height: 100vh;
 	font-family:  "SFUIDisplayMedium"; 
 	box-sizing: border-box;
 	position: relative;
-	padding: 0 0 75px 0;
 	background-image: url(../images/bc.png);
 	background-repeat:  no-repeat;
 	background-size: cover;
@@ -465,7 +463,9 @@ footer {
 
 @media (max-width: 1024px) {
 	body.main-page {
-
+		overflow: visible;
+		padding-bottom: 100%;
+		min-height: 100vh;
 	}
 }
 @media (max-width: 1025px) {
@@ -477,6 +477,7 @@ footer {
 		width: 100%;
 		box-sizing: border-box;
 		padding: 0 15px;
+		position: relative;
 	}
 	.form .logo {
 		width: 160px;
@@ -509,23 +510,37 @@ footer {
 		border: 1px solid #fff;
 		transition: all .3s ease-in-out .1s; 
 	}
+	.footer .drop-menu:hover {
+		border: 1px solid #fff;
+		transition: all .3s ease-in-out .1s; 
+	}
+	// .footer .menu {
+	// 	display: none;
+	// }
 	.footer .menu-item {
+		// flex-direction: column;
 		display: none;
 	}
-	.footer .menu:hover .menu-item  {
+	.footer .menu:hover  .menu-item  {
 		display: block;
 		position: absolute;
-		background: rgba(0, 0, 0, 0.9);
+		background: rgb(50, 61, 80);
 		border-radius: 3px;
-		top: -155px;
+		top: -215px;
 		right: 0;
 		width: 200px;
 		padding: 10px;
-		text-align: center;
+		text-align: right;
+
 	} 
+	// .footer .menu-item {
+	// 	// flex-direction: column;
+	// 	display: none;
+	// }
 	.footer .menu-item a {
 		font-size: 18px;
 		display: block;
+		line-height: 38px;
 	}
 	.footer .menu {
 		width: auto;
@@ -553,7 +568,6 @@ footer {
 		width: 75%;
 	}
 }
-
 
 // public.html 
 a {
@@ -817,14 +831,9 @@ body.public.user {
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 90%;
-		transition: all .3s ease-in-out .1s; 
 	}
-	.public header .main-menu.common .drop-menu:hover {
-		border: 1px solid #999;
-		background-image: url(../images/drop-menu-hover.png);
-		background-position: center;
-		background-repeat: no-repeat;
-		transition: all .3s ease-in-out .1s; 
+	.public header .main-menu.common:hover .drop-menu {
+		border: 1px solid #999; 
 	}
 	.public header .main-menu.common .menu-item {
 		display: none;
@@ -892,7 +901,6 @@ body.public.user {
 	padding: 32px 0;
 	box-sizing: border-box;
 	width: 100%;
-	background: #fff;
 }
 .content-user #user-page {
 	width: 700px;
@@ -1234,5 +1242,28 @@ body.public.user {
 	}
 	.comunications .view {
 		width: 18%;
+	}
+}
+@media (max-width: 400px) {
+	.public header .logo {
+		background-size: 44%;
+    		width: 100%;
+	}
+	.public header .header {
+		position: relative;
+	}
+	.public header .main-menu.common {
+		position: absolute;
+		left: 0;
+		top: 5px;
+	}
+	.public header .main-menu:hover .menu-item {
+		left: 0;
+		right: auto;
+		top: 40px;
+	}
+	.public header .main-menu.common a {
+		text-align: left;
+		line-height: 38px;
 	}
 }
