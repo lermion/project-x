@@ -50,8 +50,7 @@
                                                     <input type="text" ng-model="newUserLastName" placeholder="Введите вашу фамилию..." ng-click="newUserLastNameError=false;">
                                         </div>
                                         <p ng-show="newUserLastNameError" class="capcha-name">Поле обязательно для заполнения</p>
-                                        <div class="user-field">
-                                        <!-- Добавить знак @ перед полем логина -->
+                                        <div class="user-field">                                        
                                                     <span class="user"></span>
                                                     <input type="text" ng-model="newUserLogin" placeholder="Введите ваш логин..." ng-click="newUserLoginError=false;">
                                         </div> 
@@ -75,3 +74,4 @@
                </div>
         </div>        
     </div>
+    <footer ng-include="'../app/common/views/unauth_footer.html'"></footer>

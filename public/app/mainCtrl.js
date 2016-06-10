@@ -1,8 +1,12 @@
 angular.module('placePeopleApp')
     .controller('mainCtrl', ['$scope', function($scope){
-
-    	$scope.ctrlStyle = 'main-page';
-
-      // console.log('main');
+    	
+    	// прослушиваем событие в текущем $scope
+		$scope.$on('publicPoint', function (event, data) {
+		  $scope.bodyClass = 'public';
+		});
+		$scope.$on('authPoint', function (event, data) {
+		  $scope.bodyClass = 'main-page';
+		});
 
     }]);

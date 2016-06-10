@@ -1,22 +1,32 @@
 angular.module('placePeopleApp')
-    .controller('staticCtrl', ['$scope', '$stateParams', 'StaticService', function($scope, $stateParams, StaticService){
+    .controller('staticCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 
+    	function($scope, $state, $stateParams, StaticService, AuthService){
 
-    	// $scope.ctrlStyle = 'main-page';
-		// $scope.page = $stateParams.pageName;
-  		// about_service,
-		// help,
-		// rules,
-		// advertising,
-		// developers
-		StaticService.getStatic(staticName)
+    	$scope.$emit('publicPoint', 'public');
+
+    	StaticService.getStaticNames()
 			.then(function(res){
-			console.log(res);	    			
-	    			if (res.status) {	    				
-	    				
-	    			}	    					        
+					console.log(res);
+					// $scope.staticPages = res; 					        
+			      }, function(err){
+			        console.log(err);
+			      });	
+			      	
+		$scope.page = $stateParams.pageName;  		
+		StaticService.getStatic($stateParams.pageName)
+			.then(function(res){					
+					$scope.staticTitle = res.title;							    			
+	    			$scope.staticText = res.text;
+	    			$scope.staticDesc = res.description;	    			
 			      }, function(err){
 			        console.log(err);
 			      });
-      // console.log($stateParams);
-
+		$scope.logOut = function(){
+    		AuthService.userLogOut()
+	    		.then(function(res){
+	    			$state.go('login');
+			      }, function(err){
+			        console.log(err);
+			      });
+    	} 
     }]);
