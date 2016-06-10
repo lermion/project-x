@@ -23,9 +23,7 @@ angular.module('placePeopleApp')
 
     	$scope.pwdRestore = function(){
     		state.go('restore');
-    	};
-
-    	//code
+    	};    	
 
     	$scope.userRegisterS1 = function(){
     		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
@@ -99,8 +97,8 @@ angular.module('placePeopleApp')
 	    		.then(function(res){
 	    			if (res.status) {	
 	    				$scope.userRegistred = true;
-	    				// $state.go('user', {username: login});
-	    				$state.go('static-auth', {pageName: 'about_service'});
+	    				$state.go('user', {username: login});
+	    				// $state.go('static-auth', {pageName: 'about_service'});
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -112,10 +110,11 @@ angular.module('placePeopleApp')
     		var login = $scope.userLogin;    		
     		var pwd = $scope.userPassword;    		
     		AuthService.userLogIn(login, pwd)
-	    		.then(function(res){	    			
+	    		.then(function(res){
+	    		console.log(res);	    			
 	    			if (res.status) {	    				
-	    				// $state.go('user', {username: login});
-	    				$state.go('static-auth', {pageName: 'about_service'});
+	    				$state.go('user', {username: login});
+	    				// $state.go('static-auth', {pageName: 'about_service'});
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);

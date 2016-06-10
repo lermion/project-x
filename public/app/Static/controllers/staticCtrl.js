@@ -4,15 +4,8 @@ angular.module('placePeopleApp')
 
     	$scope.$emit('publicPoint', 'public');
 
-    	StaticService.getStaticNames()
-			.then(function(res){
-					console.log(res);
-					// $scope.staticPages = res; 					        
-			      }, function(err){
-			        console.log(err);
-			      });	
-			      	
-		$scope.page = $stateParams.pageName;  		
+		$scope.page = $stateParams.pageName;
+
 		StaticService.getStatic($stateParams.pageName)
 			.then(function(res){					
 					$scope.staticTitle = res.title;							    			
