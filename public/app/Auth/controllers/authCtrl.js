@@ -23,8 +23,17 @@ angular.module('placePeopleApp')
 
     	$scope.pwdRestore = function(){
     		state.go('restore');
-    	};    	
+    	};
 
+    	$scope.setCoutryCode = function(){
+    		var countryId = parseInt($scope.newUserCountryId);    		
+	    	$scope.countries.forEach(function(country){
+	    		if (country.id === countryId) {
+	    			$scope.phoneCode = country.code;
+	    		}
+	    	});
+    	};
+    	
     	$scope.userRegisterS1 = function(){
     		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
     			var countryId = parseInt($scope.newUserCountryId);
@@ -104,14 +113,12 @@ angular.module('placePeopleApp')
 			      });
     	};
 
-    	/*LOGIN PAGE*/
+    	/*LOGIN PAGE*/    	
     	$scope.login = function(){
     		var login = $scope.userLogin;    		
     		var pwd = $scope.userPassword;    		
     		AuthService.userLogIn(login, pwd)
-	    		.then(function(res){
-
-	    		console.log(res);	    			
+	    		.then(function(res){   			
 	    			if (res.status) {	    				
 	    				$state.go('user', {username: login});	    				
 	    			}	else{	    				
@@ -122,6 +129,12 @@ angular.module('placePeopleApp')
 			      });
     	};
 
+    	$scope.keyPress = function(event){
+    		if (event === 13) {
+    			$scope.login();
+    		}
+    	};
+
     	$scope.logOut = function(){
     		AuthService.userLogOut()
 	    		.then(function(res){
@@ -130,7 +143,7 @@ angular.module('placePeopleApp')
 			        console.log(err);
 			      });
     	}
-    	
+
       /*RESTORE PAGE*/
 		$scope.sendRestoreSms = function(){
 			if (!$scope.restoreUserPhone) {
