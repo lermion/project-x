@@ -32,19 +32,19 @@
     </script>
 
     <div class="x_content">
-        <h3>Статичные страницы в промо</h3>
-        <ul>
-            @foreach($pages as $page)
-                <li><a href="{{action('Admin\StaticPageController@show', ['id'=>$page->id])}}">{{$page->description}}</a></li>
-            @endforeach
-        </ul>
-
+        <h3>Создание статической страницы</h3>
+        <form action="/admin/static_page/store" method="post">
+            <label for="description">Название</label><br>
+            <input type="text" name="description" placeholder="Название" id="description" required><br>
+            <label for="name">Внутреннее название</label><br>
+            <input type="text" name="name" placeholder="Внутреннее название" id="name" required><br>
+            <label for="text">Содержимое</label><br>
+            <textarea type="text" name="text" placeholder="Содержимое" id="text" required></textarea><br><br>
+            <input type="submit" value="Сохранить" class="btn btn-primary">
+        </form>
         <br>
 
         <br>
-        <p>
-            <a type="button" href="/admin/static_page/create" class="btn btn-primary">Добавить страницу</a>
-        </p>
 
     </div>
 @stop

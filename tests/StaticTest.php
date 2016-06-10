@@ -19,4 +19,8 @@ class StaticTest extends TestCase
     public function testStaticPage(){
         $this->json('GET', 'country/')->AssertResponseOk();
     }
+    
+    public function testStaticName(){
+        $this->json('GET', 'static_page/get/name/')->AssertResponseOk();
+    }
 }

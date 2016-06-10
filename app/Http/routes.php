@@ -29,6 +29,11 @@ Route::group(['middleware' => ['web']], function () {
         {
             Route::get('/', 'Admin\StaticPageController@index');
             Route::get('show/{id}', 'Admin\StaticPageController@show');
+            Route::get('create', 'Admin\StaticPageController@create');
+            Route::post('store', 'Admin\StaticPageController@store');
+            Route::get('destroy/{id}', 'Admin\StaticPageController@destroy');
+            Route::get('edit/{id}', 'Admin\StaticPageController@edit');
+            Route::post('update/{id}', 'Admin\StaticPageController@update');
         });
 
     });

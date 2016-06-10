@@ -28,7 +28,7 @@ class StaticPageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.static_page.create');
     }
 
     /**
@@ -39,7 +39,8 @@ class StaticPageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        StaticPage::create($request->all());
+        return redirect()->action('Admin\StaticPageController@index');
     }
 
     /**
@@ -62,7 +63,8 @@ class StaticPageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = StaticPage::find($id);
+        return view('admin.static_page.edit')->with('page', $page);
     }
 
     /**
@@ -74,7 +76,10 @@ class StaticPageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $page = StaticPage::find($id);
+        $page->update($request->all());
+        $page->save();
+        return redirect()->action('Admin\StaticPageController@show',['id'=>$id]);
     }
 
     /**
@@ -85,6 +90,8 @@ class StaticPageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $page = StaticPage::find($id);
+        $page->delete();
+        return redirect()->action('Admin\StaticPageController@index');
     }
 }
