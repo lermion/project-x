@@ -109,8 +109,7 @@ body.main-page {
 .form-item form select:focus {
 	outline: none;
 }
-.form-item form .city-field:focus,
-.form-item form .city-field:hover {
+.form-item form .city-field:focus {
 	border: 1px solid #c24f39;
 	transition: all .3s ease-in-out .2s; 
 	outline: none;
@@ -357,7 +356,7 @@ footer {
 }
 
 .footer .menu-item a {
-	font-family:  "SFUIDisplayMedium";
+	font-family: "SFUIDisplayLight";
 	font-size: 14.6px;
 	color: #fff;
 	text-decoration: none;
@@ -520,48 +519,88 @@ footer {
 		background-repeat: no-repeat;
 		transition: all .3s ease-in-out .1s; 
 	}
-	.footer .menu:hover .drop-menu {
-		border: 1px solid #fff;
-		transition: all .3s ease-in-out .1s; 
+	footer {
+		height: auto;
 	}
-	.footer .drop-menu:hover {
-		border: 1px solid #fff;
-		transition: all .3s ease-in-out .1s; 
+	.footer {
+		flex-wrap: wrap;
+    		justify-content: flex-start;
 	}
+	.footer .menu {
+		width: 100%;
+	}
+	.footer .menu-item {
+		flex-wrap: wrap;
+    		justify-content: flex-start;
+    		padding-bottom: 10px;
+    		// width: 270px;
+	}
+	.footer .menu-item a {
+		font-size: 15px;
+		line-height: 25px;
+		padding: 0 25px 0 0;
+	}
+	.footer-item {
+		justify-content: flex-start;
+		width: 100%;
+		margin-top: 10px;
+	}
+
+
+	// .footer .menu:hover .drop-menu {
+	// 	border: 1px solid #fff;
+	// 	transition: all .3s ease-in-out .1s; 
+	// }
+	// .footer .drop-menu:hover {
+	// 	border: 1px solid #fff;
+	// 	transition: all .3s ease-in-out .1s; 
+	// }
 	// .footer .menu {
 	// 	display: none;
 	// }
-	.footer .menu-item {
-		// flex-direction: column;
-		display: none;
-	}
-	.footer .menu:hover  .menu-item  {
-		display: block;
-		position: absolute;
-		background: rgb(50, 61, 80);
-		border-radius: 3px;
-		top: -215px;
-		right: 0;
-		width: 200px;
-		padding: 10px;
-		text-align: right;
-
-	} 
 	// .footer .menu-item {
 	// 	// flex-direction: column;
 	// 	display: none;
 	// }
-	.footer .menu-item a {
-		font-size: 18px;
-		display: block;
-		line-height: 38px;
-	}
-	.footer .menu {
+	// .footer .menu:hover  .menu-item  {
+	// 	display: block;
+	// 	position: absolute;
+	// 	background: rgb(50, 61, 80);
+	// 	border-radius: 3px;
+	// 	top: -215px;
+	// 	right: 0;
+	// 	width: 200px;
+	// 	padding: 10px;
+	// 	text-align: right;
+
+	// } 
+	// .footer .menu-item {
+	// 	// flex-direction: column;
+	// 	display: none;
+	// }
+	// .footer .menu-item a {
+	// 	font-size: 18px;
+	// 	display: block;
+	// 	line-height: 38px;
+	// }
+	// .footer .menu {
+	// 	width: auto;
+	// 	position: relative;
+	// }
+	// .footer-item {
+	// 	width: 50%;
+	// }
+	.payment {
+		margin-left: 20px;
 		width: auto;
-		position: relative;
 	}
-	.footer-item {
-		width: 50%;
+	.payment a {
+		margin-left: 20px;
+	}
+}
+@media (max-width: 501px) {
+	.footer .menu-item {
+    		 width: 270px;
 	}
 }
 @media (max-width: 450px) {
@@ -578,15 +617,12 @@ footer {
 	.form-item form {
 		width: 100%;
 	}
-	.footer-item {
-		width: 75%;
+	.footer .menu-item a {
+		font-size: 14px;
 	}
 }
 
-// public.html 
-a {
-	text-decoration: none;
-}
+/* public.html */
 body.public {
 	margin: 0;
 	padding: 0;
