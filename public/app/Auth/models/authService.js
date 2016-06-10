@@ -17,7 +17,7 @@ angular.module('placePeopleApp')
 
 		function getCountries(){                
             defer = $q.defer();
-                $http.get(path + 'country')
+                $http.get(path + 'country/')
                     .success(function (response){
                         defer.resolve(response);
                     })
