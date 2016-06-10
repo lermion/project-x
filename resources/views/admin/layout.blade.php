@@ -38,7 +38,7 @@
 </head>
 
 <body class="nav-md">
-<div class="container body" style="margin-top:-20px;">
+<div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
