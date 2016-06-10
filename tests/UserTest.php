@@ -32,7 +32,7 @@ class UserTest extends TestCase
         if(!$user){
             $user = \App\User::create(['phone'=>'380731059230','password'=>bcrypt('123'),'country_id'=>1]);
         }
-        $this->json('GET', 'user/show/'.$user->id, [])->AssertResponseOk() ;
+        $this->json('GET', 'user/show/'.$user->login, [])->AssertResponseOk() ;
     }
     
 }
