@@ -204,10 +204,10 @@ body.main-page {
 	background-position: left 5px center;
 	background-size: 31%;
 	text-align: right;
-	line-height: 40px;
-	font-size: 16px;
+	line-height: 38px;
 	color: #999;
-	font-family: "SFUIDisplayLight";
+	font-size: 15px;
+    font-family: Tahoma;
 }
 .city-field span.city {
 	background-image: url(../images/location.png);

@@ -1,12 +1,14 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', 
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window){
 
     	$scope.$emit('userPoint', 'user');
 
 		// var username = $stateParams.username;
 		// $scope.staticText = 'asdsad';
 		// console.log(username);
+
+		$window.sessionStorage.setItem('username', $stateParams.username);
 
 		UserService.getUserData($stateParams.username)
 			.then(function(res){

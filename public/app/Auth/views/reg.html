@@ -8,12 +8,12 @@
                                     <form>
                                         <div class="city-field">
                                                 <span class="city"></span>                                                
-                                                <select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" required>                                                        
+                                                <select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" required>
                                                 </select>
                                                 <span class="city-inner"></span>
                                         </div>
                                         <div class="phone-field">
-                                        <span class="phone"></span>
+                                        <span class="phone">{{phoneCode}}</span>
                                                     <input type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required>
                                         </div>
                                         <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Оба поля обязательны для заполнения</p>

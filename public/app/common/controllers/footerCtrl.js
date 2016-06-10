@@ -7,6 +7,6 @@ angular.module('placePeopleApp')
                 $scope.staticPages = response;
             })
             .error(function (error){
-                console.log(err);
+                console.log(error);
             });		 
     }]);

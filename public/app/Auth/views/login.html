@@ -1,8 +1,8 @@
 <div class="check-in recovery">
        <div class="form">
                 <a class="logo" href=""></a>
-                <input class="password-field-first" type="text" name="" placeholder="Логин или номер телефона..." ng-model="userLogin" ng-click="loginError=false;">
-                <input class="password-field-second" type="password" name="" placeholder="Пароль..." ng-model="userPassword"  ng-click="loginError=false;">
+                <input class="password-field-first" type="text" name="" placeholder="Логин или номер телефона..." ng-model="userLogin" ng-click="loginError=false;" ng-keypress="keyPress($event.keyCode)">
+                <input class="password-field-second" type="password" name="" placeholder="Пароль..." ng-model="userPassword"  ng-click="loginError=false;" ng-keypress="keyPress($event.keyCode)">
                 <p class="capcha" ng-show="loginError">Нет такой комбинации логина и пароля</p>
                 <button class="check-in-button" ng-click="login()">Войти</button>
                 <div class="remember">
