@@ -1,0 +1,157 @@
+<div ng-controller="userCtrl">
+	<script type="text/javascript">
+		window.onload = function() {
+			function adaptivPhoto() {
+			 	var photoSize = (parseInt(document.body.clientWidth) -2) / 3;					 	 
+				var photo = document.getElementsByClassName('photo');
+
+				if (document.body.clientWidth <= '500') {
+					for (var i = 0; i < photo.length; i++) {
+					  	photo[i].style.width = photoSize+'px';
+					  	photo[i].style.height = photoSize+'px'; 
+					}
+				} else if(document.body.clientWidth > '500') {
+					for (var i = 0; i < photo.length; i++) {
+					  	photo[i].style.width = "";
+					  	photo[i].style.height = "";
+					}
+				}
+			}
+			adaptivPhoto();
+			window.addEventListener("resize", function() { 
+				 adaptivPhoto();
+			}, false);					
+	 		};  			
+	</script>
+	<header>
+		<div class="header">
+			<a class="logo" href=""></a>
+			<div class="main-menu">
+				<a class="places" href="">Места</a>
+				<a class="chat" href=""> Чаты</a>
+				<a class="settings" href="">Настройки</a>
+			</div>
+			<div class="search">
+				<input type="text" placeholder="Поиск...">
+				<span class="button"></span>
+			</div>
+			<a class="exit" href="javascript:void(0);" ng-click="logOut();"><span></span>Выйти</a>
+		</div>
+	</header>
+
+	<div class="content-user">		
+		<div id="user-page">
+			<div class="my-profile">
+				<div class="ava">
+					<a href="">
+						<img src="images/picture.jpg" alt="">
+					</a>
+				</div>
+				<div class="my-profile-item"> 
+					<a class="user-name" href="">{{userData.first_name}} {{userData.last_name}}</a>
+					<div class="counts">
+						<a href="" class="counter">
+							<p class="notes">Публикации</p>
+							<span>41</span>
+						</a>
+						<a href="" class="counter">
+							<p class="contacts">Контакты</p>
+							<span>417</span>
+						</a>
+						<a href="" class="counter">
+							<p class="contacts-off">Подписчиков</p>
+							<span>4169</span>
+						</a>
+						<a href="" class="counter">
+							<p class="contacts-on">Я подписан</p>
+							<span>41</span> 
+						</a>
+					</div>
+					<div class="comunications">
+						<a href="" class="create">Создать публикацию</a>
+						<a href="" class="rewrite">Редактировать</a>
+						<div class="view">
+							<a href="" class="table active"></a>
+							<a href="" class="list"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="comunications adaptiv">
+				<a href="" class="create">Создать публикацию</a>
+				<a href="" class="rewrite">Редактировать</a>
+				<div class="view">
+					<a href="" class="table active"></a>
+					<a href="" class="list"></a>
+				</div>
+			</div>			
+			<div class="my-photos">
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+						<span class="video"></span>
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt="">
+					</a>
+				</div>
+				<div class="photo">
+					<a href="">
+						<img src="images/pic.png" alt=""> 
+					</a>
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+	<footer ng-include="'../app/common/views/auth_footer.html'"></footer>
+
+	<!-- <footer>
+		<div class="footer">
+		        <div class="footer-item">
+		                    <div class="footer-place">
+								<a href="">Place People </a>
+								<span>© 2016</span>
+							</div>
+		                    <div class="payment">
+		                                <a class="mastercard" href=""></a>
+		                                <a class="visa" href=""></a>
+		                    </div>
+		        </div>
+		        <div class="menu">
+		            <a class="drop-menu" href=""></a>
+		            <div class="menu-item">
+		                    <a ui-sref="static-auth({ pageName: staticPage.name})" ng-repeat="staticPage in staticPages">{{staticPage.description}}</a>		                    
+		            </div>
+		        </div>
+		</div>
+        	</footer> -->
+</div>

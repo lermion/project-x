@@ -24,11 +24,11 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Auth/views/login.html',
 	      controller: 'authCtrl'
 	    })
-	    // .state('user', {
-	    //   url: '/:username',
-	    //   templateUrl: '../../app/Public/views/public.html',
-	    //   controller: 'authCtrl'
-	    // })
+	    .state('user', {
+	      url: '/:username',
+	      templateUrl: '../../app/User/views/user.html',
+	      controller: 'userCtrl'
+	    })
 	    .state('static', {
 	      url: '/static/:pageName',
 	      templateUrl: '../../app/Static/views/unauth-static.html',
