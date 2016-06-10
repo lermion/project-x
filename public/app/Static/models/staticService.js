@@ -4,8 +4,7 @@ angular.module('placePeopleApp')
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getStatic: getStatic
-            // getStaticNames: getStaticNames
+			getStatic: getStatic           
 		}
 
 		function getStatic(staticName){                
@@ -18,17 +17,6 @@ angular.module('placePeopleApp')
                         defer.reject(error);
                     });
             return defer.promise;
-        }
-        // function getStaticNames(){                
-        //     defer = $q.defer();
-        //         $http.get(path + 'static_page/get/name')
-        //             .success(function (response){                        
-        //                 defer.resolve(response);
-        //             })
-        //             .error(function (error){
-        //                 defer.reject(error);
-        //             });
-        //     return defer.promise;
-        // }
+        }       
 	
 	}]);

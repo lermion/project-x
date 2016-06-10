@@ -58,7 +58,7 @@ angular.module('placePeopleApp')
 	    				$scope.regConfirmed = true;
 	    			} else {
 	    		$scope.newUserSmsCodeError = true;
-	    	}	    					        
+	    			}	    					        
 			      }, function(err){
 			        console.log(err);
 			      });			   
@@ -97,8 +97,7 @@ angular.module('placePeopleApp')
 	    		.then(function(res){
 	    			if (res.status) {	
 	    				$scope.userRegistred = true;
-	    				$state.go('user', {username: login});
-	    				// $state.go('static-auth', {pageName: 'about_service'});
+	    				$state.go('user', {username: login});	    				
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -111,11 +110,13 @@ angular.module('placePeopleApp')
     		var pwd = $scope.userPassword;    		
     		AuthService.userLogIn(login, pwd)
 	    		.then(function(res){
+
 	    		console.log(res);	    			
 	    			if (res.status) {	    				
-	    				$state.go('user', {username: login});
-	    				// $state.go('static-auth', {pageName: 'about_service'});
-	    			}	    					        
+	    				$state.go('user', {username: login});	    				
+	    			}	else{	    				
+	    				$scope.loginError = true;	    				
+	    			}    					        
 			      }, function(err){
 			        console.log(err);
 			      });
@@ -129,16 +130,14 @@ angular.module('placePeopleApp')
 			        console.log(err);
 			      });
     	}
-
+    	
       /*RESTORE PAGE*/
 		$scope.sendRestoreSms = function(){
 			if (!$scope.restoreUserPhone) {
 				$scope.restoreUserPhoneError = true;
 				return;
-			} else {
-				var phone = $scope.restoreUserPhone;
 			}
-			AuthService.sendRestoreSms(phone)
+			AuthService.sendRestoreSms($scope.restoreUserPhone)
 				.then(function(res){					
 					if (res.status) {	    				
 						$scope.smsSend = true;
@@ -147,17 +146,14 @@ angular.module('placePeopleApp')
 					}	    					        
 			      }, function(err){
 			        console.log(err);
-			      });
-			$scope.smsSend = true;
+			      });			
 		};
 		$scope.sendRestoreCode = function(){
 			if (!$scope.restoreUserSms) {
 					$scope.restoreUserSmsError = true;
 					return;
-				} else {
-					var code = $scope.restoreUserSms;
-				}
-			AuthService.validateRestoreSms(code)
+				} 
+			AuthService.validateRestoreSms($scope.restoreUserSms)
 				.then(function(res){					    			
 					if (res.status) {	    				
 						$scope.smsConfirmed = true;
@@ -165,16 +161,13 @@ angular.module('placePeopleApp')
 			      }, function(err){
 			        console.log(err);
 			      });
-			$scope.smsConfirmed = true;
-			
 		};
 		$scope.setNewPwd = function(){      	
 			if (!$scope.restoreUserPwd || !$scope.restoreUserPwdConf || $scope.restoreUserPwd != $scope.restoreUserPwdConf) {
 				$scope.restoreUserPwdError = true;
 				return;
-			}
-			var pwd = $scope.restoreUserPwd;
-			AuthService.changePwd(pwd)
+			}			
+			AuthService.changePwd($scope.restoreUserPwd)
 				.then(function(res){					
 					if (res.status) {
 						$scope.changePwdSuccess = true;
@@ -182,11 +175,9 @@ angular.module('placePeopleApp')
 				    		$state.go('login');
 				    	}, 1500);
 					}				        
-		      }, function(err){
-		        console.log(err);
-		      });
-		
-		 
+			      }, function(err){
+			        console.log(err);
+			      });
 		};
 
     }]);
