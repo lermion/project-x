@@ -13,8 +13,7 @@ angular.module('placePeopleApp')
 		      }, function(err){
 		        console.log(err);
 		      });
-
-    	$scope.phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    	$scope.phoneRegExp = /[0-9]{3,18}/;
 
     	$scope.loginPage = function(){
     		$scope.hideForm = true;
@@ -33,16 +32,15 @@ angular.module('placePeopleApp')
 	    		}
 	    	});
     	};
-    	
+
     	$scope.userRegisterS1 = function(){
     		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
     			var countryId = parseInt($scope.newUserCountryId);
-    			var phoneNum = parseInt($scope.newUserPhoneNumber);
+    			var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);    			
     		} else{
     			$scope.newUserPhoneNumberErr = true;
     			return;
-    		}
-    		
+    		}    		
     		AuthService.sendMessage(phoneNum, countryId)
 	    		.then(function(res){	    			
 	    			if (res.status) {
