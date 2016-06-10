@@ -32,23 +32,41 @@
 /* Default theme styles of the wrapper */
 
 .remodal-wrapper {
-  padding: 10px 10px 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(0,0,0,.7);
+  z-index:9;
 }
 
 /* Default theme styles of the modal dialog */
 
 .remodal {
   box-sizing: border-box;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 35px;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  width:300px;
+  height: 130px;
+  padding: 10px 40px;
+  margin-top:-75px;
+  margin-left:-150px;
 
   transform: translate3d(0, 0, 0);
 
   color: #2b2e38;
   background: #fff;
 }
-
+.remodal .delete_user {
+  display: flex;
+  flex-direction: column;
+}
+.remodal .form__title {
+  text-align: center;
+}
 .remodal.remodal-is-opening,
 .remodal.remodal-is-closing {
   animation-duration: 0.3s;

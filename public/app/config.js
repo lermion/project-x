@@ -24,19 +24,20 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Auth/views/login.html',
 	      controller: 'authCtrl'
 	    })
-	    .state('user', {
-	      url: '/:username',
-	      templateUrl: '../../app/Public/views/public.html',
-	      controller: 'authCtrl'
-	    })
+	    // .state('user', {
+	    //   url: '/:username',
+	    //   templateUrl: '../../app/Public/views/public.html',
+	    //   controller: 'authCtrl'
+	    // })
 	    .state('static', {
-	      url: '/page/:pageName',
-	      templateUrl: '../../app/Static/views/static.html',
+	      url: '/static/:pageName',
+	      templateUrl: '../../app/Static/views/unauth-static.html',
 	      controller: 'staticCtrl'
 	    })
-	    // .state('about/details', {
-	    //   url: '/about/:from',
-	    //   templateUrl: 'assets/templates/about-details.html',
-	    //   controller: 'moreCtrl'
-	    // })
+	    .state('static-auth', {
+	      url: '/page/:pageName',
+	      templateUrl: '../../app/Static/views/auth-static.html',
+	      controller: 'staticCtrl'
+	    })
+	    
 	}]);
