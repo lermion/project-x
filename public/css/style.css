@@ -95,8 +95,22 @@ body.main-page {
 	transition: all .3s ease-in-out .2s; 
 }
 .form-item form input:focus,
-.form-item form select:focus,
 .text-field:focus {
+	border: 1px solid #c24f39;
+	transition: all .3s ease-in-out .2s; 
+	outline: none;
+}
+.form-item form select {
+	margin-bottom: 0;
+}
+.form-item form .city-field {
+	margin-bottom: 10px;
+}
+.form-item form select:focus {
+	outline: none;
+}
+.form-item form .city-field:focus,
+.form-item form .city-field:hover {
 	border: 1px solid #c24f39;
 	transition: all .3s ease-in-out .2s; 
 	outline: none;
@@ -668,7 +682,7 @@ body.public.user {
 	transition: all .2s ease-in-out .1s; 
 }
 .public header  .exit span {
-	background-position: left center;
+	background-position: right; center;
 	background-repeat: no-repeat;
 	background-size: 60%;
 	background-image: url(../images/exite.png);
@@ -677,11 +691,12 @@ body.public.user {
 	height: 35px;
 	display: inline-block;
 	vertical-align: middle;
+	transform: rotate(180deg); 
 }
 .public header  .exit.enter span{
-	background-position: right center;
+	background-position: left center;
 	background-image: url(../images/exite.png);
-	transform: rotate(180deg);
+	transform: rotate(0deg); 
 }
 .public header .exit:hover span {
 	background-image: url(../images/exite-hover.png);
