@@ -863,6 +863,9 @@ body.public.user {
 .info ul li:before {
 	content: '-';
 }
+.menu-item .registration {
+	display: none;
+}
 @media (max-width: 1025px) {
 	.public header .header,
 	.content {
@@ -873,50 +876,84 @@ body.public.user {
 	}
 } 
 @media (max-width: 800px) {
+	.public header .header {
+		position: relative;
+		padding: 0 10px 0 70px;
+		min-height: 55px;
+		height: auto;
+	}
+	.public header .registration {
+		display: none;
+	}
+	.public header .main-menu,
+	.public header .main-menu.common{
+		position: absolute;
+		left: 0;
+		width: 55px;
+		height: 55px;
+		background-color: rgba(0,0,0,.3);
+		display: block;
+		transition: width .3s ease-in-out .1s;
+	}
+	.public header .main-menu:hover {
+		background-color: #7988a3;
+		transition: width .3s ease-in-out .1s;
+	}
 	.public header .main-menu a {
 		background-size: 31%;
 		padding-left: 25px;
 		font-size: 12px;
 	}
-	.public header .main-menu.common .drop-menu {
+	.public header .main-menu .drop-menu {
 		display: block;
-		width: 32px;
-		height: 32px;
+		width: 55px;
+		height: 55px;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 90%;
+		background-size: 75%;
 	}
-	.public header .main-menu.common:hover .drop-menu {
-		border: 1px solid #999; 
-	}
+	// .public header .main-menu.common:hover .drop-menu {
+	// 	border: 1px solid #999; 
+	// }
+	.public header .main-menu .menu-item,
+	.public header .search,
 	.public header .main-menu.common .menu-item {
 		display: none;
 	}
+	.menu-item .registration {
+		display: block;
+	}
+	.public header .main-menu:hover {
+		width: 200px;
+		height: 100vh;
+		box-sizing: border-box;
+	}
+	.public header .main-menu:hover .drop-menu {
+		position: absolute;
+		background-color: #7988a3;
+		right: -55px;
+		border-left: 1px solid #495b79;
+		top: 0;
+	}
 	.public header .main-menu:hover .menu-item  {
 		display: block;
-		position: absolute;
-		background: rgb(50, 61, 80);
-		border-radius: 3px;
-		top: 50px;
-		right: -80px;
-		width: 200px;
+		width: auto;
 		padding: 10px;
-		text-align: center;
-		z-index: 9;
+		text-align: left;
 	} 
 	.public header .main-menu.common a {
-		line-height: 25px;
+		line-height: 46px;
 		display: block;
     		font-size: 18px;
 	}
-	.public header .main-menu {
-		width: auto;
-		position: relative;
-	}
-	.public header .main-menu.common {
-		width: auto;
-	}
+	// .public header .main-menu {
+	// 	width: auto;
+	// 	position: relative;
+	// }
+	// .public header .main-menu.common {
+	// 	width: auto;
+	// }
 	.public header .main-menu .places,
 	.public header .main-menu .chat {
 		margin-right: 10px;
@@ -1307,11 +1344,11 @@ body.public.user {
 	.public header .header {
 		position: relative;
 	}
-	.public header .main-menu.common {
-		position: absolute;
-		left: 0;
-		top: 5px;
-	}
+	// .public header .main-menu.common {
+	// 	position: absolute;
+	// 	left: 0;
+	// 	top: 5px;
+	// }
 	.public header .main-menu:hover .menu-item {
 		left: 0;
 		right: auto;
