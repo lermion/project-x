@@ -16,7 +16,7 @@
                                         <span class="phone"></span>
                                                     <input type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required>
                                         </div>
-                                        <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Поле обязательно для заполнения</p>
+                                        <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Оба поля обязательны для заполнения</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
                         </div>
@@ -27,7 +27,7 @@
                                             <span class="code"></span>
                                                         <input type="text" name="" placeholder="Введите код..." ng-model="newUserSmsCode" required>
                                             </div>
-                                            <p ng-show="newUserSmsCodeError" class="capcha-code">Допущена ошибка при вводе кода</p>
+                                            <p ng-show="newUserSmsCodeError" class="capcha-code">При вводе кода допущенна ошибка</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS2()">Зарегистрироваться</button>
                         </div>
