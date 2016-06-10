@@ -42,8 +42,8 @@
 
         <br>
         <p>
-            <button type="button" class="btn btn-primary">Удалить страницу</button>
-            <button type="button" class="btn btn-primary">Обновить данные страницы</button>
+            <a type="button" class="btn btn-primary" href="/admin/static_page/destroy/{{$page->id}}">Удалить страницу</a>
+            <a type="button" class="btn btn-primary" href="/admin/static_page/edit/{{$page->id}}">Обновить данные страницы</a>
         </p>
 
     </div>
