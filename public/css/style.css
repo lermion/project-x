@@ -1065,7 +1065,7 @@ body.public.user {
 		display: block;
 		width: auto;
 		padding: 10px;
-		text-align: left;
+		text-align: left; 
 	} 
 	.public header .main-menu.common a {
 		line-height: 46px;
