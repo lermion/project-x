@@ -24,15 +24,22 @@ angular.module('placePeopleApp')
     	};
     	
     	var w = angular.element($window);
-    	var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];
+    	var startWidth = w[0].innerWidth;
+    	var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];   	
+
 		$scope.$watch(
 		  function () {
 		    return $window.innerWidth;
 		  },
 		  function (value) {		    
-		    if (value < 520) {		    			    	
-		    	var blockLength = (parseInt(photosBlock.clientWidth)-3)/3;
-		    	$scope.resizeSizes = 'width:'+blockLength+'px;height:'+blockLength+'px;';
+		    if (value < 520) {
+		    	if (value === startWidth) {
+		    		var blockLength = (parseInt(w[0].innerWidth)-2)/3;
+		    		$scope.resizeSizes = 'width:'+blockLength+'px;height:'+blockLength+'px;';
+		    	} else {
+		    		var blockLength = (parseInt(photosBlock.clientWidth)-2)/3;
+		    		$scope.resizeSizes = 'width:'+blockLength+'px;height:'+blockLength+'px;';
+		    	}
 		    } else {
 		    	$scope.resizeSizes='';
 		    }
