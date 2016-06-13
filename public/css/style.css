@@ -213,11 +213,13 @@ body.main-page {
 	background-position: left 5px center;
 	background-size: 31%;
 	text-align: right;
-	line-height: 38px;
 	color: #999;
 	font-size: 15px;
-    font-family: Tahoma;
-}
+    	font-family: Tahoma;
+    	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	}
 .city-field span.city {
 	background-image: url(../images/location.png);
 	left: 0;
