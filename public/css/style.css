@@ -1299,7 +1299,8 @@ body.public.user {
 	display: block;
 	position: relative;
 }
-#user-page .photo a .video {
+#user-page .photo a .video,
+.photo-list  a .video {
 	position: absolute;
 	display: block;
 	width: 80px;
@@ -1316,7 +1317,15 @@ body.public.user {
 	background-position: center;
 	background-repeat: no-repeat; 
 }
-#user-page .photo a:hover .video {
+.photo-list  a .video  {
+	width: 150px;
+    	height: 150px;
+    	margin-top: -75px;
+    	margin-left: -75px;
+    	background-size: 44%;
+}
+#user-page .photo a:hover .video,
+.photo-list  a:hover .video {
 	background-color: rgba(0,0,0,.6);
 	background-size: 40%;
 	transition: all .3s ease-in-out .1s;
@@ -1325,9 +1334,33 @@ body.public.user {
 	margin-top: -35px;
 	margin-left: -35px; 
 }
+.photo-list  a:hover .video {
+	
+}
 #user-page .photo a img {
 	width: 100%;
 } 
+.my-photos-list,
+.photo-list  {
+	width: 100%;
+	display: block;
+}
+.photo-list {
+	height: 700px;
+	box-sizing: border-box;
+	margin-bottom: 3px;
+	overflow: hidden;
+}
+.photo-list  a {
+	display: block;
+	height: 100%;
+	position: relative;
+}
+.photo-list  a img {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
 @media (max-width: 700px) {
 	.content-user {
 		padding: 32px 0;
