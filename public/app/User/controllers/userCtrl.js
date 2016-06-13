@@ -4,10 +4,6 @@ angular.module('placePeopleApp')
 
     	$scope.$emit('userPoint', 'user');
 
-		// var username = $stateParams.username;
-		// $scope.staticText = 'asdsad';
-		// console.log(username);
-
 		$window.sessionStorage.setItem('username', $stateParams.username);
 
 		UserService.getUserData($stateParams.username)
@@ -25,5 +21,22 @@ angular.module('placePeopleApp')
 			      }, function(err){
 			        console.log(err);
 			      });
-    	}
+    	};
+
+    	var w = angular.element($window);
+		$scope.$watch(
+		  function () {
+		    return $window.innerWidth;
+		  },
+		  function (value) {		    
+		    if (value < 500) {
+		    	$scope.blockLength = (value-2)/3;
+		    }
+		  },
+		  true
+		);
+		w.bind('resize', function(){
+		  $scope.$apply();
+		});
+		
     }]);

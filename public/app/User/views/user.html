@@ -1,29 +1,6 @@
-<div ng-controller="userCtrl">
-	<script type="text/javascript">
-		window.onload = function() {
-			function adaptivPhoto() {
-			 	var photoSize = (parseInt(document.body.clientWidth) -2) / 3;					 	 
-				var photo = document.getElementsByClassName('photo');
 
-				if (document.body.clientWidth <= '500') {
-					for (var i = 0; i < photo.length; i++) {
-					  	photo[i].style.width = photoSize+'px';
-					  	photo[i].style.height = photoSize+'px'; 
-					}
-				} else if(document.body.clientWidth > '500') {
-					for (var i = 0; i < photo.length; i++) {
-					  	photo[i].style.width = "";
-					  	photo[i].style.height = "";
-					}
-				}
-			}
-			adaptivPhoto();
-			window.addEventListener("resize", function() { 
-				 adaptivPhoto();
-			}, false);					
-	 		};  			
-	</script>
-	<header>	
+<div ng-controller="userCtrl">	
+	<header>
 		<div class="header header-user">
 			<a class="logo" href=""></a>
 			<div class="main-menu">
@@ -45,8 +22,7 @@
 			</div>
 			<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
 		</div>
-	</header>	 
-
+	</header>
 	<div class="content-user">		
 		<div id="user-page">
 			<div class="my-profile">
@@ -92,15 +68,18 @@
 					<a href="" class="table active"></a>
 					<a href="" class="list"></a>
 				</div>
-			</div>			
+			</div>						
 			<div class="my-photos">
-				<div class="photo">
+
+				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="width:{{blockLength}}px; height:{{blockLength}}px;">
+				<!-- {{blockLength}} -->
 					<a href="">
 						<img src="images/pic.png" alt="">
-						<span class="video"></span>
+						<span class="video" ng-show="$index==0"></span>
 					</a>
 				</div>
-				<div class="photo">
+
+				<!-- <div class="photo">
 					<a href="">
 						<img src="images/pic.png" alt="">
 					</a>
@@ -134,32 +113,11 @@
 					<a href="">
 						<img src="images/pic.png" alt=""> 
 					</a>
-				</div>
+				</div> -->
 				
 			</div>
 		</div>
 		
 	</div>
 	<footer ng-include="'../app/common/views/auth_footer.html'"></footer>
-
-	<!-- <footer>
-		<div class="footer">
-		        <div class="footer-item">
-		                    <div class="footer-place">
-								<a href="">Place People </a>
-								<span>© 2016</span>
-							</div>
-		                    <div class="payment">
-		                                <a class="mastercard" href=""></a>
-		                                <a class="visa" href=""></a>
-		                    </div>
-		        </div>
-		        <div class="menu">
-		            <a class="drop-menu" href=""></a>
-		            <div class="menu-item">
-		                    <a ui-sref="static-auth({ pageName: staticPage.name})" ng-repeat="staticPage in staticPages">{{staticPage.description}}</a>		                    
-		            </div>
-		        </div>
-		</div>
-        	</footer> -->
 </div>
