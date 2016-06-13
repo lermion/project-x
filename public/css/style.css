@@ -129,7 +129,7 @@ body.main-page {
 	background-image: url(../images/select.png);
 	background-position: 97% center;
 	background-repeat: no-repeat;
-	padding: 0 40px;
+	padding: 0 40px 0 26px;
 }
 .form-item form .phone-field input {
 	line-height: 19px;
@@ -188,11 +188,11 @@ body.main-page {
 	display: block;
 	border-radius: 2px 0 0 2px;
 	background-color: #fff;
-	width: 37px;
+	width: 26px;
 	height: 37px;
 	background-repeat:  no-repeat;
 	background-position: center;
-	background-size: 50%;
+	background-size: 70%;
 }
 .phone-field span,
 .code-field span,
