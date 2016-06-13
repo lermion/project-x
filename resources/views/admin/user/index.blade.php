@@ -34,6 +34,7 @@
         <button data-remodal-action="close" class="remodal-close"></button>
         <form class="form delete_user" method='get' action="/admin/user/delete/">
             <p class="form__title">Срок блокировки номера:</p>
+            <button period="0" class="btn btn-danger btn-xs deletePeriodBnt">Не блокировать</button>
             <button period="1" class="btn btn-danger btn-xs deletePeriodBnt">Месяц</button>
             <button period="6" class="btn btn-danger btn-xs deletePeriodBnt">Полгода</button>
             <button period="12" class="btn btn-danger btn-xs deletePeriodBnt">Год</button>
