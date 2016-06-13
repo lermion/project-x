@@ -62,8 +62,8 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/password/update\" method=\"post\">
-            <input type='text' name='password'><br>
+        echo "<form action=\"http://pp.hqsale.com/user/update/13\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='file' name='avatar'><br>
             <input type=\"submit\">
         </form>";
     });

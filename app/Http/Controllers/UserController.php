@@ -93,8 +93,25 @@ class UserController extends Controller
                 $user->password = bcrypt($password);
                 Auth::attempt(['login' => $user->login, 'password' => $password]);
             }
+            if ($request->hasFile('avatar')) {
+                $avatar = $request->file('avatar');
+                $path = $this->getAvatarPath($avatar);
+                $user->avatar_path = $path;
+            }
             $user->save();
+            
             return response()->json(["status" => true]);
         }
+    }
+
+    private function getAvatarPath($avatar){
+        $path = '/upload/avatars/';
+        $fileName = str_random(8) . $avatar->getClientOriginalName();
+        $fullPath = public_path() . $path;
+
+        // Avatar
+        $avatar->move($fullPath, $fileName);
+
+        return $path.$fileName;
     }
 }
