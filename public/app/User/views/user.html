@@ -55,8 +55,8 @@
 						<a href="" class="create">Создать публикацию</a>
 						<a href="" class="rewrite">Редактировать</a>
 						<div class="view">
-							<a href="" class="table active"></a>
-							<a href="" class="list"></a>
+							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
+							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
 					</div>
 				</div>
@@ -69,7 +69,7 @@
 					<a href="" class="list"></a>
 				</div>
 			</div>						
-			<div class="my-photos">
+			<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
 					<a href="">
 						<img src="images/pic.png" alt="">
@@ -79,11 +79,11 @@
 			</div> 
 
 
-			<div class="my-photos-list">
+			<div class="my-photos-list" ng-show="!photosGrid">
 				<div class="photo-list" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
 					<a href="">
 						<img src="images/pic.png" alt="">
-						<span class="video" ng-show="$index==0"></span>
+						<span class="video" ng-show="$index==1"></span>
 					</a>
 				</div>
 			</div>

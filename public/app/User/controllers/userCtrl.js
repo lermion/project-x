@@ -13,6 +13,7 @@ angular.module('placePeopleApp')
 			function(err){
 				console.log(err);
 			});
+		$scope.photosGrid = true;
 
 		$scope.logOut = function(){
     		AuthService.userLogOut()
@@ -23,8 +24,7 @@ angular.module('placePeopleApp')
 			      });
     	};
     	
-    	var w = angular.element($window);
-    	var startWidth = w[0].innerWidth;
+    	var w = angular.element($window);    	
     	var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];   	
 
 		$scope.$watch(
@@ -33,12 +33,12 @@ angular.module('placePeopleApp')
 		  },
 		  function (value) {		    
 		    if (value < 520) {
-		    	if (value === startWidth) {
+		    	if ($scope.photosGrid) {
 		    		var blockLength = (parseInt(w[0].innerWidth)-2)/3;
 		    		$scope.resizeSizes = 'width:'+blockLength+'px;height:'+blockLength+'px;';
-		    	} else {
-		    		var blockLength = (parseInt(photosBlock.clientWidth)-2)/3;
-		    		$scope.resizeSizes = 'width:'+blockLength+'px;height:'+blockLength+'px;';
+		    	} else {		    		
+		    		var blockLength = parseInt(w[0].innerWidth);
+		    		$scope.resizeSizes = 'height:'+blockLength+'px;';
 		    	}
 		    } else {
 		    	$scope.resizeSizes='';
