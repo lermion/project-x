@@ -565,7 +565,7 @@ footer {
 		margin-right: -13px;
 		position: relative;
 	}
-	.footer .menu:hover {
+	.footer .menu.open-bottom-menu {
 		background: rgba(0,0,0,.4);
 		width: 200px;
 		position: absolute;
@@ -578,7 +578,7 @@ footer {
  //    		padding-bottom: 10px;
  //    		// width: 270px;
 	// }
-	.footer .menu:hover .drop-menu {
+	.footer .menu.open-bottom-menu .drop-menu {
 		position: absolute;
 		right: 0;
 		z-index: 99;
@@ -588,7 +588,7 @@ footer {
 		line-height: 25px;
 		padding: 0 25px 0 0;
 	}
-	.footer .menu:hover .menu-item {
+	.footer .menu.open-bottom-menu .menu-item {
 		position: fixed;
 		width: 200px;
 		height: 100vh;
