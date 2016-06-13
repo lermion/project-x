@@ -23,21 +23,29 @@
 			}, false);					
 	 		};  			
 	</script>
-	<header>
+	<header>	
 		<div class="header header-user">
 			<a class="logo" href=""></a>
 			<div class="main-menu">
-				<a class="places" href="">Места</a>
-				<a class="chat" href=""> Чаты</a>
-				<a class="settings" href="">Настройки</a>
+				<a class="drop-menu" href=""></a>
+				<div class="menu-item">
+					<a class="profile" ui-sref="user({username: username})">Мой профиль</a>
+					<a class="places" href="">Места</a>
+					<a class="chat" href=""> Чаты</a>
+					<a class="settings" href="">Настройки</a>
+					<div class="search">
+						<input type="text" placeholder="Поиск...">
+						<span class="button"></span>
+					</div>
+				</div>
 			</div>
 			<div class="search">
 				<input type="text" placeholder="Поиск...">
 				<span class="button"></span>
 			</div>
-			<a class="exit" href="javascript:void(0);" ng-click="logOut();"><span></span>Выйти</a>
+			<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
 		</div>
-	</header>
+	</header>	
 
 	<div class="content-user">		
 		<div id="user-page">

@@ -1050,7 +1050,7 @@ body.public.user {
 		width: 200px;
 		height: 100vh;
 		box-sizing: border-box;
-		z-index: 9;
+		z-index: 9999999999;
 	}
 	.public header .main-menu:hover .drop-menu {
 		position: absolute;
