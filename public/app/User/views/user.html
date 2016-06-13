@@ -54,7 +54,7 @@
 					<div class="comunications">
 						<a href="" class="create">Создать публикацию</a>
 						<a href="" class="rewrite">Редактировать</a>
-						<div class="view">
+						<div class="view" ng-init="photosGrid=true;">
 							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
@@ -65,10 +65,11 @@
 				<a href="" class="create">Создать публикацию</a>
 				<a href="" class="rewrite">Редактировать</a>
 				<div class="view">
-					<a href="" class="table active"></a>
-					<a href="" class="list"></a>
+					<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
+					<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 				</div>
-			</div>						
+			</div>
+			<!-- unit grid-->						
 			<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
 					<a href="">
@@ -76,11 +77,10 @@
 						<span class="video" ng-show="$index==0"></span>
 					</a>
 				</div>
-			</div> 
-
-
+			</div>
+			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
-				<div class="photo-list" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
+				<div class="photo-list" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeHeight}}">				
 					<a href="">
 						<img src="images/pic.png" alt="">
 						<span class="video" ng-show="$index==1"></span>

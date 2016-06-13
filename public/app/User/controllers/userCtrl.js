@@ -3,7 +3,6 @@ angular.module('placePeopleApp')
     	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window){
 
     	$scope.$emit('userPoint', 'user');
-
 		$window.sessionStorage.setItem('username', $stateParams.username);
 
 		UserService.getUserData($stateParams.username)
@@ -12,8 +11,7 @@ angular.module('placePeopleApp')
 			},
 			function(err){
 				console.log(err);
-			});
-		$scope.photosGrid = true;
+			});		
 
 		$scope.logOut = function(){
     		AuthService.userLogOut()
@@ -32,16 +30,13 @@ angular.module('placePeopleApp')
 		    return $window.innerWidth;
 		  },
 		  function (value) {		    
-		    if (value < 520) {
-		    	if ($scope.photosGrid) {
-		    		var blockLength = (parseInt(w[0].innerWidth)-2)/3;
-		    		$scope.resizeSizes = 'width:'+blockLength+'px;height:'+blockLength+'px;';
-		    	} else {		    		
-		    		var blockLength = parseInt(w[0].innerWidth);
-		    		$scope.resizeSizes = 'height:'+blockLength+'px;';
-		    	}
+		    if (value < 520) {		    	
+		    		var blockThirdthLength = (parseInt(w[0].innerWidth)-2)/3;
+		    		$scope.resizeSizes = 'width:'+blockThirdthLength+'px;height:'+blockThirdthLength+'px;';
+		    		$scope.resizeHeight = 'height:'+parseInt(w[0].innerWidth)+'px;';		    		
 		    } else {
 		    	$scope.resizeSizes='';
+		    	$scope.resizeHeight='';		    	
 		    }
 		  },
 		  true
