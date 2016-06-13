@@ -21,6 +21,14 @@ angular.module('placePeopleApp')
 			        console.log(err);
 			      });
     	};
+
+    	$scope.openMenu = function(){
+    		if ($window.innerWidth < 800) {    			
+				 $scope.showMenu =! $scope.showMenu;
+    		} else{
+    			$scope.showMenu = false;    			
+    		}
+    	};
     	
     	var w = angular.element($window);    	
     	var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];   	
@@ -29,14 +37,15 @@ angular.module('placePeopleApp')
 		  function () {
 		    return $window.innerWidth;
 		  },
-		  function (value) {		    
-		    if (value < 520) {		    	
+		  function (value) {
+		  if (value < 520) {		    	
 		    		var blockThirdthLength = (parseInt(w[0].innerWidth)-2)/3;
 		    		$scope.resizeSizes = 'width:'+blockThirdthLength+'px;height:'+blockThirdthLength+'px;';
 		    		$scope.resizeHeight = 'height:'+parseInt(w[0].innerWidth)+'px;';		    		
 		    } else {
 		    	$scope.resizeSizes='';
-		    	$scope.resizeHeight='';		    	
+		    	$scope.resizeHeight='';
+		    	$scope.mobileWidthMenu = true;		    	
 		    }
 		  },
 		  true
