@@ -10,8 +10,8 @@
                 </div>
     </div>
     <div class="menu">
-        <a class="drop-menu" href=""></a>
-        <div class="menu-item">            
+        <a class="drop-menu" href="" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'show-bottom-menu' : ''" ng-init="showBottomMenu=true;"></a>
+        <div class="menu-item" ng-show="showBottomMenu">            
             <a ng-repeat="staticPage in staticPages" ui-sref="static-auth({ pageName: staticPage.name})">{{staticPage.description}}</a>
         </div>
     </div>
