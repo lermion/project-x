@@ -108,8 +108,10 @@ body.main-page {
 }
 .form-item form .city-field {
 	margin-bottom: 10px;
+	position: relative;
 }
-.form-item form select:focus {
+.form-item form select:focus,
+.form-item form select:visited {
 	outline: none;
 }
 .form-item form .city-field:focus {
@@ -119,10 +121,17 @@ body.main-page {
 }
 .form-item form select {
 	padding: 0;
-	border-radius: 0;
+	border-radius: 2px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	background-image: url(../images/select.png);
+	background-position: 97% center;
+	background-repeat: no-repeat;
+	padding: 0 40px;
+}
+.form-item form .phone-field input {
+	line-height: 19px;
 }
 .text-field,
 .password-field-first,
@@ -212,6 +221,8 @@ body.main-page {
 .city-field span.city {
 	background-image: url(../images/location.png);
 	left: 0;
+	position: absolute;
+	top: 0;
 }
 .sex-field span.sex {
 	background-image: url(../images/gente.png);
@@ -225,6 +236,7 @@ body.main-page {
 	height: 37px; 
 	transition: all .3s ease-in-out .1s;  
 	border-radius: 0 2px 2px 0; 
+	display: none;
 }
 .sex-field span.sex-inner {
 	background-image: url(../images/select.png);
