@@ -1335,7 +1335,10 @@ body.public.user {
 	margin-left: -35px; 
 }
 .photo-list  a:hover .video {
-	
+	width: 100px;
+	height: 100px;
+	margin-top: -50px;
+	margin-left: -50px;
 }
 #user-page .photo a img {
 	width: 100%;
@@ -1367,6 +1370,9 @@ body.public.user {
 	}
 	.content-user #user-page {
 		width: 500px;
+	}
+	.photo-list  {
+		height: 500px;
 	}
 	#user-page .my-profile {
 		padding: 15px 10px;
