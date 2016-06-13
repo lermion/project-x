@@ -1004,7 +1004,7 @@ body.public.user {
 	}
 	.public header .main-menu.show-menu {
 		background-color: #7988a3;
-		transition: width .3s ease-in-out .1s;
+		transition: width .05s ease-in-out ;
 	}
 	// .public header .main-menu a {
 	// 	background-size: 31%;
