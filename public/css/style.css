@@ -562,7 +562,6 @@ footer {
 	.footer .menu {
 		width: 72px;
 		height: 72px;
-		background: rgba(0,0,0,.2);
 		margin-right: -13px;
 		position: relative;
 	}
@@ -789,6 +788,11 @@ body.public.user {
 	background-image: url(../images/settings-hover.png); 
 	transition: all .2s ease-in-out .1s; 
 }
+.main-menu .menu-item {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
 .public header  .exit span {
 	background-position: left center;
 	background-repeat: no-repeat;
@@ -830,7 +834,7 @@ body.public.user {
 	border-radius: 2px;
 	padding: 0 35px 0 10px;
 	color: #fff;
-	line-height: 35px;
+	height: 35px;
 	transition: all .4s ease-in-out .1s; 
 	border: none;
 	box-sizing: border-box;
@@ -977,7 +981,6 @@ body.public.user {
 		border-radius: 2px;
 		padding: 0 35px 0 10px;
 		color: #fff;
-		line-height: 35px;
 		transition: all .4s ease-in-out .1s;
 		border: none;
 		box-sizing: border-box;
@@ -993,14 +996,13 @@ body.public.user {
 		left: 0;
 		width: 55px;
 		height: 55px;
-		background-color: rgba(0,0,0,.3);
 		display: block;
 		transition: width .3s ease-in-out .1s;
 	}
 	.public header .main-menu.common {
 		display: none;
 	}
-	.public header .main-menu:hover {
+	.public header .main-menu.show-menu {
 		background-color: #7988a3;
 		transition: width .3s ease-in-out .1s;
 	}
@@ -1048,13 +1050,13 @@ body.public.user {
     		background-position: left 10px center;
     		margin-right: 0;
 	}
-	.public header .main-menu:hover {
+	.public header .main-menu.show-menu {
 		width: 200px;
 		height: 100vh;
 		box-sizing: border-box;
 		z-index: 9999999999;
 	}
-	.public header .main-menu:hover .drop-menu {
+	.public header .main-menu.show-menu .drop-menu {
 		position: absolute;
 		background-color: #7988a3;
 		left: 0;
@@ -1063,7 +1065,7 @@ body.public.user {
 		border-top: none;
     		border-bottom: none;
 	}
-	.public header .main-menu:hover .menu-item  {
+	.public header .main-menu.show-menu .menu-item  {
 		display: block;
 		width: auto;
 		padding: 10px;
