@@ -1,15 +1,15 @@
 angular.module('placePeopleApp')
-	.factory('StaticService', ['$http', '$q', '$location', function($http, $q, $location){
+	.factory('UserService', ['$http', '$q', '$location', function($http, $q, $location){
 
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getStatic: getStatic           
+			getUserData: getUserData
 		}
 
-		function getStatic(staticName){                
+		function getUserData(login){                
             defer = $q.defer();
-                $http.get(path + 'static_page/'+staticName)
+                $http.get(path + 'user/show/'+login)
                     .success(function (response){
                         defer.resolve(response);
                     })
@@ -17,6 +17,7 @@ angular.module('placePeopleApp')
                         defer.reject(error);
                     });
             return defer.promise;
-        }       
+        }
+        
 	
 	}]);

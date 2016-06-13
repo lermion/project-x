@@ -3,7 +3,7 @@
          <div class="form">
                   <a class="logo" href=""></a>
                   <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="restoreUserPhoneError=false;">
-                  <p ng-show="restoreUserPhoneError" class="capcha">По данному логину/телефону нет зарегистрированных пользователей</p>
+                  <p ng-show="restoreUserPhoneError" class="capcha">По данному телефону нет зарегистрированных пользователей</p>
                   <p>На этот номер телефона мы oтправим вам SMS с кодом</p>
                   <button class="check-in-button" ng-click="sendRestoreSms()">Отправить код</button>
                   <a class="registration-button enter-button" ui-sref="login">Войти</a>

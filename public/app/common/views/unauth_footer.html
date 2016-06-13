@@ -1,4 +1,4 @@
-<div class="footer">
+<div class="footer" ng-controller="footerCtrl">
     <div class="footer-item">        
         <div class="footer-place">
             <a href="">Place People </a>
@@ -10,13 +10,9 @@
         </div>
     </div>
     <div class="menu">
-        <!-- <a class="drop-menu" href=""></a> -->
+        <a class="drop-menu" href=""></a>        
         <div class="menu-item">
-            <a ui-sref="static({ pageName: 'about_service'})">О сервисе </a>
-            <a ui-sref="static({ pageName: 'help'})">Помощь </a>
-            <a ui-sref="static({ pageName: 'rules'})">Правила </a>
-            <a ui-sref="static({ pageName: 'advertising'})">Реклама </a>
-            <a ui-sref="static({ pageName: 'developers'})">Разработчикам </a>                                
+            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>            
         </div>
     </div>
 </div>
