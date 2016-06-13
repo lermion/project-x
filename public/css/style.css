@@ -1048,12 +1048,12 @@ body.public.user {
     		background-position: left 10px center;
     		margin-right: 0;
 	}
-	.public header .main-menu:hover {
+	/*.public header .main-menu:hover {
 		width: 200px;
 		height: 100vh;
 		box-sizing: border-box;
 		z-index: 9999999999;
-	}
+	}*/
 	.public header .main-menu:hover .drop-menu {
 		position: absolute;
 		background-color: #7988a3;
