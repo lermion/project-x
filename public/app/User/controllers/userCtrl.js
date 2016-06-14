@@ -1,9 +1,15 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService){
 
-    	$scope.$emit('userPoint', 'user');
-		$window.sessionStorage.setItem('username', $stateParams.username);
+    	$scope.$emit('userPoint', 'user');    	
+		var storage = storageService.getStorage();
+		
+		if (!storage.length) {
+			storageService.deleteStorage();
+			$state.go('login');
+		}
+		
 
 		$http.get('/static_page/get/name')
             .success(function (response){            	
@@ -14,9 +20,9 @@ angular.module('placePeopleApp')
             });
 
 
-		UserService.getUserData($stateParams.username)
+		UserService.getUserData(storage.username)
 			.then(function(res){
-				console.log(res);
+				$scope.username = res.login;
 				$scope.userData = res;							        
 			},
 			function(err){
@@ -26,6 +32,7 @@ angular.module('placePeopleApp')
 		$scope.logOut = function(){
     		AuthService.userLogOut()
 	    		.then(function(res){
+	    			storageService.deleteStorage();
 	    			$state.go('login');
 			      }, function(err){
 			        console.log(err);
@@ -45,8 +52,7 @@ angular.module('placePeopleApp')
                 $scope.showBottomMenu = !$scope.showBottomMenu;
             } else {
                 $scope.showBottomMenu = false;
-            }    
-            // console.log('asd');        
+            }
         };
 
     	var w = angular.element($window);    	

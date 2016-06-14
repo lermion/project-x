@@ -15,6 +15,7 @@
     <script src="js/datatables/dataTables.responsive.min.js"></script>
     <script src="js/datatables/responsive.bootstrap.min.js"></script>
     <script src="js/datatables/dataTables.scroller.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
 
 
     <!-- pace -->
@@ -39,12 +40,18 @@
             <label for="name">Внутреннее название</label><br>
             <input type="text" name="name" placeholder="Внутреннее название" id="name" required><br>
             <label for="text">Содержимое</label><br>
-            <textarea type="text" name="text" placeholder="Содержимое" id="text" required></textarea><br><br>
+            <textarea name="text" placeholder="Содержимое" id="text" required></textarea><br><br>
             <input type="submit" value="Сохранить" class="btn btn-primary">
         </form>
         <br>
 
         <br>
+<script>
+    var txt = $('textarea');
 
+    if (txt) {
+        CKEDITOR.replace('text');
+    }
+</script>
     </div>
 @stop

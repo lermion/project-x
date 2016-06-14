@@ -17,9 +17,12 @@
     <script src="../../app/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../app/libs/css/ng-img-crop.css">
     <script src="../../app/libs/ng-img-crop.js"></script>
+
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>
     <script src="../../app/mainCtrl.js"></script>    
+    <script src="../../app/common/services/storageService.js"></script>
+        
     <script src="../../app/Auth/controllers/authCtrl.js"></script>
     <script src="../../app/Auth/models/authService.js"></script>
     <script src="../../app/Static/controllers/staticCtrl.js"></script>    

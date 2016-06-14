@@ -133,6 +133,8 @@ body.main-page {
 }
 .form-item form .phone-field input {
 	line-height: 19px;
+	padding: 0 0;
+	transition: none;
 }
 .text-field,
 .password-field-first,
@@ -1132,7 +1134,7 @@ body.public.user {
     	height: 140px;
 }
 .my-profile .ava a img {
-	width: 120%;
+	width: 100%;
 }
 .my-profile .my-profile-item {
 	flex-grow:33;
