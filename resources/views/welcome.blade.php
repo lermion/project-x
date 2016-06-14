@@ -12,6 +12,11 @@
     <!-- Scripts -->
     <script src="../../app/libs/angular.min.js"></script>
     <script src="../../app/libs/angular-ui-router.min.js"></script>
+    <script src="../../app/libs/ngDialog.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../app/libs/css/ngDialog.min.css">    
+    <script src="../../app/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../app/libs/css/ng-img-crop.css">
+    <script src="../../app/libs/ng-img-crop.js"></script>
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>
     <script src="../../app/mainCtrl.js"></script>    

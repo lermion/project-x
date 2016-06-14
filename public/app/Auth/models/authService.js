@@ -58,16 +58,23 @@ angular.module('placePeopleApp')
             return defer.promise;
            }
 
-        function registerUser(first, last, login, pwd, countryId, userId){        	
-			var data = {
-        			first_name: first,
-        			last_name: last,
-        			login: login,
-        			password: pwd,
-        			country_id: countryId        			
-        		};             
+        function registerUser(first, last, login, pwd, countryId, avatar, userId){
+            console.log(first, last, login, pwd, countryId, avatar, userId); 
+            var data = new FormData();
+            data.append('first_name', first);
+            data.append('last_name', last);
+            data.append('login', login);
+            data.append('password', pwd);
+            data.append('country_id', countryId);
+            data.append('avatar', avatar);            
+            var config = {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                },            
                 defer = $q.defer();
-                    $http.post(path + 'user/update/' + userId, data)
+                    $http.post(path + 'user/update/' + userId, data, config)
 	                    .success(function (response){
 	                        defer.resolve(response);
 	                    })

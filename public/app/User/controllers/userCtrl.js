@@ -16,6 +16,7 @@ angular.module('placePeopleApp')
 
 		UserService.getUserData($stateParams.username)
 			.then(function(res){
+				console.log(res);
 				$scope.userData = res;							        
 			},
 			function(err){
