@@ -291,7 +291,8 @@ body.main-page {
 	margin-bottom: 10px;
 	line-height: 15px;
 }
-.check-in-button {
+.check-in-button,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	width: 100%;
 	display: block;
 	background: #ec6045;
@@ -304,8 +305,13 @@ body.main-page {
 	border: none;
 	line-height: 40px;
 }
+.ngdialog.ngdialog-theme-default .ngdialog-content div button {
+	margin-top: 8px;
+}
 .check-in-button:hover,
-.check-in-button:focus {
+.check-in-button:focus,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:focus {
 	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
@@ -316,8 +322,47 @@ body.main-page {
 	height: 22vh;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 3px; 
+	position: relative;
 }
-
+.add-ava #avatarImg{
+	width: 100%;
+	height: 100%; 
+	opacity: 0; 
+	overflow: hidden; 
+	position: absolute;
+	z-index: -1; 
+	padding: 0 0;
+}
+.add-ava label {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	justify-content: center;
+    	align-items: center;
+}
+// .add-ava #avatarImg + label {
+// 	display: inline-block;
+// }
+.add-ava label .add-photo {
+	cursor: pointer;
+	overflow: hidden;
+	width: 15vh;
+	height: 15vh;
+	overflow: hidden;
+	background-image: url(../images/add-file.png); 
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	border-radius: 50%;
+	transition: all .3s ease-in-out .1s;
+}
+.add-ava label .add-photo:hover {
+	width: 12vh;
+	height: 12vh;
+	box-shadow: inset 5px 5px 35px 8px rgba(225,225,225,1), inset -5px -5px 35px 8px rgba(225,225,225,1);
+	transition: all .3s ease-in-out .1s;
+}
 footer {
 	position: absolute;
 	bottom: 0;
@@ -1435,26 +1480,31 @@ body.public.user {
 		width: 18%;
 	}
 }
-@media (max-width: 400px) {
-	// .public header .logo {
-	// 	background-size: 44%;
- //    		width: 100%;
-	// }
-	// .public header .header {
-	// 	position: relative;
-	// }
-	// .public header .main-menu.common {
-	// 	position: absolute;
-	// 	left: 0;
-	// 	top: 5px;
-	// }
-	// .public header .main-menu:hover .menu-item {
-	// 	left: 0;
-	// 	right: auto;
-	// 	top: 40px;
-	// }
-	// .public header .main-menu.common a {
-	// 	text-align: left;
-	// 	line-height: 38px;
-	// }
+
+
+
+/* ngdialog*/
+
+.ngdialog.ngdialog-theme-default {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, .3);
+	box-sizing: border-box;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -225px;
+	margin-top: -205px;
+	width: 450px;
+	height: 410px;
+	box-sizing: border-box; 
+	background-color: rgba(0,0,0,.9);
+	color: #fff;
+    	border-radius: 2px;
 }
