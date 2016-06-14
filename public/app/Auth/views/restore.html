@@ -32,4 +32,25 @@
          </div>
   </div>
 </div>
-<footer ng-include="'../app/common/views/unauth_footer.html'"></footer> 
+<!-- <footer ng-include="'../app/common/views/unauth_footer.html'"></footer>  -->
+<footer>
+            <div class="footer" ng-controller="footerCtrl">
+                <div class="footer-item">        
+                    <div class="footer-place">
+                        <a href="">Place People </a>
+                        <span>© 2016</span>
+                    </div>
+                    <div class="payment">
+                        <a class="mastercard" href=""></a>
+                        <a class="visa" href=""></a>
+                    </div>
+                </div>
+                <div class="menu">
+                    <a class="drop-menu" href=""></a>        
+                    <div class="menu-item">
+                        <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>            
+                    </div>
+                </div>
+            </div>
+    </footer>
+</div>
