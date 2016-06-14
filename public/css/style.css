@@ -1123,7 +1123,7 @@ body.public.user {
     	height: 140px;
 }
 .my-profile .ava a img {
-	width: 120%;
+	width: 100%;
 }
 .my-profile .my-profile-item {
 	flex-grow:33;
