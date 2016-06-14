@@ -30,7 +30,16 @@
         });
         TableManageButtons.init();
     </script>
-
+    <div class="remodal" id="deleteModal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <form class="form delete_user" method='get' action="/admin/user/delete/">
+            <p class="form__title">Срок блокировки номера:</p>
+            <button period="0" class="btn btn-danger btn-xs deletePeriodBnt">Не блокировать</button>
+            <button period="1" class="btn btn-danger btn-xs deletePeriodBnt">Месяц</button>
+            <button period="6" class="btn btn-danger btn-xs deletePeriodBnt">Полгода</button>
+            <button period="12" class="btn btn-danger btn-xs deletePeriodBnt">Год</button>
+        </form>
+    </div>
     <div class="x_content">
 
         <table id="datatable" class="table table-striped table-bordered">
@@ -72,10 +81,29 @@
                             <button type="button" class="btn btn-warning btn-xs">Подозрительный</button>
                         </p>
                         <p align="center" class="m0">
-                            <a href="{{action('Admin\UserController@destroy', ['id'=>$user->id,'month'=>1])}}" class="btn btn-danger btn-xs">Удалить</a>
+                            <a userId='{{$user->id}}' class="btn btn-danger btn-xs deleteBnt">Удалить</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <script>
+        var deleteBtn = $('.deleteBnt');
+        var deletePeriodBnt = $('.deletePeriodBnt');
+        var deleteModal = $('#deleteModal').remodal();
+        deleteBtn.on('click',function () {
+            deleteModal.open();
+            var form = $('#deleteModal').find('form');
+            form.attr('action',form.attr('action')+$(this).attr('userId'));
+        });
+        deletePeriodBnt.on('click',function (e) {
+            e.preventDefault();
+            var form = $('#deleteModal').find('form');
+
+            form.attr('action',form.attr('action')+'/'+$(this).attr('period'));
+            console.log($(this).attr('period'));
+            form.submit();
+            return false;
+        });
+    </script>
 @stop

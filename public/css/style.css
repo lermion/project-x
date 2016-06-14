@@ -984,6 +984,7 @@ body.public.user {
 		height: 100vh;
 		box-sizing: border-box;
 		z-index: 9999999999;
+		position: fixed;
 	}
 	.public header .main-menu.show-menu .drop-menu {
 		position: absolute;

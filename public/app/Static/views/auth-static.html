@@ -23,12 +23,8 @@
 		</div>
 	</header>	
 	<div class="content">
-	<div class="menu-user">
-			<a ng-class="page=='about_service' ? 'active' : ''" ui-sref="static-auth({ pageName: 'about_service'})">О сервисе</a>
-			<a ng-class="page=='help' ? 'active' : ''" ui-sref="static-auth({ pageName: 'help'})">Помощь </a>
-            <a ng-class="page=='rules' ? 'active' : ''" ui-sref="static-auth({ pageName: 'rules'})">Правила </a>
-            <a ng-class="page=='advertising' ? 'active' : ''" ui-sref="static-auth({ pageName: 'advertising'})">Реклама </a>
-            <a ng-class="page=='developers' ? 'active' : ''" ui-sref="static-auth({ pageName: 'developers'})">Разработчикам </a> 
+	<div class="menu-user">			
+            <a ng-class="page==staticPage.name ? 'active' : ''" ng-repeat="staticPage in staticPages" ui-sref="static-auth({ pageName: staticPage.name})">{{staticPage.description}}</a> 
 		</div>
 		<div class="info">
 		<h1>{{page}}</h1>
@@ -51,25 +47,24 @@
 		</div>
 		<div class="info">{{staticText}}</div>
 	</div>
-	<!-- <footer ng-include="'../../app/common/views/auth_footer.html'"></footer> -->
 	<footer>
-	<div class="footer" ng-controller="footerCtrl">
-	    <div class="footer-item">
-	                <div class="footer-place">
-	                    <a href="">Place People </a>
-	                    <span>© 2016</span>
-	                </div>
-	                <div class="payment">
-	                    <a class="mastercard" href=""></a>
-	                    <a class="visa" href=""></a>
-	                </div>
-	    </div>
-	    <div class="menu">
-	        <a class="drop-menu" href=""></a>
-	        <div class="menu-item">            
-	            <a ng-repeat="staticPage in staticPages" ui-sref="static-auth({ pageName: staticPage.name})">{{staticPage.description}}</a>
-	        </div>
-	    </div>
-	</div>
+		<div class="footer">
+		    <div class="footer-item">
+		                <div class="footer-place">
+		                    <a href="">Place People </a>
+		                    <span>© 2016</span>
+		                </div>
+		                <div class="payment">
+		                    <a class="mastercard" href=""></a>
+		                    <a class="visa" href=""></a>
+		                </div>
+		    </div>
+		    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
+		        <a class="drop-menu" href="" ></a>
+		        <div class="menu-item" ng-show="showBottomMenu">		        	       
+		            <a ng-repeat="staticPage in staticPages" ui-sref="static-auth({ pageName: staticPage.name})">{{staticPage.description}}</a>
+		        </div>
+		    </div>
+		</div>
 	</footer>	
 </div>
