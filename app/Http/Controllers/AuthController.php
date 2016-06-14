@@ -34,7 +34,7 @@ class AuthController extends Controller
                 return response()->json($result);
             }
         }
-        if(BlackList::where('phone',$request->input('phone'))->where('date','>=',(new \DateTime())->format('Y:m:d'))->first()){
+        if(BlackList::where('phone',$request->input('phone'))->where('date','>',(new \DateTime())->format('Y:m:d'))->first()){
             $result = [
                 "status" => false,
                 "error" => [
