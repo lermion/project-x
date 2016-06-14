@@ -9,12 +9,13 @@
                                         <div class="city-field">
                                                 <span class="city"></span>                                                
                                                 <select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" required>
+                                                <option value="">Выберите страну...</option>
                                                 </select>
                                                 <span class="city-inner"></span>
                                         </div>
                                         <div class="phone-field">
-                                        <span class="phone">{{phoneCode}}</span>
-                                                    <input type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required>
+                                        <span id="phone" class="phone">{{phoneCode}}</span>
+                                                    <input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required style="padding-left: {{kodeCountry}}px;">
                                         </div>
                                         <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Оба поля обязательны для заполнения</p>
                                     </form>
@@ -36,10 +37,17 @@
         <div class="check-in registration" ng-show="regConfirmed && !userRegistred">
                <div class="form">
                         <a class="logo" href=""></a>
-                        <h1>С теми, кто в теме</h1>  
+                        <h1>С теми, кто в теме</h1>
+                          <!--  flow-init flow-file-added="handleFileSelect($file, $event, $flow)"  -->
+                          <!-- <input type="file" name="file" id="avatarImg" flow-btn> -->
                         <div class="form-item ">
                                     <form>
-                                        <div class="add-ava"></div>
+                                        <div class="add-ava">                                            
+                                            <input type="file" id="avatarImg"/>  
+                                            <label for="avatarImg">
+                                                <span class="add-photo"></span>
+                                            </label>                                         
+                                        </div>                                
                                         <div class="name-field">
                                                     <span class="name"></span>
                                                     <input type="text" ng-model="newUserName" placeholder="Введите ваше имя..." ng-click="newUserNameError=false;">
@@ -69,9 +77,9 @@
                                         </div>
                                         <p ng-show="newUserPasswordError" class="capcha-password">Пароль должен быть не короче 6 символов</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS3(newUserId)">Готово</button>
+                                    <button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserLogin, newUserPassword, newUserCountryId, newUserId)">Готово</button>
                         </div>
                </div>
         </div>        
     </div>
-    <footer ng-include="'../app/common/views/unauth_footer.html'"></footer>
+    <!-- <footer ng-include="'../app/common/views/unauth_footer.html'"></footer> -->

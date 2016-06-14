@@ -96,7 +96,7 @@ body.main-page {
 	min-width: 250px;
 }
 .form-item form input {
-	padding: 0 0 0 55px; 
+	padding-left: 27px; 
 }
 .form-item form input:focus,
 .text-field:focus {
@@ -129,7 +129,7 @@ body.main-page {
 	background-image: url(../images/select.png);
 	background-position: 97% center;
 	background-repeat: no-repeat;
-	padding: 0 40px 0 26px;
+	padding: 0 40px 0 27px;
 }
 .form-item form .phone-field input {
 	line-height: 19px;
@@ -210,9 +210,8 @@ body.main-page {
 	background-size: 50%;
 }
 .phone-field span {
-	width: 64px;
 	background-position: left 5px center;
-	background-size: 35%;
+	background-size: 20px;
 	text-align: right;
 	color: #999;
 	font-size: 15px;
@@ -222,7 +221,7 @@ body.main-page {
 	align-items: center;
 	padding-left: 27px;
 	box-sizing: border-box;
-	width: 50px;
+	width: auto; 
 }
 .city-field span.city {
 	background-image: url(../images/location.png);
@@ -292,7 +291,8 @@ body.main-page {
 	margin-bottom: 10px;
 	line-height: 15px;
 }
-.check-in-button {
+.check-in-button,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	width: 100%;
 	display: block;
 	background: #ec6045;
@@ -305,8 +305,13 @@ body.main-page {
 	border: none;
 	line-height: 40px;
 }
+.ngdialog.ngdialog-theme-default .ngdialog-content div button {
+	margin-top: 8px;
+}
 .check-in-button:hover,
-.check-in-button:focus {
+.check-in-button:focus,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:focus {
 	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
@@ -317,8 +322,47 @@ body.main-page {
 	height: 22vh;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 3px; 
+	position: relative;
 }
-
+.add-ava #avatarImg{
+	width: 100%;
+	height: 100%; 
+	opacity: 0; 
+	overflow: hidden; 
+	position: absolute;
+	z-index: -1; 
+	padding: 0 0;
+}
+.add-ava label {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	justify-content: center;
+    	align-items: center;
+}
+// .add-ava #avatarImg + label {
+// 	display: inline-block;
+// }
+.add-ava label .add-photo {
+	cursor: pointer;
+	overflow: hidden;
+	width: 15vh;
+	height: 15vh;
+	overflow: hidden;
+	background-image: url(../images/add-file.png); 
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	border-radius: 50%;
+	transition: all .3s ease-in-out .1s;
+}
+.add-ava label .add-photo:hover {
+	width: 12vh;
+	height: 12vh;
+	box-shadow: inset 5px 5px 35px 8px rgba(225,225,225,1), inset -5px -5px 35px 8px rgba(225,225,225,1);
+	transition: all .3s ease-in-out .1s;
+}
 footer {
 	position: absolute;
 	bottom: 0;
@@ -553,16 +597,6 @@ footer {
 		background-repeat: no-repeat;
 		transition: all .3s ease-in-out .1s; 
 	}
-	// footer {
-	// 	height: auto;
-	// }
-	// .footer {
-	// 	flex-wrap: wrap;
- //    		justify-content: flex-start;
-	// }
-	// .footer .menu {
-	// 	width: 100%;
-	// }
 	.footer .menu {
 		width: 72px;
 		height: 72px;
@@ -576,12 +610,6 @@ footer {
 		right: 13px;
 		bottom: 0;
 	}
-	// .footer .menu-item {
-	// 	flex-wrap: wrap;
- //    		justify-content: flex-start;
- //    		padding-bottom: 10px;
- //    		// width: 270px;
-	// }
 	.footer .menu.open-bottom-menu .drop-menu {
 		position: absolute;
 		right: 0;
@@ -604,44 +632,9 @@ footer {
 		padding: 20px;
     		box-sizing: border-box;
 	}
-	// .footer-item {
-	// 	justify-content: flex-start;
-	// 	width: 100%;
-	// 	margin-top: 10px;
-	// }
-
-
-	// .footer .menu:hover .drop-menu {
-	// 	border: 1px solid #fff;
-	// 	transition: all .3s ease-in-out .1s; 
-	// }
-	// .footer .drop-menu:hover {
-	// 	border: 1px solid #fff;
-	// 	transition: all .3s ease-in-out .1s; 
-	// }
-	// .footer .menu {
-	// 	display: none;
-	// }
 	.footer .menu-item {
-		// flex-direction: column;
 		display: none;
 	}
-	// .footer .menu:hover  .menu-item  {
-	// 	display: block;
-	// 	position: absolute;
-	// 	background: rgb(50, 61, 80);
-	// 	border-radius: 3px;
-	// 	top: -215px;
-	// 	right: 0;
-	// 	width: 200px;
-	// 	padding: 10px;
-	// 	text-align: right;
-
-	// } 
-	// .footer .menu-item {
-	// 	// flex-direction: column;
-	// 	display: none;
-	// }
 	.footer .menu-item a {
 		font-size: 16px;
 		line-height: 40px;
@@ -649,20 +642,9 @@ footer {
 		display: block;
 		padding: 0 20px;
 	}
-	// .footer .menu {
-	// 	width: auto;
-	// 	position: relative;
-	// }
 	.footer-item {
 		width: 72%;
 	}
-	// .payment {
-	// 	margin-left: 20px;
-	// 	width: auto;
-	// }
-	// .payment a {
-	// 	margin-left: 20px;
-	// }
 }
 @media (max-width: 501px) {
 	.footer .menu-item {
@@ -962,7 +944,6 @@ body.public.user {
 @media (max-width: 800px) {
 	.public header .header {
 		position: relative;
-		// padding: 0 10px 0 70px;
 		padding: 0 10px;
 		min-height: 55px;
 		height: auto;
@@ -972,9 +953,6 @@ body.public.user {
 		justify-content: space-between;
 		padding: 0 10px 0 70px;
 	}
-	// .public header .registration {
-	// 	display: none;
-	// }
 	.public header .main-menu .search {
 		display: block;
 		width: 100%;
@@ -1010,11 +988,6 @@ body.public.user {
 		background-color: #7988a3;
 		transition: width .05s ease-in-out ;
 	}
-	// .public header .main-menu a {
-	// 	background-size: 31%;
-	// 	padding-left: 25px;
-	// 	font-size: 12px;
-	// }
 	.public header .main-menu a,
 	.public header .main-menu .settings {
 		display: block;
@@ -1033,9 +1006,6 @@ body.public.user {
 		background-size: 75%;
 		padding-left: 0;
 	}
-	// .public header .main-menu.common:hover .drop-menu {
-	// 	border: 1px solid #999; 
-	// }
 	.public header .main-menu .menu-item,
 	.public header .search,
 	.public header .main-menu.common .menu-item {
@@ -1510,26 +1480,31 @@ body.public.user {
 		width: 18%;
 	}
 }
-@media (max-width: 400px) {
-	// .public header .logo {
-	// 	background-size: 44%;
- //    		width: 100%;
-	// }
-	// .public header .header {
-	// 	position: relative;
-	// }
-	// .public header .main-menu.common {
-	// 	position: absolute;
-	// 	left: 0;
-	// 	top: 5px;
-	// }
-	// .public header .main-menu:hover .menu-item {
-	// 	left: 0;
-	// 	right: auto;
-	// 	top: 40px;
-	// }
-	// .public header .main-menu.common a {
-	// 	text-align: left;
-	// 	line-height: 38px;
-	// }
+
+
+
+/* ngdialog*/
+
+.ngdialog.ngdialog-theme-default {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, .3);
+	box-sizing: border-box;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -225px;
+	margin-top: -205px;
+	width: 450px;
+	height: 410px;
+	box-sizing: border-box; 
+	background-color: rgba(0,0,0,.9);
+	color: #fff;
+    	border-radius: 2px;
 }

@@ -1,5 +1,6 @@
 angular.module('placePeopleApp')
-    .controller('authCtrl', ['$scope', '$state', '$timeout', '$http', 'AuthService', function($scope, $state, $timeout, $http, AuthService){
+    .controller('authCtrl', ['$scope', '$state', '$timeout', '$http', 'AuthService', 'ngDialog', 
+    	function($scope, $state, $timeout, $http, AuthService, ngDialog){
     	
     	$scope.$emit('authPoint', 'auth');
 
@@ -34,81 +35,101 @@ angular.module('placePeopleApp')
     	};
 
     	$scope.userRegisterS1 = function(){
-    		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
-    			var countryId = parseInt($scope.newUserCountryId);
-    			var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);    			
-    		} else{
-    			$scope.newUserPhoneNumberErr = true;
-    			return;
-    		}    		
-    		AuthService.sendMessage(phoneNum, countryId)
-	    		.then(function(res){	    			
-	    			if (res.status) {
-	    				$scope.newUserId = res.user_id;
+    		// if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
+    		// 	var countryId = parseInt($scope.newUserCountryId);
+    		// 	var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);    			
+    		// } else{
+    		// 	$scope.newUserPhoneNumberErr = true;
+    		// 	return;
+    		// }    		
+    		// AuthService.sendMessage(phoneNum, countryId)
+	    	// 	.then(function(res){	    			
+	    	// 		if (res.status) {
+	    	// 			$scope.newUserId = res.user_id;
 	    				$scope.regStep1 = true;
-	    			}	    					        
-			      }, function(err){
-			        console.log(err);
-			      });	
+	    	// 		}	    					        
+			   //    }, function(err){
+			   //      console.log(err);
+			   //    });	
     	};
 
     	$scope.userRegisterS2 = function(){
-    		if (!$scope.newUserSmsCode) {
-    			$scope.newUserSmsCodeError = true;
-    			return;
-    		} else {
-    			var code = parseInt($scope.newUserSmsCode);
-    		}
-    		AuthService.checkSms(code)
-	    		.then(function(res){	    			
-	    			if (res.status) {		   				
+    		// if (!$scope.newUserSmsCode) {
+    		// 	$scope.newUserSmsCodeError = true;
+    		// 	return;
+    		// } else {
+    		// 	var code = parseInt($scope.newUserSmsCode);
+    		// }
+    		// AuthService.checkSms(code)
+	    	// 	.then(function(res){	    			
+	    	// 		if (res.status) {		   				
 	    				$scope.regConfirmed = true;
-	    			} else {
-	    		$scope.newUserSmsCodeError = true;
-	    			}	    					        
-			      }, function(err){
-			        console.log(err);
-			      });			   
+	    	// 		} else {
+	    	// 	$scope.newUserSmsCodeError = true;
+	    	// 		}	    					        
+			   //    }, function(err){
+			   //      console.log(err);
+			   //    });			   
     	};
+   
+		$scope.myImage='';
+	    $scope.myCroppedImage='';
 
-    	$scope.userRegisterS3 = function(userId){
-    		var errors = 0;
-    		if (!$scope.newUserName) {
-    			$scope.newUserNameError = true;
-    			errors++;
-    		}
-    		if (!$scope.newUserLastName) {
-    			$scope.newUserLastNameError = true;
-    			errors++;
-    		}
-    		if (!$scope.newUserLogin) {
-    			$scope.newUserLoginError = true;
-    			errors++;
-    		}    		
-    		if (!$scope.newUserPassword || $scope.newUserPassword.length<6) {
-    			$scope.newUserPasswordError = true;
-    			errors++;
-    		}    			
-    		if (errors > 0) {
-    			return;
-    		}
+	    var handleFileSelect=function(evt) {
+	      var file=evt.currentTarget.files[0];
+	      var reader = new FileReader();
+	      reader.onload = function (evt) {
+	        $scope.$apply(function($scope){
+	          $scope.myImage=evt.target.result;
+	          ngDialog.open({
+					template: '../app/Auth/views/crop-image.html',
+					className: 'ngdialog-theme-default',
+					scope: $scope
+				});
+	        });
+	      };
+	      reader.readAsDataURL(file);
+	    };
 
-    		var firstName = $scope.newUserName;
-			var lastName = $scope.newUserLastName;
-			var login = $scope.newUserLogin.toLowerCase(); 
-			var pwd = $scope.newUserPassword; 
-    		var countryId = parseInt($scope.newUserCountryId);    		
-    		var uId = parseInt(userId);
-    		    		
-			AuthService.registerUser(firstName, lastName, login, pwd, countryId, uId)
-	    		.then(function(res){
-	    			if (res.status) {	
-	    				$scope.userRegistred = true;
-	    				$state.go('user', {username: login});	    				
-	    			}	    					        
-			      }, function(err){
-			        console.log(err);
-			      });
+	    angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	    
+
+	    $scope.saveCropp = function(img){
+			$scope.croppedImg = img;			
+			ngDialog.closeAll();			
+	    };	
+
+    	$scope.userRegisterS3 = function(firstName, lastName, login, pwd, countryId, uId){
+    		// var errors = 0;
+    		// if (!firstName) {
+    		// 	$scope.newUserNameError = true;
+    		// 	errors++;
+    		// }
+    		// if (!lastName) {
+    		// 	$scope.newUserLastNameError = true;
+    		// 	errors++;
+    		// }
+    		// if (!login) {
+    		// 	$scope.newUserLoginError = true;
+    		// 	errors++;
+    		// }    		
+    		// if (!pwd || pwd.length<6) {
+    		// 	$scope.newUserPasswordError = true;
+    		// 	errors++;
+    		// }    			
+    		// if (errors > 0) {
+    		// 	return;
+    		// }
+
+			// AuthService.registerUser(firstName, lastName, login, pwd, countryId, $scope.croppedImg, uId)
+	  //   		.then(function(res){
+	  //   			console.log(res);
+	  //   			if (res.status) {	
+	  //   				$scope.userRegistred = true;
+	  //   				$state.go('user', {username: login});	    				
+	  //   			}	    					        
+			//       }, function(err){
+			//         console.log(err);
+			//       });
     	};
 
     	/*LOGIN PAGE*/    	
