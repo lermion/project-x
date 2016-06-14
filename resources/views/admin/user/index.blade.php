@@ -40,7 +40,7 @@
             <button period="12" class="btn btn-danger btn-xs deletePeriodBnt">Год</button>
         </form>
     </div>
-    <div style="width:100%; height:auto; margin-bottom:20px;">
+    <div class="admin-table" style="width:100%; height:auto; margin-bottom:20px;">
         <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
             <tr>
                 <td>
@@ -69,7 +69,7 @@
         </table>
     </div>
 
-    <div style="width:100%; height:auto; margin-bottom:5px;">
+ <!--    <div style="width:100%; height:auto; margin-bottom:5px;">
         <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
             <tr>
                 <td>
@@ -129,6 +129,51 @@
                 <td width="100%"></td>
             </tr>
         </table>
+    </div> -->
+
+       <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
+                    <div class="daosn3"><p>Сортировка:</p></div>
+                    <div class="daosn3">
+                        <select>
+                            <option>Пол</option>
+                            <option>Мужской</option>
+                            <option>Женский</option>
+                        </select>
+                    </div>
+                    <div class="daosn3">
+                        <p>Дата регистрации</p>
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="input-prepend input-group">
+                                            <span class="add-on input-group-addon"><i
+                                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                            <input type="text" style="width: 200px" name="reservation" id="reservation"
+                                                   class="form-control" value="03/18/2013 - 03/23/2013"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="daosn3">
+                        <select>
+                            <option>Возраст от</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                        </select> - <select>
+                            <option>Возраст до</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                        </select>
+                    </div>
+                    <div class="daosn3"><p><input type="checkbox" checked/> с аватаром</p></div>
+                    <div class="daosn3"><p>Ключевое слово <input type="text"/></p></div>
     </div>
 
     <div class="x_content">

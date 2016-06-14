@@ -344,18 +344,29 @@ body.main-page {
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
 // }
-.add-ava label .add-photo {
-	cursor: pointer;
+.add-ava label .ava {
 	overflow: hidden;
 	width: 15vh;
 	height: 15vh;
-	overflow: hidden;
-	background-image: url(../images/add-file.png); 
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
 	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.add-ava label .add-photo {
+	cursor: pointer;
+	background-image: url(../images/add-file.png); 
 	transition: all .3s ease-in-out .1s;
+	overflow: hidden;
+	width: 15vh;
+	height: 15vh;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	border-radius: 50%;
 }
 .add-ava label .add-photo:hover {
 	width: 12vh;
