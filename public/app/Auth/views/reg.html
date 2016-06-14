@@ -14,8 +14,8 @@
                                                 <span class="city-inner"></span>
                                         </div>
                                         <div class="phone-field">
-                                        <span id="phone" class="phone">{{phoneCode}}</span>
-                                                    <input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required style="padding-left: {{kodeCountry}}px;">
+                                            <span id="phone" class="phone">{{phoneCode}}</span>
+                                            <input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required style="padding-left:{{calcPadding()}}px;">
                                         </div>
                                         <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Оба поля обязательны для заполнения</p>
                                     </form>
@@ -43,7 +43,10 @@
                         <div class="form-item ">
                                     <form>
                                         <div class="add-ava">                                            
-                                            <input type="file" id="avatarImg"/>                                           
+                                            <input type="file" id="avatarImg"/>  
+                                            <label for="avatarImg">
+                                                <span class="add-photo"></span>
+                                            </label>                                         
                                         </div>                                
                                         <div class="name-field">
                                                     <span class="name"></span>

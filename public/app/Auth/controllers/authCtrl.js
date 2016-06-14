@@ -70,11 +70,18 @@ angular.module('placePeopleApp')
     	$scope.setCoutryCode = function(){
     		var countryId = parseInt($scope.newUserCountryId);    		
 	    	$scope.countries.forEach(function(country){
-	    		if (country.id === countryId) {
-	    			$scope.phoneCode = country.code;
+	    		if (country.id === countryId) {	    			
+	    			$scope.phoneCode = country.code;	    			
 	    		}
 	    	});
+	    	$scope.codeBlockWidth = angular.element(document.querySelector("#phone"));	    	
+	    	
     	};
+    	$scope.calcPadding = function(){
+    		return parseInt(angular.element(document.querySelector("#phone"))[0].clientWidth);
+    	}
+
+
 
     	$scope.userRegisterS1 = function(){
     		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
