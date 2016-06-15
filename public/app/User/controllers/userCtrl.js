@@ -9,7 +9,6 @@ angular.module('placePeopleApp')
 			storageService.deleteStorage();
 			$state.go('login');
 		}
-		
 
 		$http.get('/static_page/get/name')
             .success(function (response){            	
@@ -22,7 +21,6 @@ angular.module('placePeopleApp')
 
 		UserService.getUserData(storage.username)
 			.then(function(res){
-				$scope.username = res.login;
 				$scope.userData = res;							        
 			},
 			function(err){

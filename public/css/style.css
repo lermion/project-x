@@ -53,7 +53,7 @@ body.main-page {
 	font-size: 33.3px;
 	line-height: 35px;
 	text-shadow: 3px 3px 1px #000;
-	margin: 6vh 0 0;
+	margin: 1vh 0 0;
 }
 .form-item {
 	// margin-top: 65px;
@@ -360,7 +360,7 @@ body.main-page {
 	justify-content: center;
 	align-items: center;
 }
-.add-ava label .add.edit-ava {
+.add-ava label .add.edit-ava {	
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -473,6 +473,8 @@ footer {
 
 .registration .form .logo{
 	margin-top: 0;
+	width: 163px;
+	height: 110px;
 }
 .registration .form-item {
 	margin-top: 2vh;

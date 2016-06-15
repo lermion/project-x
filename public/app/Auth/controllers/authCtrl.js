@@ -80,19 +80,40 @@ angular.module('placePeopleApp')
     		return parseInt(angular.element(document.querySelector("#phone"))[0].clientWidth);
     	};
 
-    	$scope.userRegisterS1 = function(){
-    		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
-    			var countryId = parseInt($scope.newUserCountryId);
-    			var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);    			
+    	$scope.userRegisterS1 = function(){    		
+    		if (!$scope.newUserCountryId && !$scope.newUserPhoneNumber){
+    			$scope.nupnErr = 'Заполните все поля';
+    		} else if (!$scope.newUserCountryId) {
+    			$scope.nupnErr = 'Выберите страну';
+    		} else if(!$scope.newUserPhoneNumber){
+    			$scope.nupnErr = 'Введён некорректный номер телефона';
     		} else{
-    			$scope.newUserPhoneNumberErr = true;
+    			var countryId = parseInt($scope.newUserCountryId);
+    			var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);
+    		}
+    		if($scope.nupnErr){
     			return;
-    		}    		
+    		}		
     		AuthService.sendMessage(phoneNum, countryId)
-	    		.then(function(res){	    			
+	    		.then(function(res){	    			    			
 	    			if (res.status) {
 	    				$scope.newUserId = res.user_id;
 	    				$scope.regStep1 = true;
+	    			} else {						
+						if (parseInt(res.error.code) === 1) {
+							$scope.nupnErr = 'Данный номер уже зарегистрирован';
+						} else if(parseInt(res.error.code) === 3){
+							$scope.nupnErr = 'Ошибка при отправке кода подтверждения';
+						} else if(parseInt(res.error.code) === 10){
+							var endDate = new Date(res.error.date);
+							var today = new Date(((new Date).toISOString()).slice(0, 10));
+							if (endDate>=today) {
+								var diff = (endDate-today)/1000/60/60/24;
+								$scope.nupnErr = 'Номер заблокирован для регистрации еще ' + diff + ' дней';
+							} else {
+								$scope.nupnErr = 'Номер заблокирован навсегда';
+							}							
+						}
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -101,17 +122,18 @@ angular.module('placePeopleApp')
 
     	$scope.userRegisterS2 = function(){
     		if (!$scope.newUserSmsCode) {
-    			$scope.newUserSmsCodeError = true;
+    			// newUserSmsCodeError = nuscErr
+    			$scope.nuscErr = 'Введите код';
     			return;
     		} else {
     			var code = parseInt($scope.newUserSmsCode);
     		}
     		AuthService.checkSms(code)
-	    		.then(function(res){	    			
+	    		.then(function(res){	    				    			
 	    			if (res.status) {		   				
 	    				$scope.regConfirmed = true;
 	    			} else {
-	    		$scope.newUserSmsCodeError = true;
+	    				$scope.nuscErr = 'Не верный код';
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -145,26 +167,27 @@ angular.module('placePeopleApp')
 
 	    $scope.saveCropp = function(img, cropped){	    	
 			$scope.croppedImg = img;
-			$scope.croppedFile = cropped;			
+			$scope.croppedFile = cropped;
+			$scope.showEditAva = false;			
 			ngDialog.closeAll();				
 	    };
 
     	$scope.userRegisterS3 = function(firstName, lastName, login, pwd, countryId, uId){
     		var errors = 0;
     		if (!firstName) {
-    			$scope.newUserNameError = true;
+    			$scope.nunErr = 'Введите имя';
     			errors++;
     		}
     		if (!lastName) {
-    			$scope.newUserLastNameError = true;
+    			$scope.nusErr = 'Введите фамилию';
     			errors++;
     		}
     		if (!login) {
-    			$scope.newUserLoginError = true;
+    			$scope.nulErr = 'Введите логин';
     			errors++;
     		}    		
     		if (!pwd || pwd.length<6) {
-    			$scope.newUserPasswordError = true;
+    			$scope.nupErr = 'Длина пароля должна быть не меньше 6 знаков';
     			errors++;
     		}    			
     		if (errors > 0) {
@@ -172,12 +195,19 @@ angular.module('placePeopleApp')
     		}
 
 			AuthService.registerUser(firstName, lastName, login, pwd, countryId, $scope.croppedImg, uId)
-	    		.then(function(res){	    			
+	    		.then(function(res){
+	    			console.log(res);	    			
 	    			if (res.status) {	
 	    				$scope.userRegistred = true;
-	    				storageService.setStorageItem('username', login);
-	    				$state.go('user', {username: login});	    				
-	    			}	    					        
+	    				storageService.setStorageItem('username', res.login);
+	    				$state.go('user', {username: res.login});	    				
+	    			} else {	    				
+	    				if (parseInt(res.error.code) === 1) {
+							$scope.nulErr = 'Данный логин уже занят';
+						} else if(parseInt(res.error.code) === 8){
+							$scope.nupErr = 'Прекратите эти поптытки';
+						}
+	    			}    					        
 			      }, function(err){
 			        console.log(err);
 			      });
@@ -190,8 +220,8 @@ angular.module('placePeopleApp')
     		AuthService.userLogIn(login, pwd)
 	    		.then(function(res){   			
 	    			if (res.status) {
-	    				storageService.setStorageItem('username', login);	    				
-	    				$state.go('user', {username: login});	    				
+	    				storageService.setStorageItem('username', res.login);	    				
+	    				$state.go('user', {username: res.login});	    				
 	    			}	else{	    				
 	    				$scope.loginError = true;	    				
 	    			}    					        

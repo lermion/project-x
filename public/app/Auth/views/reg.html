@@ -8,17 +8,16 @@
                                     <form>
                                         <div class="city-field">
                                                 <span class="city"></span>                                                
-                                                <select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" required>
+                                                <select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" ng-click="nupnErr=false;" required>
                                                 <option value="">Выберите страну...</option>
                                                 </select>
                                                 <span class="city-inner"></span>
-                                        </div>
+                                        </div>                                        
                                         <div class="phone-field">
-                                            <span id="phone" class="phone">{{phoneCode}}</span>
-                                            <input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required style="padding-left:{{calcPadding()}}px;">
-                                        </div>
-                                        <p ng-show="newUserPhoneNumber.$dirty && newUserPhoneNumber.$invalid" class="capcha-tel">Оба поля обязательны для заполнения</p>
-                                        <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Оба поля обязательны для заполнения</p>
+                                            <span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
+                                            <input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="nupnErr=false;" required style="padding-left:{{calcPadding()}}px;">
+                                        </div>                                        
+                                        <p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
                         </div>
@@ -29,7 +28,7 @@
                                             <span class="code"></span>
                                                         <input type="text" name="" placeholder="Введите код..." ng-model="newUserSmsCode" required>
                                             </div>
-                                            <p ng-show="newUserSmsCodeError" class="capcha-code">При вводе кода допущенна ошибка</p>
+                                            <p ng-show="nuscErr" class="capcha-code">{{nuscErr}}</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS2()">Зарегистрироваться</button>
                         </div>
@@ -43,32 +42,32 @@
                           <!-- <input type="file" name="file" id="avatarImg" flow-btn> -->
                         <div class="form-item ">
                                     <form>
-                                        <div class="add-ava">                                            
+                                        <div class="add-ava" ng-init="showEditAva=true;">                                           
                                             <input type="file" id="avatarImg"/>  
                                             <label for="avatarImg">                                            
                                                 <span class="ava" ng-show="croppedFile">         
                                                     <img data-ng-src="{{croppedFile}}" style="width:100%;">
                                                 </span>
-                                                <span class="add">
-                                                    <span class="add-photo"></span>
+                                                <span class="add" ng-class="croppedFile ? 'edit-ava' : ''"  ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+                                                    <span class="add-photo" ng-show="!croppedFile || showEditAva"></span>
                                                 </span>
                                             </label>                                         
                                         </div>                        
                                         <div class="name-field">
                                                     <span class="name"></span>
-                                                    <input type="text" ng-model="newUserName" placeholder="Введите ваше имя..." ng-click="newUserNameError=false;">
+                                                    <input type="text" ng-model="newUserName" placeholder="Введите ваше имя..." ng-click="nunErr=false;">
                                         </div>
-                                        <p ng-show="newUserNameError" class="capcha-name">Поле обязательно для заполнения</p>
+                                        <p ng-show="nunErr" class="capcha-name">{{nunErr}}</p>
                                         <div class="lastname-field">
                                                     <span class="lastname"></span>
-                                                    <input type="text" ng-model="newUserLastName" placeholder="Введите вашу фамилию..." ng-click="newUserLastNameError=false;">
+                                                    <input type="text" ng-model="newUserLastName" placeholder="Введите вашу фамилию..." ng-click="nusErr=false;">
                                         </div>
-                                        <p ng-show="newUserLastNameError" class="capcha-name">Поле обязательно для заполнения</p>
+                                        <p ng-show="nusErr" class="capcha-name">{{nusErr}}</p>
                                         <div class="user-field">                                        
                                                     <span class="user"></span>
-                                                    <input type="text" ng-model="newUserLogin" placeholder="Введите ваш логин..." ng-click="newUserLoginError=false;">
+                                                    <input type="text" ng-model="newUserLogin" placeholder="Введите ваш логин..." ng-click="nulErr=false;">
                                         </div> 
-                                        <p ng-show="newUserLoginError" class="capcha-user">Поле обязательно для заполнения</p>
+                                        <p ng-show="nulErr" class="capcha-user">{{nulErr}}</p>
                                         <!-- <div class="sex-field">
                                                 <span class="sex"></span>
                                                 <select ng-model="userGender">
@@ -79,9 +78,9 @@
                                         </div> -->
                                         <div class="password-field">
                                                     <span class="password"></span>
-                                                    <input type="password"  ng-model="newUserPassword" placeholder="Введите ваш пароль..." ng-click="newUserPasswordError=false;">
+                                                    <input type="password"  ng-model="newUserPassword" placeholder="Введите ваш пароль..." ng-click="nupErr=false;">
                                         </div>
-                                        <p ng-show="newUserPasswordError" class="capcha-password">Пароль должен быть не короче 6 символов</p>
+                                        <p ng-show="nupErr" class="capcha-password">{{nupErr}}</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserLogin, newUserPassword, newUserCountryId, newUserId)">Готово</button>
                         </div>
