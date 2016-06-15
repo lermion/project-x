@@ -17,6 +17,7 @@
                                             <span id="phone" class="phone">{{phoneCode}}</span>
                                             <input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="newUserPhoneNumberErr=false;" required style="padding-left:{{calcPadding()}}px;">
                                         </div>
+                                        <p ng-show="newUserPhoneNumber.$dirty && newUserPhoneNumber.$invalid" class="capcha-tel">Оба поля обязательны для заполнения</p>
                                         <p ng-show="newUserPhoneNumberErr" class="capcha-tel">Оба поля обязательны для заполнения</p>
                                     </form>
                                     <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
@@ -44,15 +45,15 @@
                                     <form>
                                         <div class="add-ava">                                            
                                             <input type="file" id="avatarImg"/>  
-                                            <label for="avatarImg">
-                                                <span class="ava">
-                                                            <img src="" alt="">
-                                                 </span>
-                                                 <span class="add">
-                                                     <span class="add-photo"></span>
-                                                 </span>
+                                            <label for="avatarImg">                                            
+                                                <span class="ava" ng-show="croppedFile">         
+                                                    <img data-ng-src="{{croppedFile}}" style="width:100%;">
+                                                </span>
+                                                <span class="add">
+                                                    <span class="add-photo"></span>
+                                                </span>
                                             </label>                                         
-                                        </div>                                
+                                        </div>                        
                                         <div class="name-field">
                                                     <span class="name"></span>
                                                     <input type="text" ng-model="newUserName" placeholder="Введите ваше имя..." ng-click="newUserNameError=false;">

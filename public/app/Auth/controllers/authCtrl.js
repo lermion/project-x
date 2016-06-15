@@ -74,14 +74,11 @@ angular.module('placePeopleApp')
 	    			$scope.phoneCode = country.code;	    			
 	    		}
 	    	});
-	    	$scope.codeBlockWidth = angular.element(document.querySelector("#phone"));	    	
-	    	
     	};
+
     	$scope.calcPadding = function(){
     		return parseInt(angular.element(document.querySelector("#phone"))[0].clientWidth);
-    	}
-
-
+    	};
 
     	$scope.userRegisterS1 = function(){
     		if ($scope.newUserCountryId && $scope.newUserPhoneNumber) {
@@ -123,13 +120,12 @@ angular.module('placePeopleApp')
    
 		$scope.myImage='';
 	    $scope.myCroppedImage='';
-
-	    var handleFileSelect=function(evt) {
-	      var file=evt.currentTarget.files[0];
+	    var handleFileSelect = function(evt) {
+	      var file = evt.currentTarget.files[0];
 	      var reader = new FileReader();
 	      reader.onload = function (evt) {
 	        $scope.$apply(function($scope){
-	          $scope.myImage=evt.target.result;
+	          $scope.myImage = evt.target.result;
 	          ngDialog.open({
 					template: '../app/Auth/views/crop-image.html',
 					className: 'ngdialog-theme-default',
@@ -139,13 +135,19 @@ angular.module('placePeopleApp')
 	      };
 	      reader.readAsDataURL(file);
 	    };
+	    angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);
 
-	    angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	    
+	 	// function blobToFile(blob){
+		// 	blob.lastModifiedDate = new Date();
+		// 	blob.name = 'image';
+		// 	return blob;
+		// }	    
 
-	    $scope.saveCropp = function(img){
-			$scope.croppedImg = img;			
-			ngDialog.closeAll();			
-	    };	
+	    $scope.saveCropp = function(img, cropped){	    	
+			$scope.croppedImg = img;
+			$scope.croppedFile = cropped;			
+			ngDialog.closeAll();				
+	    };
 
     	$scope.userRegisterS3 = function(firstName, lastName, login, pwd, countryId, uId){
     		var errors = 0;
