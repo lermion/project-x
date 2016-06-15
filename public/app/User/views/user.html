@@ -2,8 +2,8 @@
 	<header>
 		<div class="header header-user">
 			<a class="logo" href=""></a>
-			<div class="main-menu">			
-				<a class="drop-menu" href="" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;"></a>
+			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
+				<a class="drop-menu" href=""></a>
 				<div class="menu-item" ng-show="showMenu">
 					<a class="profile" ui-sref="user({username: userData.login})">Мой профиль</a>
 					<a class="places" href="">Места</a>
