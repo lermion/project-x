@@ -133,6 +133,8 @@ body.main-page {
 }
 .form-item form .phone-field input {
 	line-height: 19px;
+	padding: 0 0;
+	transition: none;
 }
 .text-field,
 .password-field-first,
@@ -344,18 +346,30 @@ body.main-page {
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
 // }
-.add-ava label .add-photo {
-	cursor: pointer;
+.add-ava label .ava,
+.add-ava label .add {
 	overflow: hidden;
 	width: 15vh;
 	height: 15vh;
-	overflow: hidden;
-	background-image: url(../images/add-file.png); 
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
 	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.add-ava label .add-photo {
+	cursor: pointer;
+	background-image: url(../images/add-file.png); 
 	transition: all .3s ease-in-out .1s;
+	overflow: hidden;
+	width: 15vh;
+	height: 15vh;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	border-radius: 50%;
 }
 .add-ava label .add-photo:hover {
 	width: 12vh;
@@ -1121,7 +1135,7 @@ body.public.user {
     	height: 140px;
 }
 .my-profile .ava a img {
-	width: 120%;
+	width: 100%;
 }
 .my-profile .my-profile-item {
 	flex-grow:33;
@@ -1134,7 +1148,25 @@ body.public.user {
 	font-weight: 500;
 	line-height: 20px;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s; 
+	transition: all .3s ease-in-out .1s;
+	max-width: 190px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+
+}
+.my-profile-item .user-status{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.my-profile-item .user-status p {
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	font-weight: 900;
+	color: #7988a3;
+	font-family: "SFUIDisplayMedium";
 }
 .my-profile-item .user-name:hover {
 	transition: all .3s ease-in-out .1s; 
@@ -1507,4 +1539,16 @@ body.public.user {
 	background-color: rgba(0,0,0,.9);
 	color: #fff;
     	border-radius: 2px;
+}
+@media (max-width: 520px) {
+	.ngdialog.ngdialog-theme-default .ngdialog-content {
+		margin-left: -125px;
+		margin-top: -105px;
+		width: 250px;
+		height: 210px; 
+		padding: 25px 10px 0 10px!important;
+	}
+	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
+		margin-top: 0;
+	}
 }

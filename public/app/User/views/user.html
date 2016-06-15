@@ -32,7 +32,11 @@
 					</a>
 				</div>
 				<div class="my-profile-item"> 
-					<a class="user-name" href="">{{userData.first_name}} {{userData.last_name}}</a>
+					<div class="user-status">
+						<a class="user-name" href="">{{userData.first_name}} {{userData.last_name}}</a>
+						<p>Online</p>
+					</div>
+					
 					<div class="counts">
 						<a href="" class="counter">
 							<p class="notes">Публикации</p>
@@ -105,7 +109,7 @@
 		    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
 		        <a class="drop-menu" href="" ></a>
 		        <div class="menu-item" ng-show="showBottomMenu">		        	       
-		            <a ng-repeat="staticPage in staticPages" ui-sref="static-auth({ pageName: staticPage.name})">{{staticPage.description}}</a>
+		            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
 		        </div>
 		    </div>
 		</div>

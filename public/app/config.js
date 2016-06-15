@@ -31,13 +31,8 @@ angular.module('placePeopleApp')
 	    })
 	    .state('static', {
 	      url: '/static/:pageName',
-	      templateUrl: '../../app/Static/views/unauth-static.html',
+	      templateUrl: '../../app/Static/views/static.html',
 	      controller: 'staticCtrl'
-	    })
-	    .state('static-auth', {
-	      url: '/page/:pageName',
-	      templateUrl: '../../app/Static/views/auth-static.html',
-	      controller: 'staticCtrl'
-	    })
+	    })	    
 	    
 	}]);
