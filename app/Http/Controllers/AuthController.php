@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BlackList;
+use App\Online;
 use App\SMS;
 use App\User;
 use Illuminate\Contracts\Validation\ValidationException;
@@ -34,11 +35,12 @@ class AuthController extends Controller
                 return response()->json($result);
             }
         }
-        if(BlackList::where('phone',$request->input('phone'))->where('date','>',(new \DateTime())->format('Y:m:d'))->first()){
+        if($bl = BlackList::where('phone',$request->input('phone'))->where('date','>',(new \DateTime())->format('Y:m:d'))->first()){
             $result = [
                 "status" => false,
                 "error" => [
                     'message' => "Blocked user",
+                    'date' => $bl->date,
                     'code' => '10'
                 ]
             ];
@@ -116,12 +118,12 @@ class AuthController extends Controller
         $password = $request->input('password');
         if ($login && $password) {
             $status = false;
-            if(Auth::attempt(['login' => $login, 'password' => $password])){
+            if(Auth::attempt(['login' => $login, 'password' => $password],1)){
                 $status = true;
-            }elseif(Auth::attempt(['phone' => $login, 'password' => $password])){
+            }elseif(Auth::attempt(['phone' => $login, 'password' => $password],1)){
                 $status = true;
             }
-            return response()->json(['status'=>$status,'user_id'=>Auth::id()]);
+            return response()->json(['status'=>$status,'user_id'=>Auth::id(),'login'=>Auth::user()->login]);
         } else {
             $result = [
                 "status" => false,
@@ -135,6 +137,9 @@ class AuthController extends Controller
     }
 
     public function logOut(){
+        if(Auth::user()){
+            Online::logOut(Auth::id());
+        }
         Auth::logout();
     }
 }

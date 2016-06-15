@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Online;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class UserController extends Controller
     public function show($login)
     {
         $user = User::where('login',$login)->first();
+        $user->is_online = Online::isOnline($user->id);
         return $user;
     }
 
@@ -91,6 +93,7 @@ class UserController extends Controller
             $user->update($request->all());
             if ($password = $request->input('password')) {
                 $user->password = bcrypt($password);
+                $user->save();
                 Auth::attempt(['login' => $user->login, 'password' => $password]);
             }
             if ($request->hasFile('avatar')) {
