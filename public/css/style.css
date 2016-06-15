@@ -342,6 +342,7 @@ body.main-page {
 	overflow: hidden;
 	justify-content: center;
     	align-items: center;
+    	position: relative;
 }
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
@@ -358,6 +359,13 @@ body.main-page {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.add-ava label .add.edit-ava {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -7.5vh;
+	margin-top: -7.5vh;
 }
 .add-ava label .add-photo {
 	cursor: pointer;
@@ -576,7 +584,7 @@ footer {
 }
 @media (max-width: 1025px) {
 	.registration .form .logo {
-		width: 25%;
+		width: 11vw;
     		height: 11vh;
 	}
 	.footer  {
@@ -1189,7 +1197,7 @@ body.public.user {
 	text-align: center;
 	cursor: pointer;
 	line-height: 20px;
-	margin: 20px 0 20px;
+	margin: 15px 0 10px;
 }
 .counts .counter p{
 	font-size: 12.5px;
@@ -1236,7 +1244,9 @@ body.public.user {
 	background-image: url(../images/create-hover.png);
 	transition: all .3s ease-in-out .1s;
 }
-.comunications .rewrite {
+.comunications .rewrite,
+.comunications .reread,
+.comunications .read {
 	border: 1px solid transparent;
 	border-radius: 4px;
 	font-size: 14.6px;
@@ -1248,7 +1258,19 @@ body.public.user {
 	transition: all .3s ease-in-out .1s; 
 	text-decoration: none;
 }
-.comunications .rewrite:hover {
+.comunications .reread,
+.comunications .read {
+	color: #fff;
+	background: #495b79;
+}
+.comunications .reread:hover,
+.comunications .read:hover {
+	color: #495b79;
+	background: transparent;
+}
+.comunications .rewrite:hover,
+.comunications .reread:hover,
+.comunications .read:hover {
 	border: 1px solid #77849b;
 	transition: all .3s ease-in-out .1s;  
 }
@@ -1373,6 +1395,21 @@ body.public.user {
 	height: 100%;
 	width: 100%;
 }
+#user-page .status-user {
+	color: #666;
+	font-weight: lighter;
+	font-size: 13px;
+	margin: 0;
+	padding: 0 5px 5px;
+	font-family: "SFUIDisplayLight";
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#user-page .my-profile-item .status-user {
+	padding: 0 0 15px 0;
+	max-width: 490px;
+}
 @media (max-width: 700px) {
 	.content-user {
 		padding: 32px 0;
@@ -1435,12 +1472,25 @@ body.public.user {
 		width: 100%;
 		margin-bottom: 5px;
 	}
+	#user-page .my-profile-item .status-user {
+		max-width: 350px;
+	}
 	/*end header user*/
 }
 @media (max-width: 520px) {
 	// .public header .header {
 	// 	justify-content: center;
 	// }
+	#user-page .my-profile-item .status-user {
+		display: none;
+	}
+	#user-page .status-user.adaptiv {
+		padding: 0 20px 15px;
+		max-width: 100vw;
+    		box-sizing: border-box;
+    		display: block;
+
+	}
 	.public header .search {
 		width: 200px;
 		margin-right: 10px;
@@ -1510,6 +1560,10 @@ body.public.user {
 	}
 	.comunications .view {
 		width: 18%;
+	}
+	#user-page .status-user.adaptiv {
+		padding: 0 5px 15px;
+    		
 	}
 }
 
