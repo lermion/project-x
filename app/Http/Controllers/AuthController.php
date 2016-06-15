@@ -34,11 +34,12 @@ class AuthController extends Controller
                 return response()->json($result);
             }
         }
-        if(BlackList::where('phone',$request->input('phone'))->where('date','>',(new \DateTime())->format('Y:m:d'))->first()){
+        if($bl = BlackList::where('phone',$request->input('phone'))->where('date','>',(new \DateTime())->format('Y:m:d'))->first()){
             $result = [
                 "status" => false,
                 "error" => [
                     'message' => "Blocked user",
+                    'date' => $bl->date,
                     'code' => '10'
                 ]
             ];
