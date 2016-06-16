@@ -48,6 +48,7 @@ Route::group(['middleware' => ['web']], function () {
     {
         Route::post('update/{id}', 'UserController@update');
         Route::get('show/{id}', 'UserController@show');
+        Route::post('subscribe/store', 'SubscriberController@store');
     });
     Route::get('country', 'CountryController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
