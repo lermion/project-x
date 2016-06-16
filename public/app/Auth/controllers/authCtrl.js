@@ -81,63 +81,63 @@ angular.module('placePeopleApp')
     	};
 
     	$scope.userRegisterS1 = function(){    		
-    		if (!$scope.newUserCountryId && !$scope.newUserPhoneNumber){
-    			$scope.nupnErr = 'Заполните все поля';
-    		} else if (!$scope.newUserCountryId) {
-    			$scope.nupnErr = 'Выберите страну';
-    		} else if(!$scope.newUserPhoneNumber){
-    			$scope.nupnErr = 'Введён некорректный номер телефона';
-    		} else{
-    			var countryId = parseInt($scope.newUserCountryId);
-    			var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);
-    		}
-    		if($scope.nupnErr){
-    			return;
-    		}		
-    		AuthService.sendMessage(phoneNum, countryId)
-	    		.then(function(res){	    			    			
-	    			if (res.status) {
-	    				$scope.newUserId = res.user_id;
+    		// if (!$scope.newUserCountryId && !$scope.newUserPhoneNumber){
+    		// 	$scope.nupnErr = 'Заполните все поля';
+    		// } else if (!$scope.newUserCountryId) {
+    		// 	$scope.nupnErr = 'Выберите страну';
+    		// } else if(!$scope.newUserPhoneNumber){
+    		// 	$scope.nupnErr = 'Введён некорректный номер телефона';
+    		// } else{
+    		// 	var countryId = parseInt($scope.newUserCountryId);
+    		// 	var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);
+    		// }
+    		// if($scope.nupnErr){
+    		// 	return;
+    		// }		
+    		// AuthService.sendMessage(phoneNum, countryId)
+	    	// 	.then(function(res){	    			    			
+	    	// 		if (res.status) {
+	    	// 			$scope.newUserId = res.user_id;
 	    				$scope.regStep1 = true;
-	    			} else {						
-						if (parseInt(res.error.code) === 1) {
-							$scope.nupnErr = 'Данный номер уже зарегистрирован';
-						} else if(parseInt(res.error.code) === 3){
-							$scope.nupnErr = 'Ошибка при отправке кода подтверждения';
-						} else if(parseInt(res.error.code) === 10){
-							var endDate = new Date(res.error.date);
-							var today = new Date(((new Date).toISOString()).slice(0, 10));
-							if (endDate>=today) {
-								var diff = (endDate-today)/1000/60/60/24;
-								$scope.nupnErr = 'Номер заблокирован для регистрации еще ' + diff + ' дней';
-							} else {
-								$scope.nupnErr = 'Номер заблокирован навсегда';
-							}							
-						}
-	    			}	    					        
-			      }, function(err){
-			        console.log(err);
-			      });	
+	    	// 		} else {						
+						// if (parseInt(res.error.code) === 1) {
+						// 	$scope.nupnErr = 'Данный номер уже зарегистрирован';
+						// } else if(parseInt(res.error.code) === 3){
+						// 	$scope.nupnErr = 'Ошибка при отправке кода подтверждения';
+						// } else if(parseInt(res.error.code) === 10){
+						// 	var endDate = new Date(res.error.date);
+						// 	var today = new Date(((new Date).toISOString()).slice(0, 10));
+						// 	if (endDate>=today) {
+						// 		var diff = (endDate-today)/1000/60/60/24;
+						// 		$scope.nupnErr = 'Номер заблокирован для регистрации еще ' + diff + ' дней';
+						// 	} else {
+						// 		$scope.nupnErr = 'Номер заблокирован навсегда';
+						// 	}							
+						// }
+	    	// 		}	    					        
+			   //    }, function(err){
+			   //      console.log(err);
+			   //    });	
     	};
 
     	$scope.userRegisterS2 = function(){
-    		if (!$scope.newUserSmsCode) {
-    			// newUserSmsCodeError = nuscErr
-    			$scope.nuscErr = 'Введите код';
-    			return;
-    		} else {
-    			var code = parseInt($scope.newUserSmsCode);
-    		}
-    		AuthService.checkSms(code)
-	    		.then(function(res){	    				    			
-	    			if (res.status) {		   				
+    		// if (!$scope.newUserSmsCode) {
+    		// 	// newUserSmsCodeError = nuscErr
+    		// 	$scope.nuscErr = 'Введите код';
+    		// 	return;
+    		// } else {
+    		// 	var code = parseInt($scope.newUserSmsCode);
+    		// }
+    		// AuthService.checkSms(code)
+	    	// 	.then(function(res){	    				    			
+	    	// 		if (res.status) {		   				
 	    				$scope.regConfirmed = true;
-	    			} else {
-	    				$scope.nuscErr = 'Не верный код';
-	    			}	    					        
-			      }, function(err){
-			        console.log(err);
-			      });			   
+	    	// 		} else {
+	    	// 			$scope.nuscErr = 'Не верный код';
+	    	// 		}	    					        
+			   //    }, function(err){
+			   //      console.log(err);
+			   //    });			   
     	};
    
 		$scope.myImage='';
