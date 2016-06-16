@@ -1,8 +1,9 @@
 angular.module('placePeopleApp')
-    .controller('staticCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', '$window', '$http', 'storageService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, $window, $http, storageService){
+    .controller('staticCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', '$window', '$http', 'storageService', '$sce',
+    	function($scope, $state, $stateParams, StaticService, AuthService, $window, $http, storageService, $sce){
 
     	$scope.$emit('publicPoint', 'public');
+        $scope.sce = $sce;
 
         var storage = storageService.getStorage();
 

@@ -62,7 +62,7 @@
 				<li>"удалить" - полное удаление объекта и всех его связей, без возможности восстановления; </li>
 			</ul>
 		</div> -->
-		<div class="info">{{staticText}}</div>
+		<div class="info" ng-bind-html="sce.trustAsHtml(staticText)"><!-- {{staticText}} --></div>
 	</div>
 	<footer>
 		<div class="footer">
