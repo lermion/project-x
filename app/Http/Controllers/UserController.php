@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Online;
+use App\Subscriber;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,7 @@ class UserController extends Controller
     {
         $user = User::where('login',$login)->first();
         $user->is_online = Online::isOnline($user->id);
+        $user->is_sub = Subscriber::isSub($user->id,Auth::id());
         return $user;
     }
 
