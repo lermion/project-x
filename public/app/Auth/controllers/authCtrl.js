@@ -80,7 +80,8 @@ angular.module('placePeopleApp')
     		return parseInt(angular.element(document.querySelector("#phone"))[0].clientWidth);
     	};
 
-    	$scope.userRegisterS1 = function(){    		
+    	$scope.userRegisterS1 = function(){ 
+    	   	$scope.codeSendLoader = true;	
     		if (!$scope.newUserCountryId && !$scope.newUserPhoneNumber){
     			$scope.nupnErr = 'Заполните все поля';
     		} else if (!$scope.newUserCountryId) {
@@ -92,13 +93,15 @@ angular.module('placePeopleApp')
     			var phoneNum = parseInt($scope.phoneCode + $scope.newUserPhoneNumber);
     		}
     		if($scope.nupnErr){
+    			$scope.codeSendLoader = false;
     			return;
     		}		
     		AuthService.sendMessage(phoneNum, countryId)
 	    		.then(function(res){	    			    			
 	    			if (res.status) {
+	    				$scope.codeSendLoader = false;
 	    				$scope.newUserId = res.user_id;
-	    				$scope.regStep1 = true;
+	    				$scope.regStep1 = true;	    				
 	    			} else {						
 						if (parseInt(res.error.code) === 1) {
 							$scope.nupnErr = 'Данный номер уже зарегистрирован';
@@ -109,11 +112,12 @@ angular.module('placePeopleApp')
 							var today = new Date(((new Date).toISOString()).slice(0, 10));
 							if (endDate>=today) {
 								var diff = (endDate-today)/1000/60/60/24;
-								$scope.nupnErr = 'Номер заблокирован для регистрации еще ' + diff + ' дней';
+								$scope.nupnErr = 'Номер заблокирован для регистрации еще на ' + diff + ' дней';
 							} else {
 								$scope.nupnErr = 'Номер заблокирован навсегда';
 							}							
 						}
+						$scope.codeSendLoader = false;
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -121,9 +125,10 @@ angular.module('placePeopleApp')
     	};
 
     	$scope.userRegisterS2 = function(){
-    		if (!$scope.newUserSmsCode) {
-    			// newUserSmsCodeError = nuscErr
+    		$scope.smsConfirmLoader = true;
+    		if (!$scope.newUserSmsCode) {    			
     			$scope.nuscErr = 'Введите код';
+    			$scope.smsConfirmLoader = false;
     			return;
     		} else {
     			var code = parseInt($scope.newUserSmsCode);
@@ -132,8 +137,10 @@ angular.module('placePeopleApp')
 	    		.then(function(res){	    				    			
 	    			if (res.status) {		   				
 	    				$scope.regConfirmed = true;
+	    				$scope.smsConfirmLoader = false;
 	    			} else {
 	    				$scope.nuscErr = 'Неверный код';
+	    				$scope.smsConfirmLoader = false;
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -172,6 +179,7 @@ angular.module('placePeopleApp')
 	    };
 
     	$scope.userRegisterS3 = function(firstName, lastName, login, pwd, countryId, uId){
+    		$scope.regLoader = true;
     		var errors = 0;
     		if (!firstName) {
     			$scope.nunErr = 'Введите имя';
@@ -190,21 +198,25 @@ angular.module('placePeopleApp')
     			errors++;
     		}    			
     		if (errors > 0) {
+    			$scope.regLoader = false;
     			return;
+    			
     		}
 
 			AuthService.registerUser(firstName, lastName, login, pwd, countryId, $scope.croppedImg, uId)
 	    		.then(function(res){	    			
-	    			if (res.status) {	
+	    			if (res.status) {
+	    				$scope.regLoader = false;	
 	    				$scope.userRegistred = true;
 	    				storageService.setStorageItem('username', res.login);
 	    				$state.go('user', {username: res.login});	    				
 	    			} else {	    				
 	    				if (parseInt(res.error.code) === 1) {
-							$scope.nulErr = 'Данный логин уже занят';
+							$scope.nulErr = 'Такой логин уже существует';
 						} else if(parseInt(res.error.code) === 8){
-							$scope.nupErr = 'Прекратите эти поптытки';
+							$scope.nupErr = 'Прекратите эти попытки';
 						}
+						$scope.regLoader = false;
 	    			}    					        
 			      }, function(err){
 			        console.log(err);
@@ -212,16 +224,35 @@ angular.module('placePeopleApp')
     	};
 
     	/*LOGIN PAGE*/    	
-    	$scope.login = function(){
-    		var login = $scope.userLogin;    		
-    		var pwd = $scope.userPassword;    		
+    	$scope.login = function(login, pwd){
+    		$scope.loginLoader=true;    	  		
+    		if (!login && !pwd) {
+    			$scope.loginError = 'Введите логин и пароль';
+    		} else if(!login){
+    			$scope.loginError = 'Введите логин';
+    		} else if(!pwd){
+    			$scope.loginError = 'Введите пароль';
+    		}
+
+    		if ($scope.loginError) {
+    			$scope.loginLoader = false;
+    			return;
+    		} 
+
     		AuthService.userLogIn(login, pwd)
-	    		.then(function(res){   			
+	    		.then(function(res){
+	    			console.log(res);   			
 	    			if (res.status) {
+	    				$scope.loginLoader = false;
 	    				storageService.setStorageItem('username', res.login);	    				
 	    				$state.go('user', {username: res.login});	    				
-	    			}	else{	    				
-	    				$scope.loginError = true;	    				
+	    			}	else{
+	    				if (!res.error) {
+	    					$scope.loginError = 'Такого аккаунта не существует';
+	    				} else{
+	    					$scope.loginError = 'Неверный логин или пароль';
+	    				}
+	    				$scope.loginLoader = false; 	    				
 	    			}    					        
 			      }, function(err){
 			        console.log(err);
@@ -236,13 +267,16 @@ angular.module('placePeopleApp')
     	
       /*RESTORE PAGE*/
 		$scope.sendRestoreSms = function(){
+			$scope.restoreSmsLoader = true;
 			if (!$scope.restoreUserPhone) {
 				$scope.ruphErr = 'Введите корректный номер';
+				$scope.restoreSmsLoader = false;
 				return;
 			}
 			AuthService.sendRestoreSms($scope.restoreUserPhone)
 				.then(function(res){										
-					if (res.status) {	    				
+					if (res.status) {
+						$scope.restoreSmsLoader = false;	    				
 						$scope.smsSend = true;
 					}else {
 						if (parseInt(res.error.code) === 3) {
@@ -250,7 +284,7 @@ angular.module('placePeopleApp')
 						} else if (parseInt(res.error.code) === 1) {
 							$scope.ruphErr = 'По данному номеру нет зарегистрированных пользователей';
 						}
-						
+						$scope.restoreSmsLoader = false;
 					}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -258,41 +292,52 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.sendRestoreCode = function(){
+			$scope.checkSmsLoader = true;
 			if (!$scope.restoreUserSms) {
+					$scope.checkSmsLoader = false;
 					$scope.rusError = 'Введите код';
 					return;
 				} 
 			AuthService.validateRestoreSms($scope.restoreUserSms)
 				.then(function(res){					    			
-					if (res.status) {	    				
+					if (res.status) {
+						$scope.checkSmsLoader = false;	    				
 						$scope.smsConfirmed = true;
 					} else{						
 						if (parseInt(res.error.code) === 4) {
 							$scope.rusError = 'Введён неверный код';
+						} else {
+							$scope.rusError = 'Ошибка';
 						}
+						$scope.checkSmsLoader = false;
 					}    					        
 			      }, function(err){
 			        console.log(err);
 			      });
 		};
 
-		$scope.setNewPwd = function(){      	
+		$scope.setNewPwd = function(){ 
+			$scope.newPwdLoader = true;     	
 			if (!$scope.restoreUserPwd || !$scope.restoreUserPwdConf || $scope.restoreUserPwd != $scope.restoreUserPwdConf) {
 				$scope.rupErr = 'Пароли не совпадают';				
 			} else if ($scope.restoreUserPwd.length < 6) {
 				$scope.rupErr = 'Длина пароля должна быть от 6 символов';
 			}	
 			if ($scope.rupErr) {
+				$scope.newPwdLoader = false;
 				return;
 			}		
 			AuthService.changePwd($scope.restoreUserPwd)
 				.then(function(res){					
-					if (res.status) {
+					if (res.status) {						
 						$scope.changePwdSuccess = true;
 						$timeout(function(){
 				    		$state.go('login');
 				    	}, 1500);
-					}				        
+					} else {
+						$scope.rupErr = 'Вы не вышли из аккаунта';
+					}
+					$scope.newPwdLoader = false;				        
 			      }, function(err){
 			        console.log(err);
 			      });

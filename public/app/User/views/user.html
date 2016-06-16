@@ -64,7 +64,7 @@
 						</div>
 					</div>
 					<div class="comunications" ng-hide="myProfile">
-						<a href="" class="read" ng-click="isSigned=!isSigned;">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
+						<a href="" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
 						<div class="view" ng-init="photosGrid=true;">
 							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>

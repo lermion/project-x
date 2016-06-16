@@ -19,7 +19,7 @@
                                         </div>                                        
                                         <p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
+                                    <button class="check-in-button" ng-click="userRegisterS1();" ladda="codeSendLoader">Зарегистрироваться</button>
                         </div>
                         <div class="form-item" ng-show="regStep1">
                                     <h5>Регистрация</h5>
@@ -30,7 +30,7 @@
                                             </div>
                                             <p ng-show="nuscErr" class="capcha-code">{{nuscErr}}</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS2()">Зарегистрироваться</button>
+                                    <button class="check-in-button" ng-click="userRegisterS2()" ladda="smsConfirmLoader">Зарегистрироваться</button>
                         </div>
                 </div>
         </div> 
@@ -82,7 +82,7 @@
                                         </div>
                                         <p ng-show="nupErr" class="capcha-password">{{nupErr}}</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserLogin, newUserPassword, newUserCountryId, newUserId)">Готово</button>
+                                    <button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserLogin, newUserPassword, newUserCountryId, newUserId)" ladda="regLoader">Готово</button>
                         </div>
                </div>
         </div>        

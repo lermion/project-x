@@ -1,7 +1,14 @@
 angular.module('placePeopleApp')
-	.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
+	.config(['$urlRouterProvider', '$stateProvider', 'laddaProvider', 
+		function($urlRouterProvider, $stateProvider, laddaProvider){
+		
+    laddaProvider.setOption({
+      style: 'expand-right',
+      spinnerSize: 30,
+      spinnerColor: '#ffffff'
+    }); 
 
-  $urlRouterProvider.otherwise('/');
+  	$urlRouterProvider.otherwise('/');
 
 	  $stateProvider
 	    .state('auth', {

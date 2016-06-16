@@ -27,7 +27,11 @@ angular.module('placePeopleApp')
 				} else {
 					$scope.myProfile = false;
 				}
-				$scope.userData = res;							        
+				if (!$scope.myProfile) {
+					$scope.isSigned = res.is_sub;
+				}
+				// $scope.userId = res.id;
+				$scope.userData = res;										        
 			},
 			function(err){
 				console.log(err);
@@ -94,6 +98,25 @@ angular.module('placePeopleApp')
 		w.bind('resize', function(){
 		  $scope.$apply();
 		});
+		//Sign on
+		$scope.sign = function(){
+			$scope.isSigned=!$scope.isSigned;
+			UserService.sign(parseInt($scope.userData.id))
+			.then(function(res){
+					console.log(res);	    			
+	    			if (res.status) {
+	    				$scope.isSigned = res.is_sub
+	    			} else {
+	    				if (parseInt(res.error.code) === 1) {	    					
+	    					// 1 userId
+	    				} else if(parseInt(res.error.code) === 8){
+	    					// 8 permission
+	    				}
+	    			}
+			      }, function(err){
+			        console.log(err);
+			      });
+		};
 
 		$scope.createPublication = function(){
 			ngDialog.open({
@@ -101,6 +124,6 @@ angular.module('placePeopleApp')
 					className: 'user-publication',
 					scope: $scope
 				});
-		}
+		};
 		
     }]);
