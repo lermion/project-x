@@ -5,7 +5,7 @@
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
 				<a class="drop-menu" href=""></a>
 				<div class="menu-item" ng-show="showMenu">
-					<a class="profile" ui-sref="user({username: userData.login})">Мой профиль</a>
+					<a class="profile" ui-sref="user({username: username})">Мой профиль</a>
 					<a class="places" href="">Места</a>
 					<a class="chat" href=""> Чаты</a>
 					<a class="settings" href="">Настройки</a>
@@ -33,7 +33,7 @@
 				<div class="my-profile-item"> 
 					<div class="user-status">
 						<a class="user-name" href="">{{userData.first_name}} {{userData.last_name}}</a>
-						<p>{{userData.is_online ? 'Online' : 'Offline'}}</p>
+						<!-- <p>Online</p> -->
 					</div>
 					
 					<div class="counts">
@@ -41,23 +41,23 @@
 							<p class="notes">Публикации</p>
 							<span>41</span>
 						</a>
-						<a href="" class="counter">
+						<!-- <a href="" class="counter">
 							<p class="contacts">Контакты</p>
 							<span>417</span>
-						</a>
+						</a> -->
 						<a href="" class="counter">
 							<p class="contacts-off">Подписчиков</p>
 							<span>4169</span>
 						</a>
 						<a href="" class="counter">
-							<p class="contacts-on">Я подписан</p>
+							<p class="contacts-on">Подписан</p>
 							<span>41</span> 
 						</a>
 					</div>
 					<p class="status-user">Мудрый понимает,что агрессия другого человека—это его просьба о ЛюбвиМудрый понимает,что агрессия другого человека — это его просьба о Любви</p>
 					<div class="comunications">
-						<a href="" class="create">Создать публикацию</a>
-						<a href="" class="rewrite">Редактировать</a>
+						<a href="" class="read">Подписаться</a>
+						<a href="" class="reread">Отписаться</a> 
 						<div class="view" ng-init="photosGrid=true;">
 							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
@@ -67,8 +67,8 @@
 			</div>
 			<p class="status-user adaptiv">Мудрый понимает,что агрессия другого человека—это его просьба о ЛюбвиМудрый понимает,что агрессия другого человека — это его просьба о Любви</p>
 			<div class="comunications adaptiv">
-				<a href="" class="create">Создать публикацию</a>
-				<a href="" class="rewrite">Редактировать</a>
+				<a href="" class="read">Подписаться</a>
+				<a href="" class="reread">Отписаться</a>
 				<div class="view">
 					<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
 					<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>

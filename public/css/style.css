@@ -1174,9 +1174,9 @@ body.public.user {
 	margin: 0;
 	padding: 0;
 	font-size: 13px;
-	font-weight: 900;
+	font-weight: 100;
 	color: #7988a3;
-	font-family: "SFUIDisplayMedium";
+	 font-family: "SFUIDisplayLight";
 }
 .my-profile-item .user-name:hover {
 	transition: all .3s ease-in-out .1s; 
@@ -1404,13 +1404,9 @@ body.public.user {
 	margin: 0;
 	padding: 0 5px 5px;
 	font-family: "SFUIDisplayLight";
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 #user-page .my-profile-item .status-user {
 	padding: 0 0 15px 0;
-	max-width: 490px;
 }
 @media (max-width: 700px) {
 	.content-user {

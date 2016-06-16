@@ -133,11 +133,11 @@ angular.module('placePeopleApp')
 	    			if (res.status) {		   				
 	    				$scope.regConfirmed = true;
 	    			} else {
-	    				$scope.nuscErr = 'Не верный код';
+	    				$scope.nuscErr = 'Неверный код';
 	    			}	    					        
 			      }, function(err){
 			        console.log(err);
-			      });			   
+			      });	
     	};
    
 		$scope.myImage='';
@@ -195,8 +195,7 @@ angular.module('placePeopleApp')
     		}
 
 			AuthService.registerUser(firstName, lastName, login, pwd, countryId, $scope.croppedImg, uId)
-	    		.then(function(res){
-	    			console.log(res);	    			
+	    		.then(function(res){	    			
 	    			if (res.status) {	
 	    				$scope.userRegistred = true;
 	    				storageService.setStorageItem('username', res.login);
@@ -239,15 +238,20 @@ angular.module('placePeopleApp')
       /*RESTORE PAGE*/
 		$scope.sendRestoreSms = function(){
 			if (!$scope.restoreUserPhone) {
-				$scope.restoreUserPhoneError = true;
+				$scope.ruphErr = 'Введите корректный номер';
 				return;
 			}
 			AuthService.sendRestoreSms($scope.restoreUserPhone)
-				.then(function(res){					
+				.then(function(res){										
 					if (res.status) {	    				
 						$scope.smsSend = true;
 					}else {
-						$scope.restoreUserPhoneError = true;
+						if (parseInt(res.error.code) === 3) {
+							$scope.ruphErr = 'Ведутся технические работы. Попробуйте позже';
+						} else if (parseInt(res.error.code) === 1) {
+							$scope.ruphErr = 'По данному номеру нет зарегистрированных пользователей';
+						}
+						
 					}	    					        
 			      }, function(err){
 			        console.log(err);
@@ -256,14 +260,18 @@ angular.module('placePeopleApp')
 
 		$scope.sendRestoreCode = function(){
 			if (!$scope.restoreUserSms) {
-					$scope.restoreUserSmsError = true;
+					$scope.rusError = 'Введите код';
 					return;
 				} 
 			AuthService.validateRestoreSms($scope.restoreUserSms)
 				.then(function(res){					    			
 					if (res.status) {	    				
 						$scope.smsConfirmed = true;
-					}     					        
+					} else{						
+						if (parseInt(res.error.code) === 4) {
+							$scope.rusError = 'Введён неверный код';
+						}
+					}    					        
 			      }, function(err){
 			        console.log(err);
 			      });
@@ -271,9 +279,13 @@ angular.module('placePeopleApp')
 
 		$scope.setNewPwd = function(){      	
 			if (!$scope.restoreUserPwd || !$scope.restoreUserPwdConf || $scope.restoreUserPwd != $scope.restoreUserPwdConf) {
-				$scope.restoreUserPwdError = true;
+				$scope.rupErr = 'Пароли не совпадают';				
+			} else if ($scope.restoreUserPwd.length < 6) {
+				$scope.rupErr = 'Длина пароля должна быть от 6 символов';
+			}	
+			if ($scope.rupErr) {
 				return;
-			}			
+			}		
 			AuthService.changePwd($scope.restoreUserPwd)
 				.then(function(res){					
 					if (res.status) {
