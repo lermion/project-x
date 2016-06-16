@@ -64,7 +64,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'publication'], function()
     {
         Route::get('/', 'PublicationController@index');
-        Route::post('store', 'PublicationController@store');
+        Route::post('store', 'PublicationController@store')->middleware(['auth']);
+        Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
     });
 
 
