@@ -124,7 +124,7 @@ class PasswordController extends Controller
                         'code' => '4'
                     ]
                 ];
-                return response()->json([$result]);
+                return response()->json($result);
             }
         } else {
             $result = [
@@ -134,7 +134,7 @@ class PasswordController extends Controller
                     'code' => '5'
                 ]
             ];
-            return response()->json([$result]);
+            return response()->json($result);
         }
     }
 }
