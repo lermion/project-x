@@ -1,14 +1,15 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
 
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
+		$scope.loggedUser = storage.username;
 		
-		if (!storage.length) {
-			storageService.deleteStorage();
-			$state.go('login');
-		}
+		// if (!storage.length) {
+		// 	storageService.deleteStorage();
+		// 	$state.go('login');
+		// }
 
 		$http.get('/static_page/get/name')
             .success(function (response){            	
@@ -19,8 +20,13 @@ angular.module('placePeopleApp')
             });
 
 
-		UserService.getUserData(storage.username)
+		UserService.getUserData($stateParams.username)
 			.then(function(res){
+				if (res.login === storage.username) {
+					$scope.myProfile = true;
+				} else {
+					$scope.myProfile = false;
+				}
 				$scope.userData = res;							        
 			},
 			function(err){
@@ -88,5 +94,13 @@ angular.module('placePeopleApp')
 		w.bind('resize', function(){
 		  $scope.$apply();
 		});
+
+		$scope.createPublication = function(){
+			ngDialog.open({
+					template: '../app/User/views/publication.html',
+					className: 'ngdialog-theme-default',
+					scope: $scope
+				});
+		}
 		
     }]);
