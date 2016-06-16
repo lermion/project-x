@@ -25,12 +25,29 @@ class PublicationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
+        try {
+            $this->validate($request, [
+                'text' => 'required|min:1',
+                'is_anonym' => 'boolean',
+                'is_main' => 'boolean',
+                'videos' => 'array',
+                'images' => 'array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
         $publication = Publication::create($publicationData);
@@ -56,12 +73,17 @@ class PublicationController extends Controller
                 ]);
             }
         }
+        $responseData = [
+            "status" => true,
+            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+        ];
+        return response()->json($responseData);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -72,8 +94,8 @@ class PublicationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -84,11 +106,34 @@ class PublicationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {        
+        if($publication = Publication::find($id)){
+            if($publication->user_id==Auth::id()){
+                $publication->delete();
+                return response()->json(['status'=>true]);
+            }else{
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);   
+            }            
+        }else{
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message'=>'Incorrect id',
+                    'code'=>'1'
+                ]
+            ];
+            return response()->json($responseData);
+        }
     }
 }
