@@ -61,10 +61,21 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('validate_code', 'PasswordController@validateCode');
     });
 
+    Route::group(['prefix' => 'publication'], function()
+    {
+        Route::get('/', 'PublicationController@index');
+        Route::post('store', 'PublicationController@store');
+    });
+
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.hqsale.com/user/update/13\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='file' name='avatar'><br>
+        echo "<form action=\"http://pp.dev/publication/store\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='file' name='images[]'><br>
+            <input type='file' name='images[]'><br>
+            <input type='file' name='images[]'><br>
+            <input type='file' name='images[]'><br>
+            <input type='text' name='user_id'><br>
+            <input type='text' name='text'><br>
             <input type=\"submit\">
         </form>";
     });
