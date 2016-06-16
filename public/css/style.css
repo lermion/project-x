@@ -16,6 +16,9 @@ html{
 	width: 100%;
 	height: auto;
 }
+*:focus {
+	outline: none;
+}
 body.main-page {
 	margin: 0;
 	padding: 0;
@@ -1569,7 +1572,8 @@ body.public.user {
 
 /* ngdialog*/
 
-.ngdialog.ngdialog-theme-default {
+.ngdialog.ngdialog-theme-default,
+.ngdialog.user-publication {
 	position: fixed;
 	top: 0;
 	bottom: 0;

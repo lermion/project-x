@@ -98,7 +98,7 @@ angular.module('placePeopleApp')
 		$scope.createPublication = function(){
 			ngDialog.open({
 					template: '../app/User/views/publication.html',
-					className: 'ngdialog-theme-default',
+					className: 'user-publication',
 					scope: $scope
 				});
 		}
