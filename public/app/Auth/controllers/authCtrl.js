@@ -204,7 +204,8 @@ angular.module('placePeopleApp')
     		}
 
 			AuthService.registerUser(firstName, lastName, login, pwd, countryId, $scope.croppedImg, uId)
-	    		.then(function(res){	    			
+	    		.then(function(res){
+	    			console.log(res);	    			
 	    			if (res.status) {
 	    				$scope.regLoader = false;	
 	    				$scope.userRegistred = true;
@@ -240,20 +241,16 @@ angular.module('placePeopleApp')
     		} 
 
     		AuthService.userLogIn(login, pwd)
-	    		.then(function(res){
-	    			console.log(res);   			
+	    		.then(function(res){	    					
 	    			if (res.status) {
 	    				$scope.loginLoader = false;
 	    				storageService.setStorageItem('username', res.login);	    				
 	    				$state.go('user', {username: res.login});	    				
-	    			}	else{
-	    				if (!res.error) {
-	    					$scope.loginError = 'Такого аккаунта не существует';
-	    				} else{
-	    					$scope.loginError = 'Неверный логин или пароль';
-	    				}
-	    				$scope.loginLoader = false; 	    				
-	    			}    					        
+	    			}else{	    				
+    					$scope.loginError = 'Неверный логин или пароль';
+	    			}  
+	    			$scope.loginLoader = false;
+
 			      }, function(err){
 			        console.log(err);
 			      });
