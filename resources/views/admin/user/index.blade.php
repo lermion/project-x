@@ -130,9 +130,9 @@
             </tr>
         </table>
     </div> -->
-
+      <h2 class="sort">Сортировка:</h2>
        <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
-                    <div class="daosn3"><p>Сортировка:</p></div>
+                   
                     <div class="daosn3">
                         <select>
                             <option>Пол</option>
@@ -157,7 +157,7 @@
                             </fieldset>
                         </form>
                     </div>
-                    <div class="daosn3">
+                    <div class="daosn3 age">
                         <select>
                             <option>Возраст от</option>
                             <option>18</option>
@@ -173,7 +173,7 @@
                         </select>
                     </div>
                     <div class="daosn3"><p><input type="checkbox" checked/> с аватаром</p></div>
-                    <div class="daosn3"><p>Ключевое слово <input type="text"/></p></div>
+                    <div class="daosn3 key"><p>Ключевое слово <input type="text"/></p></div>
     </div>
 
     <div class="x_content">

@@ -56,6 +56,37 @@
 	max-height: 70px;
 	height: auto;
 }
+.sort {
+	text-decoration: underline;
+	font-size: 16px;
+}
+.daosn3 {
+	display: flex;
+    	align-items: center;
+    	margin: 10px 0;
+}
+.daosn3 p {
+	margin: 0 5px;
+	display: flex;
+	align-items: center;
+	line-height: 12px;
+}
+.daosn3 p input[type=checkbox] {
+	margin: 0px 5px 0 0;
+}
+.daosn3 select,
+.daosn3 input[type='text'] {
+	height: 34px;
+}
+.daosn3.key input[type='text'] {
+	margin-left: 5px;
+}
+.controls .input-group {
+	margin-bottom: 0;
+}
+.daosn3.age select{
+	margin: 0 5px;
+}
 @media (max-width: 737px) {
 	.admin-table table tbody tr td div {
 		font-size: 11px;
