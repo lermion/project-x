@@ -23,6 +23,11 @@ class Publication extends Model
         return $this->belongsToMany('App\Like','publication_likes')->withTimestamps();
     }
 
+    public function comments()
+    {
+        return $this->belongsToMany('App\Comment','publication_comments')->withTimestamps();
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
