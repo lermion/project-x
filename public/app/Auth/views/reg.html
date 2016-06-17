@@ -19,18 +19,18 @@
                                         </div>                                        
                                         <p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS1();">Зарегистрироваться</button>
+                                    <button class="check-in-button" ng-click="userRegisterS1();" ladda="codeSendLoader">Зарегистрироваться</button>
                         </div>
                         <div class="form-item" ng-show="regStep1">
                                     <h5>Регистрация</h5>
                                     <form>
                                         <div class="code-field">
                                             <span class="code"></span>
-                                                        <input type="text" name="" placeholder="Введите код..." ng-model="newUserSmsCode" required>
+                                                        <input type="text" name="" placeholder="Введите код..." ng-model="newUserSmsCode" ng-click="nuscErr=false;" required>
                                             </div>
                                             <p ng-show="nuscErr" class="capcha-code">{{nuscErr}}</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS2()">Зарегистрироваться</button>
+                                    <button class="check-in-button" ng-click="userRegisterS2()" ladda="smsConfirmLoader">Зарегистрироваться</button>
                         </div>
                 </div>
         </div> 
@@ -68,21 +68,20 @@
                                                     <input type="text" ng-model="newUserLogin" placeholder="Введите ваш логин..." ng-click="nulErr=false;">
                                         </div> 
                                         <p ng-show="nulErr" class="capcha-user">{{nulErr}}</p>
-                                        <!-- <div class="sex-field">
-                                                <span class="sex"></span>
-                                                <select ng-model="userGender">
-                                                        <option>Мужской</option>
-                                                        <option>Женский</option>
-                                                </select>
-                                                <span class="sex-inner"></span>
-                                        </div> -->
+                                        <div class="sex-field">
+                                            <span class="sex"></span>
+                                            <select ng-model="newUserGender" ng-options="gender.sign as gender.title for gender in [{sign:1, title:'Мужской'}, {sign:0, title:'Женский'}]" ng-click="nugErr=false;" required>
+                                            <option value="">Выберите пол...</option>
+                                            </select>    
+                                        </div>                              
+                                        <p ng-show="nugErr" class="capcha-user">{{nugErr}}</p>
                                         <div class="password-field">
                                                     <span class="password"></span>
                                                     <input type="password"  ng-model="newUserPassword" placeholder="Введите ваш пароль..." ng-click="nupErr=false;">
                                         </div>
                                         <p ng-show="nupErr" class="capcha-password">{{nupErr}}</p>
                                     </form>
-                                    <button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserLogin, newUserPassword, newUserCountryId, newUserId)">Готово</button>
+                                    <button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserGender, newUserLogin, newUserPassword, newUserCountryId, newUserId)" ladda="regLoader">Готово</button>
                         </div>
                </div>
         </div>        

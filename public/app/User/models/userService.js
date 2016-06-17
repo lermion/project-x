@@ -4,7 +4,8 @@ angular.module('placePeopleApp')
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getUserData: getUserData
+			getUserData: getUserData,
+            sign: sign
 		}
 
 		function getUserData(login){                
@@ -16,6 +17,21 @@ angular.module('placePeopleApp')
                     .error(function (error){
                         defer.reject(error);
                     });
+            return defer.promise;
+        }
+
+        function sign(userId){                
+            defer = $q.defer();
+            var data = {
+                user_id: userId
+            };            
+            $http.post(path + 'user/subscribe/store', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });            
             return defer.promise;
         }
         

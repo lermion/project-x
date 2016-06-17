@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $count = $request->input('count') ? $request->input('count') : 10;
-        $users = User::paginate($count);
+        $users = User::all();
         return view('admin.user.index')->with('users', $users);
     }
 
