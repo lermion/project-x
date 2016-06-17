@@ -20,17 +20,11 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        $publications = Publication::with(['videos', 'images', 'user','comments'=>function($query){
-            $query->take(3);
-        },'comments.images','comments.videos','comments.user'])->get();
-        foreach ($publications as &$publication){
-            $publication->like_count = $publication->likes()->count();
-            $publication->comment_count = $publication->comments()->count();
-            foreach ($publication->comments as &$comment){
-                $comment->like_count = $comment->likes()->count();
-            }
-        }
-        return $publications;
+        return Publication::getMainPublication();
+    }
+    
+    public function userPublication($id){
+        return Publication::getUserPublication($id);
     }
 
     /**
@@ -99,7 +93,7 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        //
+        return Publication::show($id);
     }
 
     /**

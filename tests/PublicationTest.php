@@ -50,4 +50,12 @@ class PublicationTest extends TestCase
             'status' => true,
         ]);
     }
+
+    public function testShow()
+    {
+        $user = \App\User::first();
+        $this->be($user);
+        $publication = \App\Publication::create(['user_id' => $user->id]);
+        $this->json('GET', 'publication/show/' . $publication->id)->seeJson();
+    }
 }
