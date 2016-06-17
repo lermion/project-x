@@ -108,7 +108,7 @@ class UserController extends Controller
             }
             $user->save();
             
-            return response()->json(["status" => true,'user_id'=>$user->id,'login'=>$user->login]);
+            return response()->json(["status" => true, 'user' => $user,'user_id'=>$user->id,'login'=>$user->login]);
         }
     }
 
