@@ -1235,6 +1235,9 @@ body.public.user {
     	justify-content: space-between;
     	align-items:center;
 }
+.my-profile-item .counts.another-user {
+	justify-content: flex-start;
+}
 .adaptiv {
 	display: none;
 }
@@ -1247,6 +1250,9 @@ body.public.user {
 	cursor: pointer;
 	line-height: 20px;
 	margin: 15px 0 10px;
+}
+.counts.another-user .counter {
+	margin: 15px 8% 10px 0;
 }
 .counts .counter p{
 	font-size: 12.5px;
