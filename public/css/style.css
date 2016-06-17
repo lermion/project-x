@@ -1578,6 +1578,7 @@ body.public.user {
 	right: 0;
 	background-color: rgba(0, 0, 0, .3);
 	box-sizing: border-box;
+	z-index: 9;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content {
 	position: absolute;

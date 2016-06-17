@@ -5,7 +5,7 @@
                   <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;">
                   <p ng-show="ruphErr" class="capcha">{{ruphErr}}</p>
                   <p>На этот номер телефона мы oтправим вам SMS с кодом</p>
-                  <button class="check-in-button" ng-click="sendRestoreSms()" ladda="restoreSmsLoader">Отправить код</button>
+                  <button class="check-in-button" ng-click="sendRestoreSms()" ladda="restoreSmsLoader" data-style="zoom-out">Отправить код</button>
                   <a class="registration-button enter-button" ui-sref="login">Войти</a>
          </div>
   </div>
@@ -16,7 +16,7 @@
                   <input class="text-field" type="text" name="" placeholder="Введите код..." ng-model="restoreUserSms" ng-click="rusError=false;">                  
                   <p>Введите код, полученный SMS сообщением на указанный номер телефона</p>
                   <p ng-show="rusError" class="capcha">{{rusError}}</p>
-                  <button class="check-in-button" ng-click="sendRestoreCode()" ladda="checkSmsLoader">Востановить</button>
+                  <button class="check-in-button" ng-click="sendRestoreCode()" ladda="checkSmsLoader" data-style="zoom-out">Востановить</button>
                   <a class="registration-button enter-button" ui-sref="login">Войти</a>
          </div>
   </div>

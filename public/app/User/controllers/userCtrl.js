@@ -51,7 +51,7 @@ angular.module('placePeopleApp')
     		if ($window.innerWidth <= 800) {    			
 				 $scope.showMenu =! $scope.showMenu;
     		} else{
-    			$scope.showMenu = false;    			
+    			$scope.showMenu = true;    			
     		}
     	};
 
