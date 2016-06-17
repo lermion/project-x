@@ -36,7 +36,7 @@ class Publication extends Model
 
     public static function getMainPublication($userId = null)
     {
-        $publications = Publication::with(['videos', 'images', 'user', 'comments' => function ($query) {
+        $publications = Publication::with(['videos', 'images', 'comments' => function ($query) {
             $query->take(3);
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where(function ($query) use ($userId) {
@@ -53,6 +53,9 @@ class Publication extends Model
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();
+            if(!$publication->is_anonym){
+                $publication->user;
+            }
             foreach ($publication->comments as &$comment) {
                 $comment->like_count = $comment->likes()->count();
             }
@@ -65,7 +68,8 @@ class Publication extends Model
         $publications = Publication::with(['videos', 'images', 'user', 'comments' => function ($query) {
             $query->take(3);
         }, 'comments.images', 'comments.videos', 'comments.user'])
-            ->where('user_id', $userId)->get();
+            ->where('user_id', $userId)
+            ->where('is_anonym', false)->get();
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();

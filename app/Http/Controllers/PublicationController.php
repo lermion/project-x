@@ -22,8 +22,9 @@ class PublicationController extends Controller
     {
         return Publication::getMainPublication();
     }
-    
-    public function userPublication($id){
+
+    public function userPublication($id)
+    {
         return Publication::getUserPublication($id);
     }
 
@@ -55,6 +56,7 @@ class PublicationController extends Controller
         }
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
+        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $publication = Publication::create($publicationData);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {

@@ -33,6 +33,9 @@ class UserController extends Controller
         $user = User::where('login',$login)->first();
         $user->is_online = Online::isOnline($user->id);
         $user->is_sub = Subscriber::isSub($user->id,Auth::id());
+        $user->subscription_count = $user->subscription()->count();
+        $user->subscribers_count = $user->subscribers()->count();
+        $user->publications_count = $user->publications()->count();
         return $user;
     }
 
@@ -105,7 +108,7 @@ class UserController extends Controller
             }
             $user->save();
             
-            return response()->json(["status" => true,'user_id'=>$user->id,'login'=>$user->login]);
+            return response()->json(["status" => true, 'user' => $user,'user_id'=>$user->id,'login'=>$user->login]);
         }
     }
 
