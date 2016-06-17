@@ -102,8 +102,7 @@ angular.module('placePeopleApp')
 		$scope.sign = function(){
 			$scope.isSigned=!$scope.isSigned;
 			UserService.sign(parseInt($scope.userData.id))
-			.then(function(res){
-					console.log(res);	    			
+			.then(function(res){							
 	    			if (res.status) {
 	    				$scope.isSigned = res.is_sub
 	    			} else {

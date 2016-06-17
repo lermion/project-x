@@ -227,7 +227,7 @@ angular.module('placePeopleApp')
 
     	/*LOGIN PAGE*/    	
     	$scope.login = function(login, pwd){
-    		$scope.loginLoader=true;    	  		
+    		$scope.loginLoader = true;    	  		
     		if (!login && !pwd) {
     			$scope.loginError = 'Введите логин и пароль';
     		} else if(!login){
@@ -242,8 +242,7 @@ angular.module('placePeopleApp')
     		} 
     		AuthService.userLogIn(login, pwd)
 	    		.then(function(res){	    					
-	    			if (res.status) {
-	    				$scope.loginLoader = false;
+	    			if (res.status) {	    				
 	    				storageService.setStorageItem('username', res.login);	    				
 	    				$state.go('user', {username: res.login});	    				
 	    			}else{	    				
