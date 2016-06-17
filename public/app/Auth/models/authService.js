@@ -58,10 +58,11 @@ angular.module('placePeopleApp')
             return defer.promise;
            }
 
-        function registerUser(first, last, login, pwd, countryId, avatar, userId){           
+        function registerUser(first, last, gender, login, pwd, countryId, avatar, userId){           
             var data = new FormData();
             data.append('first_name', first);
             data.append('last_name', last);
+            data.append('gender', gender);
             data.append('login', login);
             data.append('password', pwd);
             data.append('country_id', countryId);
