@@ -32,7 +32,9 @@
 				</div>
 				<div class="my-profile-item"> 
 					<div class="user-status">
-						<a class="user-name" href="">{{userData.first_name}} {{userData.last_name}}</a>
+						<a class="user-name" href="" ng-hide="profileEdition">{{userData.first_name}} {{userData.last_name}}</a>
+						<input type="text" ng-show="profileEdition" placeholder="name" ng-model="userData.first_name">
+						<input type="text" ng-show="profileEdition" placeholder="lastname" ng-model="userData.last_name">
 						<p>{{userData.is_online ? 'Online' : 'Offline'}}</p>
 					</div>
 					
@@ -54,10 +56,12 @@
 							<span>41</span> 
 						</a>
 					</div>
-					<p class="status-user">Мудрый понимает,что агрессия другого человека—это его просьба о ЛюбвиМудрый понимает,что агрессия другого человека — это его просьба о Любви</p>
+					<p class="status-user" ng-hide="profileEdition">{{userStatus}}</p>
+					<!-- <textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
+					<textarea ng-show="profileEdition" ng-model="userStatus" ng-model-options="{updateOn: 'blur'}">{{userStatus}}</textarea>
 					<div class="comunications" ng-show="myProfile">
 						<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
-						<a href="" class="rewrite">Редактировать</a>
+						<a href="" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userStatus);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
 						<div class="view" ng-init="photosGrid=true;">
 							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
@@ -72,10 +76,11 @@
 					</div>
 				</div>
 			</div>
-			<p class="status-user adaptiv">Мудрый понимает,что агрессия другого человека—это его просьба о ЛюбвиМудрый понимает,что агрессия другого человека — это его просьба о Любви</p>
+			<!-- <p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
+			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
 			<div class="comunications adaptiv" ng-show="myProfile">
 				<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
-				<a href="" class="rewrite">Редактировать</a>
+				<a href="" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userStatus);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
 				<div class="view">
 					<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
 					<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>

@@ -5,6 +5,8 @@ angular.module('placePeopleApp')
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
+
+		$scope.userStatus = 'Мудрый понимает,что агрессия другого человека—это его просьба о Любви Мудрый понимает,что агрессия другого человека — это его просьба о Любви';
 		
 		// if (!storage.length) {
 		// 	storageService.deleteStorage();
@@ -116,6 +118,11 @@ angular.module('placePeopleApp')
 			        console.log(err);
 			      });
 		};
+
+		$scope.editProfile = function(name, lastname, status){
+			$scope.profileEdition = !$scope.profileEdition;			
+			console.log(name, lastname, status);
+		}
 
 		$scope.createPublication = function(){
 			ngDialog.open({
