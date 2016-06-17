@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
 {
@@ -19,7 +20,11 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        return Publication::with('videos', 'images', 'user')->get();
+        $publications = Publication::with(['videos', 'images', 'user'])->get();
+        foreach ($publications as &$publication){
+            $publication->like_count = $publication->likes()->count();
+        }
+        return $publications;
     }
 
     /**
@@ -110,12 +115,12 @@ class PublicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {        
-        if($publication = Publication::find($id)){
-            if($publication->user_id==Auth::id()){
+    {
+        if ($publication = Publication::find($id)) {
+            if ($publication->user_id == Auth::id()) {
                 $publication->delete();
-                return response()->json(['status'=>true]);
-            }else{
+                return response()->json(['status' => true]);
+            } else {
                 $responseData = [
                     "status" => false,
                     "error" => [
@@ -123,14 +128,39 @@ class PublicationController extends Controller
                         'code' => '8'
                     ]
                 ];
-                return response()->json($responseData);   
-            }            
-        }else{
+                return response()->json($responseData);
+            }
+        } else {
             $responseData = [
                 "status" => false,
                 "error" => [
-                    'message'=>'Incorrect id',
-                    'code'=>'1'
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+    }
+
+    public function like($id)
+    {
+        if ($publication = Publication::find($id)) {
+            $userId = Auth::id();
+            if ($like = $publication->likes()->where('user_id', $userId)->first()) {
+                $like->delete();
+            } else {
+                $publication->likes()->create([
+                    'user_id' => $userId
+                ]);
+            }
+            return response()->json(['status' => true,
+                'like_count' => $publication->likes()->count()]);
+        } else {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
                 ]
             ];
             return response()->json($responseData);
