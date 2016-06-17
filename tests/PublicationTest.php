@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class PublicationTest extends TestCase
 {
     use DatabaseTransactions;
-    
+
     /**
      * A basic test example.
      *
@@ -23,9 +23,9 @@ class PublicationTest extends TestCase
         $user = \App\User::first();
         $this->be($user);
         $data = [
-            'text' => 'test','is_anonym' => false,'is_main'=>false,
+            'text' => 'test', 'is_anonym' => false, 'is_main' => false,
         ];
-        $this->json('POST', 'publication/store',$data)->seeJson([
+        $this->json('POST', 'publication/store', $data)->seeJson([
             'status' => true,
         ]);
         $this->seeInDatabase('publications', $data);
@@ -35,8 +35,18 @@ class PublicationTest extends TestCase
     {
         $user = \App\User::first();
         $this->be($user);
-        $publication = \App\Publication::create(['user_id'=>$user->id]);
-        $this->json('GET', 'publication/destroy/'.$publication->id)->seeJson([
+        $publication = \App\Publication::create(['user_id' => $user->id]);
+        $this->json('GET', 'publication/destroy/' . $publication->id)->seeJson([
+            'status' => true,
+        ]);
+    }
+
+    public function testLike()
+    {
+        $user = \App\User::first();
+        $this->be($user);
+        $publication = \App\Publication::create(['user_id' => $user->id]);
+        $this->json('GET', 'publication/like/' . $publication->id)->seeJson([
             'status' => true,
         ]);
     }

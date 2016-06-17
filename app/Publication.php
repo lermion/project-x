@@ -18,6 +18,11 @@ class Publication extends Model
         return $this->belongsToMany('App\Video','publication_videos')->withTimestamps();
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany('App\Like','publication_likes')->withTimestamps();
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
