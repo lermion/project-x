@@ -1871,6 +1871,20 @@ body.public.user {
 .publication-footer-button .cansel:hover  {
 	color: #999;
 }
+@media (max-width: 700px) {
+	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
+		width: 450px;
+		margin-left: -225px;
+	}
+	.publication-footer-button a {
+		font-size: 13px;
+		line-height: 25px;
+		margin-top: 5px;
+	}
+	.publication-footer-button .publication-button {
+		margin-left: 0;
+	}
+}
 @media (max-width: 520px) {
 	.ngdialog.ngdialog-theme-default .ngdialog-content {
 		margin-left: -125px;
@@ -1878,6 +1892,32 @@ body.public.user {
 		width: 250px;
 		height: 210px; 
 		padding: 25px 10px 0 10px!important;
+	}
+	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
+		padding: 0!important;
+		width: 100%;
+		margin-left: 0;
+		height: 100vh;
+		margin-top: 0;
+		top: 0;
+		left: 0;
+	}
+	.user-publication.ngdialog-theme-default .publication .text-field {
+		height: 30vh;
+	}
+	.user-publication.ngdialog-theme-default .publication-item,
+	.user-publication.ngdialog-theme-default .publication-item .user,
+	.user-publication .publication .publication-footer  {
+		flex-direction: column;
+	}
+	.user-publication.ngdialog-theme-default .publication-item .user .ava {
+		width: 80px;
+		height: 80px;
+	}
+	.publication-footer-button {
+		width: 100%;
+		justify-content: space-between;
+    		margin-top: 20px;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 		margin-top: 0;
