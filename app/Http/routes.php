@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update/{id}', 'UserController@update');
         Route::get('show/{id}', 'UserController@show');
         Route::post('subscribe/store', 'SubscriberController@store');
+        Route::get('{id}/publication', 'PublicationController@userPublication');
     });
     Route::get('country', 'CountryController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['web']], function () {
     {
         Route::get('/', 'PublicationController@index');
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
+        Route::get('show/{id}', 'PublicationController@show')->middleware(['auth']);
         Route::get('like/{id}', 'PublicationController@like')->middleware(['auth']);
         Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
         Route::group(['prefix' => 'comment'], function()
