@@ -178,8 +178,8 @@ angular.module('placePeopleApp')
 			ngDialog.closeAll();				
 	    };
 
-    	$scope.userRegisterS3 = function(firstName, lastName, login, pwd, countryId, uId){
-    		$scope.regLoader = true;
+    	$scope.userRegisterS3 = function(firstName, lastName, gender, login, pwd, countryId, uId){    		
+    		$scope.regLoader = true;    		
     		var errors = 0;
     		if (!firstName) {
     			$scope.nunErr = 'Введите имя';
@@ -187,6 +187,10 @@ angular.module('placePeopleApp')
     		}
     		if (!lastName) {
     			$scope.nusErr = 'Введите фамилию';
+    			errors++;
+    		}
+    		if (!gender) {
+    			$scope.nugErr = 'Выберите пол';
     			errors++;
     		}
     		if (!login) {
@@ -199,13 +203,10 @@ angular.module('placePeopleApp')
     		}    			
     		if (errors > 0) {
     			$scope.regLoader = false;
-    			return;
-    			
+    			return;    			
     		}
-
-			AuthService.registerUser(firstName, lastName, login, pwd, countryId, $scope.croppedImg, uId)
-	    		.then(function(res){
-	    			console.log(res);	    			
+			AuthService.registerUser(firstName, lastName, gender, login, pwd, countryId, $scope.croppedImg, uId)
+	    		.then(function(res){	    			    			
 	    			if (res.status) {
 	    				$scope.regLoader = false;	
 	    				$scope.userRegistred = true;
@@ -226,7 +227,7 @@ angular.module('placePeopleApp')
 
     	/*LOGIN PAGE*/    	
     	$scope.login = function(login, pwd){
-    		$scope.loginLoader=true;    	  		
+    		$scope.loginLoader = true;    	  		
     		if (!login && !pwd) {
     			$scope.loginError = 'Введите логин и пароль';
     		} else if(!login){
@@ -239,11 +240,9 @@ angular.module('placePeopleApp')
     			$scope.loginLoader = false;
     			return;
     		} 
-
     		AuthService.userLogIn(login, pwd)
 	    		.then(function(res){	    					
-	    			if (res.status) {
-	    				$scope.loginLoader = false;
+	    			if (res.status) {	    				
 	    				storageService.setStorageItem('username', res.login);	    				
 	    				$state.go('user', {username: res.login});	    				
 	    			}else{	    				
