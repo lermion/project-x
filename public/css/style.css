@@ -539,14 +539,16 @@ footer {
 	width: 150px; 
 	border-radius: 3px;
 }
-.recovery .registration-button{
+.recovery .registration-button,
+.enter-button{
 	text-decoration: none;
 	color: #fff;
 	font-size: 15px;
 	line-height: 20px;
 	margin-top: 4vh; 
 }
-.recovery .registration-button:hover {
+.recovery .registration-button:hover,
+.enter-button:hover {
 	color: #DCDBDB;
 }
 .recovery .registration-button span {
