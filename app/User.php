@@ -23,4 +23,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function publications()
+    {
+        return $this->hasMany('App\Publication');
+    }
+
+    public function subscription(){
+        return $this->belongsToMany('App\User', 'subscribers','user_id_sub')->withTimestamps();
+    }
+    public function subscribers(){
+        return $this->belongsToMany('App\User', 'subscribers','user_id','user_id_sub')->withTimestamps();
+    }
 }
