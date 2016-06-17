@@ -87,6 +87,24 @@
 .daosn3.age select{
 	margin: 0 5px;
 }
+#datatable_wrapper .row  {
+	display: flex;
+    	align-items: flex-end;
+}
+#datatable_wrapper .row .col-sm-6 {
+	width: 50%;
+}
+#datatable_wrapper .dataTables_length,
+#datatable_wrapper .row .col-sm-12 {
+	width: 100%;
+}
+#datatable_wrapper .dataTables_length label {
+	width: 100%;
+}
+#datatable_wrapper .dataTables_length label .form-control {
+	display: inline-block;
+    	width: auto;
+}
 @media (max-width: 737px) {
 	.admin-table table tbody tr td div {
 		font-size: 11px;
