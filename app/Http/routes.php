@@ -67,11 +67,18 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
         Route::get('like/{id}', 'PublicationController@like')->middleware(['auth']);
         Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
+        Route::group(['prefix' => 'comment'], function()
+        {
+            Route::get('/{id}', 'PublicationCommentController@index');
+            Route::post('store/{id}', 'PublicationCommentController@store')->middleware(['auth']);
+            Route::get('destroy/{id}', 'PublicationCommentController@destroy')->middleware(['auth']);
+            Route::get('like/{id}', 'PublicationCommentController@like')->middleware(['auth']);
+        });
     });
 
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/publication/like/3\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/publication/comment/store/5\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='file' name='images[]'><br>
             <input type='file' name='images[]'><br>
             <input type='file' name='images[]'><br>

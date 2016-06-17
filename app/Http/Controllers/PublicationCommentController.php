@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Image;
 use App\Publication;
 use App\Video;
@@ -9,43 +10,35 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class PublicationController extends Controller
+class PublicationCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $publications = Publication::with(['videos', 'images', 'user','comments'=>function($query){
-            $query->take(3);
-        },'comments.images','comments.videos','comments.user'])->get();
-        foreach ($publications as &$publication){
-            $publication->like_count = $publication->likes()->count();
-            $publication->comment_count = $publication->comments()->count();
-            foreach ($publication->comments as &$comment){
-                $comment->like_count = $comment->likes()->count();
-            }
+        $publication = Publication::with('comments.images','comments.videos','comments.user')->find($id);
+        $comments = $publication->comments;
+        foreach ($comments as &$comment){
+            $comment->like_count = $comment->likes()->count();
         }
-        return $publications;
+        return $comments;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         try {
             $this->validate($request, [
                 'text' => 'required|min:1',
-                'is_anonym' => 'boolean',
-                'is_main' => 'boolean',
                 'videos' => 'array',
                 'images' => 'array'
             ]);
@@ -59,16 +52,17 @@ class PublicationController extends Controller
             ];
             return response()->json($result);
         }
-        $publicationData = $request->all();
-        $publicationData['user_id'] = Auth::id();
-        $publication = Publication::create($publicationData);
+        $commentData = $request->all();
+        $commentData['user_id'] = Auth::id();
+        $publication = Publication::find($id);
+        $comment = $publication->comments()->create($commentData);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 if (!$image) {
                     continue;
                 }
                 $path = Image::getImagePath($image);
-                $publication->images()->create([
+                $comment->images()->create([
                     'url' => $path,
                 ]);
             }
@@ -79,14 +73,14 @@ class PublicationController extends Controller
                     continue;
                 }
                 $path = Video::getVideoPath($video);
-                $publication->videos()->create([
+                $comment->videos()->create([
                     'url' => $path,
                 ]);
             }
         }
         $responseData = [
             "status" => true,
-            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+            "comment" => Comment::with('videos', 'images', 'user')->find($comment->id)
         ];
         return response()->json($responseData);
     }
@@ -94,7 +88,7 @@ class PublicationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -105,8 +99,8 @@ class PublicationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -117,14 +111,14 @@ class PublicationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if ($publication = Publication::find($id)) {
-            if ($publication->user_id == Auth::id()) {
-                $publication->delete();
+        if ($comment = Comment::find($id)) {
+            if ($comment->user_id == Auth::id()) {
+                $comment->delete();
                 return response()->json(['status' => true]);
             } else {
                 $responseData = [
@@ -150,17 +144,17 @@ class PublicationController extends Controller
 
     public function like($id)
     {
-        if ($publication = Publication::find($id)) {
+        if ($comment = Comment::find($id)) {
             $userId = Auth::id();
-            if ($like = $publication->likes()->where('user_id', $userId)->first()) {
+            if ($like = $comment->likes()->where('user_id', $userId)->first()) {
                 $like->delete();
             } else {
-                $publication->likes()->create([
+                $comment->likes()->create([
                     'user_id' => $userId
                 ]);
             }
             return response()->json(['status' => true,
-                'like_count' => $publication->likes()->count()]);
+                'like_count' => $comment->likes()->count()]);
         } else {
             $responseData = [
                 "status" => false,
