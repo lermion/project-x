@@ -1933,9 +1933,137 @@ body.public.user {
 	font-size: 14px;
 }
 .publication .new-add {
+	// display: flex;
+	// align-items: center;
+	// flex-wrap: wrap;
+	max-height: 210px;
+	height: auto;
+	overflow-y: auto;
+	position: relative;
+}
+.publication .new-add .inner{
+	background-color: #f4f4f4;
+	width: 150px;
+	height: 100px;
+	margin: 0 5px 5px 0;
+	box-sizing: border-box;
+	position: relative;
+	overflow: hidden;
+}
+.publication .new-add .inner:nth-child(4n) {
+	margin: 0 0 5px 0;
+}
+.publication .new-add .inner .close,
+.publication .new-add .inner .check {
+	position: absolute;
+	top: 3px;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all .3s ease-in-out .1s;
+	display: none;
+}
+.publication .new-add .inner .close {
+	left: 3px;
+	background-color: #333;
+}
+.publication .new-add .inner .close:before {
+	background: 0 0;
+	color: #fff;
+	content: '\00D7';
+	font-size: 26px;
+	font-weight: 400;
+	height: 25px;
+	line-height: 25px;
+	position: absolute;
+	left: 0;
+	text-align: center;
+	top: 0;
+	width: 25px;
+}
+.publication .new-add .inner .close:hover {
+	background-color: #8a8686;
+}
+.publication .new-add .inner .check {
+	right: 3px;
+	background-color: #bd3636;
+	background-image: url(../images/check.png);
+	background-repeat: no-repeat;
+	background-size: 65%;
+	background-position: center;
+}
+.publication .new-add .inner .check:hover {
+	background-color: #e21313;
+}
+.publication .new-add .inner img {
+	width: 100%;
+}
+.publication .new-add .inner .close-inner,
+.publication .new-add .inner .check-inner {
+	position: absolute;
+	background: #fff;
+	top: 30px;
+	color: #333;
+	font-size: 10px;
+	line-height: 15px;
+	padding: 0 5px;
+	border-radius: 3px;
+	margin: 0;
+	border: 1px solid #333;
+	display: none;
+}
+.publication .new-add .inner .check-inner {
+	right: 0;
+	width: 100px;
+	text-align: center;
+}
+.scroll-container{
 	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
+	 align-items: center; 
+	 flex-wrap: wrap; 
+}
+.publication .new-add .inner .close:hover .close-inner,
+.publication .new-add .inner .check:hover .check-inner,
+.publication .new-add .inner:hover .close, 
+.publication .new-add .inner:hover .check {
+	display: block;
+}
+.publication .new-add .inner .close-inner:after,
+.publication .new-add .inner .check-inner:after {
+	content: '';
+	position: absolute;
+	top: -5px;
+	left: 6px;
+	width: 0;
+	height: 0;
+	border-bottom: 5px solid #fff;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+}
+.publication .new-add .inner .check-inner:after  {
+	left: auto;
+	right: 8px;
+}
+.publication .new-add .inner .close-inner:before,
+.publication .new-add .inner .check-inner:before {
+	content: '';
+	position: absolute;
+	top: -6px;
+	left: 4px;
+	width: 0;
+	height: 0;
+	border-bottom: 6px solid #333;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent; 
+}
+ .publication .new-add .inner .check-inner:before {
+ 	left: auto;
+ 	right: 6px;
+ }
+.publication .new-add .inner .close-inner p,
+.publication .new-add .inner .check-inner p {
+	margin: 0;
 }
 @media (max-width: 700px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
@@ -1949,6 +2077,16 @@ body.public.user {
 	}
 	.publication-footer-button .publication-button {
 		margin-left: 0;
+	}
+	.publication .new-add .inner {
+		width: 136px;
+		height: 80px;
+	}
+	.publication .new-add .inner:nth-child(4n) {
+		margin: 0 5px 5px 0;
+	}
+	.publication .new-add .inner:nth-child(3n) {
+		margin: 0 0 5px 0;
 	}
 }
 @media (max-width: 520px) {
@@ -1987,5 +2125,16 @@ body.public.user {
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 		margin-top: 0;
+	}
+	.publication .new-add  {
+		width: 290px;
+		margin: 0 auto;
+	}
+	.publication .new-add .inner:nth-child(4n),
+	.publication .new-add .inner:nth-child(2n) {
+		margin: 0 0 5px 0;
+	}
+	.publication .new-add .inner:nth-child(3n) {
+		margin: 0 5px 5px 0;
 	}
 }
