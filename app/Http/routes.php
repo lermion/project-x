@@ -64,6 +64,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('validate_code', 'PasswordController@validateCode');
     });
 
+    Route::group(['prefix' => 'group'], function()
+    {
+        Route::get('/', 'GroupController@index');
+        Route::post('store', 'GroupController@store')->middleware(['auth']);;
+        Route::post('restore', 'PasswordController@restore');
+        Route::post('validate_code', 'PasswordController@validateCode');
+    });
+
     Route::group(['prefix' => 'publication'], function()
     {
         Route::get('/', 'PublicationController@index');
@@ -82,13 +90,11 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function(){
-        echo "<form action=\"http://pp.dev/publication/comment/store/5\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='file' name='images[]'><br>
-            <input type='file' name='images[]'><br>
-            <input type='file' name='images[]'><br>
-            <input type='file' name='images[]'><br>
-            <input type='text' name='user_id'><br>
-            <input type='text' name='text'><br>
+        echo "<form action=\"http://pp.dev/group/store\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='file' name='avatar'><br>
+            <input type='text' name='name'><br>
+            <input type='text' name='description'><br>
+            <input type='text' name='is_open'><br>
             <input type=\"submit\">
         </form>";
     });

@@ -18,4 +18,17 @@ class Image extends Model
 
         return $path.$fileName;
     }
+
+    public static function getAvatarPath($avatar)
+    {
+        $path = '/upload/avatars/';
+        $fileName = str_random(8) . $avatar->getClientOriginalName();
+        $fullPath = public_path() . $path;
+
+        // Avatar
+        $avatar->move($fullPath, $fileName);
+        dd('test');
+
+        return $path . $fileName;
+    }
 }
