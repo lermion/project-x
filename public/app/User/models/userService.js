@@ -5,7 +5,8 @@ angular.module('placePeopleApp')
 
 		return	{
 			getUserData: getUserData,
-            sign: sign
+            sign: sign,
+            quickEdit: quickEdit
 		}
 
 		function getUserData(login){                
@@ -18,6 +19,22 @@ angular.module('placePeopleApp')
                         defer.reject(error);
                     });
             return defer.promise;
+        }
+        function quickEdit(name, lastname, status, userId){
+            var data = {
+                'first_name': name,
+                'last_name': lastname,
+                'status': status
+            };
+            defer = $q.defer();
+            $http.post(path + 'user/update', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });
+            return defer.promise;           
         }
 
         function sign(userId){                

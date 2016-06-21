@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
-    public function update(Request $request)
+    public function amendPassword(Request $request)
     {
         try {
             $this->validate($request, [
@@ -28,23 +28,10 @@ class PasswordController extends Controller
             ];
             return response()->json($result);
         }
-        if (Auth::check()) {
-            $oldPass = $request->input('old_password');
-            $user = Auth::user();
-            if(!Hash::check($oldPass, $user->password)){
-                $result = [
-                    "status" => false,
-                    "error" => [
-                        'message' => "Incorrect old password",
-                        'code' => '9'
-                    ]
-                ];
-                return response()->json($result);
-            }
-        } elseif ($request->session()->has('canUpdate')) {
+        if ($request->session()->has('canUpdate')) {
             $userId = $request->session()->get('user_id');
             $user = User::find($userId);
-        }else{
+        } else {
             $result = [
                 "status" => false,
                 "error" => [
@@ -59,7 +46,44 @@ class PasswordController extends Controller
         $user->save();
         Auth::attempt(['login' => $user->login, 'password' => $password]);
 
-        return response()->json(['status'=>true,'user_id'=>$user->id]);
+        return response()->json(['status' => true, 'user_id' => $user->id]);
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'password' => 'required|min:6',
+                'old_password' => 'required'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        $oldPass = $request->input('old_password');
+        $user = Auth::user();
+        if (!Hash::check($oldPass, $user->password)) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect old password",
+                    'code' => '9'
+                ]
+            ];
+            return response()->json($result);
+        }
+        $password = $request->input('password');
+        $user->password = bcrypt($password);
+        $user->save();
+        Auth::attempt(['login' => $user->login, 'password' => $password]);
+
+        return response()->json(['status' => true, 'user_id' => $user->id]);
     }
 
     public function restore(Request $request)

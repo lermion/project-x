@@ -46,7 +46,8 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::group(['prefix' => 'user'], function()
     {
-        Route::post('update/{id}', 'UserController@update');
+        Route::post('update', 'UserController@update')->middleware(['auth']);
+        Route::post('add_first_info', 'UserController@addFirstInfo');
         Route::get('show/{id}', 'UserController@show');
         Route::post('subscribe/store', 'SubscriberController@store');
         Route::get('{id}/publication', 'PublicationController@userPublication');
@@ -57,7 +58,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'password'], function()
     {
-        Route::post('update', 'PasswordController@update');
+        Route::post('update', 'PasswordController@update')->middleware(['auth']);
+        Route::post('amend', 'PasswordController@amendPassword');
         Route::post('restore', 'PasswordController@restore');
         Route::post('validate_code', 'PasswordController@validateCode');
     });

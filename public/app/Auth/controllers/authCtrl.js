@@ -211,6 +211,7 @@ angular.module('placePeopleApp')
 	    				$scope.regLoader = false;	
 	    				$scope.userRegistred = true;
 	    				storageService.setStorageItem('username', res.login);
+	    				storageService.setStorageItem('userId', res.user_id);
 	    				$state.go('user', {username: res.login});	    				
 	    			} else {	    				
 	    				if (parseInt(res.error.code) === 1) {
@@ -243,7 +244,8 @@ angular.module('placePeopleApp')
     		AuthService.userLogIn(login, pwd)
 	    		.then(function(res){	    					
 	    			if (res.status) {	    				
-	    				storageService.setStorageItem('username', res.login);	    				
+	    				storageService.setStorageItem('username', res.login);
+	    				storageService.setStorageItem('userId', res.user_id);	    				
 	    				$state.go('user', {username: res.login});	    				
 	    			}else{	    				
     					$scope.loginError = 'Неверный логин или пароль';

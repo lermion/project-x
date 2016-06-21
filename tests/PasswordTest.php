@@ -28,6 +28,18 @@ class PasswordTest extends TestCase
             ]);
     }
 
+    public function testAmend(){
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('654321'), 'country_id' => 1]);
+        }
+        $this->withSession(['canUpdate' => true,'user_id'=>$user->id])
+            ->json('POST', 'password/amend', ['password' => '123456'])
+            ->seeJson([
+                'status' => true,
+            ]);
+    }
+
     public function testRestore(){
         $user = \App\User::where('phone', '380731059230')->first();
         if (!$user) {

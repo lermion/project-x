@@ -20,7 +20,21 @@ class UserTest extends TestCase
             $user = \App\User::create(['phone'=>'380731059230','password'=>bcrypt('123'),'country_id'=>1]);
         }
         $this->be($user);
-        $this->json('POST', 'user/update/'.$user->id, ['first_name' => 'test','last_name'=>'test'])
+        $this->json('POST', 'user/update/', ['first_name' => 'test','last_name'=>'test'])
+            ->seeJson([
+                'status' => true,
+            ]);
+        $this->seeInDatabase('users', ['phone' => $user->phone,'first_name' => 'test','last_name'=>'test']);
+    }
+
+    public function testAddFirstInfo()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230','password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $this->withSession(['canRegistered' => true,'user_id' => $user->id])
+            ->json('POST', 'user/add_first_info/', ['login' => 'test','password'=>'testtest','first_name'=>'test','last_name'=>'test'])
             ->seeJson([
                 'status' => true,
             ]);
