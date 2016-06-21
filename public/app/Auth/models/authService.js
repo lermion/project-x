@@ -74,7 +74,7 @@ angular.module('placePeopleApp')
                     transformRequest: angular.identity
                 },            
                 defer = $q.defer();
-                    $http.post(path + 'user/update/' + userId, data, config)
+                    $http.post(path + 'user/add_first_info', data, config)
 	                    .success(function (response){
 	                        defer.resolve(response);
 	                    })
