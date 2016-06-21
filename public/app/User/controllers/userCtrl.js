@@ -153,5 +153,15 @@ angular.module('placePeopleApp')
 		$scope.rebuildScroll = function(){
 			$scope.$broadcast('rebuild:me');
 		};
+
+		$scope.showPublication = function(){			
+			ngDialog.open({
+					template: '../app/User/views/view-publication.html',
+					className: 'view-publication ngdialog-theme-default',
+					scope: $scope
+				});
+		};
+
+		
 		
     }]);
