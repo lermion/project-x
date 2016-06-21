@@ -6,7 +6,7 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 
-		$scope.userStatus = 'Мудрый понимает,что агрессия другого человека—это его просьба о Любви Мудрый понимает,что агрессия другого человека — это его просьба о Любви';
+		// $scope.userStatus = 'Мудрый понимает,что агрессия другого человека—это его просьба о Любви Мудрый понимает,что агрессия другого человека — это его просьба о Любви';
 		
 		// if (!storage.length) {
 		// 	storageService.deleteStorage();
@@ -120,9 +120,27 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.editProfile = function(name, lastname, status){
-			$scope.profileEdition = !$scope.profileEdition;			
-			console.log(name, lastname, status);
-		}
+			if (!$scope.profileEdition) {
+				$scope.profileEdition=true;				
+			} else {
+				if (!name) {
+				return;
+			} else if(status && status.length > 140){
+				$scope.statusErr = true;
+				return;
+			} else {				
+				UserService.quickEdit(name, lastname, status, storage.userId)
+				.then(					
+					function(res){
+						console.log(res);							
+						$scope.profileEdition = false;		        
+					},
+					function(err){
+						console.log(err);
+					});				
+				}	
+			}
+		};
 
 		$scope.createPublication = function(){
 			ngDialog.open({
