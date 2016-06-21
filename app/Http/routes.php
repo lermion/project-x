@@ -16,17 +16,14 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
 
-    Route::group(['prefix' => 'admin'], function()
-    {
+    Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'Admin\HomeController@index');
-        Route::group(['prefix' => 'user'], function()
-        {
+        Route::group(['prefix' => 'user'], function () {
             Route::get('/', 'Admin\UserController@index');
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
         });
-        Route::group(['prefix' => 'static_page'], function()
-        {
+        Route::group(['prefix' => 'static_page'], function () {
             Route::get('/', 'Admin\StaticPageController@index');
             Route::get('show/{id}', 'Admin\StaticPageController@show');
             Route::get('create', 'Admin\StaticPageController@create');
@@ -37,15 +34,13 @@ Route::group(['middleware' => ['web']], function () {
         });
 
     });
-    Route::group(['prefix' => 'auth'], function()
-    {
+    Route::group(['prefix' => 'auth'], function () {
         Route::post('/', 'AuthController@auth');
         Route::post('create', 'AuthController@store');
         Route::post('check_sms', 'AuthController@checkSMSCode');
         Route::get('log_out', 'AuthController@logOut');
     });
-    Route::group(['prefix' => 'user'], function()
-    {
+    Route::group(['prefix' => 'user'], function () {
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
         Route::get('show/{id}', 'UserController@show');
@@ -56,31 +51,30 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('static_page/{name}', 'StaticPageController@show');
     Route::get('static_page/get/name', 'StaticPageController@getNames');
 
-    Route::group(['prefix' => 'password'], function()
-    {
+    Route::group(['prefix' => 'password'], function () {
         Route::post('update', 'PasswordController@update')->middleware(['auth']);
         Route::post('amend', 'PasswordController@amendPassword');
         Route::post('restore', 'PasswordController@restore');
         Route::post('validate_code', 'PasswordController@validateCode');
     });
 
-    Route::group(['prefix' => 'group'], function()
-    {
+    Route::group(['prefix' => 'group', 'middleware' => 'auth'], function () {
+
         Route::get('/', 'GroupController@index');
         Route::post('store', 'GroupController@store')->middleware(['auth']);;
-        Route::post('restore', 'PasswordController@restore');
-        Route::post('validate_code', 'PasswordController@validateCode');
+        Route::get('show/{name}', 'GroupController@show');
+        Route::post('update/{id}', 'GroupController@update');
+        Route::get('destroy/{id}', 'GroupController@destroy');
+        
     });
 
-    Route::group(['prefix' => 'publication'], function()
-    {
+    Route::group(['prefix' => 'publication'], function () {
         Route::get('/', 'PublicationController@index');
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
         Route::get('show/{id}', 'PublicationController@show')->middleware(['auth']);
         Route::get('like/{id}', 'PublicationController@like')->middleware(['auth']);
         Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
-        Route::group(['prefix' => 'comment'], function()
-        {
+        Route::group(['prefix' => 'comment'], function () {
             Route::get('/{id}', 'PublicationCommentController@index');
             Route::post('store/{id}', 'PublicationCommentController@store')->middleware(['auth']);
             Route::get('destroy/{id}', 'PublicationCommentController@destroy')->middleware(['auth']);
@@ -89,7 +83,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 
 
-    Route::get('test', function(){
+    Route::get('test', function () {
         echo "<form action=\"http://pp.dev/group/store\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='file' name='avatar'><br>
             <input type='text' name='name'><br>
