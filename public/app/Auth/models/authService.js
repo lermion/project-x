@@ -147,7 +147,7 @@ angular.module('placePeopleApp')
         			password: pwd        			
         		};             
                 defer = $q.defer();
-                    $http.post(path + 'password/update', data)
+                    $http.post(path + 'password/amend', data)
 	                    .success(function (response){
 	                        defer.resolve(response);
 	                    })

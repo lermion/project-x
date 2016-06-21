@@ -58,7 +58,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'password'], function()
     {
-        Route::post('update', 'PasswordController@update');
+        Route::post('update', 'PasswordController@update')->middleware(['auth']);
+        Route::post('amend', 'PasswordController@amendPassword');
         Route::post('restore', 'PasswordController@restore');
         Route::post('validate_code', 'PasswordController@validateCode');
     });
