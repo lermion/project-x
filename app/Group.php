@@ -14,4 +14,9 @@ class Group extends Model
     {
         return $this->belongsToMany('App\User', 'group_users')->withTimestamps();
     }
+
+    public function publications()
+    {
+        return $this->belongsToMany('App\Publication', 'group_publications')->withTimestamps();
+    }
 }
