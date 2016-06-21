@@ -150,8 +150,17 @@ angular.module('placePeopleApp')
 				});
 		};
 
+		$scope.closePopup = function(){
+			ngDialog.closeAll();
+		};
+
 		$scope.rebuildScroll = function(){
 			$scope.$broadcast('rebuild:me');
+		};
+
+		$scope.publishNewPub = function(isAnonPub, pubText){
+			console.log(isAnonPub, pubText);
+			ngDialog.closeAll();
 		};
 
 		$scope.showPublication = function(){			
