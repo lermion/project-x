@@ -27,7 +27,7 @@ angular.module('placePeopleApp')
                 'status': status
             };
             defer = $q.defer();
-            $http.post(path + 'user/update/', data)
+            $http.post(path + 'user/update', data)
                 .success(function (response){
                     defer.resolve(response);
                 })
