@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class GroupController extends Controller
         }
         $group = Group::create($publicationData);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true]);
-        return response()->json(["status" => true,'group'=>$group]);
+        return response()->json(["status" => true, 'group' => $group]);
     }
 
     /**
@@ -67,9 +68,9 @@ class GroupController extends Controller
      */
     public function show($name)
     {
-        $group = Group::where('url_name',$name)->first();
-        if($group){
-            if(!$group->is_open&&!GroupUser::where(['group_id'=>$group->id,'user_id'=>Auth::id()])->first()){
+        $group = Group::where('url_name', $name)->first();
+        if ($group) {
+            if (!$group->is_open && !GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
                 return null;
             }
             $group->count_users = $group->users()->count();
@@ -104,7 +105,7 @@ class GroupController extends Controller
             ];
             return response()->json($result);
         }
-        if (!$groupUser = GroupUser::where(['user_id'=>Auth::id(),'group_id'=>$id,'is_admin'=>true])->first()) {
+        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
             $responseData = [
                 "status" => false,
                 "error" => [
@@ -134,7 +135,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        if (!$groupUser = GroupUser::where(['user_id'=>Auth::id(),'group_id'=>$id,'is_admin'=>true])->first()) {
+        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
             $responseData = [
                 "status" => false,
                 "error" => [
@@ -144,10 +145,117 @@ class GroupController extends Controller
             ];
             return response()->json($responseData);
         }
-        if($group = Group::find($id)){
+        if ($group = Group::find($id)) {
             $group->delete();
         }
         return response()->json(["status" => true]);
+    }
+
+    public function subscription($id)
+    {
+        if ($group = Group::find($id)) {
+            if ($user = GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
+                $isSub = false;
+                $user->delete();
+            } else {
+                $isSub = true;
+                if($group->is_open){
+                    GroupUser::create(['group_id' => $group->id, 'user_id' => Auth::id()]);
+                }elseif ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
+                    $invite->delete();
+                    GroupUser::create(['group_id' => $group->id, 'user_id' => Auth::id()]);
+                }else{
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => "Permission denied",
+                            'code' => '8'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
+            }
+            return response()->json(['status' => true, 'is_sub' => $isSub]);
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function invite($groupId,$userId){
+        if ($group = Group::find($groupId)) {
+            if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()){
+                $isInvited = false;
+                $invite->delete();
+            }else{
+                $isInvited = true;
+                GroupInvite::create(['group_id' => $group->id,'inviter_user_id'=> Auth::id(), 'user_id' => $userId]);
+            }
+            return response()->json(['status' => true, 'is_invited' => $isInvited]);
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function setUserAdmin($groupId,$userId){
+        if ($group = Group::find($groupId)) {
+            if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            if ($user = GroupUser::where(['group_id' => $group->id, 'user_id' => $userId])->first()){
+                $user->is_admin = !$user->is_admin;
+                $user->save();
+                return response()->json(['status'=>true,'is_admin'=>$user->is_admin]);
+            }else{
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Incorrect user id",
+                        'code' => '6'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
     }
 
     function transliterate($input)
