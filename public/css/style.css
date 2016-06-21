@@ -2091,6 +2091,7 @@ body.public.user {
 	width: 700px;
 	padding: 0;
 	margin-left: -350px;
+	height: auto;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2178,13 +2179,57 @@ body.public.user {
 	color: #4678b1;
 	background-color: #f5f5f5;
 }
+.user-publication-content .publication-ava {
+	    width: 100%;
+	background-color: rgba(0,0,0,.2);
+	height: 395px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;
+}
+.user-publication-content .publication-ava {
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:hover:before {
 	color: #333;
+}
+.user-publication-content .publication-images  {
+	display: flex;
+    	flex-wrap: wrap;
+}
+.publication-images .images-item {
+	width: 97px;
+	overflow: hidden;
+	height: 85px; 
+	margin: 0 3.5px 3px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0,0,0,.2);
+	cursor: pointer;
+}
+.publication-images .images-item:nth-child(7n){
+	margin: 0 0 3px 0;
+}
+.publication-images .images-item.more {
+	background-color: #495b79;
+	color: #fff
+}
+.publication-images .images-item img {
+	max-width: 200%;
+	max-height: 200%;
+	width: auto;
+	height: auto;
 }
 @media (max-width: 700px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		width: 450px;
 		margin-left: -225px;
+
 	}
 	.publication-footer-button a {
 		font-size: 13px;
@@ -2206,6 +2251,9 @@ body.public.user {
 	}
 }
 @media (max-width: 520px) {
+	.ngdialog.user-publication.ngdialog-theme-default {
+		position: absolute;
+	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content {
 		margin-left: -125px;
 		margin-top: -105px;
@@ -2215,12 +2263,11 @@ body.public.user {
 	}
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		padding: 0!important;
-		width: 100%;
-		margin-left: 0;
-		height: 100vh;
+		width: 310px;
+		margin-left: -155px; 
+		height: auto;
 		margin-top: 0;
 		top: 0;
-		left: 0;
 	}
 	.user-publication.ngdialog-theme-default .publication .text-field {
 		height: 30vh;
@@ -2232,7 +2279,7 @@ body.public.user {
 	}
 	.user-publication.ngdialog-theme-default .publication-item .user .ava {
 		width: 80px;
-		height: 80px;
+		height: 80px; 
 	}
 	.publication-footer-button {
 		width: 100%;
