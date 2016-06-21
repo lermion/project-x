@@ -68,6 +68,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscription/{id}', 'GroupController@subscription');
         Route::get('invite/{group_id}/{user_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
+        Route::group(['prefix' => '{id}/publication'], function () {
+            Route::get('/', 'GroupPublicationController@index');
+        });
     });
 
     Route::group(['prefix' => 'publication'], function () {
