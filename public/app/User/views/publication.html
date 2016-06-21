@@ -90,12 +90,30 @@
 			</div>
 		</div>
 	</div>
+	<!-- <div class="new-add" ng-show="showPubAdd"> -->
+	<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">
+		<div class="new-add" >
+			<div class="inner">
+				<div class="close">
+					<div class="close-inner">
+						<p>Удалить</p>
+					</div>
+				</div>
+				<img src="../../../images/smil-hover.png" alt=""> 
+				<div class="check">
+					<div class="close-inner">
+						<p>Сделать заставкой публикации</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</perfect-scrollbar>
 	<div class="publication-footer">
 		<div class="add-objects" ng-click="showPubAdd=!showPubAdd"> 
 			<input type="file" id="add-object"/>  
 			<label for="add-object">
 				<span class="add"></span>
-				Добавить фото или видео
+				Добавить фото или видео *
 			</label>                                         
 		</div>
 		<div class="publication-footer-button">
@@ -103,5 +121,5 @@
 			<a href="" class="publication-button">Опубликовать</a>    
 		</div>       
 	</div>
-	<div class="new-add" ng-show="showPubAdd"></div>
-</div> --> 
+	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>
+</div>  -->
