@@ -2263,8 +2263,8 @@ body.public.user {
 	}
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		padding: 0!important;
-		width: 320px;
-		margin-left: -155px;
+		width: 310px;
+		margin-left: -155px; 
 		height: auto;
 		margin-top: 0;
 		top: 0;
