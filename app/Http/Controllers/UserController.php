@@ -30,9 +30,9 @@ class UserController extends Controller
      */
     public function show($login)
     {
-        $user = User::where('login',$login)->first();
+        $user = User::where('login', $login)->first();
         $user->is_online = Online::isOnline($user->id);
-        $user->is_sub = Subscriber::isSub($user->id,Auth::id());
+        $user->is_sub = Subscriber::isSub($user->id, Auth::id());
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
         $user->publications_count = $user->publications()->count();
@@ -46,29 +46,9 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        if (Auth::check()) {
-            if (Auth::user()->id != $id) {
-                $result = [
-                    "status" => false,
-                    "error" => [
-                        'message' => "Incorrect user id",
-                        'code' => '7'
-                    ]
-                ];
-                return response()->json($result);
-            }
-        } elseif (!$request->session()->has('canRegistered')) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => "Permission denied",
-                    'code' => '8'
-                ]
-            ];
-            return response()->json($result);
-        }
+        $id = Auth::id();
         try {
             $this->validate($request, [
                 'phone' => 'unique:users|numeric|min:5',
@@ -96,23 +76,64 @@ class UserController extends Controller
             return response()->json($result);
         } else {
             $user->update($request->all());
-            if ($password = $request->input('password')) {
-                $user->password = bcrypt($password);
-                $user->save();
-                Auth::attempt(['login' => $user->login, 'password' => $password]);
-            }
             if ($request->hasFile('avatar')) {
                 $avatar = $request->file('avatar');
                 $path = $this->getAvatarPath($avatar);
                 $user->avatar_path = $path;
             }
             $user->save();
-            
-            return response()->json(["status" => true, 'user' => $user,'user_id'=>$user->id,'login'=>$user->login]);
+
+            return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);
         }
     }
 
-    private function getAvatarPath($avatar){
+    public function addFirstInfo(Request $request)
+    {
+        if (!$request->session()->has('canRegistered')) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($result);
+        }
+        try {
+            $this->validate($request, [
+                'login' => 'required|unique:users',
+                'password' => 'required|min:6',
+                'first_name' => 'required',
+                'last_name' => 'required'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        $password = $request->input('password');
+        $userId = $request->session()->get('user_id');
+        $user = User::find($userId);
+        $user->update($request->all());
+        $user->password = bcrypt($password);
+        $user->save();
+        Auth::attempt(['login' => $user->login, 'password' => $password]);
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $path = $this->getAvatarPath($avatar);
+            $user->avatar_path = $path;
+        }
+        $user->save();
+        return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);
+    }
+
+    private function getAvatarPath($avatar)
+    {
         $path = '/upload/avatars/';
         $fileName = str_random(8) . $avatar->getClientOriginalName();
         $fullPath = public_path() . $path;
@@ -120,6 +141,6 @@ class UserController extends Controller
         // Avatar
         $avatar->move($fullPath, $fileName);
 
-        return $path.$fileName;
+        return $path . $fileName;
     }
 }

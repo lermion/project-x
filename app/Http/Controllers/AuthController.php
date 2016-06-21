@@ -68,6 +68,7 @@ class AuthController extends Controller
             }else{
                 $user = User::create(['phone' => $userPhone, 'country_id' => $countryId]);
             }
+            $request->session()->put('user_id', $user->id);
             $request->session()->put('smsCode', $smsCode);
             return response()->json(['status' => true, 'phone' => $userPhone, 'user_id' => $user->id]);
         } else {
