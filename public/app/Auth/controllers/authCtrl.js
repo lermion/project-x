@@ -178,7 +178,8 @@ angular.module('placePeopleApp')
 			ngDialog.closeAll();				
 	    };
 
-    	$scope.userRegisterS3 = function(firstName, lastName, gender, login, pwd, countryId, uId){    		
+    	$scope.userRegisterS3 = function(firstName, lastName, gender, login, pwd, countryId, uId){
+    		
     		$scope.regLoader = true;    		
     		var errors = 0;
     		if (!firstName) {
@@ -189,7 +190,7 @@ angular.module('placePeopleApp')
     			$scope.nusErr = 'Введите фамилию';
     			errors++;
     		}
-    		if (!gender) {
+    		if (gender === undefined) {
     			$scope.nugErr = 'Выберите пол';
     			errors++;
     		}
