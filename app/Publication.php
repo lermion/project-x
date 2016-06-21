@@ -14,6 +14,11 @@ class Publication extends Model
         return $this->belongsToMany('App\Image', 'publication_images')->withTimestamps();
     }
 
+    public function group()
+    {
+        return $this->belongsToMany('App\Group', 'group_publications')->withTimestamps();
+    }
+
     public function videos()
     {
         return $this->belongsToMany('App\Video', 'publication_videos')->withTimestamps();
@@ -36,7 +41,7 @@ class Publication extends Model
 
     public static function getMainPublication($userId = null)
     {
-        $publications = Publication::with(['videos', 'images', 'comments' => function ($query) {
+        $publications = Publication::with(['user','videos','group', 'images', 'comments' => function ($query) {
             $query->take(3);
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where(function ($query) use ($userId) {
