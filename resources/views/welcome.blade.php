@@ -21,6 +21,8 @@
     <script src="../../app/libs/ladda/spin.min.js"></script>
     <script src="../../app/libs/ladda/ladda.min.js"></script>
     <script src="../../app/libs/ladda/angular-ladda.min.js"></script>
+    <script src="../../app/libs/ng-scrollbar/ng-scrollbar.min.js"></script> 
+    <link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>   
 
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>

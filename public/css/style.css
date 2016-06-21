@@ -1666,6 +1666,8 @@ body.public.user {
 	margin-top: -150px;
 	transition: all .3s ease-in-out .1s;
 	padding: 0;
+	top: 40%;
+    	height: auto;
 }
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content h5 {
 	font-size: 14.6px;
@@ -1920,6 +1922,20 @@ body.public.user {
 }
 .publication-footer-button .cansel:hover  {
 	color: #999;
+}
+.publication-text {
+	color: #333;
+	font-size: 12.5px;
+	line-height: 15px;
+	margin: 10px 0;
+}
+.publication-text span{
+	font-size: 14px;
+}
+.publication .new-add {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 @media (max-width: 700px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
