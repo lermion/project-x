@@ -2279,7 +2279,7 @@ body.public.user {
 	}
 	.user-publication.ngdialog-theme-default .publication-item .user .ava {
 		width: 80px;
-		height: 80px;
+		height: 80px; 
 	}
 	.publication-footer-button {
 		width: 100%;
