@@ -27,7 +27,6 @@ class Image extends Model
 
         // Avatar
         $avatar->move($fullPath, $fileName);
-        dd('test');
 
         return $path . $fileName;
     }

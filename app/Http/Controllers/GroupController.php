@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\GroupUser;
 use App\Image;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -17,17 +19,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return Group::with(['users'])->get();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Group::with(['users'])->where('is_open', true)->get();
     }
 
     /**
@@ -60,32 +52,30 @@ class GroupController extends Controller
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
-            $publicationData['avatar'] = $path;   
+            $publicationData['avatar'] = $path;
         }
-        Group::create($publicationData);
-        return response()->json(["status" => true]);
+        $group = Group::create($publicationData);
+        GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true]);
+        return response()->json(["status" => true,'group'=>$group]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  string $name
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $group = Group::where('url_name',$name)->first();
+        if($group){
+            if(!$group->is_open&&!GroupUser::where(['group_id'=>$group->id,'user_id'=>Auth::id()])->first()){
+                return null;
+            }
+            $group->count_users = $group->users()->count();
+            $group->count_publications = 0;
+        }
+        return $group;
     }
 
     /**
@@ -97,7 +87,43 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:groups',
+                'description' => 'required',
+                'is_open' => 'required|boolean',
+                'avatar' => 'file'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        if (!$groupUser = GroupUser::where(['user_id'=>Auth::id(),'group_id'=>$id,'is_admin'=>true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $groupData = $request->all();
+        $groupData['url_name'] = $this->transliterate($request->input('name'));
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $path = Image::getAvatarPath($avatar);
+            $groupData['avatar'] = $path;
+        }
+        $group = Group::find($id);
+        $group->update($groupData);
+        return response()->json(["status" => true]);
     }
 
     /**
@@ -108,20 +134,33 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (!$groupUser = GroupUser::where(['user_id'=>Auth::id(),'group_id'=>$id,'is_admin'=>true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        if($group = Group::find($id)){
+            $group->delete();
+        }
+        return response()->json(["status" => true]);
     }
 
     function transliterate($input)
     {
         $translite = array(
-            "Є" => "YE", "І" => "I", "Ѓ" => "G", "і" => "i", "№" => "-", "є" => "ye", "ѓ" => "g",
-            "А" => "A", "Б" => "B", "В" => "V", "Г" => "G", "Д" => "D",
-            "Е" => "E", "Ё" => "YO", "Ж" => "ZH",
-            "З" => "Z", "И" => "I", "Й" => "J", "К" => "K", "Л" => "L",
-            "М" => "M", "Н" => "N", "О" => "O", "П" => "P", "Р" => "R",
-            "С" => "S", "Т" => "T", "У" => "U", "Ф" => "F", "Х" => "X",
-            "Ц" => "C", "Ч" => "CH", "Ш" => "SH", "Щ" => "SHH", "Ъ" => "'",
-            "Ы" => "Y", "Ь" => "", "Э" => "E", "Ю" => "YU", "Я" => "YA",
+            "Є" => "ye", "І" => "i", "Ѓ" => "g", "і" => "i", "№" => "-", "є" => "ye", "ѓ" => "g",
+            "А" => "a", "Б" => "b", "В" => "v", "Г" => "g", "Д" => "d",
+            "Е" => "e", "Ё" => "yo", "Ж" => "zh",
+            "З" => "z", "И" => "i", "Й" => "j", "К" => "k", "Л" => "l",
+            "М" => "m", "Н" => "n", "О" => "o", "П" => "p", "Р" => "r",
+            "С" => "s", "Т" => "t", "У" => "u", "Ф" => "f", "Х" => "x",
+            "Ц" => "c", "Ч" => "ch", "Ш" => "sh", "Щ" => "shh", "Ъ" => "'",
+            "Ы" => "y", "Ь" => "", "Э" => "e", "Ю" => "yu", "Я" => "ya",
             "а" => "a", "б" => "b", "в" => "v", "г" => "g", "д" => "d",
             "е" => "e", "ё" => "yo", "ж" => "zh",
             "з" => "z", "и" => "i", "й" => "j", "к" => "k", "л" => "l",
