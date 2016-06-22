@@ -72,6 +72,9 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/', 'GroupPublicationController@index');
             Route::post('store', 'GroupPublicationController@store');
             Route::post('update/{id}', 'GroupPublicationController@update');
+            Route::group(['prefix' => '{publicationId}/comment'], function () {
+                Route::post('store', 'GroupPublicationCommentController@store');
+            });
         });
     });
 
