@@ -44,7 +44,7 @@ class ModeratorController extends Controller
         }
         $data = $request->all();
         $data['password'] = bcrypt('password');
-        Moderator::create($request->all());
+        Moderator::create($data);
         return redirect()->action('Admin\ModeratorController@index');
     }
 
