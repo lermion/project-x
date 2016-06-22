@@ -101,6 +101,24 @@ body.main-page {
 	transition: all .3s ease-in-out .2s; 
 	min-width: 250px;
 }
+.check-in.recovery .tel-field {
+	box-sizing: border-box;
+	position: relative;
+}
+.check-in.recovery .tel-field .text-field {
+	padding: 0 15px 0 25px;
+}
+.check-in.recovery .tel-field .plus {
+	width: 20px;
+	height: 37px;
+	position: absolute;
+	color: #999;
+	font-size: 17px;
+	bottom: 10px;
+	left: 4px;
+	line-height: 37px;
+	text-align: center;
+}
 .form-item form input {
 	padding-left: 27px; 
 }
@@ -2224,6 +2242,23 @@ body.public.user {
 	max-height: 200%;
 	width: auto;
 	height: auto;
+}
+.publication-images .images-item.more:hover {
+	background-color: #666;
+	transition: all .3s ease-in-out .1s;
+}
+.images-item.more p {
+	margin: 0;
+	text-align: center;
+	font-size: 10.4px;
+	line-height: 15px;
+}
+.ngdialog.view-publication.ngdialog-theme-default{
+	position: absolute;
+	height: 100%;
+} 
+.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
+	top: 20%;
 }
 @media (max-width: 700px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
