@@ -1,4 +1,4 @@
-<div class="user-publication">
+<!-- <div class="user-publication">
 	<div class="user-publication-header">
 		<div class="user-function">
 			<a class="user" ui-sref="user({username: loggedUser})">
@@ -10,12 +10,12 @@
 			<div class="topic">Тема дня</div>
 			<div href="" class="user-menu">
 				<div class="menu-item">
-					<div class="inner">
-						<a href="">Редактировать</a>
-						<a href="">Переслать</a>
-						<a href="">Получить ссылку</a>
-						<a href="">Пожаловаться</a>
-						<a href="">Удалить</a>
+					<div class="inner" ng-init="pubId = 1;">
+						<a href="" ng-click="editPub(pubId)">Редактировать</a>
+						<a href="" ng-click="sharePub(pubId)">Переслать</a>
+						<a href="" ng-click="getPubLink(pubId)">Получить ссылку</a>
+						<a href="" ng-click="alertPub(pubId)">Пожаловаться</a>
+						<a href="" ng-click="deletePub(pubId)">Удалить</a>
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 			</div>
 			
 		</div>
-		<!-- <div class="publication-images">
+		<div class="publication-images">
 			<div class="images-item">
 				<img src="../../../images/pic1.jpg">
 			</div>
@@ -320,6 +320,6 @@
 			<div class="images-item">
 				<img src="../../../images/pic1.jpg">
 			</div>	
-		</div> -->
+		</div>
 	</div>
-</div> 
+</div>  -->

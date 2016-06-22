@@ -131,8 +131,7 @@ angular.module('placePeopleApp')
 			} else {				
 				UserService.quickEdit(name, lastname, status, storage.userId)
 				.then(					
-					function(res){
-						console.log(res);							
+					function(res){								
 						$scope.profileEdition = false;		        
 					},
 					function(err){
@@ -169,6 +168,42 @@ angular.module('placePeopleApp')
 					className: 'view-publication ngdialog-theme-default',
 					scope: $scope
 				});
+		};
+
+		$scope.editPub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/edit-publication.html',
+							className: 'user-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.sharePub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/share-publication.html',
+							className: 'share-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.getPubLink = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/get-link-publication.html',
+							className: 'link-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.alertPub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/alert-publication.html',
+							className: 'alert-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.deletePub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/delete-publication.html',
+							className: 'delete-publication ngdialog-theme-default',
+							scope: $scope
+						});
 		};
 
 		
