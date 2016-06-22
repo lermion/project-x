@@ -1,5 +1,5 @@
 <h5>Новая публикация</h5>
-<div class="publication" flow-init>
+<div class="publication" flow-init flow-name="flowObj.flow" flow-files-submitted="pubFiles( $files, $event, $flow )" flow-file-added="checkFileAmount($file, $event, $flow)">
 	<div class="publication-item">
 		<a class="user" ui-sref="user({username: loggedUser})">
 			<span class="ava">
@@ -92,8 +92,8 @@
 	</div>		
 	<!-- <a href="" ng-click="rebuildScroll()">Rebuild</a>	 -->
 
-		<!-- <div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="true" rebuild-on="rebuild:me"  style="max-height: 200px; overflow:hidden; position:relative;"> -->
-		<div class="new-add" ng-show="showPubAdd">
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">
+		  <!-- <div class="new-add" ng-show="showPubAdd"> -->
 
 			<!-- <div class="inner" >
 				<div class="close">
@@ -108,26 +108,33 @@
 					</div>
 				</div>
 			</div> -->
+			<div class="inner" ng-repeat="file in $flow.files">
+				<div class="close">
+					<div class="close-inner">
+						<p>Удалить</p>
+					</div>
+				</div>
+				<img flow-img="file"> 
+				<div class="check">
+					<div class="check-inner">
+						<p>Сделать заставкой публикации</p>
+					</div>
+				</div>
+			</div>
 
-			<!-- <tr ng-repeat="file in $flow.files">
-			    <td>{{$index+1}}</td>
-			    <td>{{file.name}}</td>
-			</tr> -->
-			<p>{{$flow}}</p>
-
-		</div>	
+		</div>
 
 	<div class="publication-footer" >
 		<div class="add-objects"> 
-			<!-- <input type="file" id="add-object" flow-btn/>   -->
-			<label for="add-object" ng-click="showPubAdd=!showPubAdd" flow-btn>
+			<input type="file" id="add-object" flow-btn multiple/>  
+			<label for="add-object" ng-click="showPubAdd=!showPubAdd">
 				<span class="add"></span>
 				Добавить фото или видео *
 			</label>                                         
 		</div>
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();newPublicationData={};">Отменить</a>  
-			<a href="" class="publication-button" ng-click="publishNewPub(isAnonPub, pubText);">Опубликовать</a>    
+			<a href="" class="publication-button" ng-click="publishNewPub(pubText, isAnonPub, $flow.files);" ladda="newPubLoader">Опубликовать</a>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>

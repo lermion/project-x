@@ -40,6 +40,11 @@ angular.module('placePeopleApp')
 	      url: '/static/:pageName',
 	      templateUrl: '../../app/Static/views/static.html',
 	      controller: 'staticCtrl'
+	    })
+	    .state('feed', {
+	      url: '/feed/',
+	      templateUrl: '../../app/Feed/views/feed.html',
+	      // controller: 'staticCtrl'
 	    })	    
 	    
 	}]);
