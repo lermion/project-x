@@ -31,6 +31,20 @@ class PublicationTest extends TestCase
         $this->seeInDatabase('publications', $data);
     }
 
+    public function testUpdate()
+    {
+        $user = \App\User::first();
+        $this->be($user);
+        $publication = \App\Publication::create(['user_id' => $user->id]);
+        $data = [
+            'text' => 'test'
+        ];
+        $this->json('POST', 'publication/update/'.$publication->id, $data)->seeJson([
+            'status' => true,
+        ]);
+        $this->seeInDatabase('publications', $data);
+    }
+
     public function testDeleet()
     {
         $user = \App\User::first();
