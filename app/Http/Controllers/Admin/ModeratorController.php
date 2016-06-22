@@ -43,7 +43,7 @@ class ModeratorController extends Controller
             return view('admin.moderator.create',['error'=>'Email уже используется другим модератором']);
         }
         $data = $request->all();
-        $data['password'] = bcrypt('password');
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         Moderator::create($data);
         return redirect()->action('Admin\ModeratorController@index');
     }
