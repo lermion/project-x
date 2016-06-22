@@ -76,6 +76,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'publication'], function () {
         Route::get('/', 'PublicationController@index');
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
+        Route::post('update/{id}', 'PublicationController@update')->middleware(['auth']);
         Route::get('show/{id}', 'PublicationController@show')->middleware(['auth']);
         Route::get('like/{id}', 'PublicationController@like')->middleware(['auth']);
         Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
@@ -89,11 +90,8 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/store\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='file' name='avatar'><br>
-            <input type='text' name='name'><br>
-            <input type='text' name='description'><br>
-            <input type='text' name='is_open'><br>
+        echo "<form action=\"http://pp.dev/publication/update/5\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='text'><br>
             <input type=\"submit\">
         </form>";
     });

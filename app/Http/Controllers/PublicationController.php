@@ -107,7 +107,96 @@ class PublicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($publication = Publication::find($id)) {
+            if ($publication->user_id == Auth::id()) {
+                try {
+                    $this->validate($request, [
+                        'text' => 'required|min:1',
+                        'is_anonym' => 'boolean',
+                        'is_main' => 'boolean',
+                        'videos' => 'array',
+                        'images' => 'array',
+                        'delete_videos' => 'array',
+                        'delete_images' => 'array'
+                    ]);
+                } catch (\Exception $ex) {
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => $ex->validator->errors(),
+                            'code' => '1'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
+                $publicationData = $request->all();
+                $publication->update($publicationData);
+                $deleteImages = $request->input('delete_images');
+                if ($deleteImages) {
+                    foreach ($deleteImages as $deleteImage) {
+                        $image = Image::find($deleteImage);
+                        if ($image) {
+                            $image->delete();
+                        }
+                    }
+                }
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $image) {
+                        if (!$image) {
+                            continue;
+                        }
+                        $path = Image::getImagePath($image);
+                        $publication->images()->create([
+                            'url' => $path,
+                        ]);
+                    }
+                }
+                $deleteVideos = $request->input('delete_videos');
+                if ($deleteVideos) {
+                    foreach ($deleteVideos as $deleteVideo) {
+                        $video = Video::find($deleteVideo);
+                        if ($video) {
+                            $video->delete();
+                        }
+                    }
+                }
+
+                if ($request->hasFile('videos')) {
+                    foreach ($request->file('videos') as $video) {
+                        if (!$video) {
+                            continue;
+                        }
+                        $path = Video::getVideoPath($video);
+                        $publication->videos()->create([
+                            'url' => $path,
+                        ]);
+                    }
+                }
+                $responseData = [
+                    "status" => true,
+                    "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+                ];
+                return response()->json($responseData);
+            } else {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+        } else {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($responseData);
+        }
     }
 
     /**
