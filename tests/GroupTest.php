@@ -49,7 +49,7 @@ class GroupTest extends TestCase
         \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1]);
         $this->be($user);
         $data = [
-            'name' => 'test',
+            'name' => str_random(8),
             'description' => 'lorem',
             'is_open' => true
         ];

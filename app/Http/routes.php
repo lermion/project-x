@@ -68,8 +68,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscription/{id}', 'GroupController@subscription');
         Route::get('invite/{group_id}/{user_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
-        Route::group(['prefix' => '{id}/publication'], function () {
+        Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
+            Route::post('store', 'GroupPublicationController@store');
+            Route::post('update/{id}', 'GroupPublicationController@update');
+            Route::group(['prefix' => '{publicationId}/comment'], function () {
+                Route::post('store', 'GroupPublicationCommentController@store');
+            });
         });
     });
 
@@ -90,7 +95,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/publication/update/5\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/group/2/publication/update/9\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='text' name='text'><br>
             <input type=\"submit\">
         </form>";
