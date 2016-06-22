@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\GroupUser;
+use App\Image;
+use App\Publication;
+use App\Video;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,16 +21,15 @@ class GroupPublicationController extends Controller
      */
     public function index($id)
     {
-        $group = Group::with(['publications','publications.group','publications.user','publications.videos', 'publications.images', 'publications.comments' => function ($query) {
+        $group = Group::with(['publications', 'publications.group', 'publications.user', 'publications.videos', 'publications.images', 'publications.comments' => function ($query) {
             $query->take(3);
         }, 'publications.comments.images', 'publications.comments.videos', 'publications.comments.user'])
             ->find($id);
-        //return $group;
         $publications = $group->publications;
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();
-            if(!$publication->is_anonym){
+            if (!$publication->is_anonym) {
                 $publication->user;
             }
             foreach ($publication->comments as &$comment) {
@@ -37,68 +40,212 @@ class GroupPublicationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            $this->validate($request, [
+                'text' => 'required|min:1',
+                'is_anonym' => 'boolean',
+                'is_main' => 'boolean',
+                'videos' => 'array',
+                'images' => 'array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $publicationData = $request->all();
+        $publicationData['user_id'] = Auth::id();
+        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
+        $group = Group::find($id);
+        $publication = $group->publications()->create($publicationData);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                if (!$image) {
+                    continue;
+                }
+                $path = Image::getImagePath($image);
+                $publication->images()->create([
+                    'url' => $path,
+                ]);
+            }
+        }
+        if ($request->hasFile('videos')) {
+            foreach ($request->file('videos') as $video) {
+                if (!$video) {
+                    continue;
+                }
+                $path = Video::getVideoPath($video);
+                $publication->videos()->create([
+                    'url' => $path,
+                ]);
+            }
+        }
+        $responseData = [
+            "status" => true,
+            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+        ];
+        return response()->json($responseData);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $groupId,$publicationId)
     {
-        //
+        if (($publication = Publication::find($publicationId)) && ($group = Group::find($groupId))) {
+            if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()
+            &&$group->publications()->where('publications.id', $publicationId)->first()) {
+                try {
+                    $this->validate($request, [
+                        'text' => 'required|min:1',
+                        'is_anonym' => 'boolean',
+                        'is_main' => 'boolean',
+                        'videos' => 'array',
+                        'images' => 'array',
+                        'delete_videos' => 'array',
+                        'delete_images' => 'array'
+                    ]);
+                } catch (\Exception $ex) {
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => $ex->validator->errors(),
+                            'code' => '1'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
+                $publicationData = $request->all();
+                $publication->update($publicationData);
+                $deleteImages = $request->input('delete_images');
+                if ($deleteImages) {
+                    foreach ($deleteImages as $deleteImage) {
+                        $image = Image::find($deleteImage);
+                        if ($image) {
+                            $image->delete();
+                        }
+                    }
+                }
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $image) {
+                        if (!$image) {
+                            continue;
+                        }
+                        $path = Image::getImagePath($image);
+                        $publication->images()->create([
+                            'url' => $path,
+                        ]);
+                    }
+                }
+                $deleteVideos = $request->input('delete_videos');
+                if ($deleteVideos) {
+                    foreach ($deleteVideos as $deleteVideo) {
+                        $video = Video::find($deleteVideo);
+                        if ($video) {
+                            $video->delete();
+                        }
+                    }
+                }
+
+                if ($request->hasFile('videos')) {
+                    foreach ($request->file('videos') as $video) {
+                        if (!$video) {
+                            continue;
+                        }
+                        $path = Video::getVideoPath($video);
+                        $publication->videos()->create([
+                            'url' => $path,
+                        ]);
+                    }
+                }
+                $responseData = [
+                    "status" => true,
+                    "publication" => Publication::with('videos','group', 'images', 'user')->find($publication->id)
+                ];
+                return response()->json($responseData);
+            } else {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+        } else {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($responseData);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($groupId,$publicationId)
     {
-        //
+        if (($publication = Publication::find($publicationId)) && ($group = Group::find($groupId))) {
+            if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()
+                &&$group->publications()->where('publications.id', $publicationId)->first()) {
+                $publication->delete();
+                $responseData = [
+                    "status" => true
+                ];
+                return response()->json($responseData);
+            } else {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+        } else {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($responseData);
+        }
     }
 }
