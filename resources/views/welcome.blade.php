@@ -35,5 +35,6 @@
     <script src="../../app/Static/models/staticService.js"></script>
     <script src="../../app/User/controllers/userCtrl.js"></script>
     <script src="../../app/User/models/userService.js"></script>
+    <script src="../../app/Publication/models/publicationService.js"></script>
 </body>
 </html>

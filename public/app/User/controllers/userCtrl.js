@@ -1,6 +1,6 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService){
 
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
@@ -21,7 +21,7 @@ angular.module('placePeopleApp')
                 console.log(error);
             });
 
-
+// console.log();
 		UserService.getUserData($stateParams.username)
 			.then(function(res){
 				if (res.login === storage.username) {
@@ -131,8 +131,7 @@ angular.module('placePeopleApp')
 			} else {				
 				UserService.quickEdit(name, lastname, status, storage.userId)
 				.then(					
-					function(res){
-						console.log(res);							
+					function(res){								
 						$scope.profileEdition = false;		        
 					},
 					function(err){
@@ -158,9 +157,56 @@ angular.module('placePeopleApp')
 			$scope.$broadcast('rebuild:me');
 		};
 
-		$scope.publishNewPub = function(isAnonPub, pubText){
-			console.log(isAnonPub, pubText);
-			ngDialog.closeAll();
+		$scope.pubFiles = function(files, event, flow){						
+			if (files.length > 4) {
+				$scope.pubFilesNeedScroll = true;
+			} else if(files.length > 99){
+				console.log('too much files');
+			}
+			$scope.$broadcast('rebuild:me');
+		};
+
+		$scope.checkFileAmount = function(files, event, flow){
+			// console.log(files, event, flow);
+		};
+
+		$scope.publishNewPub = function(pubText, isAnonPub, files){
+			$scope.newPubLoader = true;						
+			var images = [];
+			// images[0] = '';
+			var videos = [];
+			var isMain;
+			if ($state.current.name === 'feed') {
+				isMain = 1;
+			} else{
+				isMain = 0;
+			}
+			files.forEach(function(file){
+				var type = file.file.type.split('/')[0];
+				if (type === 'image') {
+					images.push(file.file);
+				} else if (type === 'video'){
+					videos.push(file.file);
+				}				
+			});
+						
+			PublicationService.createPublication(pubText, isAnonPub ? 1 : 0, isMain, videos, images)			
+				.then(					
+					function(res){
+						// console.log(res);
+						if (res.status) {
+							ngDialog.closeAll();
+						} else {
+							console.log('Error');
+							console.log(res);
+						}
+						$scope.newPubLoader = false;	        
+					},
+					function(err){
+						console.log(err);
+					});
+
+			
 		};
 
 		$scope.showPublication = function(){			
@@ -169,6 +215,42 @@ angular.module('placePeopleApp')
 					className: 'view-publication ngdialog-theme-default',
 					scope: $scope
 				});
+		};
+
+		$scope.editPub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/edit-publication.html',
+							className: 'user-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.sharePub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/share-publication.html',
+							className: 'share-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.getPubLink = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/get-link-publication.html',
+							className: 'link-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.alertPub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/alert-publication.html',
+							className: 'alert-publication ngdialog-theme-default',
+							scope: $scope
+						});
+		};
+		$scope.deletePub = function(pubId){
+			ngDialog.open({
+							template: '../app/User/views/delete-publication.html',
+							className: 'delete-publication ngdialog-theme-default',
+							scope: $scope
+						});
 		};
 
 		
