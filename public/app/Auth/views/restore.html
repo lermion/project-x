@@ -2,7 +2,11 @@
   <div class="check-in recovery" ng-show="!smsSend">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;">
+                  <div class="tel-field">
+                              <span class="plus">+</span>
+                              <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;">
+                  </div>
+                  
                   <p ng-show="ruphErr" class="capcha">{{ruphErr}}</p>
                   <p ng-hide="ruphErr">На этот номер телефона мы oтправим вам SMS с кодом</p>
                   <button class="check-in-button" ng-click="sendRestoreSms()" ladda="restoreSmsLoader" data-style="zoom-out">Отправить код</button>
