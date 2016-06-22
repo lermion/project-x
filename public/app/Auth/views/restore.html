@@ -2,7 +2,7 @@
   <div class="check-in recovery" ng-show="!smsSend">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;">
+                  <input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;" ng-change="ruphErr=false;">
                   <p ng-show="ruphErr" class="capcha">{{ruphErr}}</p>
                   <p ng-hide="ruphErr">На этот номер телефона мы oтправим вам SMS с кодом</p>
                   <button class="check-in-button" ng-click="sendRestoreSms()" ladda="restoreSmsLoader" data-style="zoom-out">Отправить код</button>
@@ -13,7 +13,7 @@
   <div class="check-in recovery" ng-show="smsSend && !smsConfirmed">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="text-field" type="text" name="" placeholder="Введите код..." ng-model="restoreUserSms" ng-click="rusError=false;">                  
+                  <input class="text-field" type="text" name="" placeholder="Введите код..." ng-model="restoreUserSms" ng-click="rusError=false;" ng-change="rusError=false;">                  
                   <p>Введите код, полученный SMS сообщением на указанный номер телефона</p>
                   <p ng-show="rusError" class="capcha">{{rusError}}</p>
                   <button class="check-in-button" ng-click="sendRestoreCode()" ladda="checkSmsLoader" data-style="zoom-out">Востановить</button>
@@ -24,8 +24,8 @@
    <div class="check-in recovery" ng-show="smsConfirmed">
          <div class="form">
                   <a class="logo" href=""></a>
-                  <input class="password-field-first" type="password" name="" placeholder="Придумайте новый пароль..." ng-model="restoreUserPwd"ng-click="rupErr=false;">
-                  <input class="password-field-second" type="password" name="" placeholder="Повторите пароль..." ng-model="restoreUserPwdConf"ng-click="rupErr=false;">
+                  <input class="password-field-first" type="password" name="" placeholder="Придумайте новый пароль..." ng-model="restoreUserPwd" ng-click="rupErr=false;" ng-change="rupErr=false;">
+                  <input class="password-field-second" type="password" name="" placeholder="Повторите пароль..." ng-model="restoreUserPwdConf" ng-click="rupErr=false;" ng-change="rupErr=false;">
                   <p ng-show="rupErr" class="capcha">{{rupErr}}</p>
                   <p ng-show="changePwdSuccess">Пароль успешно изменён</p>
                   <button class="check-in-button" ng-click="setNewPwd()" ladda="newPwdLoader">Отправить</button>
