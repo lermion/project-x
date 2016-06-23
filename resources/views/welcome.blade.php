@@ -29,14 +29,15 @@
     <script src="../../app/config.js"></script>
     <script src="../../app/mainCtrl.js"></script>    
     <script src="../../app/common/services/storageService.js"></script>
+    <script src="../../app/Publication/models/publicationService.js"></script>
 
     <script src="../../app/Auth/controllers/authCtrl.js"></script>
     <script src="../../app/Auth/models/authService.js"></script>
     <script src="../../app/Static/controllers/staticCtrl.js"></script>    
-    <script src="../../app/Static/models/staticService.js"></script>
-    <script src="../../app/User/controllers/userCtrl.js"></script>
+    <script src="../../app/Static/models/staticService.js"></script>    
     <script src="../../app/User/models/userService.js"></script>
-    <script src="../../app/Publication/models/publicationService.js"></script>
+    <script src="../../app/User/controllers/userCtrl.js"></script>
+    
     <script src="../../app/Settings/controllers/SettingsCtrl.js"></script>
 </body>
 </html>

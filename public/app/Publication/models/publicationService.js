@@ -13,7 +13,7 @@ angular.module('placePeopleApp')
             likePublication: likePublication,
             getPublicationComments: getPublicationComments,
             addPublicationComment: addPublicationComment,
-            deletePublicationComment: deletePublicationComment,
+            deletePublicationComment: deletePublicationComment
 
 		}
 
@@ -21,8 +21,16 @@ angular.module('placePeopleApp')
         console.log();
         return defer.promise;
     }
-    function getUserPublications(){
-        console.log();
+    function getUserPublications(userId){        
+        defer = $q.defer();
+        $http.get(path + 'user/'+userId+'/publication')
+            .success(function (response){
+              console.log(response); 
+                defer.resolve(response);
+            })
+            .error(function (error){
+                defer.reject(error);
+            });
         return defer.promise;
     }
     function getPublication(){

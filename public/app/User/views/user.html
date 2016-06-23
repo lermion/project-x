@@ -1,4 +1,4 @@
-<div ng-controller="userCtrl">	
+<div>	
 	<header>
 		<div class="header header-user">
 			<a class="logo" href=""></a>
@@ -108,6 +108,17 @@
 					</a>
 				</div>
 			</div>
+			<!-- <div class="my-photos" ng-show="userPublications">
+				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
+					<a href="" ng-click="showPublication(pub.id)">
+						<img ng-src="{{pub.images[0].url}}" alt="">
+						<p>{{pub.images}}</p>
+						<span class="video" ng-show="$index==0"></span>
+					</a>
+				</div>
+			</div> -->
+
+
 			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
 				<div class="photo-list" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeHeight}}">				
