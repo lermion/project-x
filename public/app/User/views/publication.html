@@ -90,44 +90,25 @@
 			</div>
 		</div>
 	</div>		
-	<!-- <a href="" ng-click="rebuildScroll()">Rebuild</a>	 -->
-
-		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">
-		  <!-- <div class="new-add" ng-show="showPubAdd"> -->
-
-			<!-- <div class="inner" >
-				<div class="close">
-					<div class="close-inner">
-						<p>Удалить</p>
-					</div>
-				</div>
-				<img src="../../../images/smil-hover.png" alt=""> 
-				<div class="check">
-					<div class="check-inner">
-						<p>Сделать заставкой публикации</p>
-					</div>
-				</div>
-			</div> -->
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">		  
 			<div class="inner" ng-repeat="file in $flow.files">
-				<div class="close">
+				<div class="close" ng-click="deletePubFile(file.name, $flow.files)">
 					<div class="close-inner">
 						<p>Удалить</p>
 					</div>
 				</div>
-				<img flow-img="file"> 
-				<div class="check">
+				<img flow-img="file" ng-show="fileTypeCheck(file.file.type)"> 
+				<div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}" ng-show="fileTypeCheck(file.file.type)">				
 					<div class="check-inner">
-						<p>Сделать заставкой публикации</p>
+						<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	<div class="publication-footer" >
 		<div class="add-objects"> 
 			<input type="file" id="add-object" flow-btn multiple/>  
-			<label for="add-object" ng-click="showPubAdd=!showPubAdd">
+			<label for="add-object" ng-click="openPublicationPreviewBlock($flow.files)">
 				<span class="add"></span>
 				Добавить фото или видео *
 			</label>                                         

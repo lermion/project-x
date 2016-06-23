@@ -153,8 +153,11 @@ angular.module('placePeopleApp')
 			ngDialog.closeAll();
 		};
 
-		$scope.rebuildScroll = function(){
-			$scope.$broadcast('rebuild:me');
+		$scope.openPublicationPreviewBlock = function(files){			
+			if (!$scope.showPubAdd) {
+				$scope.showPubAdd=!$scope.showPubAdd;
+			}
+			
 		};
 
 		$scope.pubFiles = function(files, event, flow){						
@@ -166,16 +169,40 @@ angular.module('placePeopleApp')
 			$scope.$broadcast('rebuild:me');
 		};
 
+		$scope.fileTypeCheck = function(filetype){
+			var type = filetype.split('/')[0];
+				if (type === 'image') {
+					return true;
+				} else if (type === 'video'){
+					return false;
+				}
+		};
+
 		$scope.checkFileAmount = function(files, event, flow){
 			// console.log(files, event, flow);
+		};
+
+		$scope.setMainPubPhoto = function(target){
+			$scope.mainPubPhoto = target.file.name;			
+		};
+
+		$scope.deletePubFile = function(targetName, files){			
+			for(var i=0; i < files.length; i++){
+					if (files[i].name === targetName) {						
+						files.splice(i, 1);
+					}
+					
+				}
 		};
 
 		$scope.publishNewPub = function(pubText, isAnonPub, files){
 			$scope.newPubLoader = true;						
 			var images = [];
-			// images[0] = '';
 			var videos = [];
 			var isMain;
+			if ($scope.mainPubPhoto) {
+				images[0] = '';
+			}			
 			if ($state.current.name === 'feed') {
 				isMain = 1;
 			} else{
@@ -188,12 +215,19 @@ angular.module('placePeopleApp')
 				} else if (type === 'video'){
 					videos.push(file.file);
 				}				
-			});
-						
+			});			
+			if ($scope.mainPubPhoto) {
+				for(var i=0; i < images.length; i++){
+					if (images[i].name === $scope.mainPubPhoto) {
+						var mainPhoto = images.splice(i, 1);
+						images[0] = mainPhoto[0];
+
+					}
+				}				
+			}
 			PublicationService.createPublication(pubText, isAnonPub ? 1 : 0, isMain, videos, images)			
 				.then(					
-					function(res){
-						// console.log(res);
+					function(res){						
 						if (res.status) {
 							ngDialog.closeAll();
 						} else {
