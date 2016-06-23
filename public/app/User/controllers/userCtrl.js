@@ -151,6 +151,39 @@ angular.module('placePeopleApp')
 			}
 		};
 
+$scope.openPublication = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-publication.html',
+		className: 'popup-user-publication ngdialog-theme-default',
+		scope: $scope
+	});
+};
+$scope.openContacts = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-contacts.html',
+		className: 'popup-user-contacts ngdialog-theme-default',
+		scope: $scope
+	});
+};
+$scope.openSubscribers = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-subscribers.html',
+		className: 'popup-user-subscribers ngdialog-theme-default',
+		scope: $scope
+	});
+};
+$scope.openSubscribe = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-subscribe.html',
+		className: 'popup-user-subscribe ngdialog-theme-default',
+		scope: $scope
+	});
+};
+
 		$scope.createPublication = function(){			
 			ngDialog.open({
 					template: '../app/User/views/publication.html',
@@ -239,6 +272,7 @@ angular.module('placePeopleApp')
 				.then(					
 					function(res){						
 						if (res.status) {
+							getUserPubs(storage.userId);
 							ngDialog.closeAll();
 						} else {
 							console.log('Error');
@@ -255,11 +289,11 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			$scope.singlePublication = pub;
 			$scope.limit = 6;
-			$scope.hideSomePubText = false;
+			// $scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
-				if($window.innerWidth <= 520){
-					$scope.hideSomePubText = true;					
-				}
+				// if($window.innerWidth <= 520){
+				// 	$scope.hideSomePubText = true;					
+				// }
 				$state.go('mobile-pub-view', {username: $stateParams.username, id: pub.id});								
 			}  else {
 				ngDialog.open({
@@ -280,12 +314,36 @@ angular.module('placePeopleApp')
 			$scope.$broadcast('loadPubFiles');			
 		};
 
-		$scope.editPub = function(pubId){
+		$scope.editPub = function(pub){			
+			$scope.currPub = pub;
 			ngDialog.open({
 							template: '../app/User/views/edit-publication.html',
 							className: 'user-publication ngdialog-theme-default',
 							scope: $scope
 						});
+		};
+		$scope.editedPubFiles = function(pub, flow){
+			console.log(pub);
+			console.log(flow);
+
+			// if (flow.length === 0) {
+			// 	$scope.pubPhotosEdited = true;
+			// } else {
+			// 	$scope.pubPhotosEdited = false;
+			// }
+
+			var files = [];
+			pub.images.forEach(function(img){
+				var filename = img.url.split('/')[(img.url.split('/')).length-1];
+				img.name = filename.substring(8, filename.length);
+				// img.name = filename;
+				console.log(img.name);
+				files.push(img);
+			});
+			pub.videos.forEach(function(video){
+				files.push(video);
+			});
+			$scope.editedPubFilesArray = files;			
 		};
 		$scope.sharePub = function(pubId){
 			ngDialog.open({
