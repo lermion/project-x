@@ -23,6 +23,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
         });
+        Route::group(['prefix' => 'moderator'], function () {
+            Route::get('/', 'Admin\ModeratorController@index');
+            Route::get('create', 'Admin\ModeratorController@create');
+            Route::post('store', 'Admin\ModeratorController@store');
+        });
         Route::group(['prefix' => 'static_page'], function () {
             Route::get('/', 'Admin\StaticPageController@index');
             Route::get('show/{id}', 'Admin\StaticPageController@show');
@@ -76,6 +81,16 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('store', 'GroupPublicationCommentController@store');
             });
         });
+    });
+
+    Route::group(['prefix' => 'moderator'], function () {        
+        Route::group(['middleware' => 'moderator'], function () {
+            Route::get('/', 'Moderator\IndexController@index');
+            Route::get('logout', 'Moderator\AuthController@logout');
+        });        
+        Route::get('login', 'Moderator\AuthController@login');
+        Route::post('auth', 'Moderator\AuthController@auth');
+        
     });
 
     Route::group(['prefix' => 'publication'], function () {
