@@ -1,7 +1,8 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService, amMoment){
 		/* Service info*/
+		amMoment.changeLocale('ru');
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
@@ -303,7 +304,32 @@ $scope.openSubscribe = function(userId){
 				});
 			}
 		};
-
+		$scope.addNewComment = function(pubId, pubText){
+			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
+				$scope.singlePublication.comments.push(response.comment);
+				$scope.singlePublication.comment_count++;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.deleteComment = function(commentId, index){
+			PublicationService.deleteCommentPublication(commentId).then(function(response){
+				$scope.singlePublication.comments.splice(index, 1);
+				$scope.singlePublication.comment_count--;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.getAllCommentsPublication = function(pubId){
+			PublicationService.getAllCommentsPublication(pubId).then(function(response){
+				$scope.singlePublication.comments = response;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		$scope.loadMorePubFiles = function(key) {
 			if (key === false) {
 				$scope.limit = $scope.singlePublication.length;

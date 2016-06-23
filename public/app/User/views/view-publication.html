@@ -51,10 +51,10 @@
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
 	<div class="more-comments">
-		<a href="" class="all-comments">Еще 8 комментариев</a>
+		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div class="visible-comments">
-		<div class="user-comment">
+		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
 					<img src="{{userData.avatar_path}}" alt="">
@@ -63,49 +63,27 @@
 			<div class="comment">
 				<div class="user-info">				
 					<div class="info-item">
-						<a class="user-name" ui-sref="user({username: loggedUser})">{{userData.first_name}} {{userData.last_name}}</a>
-						<p class="time">Вчера, 21:59</p>
-						<a href="" class="like-counter">3</a>
+						<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+						<p class="time" am-time-ago="comment.created_at"></p>
+						<a href="" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="" class="alert">Пожаловаться<!-- {{hideSomePubText ? '':''}} --></a>
+					<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert">Пожаловаться<!-- {{hideSomePubText ? 'Пожаловаться':''}} --></a>
 				</div>
-				<p class="comment-item">Папа решил проверить дочь 3-х лет, как она знает свои фамилию и имя. Подходит в универсаме и с невозмутимым видом спрашивает ребёнка: — Девочка, ты кто? Ребёнок с ужасом и слезами на глазах: — Конфетка твоя ненаглядненькаааяяя…</p>
-			</div>
-		</div>
-		<div class="user-comment">
-			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: loggedUser})">
-					<img src="{{userData.avatar_path}}" alt="">
-				</a>
-			</div>
-			<div class="comment">
-				<div class="user-info">
-					<div class="info-item">
-						<a class="user-name" ui-sref="user({username: loggedUser})">{{userData.first_name}} {{userData.last_name}}</a>
-						<p class="time">Вчера, 21:59</p>
-						<a href="" class="like-counter">3</a>
-					</div>
-					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
+				<p class="comment-item">{{comment.text}}</p>
+				<div ng-if="comment.images[0]" class="comment-pic">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
+					</a>
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
+					</a>
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
+					</a>
+					<a href="javascript:void(0);" class="comment-pic-item">
+					<p>Ещё 52 фото</p>
+					</a>
 				</div>
-				<p class="comment-item">Папа решил проверить дочь 3-х лет, как она знает свои фамилию и имя. Подходит в универсаме и с невозмутимым видом спрашивает ребёнка: — Девочка, ты кто? Ребёнок с ужасом и слезами на глазах: — Конфетка твоя ненаглядненькаааяяя…</p>
-			</div>
-		</div>
-		<div class="user-comment">
-			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: loggedUser})">
-					<img src="{{userData.avatar_path}}" alt="">
-				</a>
-			</div>
-			<div class="comment">
-				<div class="user-info">
-					<div class="info-item">
-						<a class="user-name" ui-sref="user({username: loggedUser})">{{userData.first_name}} {{userData.last_name}}</a>
-						<p class="time">Вчера, 21:59</p>
-						<a href="" class="like-counter">3</a>
-					</div>
-					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
-				</div>
-				<p class="comment-item">Папа решил проверить дочь 3-х лет</p>
 			</div>
 		</div>
 	</div>
@@ -261,7 +239,7 @@
 			</div>
 			<div class="publication-footer" >
 				<div class="publication-footer-button">
-					<a href="javascript:void(0);" ng-click="addNewComment()" class="publication-button">Отправить</a>    
+					<a href="javascript:void(0);" ng-click="addNewComment(singlePublication.id, pubText)" class="publication-button">Отправить</a>    
 				</div>
 				<div class="add-objects"> 
 					<input type="file" id="add-object">  

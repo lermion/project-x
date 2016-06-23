@@ -86,6 +86,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'moderator'], function () {        
         Route::group(['middleware' => 'moderator'], function () {
             Route::get('/', 'Moderator\IndexController@index');
+            Route::get('edit', 'Moderator\IndexController@edit');
+            Route::post('update', 'Moderator\IndexController@update');
             Route::get('logout', 'Moderator\AuthController@logout');
             Route::group(['prefix' => 'moderate'], function () {
                 Route::get('/', 'Moderator\ModerateController@index');

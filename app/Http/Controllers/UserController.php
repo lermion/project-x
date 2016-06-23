@@ -86,6 +86,11 @@ class UserController extends Controller
                 $avatar = $request->file('avatar');
                 $path = $this->getAvatarPath($avatar);
                 $user->avatar_path = $path;
+                if ($request->hasFile('original_avatar')) {
+                    $originalAvatar = $request->file('original_avatar');
+                    $path = $this->getAvatarPath($originalAvatar);
+                }
+                $user->original_avatar_path = $path;
             }
             $user->save();
 
@@ -133,6 +138,11 @@ class UserController extends Controller
             $avatar = $request->file('avatar');
             $path = $this->getAvatarPath($avatar);
             $user->avatar_path = $path;
+            if ($request->hasFile('original_avatar')) {
+                $originalAvatar = $request->file('original_avatar');
+                $path = $this->getAvatarPath($originalAvatar);
+            }
+            $user->original_avatar_path = $path;
         }
         $user->save();
         return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);
