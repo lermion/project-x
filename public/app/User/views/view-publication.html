@@ -24,8 +24,8 @@
 	<div class="user-publication-content">
 		<div class="publication-ava">
 			<img src="../../../images/pic1.jpg">
-		</div>
-		<div class="publication-images">
+		</div>		
+		<div class="publication-images" ng-hide="morePubFiles">
 			<div class="images-item">
 				<img src="../../../images/pic1.jpg">
 			</div>
@@ -43,28 +43,13 @@
 			</div>
 			<div class="images-item">
 				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item more">
+			</div>			
+			<div class="images-item more" ng-click="loadMorePubFiles()">
 				<p class="counter">Еще<br> 94 фото</p>
 			</div>
-			
+			<!-- is-bar-shown="true" -->
 		</div>
-		<div class="publication-images">
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
+		<div class="publication-images" ng-show="morePubFiles" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">			
 			<div class="images-item">
 				<img src="../../../images/pic1.jpg">
 			</div>
@@ -350,13 +335,13 @@
 				</a>
 			</div>
 			<div class="comment">
-				<div class="user-info">
+				<div class="user-info">				
 					<div class="info-item">
 						<a class="user-name" ui-sref="user({username: loggedUser})">{{userData.first_name}} {{userData.last_name}}</a>
 						<p class="time">Вчера, 21:59</p>
 						<a href="" class="like-counter">3</a>
 					</div>
-					<a href="" class="alert">Пожаловаться</a>
+					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
 				</div>
 				<p class="comment-item">Папа решил проверить дочь 3-х лет, как она знает свои фамилию и имя. Подходит в универсаме и с невозмутимым видом спрашивает ребёнка: — Девочка, ты кто? Ребёнок с ужасом и слезами на глазах: — Конфетка твоя ненаглядненькаааяяя…</p>
 			</div>
@@ -374,7 +359,7 @@
 						<p class="time">Вчера, 21:59</p>
 						<a href="" class="like-counter">3</a>
 					</div>
-					<a href="" class="alert">Пожаловаться</a>
+					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
 				</div>
 				<p class="comment-item">Папа решил проверить дочь 3-х лет, как она знает свои фамилию и имя. Подходит в универсаме и с невозмутимым видом спрашивает ребёнка: — Девочка, ты кто? Ребёнок с ужасом и слезами на глазах: — Конфетка твоя ненаглядненькаааяяя…</p>
 			</div>
@@ -392,7 +377,7 @@
 						<p class="time">Вчера, 21:59</p>
 						<a href="" class="like-counter">3</a>
 					</div>
-					<a href="" class="alert">Пожаловаться</a>
+					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
 				</div>
 				<p class="comment-item">Папа решил проверить дочь 3-х лет</p>
 			</div>

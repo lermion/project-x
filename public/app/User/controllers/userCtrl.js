@@ -245,20 +245,28 @@ angular.module('placePeopleApp')
 					function(err){
 						console.log(err);
 					});
-
 			
 		};
 
-		$scope.showPublication = function(pubId){			
+		$scope.showPublication = function(pubId){
 			if ($window.innerWidth <= 700) {
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});				
-			} else {
+				if($window.innerWidth <= 520){
+					$scope.hideSomePubText = true;
+					console.log($scope.hideSomePubText);
+				}
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
+			}  else {
 				ngDialog.open({
 					template: '../app/User/views/view-publication.html',
 					className: 'view-publication ngdialog-theme-default',
 					scope: $scope
 				});
 			}
+		};
+
+		$scope.loadMorePubFiles = function() {
+			$scope.morePubFiles = true;
+			$scope.$broadcast('loadPubFiles');			
 		};
 
 		$scope.editPub = function(pubId){
