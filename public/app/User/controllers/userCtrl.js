@@ -96,15 +96,19 @@ angular.module('placePeopleApp')
 				}
 			);
 
-		// PublicationService.getUserPublications(storage.userId)
-		// 	.then(
-		// 		function(res){								
-		// 			$scope.userPublications = res;										        
-		// 		},
-		// 		function(err){
-		// 			console.log(err);
-		// 		}
-		// 	);
+		function getUserPubs(userId){
+			PublicationService.getUserPublications(userId)
+			.then(
+				function(res){								
+					$scope.userPublications = res;										        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+		}
+
+		getUserPubs(storage.userId);
 
 		//Sign on
 		$scope.sign = function(){
@@ -248,13 +252,15 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.showPublication = function(pubId){
+		$scope.showPublication = function(pub){
+			$scope.singlePublication = pub;
+			$scope.limit = 6;
+			$scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				if($window.innerWidth <= 520){
-					$scope.hideSomePubText = true;
-					console.log($scope.hideSomePubText);
+					$scope.hideSomePubText = true;					
 				}
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pub.id});								
 			}  else {
 				ngDialog.open({
 					template: '../app/User/views/view-publication.html',
@@ -264,7 +270,12 @@ angular.module('placePeopleApp')
 			}
 		};
 
-		$scope.loadMorePubFiles = function() {
+		$scope.loadMorePubFiles = function(key) {
+			if (key === false) {
+				$scope.limit = $scope.singlePublication.length;
+			}else{
+				$scope.limit = 6;
+			}
 			$scope.morePubFiles = true;
 			$scope.$broadcast('loadPubFiles');			
 		};
@@ -297,12 +308,30 @@ angular.module('placePeopleApp')
 							scope: $scope
 						});
 		};
-		$scope.deletePub = function(pubId){
+		
+		$scope.deletePub = function(pub){
+			$scope.pubToDelete = pub.id;						
 			ngDialog.open({
 							template: '../app/User/views/delete-publication.html',
 							className: 'delete-publication ngdialog-theme-default',
 							scope: $scope
 						});
+		};
+
+		$scope.confirmPubDelete = function (pubToDelete) {			
+			PublicationService.deletePublication(pubToDelete)
+			.then(
+				function(res){
+					if (res.status) {
+						getUserPubs(storage.userId);
+					}
+					ngDialog.closeAll();									        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+
 		};
 
 		

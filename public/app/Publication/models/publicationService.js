@@ -13,9 +13,25 @@ angular.module('placePeopleApp')
             likePublication: likePublication,
             getPublicationComments: getPublicationComments,
             addPublicationComment: addPublicationComment,
-            deletePublicationComment: deletePublicationComment
+            deletePublicationComment: deletePublicationComment,
+            addNewCommentInPublication: addNewCommentInPublication
 
 		}
+
+    function addNewCommentInPublication(pubId){
+      var data = {
+        id: pubId
+      },
+      defer = $q.defer();
+      $http.post("publication/comment", data)
+        .success(function (response){
+          defer.resolve(response);
+        })
+        .error(function (error){
+          defer.reject(error);
+        });
+      return defer.promise;
+    }
 
     function getMainPublications(){
         console.log();
@@ -24,8 +40,7 @@ angular.module('placePeopleApp')
     function getUserPublications(userId){        
         defer = $q.defer();
         $http.get(path + 'user/'+userId+'/publication')
-            .success(function (response){
-              console.log(response); 
+            .success(function (response){              
                 defer.resolve(response);
             })
             .error(function (error){
@@ -68,9 +83,16 @@ angular.module('placePeopleApp')
         console.log();
         return defer.promise;
     }
-    function deletePublication(){
-        console.log();
-        return defer.promise;
+    function deletePublication(pubId){        
+        var defer = $q.defer();
+        $http.get(path + 'publication/destroy/'+pubId)
+            .success(function (response){              
+                defer.resolve(response);
+            })
+            .error(function (error){
+                defer.reject(error);
+            });
+        return defer.promise;        
     }
     function likePublication(){
         console.log();
