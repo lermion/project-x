@@ -31,20 +31,33 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Auth/views/login.html',
 	      controller: 'authCtrl'
 	    })
-	    .state('user', {
-	      url: '/:username',
-	      templateUrl: '../../app/User/views/user.html',
-	      controller: 'userCtrl'
-	    })
 	    .state('static', {
 	      url: '/static/:pageName',
 	      templateUrl: '../../app/Static/views/static.html',
 	      controller: 'staticCtrl'
 	    })
+	    .state('settings', {
+	      url: '/settings',
+	      templateUrl: '../../app/Settings/views/settings.html',
+	      controller: 'settingsCtrl'
+	    })
 	    .state('feed', {
 	      url: '/feed/',
 	      templateUrl: '../../app/Feed/views/feed.html',
 	      // controller: 'staticCtrl'
-	    })	    
+	    })
+	    .state('user', {
+	      url: '/:username',
+	      templateUrl: '../../app/User/views/user.html',
+	      controller: 'userCtrl'
+	    })
+	    .state('mobile-pub-view', {
+	      url: '/:username/publication/:id',
+	      templateUrl: '../../app/User/views/view-publication.html',
+	      controller: 'userCtrl'
+	    })
+
+	    
+	    	    
 	    
 	}]);
