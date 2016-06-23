@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/settings.css" rel="stylesheet">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
     <div id="wrapper" ui-view></div> 
@@ -36,5 +37,6 @@
     <script src="../../app/User/controllers/userCtrl.js"></script>
     <script src="../../app/User/models/userService.js"></script>
     <script src="../../app/Publication/models/publicationService.js"></script>
+    <script src="../../app/Settings/controllers/SettingsCtrl.js"></script>
 </body>
 </html>

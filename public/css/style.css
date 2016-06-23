@@ -1743,12 +1743,17 @@ body.public.user {
 	transition: all .3s ease-in-out .1s;
 }
 .user-publication.ngdialog-theme-default .publication-item .user:hover,
-.user-function .user:hover {
+.user-function .user:hover,
+.visible-comments .comment .user-name:hover,
+.visible-comments .user-comment .ava:hover,
+.user-publication .add-comment .ava:hover {
 	opacity: .8;
 	transition: all .3s ease-in-out .1s;
 }
 .user-publication.ngdialog-theme-default .publication-item .user .ava,
-.user-function .user .ava{
+.user-function .user .ava,
+.visible-comments .user-comment .ava,
+.user-publication .add-comment .ava {
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
@@ -1759,11 +1764,14 @@ body.public.user {
 	height: 30px;
 }
 .user-publication.ngdialog-theme-default .publication-item .user .ava img,
-.user-function .user .ava img {
+.user-function .user .ava img,
+.visible-comments .user-comment .ava img,
+.user-publication .add-comment .ava img {
 	width: 100%;
 }
 .user-publication.ngdialog-theme-default .publication-item .user .user-name,
-.user-function .user .user-name {
+.user-function .user .user-name,
+.visible-comments .comment .user-name  {
 	color: #495b79;
 	font-size: 15.6px;
 	font-family: "SFUIDisplayMedium";
@@ -1773,7 +1781,8 @@ body.public.user {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.user-function .user .user-name {
+.user-function .user .user-name,
+.visible-comments .comment .user-name {
 	color: #495b79;
 	font-size: 14.6px;
 	margin: 0 0 0 10px;
@@ -1787,19 +1796,45 @@ body.public.user {
 	display: inline-block;
 	vertical-align: middle;
 }
+spam-item {
+	padding: 0 40px;
+}
+.spam-item label {
+	font-size: 14px;
+	color: #fff;
+	font-family: "SFUIDisplayLight";
+	line-height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
 .user-publication.ngdialog-theme-default .publication-item input[type="checkbox"] + label span {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	margin: -1px 0px 0 0px;
+	margin: -1px 0 0 0px;
 	vertical-align: top;
 	background: url(../images/checkbox.png) center no-repeat;
 	cursor: pointer;
 }
+.spam-item input[type="checkbox"] + label span {
+	display: inline-block;
+	width: 21px;
+	height: 20px;
+	margin: 0px;
+	vertical-align: middle;
+	background: url(../images/chack.png) center no-repeat;
+	cursor: pointer;
+	margin-right: 10px;
+}
 .user-publication.ngdialog-theme-default .publication-item input[type="checkbox"]:checked + label span {
 	background: url(../images/checkbox-hover.png) center no-repeat;
 }
-.user-publication.ngdialog-theme-default .publication .text-field {
+.spam-item input[type="checkbox"]:checked + label span  {
+	background: url(../images/checked.png) center no-repeat;
+}
+.user-publication.ngdialog-theme-default .publication .text-field,
+.user-publication .add-comment .add  .text-field{
 	width: 100%;
 	height: 135px;
 	margin: 0;
@@ -1807,7 +1842,8 @@ body.public.user {
 	border: none; 
 	position: relative;
 }
-.user-publication.ngdialog-theme-default .publication .text-field textarea{
+.user-publication.ngdialog-theme-default .publication .text-field textarea,
+.user-publication .add-comment .add  .text-field textarea{
 	resize: none;
 	width: 100%;
 	height: 100%;
@@ -1820,14 +1856,16 @@ body.public.user {
 	box-sizing: border-box;
 	font-family: "SFUIDisplayLight";
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles {
+.user-publication.ngdialog-theme-default .publication .text-field .smiles,
+.user-publication .add-comment .add  .text-field .smiles {
 	position: absolute;
 	top: 16px;
 	right: 1px;
 	width: 30px;
 	height: 30px;
-}
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smiles-item{
+} 
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smiles-item,
+.user-publication .add-comment .add  .text-field .smiles  .smiles-item{
 	display: block;
 	background-image: url(../images/smil.png);
 	transition: all .3s ease-in-out .1s;
@@ -1837,10 +1875,12 @@ body.public.user {
 	width: 100%;
 	height: 100%;
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smiles-item:hover{
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smiles-item:hover,
+.user-publication .add-comment .add  .text-field .smiles  .smiles-item:hover{
 	background-image: url(../images/smil-hover.png);
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile{
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile,
+.user-publication .add-comment .add  .text-field  .smiles .smile{
 	display: none;
 	position: absolute;
 	top: -205px;
@@ -1851,7 +1891,8 @@ body.public.user {
     	padding-bottom: 15px;
     	transition: all .3s ease-in-out .1s;
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item {
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item,
+.user-publication .add-comment .add  .text-field .smiles .smile .smile-item {
 	box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
 	background-color: #fff;
 	width: 100%;
@@ -1860,7 +1901,8 @@ body.public.user {
 	padding: 10px 5px 10px 10px;
 	box-sizing: border-box;
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item:after {
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item:after,
+.user-publication .add-comment .add  .text-field .smiles .smile .smile-item:after {
 	content: '';
 	position: absolute;
 	bottom: -8px;
@@ -1871,7 +1913,8 @@ body.public.user {
 	border-left: 6px solid transparent;
 	border-right: 6px solid transparent;
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item:before {
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item:before,
+.user-publication .add-comment .add  .text-field .smiles .smile .smile-item:before {
 	content: '';
 	position: absolute;
 	bottom: -11px;
@@ -1882,26 +1925,31 @@ body.public.user {
 	border-left: 8px solid transparent;
 	border-right: 8px solid transparent;
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles:hover .smile{
+.user-publication.ngdialog-theme-default .publication .text-field .smiles:hover .smile,
+.user-publication .add-comment .add  .text-field  .smiles:hover .smile  {
 	display: block;
 }
-.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .inner {
+.user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .inner,
+.user-publication .add-comment .add  .text-field  .smiles .smile .inner {
 	width: 25px;
 	height: 25px;
 	display: inline-block;
 	vertical-align: top;
 }
-.user-publication .publication .text-field .smiles .smile .inner a {
+.user-publication .publication .text-field .smiles .smile .inner a,
+.user-publication .add-comment .add  .text-field  .smiles .smile .inner a {
 	display: block;
 	text-decoration: none;
 	cursor: pointer;
 	width: 100%;
 	height: 100%; 
 }
-.user-publication .publication .text-field .smiles .smile .inner a img {
+.user-publication .publication .text-field .smiles .smile .inner a img,
+.user-publication .add-comment .add  .text-field  .smiles .smile .inner a img {
 	width: 90%;
 }
-.user-publication .publication .publication-footer {
+.user-publication .publication .publication-footer,
+.user-publication .add-comment .publication-footer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -2235,7 +2283,8 @@ body.public.user {
 }
 .publication-images .images-item.more {
 	background-color: #495b79;
-	color: #fff
+	color: #fff;
+	transition: all .3s ease-in-out .1s;
 }
 .publication-images .images-item img {
 	max-width: 200%;
@@ -2244,8 +2293,9 @@ body.public.user {
 	height: auto;
 }
 .publication-images .images-item.more:hover {
-	background-color: #666;
-	transition: all .3s ease-in-out .1s;
+	background-color: #fff;
+	color: #495b79;
+	transition: all .3s ease-in-out .1s; 
 }
 .images-item.more p {
 	margin: 0;
@@ -2260,11 +2310,308 @@ body.public.user {
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
 	top: 20%;
 }
+.user-publication-content .publication-text {
+	padding: 0 15px;
+	box-sizing: border-box;
+	color: #747476;
+	font-size: 14.6px;
+	font-family: Tahoma;
+	font-weight: 400;
+	line-height: 20px; 
+	margin: 0;
+}
+.user-publication-content .publication-place {
+	display: block;
+	text-decoration: none;
+	margin: 5px 15px 10px 15px;
+	box-sizing: border-box;
+	padding-left: 25px;
+	color: #495b79;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	line-height: 15px; 
+	background-image: url(../images/public-place.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	transition: all .3s ease-in-out .1s;
+}  
+.user-publication-content .publication-place:hover {
+	color: #333;
+}
+.user-publication-content,
+.user-publication .likes,
+.user-publication .more-comments,
+.user-publication .visible-comments {
+	border-bottom: 1px solid #dfe1e4;
+}
+.user-publication .likes {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #000;
+	padding: 10px 15px;
+	box-sizing: border-box;
+}
+.user-publication .likes-item {
+	display: flex;
+    	align-items: center;
+}
+.user-publication .likes-item .like {
+	line-height: 26px;
+	display: block;
+	text-decoration: none;
+	color: #495b79;
+	padding:  0 10px 0 25px;
+	background-color: transparent;
+	border-radius: 3px;
+	border: 1px solid #495b79;
+	margin-right: 15px;
+	background-image: url(../images/like.png);
+	background-position: left 5px center;
+	background-repeat: no-repeat;
+	background-size: 20%;
+	font-size: 14px;
+	transition: all .3s ease-in-out .1s;
+}
+.user-publication .likes-item .like:hover {
+	background-color: #495b79;
+	color: #fff;
+	background-image: url(../images/like-hover.png);
+}
+.user-publication .likes-item .like-item {
+	color: #333;
+	font-size: 14.6px;
+	font-family: Tahoma;
+	font-weight: 400;
+	line-height: 20px; 
+	margin: 0;
+}
+.user-publication .likes-item .like-item .you,
+.user-publication .likes-item .like-item .count-like {
+	font-family: "SFUIDisplayMedium";
+}
+.user-publication .comments-count {
+	color: #333;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	line-height: 20px; 
+	margin: 0;
+	text-decoration: none;
+	padding-right: 30px; 
+	background-image: url(../images/comment-count.png);
+	background-position: right; center;
+	background-repeat: no-repeat;
+	background-size: 50%;
+	transition: all .3s ease-in-out .1s;
+}
+.user-publication .comments-count:hover  {
+	color: #495b79;
+	background-image: url(../images/comment-count-hover.png);
+}
+.user-publication .more-comments {
+	width: 100%;
+	text-align: center;
+}
+.user-publication .more-comments a {
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	color: #495b79;
+	line-height: 50px;
+	transition: all .3s ease-in-out .1s;
+}
+.user-publication .more-comments a:hover {
+	color: #333;
+}
+.visible-comments .user-comment,
+.user-publication .add-comment {
+	display: flex;
+	align-items: flex-start;
+	border-bottom: 1px solid #dfe1e4;
+	margin-left: 15px;
+	padding: 10px 15px 10px 0;
+	color: #333;
+	box-sizing: border-box;
+}
+.visible-comments .user-comment:last-child {
+	border-bottom: none;
+}
+.visible-comments .user-comment .ava,
+.user-publication .add-comment .ava {
+	display: block;
+}
+.visible-comments .comment {
+	width: 100%;
+	padding-left: 15px;
+    	box-sizing: border-box;
+}
+.visible-comments .comment .user-info{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.visible-comments .comment .info-item {
+	display: flex;
+	align-items: center;
+}
+.visible-comments .comment .user-info a {
+	text-decoration: none;
+}
+.visible-comments .comment .user-name {
+	margin-left: 0;
+    	margin-right: 20px;
+    	line-height: 20px;
+}
+.visible-comments .comment .time {
+	margin: 0 15px 0 0;
+	font-family: "SFUIDisplayLight";
+	font-size: 12.5px;
+	cursor: default;
+	color: #666;
+	line-height: 15px;
+}
+.visible-comments .comment .like-counter {
+	color: #333;
+	font-size: 12.5px;
+	font-family: "SFUIDisplayMedium";
+	line-height: 20px; 
+	margin: 0;
+	text-decoration: none;
+	padding-left: 20px; 
+	background-image: url(../images/comment-like.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 50%;
+	transition: all .3s ease-in-out .1s;
+	display: none;
+}
+.visible-comments .comment .like-counter:hover {
+	color: #495b79;
+	background-image: url(../images/like.png);
+}
+.visible-comments .comment .alert {
+	color: #666;
+	font-size: 12.5px;
+	line-height: 20px;
+	padding-right: 20px;
+	position: relative;
+	font-family: "SFUIDisplayLight";
+	transition: all .3s ease-in-out .1s;
+	display: none;
+}
+.visible-comments .comment .alert:before {
+	background: 0 0;
+	border-radius: 3px;
+	color: #666;
+	content: '\00D7';
+	font-size: 20px;
+	font-weight: 400;
+	height: 19px;
+	line-height: 19px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+	width: 15px;
+	transition: all .3s ease-in-out .1s; 
+}
+.visible-comments .comment .alert:hover {
+	color: #495b79;
+}
+.visible-comments .comment .alert:hover:before{
+	color: #495b79;
+}
+.visible-comments .user-comment .comment-item {
+	margin: 0;
+	font-size: 14.6px;
+	color: #333;
+	font-family: "SFUIDisplayLight";
+	line-height: 18px;
+}
+.user-publication .add-comment {
+	border-bottom: none;
+}
+.user-publication .add-comment .add {
+	width: 100%;
+	padding-left: 15px;
+	box-sizing: border-box;
+}
+.user-publication .add-comment .add  .text-field {
+	padding: 0 0;
+	height: 75px;
+}
+.user-publication .add-comment .add  .text-field textarea {
+	height: 75px;
+}
+.user-publication .add-comment .add  .text-field .smiles {
+	top: 0px;
+    	right: 0px;
+}
+.user-publication .add-comment .add  .text-field .smiles  .smiles-item {
+	background-position: left 5px bottom 6px;
+}
+.user-publication .add-comment .add  .text-field .smiles .smile .smile-item:after {
+	right: 10px;
+}
+.user-publication .add-comment .add  .text-field .smiles .smile .smile-item:before {
+	right: 8px;
+}
+.user-publication .add-comment .publication-footer-button .publication-button {
+	margin-left: 0;
+}
+.user-publication .add-comment .publication-footer .add-objects label span.add {
+	width: 40px;
+	padding-left: 0;
+	background-image: url(../images/clip.png);
+	background-position: right center;
+    	background-size: 60%;
+}
+.user-publication .add-comment .publication-footer .add-objects label:hover span.add {
+	background-image: url(../images/clip-hover.png);
+}
+.user-publication .add-comment .publication-footer {
+	padding-top: 10px;
+}
+.visible-comments .user-comment:hover .comment  .alert,
+.visible-comments .user-comment:hover .comment  .like-counter{
+	display: block;
+}
+.user-publication .add-comment .publication-footer #add-object {
+	width: 120px;
+    	height: 40px;
+}
+.ngdialog.delete-publication.ngdialog-theme-default  .ngdialog-content,
+.ngdialog.alert-publication.ngdialog-theme-default .ngdialog-content,
+.ngdialog.link-publication.ngdialog-theme-default .ngdialog-content {
+	height: auto;
+}
+.spam-item {
+	padding: 0 40px;
+}
+.get-link-pub input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 35px;
+	line-height: 37px;
+	height: 37px;
+	border-radius: 2px;
+	font-size: 14.6px;
+	font-family: Tahoma;
+	font-weight: 400;
+	background: #fff;
+	color: #999;
+	border: none;
+	margin-bottom: 10px;
+	border: 1px solid transparent;
+	transition: all .3s ease-in-out .2s;
+	min-width: 250px;
+}
 @media (max-width: 700px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		width: 450px;
 		margin-left: -225px;
-
 	}
 	.publication-footer-button a {
 		font-size: 13px;
