@@ -280,9 +280,16 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
+		$scope.deleteComment = function(commentId, index){
+			PublicationService.deleteCommentPublication(commentId).then(function(response){
+				$scope.comments.splice(index, 1);
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		function getCommentPublication(pubId){
 			PublicationService.getCommentPublication(pubId).then(function(response){
-				console.log(response);
 				$scope.comments = response;
 			},
 			function(error){

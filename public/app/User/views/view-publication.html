@@ -67,9 +67,23 @@
 						<p class="time" am-time-ago="comment.created_at"></p>
 						<a href="" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
+					<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
 				</div>
 				<p class="comment-item">{{comment.text}}</p>
+				<div ng-if="comment.images[0]" class="comment-pic">
+					<a href="" class="comment-pic-item">
+					<img src="../../../images/pic1.jpg">
+					</a>
+					<a href="" class="comment-pic-item">
+					<img src="../../../images/pic1.jpg">
+					</a>
+					<a href="" class="comment-pic-item">
+					<img src="../../../images/pic1.jpg">
+					</a>
+					<a href="" class="comment-pic-item">
+					<p>Ещё 52 фото</p>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
