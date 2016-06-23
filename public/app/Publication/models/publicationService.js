@@ -22,7 +22,7 @@ angular.module('placePeopleApp')
         return defer.promise;
     }
     function getUserPublications(userId){        
-        defer = $q.defer();
+        var defer = $q.defer();
         $http.get(path + 'user/'+userId+'/publication')
             .success(function (response){
               console.log(response); 

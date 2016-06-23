@@ -16,7 +16,7 @@ angular.module('placePeopleApp')
 		}
 
 		function getCountries(){                
-            defer = $q.defer();
+            var defer = $q.defer();
                 $http.get(path + 'country/')
                     .success(function (response){
                         defer.resolve(response);
@@ -32,7 +32,7 @@ angular.module('placePeopleApp')
     			phone: phone,
     			country_id: countryId
     		};             
-            defer = $q.defer();
+            var defer = $q.defer();
                 $http.post(path + 'auth/create', data)
                     .success(function (response){
                         defer.resolve(response);
@@ -47,7 +47,7 @@ angular.module('placePeopleApp')
     		var data = {
     			sms_code: code
     		};             
-            defer = $q.defer();
+            var defer = $q.defer();
                 $http.post(path + 'auth/check_sms', data)
                     .success(function (response){
                         defer.resolve(response);
@@ -89,7 +89,7 @@ angular.module('placePeopleApp')
         			login: login,
         			password: pwd
         		};             
-                defer = $q.defer();
+            var defer = $q.defer();
                     $http.post(path + 'auth', data)
 	                    .success(function (response){
 	                        defer.resolve(response);
@@ -101,7 +101,7 @@ angular.module('placePeopleApp')
         }
 
         function userLogOut(login, pwd){
-                defer = $q.defer();
+            var defer = $q.defer();
                     $http.get(path + 'auth/log_out')
 	                    .success(function (response){
 	                        defer.resolve(response);
@@ -116,7 +116,7 @@ angular.module('placePeopleApp')
 			var data = {        			
         			phone: phone
         		};             
-                defer = $q.defer();
+            var defer = $q.defer();
                     $http.post(path + 'password/restore', data)
 	                    .success(function (response){
 	                        defer.resolve(response);
@@ -131,7 +131,7 @@ angular.module('placePeopleApp')
 			var data = {        			
         			sms_code: code
         		};             
-                defer = $q.defer();
+            var defer = $q.defer();
                     $http.post(path + 'password/validate_code', data)
 	                    .success(function (response){
 	                        defer.resolve(response);
@@ -146,7 +146,7 @@ angular.module('placePeopleApp')
 			var data = {        			
         			password: pwd        			
         		};             
-                defer = $q.defer();
+            var defer = $q.defer();
                     $http.post(path + 'password/amend', data)
 	                    .success(function (response){
 	                        defer.resolve(response);
@@ -156,7 +156,4 @@ angular.module('placePeopleApp')
 	                    });
                 return defer.promise;
         }
-
-
-		
 	}]);
