@@ -100,23 +100,23 @@
 				</div>
 			</div>
 			<!-- unit grid-->						
-			<div class="my-photos" ng-show="photosGrid">
+			<!-- <div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
 					<a href="" ng-click="showPublication(2)">
 						<img src="images/pic.png" alt="">
 						<span class="video" ng-show="$index==0"></span>
 					</a>
 				</div>
-			</div>
-			<!-- <div class="my-photos" ng-show="userPublications">
+			</div> -->
+			<div class="my-photos" ng-show="userPublications">
 				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
-					<a href="" ng-click="showPublication(pub.id)">
+					<a href="" ng-click="showPublication(pub)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
-						<p>{{pub.images}}</p>
-						<span class="video" ng-show="$index==0"></span>
+						<!-- <p>{{pub.images}}</p> -->
+						<!-- <span class="video" ng-show="$index==0"></span> -->
 					</a>
 				</div>
-			</div> -->
+			</div>
 
 
 			<!-- single unit -->

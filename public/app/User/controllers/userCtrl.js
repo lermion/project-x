@@ -96,15 +96,15 @@ angular.module('placePeopleApp')
 				}
 			);
 
-		// PublicationService.getUserPublications(storage.userId)
-		// 	.then(
-		// 		function(res){								
-		// 			$scope.userPublications = res;										        
-		// 		},
-		// 		function(err){
-		// 			console.log(err);
-		// 		}
-		// 	);
+		PublicationService.getUserPublications(storage.userId)
+			.then(
+				function(res){								
+					$scope.userPublications = res;										        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
 
 		//Sign on
 		$scope.sign = function(){
@@ -249,6 +249,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.showPublication = function(pubId){
+			$scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				if($window.innerWidth <= 520){
 					$scope.hideSomePubText = true;

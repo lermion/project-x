@@ -10,7 +10,7 @@ angular.module('placePeopleApp')
 		}
 
 		function getUserData(login){                
-            defer = $q.defer();
+            var defer = $q.defer();
                 $http.get(path + 'user/show/'+login)
                     .success(function (response){
                         defer.resolve(response);
@@ -26,7 +26,7 @@ angular.module('placePeopleApp')
                 'last_name': lastname,
                 'status': status
             };
-            defer = $q.defer();
+            var defer = $q.defer();
             $http.post(path + 'user/update', data)
                 .success(function (response){
                     defer.resolve(response);
@@ -38,7 +38,7 @@ angular.module('placePeopleApp')
         }
 
         function sign(userId){                
-            defer = $q.defer();
+           var defer = $q.defer();
             var data = {
                 user_id: userId
             };            
