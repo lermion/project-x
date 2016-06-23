@@ -98,7 +98,7 @@
 					</div>
 				</div>
 				<img flow-img="file" ng-show="fileTypeCheck(file.file.type)"> 
-				<div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}" ng-show="fileTypeCheck(file.file.type)">				
+				<div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">				
 					<div class="check-inner">
 						<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
 					</div>
@@ -114,7 +114,7 @@
 			</label>                                         
 		</div>
 		<div class="publication-footer-button">
-			<a href="" class="cansel" ng-click="closePopup();newPublicationData={};">Отменить</a>  
+			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
 			<a href="" class="publication-button" ng-click="publishNewPub(pubText, isAnonPub, $flow.files);" ladda="newPubLoader">Опубликовать</a>    
 		</div>       
 	</div>

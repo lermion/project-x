@@ -1,17 +1,10 @@
 angular.module('placePeopleApp')
     .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService',
     	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService){
-
+		/* Service info*/
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
-
-		// $scope.userStatus = 'Мудрый понимает,что агрессия другого человека—это его просьба о Любви Мудрый понимает,что агрессия другого человека — это его просьба о Любви';
-		
-		// if (!storage.length) {
-		// 	storageService.deleteStorage();
-		// 	$state.go('login');
-		// }
 
 		$http.get('/static_page/get/name')
             .success(function (response){            	
@@ -20,24 +13,6 @@ angular.module('placePeopleApp')
             .error(function (error){
                 console.log(error);
             });
-
-// console.log();
-		UserService.getUserData($stateParams.username)
-			.then(function(res){
-				if (res.login === storage.username) {
-					$scope.myProfile = true;
-				} else {
-					$scope.myProfile = false;
-				}
-				if (!$scope.myProfile) {
-					$scope.isSigned = res.is_sub;
-				}
-				// $scope.userId = res.id;
-				$scope.userData = res;										        
-			},
-			function(err){
-				console.log(err);
-			});		
 
 		$scope.logOut = function(){
     		AuthService.userLogOut()
@@ -100,6 +75,37 @@ angular.module('placePeopleApp')
 		w.bind('resize', function(){
 		  $scope.$apply();
 		});
+
+		/*User info*/
+
+		UserService.getUserData($stateParams.username)
+			.then(
+				function(res){
+					if (res.login === storage.username) {
+						$scope.myProfile = true;
+					} else {
+						$scope.myProfile = false;
+					}
+					if (!$scope.myProfile) {
+						$scope.isSigned = res.is_sub;
+					}					
+					$scope.userData = res;										        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+
+		// PublicationService.getUserPublications(storage.userId)
+		// 	.then(
+		// 		function(res){								
+		// 			$scope.userPublications = res;										        
+		// 		},
+		// 		function(err){
+		// 			console.log(err);
+		// 		}
+		// 	);
+
 		//Sign on
 		$scope.sign = function(){
 			$scope.isSigned=!$scope.isSigned;
@@ -163,7 +169,7 @@ angular.module('placePeopleApp')
 		$scope.pubFiles = function(files, event, flow){						
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
-			} else if(files.length > 99){
+			} else if(files.length > 100){
 				console.log('too much files');
 			}
 			$scope.$broadcast('rebuild:me');
