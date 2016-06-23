@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class Publication extends Model
 {
-    protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id'];
+    protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message'];
+
+    protected $hidden = ['is_block', 'block_message'];
 
     public function images()
     {
@@ -45,7 +47,7 @@ class Publication extends Model
             $query->take(3);
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where(function ($query) use ($userId) {
-                $query->where('is_main', true)
+                $query->where(['is_main'=> true,'is_moderate'=>true])
                     ->orWhere(function ($query) use ($userId) {
                         $query->whereExists(function ($query) use ($userId) {
                             $query->select(DB::raw('subscribers.user_id'))
@@ -74,6 +76,7 @@ class Publication extends Model
             $query->take(3);
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where('user_id', $userId)
+            ->where('is_block', false)
             ->where('is_anonym', false)->get();
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();

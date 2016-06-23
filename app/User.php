@@ -12,7 +12,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'phone', 'password', 'country_id', 'first_name', 'last_name', 'gender', 'status'
+        'login', 'phone', 'password', 'country_id', 'first_name', 'last_name', 'gender', 'status', 'is_avatar',
+        'is_visible'
     ];
 
     /**
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'is_visible', 'is_avatar'
     ];
 
     public function publications()

@@ -1,17 +1,11 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService){
-
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService, amMoment){
+		/* Service info*/
+		amMoment.changeLocale('ru');
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
-
-		// $scope.userStatus = 'Мудрый понимает,что агрессия другого человека—это его просьба о Любви Мудрый понимает,что агрессия другого человека — это его просьба о Любви';
-		
-		// if (!storage.length) {
-		// 	storageService.deleteStorage();
-		// 	$state.go('login');
-		// }
 
 		$http.get('/static_page/get/name')
             .success(function (response){            	
@@ -20,24 +14,6 @@ angular.module('placePeopleApp')
             .error(function (error){
                 console.log(error);
             });
-
-// console.log();
-		UserService.getUserData($stateParams.username)
-			.then(function(res){
-				if (res.login === storage.username) {
-					$scope.myProfile = true;
-				} else {
-					$scope.myProfile = false;
-				}
-				if (!$scope.myProfile) {
-					$scope.isSigned = res.is_sub;
-				}
-				// $scope.userId = res.id;
-				$scope.userData = res;										        
-			},
-			function(err){
-				console.log(err);
-			});		
 
 		$scope.logOut = function(){
     		AuthService.userLogOut()
@@ -100,6 +76,41 @@ angular.module('placePeopleApp')
 		w.bind('resize', function(){
 		  $scope.$apply();
 		});
+
+		/*User info*/
+
+		UserService.getUserData($stateParams.username)
+			.then(
+				function(res){
+					if (res.login === storage.username) {
+						$scope.myProfile = true;
+					} else {
+						$scope.myProfile = false;
+					}
+					if (!$scope.myProfile) {
+						$scope.isSigned = res.is_sub;
+					}					
+					$scope.userData = res;										        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+
+		function getUserPubs(userId){
+			PublicationService.getUserPublications(userId)
+			.then(
+				function(res){								
+					$scope.userPublications = res;										        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+		}
+
+		getUserPubs(storage.userId);
+
 		//Sign on
 		$scope.sign = function(){
 			$scope.isSigned=!$scope.isSigned;
@@ -141,6 +152,39 @@ angular.module('placePeopleApp')
 			}
 		};
 
+$scope.openPublication = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-publication.html',
+		className: 'popup-user-publication ngdialog-theme-default',
+		scope: $scope
+	});
+};
+$scope.openContacts = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-contacts.html',
+		className: 'popup-user-contacts ngdialog-theme-default',
+		scope: $scope
+	});
+};
+$scope.openSubscribers = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-subscribers.html',
+		className: 'popup-user-subscribers ngdialog-theme-default',
+		scope: $scope
+	});
+};
+$scope.openSubscribe = function(userId){
+	console.log(userId);
+	ngDialog.open({
+		template:'../app/User/views/popup-user-subscribe.html',
+		className: 'popup-user-subscribe ngdialog-theme-default',
+		scope: $scope
+	});
+};
+
 		$scope.createPublication = function(){			
 			ngDialog.open({
 					template: '../app/User/views/publication.html',
@@ -163,7 +207,7 @@ angular.module('placePeopleApp')
 		$scope.pubFiles = function(files, event, flow){						
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
-			} else if(files.length > 99){
+			} else if(files.length > 100){
 				console.log('too much files');
 			}
 			$scope.$broadcast('rebuild:me');
@@ -229,6 +273,7 @@ angular.module('placePeopleApp')
 				.then(					
 					function(res){						
 						if (res.status) {
+							getUserPubs(storage.userId);
 							ngDialog.closeAll();
 						} else {
 							console.log('Error');
@@ -239,14 +284,20 @@ angular.module('placePeopleApp')
 					function(err){
 						console.log(err);
 					});
-
 			
 		};
 
-		$scope.showPublication = function(pubId){			
+		$scope.showPublication = function(pub){
+			getAllCommentsPublication(pub.id);
+			$scope.singlePublication = pub;
+			$scope.limit = 6;
+			// $scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});				
-			} else {
+				// if($window.innerWidth <= 520){
+				// 	$scope.hideSomePubText = true;					
+				// }
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pub.id});								
+			}  else {
 				ngDialog.open({
 					template: '../app/User/views/view-publication.html',
 					className: 'view-publication ngdialog-theme-default',
@@ -254,13 +305,86 @@ angular.module('placePeopleApp')
 				});
 			}
 		};
+		$scope.addNewComment = function(pubId, pubText){
+			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
+				$scope.singlePublication.comments.push(response.comment);
+				$scope.singlePublication.comment_count++;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.addCommentLike = function(comment){
+			PublicationService.addCommentLike(comment.id).then(function(response){
+				comment.like_count = response.like_count;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.deleteComment = function(commentId, index){
+			PublicationService.deleteCommentPublication(commentId).then(function(response){
+				$scope.singlePublication.comments.splice(index, 1);
+				$scope.singlePublication.comment_count--;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.getAllCommentsPublication = function(pubId, showAllComments){
+			getAllCommentsPublication(pubId, showAllComments);
+		}
+		function getAllCommentsPublication(pubId, showAllComments){
+			PublicationService.getAllCommentsPublication(pubId).then(function(response){
+				if(showAllComments === true){
+					$scope.singlePublication.comments = response;
+				}
+				$scope.lengthAllComments = response.length;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.loadMorePubFiles = function(key) {
+			if (key === false) {
+				$scope.limit = $scope.singlePublication.length;
+			}else{
+				$scope.limit = 6;
+			}
+			$scope.morePubFiles = true;
+			$scope.$broadcast('loadPubFiles');			
+		};
 
-		$scope.editPub = function(pubId){
+		$scope.editPub = function(pub){			
+			$scope.currPub = pub;
 			ngDialog.open({
 							template: '../app/User/views/edit-publication.html',
 							className: 'user-publication ngdialog-theme-default',
 							scope: $scope
 						});
+		};
+		$scope.editedPubFiles = function(pub, flow){
+			console.log(pub);
+			console.log(flow);
+
+			// if (flow.length === 0) {
+			// 	$scope.pubPhotosEdited = true;
+			// } else {
+			// 	$scope.pubPhotosEdited = false;
+			// }
+
+			var files = [];
+			pub.images.forEach(function(img){
+				var filename = img.url.split('/')[(img.url.split('/')).length-1];
+				img.name = filename.substring(8, filename.length);
+				// img.name = filename;
+				console.log(img.name);
+				files.push(img);
+			});
+			pub.videos.forEach(function(video){
+				files.push(video);
+			});
+			$scope.editedPubFilesArray = files;			
 		};
 		$scope.sharePub = function(pubId){
 			ngDialog.open({
@@ -283,12 +407,30 @@ angular.module('placePeopleApp')
 							scope: $scope
 						});
 		};
-		$scope.deletePub = function(pubId){
+		
+		$scope.deletePub = function(pub){
+			$scope.pubToDelete = pub.id;						
 			ngDialog.open({
 							template: '../app/User/views/delete-publication.html',
 							className: 'delete-publication ngdialog-theme-default',
 							scope: $scope
 						});
+		};
+
+		$scope.confirmPubDelete = function (pubToDelete) {			
+			PublicationService.deletePublication(pubToDelete)
+			.then(
+				function(res){
+					if (res.status) {
+						getUserPubs(storage.userId);
+					}
+					ngDialog.closeAll();									        
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+
 		};
 
 		

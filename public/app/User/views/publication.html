@@ -90,19 +90,22 @@
 			</div>
 		</div>
 	</div>		
-		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">		  
-			<div class="inner" ng-repeat="file in $flow.files">
-				<div class="close" ng-click="deletePubFile(file.name, $flow.files)">
-					<div class="close-inner">
-						<p>Удалить</p>
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">
+			<div class="new-img" ng-repeat="file in $flow.files">		  
+				<div class="inner">
+					<div class="close" ng-click="deletePubFile(file.name, $flow.files)">
+						<div class="close-inner">
+							<p>Удалить</p>
+						</div>
+					</div>
+					<img flow-img="file" ng-show="fileTypeCheck(file.file.type)"> 
+					<div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">				
+						<div class="check-inner">
+							<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+						</div>
 					</div>
 				</div>
-				<img flow-img="file" ng-show="fileTypeCheck(file.file.type)"> 
-				<div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}" ng-show="fileTypeCheck(file.file.type)">				
-					<div class="check-inner">
-						<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
-					</div>
-				</div>
+				<p class="img-name">ненаглядненькаааяяя</p>
 			</div>
 		</div>
 	<div class="publication-footer" >
@@ -114,7 +117,7 @@
 			</label>                                         
 		</div>
 		<div class="publication-footer-button">
-			<a href="" class="cansel" ng-click="closePopup();newPublicationData={};">Отменить</a>  
+			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
 			<a href="" class="publication-button" ng-click="publishNewPub(pubText, isAnonPub, $flow.files);" ladda="newPubLoader">Опубликовать</a>    
 		</div>       
 	</div>

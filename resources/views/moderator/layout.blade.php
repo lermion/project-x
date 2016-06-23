@@ -19,9 +19,9 @@
 
     <!-- Custom styling plus plugins -->
     <link href="/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.3.css" />
-    <link href="/css/icheck/flat/green.css" rel="stylesheet" />
-    <link href="/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.3.css"/>
+    <link href="/css/icheck/flat/green.css" rel="stylesheet"/>
+    <link href="/css/floatexamples.css" rel="stylesheet" type="text/css"/>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/nprogress.js"></script>
@@ -50,11 +50,12 @@
             <div class="left_col scroll-view">
 
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="#" class="site_title"><img src="/img/pr/logo.png" height="25" /> <span>Place People</span></a>
+                    <a href="#" class="site_title"><img src="/img/pr/logo.png" height="25"/>
+                        <span>Place People</span></a>
                 </div>
                 <div class="clearfix"></div>
 
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -62,7 +63,8 @@
                     <div class="menu_section">
                         <h3>Moderator</h3>
                         <ul class="nav side-menu">
-                            <li><a href="#"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li>
+                            <li><a href="{{ action('Moderator\ModerateController@index') }}"><i
+                                            class="fa fa-thumbs-o-up"></i> Модерация</a></li>
                             <li><a href="#"><i class="fa fa-child"></i> Новые пользователи</a></li>
                             <li><a href="#"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
                             <li><a href="#"><i class="fa fa-comments-o"></i> Комментарии</a></li>
@@ -112,16 +114,19 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="/img/ava/15.jpg" />Модератор
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                @if($moderator->photo)
+                                    <img src="{{ $moderator->photo }}">{{ $moderator->first_name }}
+                                @else
+                                    <img src="/img/ava/moderator.png"/>{{ $moderator->first_name }}
+                                @endif
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Профайл</a>
-                                </li>
                                 <li>
-                                    <a href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
+                                    <a href="{{action('Moderator\IndexController@edit')}}">
+                                        <span class="badge bg-red pull-right"></span>
                                         <span>Настройки</span>
                                     </a>
                                 </li>
@@ -129,7 +134,8 @@
 
                                     <a href="javascript:;">Помощь</a>
                                 </li>
-                                <li><a href="{{ action('Moderator\AuthController@logout') }}"><i class="fa fa-sign-out pull-right"></i> Выход</a>
+                                <li><a href="{{ action('Moderator\AuthController@logout') }}"><i
+                                                class="fa fa-sign-out pull-right"></i> Выход</a>
                                 </li>
                             </ul>
                         </li>
@@ -146,10 +152,10 @@
 
         <div class="right_col" role="main">
 
-            <!-- top tiles --><!-- /top tiles --><br />
+            <!-- top tiles --><!-- /top tiles --><br/>
             @yield('content')
 
-            <!-- footer content --><!-- /footer content -->
+                    <!-- footer content --><!-- /footer content -->
         </div>
         <!-- /page content -->
     </div>
@@ -181,7 +187,8 @@
 <script src="/js/custom.js"></script>
 
 <!-- flot js -->
-<!--[if lte IE 8]><script type="text/javascript" src="/js/excanvas.min.js"></script><![endif]-->
+<!--[if lte IE 8]>
+<script type="text/javascript" src="/js/excanvas.min.js"></script><![endif]-->
 <script type="text/javascript" src="/js/flot/jquery.flot.js"></script>
 <script type="text/javascript" src="/js/flot/jquery.flot.pie.js"></script>
 <script type="text/javascript" src="/js/flot/jquery.flot.orderBars.js"></script>

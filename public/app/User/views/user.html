@@ -1,4 +1,4 @@
-<div ng-controller="userCtrl">	
+<div>	
 	<header>
 		<div class="header header-user">
 			<a class="logo" href=""></a>
@@ -40,20 +40,20 @@
 						<p>{{userData.is_online ? 'Online' : 'Offline'}}</p>
 					</div>
 					
-					<div class="counts" ng-class="myProfile ? '' : 'another-user'">
+					<div class="counts" ng-class="myProfile ? '' : 'another-user'" ng-click="openPublication(userData.id)">
 						<a href="" class="counter">
 							<p class="notes">Публикации</p>
 							<span>41</span>
 						</a>
-						<a href="" class="counter" ng-show="myProfile">
+						<a href="" class="counter" ng-show="myProfile" ng-click="openContacts(userData.id)">
 							<p class="contacts">Контакты</p>
 							<span>417</span>
 						</a>
-						<a href="" class="counter">
+						<a href="" class="counter" ng-click="openSubscribers(userData.id)">
 							<p class="contacts-off">Подписчики</p>
 							<span>4169</span>
 						</a>
-						<a href="" class="counter">
+						<a href="" class="counter" ng-click="openSubscribe(userData.id)">
 							<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 							<span>41</span> 
 						</a>
@@ -100,20 +100,31 @@
 				</div>
 			</div>
 			<!-- unit grid-->						
-			<div class="my-photos" ng-show="photosGrid">
+			<!-- <div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
 					<a href="" ng-click="showPublication(2)">
 						<img src="images/pic.png" alt="">
 						<span class="video" ng-show="$index==0"></span>
 					</a>
 				</div>
+			</div> -->
+			<div class="my-photos" ng-show="photosGrid">
+				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
+					<a href="" ng-click="showPublication(pub)">
+						<img ng-src="{{pub.images[0].url}}" alt="">
+						<!-- <p>{{pub.images}}</p> -->
+						<!-- <span class="video" ng-show="$index==0"></span> -->
+					</a>
+				</div>
 			</div>
+
+
 			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
-				<div class="photo-list" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeHeight}}">				
-					<a href="" ng-click="showPublication()">
-						<img src="images/pic.png" alt="">
-						<span class="video" ng-show="$index==1"></span>
+				<div class="photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
+					<a href="" ng-click="showPublication(pub)">
+						<img ng-src="{{pub.images[0].url}}" alt="">
+						<!-- <span class="video" ng-show="$index==1"></span> -->
 					</a>
 				</div>
 			</div>

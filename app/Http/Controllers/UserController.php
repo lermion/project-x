@@ -36,6 +36,8 @@ class UserController extends Controller
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
         $user->publications_count = $user->publications()->count();
+        if(!$user->is_avatar)
+            $user->avatar_path = '';
         return $user;
     }
 
@@ -52,7 +54,9 @@ class UserController extends Controller
         try {
             $this->validate($request, [
                 'phone' => 'unique:users|numeric|min:5',
-                'login' => 'unique:users'
+                'login' => 'unique:users',
+                'is_visible' => 'boolean',
+                'is_avatar' => 'boolean'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -76,10 +80,17 @@ class UserController extends Controller
             return response()->json($result);
         } else {
             $user->update($request->all());
+            if ($request->input('is_visible') === false)
+                Online::logOut(Auth::id());
             if ($request->hasFile('avatar')) {
                 $avatar = $request->file('avatar');
                 $path = $this->getAvatarPath($avatar);
                 $user->avatar_path = $path;
+                if ($request->hasFile('original_avatar')) {
+                    $originalAvatar = $request->file('original_avatar');
+                    $path = $this->getAvatarPath($originalAvatar);
+                }
+                $user->original_avatar_path = $path;
             }
             $user->save();
 
@@ -127,6 +138,11 @@ class UserController extends Controller
             $avatar = $request->file('avatar');
             $path = $this->getAvatarPath($avatar);
             $user->avatar_path = $path;
+            if ($request->hasFile('original_avatar')) {
+                $originalAvatar = $request->file('original_avatar');
+                $path = $this->getAvatarPath($originalAvatar);
+            }
+            $user->original_avatar_path = $path;
         }
         $user->save();
         return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);

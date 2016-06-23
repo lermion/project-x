@@ -25,6 +25,9 @@ class GroupTest extends TestCase
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
+        if($group = \App\Group::where(['name' => 'test',])->first()){
+            $group->delete();
+        }
         $data = [
             'name' => 'test',
             'description' => 'lorem',
@@ -108,7 +111,9 @@ class GroupTest extends TestCase
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
+        $group = \App\Group::firstOrCreate(['name' => 'test']);
+        $group->is_open = 1;
+        $group->save();
         $this->json('GET', 'group/subscription/' . $group->id)->seeJson([
             'status' => true,
         ]);
@@ -125,7 +130,9 @@ class GroupTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
+        $group = \App\Group::firstOrCreate(['name' => 'test']);
+        $group->is_open = 1;
+        $group->save();
         \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1]);
         $this->json('GET', 'group/invite/' . $group->id . '/' . $user2->id)->seeJson([
             'status' => true,
