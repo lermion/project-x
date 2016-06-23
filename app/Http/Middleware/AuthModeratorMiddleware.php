@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Moderator;
 use Closure;
 
 class AuthModeratorMiddleware
@@ -18,6 +19,7 @@ class AuthModeratorMiddleware
         if (!$request->session()->has('moderator')){
             return redirect()->action('Moderator\AuthController@login');
         }
+        view()->share('moderator', Moderator::find($request->session()->get('moderator')->id));
         return $next($request);
     }
 }

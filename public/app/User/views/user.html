@@ -40,20 +40,20 @@
 						<p>{{userData.is_online ? 'Online' : 'Offline'}}</p>
 					</div>
 					
-					<div class="counts" ng-class="myProfile ? '' : 'another-user'">
+					<div class="counts" ng-class="myProfile ? '' : 'another-user'" ng-click="openPublication(userData.id)">
 						<a href="" class="counter">
 							<p class="notes">Публикации</p>
 							<span>41</span>
 						</a>
-						<a href="" class="counter" ng-show="myProfile">
+						<a href="" class="counter" ng-show="myProfile" ng-click="openContacts(userData.id)">
 							<p class="contacts">Контакты</p>
 							<span>417</span>
 						</a>
-						<a href="" class="counter">
+						<a href="" class="counter" ng-click="openSubscribers(userData.id)">
 							<p class="contacts-off">Подписчики</p>
 							<span>4169</span>
 						</a>
-						<a href="" class="counter">
+						<a href="" class="counter" ng-click="openSubscribe(userData.id)">
 							<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 							<span>41</span> 
 						</a>
