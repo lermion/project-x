@@ -1402,6 +1402,10 @@ body.public.user {
 	height: 100%;
 	display: block;
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.1);
 }
 #user-page .photo a .video,
 .photo-list  a .video {
@@ -1445,7 +1449,10 @@ body.public.user {
 	margin-left: -50px;
 }
 #user-page .photo a img {
-	width: 100%;
+	max-width: 300%;
+	max-height: 300%;
+	width: auto;
+	height: auto;
 } 
 .my-photos-list,
 .photo-list  {
