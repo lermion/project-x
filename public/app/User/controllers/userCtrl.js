@@ -255,6 +255,7 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			$scope.singlePublication = pub;
 			$scope.limit = 6;
+			getCommentPublication(pub.id);
 			$scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				if($window.innerWidth <= 520){
@@ -269,7 +270,24 @@ angular.module('placePeopleApp')
 				});
 			}
 		};
-
+		$scope.addNewComment = function(pubId, pubText){
+			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
+				pubText = "";
+				$scope.comments.push(response.comment);
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		function getCommentPublication(pubId){
+			PublicationService.getCommentPublication(pubId).then(function(response){
+				console.log(response);
+				$scope.comments = response;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		$scope.loadMorePubFiles = function(key) {
 			if (key === false) {
 				$scope.limit = $scope.singlePublication.length;
