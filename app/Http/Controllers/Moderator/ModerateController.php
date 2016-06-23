@@ -19,7 +19,6 @@ class ModerateController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')->where(['is_moderate'=>false,'is_main'=>true,
             'is_block'=>false])->get();
-        return $publications;
         return view('moderator.moderate.index',['publications'=>$publications]);
     }
 
