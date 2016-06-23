@@ -87,6 +87,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['middleware' => 'moderator'], function () {
             Route::get('/', 'Moderator\IndexController@index');
             Route::get('logout', 'Moderator\AuthController@logout');
+            Route::group(['prefix' => 'moderate'], function () {
+                Route::get('/', 'Moderator\ModerateController@index');
+                Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
+                Route::post('block/{id}', 'Moderator\ModerateController@block');
+            });
         });        
         Route::get('login', 'Moderator\AuthController@login');
         Route::post('auth', 'Moderator\AuthController@auth');
