@@ -19,7 +19,15 @@ class ModerateController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')->where(['is_moderate'=>false,'is_main'=>true,
             'is_block'=>false])->get();
-        return view('moderator.moderate.index',['publications'=>$publications]);
+        $data = [];
+        foreach ($publications as $publication){
+            if(count($publication->group)==0){
+                $data[] = $publication;
+            }elseif ($publication->group[0]->is_open){
+                $data[] = $publication;
+            }
+        }
+        return view('moderator.moderate.index',['publications'=>$data]);
     }
 
     public function confirm($id){
