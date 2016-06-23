@@ -8,7 +8,7 @@
 					<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 					<a class="places" href="">Места</a>
 					<a class="chat" href=""> Чаты</a>
-					<a class="settings" href="">Настройки</a>
+					<a class="settings" ui-sref="settings">Настройки</a>
 					<div class="search">
 						<input type="text" placeholder="Поиск...">
 						<span class="button"></span>
@@ -102,7 +102,7 @@
 			<!-- unit grid-->						
 			<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
-					<a href="" ng-click="showPublication()">
+					<a href="" ng-click="showPublication(2)">
 						<img src="images/pic.png" alt="">
 						<span class="video" ng-show="$index==0"></span>
 					</a>

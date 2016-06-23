@@ -243,12 +243,16 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.showPublication = function(){			
-			ngDialog.open({
+		$scope.showPublication = function(pubId){			
+			if ($window.innerWidth <= 700) {
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});				
+			} else {
+				ngDialog.open({
 					template: '../app/User/views/view-publication.html',
 					className: 'view-publication ngdialog-theme-default',
 					scope: $scope
 				});
+			}
 		};
 
 		$scope.editPub = function(pubId){
