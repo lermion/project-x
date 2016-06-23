@@ -254,6 +254,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.showPublication = function(pub){
+			getAllCommentsPublication(pub.id);
 			$scope.singlePublication = pub;
 			$scope.limit = 6;
 			$scope.hideSomePubText = false;
@@ -288,9 +289,15 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.getAllCommentsPublication = function(pubId){
+		$scope.getAllCommentsPublication = function(pubId, showAllComments){
+			getAllCommentsPublication(pubId, showAllComments);
+		}
+		function getAllCommentsPublication(pubId, showAllComments){
 			PublicationService.getAllCommentsPublication(pubId).then(function(response){
-				$scope.singlePublication.comments = response;
+				if(showAllComments === true){
+					$scope.singlePublication.comments = response;
+				}
+				$scope.lengthAllComments = response.length;
 			},
 			function(error){
 				console.log(error);

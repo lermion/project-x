@@ -51,7 +51,7 @@
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
 	<div class="more-comments">
-		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
+		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 	</div>
 	<div class="visible-comments">
 		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
