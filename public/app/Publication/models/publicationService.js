@@ -14,16 +14,17 @@ angular.module('placePeopleApp')
             getPublicationComments: getPublicationComments,
             addPublicationComment: addPublicationComment,
             deletePublicationComment: deletePublicationComment,
-            addNewCommentInPublication: addNewCommentInPublication
+            addCommentPublication: addCommentPublication,
+            getCommentPublication: getCommentPublication
 
 		}
 
-    function addNewCommentInPublication(pubId){
+    function addCommentPublication(pubId, pubText){
       var data = {
-        id: pubId
+        text: pubText
       },
       defer = $q.defer();
-      $http.post("publication/comment", data)
+      $http.post("publication/comment/store/" + pubId, data)
         .success(function (response){
           defer.resolve(response);
         })
@@ -31,6 +32,19 @@ angular.module('placePeopleApp')
           defer.reject(error);
         });
       return defer.promise;
+    }
+
+    function getCommentPublication(pubId){
+      var defer = $q.defer();
+      $http.get("publication/comment/" + pubId)
+        .success(function (response){
+          defer.resolve(response);
+        })
+        .error(function (error){
+          defer.reject(error);
+        });
+      return defer.promise;
+      
     }
 
     function getMainPublications(){
