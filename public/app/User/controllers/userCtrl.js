@@ -256,7 +256,6 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			$scope.singlePublication = pub;
 			$scope.limit = 6;
-			getCommentPublication(pub.id);
 			$scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				if($window.innerWidth <= 520){
@@ -273,8 +272,8 @@ angular.module('placePeopleApp')
 		};
 		$scope.addNewComment = function(pubId, pubText){
 			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
-				pubText = "";
-				$scope.comments.push(response.comment);
+				$scope.singlePublication.comments.push(response.comment);
+				$scope.singlePublication.comment_count++;
 			},
 			function(error){
 				console.log(error);
@@ -282,15 +281,16 @@ angular.module('placePeopleApp')
 		}
 		$scope.deleteComment = function(commentId, index){
 			PublicationService.deleteCommentPublication(commentId).then(function(response){
-				$scope.comments.splice(index, 1);
+				$scope.singlePublication.comments.splice(index, 1);
+				$scope.singlePublication.comment_count--;
 			},
 			function(error){
 				console.log(error);
 			});
 		}
-		function getCommentPublication(pubId){
-			PublicationService.getCommentPublication(pubId).then(function(response){
-				$scope.comments = response;
+		$scope.getAllCommentsPublication = function(pubId){
+			PublicationService.getAllCommentsPublication(pubId).then(function(response){
+				$scope.singlePublication.comments = response;
 			},
 			function(error){
 				console.log(error);

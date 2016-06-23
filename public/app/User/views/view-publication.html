@@ -51,10 +51,10 @@
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
 	<div class="more-comments">
-		<a href="" class="all-comments">Еще 8 комментариев</a>
+		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div class="visible-comments">
-		<div ng-repeat="comment in comments" class="user-comment">
+		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
 					<img src="{{userData.avatar_path}}" alt="">
@@ -71,16 +71,16 @@
 				</div>
 				<p class="comment-item">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
-					<a href="" class="comment-pic-item">
-					<img src="../../../images/pic1.jpg">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
 					</a>
-					<a href="" class="comment-pic-item">
-					<img src="../../../images/pic1.jpg">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
 					</a>
-					<a href="" class="comment-pic-item">
-					<img src="../../../images/pic1.jpg">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
 					</a>
-					<a href="" class="comment-pic-item">
+					<a href="javascript:void(0);" class="comment-pic-item">
 					<p>Ещё 52 фото</p>
 					</a>
 				</div>
