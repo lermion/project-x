@@ -2026,7 +2026,11 @@ spam-item {
 	overflow-y: auto;
 	position: relative;
 }
-.publication .new-add .inner{
+.add-comment .new-add {
+	margin-top: 10px;
+}
+.publication .new-add .inner,
+.add-comment .new-add .inner{
 	background-color: #f4f4f4;
 	width: 150px;
 	height: 100px;
@@ -2034,12 +2038,17 @@ spam-item {
 	box-sizing: border-box;
 	position: relative;
 	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-.publication .new-add .inner:nth-child(4n) {
+.publication .new-add .inner:nth-child(4n),
+.add-comment .new-add .inner:nth-child(4n) {
 	margin: 0 0 5px 0;
 }
 .publication .new-add .inner .close,
-.publication .new-add .inner .check {
+.publication .new-add .inner .check,
+.add-comment .new-add .inner .close {
 	position: absolute;
 	top: 3px;
 	width: 25px;
@@ -2049,11 +2058,13 @@ spam-item {
 	transition: all .3s ease-in-out .1s;
 	display: none;
 }
-.publication .new-add .inner .close {
+.publication .new-add .inner .close,
+.add-comment .new-add .inner .close {
 	left: 3px;
 	background-color: #333;
 }
-.publication .new-add .inner .close:before {
+.publication .new-add .inner .close:before,
+.add-comment .new-add .inner .close:before {
 	background: 0 0;
 	color: #fff;
 	content: '\00D7';
@@ -2067,7 +2078,8 @@ spam-item {
 	top: 0;
 	width: 25px;
 }
-.publication .new-add .inner .close:hover {
+.publication .new-add .inner .close:hover,
+.add-comment .new-add .inner .close:hover {
 	background-color: #8a8686;
 }
 .publication .new-add .inner .check {
@@ -2081,11 +2093,16 @@ spam-item {
 .publication .new-add .inner .check:hover {
 	background-color: #e21313;
 }
-.publication .new-add .inner img {
-	width: 100%;
+.publication .new-add .inner img,
+ .add-comment .new-add .inner img {
+	max-width: 400%;
+	max-height: 400%;
+	width: auto;
+	height: auto;
 }
 .publication .new-add .inner .close-inner,
-.publication .new-add .inner .check-inner {
+.publication .new-add .inner .check-inner,
+.add-comment .new-add .inner .close-inner {
 	position: absolute;
 	background: #fff;
 	top: 30px;
@@ -2111,11 +2128,14 @@ spam-item {
 .publication .new-add .inner .close:hover .close-inner,
 .publication .new-add .inner .check:hover .check-inner,
 .publication .new-add .inner:hover .close, 
-.publication .new-add .inner:hover .check {
+.publication .new-add .inner:hover .check,
+.add-comment .new-add .inner:hover .close,
+.add-comment .new-add .inner .close:hover .close-inner {
 	display: block;
 }
 .publication .new-add .inner .close-inner:after,
-.publication .new-add .inner .check-inner:after {
+.publication .new-add .inner .check-inner:after,
+.add-comment .new-add .inner .close-inner:after {
 	content: '';
 	position: absolute;
 	top: -5px;
@@ -2131,7 +2151,8 @@ spam-item {
 	right: 8px;
 }
 .publication .new-add .inner .close-inner:before,
-.publication .new-add .inner .check-inner:before {
+.publication .new-add .inner .check-inner:before,
+.add-comment .new-add .inner .close-inner:before {
 	content: '';
 	position: absolute;
 	top: -6px;
@@ -2147,7 +2168,8 @@ spam-item {
  	right: 6px;
  }
 .publication .new-add .inner .close-inner p,
-.publication .new-add .inner .check-inner p {
+.publication .new-add .inner .check-inner p,
+.add-comment .new-add .inner .close-inner p {
 	margin: 0;
 }
 /* */
@@ -2177,17 +2199,43 @@ spam-item {
     	line-height: 30px;
     	transition: all .3s ease-in-out .1s;
 }
-.ngdialog.view-publication.ngdialog-theme-default .user-publication-header {
+.ngdialog.view-publication.ngdialog-theme-default .user-publication-header,
+#wrapper .user-publication-header {
 	background: #f5f5f5;
     	border-bottom: 1px solid #e0e2e5;
     	box-sizing: border-box;
     	padding: 10px;
+}
+#wrapper .user-publication {
+	background: #fff;
+}
+#wrapper .user-publication-header {
+	position: relative;
 }
 .user-publication-header .user-function {
 	display: flex;
 	width: 55%;
 	justify-content: space-between;
 	align-items: center;
+}
+.user-publication-header .return {
+	cursor: pointer;
+	position: absolute;
+	margin: 10px;
+	color: #4678b1;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	width: auto;
+	height: 30px;
+	right: 0;
+	top: 0;
+	line-height: 30px;
+	transition: all .3s ease-in-out .1s;
+	text-decoration: none;
+	display: none;
+}
+.user-publication-header .return:hover {
+	color: #333;
 }
 .user-publication-header .topic {
 	padding: 0 15px;
@@ -2246,15 +2294,17 @@ spam-item {
 	background-color: #f5f5f5;
 }
 .user-publication-content .publication-ava {
-	    width: 100%;
+	width: 100%;
 	background-color: rgba(0,0,0,.2);
 	height: 395px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 5px;
+	overflow: hidden;
 }
-.user-publication-content .publication-ava {
+
+.user-publication-content .publication-ava img{
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
@@ -2608,7 +2658,7 @@ spam-item {
 	transition: all .3s ease-in-out .2s;
 	min-width: 250px;
 }
-@media (max-width: 700px) {
+@media (max-width: 720px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		width: 450px;
 		margin-left: -225px;
@@ -2630,6 +2680,23 @@ spam-item {
 	}
 	.publication .new-add .inner:nth-child(3n) {
 		margin: 0 0 5px 0;
+	}
+
+	.user-publication-header .return {
+		display: block;
+	}
+	.user-publication-content .publication-ava {
+		height: 300px;
+	}
+	.publication-images .images-item {
+		width: 14%;
+		margin: 0 1.5px 1.5px 0;
+		height: 60px;
+	}
+	.add-comment .new-add .inner {
+		width: 24.5%;
+		margin: 0 2px 2px 0;
+		height: 80px;
 	}
 }
 @media (max-width: 520px) {
@@ -2681,5 +2748,51 @@ spam-item {
 	}
 	.publication .new-add .inner:nth-child(3n) {
 		margin: 0 5px 5px 0;
+	}
+	.user-publication-header .user-function {
+		width: 80%;
+	}
+	.user-publication-content .publication-ava {
+		height: 200px;
+	}
+	.publication-images .images-item {
+		margin: 0 1px 1px 0;
+		height: 40px;
+	}
+	.user-publication .likes-item .like {
+		margin-right: 5px;
+	}
+	.user-publication .likes-item .like-item {
+		font-size: 13px;
+	}
+	.visible-comments .user-comment:hover .comment  .alert{
+		height: 19px;
+		width: 15px;
+		padding: 0;
+		overflow: hidden;/****************************************************************/
+	}
+	.add-comment .publication-footer-button {
+		width: auto;
+		margin-top: 0;
+	}
+	.user-publication .add-comment .user-ava {
+		display: none;
+	}
+	.user-publication .add-comment .add {
+		padding-left: 0;
+	}
+	.add-comment .new-add .inner {
+		width: 24.4%;
+	}
+	.add-comment .new-add .inner:nth-child(4n) {
+		margin: 0 0 2px 0;
+	}
+	.ngdialog.delete-publication.ngdialog-theme-default .ngdialog-content{
+		padding: 30px 10px 30px 10px !important;
+		width: 300px;
+		margin-left: -150px;
+	}
+	.del-text {
+		text-align: center;
 	}
 }
