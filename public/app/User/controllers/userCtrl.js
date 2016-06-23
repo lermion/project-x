@@ -314,6 +314,14 @@ $scope.openSubscribe = function(userId){
 				console.log(error);
 			});
 		}
+		$scope.addCommentLike = function(comment){
+			PublicationService.addCommentLike(comment.id).then(function(response){
+				comment.like_count = response.like_count;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		$scope.deleteComment = function(commentId, index){
 			PublicationService.deleteCommentPublication(commentId).then(function(response){
 				$scope.singlePublication.comments.splice(index, 1);
