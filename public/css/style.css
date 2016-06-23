@@ -2029,12 +2029,17 @@ spam-item {
 .add-comment .new-add {
 	margin-top: 10px;
 }
+.add-comment .new-add .new-img,
+.publication .new-add .new-img {
+	width: 155px;
+    	margin-bottom: 5px;
+}
 .publication .new-add .inner,
 .add-comment .new-add .inner{
 	background-color: #f4f4f4;
 	width: 150px;
 	height: 100px;
-	margin: 0 5px 5px 0;
+	margin-right: 5px;
 	box-sizing: border-box;
 	position: relative;
 	overflow: hidden;
@@ -2042,9 +2047,30 @@ spam-item {
 	justify-content: center;
 	align-items: center;
 }
+.add-comment .new-add .img-name,
+.publication .new-add .img-name {
+	margin: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 95%;
+	color: #333;
+	line-height: 20px;
+	font-size: 14px;
+	padding-left: 30px;
+	box-sizing: border-box;
+	background-image: url(../images/picture.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 11%;
+}
+.add-comment .new-add .new-img:nth-child(4n),
+.publication .new-add .new-img:nth-child(4n) {
+	width: 150px;
+}
 .publication .new-add .inner:nth-child(4n),
 .add-comment .new-add .inner:nth-child(4n) {
-	margin: 0 0 5px 0;
+	margin-right: 0:
 }
 .publication .new-add .inner .close,
 .publication .new-add .inner .check,
@@ -2180,6 +2206,8 @@ spam-item {
 	padding: 0;
 	margin-left: -350px;
 	height: auto;
+	top: 3%;
+    	margin-top: 0;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2357,9 +2385,6 @@ spam-item {
 	position: absolute;
 	height: 100%;
 } 
-.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
-	top: 20%;
-}
 .user-publication-content .publication-text {
 	padding: 0 15px;
 	box-sizing: border-box;
@@ -2671,16 +2696,16 @@ spam-item {
 	.publication-footer-button .publication-button {
 		margin-left: 0;
 	}
-	.publication .new-add .inner {
-		width: 136px;
-		height: 80px;
-	}
-	.publication .new-add .inner:nth-child(4n) {
-		margin: 0 5px 5px 0;
-	}
-	.publication .new-add .inner:nth-child(3n) {
-		margin: 0 0 5px 0;
-	}
+	// .publication .new-add .inner {
+	// 	width: 136px;
+	// 	height: 80px;
+	// }
+	// .publication .new-add .inner:nth-child(4n) {
+	// 	margin: 0 5px 5px 0;
+	// }
+	// .publication .new-add .inner:nth-child(3n) {
+	// 	margin: 0 0 5px 0;
+	// }
 
 	.user-publication-header .return {
 		display: block;
@@ -2693,11 +2718,24 @@ spam-item {
 		margin: 0 1.5px 1.5px 0;
 		height: 60px;
 	}
-	.add-comment .new-add .inner {
-		width: 24.5%;
-		margin: 0 2px 2px 0;
+	.add-comment .new-add .inner,
+	.publication .new-add .inner {
+		margin-right: 0;
 		height: 80px;
+		width: 100%;
+		box-sizing: border-box;
 	}
+	.add-comment .new-add .new-img,
+	.publication .new-add .new-img {
+		width: 24.5%;
+    		margin-right: 2.5px;
+	}
+	.add-comment .new-add .new-img:nth-child(4n),
+	.publication .new-add .new-img:nth-child(4n){
+		margin-right: 0;
+		width: 24.5%;
+	}
+
 }
 @media (max-width: 520px) {
 	.ngdialog.user-publication.ngdialog-theme-default {
@@ -2739,15 +2777,8 @@ spam-item {
 		margin-top: 0;
 	}
 	.publication .new-add  {
-		width: 290px;
+		width: 100%;
 		margin: 0 auto;
-	}
-	.publication .new-add .inner:nth-child(4n),
-	.publication .new-add .inner:nth-child(2n) {
-		margin: 0 0 5px 0;
-	}
-	.publication .new-add .inner:nth-child(3n) {
-		margin: 0 5px 5px 0;
 	}
 	.user-publication-header .user-function {
 		width: 80%;
@@ -2769,7 +2800,6 @@ spam-item {
 		height: 19px;
 		width: 15px;
 		padding: 0;
-		overflow: hidden;/****************************************************************/
 	}
 	.add-comment .publication-footer-button {
 		width: auto;
@@ -2781,18 +2811,27 @@ spam-item {
 	.user-publication .add-comment .add {
 		padding-left: 0;
 	}
-	.add-comment .new-add .inner {
-		width: 24.4%;
+	.add-comment .new-add .new-img,
+	.publication .new-add .new-img {
+		margin-right: 1.7px;
 	}
-	.add-comment .new-add .inner:nth-child(4n) {
-		margin: 0 0 2px 0;
-	}
-	.ngdialog.delete-publication.ngdialog-theme-default .ngdialog-content{
+	.ngdialog.delete-publication.ngdialog-theme-default .ngdialog-content,
+	.ngdialog.alert-publication.ngdialog-theme-default .ngdialog-content,
+	.ngdialog.link-publication.ngdialog-theme-default  .ngdialog-content{
 		padding: 30px 10px 30px 10px !important;
 		width: 300px;
 		margin-left: -150px;
 	}
 	.del-text {
 		text-align: center;
+	}
+	.del-item button {
+		margin-bottom: 10px;
+	}
+	.ngdialog.alert-publication.ngdialog-theme-default .ngdialog-content div button{
+		margin-top: 10px;
+	}
+	.publication-images .images-item:nth-child(7n) {
+		margin: 0 0 1px 0;
 	}
 }
