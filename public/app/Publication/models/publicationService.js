@@ -22,10 +22,9 @@ angular.module('placePeopleApp')
         return defer.promise;
     }
     function getUserPublications(userId){        
-        var defer = $q.defer();
+        defer = $q.defer();
         $http.get(path + 'user/'+userId+'/publication')
-            .success(function (response){
-              console.log(response); 
+            .success(function (response){              
                 defer.resolve(response);
             })
             .error(function (error){
@@ -68,9 +67,16 @@ angular.module('placePeopleApp')
         console.log();
         return defer.promise;
     }
-    function deletePublication(){
-        console.log();
-        return defer.promise;
+    function deletePublication(pubId){        
+        var defer = $q.defer();
+        $http.get(path + 'publication/destroy/'+pubId)
+            .success(function (response){              
+                defer.resolve(response);
+            })
+            .error(function (error){
+                defer.reject(error);
+            });
+        return defer.promise;        
     }
     function likePublication(){
         console.log();
