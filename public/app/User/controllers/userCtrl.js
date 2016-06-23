@@ -1,7 +1,8 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService, amMoment){
 		/* Service info*/
+		amMoment.changeLocale('ru');
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;

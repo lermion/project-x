@@ -64,7 +64,7 @@
 				<div class="user-info">				
 					<div class="info-item">
 						<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
-						<p class="time">Вчера, 21:59</p>
+						<p class="time" am-time-ago="comment.created_at"></p>
 						<a href="" class="like-counter">{{comment.like_count}}</a>
 					</div>
 					<a href="" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
