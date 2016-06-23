@@ -1,7 +1,8 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService){
+    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, PublicationService, amMoment){
 		/* Service info*/
+		amMoment.changeLocale('ru');
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
@@ -255,6 +256,7 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			$scope.singlePublication = pub;
 			$scope.limit = 6;
+			getCommentPublication(pub.id);
 			$scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				if($window.innerWidth <= 520){
@@ -269,7 +271,31 @@ angular.module('placePeopleApp')
 				});
 			}
 		};
-
+		$scope.addNewComment = function(pubId, pubText){
+			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
+				pubText = "";
+				$scope.comments.push(response.comment);
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.deleteComment = function(commentId, index){
+			PublicationService.deleteCommentPublication(commentId).then(function(response){
+				$scope.comments.splice(index, 1);
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		function getCommentPublication(pubId){
+			PublicationService.getCommentPublication(pubId).then(function(response){
+				$scope.comments = response;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		$scope.loadMorePubFiles = function(key) {
 			if (key === false) {
 				$scope.limit = $scope.singlePublication.length;
