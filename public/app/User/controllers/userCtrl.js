@@ -253,7 +253,8 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.showPublication = function(pub){
-			$scope.currentPub = pub;
+			$scope.singlePublication = pub;
+			$scope.limit = 6;
 			$scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				if($window.innerWidth <= 520){
@@ -269,7 +270,12 @@ angular.module('placePeopleApp')
 			}
 		};
 
-		$scope.loadMorePubFiles = function() {
+		$scope.loadMorePubFiles = function(key) {
+			if (key === false) {
+				$scope.limit = $scope.singlePublication.length;
+			}else{
+				$scope.limit = 6;
+			}
 			$scope.morePubFiles = true;
 			$scope.$broadcast('loadPubFiles');			
 		};

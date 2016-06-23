@@ -15,7 +15,7 @@
 						<a href="" ng-click="sharePub(pub)">Переслать</a>
 						<a href="" ng-click="getPubLink(pub)">Получить ссылку</a>
 						<a href="" ng-click="alertPub(pub)">Пожаловаться</a>
-						<a href="" ng-click="deletePub(currentPub)">Удалить</a>
+						<a href="" ng-click="deletePub(singlePublication)">Удалить</a>
 					</div>
 				</div>
 			</div>
@@ -24,291 +24,18 @@
 	</div>
 	<div class="user-publication-content">
 		<div class="publication-ava">
-			<img src="../../../images/pic1.jpg">
-		</div>		
-		<div class="publication-images" ng-hide="morePubFiles">
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>			
-			<div class="images-item more" ng-click="loadMorePubFiles()">
-				<p class="counter">Еще<br> 94 фото</p>
-			</div>
-			<!-- is-bar-shown="true" -->
+			<img ng-src="{{singlePublication.images[0].url}}">
 		</div>
-		<div class="publication-images" ng-show="morePubFiles" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">			
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
+		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">			
+			<div ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
+				<img ng-src="{{image.url}}">
 			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
+			<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
+				<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
 			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>
-			<div class="images-item">
-				<img src="../../../images/pic1.jpg">
-			</div>	
 		</div> 
-		<p class="publication-text">В Лондоне запустили новую ветку метро. Очень красиво. Дизайнеры и архитекторы постарались на славу!</p>
-		<a href="" class="publication-place">г. Лондон</a>
+		<p class="publication-text">{{singlePublication.text}}</p>
+		<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 	</div>
 	<div class="likes">
 		<div class="likes-item">
@@ -321,9 +48,7 @@
 				чел.
 			</p>
 		</div>
-		<a href="" class="comments-count">
-			3
-		</a>
+		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
 	<div class="more-comments">
 		<a href="" class="all-comments">Еще 8 комментариев</a>
@@ -518,8 +243,8 @@
 			</div>
 			<div class="publication-footer" >
 				<div class="publication-footer-button">
-					<a href="" class="publication-button">Отправить</a>    
-				</div>    
+					<a href="javascript:void(0);" ng-click="addNewComment()" class="publication-button">Отправить</a>    
+				</div>
 				<div class="add-objects"> 
 					<input type="file" id="add-object">  
 					<label for="add-object">

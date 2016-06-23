@@ -13,9 +13,25 @@ angular.module('placePeopleApp')
             likePublication: likePublication,
             getPublicationComments: getPublicationComments,
             addPublicationComment: addPublicationComment,
-            deletePublicationComment: deletePublicationComment
+            deletePublicationComment: deletePublicationComment,
+            addNewCommentInPublication: addNewCommentInPublication
 
 		}
+
+    function addNewCommentInPublication(pubId){
+      var data = {
+        id: pubId
+      },
+      defer = $q.defer();
+      $http.post("publication/comment", data)
+        .success(function (response){
+          defer.resolve(response);
+        })
+        .error(function (error){
+          defer.reject(error);
+        });
+      return defer.promise;
+    }
 
     function getMainPublications(){
         console.log();
