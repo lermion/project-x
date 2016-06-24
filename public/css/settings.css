@@ -17,10 +17,10 @@
 }
 
 .settingsss .set_1 {
-	display: flex;
-	justify-content: space-between;
-	padding: 15px;
-	align-items: flex-start;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    align-items: flex-start;
 }
 
 .settingsss .set_2 {
@@ -268,7 +268,7 @@
   box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
 }
 
-.settingsss .checkbox-label:after {
+/*.settingsss .checkbox-label:after {
   content: attr(data-off);
   display: block;
   position: absolute;
@@ -282,7 +282,7 @@
   color: #bfbfbf;
   white-space: nowrap;
 }
-
+*/
 .settingsss .ios-toggle:checked + .checkbox-label {
   /*box-shadow*/
   -webkit-box-shadow: inset 0 0 0 20px rgba(19,191,17,1), 0 0 0 2px rgba(19,191,17,1);
@@ -298,12 +298,12 @@
   box-shadow: 0 0 0 2px transparent, 0 3px 3px rgba(0,0,0,.3);
 }
 
-.settingsss .ios-toggle:checked + .checkbox-label:after {
+/*.settingsss .ios-toggle:checked + .checkbox-label:after {
   content: attr(data-on);
   left: 60px;
   width: 36px;
 }
-
+*/
 
 /*        checkbox ios      end  */
 @media only screen and (max-width: 700px) {
