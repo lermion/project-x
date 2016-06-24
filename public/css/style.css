@@ -336,11 +336,13 @@ body.main-page {
 }
 .check-in-button:hover,
 .check-in-button:focus,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button:focus {
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
 	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:focus {
+	outline: none;
 }
 .add-ava {
 	width: 100%;
@@ -734,6 +736,7 @@ body.public {
 	padding: 0 0 75px 0;
 	position: relative;
 	box-sizing: border-box;
+	overflow-x: hidden;
 }
 body.public.user {
 	background: #e9eaed;
