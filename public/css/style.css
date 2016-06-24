@@ -336,11 +336,13 @@ body.main-page {
 }
 .check-in-button:hover,
 .check-in-button:focus,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button:focus {
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
 	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:focus {
+	outline: none;
 }
 .add-ava {
 	width: 100%;
@@ -734,6 +736,7 @@ body.public {
 	padding: 0 0 75px 0;
 	position: relative;
 	box-sizing: border-box;
+	overflow-x: hidden;
 }
 body.public.user {
 	background: #e9eaed;
@@ -1319,7 +1322,9 @@ body.public.user {
 }
 .comunications .rewrite,
 .comunications .reread,
-.comunications .read {
+.comunications .read,
+.contacts-off-container  .subscriber .read,
+.contacts-off-container  .subscriber .read {
 	border: 1px solid transparent;
 	border-radius: 4px;
 	font-size: 14.6px;
@@ -1332,18 +1337,28 @@ body.public.user {
 	text-decoration: none;
 }
 .comunications .reread,
-.comunications .read {
+.comunications .read,
+.contacts-off-container  .subscriber .read,
+.contacts-off-container  .subscriber .read {
 	color: #fff;
 	background: #495b79;
 }
+.contacts-off-container  .subscriber .read,
+.contacts-off-container  .subscriber .read {
+	margin-left: 10px;
+}
 .comunications .reread:hover,
-.comunications .read:hover {
+.comunications .read:hover,
+.contacts-off-container  .subscriber .read:hover,
+.contacts-off-container  .subscriber .read:hover {
 	color: #495b79;
 	background: transparent;
 }
 .comunications .rewrite:hover,
 .comunications .reread:hover,
-.comunications .read:hover {
+.comunications .read:hover ,
+.contacts-off-container  .subscriber .read:hover,
+.contacts-off-container  .subscriber .read:hover{
 	border: 1px solid #77849b;
 	transition: all .3s ease-in-out .1s;  
 }
@@ -1402,6 +1417,10 @@ body.public.user {
 	height: 100%;
 	display: block;
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.1);
 }
 #user-page .photo a .video,
 .photo-list  a .video {
@@ -1445,7 +1464,10 @@ body.public.user {
 	margin-left: -50px;
 }
 #user-page .photo a img {
-	width: 100%;
+	max-width: 300%;
+	max-height: 300%;
+	width: auto;
+	height: auto;
 } 
 .my-photos-list,
 .photo-list  {
@@ -2027,6 +2049,8 @@ spam-item {
 	position: relative;
 }
 .add-comment .new-add {
+	display: flex;
+    	flex-wrap: wrap;
 	margin-top: 10px;
 }
 .add-comment .new-add .new-img,
@@ -2576,6 +2600,8 @@ spam-item {
 	font-family: "SFUIDisplayLight";
 	transition: all .3s ease-in-out .1s;
 	display: none;
+	width: 20px;
+	height: 20px;
 }
 .visible-comments .comment .alert:before {
 	background: 0 0;
@@ -2714,6 +2740,136 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
+.ngdialog.popup-user-subscribers.ngdialog-theme-default,
+.ngdialog.popup-user-subscribe.ngdialog-theme-default {
+	position: absolute;
+}
+.ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
+.ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
+	background: #fff;
+	width: 700px;
+	margin-left: -350px;
+	margin-top: 0;
+	top: 10%;
+	height: auto;
+}
+.contacts-off-container .subscriber,
+.contacts-off-container .subscriber-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.contacts-off-container .subscriber-item  {
+	width: 80%;
+	justify-content: flex-start;
+}
+.contacts-off-container .subscriber {
+	border-bottom: 1px solid #eee;
+	padding: 10px 0;
+}
+.contacts-off-container .subscriber:last-child {
+	border-bottom: none;
+}
+.contacts-off-container  .subscriber-item .user-ava {
+	margin-right: 20px;
+}
+.contacts-off-container .subscriber-item .user-ava .ava{
+	border-radius: 50%;
+	display: block;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+	opacity: 1;
+	transition: all .3s ease-in-out .2s;
+	cursor: pointer;
+}
+.contacts-off-container .subscriber-item .user-ava .ava:hover {
+	opacity: .8;
+}
+.contacts-off-container .subscriber-item .user-ava .ava img {
+	width: 100%;
+}
+.contacts-off-container .user-info .user-name {
+	font-size: 16.7px;
+	display: block;
+	color: #333;
+	text-decoration: none;
+	font-weight: 500;
+	line-height: 20px;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s;
+	max-width: 190px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap; 
+	cursor: pointer;
+} 
+.contacts-off-container .user-info .user-name:hover {
+	color: #666;
+}
+.contacts-off-container .user-info .status-user {
+	color: #666;
+	font-weight: lighter;
+	font-size: 13px;
+	margin: 0;
+	padding: 10px 0;
+	font-family: "SFUIDisplayLight"; 
+	line-height: 15px;
+}
+.ngdialog.popup-user-subscribers.ngdialog-theme-default  .ngdialog-close:hover:before,
+.ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-close:hover:before {
+	color: #333;
+}
+.ngdialog.popup-comment-images.ngdialog-theme-default {
+	background-color: rgba(0, 0, 0, .9);
+}
+.ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
+	background-color: transparent;
+	margin-left: -40%;
+	width: 80%;
+	height: 550px;
+	margin-top: -275px;
+}
+.comment-imges .comment-img {
+	width: 100%;
+	height: 350px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;
+}
+ .comment-img img {
+ 	max-width: 100%;
+    	max-height: 100%;
+    	width: auto;
+    	height: auto;
+ }
+.comment-imges-list {
+ 	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+ }
+.comment-imges .comment-list {
+	width: 13.8%;
+	overflow: hidden;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;
+	margin-right: .5%;
+}
+.comment-imges .comment-list:nth-child(7n) {
+	margin-right: 0;
+}
+.comment-imges .comment-list img {
+	max-width: 300%;
+    	max-height: 300%;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div.del-item .del-item {
+	background: #DA5036;
+}
 @media (max-width: 720px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		width: 450px;
@@ -2724,20 +2880,15 @@ spam-item {
 		line-height: 25px;
 		margin-top: 5px;
 	}
+	.contacts-off-container {
+		width: 100%;
+		padding: 20px 15px;
+		box-sizing: border-box;
+		background: #fff;
+	}
 	.publication-footer-button .publication-button {
 		margin-left: 0;
 	}
-	// .publication .new-add .inner {
-	// 	width: 136px;
-	// 	height: 80px;
-	// }
-	// .publication .new-add .inner:nth-child(4n) {
-	// 	margin: 0 5px 5px 0;
-	// }
-	// .publication .new-add .inner:nth-child(3n) {
-	// 	margin: 0 0 5px 0;
-	// }
-
 	.user-publication-header .return {
 		display: block;
 	}
@@ -2765,6 +2916,30 @@ spam-item {
 	.publication .new-add .new-img:nth-child(4n){
 		margin-right: 0;
 		width: 24.5%;
+	}
+	.comment-imges .comment-img {
+		height: 290px;
+	}
+	.ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
+		margin-left: -48%;
+    		width: 96%;
+	}
+	.contacts-off-container {
+		position: relative;
+	}
+	.contacts-off-container .prev {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 30px;
+		height: 25px;
+		background-image: url(../images/left-arrow-hover.png);
+		background-position: center;
+		background-size: 90%;
+		background-repeat: no-repeat;
+	}
+	.contacts-off-container .prev:hover {
+		background-image: url(../images/left-arrow-hover.png); 
 	}
 
 }
@@ -2867,5 +3042,26 @@ spam-item {
 	}
 	.comment .comment-pic .comment-pic-item {
 		height: 50px;
+	}
+	.comment-imges .comment-img {
+		height: 250px;
+	}
+	.contacts-off-container  .subscriber-item .user-ava {
+		margin-right: 10px;
+	}
+	.contacts-off-container .subscriber-item .user-ava .ava {
+		width: 40px;
+    		height: 40px;
+	}
+	.contacts-off-container .user-info .user-name {
+		max-width: 140px;
+    		font-size: 14.6px;
+	}
+	.contacts-off-container .user-info .status-user {
+		display: none;
+	}
+	.contacts-off-container  .subscriber .read {
+		font-size: 13px;
+    		padding: 0 5px;
 	}
 }

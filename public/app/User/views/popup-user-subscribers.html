@@ -1,1 +1,18 @@
-<div>popup-user-subscribers.html</div>
+<div class="contacts-off-container">
+	<a href="" class="prev"></a>
+	<div class="subscriber" ng-repeat="subscriber in [0,1,3,4,5] ">
+		<div class="subscriber-item">
+			<div class="user-ava">
+				<a class="ava" ui-sref="user({username: loggedUser})">
+					<img src="{{userData.avatar_path}}" alt="">
+				</a>
+			</div>
+			<div class="user-info">
+				<a class="user-name">Танюшка Мильцына</a>
+				<p class="status-user" ng-hide="profileEdition">{{userData.status}}</p>
+			</div>
+		</div>
+		<a href="" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
+	</div>
+	
+</div>

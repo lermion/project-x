@@ -4,6 +4,7 @@
 	  width: 700px;
 	  /*border: 1px solid #808080;*/
 	 margin: 30px auto 0 auto;
+   color:#333;
 }
  
 .settingsss .h1 {
@@ -11,13 +12,15 @@
     line-height: 1.804rem;
     margin: 0.82rem 0 0.656rem 0;
     font-weight: normal;
+    text-decoration: inherit;
+    color:#333;
 }
 
 .settingsss .set_1 {
-	display: flex;
-	justify-content: space-between;
-	padding: 15px;
-	align-items: flex-start;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    align-items: flex-start;
 }
 
 .settingsss .set_2 {
@@ -61,9 +64,10 @@
     margin: 0;
 }
 
-.settingsss .text a {
-	color: #039be5;
-	font-size: 12px;
+.settingsss .text a:nth-child(2) {
+  color: #039be5;
+  font-size: 12px;
+  font-family: "SFUIDisplayLight";
 }
 
 .settingsss .set_2 p {
@@ -73,12 +77,16 @@
 .settingsss .status,
 .settingsss .contact {
 	font-size: 14px;
+  padding-top: 15px;
 }
 
 .settingsss .status span:first-child,
 .settingsss .contact span:first-child{
     color: #999;
     font-size: 12px;
+}
+.settingsss .status span:nth-child(2){
+    padding: 0 5px 0 5px;
 }
 
 .settingsss .text p input[type="text"] {
@@ -88,7 +96,7 @@
     border: none;
     border-radius: 5px;
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
-    color: #7e7b7b;
+    padding: 0 0 0 5px;
 }
 .settingsss .text p input[type="submit"] {
     width: 30%;
@@ -107,7 +115,7 @@
 }
 
 .settingsss .text p textarea {
-	width: 89%;
+	  width: 92%;
     height: 30px;
     border: none;
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
@@ -132,6 +140,84 @@
 }   
 
 
+
+/*             download avatar                */
+.settingsss .add-ava label {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.settingsss  label {
+    cursor: default;
+}
+
+.settingsss .add-ava label .ava,
+.settingsss .add-ava label .add {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settingsss [ng\:cloak],
+.settingsss [ng-cloak],
+.settingsss [data-ng-cloak],
+.settingsss [x-ng-cloak],
+.settingsss .ng-cloak,
+.settingsss .x-ng-cloak,
+.settingsss .ng-hide:not(.ng-hide-animate) {
+    display: none !important;
+}
+
+.settingsss .add-ava label .add-photo {
+    cursor: pointer;
+    background-image: none;
+    transition: all .3s ease-in-out .1s;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    border-radius: 50%;
+}
+.settingsss .add-ava {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 100%;
+    background-color:transparent;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.settingsss .add-ava #avatarImg {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    padding: 0 0;
+}
+
+/*          download avatar   end    */
+
+
 /*        checkbox  ios   -      green buttons */
 .settingsss .ios-toggle,
 .settingsss .ios-toggle:active {
@@ -148,7 +234,6 @@
 	display: inline-block;
 	position: relative;
 	padding: 10px;
-	margin-bottom: 5px;
 	font-size: 0;
 	line-height: 16px;
 	width: 13px;
@@ -183,7 +268,7 @@
   box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
 }
 
-.settingsss .checkbox-label:after {
+/*.settingsss .checkbox-label:after {
   content: attr(data-off);
   display: block;
   position: absolute;
@@ -197,7 +282,7 @@
   color: #bfbfbf;
   white-space: nowrap;
 }
-
+*/
 .settingsss .ios-toggle:checked + .checkbox-label {
   /*box-shadow*/
   -webkit-box-shadow: inset 0 0 0 20px rgba(19,191,17,1), 0 0 0 2px rgba(19,191,17,1);
@@ -213,16 +298,14 @@
   box-shadow: 0 0 0 2px transparent, 0 3px 3px rgba(0,0,0,.3);
 }
 
-.settingsss .ios-toggle:checked + .checkbox-label:after {
+/*.settingsss .ios-toggle:checked + .checkbox-label:after {
   content: attr(data-on);
   left: 60px;
   width: 36px;
 }
-
+*/
 
 /*        checkbox ios      end  */
-
-
 @media only screen and (max-width: 700px) {
 	.settingsss {
 	    width: 100%;
@@ -234,12 +317,16 @@
 	    display: block;
 	    width: 100%;
 	    text-align: center;
-	    padding-left: 0;
+	    padding: 15px 0 15px 0;
 	}
 	.settingsss .img {
 		display: inline-flex;
 		flex-direction: column;
 	}
+  .settingsss .text p textarea {
+    width: 91%;
+    margin: 0 7px 20px 5px;
+  }
 }
 
 @media only screen and (max-width: 500px) {
@@ -253,9 +340,6 @@
 }
 
 @media only screen and (max-width: 400px) {
-/*	.settingsss .set_1 {
-	    padding: 10px 0 0 8%;
-	}*/
 	.settingsss .img {
 	    width: 210px;
 	    height: 210px;
@@ -269,7 +353,4 @@
 	.settingsss .h1 {
 	    font-size: 18px;
 	}
-/*	.settingsss .set_1 {
-	    padding: 10px 0 0 6.5%;
-	}*/
 }

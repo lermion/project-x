@@ -1,7 +1,7 @@
-<div ng-controller="settingsCtrl">
+<div>
 	<header>
 		<div class="header header-user">
-			<a class="logo" href=""></a>
+			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
 				<a class="drop-menu" href=""></a>
 				<div class="menu-item" ng-show="showMenu">
@@ -26,25 +26,39 @@
 	<div class="settingsss">
 		<div class="set_1">
 			<div class="img">
-				<img src="images/picture.jpg" class="avatar"> 
+				<img src="{{userData.avatar_path}}" alt="" class="avatar">
 				<a href="" class="change"> Изменить </a>
+
+				<div class="add-ava" ng-init="showEditAva=true;"> 
+					<input type="file" id="avatarImg">  
+					<label for="avatarImg">                                            
+		                <span class="ava ng-hide" ng-show="croppedFile">         
+		                    <img data-ng-src="{{croppedFile}}" style="width:100%;">
+		                </span>
+			            <span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+			                <span class="add-photo" ng-show="!croppedFile || showEditAva">
+			                </span>
+		                </span>
+		            </label>
+			    </div>
+
 			</div>
 
 			<div class="text">
 				<p class="">
-					<span class="h1">Шерлок Холмс</span>
-					<a href=""> Изменить </a>
-					<!-- <input type="text"  placeholder="Имя" name="" method="">  </input>
-					<input type="submit" value="Сохранить"> -->
+					<a href="" class="h1" ng-hide="settingsEdit">{{userData.first_name}} {{userData.last_name}}</a>
+					<a href="" ng-click="openChangeSettings()" ng-hide="settingsEdit"> Изменить </a>
+					<input type="text"  placeholder="Имя" ng-show="settingsEdit" ng-model="userData.first_name">
+					<input type="text"  placeholder="Фамилия" ng-show="settingsEdit" ng-model="userData.last_name">	
 				</p>
 				<p class="status">
-					 <span>Статус</span>
-					 <br> <span>Все что нас не убивает - делает нас... страннее.</span>
-					<!-- <textarea name="comment" placeholder="Cтатус"></textarea>
-					<input type="submit" value="Сохранить"> -->
+					 <span ng-hide="settingsEdit">Статус</span>
+					 <br> <span ng-hide="settingsEdit">{{userData.status}}</span>
+					<textarea name="comment" placeholder="Cтатус" ng-show="settingsEdit" ng-model="userData.status"></textarea>
+					<input type="submit" value="Сохранить" ng-show = "settingsEdit" ng-click="saveSettings(userData.first_name, userData.last_name, userData.status)">
 				</p>
 				
-<!-- 				<p class="contact">
+				<!-- <p class="contact">
 					<span>Телефон</span>
 					<br> 8(926)870-88-99 
 				</p> -->
@@ -53,17 +67,17 @@
 
 		<div class="set_2">
 			<span class="h1">Конфиденциальность</span>
-<!-- 				<p>Показать статус "В сети"
+				<p>Показать статус "В сети"
 			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" checked/>
 			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
- 			</p> -->
+ 				</p>
 				<p>Отправлять статус "Просмотрено"
-			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" checked/>
-			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle" checked/>
+			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 				<p>Отображать мое фото
-			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" checked/>
-			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" checked/>
+			<label for="checkbox3" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 		</div>
 	</div>

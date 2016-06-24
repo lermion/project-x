@@ -1,15 +1,17 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
+    .controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
     	'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
+    	function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
     		$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout){
 		/* Service info*/
 		amMoment.changeLocale('ru');
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
+		$scope.loggedUserId = storage.userId;
 		$scope.images = {};
-
+		$scope.commentModel = {pubText: ''};
+		var emptyPost = {pubText: ''};
 		$http.get('/static_page/get/name')
             .success(function (response){            	
                 $scope.staticPages = response;
@@ -143,7 +145,7 @@ angular.module('placePeopleApp')
 				$scope.statusErr = true;
 				return;
 			} else {				
-				UserService.quickEdit(name, lastname, status, storage.userId)
+				UserService.quickEdit(name, lastname, status)
 				.then(					
 					function(res){								
 						$scope.profileEdition = false;		        
@@ -153,38 +155,31 @@ angular.module('placePeopleApp')
 					});				
 				}	
 			}
+		};		
+
+		$scope.openSubscribers = function(userId){	
+			if ($window.innerWidth <= 700) {
+					$state.go('subscribers', {username: $stateParams.username});
+			} else {
+				ngDialog.open({
+					template:'../app/User/views/popup-user-subscribers.html',
+					className: 'popup-user-subscribers ngdialog-theme-default',
+					scope: $scope
+				});
+			}			
 		};
 
-		$scope.openPublication = function(userId){			
-			ngDialog.open({
-				template:'../app/User/views/popup-user-publication.html',
-				className: 'popup-user-publication ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		$scope.openContacts = function(userId){			
-			ngDialog.open({
-				template:'../app/User/views/popup-user-contacts.html',
-				className: 'popup-user-contacts ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		$scope.openSubscribers = function(userId){			
-			ngDialog.open({
-				template:'../app/User/views/popup-user-subscribers.html',
-				className: 'popup-user-subscribers ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		$scope.openSubscribe = function(userId){			
-			ngDialog.open({
-				template:'../app/User/views/popup-user-subscribe.html',
-				className: 'popup-user-subscribe ngdialog-theme-default',
-				scope: $scope
-			});
+		$scope.openSubscribe = function(userId){
+			if ($window.innerWidth <= 700) {
+				$state.go('subscribes', {username: $stateParams.username});
+			}
+			else {
+				ngDialog.open({
+					template:'../app/User/views/popup-user-subscribe.html',
+					className: 'popup-user-subscribe ngdialog-theme-default',
+					scope: $scope
+				});
+			}		
 		};
 
 		$scope.createPublication = function(){			
@@ -225,7 +220,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.checkFileAmount = function(files, event, flow){
-			// console.log(files, event, flow);
+			console.log(files, event, flow);
 		};
 
 		$scope.setMainPubPhoto = function(target){
@@ -278,8 +273,7 @@ angular.module('placePeopleApp')
 							getUserPubs(storage.userId);
 							ngDialog.closeAll();
 						} else {
-							console.log('Error');
-							console.log(res);
+							console.log('Error');							
 						}
 						$scope.newPubLoader = false;	        
 					},
@@ -288,37 +282,81 @@ angular.module('placePeopleApp')
 					});
 			
 		};
-
-		$scope.showPublication = function(pub){
-			getAllCommentsPublication(pub.id);
-			$scope.singlePublication = pub;
-			$scope.limit = 6;
-			// $scope.hideSomePubText = false;
-			if ($window.innerWidth <= 700) {
-				// if($window.innerWidth <= 520){
-				// 	$scope.hideSomePubText = true;					
-				// }
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pub.id});								
-			}  else {
-				ngDialog.open({
-					template: '../app/User/views/view-publication.html',
-					className: 'view-publication ngdialog-theme-default',
-					scope: $scope
-				});
+		if($stateParams.id){
+			getSinglePublication($stateParams.id);
+			$scope.returnToBack = function(){
+				$state.go("user", {username: $stateParams.username});
 			}
-		};
-		$scope.addNewComment = function(pubId, pubText){
-			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
-				$scope.singlePublication.comments.push(response.comment);
-				$scope.singlePublication.comment_count++;
+		}
+		function getSinglePublication(pubId, flag){
+			PublicationService.getSinglePublication(pubId).then(function(response){
+				getAllCommentsPublication(pubId);
+				$scope.limit = 6;
+				$scope.singlePublication = response;
+				$scope.mainImage = response.images[0].url;
+				if ($window.innerWidth <= 700) {
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
+				}else{
+					if(!flag){
+						ngDialog.open({
+							template: '../app/User/views/view-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope
+						});
+					}
+				}
 			},
 			function(error){
 				console.log(error);
 			});
 		}
+		$scope.showPublication = function(pub){
+			getSinglePublication(pub.id);
+		};
+		$scope.addNewComment = function(pubId, pubText, flow){
+			$scope.commentModel = angular.copy(emptyPost);
+			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
+				if(response.data.status){
+					flow.cancel();
+					$scope.singlePublication.comments.push(response.data.comment);
+					$scope.singlePublication.comment_count++;
+				}
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.showMoreImages = function(images){
+			$scope.imagesInPopup = images;
+			$scope.mainImageInPopup = images[0].url;
+			ngDialog.open({
+				template: '../app/User/views/popup-comment-images.html',
+				className: 'popup-comment-images ngdialog-theme-default',
+				scope: $scope,
+				data: {
+					images: images
+				}
+			});
+		}
+		$scope.changeMainImage = function(image, flag){
+			if(flag){
+				$scope.mainImageInPopup = image.url;
+			}else{
+				$scope.mainImage = image.url;
+			}
+		}
 		$scope.addCommentLike = function(comment){
 			PublicationService.addCommentLike(comment.id).then(function(response){
 				comment.like_count = response.like_count;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.addPublicationLike = function(pub, isCurrentUser){
+			PublicationService.addPublicationLike(pub.id).then(function(response){
+				pub.user_like = response.user_like;
+				pub.like_count = response.like_count;
 			},
 			function(error){
 				console.log(error);
@@ -356,10 +394,10 @@ angular.module('placePeopleApp')
 			$scope.morePubFiles = true;
 			$scope.$broadcast('loadPubFiles');			
 		};
-
+		var editPubPopup;
 		$scope.editPub = function(pub){			
 			$scope.currPub = pub;
-			ngDialog.open({
+			editPubPopup = ngDialog.open({
 							template: '../app/User/views/edit-publication.html',
 							className: 'user-publication ngdialog-theme-default',
 							scope: $scope
@@ -391,42 +429,86 @@ angular.module('placePeopleApp')
 
 		}
 
-		$scope.editedPubFiles = function(pub){				
-			// if (flow.length === 0) {
-			// 	$scope.pubPhotosEdited = true;
-			// } else {
-			// 	$scope.pubPhotosEdited = false;
-			// }
-			// var files = [];
-			
-			// pub.images.forEach(function(img){
-				// var filename = img.url.split('/')[(img.url.split('/')).length-1];
-				// img.name = filename.substring(8, filename.length);
-				// // img.name = filename;
-				// console.log(img.name);
-				// files.push(img);
+		$scope.editedPubFiles = function(pub){
+		// createBlobFromURL(pub.images).then(function(res){
+			// 	angular.forEach(res, function (item) {
+			// 		$timeout(function () {
+			// 			var blob = new Blob([item], {type: 'image/jpeg'});
+			// 			blob.name = 'image';
+			// 			$scope.images.flow.addFile(blob);
+			// 		});
+			// 	});
+			// },
+			// function(err){
+			// 	console.log(err);
 			// });
+
+			var files = [];
 			// pub.videos.forEach(function(video){
 			// 	files.push(video);
-			// });
-			createBlobFromURL(pub.images).then(function(res){
-				angular.forEach(res, function (item) {
-					$timeout(function () {
-						var blob = new Blob([item], {type: 'image/jpeg'});
-						blob.name = 'image';
-						$scope.images.flow.addFile(blob);
+			// });			
+			pub.images.forEach(function(img){
+				var filename = img.url.split('/')[(img.url.split('/')).length-1];
+				img.name = filename.substring(8, filename.length);						
+				files.push(img);
+			});							
+			$scope.editedPubFilesArray = files;
+			$scope.$broadcast('rebuildScroll');					 			
+		};
+
+		$scope.addedEditedPubFiles = function(files, event, flow){									
+			if(files.length > 100){
+				console.log('too much files');
+			}
+			$scope.$broadcast('rebuildScroll');
+		};
+
+		var	pubEditDeletedPhotos = [];
+		var pubEditDeletedVideos = [];
+
+		$scope.editedPubDeletePhoto = function(index, photoId){			
+			$scope.editedPubFilesArray.splice(index, 1);
+			pubEditDeletedPhotos.push(photoId);
+			$scope.$broadcast('rebuildScroll');			
+		};
+		$scope.editedPubDeleteVideo = function(videoId){
+			pubEditDeletedVideos.push(videoId);
+			$scope.$broadcast('rebuildScroll');
+		};
+
+		$scope.saveEditedPub = function(pubId, text, isAnon, files){
+			// $scope.updatePubLoader = true;
+			var images = [];
+			var videos = [];
+			var isMain;						
+			if ($state.current.name === 'feed') {
+				isMain = 1;
+			} else{
+				isMain = 0;
+			}
+			files.forEach(function(file){
+				var type = file.file.type.split('/')[0];
+				if (type === 'image') {
+					images.push(file.file);
+				} else if (type === 'video'){
+					videos.push(file.file);
+				}				
+			});			
+			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+			.then(					
+					function(res){									
+						if (res.status) {
+							getUserPubs(storage.userId);
+							getSinglePublication(res.publication.id, true);
+							editPubPopup.close();
+						} else {
+							console.log('Error');							
+						}
+						$scope.updatePubLoader = false;	        
+					},
+					function(err){
+						console.log(err);
 					});
-				});
-			},
-			function(err){
-				console.log(err);
-			});
-
-			// console.log(imgArr);
-
-			
-			// $scope.editedPubFilesArray = files;
-			 			
 		};
 
 		$scope.sharePub = function(pubId){

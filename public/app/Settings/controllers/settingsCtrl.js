@@ -1,9 +1,10 @@
 angular.module('placePeopleApp')
-    .controller('settingsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService){
-    		$scope.$emit('userPoint', 'user');    	
+    .controller('settingsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService',  'ngDialog',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
+    	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
+
 		$http.get('/static_page/get/name')
 		            .success(function (response){            	
 		                $scope.staticPages = response;
@@ -60,5 +61,65 @@ angular.module('placePeopleApp')
 		w.bind('resize', function(){
 		  $scope.$apply();
 		});
+
+	/*Page code*/
+
+	UserService.getUserData(storage.username)
+		.then(
+			function(res){										
+				$scope.userData = res;										        
+			},
+			function(err){
+				console.log(err);
+			}
+		);
+
+	$scope.openChangeSettings = function(){
+		$scope.settingsEdit = true;
+	};
+
+	$scope.saveSettings = function(username, userLastname, userStatus){		
+		UserService.quickEdit(username, userLastname, userStatus)
+			.then(					
+				function(res){								
+					$scope.settingsEdit = false;	        
+				},
+				function(err){
+					console.log(err);
+				});
+	};
+
+	$scope.myImage='';
+	$scope.myCroppedImage='';
+	var handleFileSelect = function(evt) {
+		var file = evt.currentTarget.files[0];
+		var reader = new FileReader();
+		reader.onload = function (evt) {
+			$scope.$apply(function($scope){
+				$scope.myImage = evt.target.result;
+				ngDialog.open({
+					template: '../app/Settings/views/crop-image.html',
+					className: 'settings-add-ava ngdialog-theme-default',
+					scope: $scope
+				});
+			});
+		};
+		reader.readAsDataURL(file);
+	};
+	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
+
+	$scope.saveCropp = function(img, cropped){	
+		$scope.croppedImg = img;
+		$scope.croppedFile = cropped;
+		$scope.showEditAva = false;	
+		ngDialog.closeAll();
+		//send new ava on back
+		UserService.updateAvatar(img)
+			.then(function(res){ 
+				console.log(res)   			
+		      }, function(err){
+		        console.log(err);
+		      });	
+	};
 
 }]);

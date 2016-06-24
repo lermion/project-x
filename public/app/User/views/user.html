@@ -1,7 +1,7 @@
 <div>	
 	<header>
 		<div class="header header-user">
-			<a class="logo" href=""></a>
+			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
 				<a class="drop-menu" href=""></a>
 				<div class="menu-item" ng-show="showMenu">
@@ -41,11 +41,11 @@
 					</div>
 					
 					<div class="counts" ng-class="myProfile ? '' : 'another-user'" >
-						<a href="" class="counter" ng-click="openPublication(userData.id)">
+						<a href="" class="counter">
 							<p class="notes">Публикации</p>
 							<span>{{userData.publications_count}}</span>
 						</a>
-						<a href="" class="counter" ng-show="myProfile" ng-click="openContacts(userData.id)">
+						<a href="" class="counter" ng-show="myProfile">
 							<p class="contacts">Контакты</p>
 							<span>417</span>
 						</a>
