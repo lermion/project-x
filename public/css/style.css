@@ -1319,7 +1319,9 @@ body.public.user {
 }
 .comunications .rewrite,
 .comunications .reread,
-.comunications .read {
+.comunications .read,
+.popup-user-subscribers  .subscriber .read,
+.popup-user-subscribe  .subscriber .read {
 	border: 1px solid transparent;
 	border-radius: 4px;
 	font-size: 14.6px;
@@ -1332,18 +1334,24 @@ body.public.user {
 	text-decoration: none;
 }
 .comunications .reread,
-.comunications .read {
+.comunications .read,
+.popup-user-subscribers  .subscriber .read,
+.popup-user-subscribe  .subscriber .read {
 	color: #fff;
 	background: #495b79;
 }
 .comunications .reread:hover,
-.comunications .read:hover {
+.comunications .read:hover,
+.popup-user-subscribers  .subscriber .read:hover,
+.popup-user-subscribe  .subscriber .read:hover {
 	color: #495b79;
 	background: transparent;
 }
 .comunications .rewrite:hover,
 .comunications .reread:hover,
-.comunications .read:hover {
+.comunications .read:hover ,
+.popup-user-subscribers  .subscriber .read:hover,
+.popup-user-subscribe  .subscriber .read:hover{
 	border: 1px solid #77849b;
 	transition: all .3s ease-in-out .1s;  
 }
@@ -1402,6 +1410,10 @@ body.public.user {
 	height: 100%;
 	display: block;
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.1);
 }
 #user-page .photo a .video,
 .photo-list  a .video {
@@ -1445,7 +1457,10 @@ body.public.user {
 	margin-left: -50px;
 }
 #user-page .photo a img {
-	width: 100%;
+	max-width: 300%;
+	max-height: 300%;
+	width: auto;
+	height: auto;
 } 
 .my-photos-list,
 .photo-list  {
@@ -2578,6 +2593,8 @@ spam-item {
 	font-family: "SFUIDisplayLight";
 	transition: all .3s ease-in-out .1s;
 	display: none;
+	width: 20px;
+	height: 20px;
 }
 .visible-comments .comment .alert:before {
 	background: 0 0;
@@ -2715,6 +2732,98 @@ spam-item {
 }
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
+}
+.ngdialog.popup-user-subscribers.ngdialog-theme-default,
+.ngdialog.popup-user-subscribe.ngdialog-theme-default {
+	position: absolute;
+}
+.ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
+.ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
+	background: #fff;
+	width: 700px;
+	margin-left: -350px;
+	margin-top: 0;
+	top: 10%;
+	height: auto;
+}
+.popup-user-subscribers .subscriber,
+.popup-user-subscribers  .subscriber-item,
+.popup-user-subscribe .subscriber,
+.popup-user-subscribe .subscriber-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.popup-user-subscribers  .subscriber-item,
+.popup-user-subscribe .subscriber-item  {
+	width: 80%;
+	justify-content: flex-start;
+}
+.popup-user-subscribers .subscriber,
+.popup-user-subscribe .subscriber {
+	border-bottom: 1px solid #eee;
+	padding: 10px 0;
+}
+.popup-user-subscribers .subscriber:last-child,
+.popup-user-subscribe .subscriber:last-child {
+	border-bottom: none;
+}
+.popup-user-subscribers  .subscriber-item .user-ava,
+.popup-user-subscribe .subscriber-item .user-ava {
+	margin-right: 20px;
+}
+.popup-user-subscribers  .subscriber-item .user-ava .ava,
+.popup-user-subscribe .subscriber-item .user-ava .ava{
+	border-radius: 50%;
+	display: block;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+	opacity: 1;
+	transition: all .3s ease-in-out .2s;
+	cursor: pointer;
+}
+.popup-user-subscribers  .subscriber-item .user-ava .ava:hover,
+.popup-user-subscribe .subscriber-item .user-ava .ava:hover {
+	opacity: .8;
+}
+.popup-user-subscribers  .subscriber-item .user-ava .ava img,
+.popup-user-subscribe .subscriber-item .user-ava .ava img {
+	width: 100%;
+}
+.popup-user-subscribers .user-info .user-name,
+.popup-user-subscribe .user-info .user-name {
+	font-size: 16.7px;
+	display: block;
+	color: #333;
+	text-decoration: none;
+	font-weight: 500;
+	line-height: 20px;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s;
+	max-width: 190px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap; 
+	cursor: pointer;
+} 
+.popup-user-subscribers .user-info .user-name:hover,
+.popup-user-subscribe .user-info .user-name:hover {
+	color: #666;
+}
+.popup-user-subscribers .user-info .status-user,
+.popup-user-subscribe .user-info .status-user {
+	color: #666;
+	font-weight: lighter;
+	font-size: 13px;
+	margin: 0;
+	padding: 10px 0;
+	font-family: "SFUIDisplayLight"; 
+	line-height: 15px;
+}
+.ngdialog.popup-user-subscribers.ngdialog-theme-default  .ngdialog-close:hover:before,
+.ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-close:hover:before {
+	color: #333;
 }
 @media (max-width: 720px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
