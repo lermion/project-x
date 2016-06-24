@@ -2860,7 +2860,7 @@ spam-item {
 .comment-imges .comment-list:nth-child(7n) {
 	margin-right: 0;
 }
-.comment-imges .comment-list  img{
+.comment-imges .comment-list img {
 	max-width: 300%;
     	max-height: 300%;
 }
