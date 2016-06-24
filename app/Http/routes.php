@@ -50,7 +50,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('add_first_info', 'UserController@addFirstInfo');
         Route::get('show/{id}', 'UserController@show');
         Route::post('subscribe/store', 'SubscriberController@store');
-        Route::get('{id}/publication', 'PublicationController@userPublication');
+        Route::get('{id}/subscription', 'SubscriberController@subscription');
+        Route::get('{id}/subscribers', 'SubscriberController@subscribers');
     });
     Route::get('country', 'CountryController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
