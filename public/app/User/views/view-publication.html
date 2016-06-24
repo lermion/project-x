@@ -39,21 +39,21 @@
 	</div>
 	<div class="likes">
 		<div class="likes-item">
-			<a href="" class="like">Тема</a>
+			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема</a>
 			<p class="like-item">
 				В теме 
-				<span class="you"> Вы </span>
-				<span class="more">и еще</span>
-				<span class="count-like"> 210 </span>
+				<span ng-if="singlePublication.user_like" class="you"> Вы </span>
+				<span ng-if="singlePublication.user_like" class="more">и еще</span>
+				<span class="count-like"> {{singlePublication.like_count - 1}} </span>
 				чел.
 			</p>
 		</div>
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments">
-		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
+	<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
+		<a href="javascript:void(0);" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 	</div>
-	<div class="visible-comments">
+	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
@@ -96,7 +96,7 @@
 		<div class="add">
 			<div class="text-field">
 				<textarea name="" id="" placeholder="Текст комментария..." ng-model="pubText"></textarea>
-				<div class="smiles">
+				<!-- <div class="smiles">
 					<div class="smiles-item"></div>
 					<div class="smile">
 						<div class="smile-item">
@@ -167,7 +167,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>	
 			<div class="new-add" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">		<div class="new-img">
 					<div class="inner">

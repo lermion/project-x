@@ -24,4 +24,24 @@ class SubTest extends TestCase
             ]);
         $this->seeInDatabase('subscribers', ['user_id' => $user2->id, 'user_id_sub' => $user1->id]);
     }
+
+    public function testSubscription()
+    {
+        $user = \App\User::first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $this->json('GET', 'user/'.$user->id.'/subscription')->AssertResponseOk();
+    }
+
+    public function testSubscribers()
+    {
+        $user = \App\User::first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $this->json('GET', 'user/'.$user->id.'/subscribers')->AssertResponseOk();
+    }
 }

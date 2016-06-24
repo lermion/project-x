@@ -245,7 +245,9 @@ class PublicationController extends Controller
                 ]);
             }
             return response()->json(['status' => true,
-                'like_count' => $publication->likes()->count()]);
+                'like_count' => $publication->likes()->count(),
+                'user_like' => $publication->likes()->where('user_id',Auth::id())->first()!=null
+            ]);
         } else {
             $responseData = [
                 "status" => false,

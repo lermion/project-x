@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Publication extends Model
@@ -95,6 +96,7 @@ class Publication extends Model
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->find($id);
         $publication->like_count = $publication->likes()->count();
+        $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
         foreach ($publication->comments as &$comment) {
             $comment->like_count = $comment->likes()->count();

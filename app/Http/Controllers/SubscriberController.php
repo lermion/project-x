@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Subscriber;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -29,7 +30,7 @@ class SubscriberController extends Controller
 
         $userId = $request->input('user_id');
         $userIdSub = Auth::id();
-        if($userId==$userIdSub){
+        if ($userId == $userIdSub) {
             $result = [
                 "status" => false,
                 "error" => [
@@ -39,7 +40,7 @@ class SubscriberController extends Controller
             ];
             return response()->json($result);
         }
-        if( !Auth::check()){
+        if (!Auth::check()) {
             $result = [
                 "status" => false,
                 "error" => [
@@ -57,9 +58,55 @@ class SubscriberController extends Controller
             $resultData['is_sub'] = false;
             return response()->json($resultData);
         } else {
-            Subscriber::create(['user_id'=>$userId,'user_id_sub'=>$userIdSub]);
+            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub]);
             $resultData['is_sub'] = true;
             return response()->json($resultData);
+        }
+    }
+
+    public function subscription($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $subscription = $user->subscription;
+            if (Auth::check()) {
+                foreach ($subscription as &$sub) {
+                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                }
+            }
+            return $subscription;
+        } else {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+    }
+
+    public function subscribers($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $subscribers = $user->subscribers;
+            if (Auth::check()) {
+                foreach ($subscribers as &$sub) {
+                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                }
+            }
+            return $subscribers;
+        } else {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($responseData);
         }
     }
 }

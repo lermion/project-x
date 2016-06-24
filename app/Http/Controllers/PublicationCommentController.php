@@ -78,9 +78,11 @@ class PublicationCommentController extends Controller
                 ]);
             }
         }
+        $comment = Comment::with('videos', 'images', 'user')->find($comment->id);
+        $comment->like_count = $comment->likes()->count();
         $responseData = [
             "status" => true,
-            "comment" => Comment::with('videos', 'images', 'user')->find($comment->id)
+            "comment" => $comment
         ];
         return response()->json($responseData);
     }
