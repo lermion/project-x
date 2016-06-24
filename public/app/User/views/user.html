@@ -34,16 +34,16 @@
 					<div class="user-status">
 						<a class="user-name" href="" ng-hide="profileEdition">{{userData.first_name}} {{userData.last_name}}</a>
 						<div class="rewrite-fields">
-							<input type="text" ng-show="profileEdition" placeholder="name" ng-model="userData.first_name">
-							<input type="text" ng-show="profileEdition" placeholder="lastname" ng-model="userData.last_name">
+							<input type="text" ng-show="profileEdition" placeholder="Имя" ng-model="userData.first_name">
+							<input type="text" ng-show="profileEdition" placeholder="Фамилия" ng-model="userData.last_name">
 						</div>
 						<p>{{userData.is_online ? 'Online' : 'Offline'}}</p>
 					</div>
 					
-					<div class="counts" ng-class="myProfile ? '' : 'another-user'" ng-click="openPublication(userData.id)">
-						<a href="" class="counter">
+					<div class="counts" ng-class="myProfile ? '' : 'another-user'" >
+						<a href="" class="counter" ng-click="openPublication(userData.id)">
 							<p class="notes">Публикации</p>
-							<span>41</span>
+							<span>{{userData.publications_count}}</span>
 						</a>
 						<a href="" class="counter" ng-show="myProfile" ng-click="openContacts(userData.id)">
 							<p class="contacts">Контакты</p>
@@ -51,11 +51,11 @@
 						</a>
 						<a href="" class="counter" ng-click="openSubscribers(userData.id)">
 							<p class="contacts-off">Подписчики</p>
-							<span>4169</span>
+							<span>{{userData.subscribers_count}}</span>
 						</a>
 						<a href="" class="counter" ng-click="openSubscribe(userData.id)">
 							<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
-							<span>41</span> 
+							<span>{{userData.subscription_count}}</span> 
 						</a>
 					</div>
 					<p class="status-user" ng-hide="profileEdition">{{userData.status}}</p>					
