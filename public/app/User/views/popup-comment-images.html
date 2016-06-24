@@ -1,43 +1,10 @@
 <div class="comment-imges">
 	<div class="comment-img">
-		<img src="../../../images/pic1.jpg">
+		<img ng-src="{{ngDialogData.images[0].url}}">
 	</div>
 	<div class="comment-imges-list">
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
-		</a>
-		<a href="" class="comment-list">
-			<img src="../../../images/pic1.jpg" alt="">
+		<a href="" ng-repeat="image in ngDialogData.images" class="comment-list">
+			<img ng-src="{{image.url}}" alt="">
 		</a>
 	</div>
 </div>

@@ -323,11 +323,14 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.showMoreImages = function(){
+		$scope.showMoreImages = function(images){
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
-				scope: $scope
+				scope: $scope,
+				data: {
+					images: images
+				}
 			});
 		}
 		$scope.addCommentLike = function(comment){
