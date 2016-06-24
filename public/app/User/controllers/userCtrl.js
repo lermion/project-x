@@ -10,7 +10,8 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 		$scope.images = {};
-
+		$scope.commentModel = {pubText: ''};
+		var emptyPost = {pubText: ''};
 		$http.get('/static_page/get/name')
             .success(function (response){            	
                 $scope.staticPages = response;
@@ -315,6 +316,7 @@ angular.module('placePeopleApp')
 			}
 		};
 		$scope.addNewComment = function(pubId, pubText, flow){
+			$scope.commentModel = angular.copy(emptyPost);
 			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
 				flow.cancel();
 				$scope.singlePublication.comments.push(response.data.comment);
@@ -339,13 +341,10 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.addPublicationLike = function(pub, isCurrentUser){
+		$scope.addPublicationLike = function(pub){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
-				if(isCurrentUser){
-					pub.user_like = response.user_like;
-				}else{
-					pub.like_count = response.like_count;
-				}
+				pub.user_like = response.user_like;
+				pub.like_count = response.like_count;
 			},
 			function(error){
 				console.log(error);
