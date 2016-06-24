@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
         Route::get('show/{id}', 'UserController@show');
+        Route::get('{id}/publication', 'PublicationController@userPublication');
         Route::post('subscribe/store', 'SubscriberController@store');
         Route::get('{id}/subscription', 'SubscriberController@subscription');
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
