@@ -324,6 +324,7 @@ angular.module('placePeopleApp')
 			});
 		}
 		$scope.showMoreImages = function(images){
+			$scope.imagesInPopup = images;
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
@@ -333,6 +334,13 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
+		$scope.changeMainImage = function(image, flag){
+			if(flag){
+				$scope.imagesInPopup[0].url = image.url;
+			}else{
+				$scope.singlePublication.images[0].url = image.url;
+			}
+		}
 		$scope.addCommentLike = function(comment){
 			PublicationService.addCommentLike(comment.id).then(function(response){
 				comment.like_count = response.like_count;
@@ -341,7 +349,7 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.addPublicationLike = function(pub){
+		$scope.addPublicationLike = function(pub, isCurrentUser){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
 				pub.user_like = response.user_like;
 				pub.like_count = response.like_count;

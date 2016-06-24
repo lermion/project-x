@@ -28,7 +28,6 @@ angular.module('placePeopleApp')
 			formData.append('text', pubText);
 			if (flow){
 				angular.forEach(flow.files, function(item){
-					console.log(item);
 					formData.append('images[]', item.file);
 				});
 			}

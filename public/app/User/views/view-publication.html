@@ -26,8 +26,8 @@
 		<div class="publication-ava">
 			<img ng-src="{{singlePublication.images[0].url}}">
 		</div>
-		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">			
-			<div ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
+		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">		
+			<div ng-if="$index > 0" ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
 				<img ng-src="{{image.url}}">
 			</div>
 			<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
@@ -39,12 +39,12 @@
 	</div>
 	<div class="likes">
 		<div class="likes-item">
-			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication)" class="like">Тема</a>
+			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема</a>
 			<p class="like-item">
 				В теме 
 				<span ng-if="singlePublication.user_like" class="you"> Вы </span>
 				<span ng-if="singlePublication.user_like" class="more">и еще</span>
-				<span class="count-like"> {{singlePublication.user_like ? singlePublication.like_count - 1 : 0}} </span>
+				<span class="count-like">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}}</span>
 				чел.
 			</p>
 		</div>
@@ -57,7 +57,7 @@
 		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
-					<img src="{{userData.avatar_path}}" alt="">
+					<img ng-src="{{comment.user.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="comment">
@@ -72,7 +72,7 @@
 				<p class="comment-item">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
 					<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
-						<img src="{{image.url}}">
+						<img ng-src="{{image.url}}">
 					</a>
 					<a ng-show="comment.images.length >= 4" href="javascript:void(0);" ng-click="showMoreImages(comment.images)" class="comment-pic-item">
 						<p>Ещё {{comment.images.length - 3}} фото</p>
