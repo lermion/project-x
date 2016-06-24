@@ -119,11 +119,10 @@ angular.module('placePeopleApp')
 
 		//Sign on
 		$scope.sign = function(){
-			$scope.isSigned=!$scope.isSigned;
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){							
     			if (res.status) {
-    				$scope.isSigned = res.is_sub
+    				$scope.isSigned = res.is_sub;
     			} else {
     				if (parseInt(res.error.code) === 1) {	    					
     					// 1 userId
@@ -158,7 +157,13 @@ angular.module('placePeopleApp')
 			}
 		};		
 
-		$scope.openSubscribers = function(userId){	
+		$scope.openSubscribers = function(userId){
+			PublicationService.getSubscribers(userId).then(function(response){
+				$scope.subscribers = response;
+			},
+			function(error){
+				console.log(error);
+			});
 			if ($window.innerWidth <= 700) {
 					$state.go('subscribers', {username: $stateParams.username});
 			} else {
@@ -171,6 +176,12 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.openSubscribe = function(userId){
+			PublicationService.getSubscription(userId).then(function(response){
+				$scope.subscriptions = response;
+			},
+			function(error){
+				console.log(error);
+			});
 			if ($window.innerWidth <= 700) {
 				$state.go('subscribes', {username: $stateParams.username});
 			}
