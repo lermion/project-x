@@ -316,9 +316,11 @@ angular.module('placePeopleApp')
 		$scope.addNewComment = function(pubId, pubText, flow){
 			$scope.commentModel = angular.copy(emptyPost);
 			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
-				flow.cancel();
-				$scope.singlePublication.comments.push(response.data.comment);
-				$scope.singlePublication.comment_count++;
+				if(response.data.status){
+					flow.cancel();
+					$scope.singlePublication.comments.push(response.data.comment);
+					$scope.singlePublication.comment_count++;
+				}
 			},
 			function(error){
 				console.log(error);
