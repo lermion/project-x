@@ -1,6 +1,6 @@
 angular.module('placePeopleApp')
-    .controller('settingsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService){
+    .controller('settingsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService',  'ngDialog',
+    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
     		$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
@@ -60,5 +60,31 @@ angular.module('placePeopleApp')
 		w.bind('resize', function(){
 		  $scope.$apply();
 		});
+
+	$scope.myImage='';
+	$scope.myCroppedImage='';
+	var handleFileSelect = function(evt) {
+		var file = evt.currentTarget.files[0];
+		var reader = new FileReader();
+		reader.onload = function (evt) {
+			$scope.$apply(function($scope){
+				$scope.myImage = evt.target.result;
+				ngDialog.open({
+					template: '../app/Settings/views/crop-image.html',
+					className: 'settings-add-ava ngdialog-theme-default',
+					scope: $scope
+				});
+			});
+		};
+		reader.readAsDataURL(file);
+	};
+	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
+
+	$scope.saveCropp = function(img, cropped){	
+		$scope.croppedImg = img;
+		$scope.croppedFile = cropped;
+		$scope.showEditAva = false;	
+		ngDialog.closeAll();	
+	};
 
 }]);
