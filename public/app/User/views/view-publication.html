@@ -74,7 +74,7 @@
 					<a ng-repeat="image in comment.images" ng-click="showMoreImages()" href="javascript:void(0);" class="comment-pic-item">
 						<img src="{{image.url}}">
 					</a>
-					<a href="javascript:void(0);" class="comment-pic-item">
+					<a href="javascript:void(0);" ng-click="showMoreImages()" class="comment-pic-item">
 						<p>Ещё 52 фото</p>
 					</a>
 				</div>
