@@ -1,14 +1,14 @@
-<h5>Новая публикация</h5>
-<div class="publication" flow-init>
+<h5>Редактировать публикацию</h5>
+<div class="publication" flow-init flow-name="images.flow">
 	<div class="publication-item">
 		<a class="user" ui-sref="user({username: loggedUser})">
 			<span class="ava">
-				<img src="{{userData.avatar_path}}" alt="">
+				<img src="{{currPub.user.avatar_path}}" alt="">				
 			</span>
-			<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
+			<p class="user-name">{{currPub.user.first_name}} {{currPub.user.last_name}}</p>
 		</a>
 		<form action="">
-			<input type="checkbox" id="anon" ng-model="isAnonPub">
+			<input type="checkbox" id="anon" ng-model="currPub.isAnonPub">
 			<label for="anon">
 				<span></span>
 				Анонимная публикация
@@ -16,8 +16,8 @@
 		</form>
 	</div>
 	<div class="text-field">
-		<textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText"></textarea>
-		<div class="smiles">
+		<textarea name="" id="" placeholder="Текст публикации..." ng-model="currPub.text"></textarea>
+		<!-- <div class="smiles">
 			<div class="smiles-item"></div>
 			<div class="smile">
 				<div class="smile-item">
@@ -88,46 +88,38 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>		
-	<!-- <a href="" ng-click="rebuildScroll()">Rebuild</a>	 -->
-
-		<!-- <div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="true" rebuild-on="rebuild:me"  style="max-height: 200px; overflow:hidden; position:relative;"> -->
-		<div class="new-add" ng-show="showPubAdd">
-
-			<!-- <div class="inner" >
-				<div class="close">
-					<div class="close-inner">
-						<p>Удалить</p>
+		<div class="new-add" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
+			<div class="new-img" ng-repeat="file in $flow.files">		  
+				<div class="inner">
+					<div class="close" ng-click="deletePubFile(file.name, $flow.files)">
+						<div class="close-inner">
+							<p>Удалить</p>
+						</div>
+					</div>
+					<img flow-img="file" ng-show="fileTypeCheck(file.file.type)"> 
+					<!-- <img ng-src="{{file.url}}">  -->
+					<div class="check" ng-click="setMainPubPhoto(file)" style="{{$index === 0  ? 'display:block;' : ''}}">				
+						<div class="check-inner">
+							<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+						</div>
 					</div>
 				</div>
-				<img src="../../../images/smil-hover.png" alt=""> 
-				<div class="check">
-					<div class="check-inner">
-						<p>Сделать заставкой публикации</p>
-					</div>
-				</div>
-			</div> -->
-
-			<!-- <tr ng-repeat="file in $flow.files">
-			    <td>{{$index+1}}</td>
-			    <td>{{file.name}}</td>
-			</tr> -->
-			<p>{{$flow}}</p>
-
-		</div>	
-
+				<p class="img-name">{{file.name}}<!-- ненаглядненькаааяяя --></p>
+			</div>
+		</div>
 	<div class="publication-footer" >
 		<div class="add-objects"> 
-			<!-- <input type="file" id="add-object" flow-btn/>   -->
-			<label for="add-object" ng-click="showPubAdd=!showPubAdd" flow-btn>
+			<input type="file" id="add-object" flow-btn multiple/>  
+			<label for="add-object" ng-click="openPublicationPreviewBlock($flow.files)">
 				<span class="add"></span>
 				Добавить фото или видео *
 			</label>                                         
 		</div>
 		<div class="publication-footer-button">
-			<a href="" class="cansel" ng-click="closePopup();newPublicationData={};">Отменить</a>  
-			<a href="" class="publication-button" ng-click="publishNewPub(isAnonPub, pubText);">Опубликовать</a>    
+			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
+			<a href="" class="publication-button" ng-click="publishNewPub(currPub.text, currPub.isAnonPub, $flow.files);" ladda="">Сохранить</a>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>

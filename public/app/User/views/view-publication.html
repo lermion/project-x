@@ -11,10 +11,10 @@
 			<div href="" class="user-menu">
 				<div class="menu-item">
 					<div class="inner">
-						<a href="" ng-click="editPub(pub)">Редактировать</a>
-						<a href="" ng-click="sharePub(pub)">Переслать</a>
-						<a href="" ng-click="getPubLink(pub)">Получить ссылку</a>
-						<a href="" ng-click="alertPub(pub)">Пожаловаться</a>
+						<a href="" ng-click="editPub(singlePublication)">Редактировать</a>
+						<a href="" ng-click="sharePub(singlePublication)">Переслать</a>
+						<a href="" ng-click="getPubLink(singlePublication)">Получить ссылку</a>
+						<a href="" ng-click="alertPub(singlePublication)">Пожаловаться</a>
 						<a href="" ng-click="deletePub(singlePublication)">Удалить</a>
 					</div>
 				</div>
@@ -51,10 +51,10 @@
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
 	<div class="more-comments">
-		<a href="" class="all-comments">Еще 8 комментариев</a>
+		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 	</div>
 	<div class="visible-comments">
-		<div ng-repeat="comment in comments" class="user-comment">
+		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
 					<img src="{{userData.avatar_path}}" alt="">
@@ -65,22 +65,22 @@
 					<div class="info-item">
 						<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 						<p class="time" am-time-ago="comment.created_at"></p>
-						<a href="" class="like-counter">{{comment.like_count}}</a>
+						<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert">{{hideSomePubText ? 'Пожаловаться':''}}</a>
+					<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 				</div>
 				<p class="comment-item">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
-					<a href="" class="comment-pic-item">
-					<img src="../../../images/pic1.jpg">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
 					</a>
-					<a href="" class="comment-pic-item">
-					<img src="../../../images/pic1.jpg">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
 					</a>
-					<a href="" class="comment-pic-item">
-					<img src="../../../images/pic1.jpg">
+					<a href="javascript:void(0);" class="comment-pic-item">
+						<img src="../../../images/pic1.jpg">
 					</a>
-					<a href="" class="comment-pic-item">
+					<a href="javascript:void(0);" class="comment-pic-item">
 					<p>Ещё 52 фото</p>
 					</a>
 				</div>
@@ -96,7 +96,7 @@
 		<div class="add">
 			<div class="text-field">
 				<textarea name="" id="" placeholder="Текст комментария..." ng-model="pubText"></textarea>
-				<div class="smiles">
+				<!-- <div class="smiles">
 					<div class="smiles-item"></div>
 					<div class="smile">
 						<div class="smile-item">
@@ -167,7 +167,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>	
 			<div class="new-add" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">		<div class="new-img">
 					<div class="inner">
