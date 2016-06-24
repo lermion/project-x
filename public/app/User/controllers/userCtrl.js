@@ -293,6 +293,7 @@ angular.module('placePeopleApp')
 				getAllCommentsPublication(pubId);
 				$scope.limit = 6;
 				$scope.singlePublication = response;
+				$scope.mainImage = response.images[0].url;
 				if ($window.innerWidth <= 700) {
 				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
@@ -325,6 +326,7 @@ angular.module('placePeopleApp')
 		}
 		$scope.showMoreImages = function(images){
 			$scope.imagesInPopup = images;
+			$scope.mainImageInPopup = images[0].url;
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
@@ -336,9 +338,9 @@ angular.module('placePeopleApp')
 		}
 		$scope.changeMainImage = function(image, flag){
 			if(flag){
-				$scope.imagesInPopup[0].url = image.url;
+				$scope.mainImageInPopup = image.url;
 			}else{
-				$scope.singlePublication.images[0].url = image.url;
+				$scope.mainImage = image.url;
 			}
 		}
 		$scope.addCommentLike = function(comment){
