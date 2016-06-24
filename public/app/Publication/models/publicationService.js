@@ -24,7 +24,6 @@ angular.module('placePeopleApp')
 		}
 
 		function addCommentPublication(pubId, pubText, flow){
-			console.log(flow);
 			var formData = new FormData();
 			formData.append('text', pubText);
 			if (flow){

@@ -71,11 +71,11 @@
 				</div>
 				<p class="comment-item">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
-					<a ng-repeat="image in comment.images" ng-click="showMoreImages()" href="javascript:void(0);" class="comment-pic-item">
+					<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages()" href="javascript:void(0);" class="comment-pic-item">
 						<img src="{{image.url}}">
 					</a>
-					<a href="javascript:void(0);" ng-click="showMoreImages()" class="comment-pic-item">
-						<p>Ещё 52 фото</p>
+					<a ng-show="comment.images.length >= 4" href="javascript:void(0);" ng-click="showMoreImages()" class="comment-pic-item">
+						<p>Ещё {{comment.images.length - 3}} фото</p>
 					</a>
 				</div>
 			</div>
@@ -173,7 +173,7 @@
 						</div>
 						<img flow-img="file">
 					</div>
-					<p class="img-name">ненаглядненькаааяяя</p>
+					<p class="img-name">{{file.name}}</p>
 				</div>
 			</div>
 			<div class="publication-footer" >
