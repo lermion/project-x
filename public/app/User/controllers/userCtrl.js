@@ -316,7 +316,8 @@ angular.module('placePeopleApp')
 		};
 		$scope.addNewComment = function(pubId, pubText, flow){
 			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
-				$scope.singlePublication.comments.push(response.comment);
+				flow.cancel();
+				$scope.singlePublication.comments.push(response.data.comment);
 				$scope.singlePublication.comment_count++;
 			},
 			function(error){
