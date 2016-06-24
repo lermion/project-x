@@ -18,7 +18,8 @@ angular.module('placePeopleApp')
 						getAllCommentsPublication: getAllCommentsPublication,
 						deleteCommentPublication: deleteCommentPublication,
 						addCommentLike: addCommentLike,
-						addPublicationLike: addPublicationLike
+						addPublicationLike: addPublicationLike,
+						getSinglePublication: getSinglePublication
 
 		}
 
@@ -71,7 +72,18 @@ angular.module('placePeopleApp')
 					defer.reject(error);
 				});
 			return defer.promise;
-			
+		}
+
+		function getSinglePublication(pubId){
+			var defer = $q.defer();
+			$http.get("publication/show/" + pubId)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
 		}
 
 		function deleteCommentPublication(commentId){

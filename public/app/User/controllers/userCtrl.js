@@ -8,6 +8,7 @@ angular.module('placePeopleApp')
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
+		$scope.loggedUserId = storage.userId;
 		$scope.images = {};
 
 		$http.get('/static_page/get/name')
@@ -289,16 +290,22 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.showPublication = function(pub){
-			getAllCommentsPublication(pub.id);
-			$scope.singlePublication = pub;
+		$scope.showPublication = function(pubId){
+			PublicationService.getSinglePublication(pubId).then(function(response){
+				$scope.singlePublication = response;
+			},
+			function(error){
+				console.log(error);
+			});
+			getAllCommentsPublication(pubId);
+			//$scope.singlePublication = pub;
 			$scope.limit = 6;
 			// $scope.hideSomePubText = false;
 			if ($window.innerWidth <= 700) {
 				// if($window.innerWidth <= 520){
 				// 	$scope.hideSomePubText = true;					
 				// }
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pub.id});								
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 			}  else {
 				ngDialog.open({
 					template: '../app/User/views/view-publication.html',
@@ -324,9 +331,13 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.addPublicationLike = function(pubId){
-			PublicationService.addPublicationLike(pubId).then(function(response){
-				console.log(response);
+		$scope.addPublicationLike = function(pub, isCurrentUser){
+			PublicationService.addPublicationLike(pub.id).then(function(response){
+				if(isCurrentUser){
+					pub.user_like = response.user_like;
+				}else{
+					pub.like_count = response.like_count;
+				}
 			},
 			function(error){
 				console.log(error);
