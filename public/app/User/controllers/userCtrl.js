@@ -1,7 +1,7 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
+    .controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
     	'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout',
-    	function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
+    	function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
     		$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout){
 		/* Service info*/
 		amMoment.changeLocale('ru');
@@ -290,30 +290,33 @@ angular.module('placePeopleApp')
 					});
 			
 		};
-
-		$scope.showPublication = function(pubId){
+		if($stateParams.id){
+			getSinglePublication($stateParams.id);
+			$scope.returnToBack = function(){
+				$state.go("user", {username: $stateParams.username});
+			}
+		}
+		function getSinglePublication(pubId){
 			PublicationService.getSinglePublication(pubId).then(function(response){
+				getAllCommentsPublication(pubId);
+				$scope.limit = 6;
 				$scope.singlePublication = response;
+				if ($window.innerWidth <= 700) {
+				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
+				}else{
+					ngDialog.open({
+						template: '../app/User/views/view-publication.html',
+						className: 'view-publication ngdialog-theme-default',
+						scope: $scope
+					});
+				}
 			},
 			function(error){
 				console.log(error);
 			});
-			getAllCommentsPublication(pubId);
-			//$scope.singlePublication = pub;
-			$scope.limit = 6;
-			// $scope.hideSomePubText = false;
-			if ($window.innerWidth <= 700) {
-				// if($window.innerWidth <= 520){
-				// 	$scope.hideSomePubText = true;					
-				// }
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
-			}  else {
-				ngDialog.open({
-					template: '../app/User/views/view-publication.html',
-					className: 'view-publication ngdialog-theme-default',
-					scope: $scope
-				});
-			}
+		}
+		$scope.showPublication = function(pub){
+			getSinglePublication(pub.id);
 		};
 		$scope.addNewComment = function(pubId, pubText, flow){
 			$scope.commentModel = angular.copy(emptyPost);
