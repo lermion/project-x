@@ -482,7 +482,7 @@ angular.module('placePeopleApp')
 					videos.push(file.file);
 				}				
 			});			
-			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedPhotos, pubEditDeletedVideos)
+			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
 			.then(					
 					function(res){									
 						if (res.status) {
