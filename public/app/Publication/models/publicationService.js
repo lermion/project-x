@@ -28,7 +28,6 @@ angular.module('placePeopleApp')
 			formData.append('text', pubText);
 			if (flow){
 				angular.forEach(flow.files, function(item){
-					console.log(item);
 					formData.append('images[]', item.file);
 				});
 			}
@@ -148,7 +147,8 @@ angular.module('placePeopleApp')
 								return defer.promise;
 		}
 		function updatePublication(pubId, text, isAnon, isMain, images, videos, delete_videos, delete_images){
-				var data = new FormData();
+			
+			var data = new FormData();
             data.append('text', text);
             data.append('is_anonym', isAnon);
             data.append('is_main', isMain);            
@@ -158,12 +158,12 @@ angular.module('placePeopleApp')
             videos.forEach(function (video) {
                 data.append('videos[]', video);
             });
-            delete_images.forEach(function (img) {
-                data.append('delete_images[]', img);
+            delete_images.forEach(function (del_img) {            	
+                data.append('delete_images[]', del_img);
             });
-            delete_videos.forEach(function (video) {
-                data.append('delete_videos[]', video);
-            });            
+            delete_videos.forEach(function (del_video) {
+                data.append('delete_videos[]', del_video);
+            });                       
             
             var config = {
                     headers: {
@@ -171,8 +171,8 @@ angular.module('placePeopleApp')
                     },
                     transformRequest: angular.identity
                 },            
-                defer = $q.defer();
-                    $http.post(path + 'publication/update/'+pubId, data, config)
+                defer = $q.defer();                
+                    $http.post(path + 'publication/update/' + pubId, data, config)
                         .success(function (response){
                             defer.resolve(response);
                         })

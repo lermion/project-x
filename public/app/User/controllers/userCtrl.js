@@ -293,6 +293,7 @@ angular.module('placePeopleApp')
 				getAllCommentsPublication(pubId);
 				$scope.limit = 6;
 				$scope.singlePublication = response;
+				$scope.mainImage = response.images[0].url;
 				if ($window.innerWidth <= 700) {
 				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
@@ -315,15 +316,19 @@ angular.module('placePeopleApp')
 		$scope.addNewComment = function(pubId, pubText, flow){
 			$scope.commentModel = angular.copy(emptyPost);
 			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
-				flow.cancel();
-				$scope.singlePublication.comments.push(response.data.comment);
-				$scope.singlePublication.comment_count++;
+				if(response.data.status){
+					flow.cancel();
+					$scope.singlePublication.comments.push(response.data.comment);
+					$scope.singlePublication.comment_count++;
+				}
 			},
 			function(error){
 				console.log(error);
 			});
 		}
 		$scope.showMoreImages = function(images){
+			$scope.imagesInPopup = images;
+			$scope.mainImageInPopup = images[0].url;
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
@@ -333,6 +338,13 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
+		$scope.changeMainImage = function(image, flag){
+			if(flag){
+				$scope.mainImageInPopup = image.url;
+			}else{
+				$scope.mainImage = image.url;
+			}
+		}
 		$scope.addCommentLike = function(comment){
 			PublicationService.addCommentLike(comment.id).then(function(response){
 				comment.like_count = response.like_count;
@@ -341,7 +353,7 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.addPublicationLike = function(pub){
+		$scope.addPublicationLike = function(pub, isCurrentUser){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
 				pub.user_like = response.user_like;
 				pub.like_count = response.like_count;
@@ -482,7 +494,7 @@ angular.module('placePeopleApp')
 					videos.push(file.file);
 				}				
 			});			
-			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedPhotos, pubEditDeletedVideos)
+			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
 			.then(					
 					function(res){									
 						if (res.status) {
