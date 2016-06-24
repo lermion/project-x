@@ -23,19 +23,23 @@ angular.module('placePeopleApp')
 
 		}
 
-		function addCommentPublication(pubId, pubText){
-			var data = {
-				text: pubText
-			},
-			defer = $q.defer();
-			$http.post("publication/comment/store/" + pubId, data)
-				.success(function (response){
-					defer.resolve(response);
-				})
-				.error(function (error){
-					defer.reject(error);
+		function addCommentPublication(pubId, pubText, flow){
+			console.log(flow);
+			var formData = new FormData();
+			formData.append('text', pubText);
+			if (flow){
+				angular.forEach(flow.files, function(item){
+					console.log(item);
+					formData.append('images[]', item.file);
 				});
-			return defer.promise;
+			}
+			return $http({
+				method: 'POST',
+				url: 'publication/comment/store/' + pubId,
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: formData
+			})
 		}
 
 		function addCommentLike(commentId){
