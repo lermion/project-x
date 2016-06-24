@@ -51,7 +51,7 @@
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
 	<div class="more-comments">
-		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
+		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 	</div>
 	<div class="visible-comments">
 		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
@@ -65,9 +65,9 @@
 					<div class="info-item">
 						<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 						<p class="time" am-time-ago="comment.created_at"></p>
-						<a href="" class="like-counter">{{comment.like_count}}</a>
+						<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert">Пожаловаться<!-- {{hideSomePubText ? 'Пожаловаться':''}} --></a>
+					<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 				</div>
 				<p class="comment-item">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">

@@ -288,6 +288,7 @@ $scope.openSubscribe = function(userId){
 		};
 
 		$scope.showPublication = function(pub){
+			getAllCommentsPublication(pub.id);
 			$scope.singlePublication = pub;
 			$scope.limit = 6;
 			// $scope.hideSomePubText = false;
@@ -313,6 +314,14 @@ $scope.openSubscribe = function(userId){
 				console.log(error);
 			});
 		}
+		$scope.addCommentLike = function(comment){
+			PublicationService.addCommentLike(comment.id).then(function(response){
+				comment.like_count = response.like_count;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		$scope.deleteComment = function(commentId, index){
 			PublicationService.deleteCommentPublication(commentId).then(function(response){
 				$scope.singlePublication.comments.splice(index, 1);
@@ -322,9 +331,15 @@ $scope.openSubscribe = function(userId){
 				console.log(error);
 			});
 		}
-		$scope.getAllCommentsPublication = function(pubId){
+		$scope.getAllCommentsPublication = function(pubId, showAllComments){
+			getAllCommentsPublication(pubId, showAllComments);
+		}
+		function getAllCommentsPublication(pubId, showAllComments){
 			PublicationService.getAllCommentsPublication(pubId).then(function(response){
-				$scope.singlePublication.comments = response;
+				if(showAllComments === true){
+					$scope.singlePublication.comments = response;
+				}
+				$scope.lengthAllComments = response.length;
 			},
 			function(error){
 				console.log(error);
