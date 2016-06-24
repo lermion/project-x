@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'is_visible', 'is_avatar'
+        'password', 'remember_token'
     ];
 
     public function publications()
