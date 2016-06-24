@@ -145,7 +145,7 @@ angular.module('placePeopleApp')
 				$scope.statusErr = true;
 				return;
 			} else {				
-				UserService.quickEdit(name, lastname, status, storage.userId)
+				UserService.quickEdit(name, lastname, status)
 				.then(					
 					function(res){								
 						$scope.profileEdition = false;		        
