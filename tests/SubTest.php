@@ -31,6 +31,7 @@ class SubTest extends TestCase
         if (!$user) {
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
+        $this->be($user);
         $this->json('GET', 'user/'.$user->id.'/subscription')->AssertResponseOk();
     }
 
@@ -40,6 +41,7 @@ class SubTest extends TestCase
         if (!$user) {
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
+        $this->be($user);
         $this->json('GET', 'user/'.$user->id.'/subscribers')->AssertResponseOk();
     }
 }

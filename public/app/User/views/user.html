@@ -110,7 +110,7 @@
 			</div> -->
 			<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
-					<a href="" ng-click="showPublication(pub)">
+					<a href="" ng-click="showPublication(pub.id)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
 						<!-- <p>{{pub.images}}</p> -->
 						<!-- <span class="video" ng-show="$index==0"></span> -->
@@ -122,7 +122,7 @@
 			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
 				<div class="photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
-					<a href="" ng-click="showPublication(pub)">
+					<a href="" ng-click="showPublication(pub.id)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
 						<!-- <span class="video" ng-show="$index==1"></span> -->
 					</a>

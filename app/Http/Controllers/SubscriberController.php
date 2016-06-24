@@ -68,7 +68,13 @@ class SubscriberController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            return $user->subscription;
+            $subscription = $user->subscription;
+            if (Auth::check()) {
+                foreach ($subscription as &$sub) {
+                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                }
+            }
+            return $subscription;
         } else {
             $responseData = [
                 "status" => false,
@@ -85,7 +91,13 @@ class SubscriberController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            return $user->subscribers;
+            $subscribers = $user->subscribers;
+            if (Auth::check()) {
+                foreach ($subscribers as &$sub) {
+                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                }
+            }
+            return $subscribers;
         } else {
             $responseData = [
                 "status" => false,
