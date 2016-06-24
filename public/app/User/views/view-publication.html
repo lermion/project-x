@@ -39,12 +39,12 @@
 	</div>
 	<div class="likes">
 		<div class="likes-item">
-			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема</a>
+			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication)" class="like">Тема</a>
 			<p class="like-item">
 				В теме 
 				<span ng-if="singlePublication.user_like" class="you"> Вы </span>
 				<span ng-if="singlePublication.user_like" class="more">и еще</span>
-				<span class="count-like"> {{singlePublication.like_count - 1}} </span>
+				<span class="count-like"> {{singlePublication.user_like ? singlePublication.like_count - 1 : 0}} </span>
 				чел.
 			</p>
 		</div>
@@ -71,11 +71,11 @@
 				</div>
 				<p class="comment-item">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
-					<a ng-repeat="image in comment.images" ng-click="showMoreImages()" href="javascript:void(0);" class="comment-pic-item">
+					<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages()" href="javascript:void(0);" class="comment-pic-item">
 						<img src="{{image.url}}">
 					</a>
-					<a href="javascript:void(0);" ng-click="showMoreImages()" class="comment-pic-item">
-						<p>Ещё 52 фото</p>
+					<a ng-show="comment.images.length >= 4" href="javascript:void(0);" ng-click="showMoreImages()" class="comment-pic-item">
+						<p>Ещё {{comment.images.length - 3}} фото</p>
 					</a>
 				</div>
 			</div>
@@ -87,9 +87,9 @@
 				<img src="{{userData.avatar_path}}" alt="">
 			</a>
 		</div>
-		<div flow-init style="max-height: 250px; overflow:hidden; position:relative;" class="add">
+		<div flow-init style="position:relative;" class="add">
 			<div class="text-field">
-				<textarea name="" id="" placeholder="Текст комментария..." ng-model="pubText"></textarea>
+				<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
 				<!-- <div class="smiles">
 					<div class="smiles-item"></div>
 					<div class="smile">
@@ -166,19 +166,19 @@
 			<div class="new-add">
 				<div class="new-img" ng-repeat="file in $flow.files">
 					<div class="inner">
-						<div class="close">
+						<div ng-click="file.cancel()" class="close">
 							<div class="close-inner">
 								<p>Удалить</p>
 							</div>
 						</div>
 						<img flow-img="file">
 					</div>
-					<p class="img-name">ненаглядненькаааяяя</p>
+					<p class="img-name">{{file.name}}</p>
 				</div>
 			</div>
 			<div class="publication-footer" >
 				<div class="publication-footer-button">
-					<a href="javascript:void(0);" ng-click="addNewComment(singlePublication.id, pubText, $flow)" class="publication-button">Отправить</a>    
+					<a href="javascript:void(0);" ng-click="addNewComment(singlePublication.id, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
 				</div>
 				<div class="add-objects"> 
 					<input type="file" id="add-object" flow-btn>  
@@ -190,4 +190,4 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>

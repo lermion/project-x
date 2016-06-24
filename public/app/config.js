@@ -36,6 +36,16 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Static/views/static.html',
 	      controller: 'staticCtrl'
 	    })
+	    .state('subscribers', {
+	      url: '/:username/subscribers',
+	      templateUrl: '../../app/User/views/popup-user-subscribers.html',
+	      controller: 'userCtrl'
+	    })
+	    .state('subscribes', {
+	      url: '/:username/subscribes',
+	      templateUrl: '../../app/User/views/popup-user-subscribe.html',
+	      controller: 'userCtrl'
+	    })
 	    .state('settings', {
 	      url: '/settings',
 	      templateUrl: '../../app/Settings/views/settings.html',
