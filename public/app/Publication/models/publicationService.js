@@ -147,9 +147,39 @@ angular.module('placePeopleApp')
 												});
 								return defer.promise;
 		}
-		function updatePublication(){
-				console.log();
-				return defer.promise;
+		function updatePublication(pubId, text, isAnon, isMain, images, videos, delete_videos, delete_images){
+				var data = new FormData();
+            data.append('text', text);
+            data.append('is_anonym', isAnon);
+            data.append('is_main', isMain);            
+            images.forEach(function (img) {
+                data.append('images[]', img);
+            });
+            videos.forEach(function (video) {
+                data.append('videos[]', video);
+            });
+            delete_images.forEach(function (img) {
+                data.append('delete_images[]', img);
+            });
+            delete_videos.forEach(function (video) {
+                data.append('delete_videos[]', video);
+            });            
+            
+            var config = {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                },            
+                defer = $q.defer();
+                    $http.post(path + 'publication/update/'+pubId, data, config)
+                        .success(function (response){
+                            defer.resolve(response);
+                        })
+                        .error(function (error){
+                            defer.reject(error);
+                        });
+                return defer.promise;
 		}
 		function deletePublication(pubId){        
 				var defer = $q.defer();
