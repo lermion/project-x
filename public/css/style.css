@@ -1464,8 +1464,8 @@ body.public.user {
 	margin-left: -50px;
 }
 #user-page .photo a img {
-	max-width: 300%;
-	max-height: 300%;
+	max-width: 200%;
+	max-height: 100%;
 	width: auto;
 	height: auto;
 } 
@@ -3130,4 +3130,15 @@ spam-item {
 	cursor: default;
 	color: #666;
 	line-height: 20px;
+}
+.content-item .user-publication-header .user-menu {
+	margin-left: 85px;
+}
+.content-item .user-publication-header  .menu-item {
+	right: 0;
+	left: auto;
+}
+#wrapper .content-item  .user-publication-header {
+	background: #fff;
+	border-bottom: none; 
 }
