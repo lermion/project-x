@@ -2751,32 +2751,25 @@ spam-item {
 	height: auto;
 }
 .contacts-off-container .subscriber,
-.contacts-off-container .subscriber-item,
-.contacts-off-container .subscriber,
 .contacts-off-container .subscriber-item {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-.contacts-off-container .subscriber-item,
 .contacts-off-container .subscriber-item  {
 	width: 80%;
 	justify-content: flex-start;
 }
-.contacts-off-container .subscriber,
 .contacts-off-container .subscriber {
 	border-bottom: 1px solid #eee;
 	padding: 10px 0;
 }
-.contacts-off-container .subscriber:last-child,
 .contacts-off-container .subscriber:last-child {
 	border-bottom: none;
 }
-.contacts-off-container  .subscriber-item .user-ava,
-.contacts-off-container .subscriber-item .user-ava {
+.contacts-off-container  .subscriber-item .user-ava {
 	margin-right: 20px;
 }
-.contacts-off-container .subscriber-item .user-ava .ava,
 .contacts-off-container .subscriber-item .user-ava .ava{
 	border-radius: 50%;
 	display: block;
@@ -2787,14 +2780,12 @@ spam-item {
 	transition: all .3s ease-in-out .2s;
 	cursor: pointer;
 }
-.contacts-off-container .subscriber-item .user-ava .ava:hover,
 .contacts-off-container .subscriber-item .user-ava .ava:hover {
 	opacity: .8;
 }
 .contacts-off-container .subscriber-item .user-ava .ava img {
 	width: 100%;
 }
-.contacts-off-container .user-info .user-name,
 .contacts-off-container .user-info .user-name {
 	font-size: 16.7px;
 	display: block;
@@ -2810,11 +2801,9 @@ spam-item {
 	white-space: nowrap; 
 	cursor: pointer;
 } 
-.contacts-off-container .user-info .user-name:hover,
 .contacts-off-container .user-info .user-name:hover {
 	color: #666;
 }
-.contacts-off-container .user-info .status-user,
 .contacts-off-container .user-info .status-user {
 	color: #666;
 	font-weight: lighter;
@@ -2871,9 +2860,12 @@ spam-item {
 .comment-imges .comment-list:nth-child(7n) {
 	margin-right: 0;
 }
-.comment-imges .comment-list  {
+.comment-imges .comment-list  img{
 	max-width: 300%;
     	max-height: 300%;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div.del-item .del-item {
+	background: #DA5036;
 }
 @media (max-width: 720px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
@@ -2928,6 +2920,23 @@ spam-item {
 	.ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
 		margin-left: -48%;
     		width: 96%;
+	}
+	.contacts-off-container {
+		position: relative;
+	}
+	.contacts-off-container .prev {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 30px;
+		height: 25px;
+		background-image: url(../images/left-arrow-hover.png);
+		background-position: center;
+		background-size: 90%;
+		background-repeat: no-repeat;
+	}
+	.contacts-off-container .prev:hover {
+		background-image: url(../images/left-arrow-hover.png); 
 	}
 
 }
@@ -3033,5 +3042,23 @@ spam-item {
 	}
 	.comment-imges .comment-img {
 		height: 250px;
+	}
+	.contacts-off-container  .subscriber-item .user-ava {
+		margin-right: 10px;
+	}
+	.contacts-off-container .subscriber-item .user-ava .ava {
+		width: 40px;
+    		height: 40px;
+	}
+	.contacts-off-container .user-info .user-name {
+		max-width: 140px;
+    		font-size: 14.6px;
+	}
+	.contacts-off-container .user-info .status-user {
+		display: none;
+	}
+	.contacts-off-container  .subscriber .read {
+		font-size: 13px;
+    		padding: 0 5px;
 	}
 }
