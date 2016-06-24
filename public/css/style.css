@@ -2583,6 +2583,8 @@ spam-item {
 	font-family: "SFUIDisplayLight";
 	transition: all .3s ease-in-out .1s;
 	display: none;
+	width: 20px;
+	height: 20px;
 }
 .visible-comments .comment .alert:before {
 	background: 0 0;
