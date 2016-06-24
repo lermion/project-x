@@ -95,7 +95,8 @@ angular.module('placePeopleApp')
 					if (!$scope.myProfile) {
 						$scope.isSigned = res.is_sub;
 					}					
-					$scope.userData = res;										        
+					$scope.userData = res;
+					getUserPubs(res.id);
 				},
 				function(err){
 					console.log(err);
@@ -114,7 +115,7 @@ angular.module('placePeopleApp')
 			);
 		}
 
-		getUserPubs(storage.userId);
+		
 
 		//Sign on
 		$scope.sign = function(){

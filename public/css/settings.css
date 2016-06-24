@@ -18,9 +18,9 @@
 
 .settingsss .set_1 {
     display: flex;
-    justify-content: space-around;
-    padding: 15px;
-    align-items: flex-start;
+   /* justify-content: space-around;*/
+    padding: 15px;/*
+    align-items: flex-start;*/
 }
 
 .settingsss .set_2 {
@@ -62,12 +62,17 @@
 
 .settingsss .text p{
     margin: 0;
+    width: 230px;
+}
+.settingsss .text {
+   margin-left: 50px;
 }
 
 .settingsss .text a:nth-child(2) {
-  color: #039be5;
-  font-size: 12px;
-  font-family: "SFUIDisplayLight";
+     color: #039be5;
+    font-size: 12px;
+    font-family: "SFUIDisplayLight";
+    margin-left: 10px;
 }
 
 .settingsss .set_2 p {
@@ -90,14 +95,24 @@
 }
 
 .settingsss .text p input[type="text"] {
-    width: 60%;
-    margin: 0 5px 20px 0;
-    height: 30px;
-    border: none;
-    border-radius: 5px;
+    border-radius: 3px 3px 0 0;
+    border-bottom: 1px solid #999;
+    width: 290px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    line-height: 37px;
+    height: 37px;
+    font-size: 14.6px;
+    font-family: Tahoma;
+    font-weight: 400;
+    background: #fff;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out .2s;
+    margin-bottom: 0;
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
-    padding: 0 0 0 5px;
 }
+
 .settingsss .text p input[type="submit"] {
     width: 30%;
     height: 30px;
@@ -111,22 +126,38 @@
 }
 
 .settingsss .text p:nth-child(2) input[type="submit"] {
-    margin-left: 60%;
+    width: 150px;
+    border-radius: 3px;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
+    position: relative;
+    display: block;
+    background: #ec6045;
+    font-size: 14.6px;
+    color: #fff;
+    cursor: pointer;
+    line-height: 40px;
+    height: inherit;
+    font-family: "SFUIDisplayMedium";
+    box-shadow: none;
+    margin-left: 70px;
+}
+
+.settingsss .text p:nth-child(2) input[type="submit"]:hover  {
+  background: #DA5036;
 }
 
 .settingsss .text p textarea {
-	  width: 92%;
-    height: 30px;
+	  width: 275px;
     border: none;
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
     background: none;
     border-radius: 5px;
     display: inline-block;
     vertical-align: top;
-    margin: 0 7px 20px 0;
-    height: 50px;
+    margin: 0 0 20px 0;
+    height: 70px;
     resize: none;
-    padding: 5px 5px 0px 5px;
+    padding: 5px 0 0px 15px;
 }
 
 .settingsss .text p textarea::-webkit-input-placeholder {
@@ -142,6 +173,11 @@
 
 
 /*             download avatar                */
+.settingsss .add-ava label .ava img {
+  height: 100%;
+}
+
+
 .settingsss .add-ava label {
     display: flex;
     width: 100%;
@@ -323,9 +359,28 @@
 		display: inline-flex;
 		flex-direction: column;
 	}
+  .settingsss .status,
+  .settingsss .contact {
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  .settingsss .text {
+      margin-left: 10px;
+      margin-top: 20px;
+  }
+  .settingsss .text p input[type="text"] {
+    width: 230px;
+  }
   .settingsss .text p textarea {
-    width: 91%;
-    margin: 0 7px 20px 5px;
+    width:230px;
+  }
+  .settingsss .text p{
+    width: inherit;
+  }
+  .settingsss .text p:nth-child(2) input[type="submit"] {
+      margin-left: 0;
   }
 }
 
