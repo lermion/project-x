@@ -2882,20 +2882,15 @@ spam-item {
 		line-height: 25px;
 		margin-top: 5px;
 	}
+	.contacts-off-container {
+		width: 100%;
+		padding: 20px 15px;
+		box-sizing: border-box;
+		background: #fff;
+	}
 	.publication-footer-button .publication-button {
 		margin-left: 0;
 	}
-	// .publication .new-add .inner {
-	// 	width: 136px;
-	// 	height: 80px;
-	// }
-	// .publication .new-add .inner:nth-child(4n) {
-	// 	margin: 0 5px 5px 0;
-	// }
-	// .publication .new-add .inner:nth-child(3n) {
-	// 	margin: 0 0 5px 0;
-	// }
-
 	.user-publication-header .return {
 		display: block;
 	}
