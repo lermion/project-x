@@ -158,8 +158,7 @@ angular.module('placePeopleApp')
             videos.forEach(function (video) {
                 data.append('videos[]', video);
             });
-            delete_images.forEach(function (del_img) {
-            	console.log(del_img);
+            delete_images.forEach(function (del_img) {            	
                 data.append('delete_images[]', del_img);
             });
             delete_videos.forEach(function (del_video) {
