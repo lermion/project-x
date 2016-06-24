@@ -314,13 +314,20 @@ angular.module('placePeopleApp')
 				});
 			}
 		};
-		$scope.addNewComment = function(pubId, pubText){
-			PublicationService.addCommentPublication(pubId, pubText).then(function(response){
+		$scope.addNewComment = function(pubId, pubText, flow){
+			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
 				$scope.singlePublication.comments.push(response.comment);
 				$scope.singlePublication.comment_count++;
 			},
 			function(error){
 				console.log(error);
+			});
+		}
+		$scope.showMoreImages = function(){
+			ngDialog.open({
+				template: '../app/User/views/popup-comment-images.html',
+				className: 'popup-comment-images ngdialog-theme-default',
+				scope: $scope
 			});
 		}
 		$scope.addCommentLike = function(comment){

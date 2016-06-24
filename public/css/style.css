@@ -2027,6 +2027,8 @@ spam-item {
 	position: relative;
 }
 .add-comment .new-add {
+	display: flex;
+    flex-wrap: wrap;
 	margin-top: 10px;
 }
 .add-comment .new-add .new-img,
