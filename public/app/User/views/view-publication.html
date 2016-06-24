@@ -50,10 +50,10 @@
 		</div>
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments">
-		<a href="javascript:void(0);" ng-if="singlePublication.comments.length >= 3 && singlePublication.comments.length !== singlePublication.comment_count" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
+	<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
+		<a href="javascript:void(0);" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 	</div>
-	<div class="visible-comments">
+	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
