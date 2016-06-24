@@ -96,7 +96,7 @@
     border: none;
     border-radius: 5px;
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
-    color: #7e7b7b;
+    padding: 0 0 0 5px;
 }
 .settingsss .text p input[type="submit"] {
     width: 30%;
@@ -115,7 +115,7 @@
 }
 
 .settingsss .text p textarea {
-	width: 89%;
+	  width: 92%;
     height: 30px;
     border: none;
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
@@ -323,6 +323,10 @@
 		display: inline-flex;
 		flex-direction: column;
 	}
+  .settingsss .text p textarea {
+    width: 91%;
+    margin: 0 7px 20px 5px;
+  }
 }
 
 @media only screen and (max-width: 500px) {
