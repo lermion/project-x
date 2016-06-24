@@ -1,18 +1,17 @@
 <div class="contacts-off-container">
 	<a href="" class="prev"></a>
-	<div class="subscriber" ng-repeat="subscriber in [0,1,3,4,5] ">
+	<div class="subscriber" ng-repeat="subscriber in subscribers">
 		<div class="subscriber-item">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: loggedUser})">
-					<img src="{{userData.avatar_path}}" alt="">
+				<a class="ava" ui-sref="user({username: subscriber.id})">
+					<img src="{{subscriber.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-info">
-				<a class="user-name">Танюшка Мильцына</a>
-				<p class="status-user" ng-hide="profileEdition">{{userData.status}}</p>
+				<a class="user-name">{{subscriber.first_name}} {{subscriber.last_name}}</a>
+				<p class="status-user" ng-hide="profileEdition">{{subscriber.status}}</p>
 			</div>
 		</div>
-		<a href="" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
+		<a href="javascript:void(0);" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
 	</div>
-	
 </div>

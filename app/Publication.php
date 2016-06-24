@@ -93,6 +93,7 @@ class Publication extends Model
     {
         $publication = Publication::with(['videos', 'group', 'images', 'user', 'comments' => function ($query) {
             $query->take(3);
+            $query->orderBy('id', 'desc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->find($id);
         $publication->like_count = $publication->likes()->count();
