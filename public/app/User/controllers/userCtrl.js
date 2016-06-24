@@ -324,6 +324,14 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
+		$scope.addPublicationLike = function(pubId){
+			PublicationService.addPublicationLike(pubId).then(function(response){
+				console.log(response);
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 		$scope.deleteComment = function(commentId, index){
 			PublicationService.deleteCommentPublication(commentId).then(function(response){
 				$scope.singlePublication.comments.splice(index, 1);
