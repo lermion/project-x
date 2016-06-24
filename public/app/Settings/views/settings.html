@@ -27,7 +27,21 @@
 		<div class="set_1">
 			<div class="img">
 				<img src="images/picture.jpg" class="avatar"> 
-				<a href="" class="change"> Изменить </a>
+				<a href="#" class="change"> Изменить </a>
+
+				<div class="add-ava" ng-init="showEditAva=true;"> 
+					<input type="file" id="avatarImg">  
+					<label for="avatarImg">                                            
+		                <span class="ava ng-hide" ng-show="croppedFile">         
+		                    <img style="width:100%;">
+		                </span>
+			            <span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+			                <span class="add-photo" ng-show="!croppedFile || showEditAva">
+			                </span>
+		                </span>
+		            </label>
+			    </div>
+
 			</div>
 
 			<div class="text">
