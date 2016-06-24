@@ -288,7 +288,7 @@ angular.module('placePeopleApp')
 				$state.go("user", {username: $stateParams.username});
 			}
 		}
-		function getSinglePublication(pubId){
+		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
 				getAllCommentsPublication(pubId);
 				$scope.limit = 6;
@@ -296,11 +296,13 @@ angular.module('placePeopleApp')
 				if ($window.innerWidth <= 700) {
 				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
-					ngDialog.open({
-						template: '../app/User/views/view-publication.html',
-						className: 'view-publication ngdialog-theme-default',
-						scope: $scope
-					});
+					if(!flag){
+						ngDialog.open({
+							template: '../app/User/views/view-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope
+						});
+					}
 				}
 			},
 			function(error){
@@ -482,7 +484,7 @@ angular.module('placePeopleApp')
 					function(res){									
 						if (res.status) {
 							getUserPubs(storage.userId);
-							$scope.currPub = res.publication;
+							getSinglePublication(res.publication.id, true);
 							editPubPopup.close();
 						} else {
 							console.log('Error');							
