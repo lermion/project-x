@@ -341,13 +341,10 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.addPublicationLike = function(pub, isCurrentUser){
+		$scope.addPublicationLike = function(pub){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
-				if(isCurrentUser){
-					pub.user_like = response.user_like;
-				}else{
-					pub.like_count = response.like_count;
-				}
+				pub.user_like = response.user_like;
+				pub.like_count = response.like_count;
 			},
 			function(error){
 				console.log(error);
