@@ -2043,7 +2043,7 @@ spam-item {
 }
 .add-comment .new-add {
 	display: flex;
-    flex-wrap: wrap;
+    	flex-wrap: wrap;
 	margin-top: 10px;
 }
 .add-comment .new-add .new-img,
@@ -2824,6 +2824,16 @@ spam-item {
 .ngdialog.popup-user-subscribers.ngdialog-theme-default  .ngdialog-close:hover:before,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-close:hover:before {
 	color: #333;
+}
+.ngdialog.popup-comment-images.ngdialog-theme-default {
+	background-color: rgba(0, 0, 0, .9);
+}
+.ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
+	background-color: transparent;
+	margin-left: -40%;
+	width: 80%;
+	height: 550px;
+	margin-top: -275px;
 }
 @media (max-width: 720px) {
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
