@@ -52,7 +52,7 @@ angular.module('placePeopleApp')
 	      controller: 'settingsCtrl'
 	    })
 	    .state('feed', {
-	      url: '/feed/',
+	      url: '/feed',
 	      templateUrl: '../../app/Feed/views/feed.html',
 	      // controller: 'staticCtrl'
 	    })

@@ -6,7 +6,8 @@ angular.module('placePeopleApp')
 		return	{
 			getUserData: getUserData,
             sign: sign,
-            quickEdit: quickEdit
+            quickEdit: quickEdit,
+            updateAvatar: updateAvatar
 		}
 
 		function getUserData(login){                
@@ -20,7 +21,7 @@ angular.module('placePeopleApp')
                     });
             return defer.promise;
         }
-        function quickEdit(name, lastname, status, userId){
+        function quickEdit(name, lastname, status){
             var data = {
                 'first_name': name,
                 'last_name': lastname,
@@ -51,6 +52,27 @@ angular.module('placePeopleApp')
                 });            
             return defer.promise;
         }
+
+        function updateAvatar(avatar){
+            console.log(avatar);
+            var data = new FormData();            
+            data.append('avatar', avatar);            
+            var config = {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                },            
+                defer = $q.defer();
+                $http.post(path + 'user/update', data)
+                    .success(function (response){
+                        defer.resolve(response);
+                    })
+                    .error(function (error){
+                        defer.reject(error);
+                    });
+                return defer.promise;
+            }
         
 	
 	}]);
