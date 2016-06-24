@@ -1,4 +1,4 @@
-<div ng-controller="settingsCtrl">
+<!-- <div ng-controller="settingsCtrl">
 	<header>
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
@@ -54,9 +54,10 @@
 							</div>
 						</div>
 					</div>
-					<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 				</div>
-				<!-- <div class="user-publication-content">
+				<div class="user-publication-content">
+					<p class="publication-text">{{singlePublication.text}}</p>
+					<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 					<div class="publication-ava">
 						<img ng-src="{{mainImage}}">
 					</div>
@@ -68,8 +69,6 @@
 							<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
 						</div>
 					</div> 
-					<p class="publication-text">{{singlePublication.text}}</p>
-					<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 				</div>
 				<div class="likes">
 					<div class="likes-item">
@@ -83,8 +82,8 @@
 						</p>
 					</div>
 					<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
-				</div>
-				<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
+				</div> -->
+				<!--<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
 					<a href="javascript:void(0);" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 				</div>
 				<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
@@ -103,7 +102,7 @@
 								</div>
 								<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 							</div>
-							<p class="comment-item">{{comment.text}}</p>
+							<!-- <p class="comment-item">{{comment.text}}</p>
 							<div ng-if="comment.images[0]" class="comment-pic">
 								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 									<img ng-src="{{image.url}}">
@@ -124,7 +123,7 @@
 					<div flow-init style="position:relative;" class="add">
 						<div class="text-field">
 							<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
-							<!-- <div class="smiles">
+							<div class="smiles">
 								<div class="smiles-item"></div>
 								<div class="smile">
 									<div class="smile-item">
@@ -195,7 +194,7 @@
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div>
 						</div>	
 						<div class="new-add">
 							<div class="new-img" ng-repeat="file in $flow.files">
@@ -223,8 +222,8 @@
 							</div>   
 						</div>
 					</div>
-				</div> -->
-			</div>
+				</div> --> 
+			<!-- </div>
 		</div>
 
 
@@ -251,4 +250,4 @@
 		</div>
 	</footer>
 
-</div>
+</div> --> 

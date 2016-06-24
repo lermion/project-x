@@ -56,27 +56,25 @@
 					 <br> <span ng-hide="settingsEdit">{{userData.status}}</span>
 					<textarea name="comment" placeholder="Cтатус" ng-show="settingsEdit" ng-model="userData.status"></textarea>
 					<input type="submit" value="Сохранить" ng-show = "settingsEdit" ng-click="saveSettings(userData.first_name, userData.last_name, userData.status)">
-				</p>
-				
+				</p>				
 				<!-- <p class="contact">
 					<span>Телефон</span>
 					<br> 8(926)870-88-99 
 				</p> -->
 			</div>
 		</div>
-
 		<div class="set_2">
 			<span class="h1">Конфиденциальность</span>
 				<p>Показать статус "В сети"
-			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" checked/>
-			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" ng-checked="!!userData.is_visible"/>
+			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on" ng-click="isVisible=!isVisible"></label>
  				</p>
-				<p>Отправлять статус "Просмотрено"
-			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle" checked/>
-			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label>
+				<!-- <p>Отправлять статус "Просмотрено"
+			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle"/>
+			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label> -->
 				</p> 
 				<p>Отображать мое фото
-			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" checked/>
+			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" ng-checked="!!userData.is_avatar" ng-click="showAvatar=!showAvatar"/>
 			<label for="checkbox3" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 		</div>

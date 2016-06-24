@@ -1464,8 +1464,8 @@ body.public.user {
 	margin-left: -50px;
 }
 #user-page .photo a img {
-	max-width: 300%;
-	max-height: 300%;
+	max-width: 200%;
+	max-height: 100%;
 	width: auto;
 	height: auto;
 } 
@@ -2853,7 +2853,7 @@ spam-item {
 .comment-imges .comment-list {
 	width: 13.8%;
 	overflow: hidden;
-	height: 50px;
+	height: 80px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -2940,6 +2940,9 @@ spam-item {
 	}
 	.contacts-off-container .prev:hover {
 		background-image: url(../images/left-arrow-hover.png); 
+	}
+	.comment-imges .comment-list {
+		height: 60px;
 	}
 
 }
@@ -3064,13 +3067,16 @@ spam-item {
 		font-size: 13px;
     		padding: 0 5px;
 	}
+	.comment-imges .comment-list {
+		height: 45px;
+	}
 }
 /*  main page*/
 
 .main-content {
 	width: 700px;
 	margin: 0 auto;
-	background: transparent;
+	background: transparent; 
 }
 .main-content .groups {
 	display: flex;
@@ -3130,4 +3136,15 @@ spam-item {
 	cursor: default;
 	color: #666;
 	line-height: 20px;
+}
+.content-item .user-publication-header .user-menu {
+	margin-left: 85px;
+}
+.content-item .user-publication-header  .menu-item {
+	right: 0;
+	left: auto;
+}
+#wrapper .content-item  .user-publication-header {
+	background: #fff;
+	border-bottom: none; 
 }
