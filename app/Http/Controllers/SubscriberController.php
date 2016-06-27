@@ -59,9 +59,37 @@ class SubscriberController extends Controller
             return response()->json($resultData);
         } else {
             $isConfirmed = !User::find($userId)->is_private;
-            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub,'is_confirmed'=>$isConfirmed]);
+            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub, 'is_confirmed' => $isConfirmed]);
             $resultData['is_sub'] = true;
             return response()->json($resultData);
+        }
+    }
+
+    public function confirm($id)
+    {
+        $sub = Subscriber::find($id);
+        if (!$sub) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        } elseif ($sub->user_id != Auth::id()) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($result);
+        } else {
+            $sub->is_confirmed = true;
+            $sub->save();
+            return response()->json(['status' => true]);
         }
     }
 
@@ -88,7 +116,8 @@ class SubscriberController extends Controller
         }
     }
 
-    public function subscribers($id)
+    public
+    function subscribers($id)
     {
         $user = User::find($id);
         if ($user) {

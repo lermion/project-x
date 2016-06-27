@@ -51,6 +51,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('show/{id}', 'UserController@show');
         Route::get('{id}/publication', 'PublicationController@userPublication');
         Route::post('subscribe/store', 'SubscriberController@store');
+        Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
         Route::get('{id}/subscription', 'SubscriberController@subscription');
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
     });
