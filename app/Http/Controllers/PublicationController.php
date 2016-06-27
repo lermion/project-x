@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\Publication;
+use App\User;
 use App\Video;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,11 @@ class PublicationController extends Controller
 
     public function userPublication($id)
     {
+        //private profile
+        $user = User::find($id);
+        if($user->is_private){
+            $user->isRealSub(Auth::id());
+        }
         return Publication::getUserPublication($id);
     }
 

@@ -58,7 +58,8 @@ class SubscriberController extends Controller
             $resultData['is_sub'] = false;
             return response()->json($resultData);
         } else {
-            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub]);
+            $isConfirmed = !User::find($userId)->is_private;
+            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub,'is_confirmed'=>$isConfirmed]);
             $resultData['is_sub'] = true;
             return response()->json($resultData);
         }

@@ -54,6 +54,7 @@ class Publication extends Model
                             $query->select(DB::raw('subscribers.user_id'))
                                 ->from('subscribers')
                                 ->where('subscribers.user_id_sub', $userId)
+                                ->where('subscribers.is_confirmed', true)
                                 ->whereRaw('subscribers.user_id = publications.user_id');
                         });
                     });
