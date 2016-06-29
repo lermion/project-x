@@ -100,7 +100,7 @@ class SubscriberController extends Controller
             $subscription = $user->subscription;
             if (Auth::check()) {
                 foreach ($subscription as &$sub) {
-                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                    $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
                 }
             }
             return $subscription;
@@ -124,7 +124,7 @@ class SubscriberController extends Controller
             $subscribers = $user->subscribers;
             if (Auth::check()) {
                 foreach ($subscribers as &$sub) {
-                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                    $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
                 }
             }
             return $subscribers;
