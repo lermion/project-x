@@ -1,5 +1,5 @@
 <div>	
-	<header>
+	<!-- <header>
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
@@ -21,7 +21,7 @@
 			</div>
 			<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
 		</div>
-	</header>	
+	</header> -->	
 	<div class="content-user">		
 		<div id="user-page">
 			<div class="my-profile">
@@ -49,11 +49,11 @@
 							<p class="contacts">Контакты</p>
 							<span>417</span>
 						</a>
-						<a href="" class="counter" ng-click="openSubscribers(userData.id)">
+						<a href="" class="counter" ng-click="userData.subscribers_count > 0 && openSubscribers(userData.id)">
 							<p class="contacts-off">Подписчики</p>
 							<span>{{userData.subscribers_count}}</span>
 						</a>
-						<a href="" class="counter" ng-click="openSubscribe(userData.id)">
+						<a href="" class="counter" ng-click="userData.subscription_count > 0 && openSubscribe(userData.id)">
 							<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 							<span>{{userData.subscription_count}}</span> 
 						</a>
@@ -131,7 +131,7 @@
 		</div>
 		
 	</div>
-	<footer>
+	<!-- <footer>
 		<div class="footer">
 		    <div class="footer-item">
 		                <div class="footer-place">
@@ -150,5 +150,5 @@
 		        </div>
 		    </div>
 		</div>
-	</footer>
+	</footer> -->
 </div>

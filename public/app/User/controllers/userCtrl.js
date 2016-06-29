@@ -118,11 +118,15 @@ angular.module('placePeopleApp')
 		
 
 		//Sign on
-		$scope.sign = function(){
+		$scope.sign = function(subscription){
+			console.log(subscription);
+			if($scope.loggedUserId == $scope.userData.id){
+				$scope.userData.id = subscription.id;
+			}
 			UserService.sign(parseInt($scope.userData.id))
-			.then(function(res){							
+			.then(function(res){
     			if (res.status) {
-    				$scope.isSigned = res.is_sub;
+    				subscription.is_sub = res.is_sub;
     			} else {
     				if (parseInt(res.error.code) === 1) {	    					
     					// 1 userId
