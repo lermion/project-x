@@ -42,6 +42,6 @@ class User extends Authenticatable
 
     public function isRealSub($id)
     {
-        return $this->subscribers()->where(['user_id_sub'=>$id])->first()!=null;
+        return $this->subscribers()->where(['user_id_sub'=>$id,'is_confirmed'=>true])->first()!=null;
     }
 }
