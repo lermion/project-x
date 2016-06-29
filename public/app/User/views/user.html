@@ -168,7 +168,7 @@
 												<p class="time" am-time-ago="comment.created_at"></p>
 												<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 											</div>
-											<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
+											<a href="javascript:void(0);" ng-click="deleteComment('userPage', singlePublication.comments, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 										</div>
 										<p class="comment-item">{{comment.text}}</p>
 										<div ng-if="comment.images[0]" class="comment-pic">
