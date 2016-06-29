@@ -1,5 +1,6 @@
 <div>	
-	<!-- <header>
+	
+	<header>
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
@@ -21,8 +22,8 @@
 			</div>
 			<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
 		</div>
-	</header>	 -->
-	<!-- <div class="content-user">		
+	</header>	
+	<div class="content-user">		
 		<div id="user-page">
 			<div class="my-profile">
 				<div class="ava">
@@ -59,7 +60,7 @@
 						</a>
 					</div>
 					<p class="status-user" ng-hide="profileEdition">{{userData.status}}</p>					
-					<input class="status-correct" type="text" name=""ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
+					<input class="status-correct" type="text" name="" ng-show="profileEdition && !showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 					<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше 140 символов</p>
 					<div class="comunications" ng-show="myProfile">
 						<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
@@ -78,11 +79,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- <p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
-			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
-			<!--<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
-			<!-- <textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
-			<!--<textarea class="adaptiv" ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''">{{userData.status}}</textarea>
+			<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea">{{userData.status}}</p>
+			<input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 			<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 			<div class="comunications adaptiv" ng-show="myProfile">
 				<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
@@ -108,30 +106,135 @@
 					</a>
 				</div>
 			</div> -->
-			<!--<div class="my-photos" ng-show="photosGrid">
+			<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 					<a href="" ng-click="showPublication(pub)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
 						<!-- <p>{{pub.images}}</p> -->
 						<!-- <span class="video" ng-show="$index==0"></span> -->
-					<!--</a>
+					</a>
 				</div>
 			</div>
 
 
 			<!-- single unit -->
-			<!--<div class="my-photos-list" ng-show="!photosGrid">
-				<div class="photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
-					<a href="" ng-click="showPublication(pub)">
-						<img ng-src="{{pub.images[0].url}}" alt="">
-						<!-- <span class="video" ng-show="$index==1"></span> -->
-					<!--</a>
+			<div class="my-photos-list" ng-show="!photosGrid">
+				<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}">							
+					<div class="ngdialog-content" role="document">
+
+						<div class="user-publication">
+							<div class="user-publication-content">
+								<div class="publication-ava">
+									<img ng-src="{{mainImage || singlePublication.images[0].url}}">
+								</div>
+								<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">		
+									<div ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
+										<img ng-src="{{image.url}}">
+									</div>
+									<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
+										<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
+									</div>
+								</div> 
+								<p class="publication-text">{{singlePublication.text}}</p>
+								<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
+							</div>
+							<div class="likes">
+								<div class="likes-item">
+									<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема</a>
+									<p class="like-item">
+										В теме 
+										<span ng-if="singlePublication.user_like" class="you"> Вы </span>
+										<span ng-if="singlePublication.user_like" class="more">и еще</span>
+										<span class="count-like">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}}</span>
+										чел.
+									</p>
+								</div>
+								<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
+							</div>
+							<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
+								<a href="javascript:void(0);" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
+							</div>
+							<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
+								<div ng-repeat="comment in singlePublication.comments" class="user-comment">
+									<div class="user-ava">
+										<a class="ava" ui-sref="user({username: loggedUser})">
+											<img ng-src="{{comment.user.avatar_path}}" alt="">
+										</a>
+									</div>
+									<div class="comment">
+										<div class="user-info">				
+											<div class="info-item">
+												<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+												<p class="time" am-time-ago="comment.created_at"></p>
+												<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+											</div>
+											<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
+										</div>
+										<p class="comment-item">{{comment.text}}</p>
+										<div ng-if="comment.images[0]" class="comment-pic">
+											<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
+												<img ng-src="{{image.url}}">
+											</a>
+											<a ng-show="comment.images.length >= 4" href="javascript:void(0);" ng-click="showMoreImages(comment.images)" class="comment-pic-item">
+												<p>Ещё {{comment.images.length - 3}} фото</p>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="added_comments">
+								<a href="" class="add_comments">
+									Добавить комментарий 
+								</a>
+							</div>
+							<div class="add-comment">
+								<div class="user-ava">
+									<a class="ava" ui-sref="user({username: loggedUser})">
+										<img src="{{userData.avatar_path}}" alt="">
+									</a>
+								</div>
+								<div flow-init style="position:relative;" class="add">
+									<div class="text-field">
+										<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
+									</div>	
+									<div class="new-add">
+										<div class="new-img" ng-repeat="file in $flow.files">
+											<div class="inner">
+												<div ng-click="file.cancel()" class="close">
+													<div class="close-inner">
+														<p>Удалить</p>
+													</div>
+												</div>
+												<img flow-img="file">
+											</div>
+											<p class="img-name">{{file.name}}</p>
+										</div>
+									</div>
+									<div class="publication-footer" >
+										<div class="publication-footer-button">
+											<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
+										</div>
+										<div class="add-objects"> 
+											<input type="file" id="add-comment-to-file" flow-btn>  
+											<label for="add-comment-to-file">
+												Прикрепить
+												<span class="add"></span>
+											</label>                                         
+										</div>   
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
+
+
+
 		</div>
-		
-	</div> -->
-	<!-- <footer>
+	</div>
+	<footer>
 		<div class="footer">
 		    <div class="footer-item">
 		                <div class="footer-place">
@@ -150,5 +253,5 @@
 		        </div>
 		    </div>
 		</div>
-	</footer> -->
-</div> 
+	</footer>
+</div>

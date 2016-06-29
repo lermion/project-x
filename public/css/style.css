@@ -13,8 +13,8 @@
        font-weight: normal;
 }
 html{
-	// width: 100%;
-	// height: auto;
+	width: 100%;
+	height: auto;
 }
 *:focus {
 	outline: none;
@@ -432,6 +432,8 @@ footer {
 	display: flex;
 	justify-content: space-between;
 	align-items: center; 
+	padding: 0 5px;
+	box-sizing: border-box;
 }
 .footer-item {
 	width: 275px;
@@ -641,7 +643,7 @@ footer {
 		width: 36%;
 	}
 	.footer .menu {
-		width: 60%;
+		width: 64%;
 	}
 }
 @media (max-width: 650px)  {
@@ -731,12 +733,12 @@ footer {
 body.public {
 	margin: 0;
 	padding: 0;
-	// width: 100%;
-	// height: 100%;
-	// min-height: 100vh;
-	// padding: 0 0 75px 0;
-	// position: relative;
-	// box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+	padding: 0 0 75px 0;
+	position: relative;
+	box-sizing: border-box;
 }
 body.public.user {
 	background: #e9eaed;
@@ -751,6 +753,8 @@ body.public.user {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0 5px;
+    	box-sizing: border-box;
 }
 .public header .logo {
 	background-image: url(../images/logotip.png);
@@ -1511,6 +1515,9 @@ body.public.user {
 	.photo-list  {
 		height: 500px;
 	}
+	.my_profilll.photo-list  {
+		height: 100% !important;
+	}
 	#user-page .my-profile {
 		padding: 15px 10px;
 	}
@@ -1637,6 +1644,10 @@ body.public.user {
 		background-image: none;
 		border: 1px solid #77849b;
 	}
+	#user-page .status-correct.adaptiv {
+		margin: 20px;
+    		width: 92%;
+	}
 }
 @media (max-width: 450px) {
 	#user-page .my-profile {
@@ -1665,6 +1676,10 @@ body.public.user {
 	#user-page .status-user.adaptiv {
 		padding: 0 5px 15px;
     		
+	}
+	#user-page .status-correct.adaptiv {
+		margin: 5px;
+    		width: 97%;
 	}
 }
 
@@ -2450,6 +2465,24 @@ spam-item {
 .user-publication .visible-comments {
 	border-bottom: 1px solid #dfe1e4;
 }
+/*aded  */
+.user-publication .visible-comments.added_comments {
+	border:none;
+}
+a.add_comments {
+    text-decoration: inherit;
+    color: #a0a0a0;
+    padding: 0 0 0px 15px;
+    line-height: 50px;
+    font-family: SFUIDisplayLight;
+}
+.my_profilll.photo-list {
+	height: 100%;
+}
+div.my_profilll.photo-list div:last-child{
+	margin-bottom: 20px;
+}
+/*aded  */
 .user-publication .likes {
 	display: flex;
 	justify-content: space-between;
