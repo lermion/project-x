@@ -35,8 +35,8 @@ class UserController extends Controller
         $user->is_sub = Subscriber::isSub($user->id, Auth::id());
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
-        $user->publications_count = $user->publications()->count();
-        if(!$user->is_avatar)
+        $user->publications_count = $user->publications()->where(['is_anonym' => false])->count();
+        if (!$user->is_avatar)
             $user->avatar_path = '';
         return $user;
     }
