@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Publication extends Model
 {
-    protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message'];
+    protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover'];
 
     protected $hidden = ['is_block', 'block_message'];
 

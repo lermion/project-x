@@ -45,6 +45,7 @@ class PublicationController extends Controller
         try {
             $this->validate($request, [
                 'text' => 'required|min:1',
+                'cover' => 'file',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
                 'videos' => 'array',
@@ -61,6 +62,11 @@ class PublicationController extends Controller
             return response()->json($result);
         }
         $publicationData = $request->all();
+        if($request->hasFile('cover')){
+            $cover = $request->file('cover');
+            $path = Image::getImagePath($cover);
+            $publicationData['cover'] = $path;
+        }
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $publication = Publication::create($publicationData);
@@ -118,6 +124,7 @@ class PublicationController extends Controller
                 try {
                     $this->validate($request, [
                         'text' => 'required|min:1',
+                        'cover' => 'file',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',
                         'videos' => 'array',
@@ -136,6 +143,11 @@ class PublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
+                if($request->hasFile('cover')){
+                    $cover = $request->file('cover');
+                    $path = Image::getImagePath($cover);
+                    $publicationData['cover'] = $path;
+                }                
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
