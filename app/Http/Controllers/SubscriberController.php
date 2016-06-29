@@ -40,16 +40,6 @@ class SubscriberController extends Controller
             ];
             return response()->json($result);
         }
-        if (!Auth::check()) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => "Permission denied",
-                    'code' => '8'
-                ]
-            ];
-            return response()->json($result);
-        }
         $resultData = [
             'status' => true
         ];

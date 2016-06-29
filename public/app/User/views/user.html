@@ -49,11 +49,11 @@
 							<p class="contacts">Контакты</p>
 							<span>417</span>
 						</a>
-						<a href="" class="counter" ng-click="openSubscribers(userData.id)">
+						<a href="" class="counter" ng-click="userData.subscribers_count > 0 && openSubscribers(userData.id)">
 							<p class="contacts-off">Подписчики</p>
 							<span>{{userData.subscribers_count}}</span>
 						</a>
-						<a href="" class="counter" ng-click="openSubscribe(userData.id)">
+						<a href="" class="counter" ng-click="userData.subscription_count > 0 && openSubscribe(userData.id)">
 							<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 							<span>{{userData.subscription_count}}</span> 
 						</a>
@@ -78,10 +78,10 @@
 					</div>
 				</div>
 			</div>
-			<!-- <p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
-			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
 			<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
-			<!-- <textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
+			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea>
+			<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
+			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea>
 			<textarea class="adaptiv" ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''">{{userData.status}}</textarea>
 			<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 			<div class="comunications adaptiv" ng-show="myProfile">
@@ -121,18 +121,14 @@
 
 			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
-				<div class="my_profilll photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
-					<!-- <a href="" ng-click="showPublication(pub)">
-						<img ng-src="{{pub.images[0].url}}" alt="">
-						<!-- <span class="video" ng-show="$index==1"></span> -->
-					<!--</a> -->
-					
+				<div class="my_profilll photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">							
 					<div class="ngdialog-content" role="document">
 						<div class="user-publication">
 
 							<div class="user-publication-content">
 								<div class="publication-ava">
 									<img ng-src="/upload/publication/images/FTeMO8kg4.jpg" src="/upload/publication/images/FTeMO8kg4.jpg">
+									<!-- <span class="video" ng-show="$index==1"></span> -->
 								</div>
 
 								<div class="publication-images ng-isolate-scope" ng-scrollbar="" rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">

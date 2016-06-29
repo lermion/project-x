@@ -1,11 +1,11 @@
 angular.module('placePeopleApp')
-    .controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-    	'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout',
-    	function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
-    		$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout){
+	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
+		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout',
+		function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
+			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout){
 		/* Service info*/
 		amMoment.changeLocale('ru');
-    	$scope.$emit('userPoint', 'user');    	
+		$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
@@ -13,68 +13,68 @@ angular.module('placePeopleApp')
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};
 		$http.get('/static_page/get/name')
-            .success(function (response){            	
-                $scope.staticPages = response;
-            })
-            .error(function (error){
-                console.log(error);
-            });
+			.success(function (response){            	
+				$scope.staticPages = response;
+			})
+			.error(function (error){
+				console.log(error);
+			});
 
 		$scope.logOut = function(){
-    		AuthService.userLogOut()
-	    		.then(function(res){
-	    			storageService.deleteStorage();
-	    			$state.go('login');
-			      }, function(err){
-			        console.log(err);
-			      });
-    	};
+			AuthService.userLogOut()
+				.then(function(res){
+					storageService.deleteStorage();
+					$state.go('login');
+				  }, function(err){
+					console.log(err);
+				  });
+		};
 
-    	$scope.openMenu = function(){
-    		if ($window.innerWidth <= 800) {    			
+		$scope.openMenu = function(){
+			if ($window.innerWidth <= 800) {    			
 				 $scope.showMenu =! $scope.showMenu;
-    		} else{
-    			$scope.showMenu = true;    			
-    		}
-    	};
+			} else{
+				$scope.showMenu = true;    			
+			}
+		};
 
-    	$scope.openBottomMenu = function(){
-            if ($window.innerWidth <= 650) {
-                $scope.showBottomMenu = !$scope.showBottomMenu;
-            } else {
-                $scope.showBottomMenu = false;
-            }
-        };
+		$scope.openBottomMenu = function(){
+			if ($window.innerWidth <= 650) {
+				$scope.showBottomMenu = !$scope.showBottomMenu;
+			} else {
+				$scope.showBottomMenu = false;
+			}
+		};
 
-    	var w = angular.element($window);    	
-    	var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];   	
+		var w = angular.element($window);    	
+		var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];   	
 
 		$scope.$watch(
 		  function () {
-		    return $window.innerWidth;
+			return $window.innerWidth;
 		  },
 		  function (value) {
 			  if (value <= 800) {
-			  	$scope.showMenu = false;
+				$scope.showMenu = false;
 			  } else {
-			  	$scope.showMenu = true;
+				$scope.showMenu = true;
 			  }
 
 			  if (value <= 650) {
-                $scope.showBottomMenu = false;
-              } else {
-                $scope.showBottomMenu = true;
-              }       
-          
+				$scope.showBottomMenu = false;
+			  } else {
+				$scope.showBottomMenu = true;
+			  }       
+		  
 			  if (value < 520) {		    	
-	    		var blockThirdthLength = (parseInt(w[0].innerWidth)-2)/3;
-	    		$scope.resizeSizes = 'width:'+blockThirdthLength+'px;height:'+blockThirdthLength+'px;';
-	    		$scope.resizeHeight = 'height:'+parseInt(w[0].innerWidth)+'px;';		    		
-		      } else {
-		    	$scope.resizeSizes='';
-		    	$scope.resizeHeight='';
-		    	$scope.mobileWidthMenu = true;		    	
-		      }
+				var blockThirdthLength = (parseInt(w[0].innerWidth)-2)/3;
+				$scope.resizeSizes = 'width:'+blockThirdthLength+'px;height:'+blockThirdthLength+'px;';
+				$scope.resizeHeight = 'height:'+parseInt(w[0].innerWidth)+'px;';		    		
+			  } else {
+				$scope.resizeSizes='';
+				$scope.resizeHeight='';
+				$scope.mobileWidthMenu = true;		    	
+			  }
 		  },
 		  true
 		);
@@ -106,8 +106,8 @@ angular.module('placePeopleApp')
 		function getUserPubs(userId){
 			PublicationService.getUserPublications(userId)
 			.then(
-				function(res){								
-					$scope.userPublications = res;										        
+				function(res){
+					$scope.userPublications = res.publications;										        
 				},
 				function(err){
 					console.log(err);
@@ -118,21 +118,24 @@ angular.module('placePeopleApp')
 		
 
 		//Sign on
-		$scope.sign = function(){
+		$scope.sign = function(subscription){
+			if($scope.loggedUserId == $scope.userData.id){
+				$scope.userData.id = subscription.id;
+			}
 			UserService.sign(parseInt($scope.userData.id))
-			.then(function(res){							
-    			if (res.status) {
-    				$scope.isSigned = res.is_sub;
-    			} else {
-    				if (parseInt(res.error.code) === 1) {	    					
-    					// 1 userId
-    				} else if(parseInt(res.error.code) === 8){
-    					// 8 permission
-    				}
-    			}
-		      }, function(err){
-		        console.log(err);
-		      });
+			.then(function(res){
+				if (res.status) {
+					subscription.is_sub = res.is_sub;
+				} else {
+					if (parseInt(res.error.code) === 1) {	    					
+						// 1 userId
+					} else if(parseInt(res.error.code) === 8){
+						// 8 permission
+					}
+				}
+			  }, function(err){
+				console.log(err);
+			  });
 		};
 
 		$scope.editProfile = function(name, lastname, status){
@@ -155,9 +158,20 @@ angular.module('placePeopleApp')
 					});				
 				}	
 			}
-		};		
-
-		$scope.openSubscribers = function(userId){
+		};
+		if($state.current.name === "subscribers"){
+			$scope.returnToBack = function(){
+				$state.go("user", {username: $stateParams.username});
+			}
+			openSubscribers($stateParams.id);
+		}
+		if($state.current.name === "subscribes"){
+			$scope.returnToBack = function(){
+				$state.go("user", {username: $stateParams.username});
+			}
+			openSubscribe($stateParams.id);
+		}
+		function openSubscribers(userId){
 			PublicationService.getSubscribers(userId).then(function(response){
 				$scope.subscribers = response;
 			},
@@ -165,17 +179,19 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 			if ($window.innerWidth <= 700) {
-					$state.go('subscribers', {username: $stateParams.username});
+					$state.go('subscribers', {username: $stateParams.username, id: userId});
 			} else {
 				ngDialog.open({
 					template:'../app/User/views/popup-user-subscribers.html',
 					className: 'popup-user-subscribers ngdialog-theme-default',
 					scope: $scope
 				});
-			}			
+			}
+		}
+		$scope.openSubscribers = function(userId){
+			openSubscribers(userId);		
 		};
-
-		$scope.openSubscribe = function(userId){
+		function openSubscribe(userId){
 			PublicationService.getSubscription(userId).then(function(response){
 				$scope.subscriptions = response;
 			},
@@ -183,7 +199,7 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 			if ($window.innerWidth <= 700) {
-				$state.go('subscribes', {username: $stateParams.username});
+				$state.go('subscribes', {username: $stateParams.username, id: userId});
 			}
 			else {
 				ngDialog.open({
@@ -191,7 +207,10 @@ angular.module('placePeopleApp')
 					className: 'popup-user-subscribe ngdialog-theme-default',
 					scope: $scope
 				});
-			}		
+			}
+		}
+		$scope.openSubscribe = function(userId){
+			openSubscribe(userId);
 		};
 
 		$scope.createPublication = function(){			
@@ -294,7 +313,7 @@ angular.module('placePeopleApp')
 					});
 			
 		};
-		if($stateParams.id){
+		if($state.current.name === "mobile-pub-view" && $stateParams.id){
 			getSinglePublication($stateParams.id);
 			$scope.returnToBack = function(){
 				$state.go("user", {username: $stateParams.username});
@@ -572,4 +591,4 @@ angular.module('placePeopleApp')
 
 		
 		
-    }]);
+	}]);

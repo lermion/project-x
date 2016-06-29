@@ -91,7 +91,7 @@ class Publication extends Model
 
     public static function show($id)
     {
-        $publication = Publication::with(['videos', 'group', 'images', 'user', 'comments' => function ($query) {
+        $publication = Publication::with(['videos', 'group', 'images', 'comments' => function ($query) {
             $query->take(3);
             $query->orderBy('id', 'desc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
@@ -99,6 +99,9 @@ class Publication extends Model
         $publication->like_count = $publication->likes()->count();
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
+        if(!$publication->is_anonym){
+            $publication->user;
+        }
         foreach ($publication->comments as &$comment) {
             $comment->like_count = $comment->likes()->count();
         }
