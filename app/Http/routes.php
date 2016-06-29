@@ -95,6 +95,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'moderate'], function () {
                 Route::get('/', 'Moderator\ModerateController@index');
                 Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
+                Route::get('topic/{id}', 'Moderator\ModerateController@topic');
                 Route::post('block/{id}', 'Moderator\ModerateController@block');
             });
         });        
@@ -105,6 +106,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'publication'], function () {
         Route::get('/', 'PublicationController@index');
+        Route::get('/topic', 'PublicationController@topic');
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
         Route::post('update/{id}', 'PublicationController@update')->middleware(['auth']);
         Route::get('show/{id}', 'PublicationController@show')->middleware(['auth']);
