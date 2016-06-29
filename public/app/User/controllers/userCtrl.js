@@ -405,10 +405,16 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.deleteComment = function(commentId, index){
-			PublicationService.deleteCommentPublication(commentId).then(function(response){
-				$scope.singlePublication.comments.splice(index, 1);
-				$scope.singlePublication.comment_count--;
+		$scope.deleteComment = function(flag, comments, comment, index){
+			PublicationService.deleteCommentPublication(comment.id).then(function(response){
+				if(response.status){
+					if(flag === "userPage"){
+						comments.splice(index, 1);
+					}else{
+						$scope.singlePublication.comments.splice(index, 1);
+						$scope.singlePublication.comment_count--;
+					}
+				}
 			},
 			function(error){
 				console.log(error);
