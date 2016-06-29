@@ -18,6 +18,11 @@ class PublicationTest extends TestCase
         $this->json('GET', 'publication/')->AssertResponseOk();
     }
 
+    public function testTopic()
+    {
+        $this->json('GET', 'publication/topic')->AssertResponseOk();
+    }
+
     public function testStore()
     {
         $user = \App\User::first();
