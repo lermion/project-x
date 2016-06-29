@@ -17,6 +17,7 @@
                         <th>Images</th>
                         <th>Videos</th>
                         <th>Create Time</th>
+                        <th>Topic</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -38,6 +39,7 @@
                                 @endforeach
                             </td>
                             <td>{{ $publication->created_at }}</td>
+                            <td>{{ $publication->is_topic? 'yes':'no' }}</td>
                             <td>
                                 <a class="btn btn-danger btn-xs block-btn">Блокировать</a><br>
                                 <form style="display: none" method="post" action="{{ action('Moderator\ModerateController@block',['id'=>$publication->id]) }}">
@@ -45,6 +47,7 @@
                                     <input type="submit" class="btn btn-danger btn-xs">
                                 </form>
                                 <a href="{{ action('Moderator\ModerateController@confirm',['id'=>$publication->id]) }}" class="btn btn-success btn-xs">Подтвердить</a>
+                                <a href="{{ action('Moderator\ModerateController@topic',['id'=>$publication->id]) }}" class="btn btn-success btn-xs">Тема дня</a>
                             </td>
                         </tr>
                     @endforeach

@@ -1,10 +1,10 @@
 <div class="contacts-off-container">
-	<a href="" class="prev"></a>
+	<a href="javascript:void(0);" ng-click="returnToBack()" class="prev"></a>
 	<div class="subscriber" ng-repeat="subscriber in subscribers">
 		<div class="subscriber-item">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: subscriber.id})">
-					<img src="{{subscriber.avatar_path}}" alt="">
+				<a class="ava" ui-sref="user({username: subscriber.login})">
+					<img ng-if="subscriber.avatar_path" ng-src="{{subscriber.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-info">
@@ -12,6 +12,6 @@
 				<p class="status-user" ng-hide="profileEdition">{{subscriber.status}}</p>
 			</div>
 		</div>
-		<a ng-hide="subscriber.id !== loggedUserId" href="javascript:void(0);" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
+		<a href="javascript:void(0);" class="read" ng-click="sign(subscriber)">{{subscriber.is_sub ? 'Отписаться' : 'Подписаться'}}</a> 
 	</div>
 </div>

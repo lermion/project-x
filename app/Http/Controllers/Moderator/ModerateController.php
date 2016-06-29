@@ -100,4 +100,16 @@ class ModerateController extends Controller
         $publication->save();
         return redirect()->action('Moderator\ModerateController@index');
     }
+
+    public function topic($id){
+        $publications = Publication::where('is_topic',false)->get();
+        foreach ($publications as &$p){
+            $p->is_topic = false;
+            $p->save();
+        }
+        $publication = Publication::find($id);
+        $publication->is_topic = true;
+        $publication->save();
+        return redirect()->action('Moderator\ModerateController@index');
+    }
 }
