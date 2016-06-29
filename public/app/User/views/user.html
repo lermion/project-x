@@ -118,13 +118,13 @@
 
 			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
-				<div class="my_profilll photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">							
+				<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}">							
 					<div class="ngdialog-content" role="document">
 
 						<div class="user-publication">
 							<div class="user-publication-content">
 								<div class="publication-ava">
-									<img ng-src="{{mainImage}}">
+									<img ng-src="{{mainImage || singlePublication.images[0].url}}">
 								</div>
 								<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">		
 									<div ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
@@ -211,7 +211,7 @@
 									</div>
 									<div class="publication-footer" >
 										<div class="publication-footer-button">
-											<a href="javascript:void(0);" ng-click="addNewComment(singlePublication.id, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
+											<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
 										</div>
 										<div class="add-objects"> 
 											<input type="file" id="add-object" flow-btn>  

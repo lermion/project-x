@@ -324,7 +324,9 @@ angular.module('placePeopleApp')
 				getAllCommentsPublication(pubId);
 				$scope.limit = 6;
 				$scope.singlePublication = response;
-				$scope.mainImage = response.images[0].url;
+				if(response.images[0] !== undefined){
+					$scope.mainImage = response.images[0].url;
+				}
 				if ($window.innerWidth <= 700) {
 				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
@@ -344,13 +346,19 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);
 		};
-		$scope.addNewComment = function(pubId, pubText, flow){
+		$scope.addNewComment = function(flag, pub, pubText, flow){
 			$scope.commentModel = angular.copy(emptyPost);
-			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText, flow).then(function(response){
 				if(response.data.status){
 					flow.cancel();
-					$scope.singlePublication.comments.push(response.data.comment);
-					$scope.singlePublication.comment_count++;
+					if(flag === "userPage"){
+						pub.comments.push(response.data.comment);
+						pub.comment_count++;
+					}else{
+						$scope.singlePublication.comments.push(response.data.comment);
+						$scope.singlePublication.comment_count++;
+					}
+					
 				}
 			},
 			function(error){
