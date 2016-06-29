@@ -1,4 +1,4 @@
-<!-- <div ng-controller="settingsCtrl">
+<div ng-controller="settingsCtrl">
 	<header>
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
@@ -58,6 +58,8 @@
 				<div class="user-publication-content">
 					<p class="publication-text">{{singlePublication.text}}</p>
 					<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
+					<a href="javascript:void(0);" class="publication-place school">г. Лондон</a>
+					<a href="javascript:void(0);" class="publication-place university">г. Лондон</a>
 					<div class="publication-ava">
 						<img ng-src="{{mainImage}}">
 					</div>
@@ -82,8 +84,8 @@
 						</p>
 					</div>
 					<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
-				</div> -->
-				<!--<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
+				</div> 
+				<div class="more-comments" ng-if="lengthAllComments >= 3 && singlePublication.comments.length !== singlePublication.comment_count">
 					<a href="javascript:void(0);" ng-click="getAllCommentsPublication(singlePublication.id, true)" class="all-comments">Еще {{lengthAllComments - 3}} комментариев</a>
 				</div>
 				<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
@@ -102,7 +104,7 @@
 								</div>
 								<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 							</div>
-							<!-- <p class="comment-item">{{comment.text}}</p>
+							<p class="comment-item">{{comment.text}}</p>
 							<div ng-if="comment.images[0]" class="comment-pic">
 								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 									<img ng-src="{{image.url}}">
@@ -222,12 +224,10 @@
 							</div>   
 						</div>
 					</div>
-				</div> --> 
-			<!-- </div>
+				</div> 
+			</div>
 		</div>
-
-
-	</div>
+	</div> 
 
 	<footer>
 		<div class="footer">
@@ -250,4 +250,4 @@
 		</div>
 	</footer>
 
-</div> --> 
+</div> 

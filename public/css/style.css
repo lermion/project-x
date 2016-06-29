@@ -2434,7 +2434,13 @@ spam-item {
 	background-position: left center;
 	background-repeat: no-repeat;
 	transition: all .3s ease-in-out .1s;
-}  
+} 
+.user-publication-content .publication-place.school {
+	background-image: url(../images/school.png);
+} 
+.user-publication-content .publication-place.university {
+	background-image: url(../images/university.png);
+}
 .user-publication-content .publication-place:hover {
 	color: #333;
 }

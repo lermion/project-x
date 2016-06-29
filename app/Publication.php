@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Publication extends Model
 {
-    protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message'];
+    protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover'];
 
     protected $hidden = ['is_block', 'block_message'];
 
@@ -78,7 +78,6 @@ class Publication extends Model
             $query->take(3);
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where('user_id', $userId)
-            ->where('is_block', false)
             ->where('is_anonym', false)->orderBy('id', 'desc')->get();
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
