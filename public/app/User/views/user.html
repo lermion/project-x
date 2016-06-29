@@ -1,4 +1,5 @@
 <div>	
+	
 	<header>
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
@@ -59,7 +60,7 @@
 						</a>
 					</div>
 					<p class="status-user" ng-hide="profileEdition">{{userData.status}}</p>					
-					<input class="status-correct" type="text" name="" ng-hide="showStatusArea" ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
+					<input class="status-correct" type="text" name="" ng-show="profileEdition && !showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 					<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше 140 символов</p>
 					<div class="comunications" ng-show="myProfile">
 						<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
@@ -78,8 +79,8 @@
 					</div>
 				</div>
 			</div>
-			<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
-			<input class="status-correct adaptiv" type="text" name=""ng-show="showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
+			<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea">{{userData.status}}</p>
+			<input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 			<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 			<div class="comunications adaptiv" ng-show="myProfile">
 				<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
@@ -233,9 +234,6 @@
 
 		</div>
 	</div>
-
-
-
 	<footer>
 		<div class="footer">
 		    <div class="footer-item">

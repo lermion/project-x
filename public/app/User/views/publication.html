@@ -7,13 +7,13 @@
 			</span>
 			<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
 		</a>
-		<form action="">
+		<!-- <form action="">
 			<input type="checkbox" id="anon" ng-model="isAnonPub">
 			<label for="anon">
 				<span></span>
 				Анонимная публикация
 			</label>
-		</form>
+		</form> -->
 	</div>
 	<div class="text-field">
 		<textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText"></textarea>
@@ -118,7 +118,7 @@
 		</div>
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
-			<a href="" class="publication-button" ng-click="publishNewPub(pubText, isAnonPub, $flow.files);" ladda="newPubLoader">Опубликовать</a>    
+			<a href="" class="publication-button" ng-click="publishNewPub(pubText, $flow.files);" ladda="newPubLoader">Опубликовать</a>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>
