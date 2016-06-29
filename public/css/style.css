@@ -2461,10 +2461,24 @@ spam-item {
 .user-publication .visible-comments {
 	border-bottom: 1px solid #dfe1e4;
 }
-
+/*aded  */
 .user-publication .visible-comments.added_comments {
 	border:none;
 }
+a.add_comments {
+    text-decoration: inherit;
+    color: #a0a0a0;
+    padding: 0 0 0px 15px;
+    line-height: 50px;
+    font-family: SFUIDisplayLight;
+}
+.my_profilll.photo-list {
+	height: 100%;
+}
+div.my_profilll.photo-list div:last-child{
+	margin-bottom: 20px;
+}
+/*aded  */
 .user-publication .likes {
 	display: flex;
 	justify-content: space-between;
