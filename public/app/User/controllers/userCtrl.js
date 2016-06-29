@@ -325,7 +325,7 @@ angular.module('placePeopleApp')
 		}
 		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
-				getAllCommentsPublication(pubId);
+				//getAllCommentsPublication(pubId);
 				$scope.limit = 6;
 				$scope.singlePublication = response;
 				if(response.images[0] !== undefined){
@@ -414,13 +414,18 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.getAllCommentsPublication = function(pubId, showAllComments){
-			getAllCommentsPublication(pubId, showAllComments);
+		$scope.getAllCommentsPublication = function(flag, pub, showAllComments){
+			getAllCommentsPublication(flag, pub, showAllComments);
 		}
-		function getAllCommentsPublication(pubId, showAllComments){
-			PublicationService.getAllCommentsPublication(pubId).then(function(response){
+		function getAllCommentsPublication(flag, pub, showAllComments){
+			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
 				if(showAllComments === true){
-					$scope.singlePublication.comments = response;
+					if(flag === "userPage"){
+						console.log("hello");
+						pub.comments = response;
+					}else{
+						$scope.singlePublication.comments = response;
+					}
 				}
 				$scope.lengthAllComments = response.length;
 			},
