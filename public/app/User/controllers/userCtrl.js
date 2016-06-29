@@ -139,8 +139,11 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.editProfile = function(name, lastname, status){
+			if (($window.innerWidth <= 520) && !$scope.showStatusArea) {				
+					$scope.showStatusArea = true;
+			}
 			if (!$scope.profileEdition) {
-				$scope.profileEdition=true;				
+				$scope.profileEdition = true;				
 			} else {
 				if (!name) {
 				return;
@@ -151,7 +154,8 @@ angular.module('placePeopleApp')
 				UserService.quickEdit(name, lastname, status)
 				.then(					
 					function(res){								
-						$scope.profileEdition = false;		        
+						$scope.profileEdition = false;
+						$scope.showStatusArea = false;		        
 					},
 					function(err){
 						console.log(err);
@@ -232,7 +236,7 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.pubFiles = function(files, event, flow){								
+		$scope.pubFiles = function(files, event, flow){											
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
 			} else if(files.length > 100){
@@ -267,7 +271,7 @@ angular.module('placePeopleApp')
 				}
 		};
 
-		$scope.publishNewPub = function(pubText, isAnonPub, files){
+		$scope.publishNewPub = function(pubText, files){
 			$scope.newPubLoader = true;						
 			var images = [];
 			var videos = [];
@@ -297,7 +301,7 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText, isAnonPub ? 1 : 0, isMain, videos, images)			
+			PublicationService.createPublication(pubText, 0, isMain, videos, images)			
 				.then(					
 					function(res){						
 						if (res.status) {
@@ -321,10 +325,12 @@ angular.module('placePeopleApp')
 		}
 		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
-				getAllCommentsPublication(pubId);
+				//getAllCommentsPublication(pubId);
 				$scope.limit = 6;
 				$scope.singlePublication = response;
-				$scope.mainImage = response.images[0].url;
+				if(response.images[0] !== undefined){
+					$scope.mainImage = response.images[0].url;
+				}
 				if ($window.innerWidth <= 700) {
 				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
@@ -344,13 +350,19 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);
 		};
-		$scope.addNewComment = function(pubId, pubText, flow){
+		$scope.addNewComment = function(flag, pub, pubText, flow){
 			$scope.commentModel = angular.copy(emptyPost);
-			PublicationService.addCommentPublication(pubId, pubText, flow).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText, flow).then(function(response){
 				if(response.data.status){
 					flow.cancel();
-					$scope.singlePublication.comments.push(response.data.comment);
-					$scope.singlePublication.comment_count++;
+					if(flag === "userPage"){
+						pub.comments.push(response.data.comment);
+						pub.comment_count++;
+					}else{
+						$scope.singlePublication.comments.push(response.data.comment);
+						$scope.singlePublication.comment_count++;
+					}
+					
 				}
 			},
 			function(error){
@@ -393,22 +405,32 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.deleteComment = function(commentId, index){
-			PublicationService.deleteCommentPublication(commentId).then(function(response){
-				$scope.singlePublication.comments.splice(index, 1);
-				$scope.singlePublication.comment_count--;
+		$scope.deleteComment = function(flag, comments, comment, index){
+			PublicationService.deleteCommentPublication(comment.id).then(function(response){
+				if(response.status){
+					if(flag === "userPage"){
+						comments.splice(index, 1);
+					}else{
+						$scope.singlePublication.comments.splice(index, 1);
+						$scope.singlePublication.comment_count--;
+					}
+				}
 			},
 			function(error){
 				console.log(error);
 			});
 		}
-		$scope.getAllCommentsPublication = function(pubId, showAllComments){
-			getAllCommentsPublication(pubId, showAllComments);
+		$scope.getAllCommentsPublication = function(flag, pub, showAllComments){
+			getAllCommentsPublication(flag, pub, showAllComments);
 		}
-		function getAllCommentsPublication(pubId, showAllComments){
-			PublicationService.getAllCommentsPublication(pubId).then(function(response){
+		function getAllCommentsPublication(flag, pub, showAllComments){
+			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
 				if(showAllComments === true){
-					$scope.singlePublication.comments = response;
+					if(flag === "userPage"){
+						pub.comments = response;
+					}else{
+						$scope.singlePublication.comments = response;
+					}
 				}
 				$scope.lengthAllComments = response.length;
 			},
@@ -507,8 +529,8 @@ angular.module('placePeopleApp')
 			$scope.$broadcast('rebuildScroll');
 		};
 
-		$scope.saveEditedPub = function(pubId, text, isAnon, files){
-			// $scope.updatePubLoader = true;
+		$scope.saveEditedPub = function(pubId, text, files){
+			$scope.updatePubLoader = true;
 			var images = [];
 			var videos = [];
 			var isMain;						
@@ -525,7 +547,7 @@ angular.module('placePeopleApp')
 					videos.push(file.file);
 				}				
 			});			
-			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+			PublicationService.updatePublication(pubId ,text, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
 			.then(					
 					function(res){									
 						if (res.status) {

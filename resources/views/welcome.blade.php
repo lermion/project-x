@@ -31,6 +31,7 @@
     <script src="../../app/config.js"></script>
     <script src="../../app/mainCtrl.js"></script>    
     <script src="../../app/common/services/storageService.js"></script>
+    <script src="../../app/common/filters/filters.js"></script>
     <script src="../../app/Publication/models/publicationService.js"></script>
 
     <script src="../../app/Auth/models/authService.js"></script>
