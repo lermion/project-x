@@ -21,8 +21,8 @@
 			</div>
 			<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
 		</div>
-	</header> -->	
-	<div class="content-user">		
+	</header>	 -->
+	<!-- <div class="content-user">		
 		<div id="user-page">
 			<div class="my-profile">
 				<div class="ava">
@@ -80,9 +80,9 @@
 			</div>
 			<!-- <p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
 			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
-			<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
+			<!--<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
 			<!-- <textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea> -->
-			<textarea class="adaptiv" ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''">{{userData.status}}</textarea>
+			<!--<textarea class="adaptiv" ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''">{{userData.status}}</textarea>
 			<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 			<div class="comunications adaptiv" ng-show="myProfile">
 				<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
@@ -108,29 +108,29 @@
 					</a>
 				</div>
 			</div> -->
-			<div class="my-photos" ng-show="photosGrid">
+			<!--<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 					<a href="" ng-click="showPublication(pub)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
 						<!-- <p>{{pub.images}}</p> -->
 						<!-- <span class="video" ng-show="$index==0"></span> -->
-					</a>
+					<!--</a>
 				</div>
 			</div>
 
 
 			<!-- single unit -->
-			<div class="my-photos-list" ng-show="!photosGrid">
+			<!--<div class="my-photos-list" ng-show="!photosGrid">
 				<div class="photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
 					<a href="" ng-click="showPublication(pub)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
 						<!-- <span class="video" ng-show="$index==1"></span> -->
-					</a>
+					<!--</a>
 				</div>
 			</div>
 		</div>
 		
-	</div>
+	</div> -->
 	<!-- <footer>
 		<div class="footer">
 		    <div class="footer-item">
@@ -151,4 +151,4 @@
 		    </div>
 		</div>
 	</footer> -->
-</div>
+</div> 
