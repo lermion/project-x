@@ -64,10 +64,17 @@ angular.module('placePeopleApp')
 
 	/*Page code*/
 
+	function blobToFile(blob){
+		blob.lastModifiedDate = new Date();
+		blob.name = 'image';
+		return blob;
+	}
+
 	UserService.getUserData(storage.username)
 		.then(
 			function(res){										
 				$scope.userData = res;
+				$scope.avatar = blobToFile(res.avatar_path);
 				$scope.isVisible = res.is_visible;	
 				$scope.showAvatar = res.is_avatar;									        
 			},
