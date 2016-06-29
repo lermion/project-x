@@ -16,7 +16,7 @@
 		</form> -->
 	</div>
 	<div class="text-field">
-		<textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText"></textarea>
+		<textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea>
 		<!-- <div class="smiles">
 			<div class="smiles-item"></div>
 			<div class="smile">
@@ -111,7 +111,7 @@
 	<div class="publication-footer" >
 		<div class="add-objects"> 
 			<input type="file" id="add-object" flow-btn multiple/>  
-			<label for="add-object" ng-click="openPublicationPreviewBlock($flow.files)">
+			<label for="add-object" ng-click="openPublicationPreviewBlock($flow.files); publishNewPubErr=false;">
 				<span class="add"></span>
 				Добавить фото или видео *
 			</label>                                         
@@ -121,5 +121,5 @@
 			<a href="" class="publication-button" ng-click="publishNewPub(pubText, $flow.files);" ladda="newPubLoader">Опубликовать</a>    
 		</div>       
 	</div>
-	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>
+	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
 </div> 
