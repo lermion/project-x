@@ -236,7 +236,7 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.pubFiles = function(files, event, flow){								
+		$scope.pubFiles = function(files, event, flow){											
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
 			} else if(files.length > 100){
@@ -421,7 +421,6 @@ angular.module('placePeopleApp')
 			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
 				if(showAllComments === true){
 					if(flag === "userPage"){
-						console.log("hello");
 						pub.comments = response;
 					}else{
 						$scope.singlePublication.comments = response;
