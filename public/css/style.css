@@ -2342,9 +2342,9 @@ spam-item {
 	padding-top: 20px;
 	transition: all .3s ease-in-out .1s;
 }
-.user-publication-header .user-menu:hover  .menu-item {
-	display: block;
-}
+// .user-publication-header .user-menu:hover  .menu-item {
+// 	display: block;
+// }
 .user-publication-header  .menu-item .inner {
 	box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
 }
@@ -3161,6 +3161,7 @@ div.my_profilll.photo-list div:last-child{
 .main-content  .content-item {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
 	background: #fff;
+	margin-bottom: 30px;
 }
 .content-item .user-publication-header .user-function  {
 	width: 100%;
@@ -3238,4 +3239,20 @@ body.public.fixed {
 }
 .fixed .user-main-content-item {
 	position: relative;
+}
+@media (max-width: 720px) {
+	.main-content {
+		width: 100%;
+	}
+	.main-content .groups {
+		padding: 20px 10px;
+	}
+}
+@media (max-width: 400px) {
+	.main-content .groups {
+		flex-direction: column;
+	}
+	.content-item .user-publication-header .user-menu {
+		margin-left: 0;
+	}
 }
