@@ -736,7 +736,7 @@ body.public {
 	width: 100%;
 	height: 100%;
 	min-height: 100vh;
-	padding: 0 0 75px 0;
+	padding-bottom: 75px;
 	position: relative;
 	box-sizing: border-box;
 }
@@ -2241,13 +2241,17 @@ spam-item {
 /* */
 
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content{
-	background: #fff;
-	width: 700px;
-	padding: 0;
-	margin-left: -350px;
+	background: transparent;
+	width: 100%;
+	padding:  50px 0;
+	margin-left: 0;
 	height: auto;
-	top: 3%;
+	top: 0;
     	margin-top: 0;
+    	left: 0;
+    	right: 0;
+    	bottom: 0;
+    	box-sizing: border-box;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2422,9 +2426,13 @@ spam-item {
 	line-height: 15px;
 }
 .ngdialog.view-publication.ngdialog-theme-default{
-	position: absolute;
+	// position: absolute;
 	height: 100%;
+	position: relative;
 } 
+.pop-user-publication {
+
+}
 .user-publication-content .publication-text {
 	padding: 0 15px;
 	box-sizing: border-box;
@@ -3186,4 +3194,48 @@ div.my_profilll.photo-list div:last-child{
 #wrapper .content-item  .user-publication-header {
 	background: #fff;
 	border-bottom: none; 
+}
+/* fixed page*/
+body.public.user #wrapper {
+	min-height: 100%;
+}
+.user-main-content {
+	width: 100%;
+	height: 100%;
+}
+.user-main-content-item {
+	padding-bottom: 75px;
+	min-height: 100%;
+	box-sizing: border-box;
+}
+.user-publication-bg {
+	position: fixed;
+	background: rgba(0,0,0,.2);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+}
+.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+	width: 700px;
+	background: #fff;
+	margin-left: -350px;
+	left: 50%;
+	position: absolute;
+	margin-bottom: 50px;
+}
+.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
+	right: 50%;
+	top: 50px;
+	margin-right: -345px;
+}
+body.public.fixed {
+	padding-bottom: 0;
+}
+.fixed .user-main-content {
+	position: fixed;
+}
+.fixed .user-main-content-item {
+	position: relative;
 }
