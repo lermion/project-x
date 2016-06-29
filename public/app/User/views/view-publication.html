@@ -54,7 +54,7 @@
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
-		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
+		<div ng-repeat="comment in singlePublication.comments | reverse" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: loggedUser})">
 					<img ng-src="{{comment.user.avatar_path}}" alt="">
