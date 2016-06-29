@@ -3,8 +3,8 @@
 	<div class="subscriber" ng-repeat="subscription in subscriptions">
 		<div class="subscriber-item">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: subscription.id})">
-					<img src="{{subscription.avatar_path}}" alt="">
+				<a class="ava" ui-sref="user({username: subscription.login})">
+					<img ng-src="{{subscription.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-info">
