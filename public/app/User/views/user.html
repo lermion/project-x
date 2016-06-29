@@ -49,11 +49,11 @@
 							<p class="contacts">Контакты</p>
 							<span>417</span>
 						</a>
-						<a href="" class="counter" ng-click="openSubscribers(userData.id)">
+						<a href="" class="counter" ng-click="userData.subscribers_count > 0 && openSubscribers(userData.id)">
 							<p class="contacts-off">Подписчики</p>
 							<span>{{userData.subscribers_count}}</span>
 						</a>
-						<a href="" class="counter" ng-click="openSubscribe(userData.id)">
+						<a href="" class="counter" ng-click="userData.subscription_count > 0 && openSubscribe(userData.id)">
 							<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 							<span>{{userData.subscription_count}}</span> 
 						</a>
