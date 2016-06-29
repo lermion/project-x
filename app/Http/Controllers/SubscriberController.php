@@ -58,9 +58,38 @@ class SubscriberController extends Controller
             $resultData['is_sub'] = false;
             return response()->json($resultData);
         } else {
-            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub]);
+            $isConfirmed = !User::find($userId)->is_private;
+            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $userIdSub, 'is_confirmed' => $isConfirmed]);
             $resultData['is_sub'] = true;
             return response()->json($resultData);
+        }
+    }
+
+    public function confirm($id)
+    {
+        $sub = Subscriber::find($id);
+        if (!$sub) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        } elseif ($sub->user_id != Auth::id()) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($result);
+        } else {
+            $sub->is_confirmed = true;
+            $sub->save();
+            return response()->json(['status' => true]);
         }
     }
 
@@ -71,7 +100,7 @@ class SubscriberController extends Controller
             $subscription = $user->subscription;
             if (Auth::check()) {
                 foreach ($subscription as &$sub) {
-                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                    $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
                 }
             }
             return $subscription;
@@ -87,14 +116,15 @@ class SubscriberController extends Controller
         }
     }
 
-    public function subscribers($id)
+    public
+    function subscribers($id)
     {
         $user = User::find($id);
         if ($user) {
             $subscribers = $user->subscribers;
             if (Auth::check()) {
                 foreach ($subscribers as &$sub) {
-                    $sub->is_sub = Subscriber::isSub($user->id, Auth::id());
+                    $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
                 }
             }
             return $subscribers;

@@ -13,7 +13,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'login', 'phone', 'password', 'country_id', 'first_name', 'last_name', 'gender', 'status', 'is_avatar',
-        'is_visible'
+        'is_visible', 'is_private'
     ];
 
     /**
@@ -30,10 +30,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Publication');
     }
 
-    public function subscription(){
-        return $this->belongsToMany('App\User', 'subscribers','user_id_sub')->withTimestamps();
+    public function subscription()
+    {
+        return $this->belongsToMany('App\User', 'subscribers', 'user_id_sub')->withTimestamps();
     }
-    public function subscribers(){
-        return $this->belongsToMany('App\User', 'subscribers','user_id','user_id_sub')->withTimestamps();
+
+    public function subscribers()
+    {
+        return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'user_id_sub')->withTimestamps();
+    }
+
+    public function isRealSub($id)
+    {
+        return $this->subscribers()->where(['user_id_sub'=>$id])->first()!=null;
     }
 }

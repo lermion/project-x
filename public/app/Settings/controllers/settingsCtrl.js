@@ -64,10 +64,19 @@ angular.module('placePeopleApp')
 
 	/*Page code*/
 
+	function blobToFile(blob){
+		blob.lastModifiedDate = new Date();
+		blob.name = 'image';
+		return blob;
+	}
+
 	UserService.getUserData(storage.username)
 		.then(
 			function(res){										
-				$scope.userData = res;										        
+				$scope.userData = res;
+				$scope.avatar = blobToFile(res.avatar_path);
+				$scope.isVisible = res.is_visible;	
+				$scope.showAvatar = res.is_avatar;									        
 			},
 			function(err){
 				console.log(err);
@@ -78,8 +87,8 @@ angular.module('placePeopleApp')
 		$scope.settingsEdit = true;
 	};
 
-	$scope.saveSettings = function(username, userLastname, userStatus){		
-		UserService.quickEdit(username, userLastname, userStatus)
+	$scope.saveSettings = function(username, userLastname, userStatus){			
+		UserService.settingsEdit(username, userLastname, userStatus, $scope.showAvatar ? 1 : 0, $scope.isVisible ? 1 : 0)
 			.then(					
 				function(res){								
 					$scope.settingsEdit = false;	        
@@ -112,11 +121,9 @@ angular.module('placePeopleApp')
 		$scope.croppedImg = img;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
-		ngDialog.closeAll();
-		//send new ava on back
+		ngDialog.closeAll();		
 		UserService.updateAvatar(img)
-			.then(function(res){ 
-				console.log(res)   			
+			.then(function(res){				   			
 		      }, function(err){
 		        console.log(err);
 		      });	

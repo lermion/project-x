@@ -19,8 +19,34 @@ angular.module('placePeopleApp')
 						deleteCommentPublication: deleteCommentPublication,
 						addCommentLike: addCommentLike,
 						addPublicationLike: addPublicationLike,
-						getSinglePublication: getSinglePublication
+						getSinglePublication: getSinglePublication,
+						getSubscribers: getSubscribers,
+						getSubscription: getSubscription
 
+		}
+
+		function getSubscribers(userId){
+			var defer = $q.defer();
+			$http.get("user/" + userId + "/subscribers")
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function getSubscription(userId){
+			var defer = $q.defer();
+			$http.get("user/" + userId + "/subscription")
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
 		}
 
 		function addCommentPublication(pubId, pubText, flow){

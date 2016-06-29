@@ -25,6 +25,20 @@ class SubTest extends TestCase
         $this->seeInDatabase('subscribers', ['user_id' => $user2->id, 'user_id_sub' => $user1->id]);
     }
 
+    public function testConfirm()
+    {
+        $user1 = \App\User::create(['phone' => '88888888888', 'password' => bcrypt('123'), 'country_id' => 1]);
+        $user2 = \App\User::create(['phone' => '99999999999', 'password' => bcrypt('123'), 'country_id' => 1]);
+        $sub = \App\Subscriber::create(['user_id' => $user1->id, 'user_id_sub' => $user2->id,
+            'is_confirmed' => false]);
+        $this->be($user1);
+        $this->json('get', 'user/subscribe/confirm/'.$sub->id)
+            ->seeJson([
+                'status' => true,
+            ]);
+        $this->seeInDatabase('subscribers', ['user_id' => $user1->id, 'user_id_sub' => $user2->id,'is_confirmed'=>true]);
+    }
+
     public function testSubscription()
     {
         $user = \App\User::first();

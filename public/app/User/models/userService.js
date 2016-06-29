@@ -7,7 +7,8 @@ angular.module('placePeopleApp')
 			getUserData: getUserData,
             sign: sign,
             quickEdit: quickEdit,
-            updateAvatar: updateAvatar
+            updateAvatar: updateAvatar,
+            settingsEdit: settingsEdit
 		}
 
 		function getUserData(login){                
@@ -20,23 +21,7 @@ angular.module('placePeopleApp')
                         defer.reject(error);
                     });
             return defer.promise;
-        }
-        function quickEdit(name, lastname, status){
-            var data = {
-                'first_name': name,
-                'last_name': lastname,
-                'status': status
-            };
-            var defer = $q.defer();
-            $http.post(path + 'user/update', data)
-                .success(function (response){
-                    defer.resolve(response);
-                })
-                .error(function (error){
-                    defer.reject(error);
-                });
-            return defer.promise;           
-        }
+        }        
 
         function sign(userId){                
            var defer = $q.defer();
@@ -53,8 +38,42 @@ angular.module('placePeopleApp')
             return defer.promise;
         }
 
-        function updateAvatar(avatar){
-            console.log(avatar);
+        function quickEdit(name, lastname, status){
+            var data = {
+                'first_name': name,
+                'last_name': lastname,
+                'status': status
+            };
+            var defer = $q.defer();
+            $http.post(path + 'user/update', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });
+            return defer.promise;           
+        }
+        function settingsEdit(name, lastname, status, showAva, visible){
+            var data = {
+                'first_name': name,
+                'last_name': lastname,
+                'status': status,
+                'is_visible': visible,
+                'is_avatar': showAva
+            };
+            var defer = $q.defer();
+            $http.post(path + 'user/update', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });
+            return defer.promise;           
+        }
+
+        function updateAvatar(avatar){            
             var data = new FormData();            
             data.append('avatar', avatar);            
             var config = {
@@ -64,8 +83,8 @@ angular.module('placePeopleApp')
                     transformRequest: angular.identity
                 },            
                 defer = $q.defer();
-                $http.post(path + 'user/update', data)
-                    .success(function (response){
+                $http.post(path + 'user/update', data, config)
+                    .success(function (response){                        
                         defer.resolve(response);
                     })
                     .error(function (error){
