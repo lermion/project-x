@@ -641,7 +641,7 @@ footer {
 		width: 36%;
 	}
 	.footer .menu {
-		width: 60%;
+		width: 64%;
 	}
 }
 @media (max-width: 650px)  {
@@ -1637,6 +1637,10 @@ body.public.user {
 		background-image: none;
 		border: 1px solid #77849b;
 	}
+	#user-page .status-correct.adaptiv {
+		margin: 20px;
+    		width: 92%;
+	}
 }
 @media (max-width: 450px) {
 	#user-page .my-profile {
@@ -1665,6 +1669,10 @@ body.public.user {
 	#user-page .status-user.adaptiv {
 		padding: 0 5px 15px;
     		
+	}
+	#user-page .status-correct.adaptiv {
+		margin: 5px;
+    		width: 97%;
 	}
 }
 
