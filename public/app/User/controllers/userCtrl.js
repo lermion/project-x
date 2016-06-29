@@ -236,7 +236,7 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.pubFiles = function(files, event, flow){								
+		$scope.pubFiles = function(files, event, flow){											
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
 			} else if(files.length > 100){
