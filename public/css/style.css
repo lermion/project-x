@@ -736,7 +736,6 @@ body.public {
 	padding: 0 0 75px 0;
 	position: relative;
 	box-sizing: border-box;
-	overflow-x: hidden;
 }
 body.public.user {
 	background: #e9eaed;
