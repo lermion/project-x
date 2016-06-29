@@ -736,7 +736,7 @@ body.public {
 	width: 100%;
 	height: 100%;
 	min-height: 100vh;
-	// padding: 0 0 75px 0;
+	padding-bottom: 75px;
 	position: relative;
 	box-sizing: border-box;
 }
@@ -3199,13 +3199,12 @@ div.my_profilll.photo-list div:last-child{
 body.public.user #wrapper {
 	min-height: 100%;
 }
-.user-main-comtent {
+.user-main-content {
 	width: 100%;
 	height: 100%;
 }
-.user-main-comtent-item {
+.user-main-content-item {
 	padding-bottom: 75px;
-	position: relative;
 	min-height: 100%;
 	box-sizing: border-box;
 }
@@ -3230,4 +3229,13 @@ body.public.user #wrapper {
 	right: 50%;
 	top: 50px;
 	margin-right: -345px;
+}
+body.public.fixed {
+	padding-bottom: 0;
+}
+.fixed .user-main-content {
+	position: fixed;
+}
+.fixed .user-main-content-item {
+	position: relative;
 }

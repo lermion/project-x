@@ -1,6 +1,6 @@
 <div style="min-height: 100%;">	
-	<div class="user-main-comtent">
-		<div class="user-main-comtent-item">	
+	<div class="user-main-content">
+		<div class="user-main-content-item">
 			<header>
 				<div class="header header-user">
 					<a class="logo" ui-sref="feed"></a>
@@ -169,7 +169,7 @@
 														<p class="time" am-time-ago="comment.created_at"></p>
 														<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 													</div>
-													<a href="javascript:void(0);" ng-click="deleteComment(comment.id, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
+													<a href="javascript:void(0);" ng-click="deleteComment('userPage', singlePublication.comments, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 												</div>
 												<p class="comment-item">{{comment.text}}</p>
 												<div ng-if="comment.images[0]" class="comment-pic">
@@ -216,9 +216,8 @@
 													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
 												</div>
 												<div class="add-objects"> 
-													<input style="display: none;" type="file" id="add-comment-to-file" flow-btn>  
-													<label for="add-comment-to-file">
-														Прикрепить
+												<input style="display: none;" type="file" id="add-file-to-comment" flow-btn>  
+													<label for="add-file-to-comment">Прикрепить
 														<span class="add"></span>
 													</label>                                         
 												</div>   
