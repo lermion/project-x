@@ -1511,6 +1511,9 @@ body.public.user {
 	.photo-list  {
 		height: 500px;
 	}
+	.my_profilll.photo-list  {
+		height: 100% !important;
+	}
 	#user-page .my-profile {
 		padding: 15px 10px;
 	}
@@ -2457,6 +2460,10 @@ spam-item {
 .user-publication .more-comments,
 .user-publication .visible-comments {
 	border-bottom: 1px solid #dfe1e4;
+}
+
+.user-publication .visible-comments.added_comments {
+	border:none;
 }
 .user-publication .likes {
 	display: flex;
