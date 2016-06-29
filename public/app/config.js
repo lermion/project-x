@@ -37,12 +37,12 @@ angular.module('placePeopleApp')
 	      controller: 'staticCtrl'
 	    })
 	    .state('subscribers', {
-	      url: '/:username/subscribers',
+	      url: '/:username/subscribers/:id',
 	      templateUrl: '../../app/User/views/popup-user-subscribers.html',
 	      controller: 'userCtrl'
 	    })
 	    .state('subscribes', {
-	      url: '/:username/subscribes',
+	      url: '/:username/subscribes/:id',
 	      templateUrl: '../../app/User/views/popup-user-subscribe.html',
 	      controller: 'userCtrl'
 	    })

@@ -77,8 +77,11 @@
 						</div>
 					</div>
 				</div>
-			</div> 
+			</div>
 			<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
+			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea>
+			<p class="status-user adaptiv" ng-hide="profileEdition">{{userData.status}}</p>
+			<textarea ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}">{{userData.status}}</textarea>
 			<textarea class="adaptiv" ng-show="profileEdition" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''">{{userData.status}}</textarea>
 			<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 			<div class="comunications adaptiv" ng-show="myProfile">
@@ -96,21 +99,32 @@
 					<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 				</div>
 			</div>
-			<!-- unit grid-->		
+			<!-- unit grid-->						
+			<!-- <div class="my-photos" ng-show="photosGrid">
+				<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
+					<a href="" ng-click="showPublication(2)">
+						<img src="images/pic.png" alt="">
+						<span class="video" ng-show="$index==0"></span>
+					</a>
+				</div>
+			</div> -->
 			<div class="my-photos" ng-show="photosGrid">
 				<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 					<a href="" ng-click="showPublication(pub)">
-						<img ng-src="{{pub.images[0].url}}" alt="">				
+						<img ng-src="{{pub.images[0].url}}" alt="">
+						<!-- <p>{{pub.images}}</p> -->
 						<!-- <span class="video" ng-show="$index==0"></span> -->
 					</a>
 				</div>
 			</div>
-			<!-- single unit  -->
+
+
+			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
 				<div class="photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
 					<a href="" ng-click="showPublication(pub)">
 						<img ng-src="{{pub.images[0].url}}" alt="">
-						<!-- <span class="video" ng-show="$index==1"></span> -->
+						<span class="video" ng-show="$index==1"></span>
 					</a>
 				</div>
 			</div>
@@ -136,5 +150,5 @@
 		        </div>
 		    </div>
 		</div>
-	</footer> 
-</div> 
+	</footer>
+</div>
