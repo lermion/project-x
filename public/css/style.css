@@ -3231,13 +3231,13 @@ body.public.user #wrapper {
 	top: 50px;
 	margin-right: -345px;
 }
-body.public.fixed {
+body.public.ngdialog-open {
 	padding-bottom: 0;
 }
-.fixed .user-main-content {
+.ngdialog-open .user-main-content {
 	position: fixed;
 }
-.fixed .user-main-content-item {
+.ngdialog-open .user-main-content-item {
 	position: relative;
 }
 @media (max-width: 720px) {
