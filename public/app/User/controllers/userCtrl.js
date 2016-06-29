@@ -139,8 +139,11 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.editProfile = function(name, lastname, status){
+			if (($window.innerWidth <= 520) && !$scope.showStatusArea) {				
+					$scope.showStatusArea = true;
+			}
 			if (!$scope.profileEdition) {
-				$scope.profileEdition=true;				
+				$scope.profileEdition = true;				
 			} else {
 				if (!name) {
 				return;
@@ -151,7 +154,8 @@ angular.module('placePeopleApp')
 				UserService.quickEdit(name, lastname, status)
 				.then(					
 					function(res){								
-						$scope.profileEdition = false;		        
+						$scope.profileEdition = false;
+						$scope.showStatusArea = false;		        
 					},
 					function(err){
 						console.log(err);
@@ -267,7 +271,7 @@ angular.module('placePeopleApp')
 				}
 		};
 
-		$scope.publishNewPub = function(pubText, isAnonPub, files){
+		$scope.publishNewPub = function(pubText, files){
 			$scope.newPubLoader = true;						
 			var images = [];
 			var videos = [];
@@ -297,7 +301,7 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText, isAnonPub ? 1 : 0, isMain, videos, images)			
+			PublicationService.createPublication(pubText, 0, isMain, videos, images)			
 				.then(					
 					function(res){						
 						if (res.status) {
@@ -507,8 +511,8 @@ angular.module('placePeopleApp')
 			$scope.$broadcast('rebuildScroll');
 		};
 
-		$scope.saveEditedPub = function(pubId, text, isAnon, files){
-			// $scope.updatePubLoader = true;
+		$scope.saveEditedPub = function(pubId, text, files){
+			$scope.updatePubLoader = true;
 			var images = [];
 			var videos = [];
 			var isMain;						
@@ -525,7 +529,7 @@ angular.module('placePeopleApp')
 					videos.push(file.file);
 				}				
 			});			
-			PublicationService.updatePublication(pubId ,text, isAnon ? 1 : 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+			PublicationService.updatePublication(pubId ,text, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
 			.then(					
 					function(res){									
 						if (res.status) {
