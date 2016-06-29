@@ -32,12 +32,12 @@ class User extends Authenticatable
 
     public function subscription()
     {
-        return $this->belongsToMany('App\User', 'subscribers', 'user_id_sub')->withTimestamps();
+        return $this->belongsToMany('App\User', 'subscribers', 'user_id_sub')->withTimestamps()->withPivot('id', 'is_confirmed');
     }
 
     public function subscribers()
     {
-        return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'user_id_sub')->withTimestamps();
+        return $this->belongsToMany('App\User', 'subscribers', 'user_id', 'user_id_sub')->withTimestamps()->withPivot('id', 'is_confirmed');
     }
 
     public function isRealSub($id)
