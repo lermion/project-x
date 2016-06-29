@@ -164,8 +164,9 @@ angular.module('placePeopleApp')
 	      };
 	      reader.readAsDataURL(file);
 	    };
-	    angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	    
-	 	// function blobToFile(blob){
+	    angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);
+	    	    
+	 // 	function blobToFile(blob){
 		// 	blob.lastModifiedDate = new Date();
 		// 	blob.name = 'image';
 		// 	return blob;
