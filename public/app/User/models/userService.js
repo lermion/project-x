@@ -75,15 +75,15 @@ angular.module('placePeopleApp')
 
         function updateAvatar(avatar){            
             var data = new FormData();            
-            data.append('avatar', avatar);            
+            data.set('avatar', avatar, avatar.filename);                        
             var config = {
                     headers: {
-                        'Content-Type': undefined
+                        'Content-Type': undefined,                        
                     },
                     transformRequest: angular.identity
                 },            
-                defer = $q.defer();
-                $http.post(path + 'user/update', data, config)
+                defer = $q.defer();            
+                $http.post(path + 'user/update', data, config)                      
                     .success(function (response){                        
                         defer.resolve(response);
                     })

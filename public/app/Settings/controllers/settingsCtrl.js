@@ -64,17 +64,23 @@ angular.module('placePeopleApp')
 
 	/*Page code*/
 
-	function blobToFile(blob){
-		blob.lastModifiedDate = new Date();
-		blob.name = 'image';
-		return blob;
+	// function blobToFile(blob){
+	// 	blob.lastModifiedDate = new Date();
+	// 	blob.name = 'image';		
+	// 	return blob;
+	// }
+
+	function blobToFile(theBlob, fileName){    
+	    theBlob.lastModifiedDate = new Date();	    
+	    theBlob.filename = fileName;
+	    return theBlob;
 	}
 
 	UserService.getUserData(storage.username)
 		.then(
 			function(res){										
-				$scope.userData = res;
-				$scope.avatar = blobToFile(res.avatar_path);
+				$scope.userData = res;			
+				$scope.avatar = res.avatar_path;
 				$scope.isVisible = res.is_visible;	
 				$scope.showAvatar = res.is_avatar;									        
 			},
@@ -101,7 +107,8 @@ angular.module('placePeopleApp')
 	$scope.myImage='';
 	$scope.myCroppedImage='';
 	var handleFileSelect = function(evt) {
-		var file = evt.currentTarget.files[0];
+		var file = evt.currentTarget.files[0];		
+		$scope.fileName = file.name;
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
@@ -118,11 +125,11 @@ angular.module('placePeopleApp')
 	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
 
 	$scope.saveCropp = function(img, cropped){	
-		$scope.croppedImg = img;
+		var blobFile = blobToFile(img, $scope.fileName);
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();		
-		UserService.updateAvatar(img)
+		UserService.updateAvatar(blobFile)
 			.then(function(res){				   			
 		      }, function(err){
 		        console.log(err);

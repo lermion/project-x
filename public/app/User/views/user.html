@@ -121,16 +121,99 @@
 
 			<!-- single unit -->
 			<div class="my-photos-list" ng-show="!photosGrid">
-				<div class="photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">				
-					<a href="" ng-click="showPublication(pub)">
-						<img ng-src="{{pub.images[0].url}}" alt="">
-						<span class="video" ng-show="$index==1"></span>
-					</a>
+				<div class="my_profilll photo-list" ng-repeat="pub in userPublications" style="{{resizeHeight}}">							
+					<div class="ngdialog-content" role="document">
+						<div class="user-publication">
+
+							<div class="user-publication-content">
+								<div class="publication-ava">
+									<img ng-src="/upload/publication/images/FTeMO8kg4.jpg" src="/upload/publication/images/FTeMO8kg4.jpg">
+									<!-- <span class="video" ng-show="$index==1"></span> -->
+								</div>
+
+								<div class="publication-images ng-isolate-scope" ng-scrollbar="" rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">
+									<div class="ngsb-wrap" style="height: 100%;">
+										<div class="ngsb-container scroll-container" ng-transclude="" style="position:relative;top:0">		
+											<div ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item ng-scope">
+												<img ng-src="/upload/publication/images/FTeMO8kg4.jpg" src="/upload/publication/images/FTeMO8kg4.jpg">
+											</div>
+											<div ng-hide="results.length === singlePublication.images.length" class="images-item more ng-scope ng-hide" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
+												<p class="counter ng-binding">Еще<br> -5 фото</p>
+											</div>
+										</div>
+										<div class="ngsb-scrollbar ng-hide" style="position: absolute; display: block;" ng-show="showYScrollbar">
+											<div class="ngsb-thumb-container">
+												<div class="ngsb-thumb-pos" oncontextmenu="return false;">
+													<div class="ngsb-thumb">
+													</div>
+												</div>
+												<div class="ngsb-track">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> 
+								<p class="publication-text ng-binding">j y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyuj j y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyujj y jhyjutyjuyi tyuyu tyuj</p>
+								<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
+							</div>
+
+							<div class="likes">
+								<div class="likes-item">
+									<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема
+									</a>
+									<p class="like-item">
+										В теме 
+										<span class="count-like ng-binding">0</span>
+										чел.
+									</p>
+								</div>
+								<a href="javascript:void(0);" class="comments-count ng-binding">0</a>
+							</div>
+
+							<div ng-hide="singlePublication.comments.length === 0" class="visible-comments ng-hide added_comments">
+								<!-- <a href="" class="add_comments">
+									Добавить комментарий 
+								</a> -->
+							</div>
+							<div class="add-comment">
+								<div class="user-ava">
+									<a class="ava" ui-sref="user({username: loggedUser})" href="#/katyaaa">
+									<img src="" alt="">
+									</a>
+								</div>
+								<div flow-init="" style="position:relative;" class="add ng-scope">
+									<div class="text-field">
+										<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText" class="ng-pristine ng-untouched ng-valid ng-empty"></textarea>
+									</div>	
+									<div class="new-add">
+									</div>
+									<div class="publication-footer">
+										<div class="publication-footer-button">
+											<a href="javascript:void(0);" ng-click="addNewComment(singlePublication.id, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
+										</div>
+										<div class="add-objects"> 
+											<input type="file" id="add-object" flow-btn="" multiple="multiple">  
+											<label for="add-object">
+												Прикрепить
+												<span class="add"></span>
+											</label>                                         
+										</div>   
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
+
+
+
 		</div>
-		
 	</div>
+
+
+
 	<footer>
 		<div class="footer">
 		    <div class="footer-item">
