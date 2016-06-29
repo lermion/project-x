@@ -236,7 +236,7 @@ angular.module('placePeopleApp')
 			
 		};
 
-		$scope.pubFiles = function(files, event, flow){								
+		$scope.pubFiles = function(files, event, flow){											
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
 			} else if(files.length > 100){
@@ -325,7 +325,7 @@ angular.module('placePeopleApp')
 		}
 		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
-				getAllCommentsPublication(pubId);
+				//getAllCommentsPublication(pubId);
 				$scope.limit = 6;
 				$scope.singlePublication = response;
 				if(response.images[0] !== undefined){
@@ -405,22 +405,35 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.deleteComment = function(commentId, index){
-			PublicationService.deleteCommentPublication(commentId).then(function(response){
-				$scope.singlePublication.comments.splice(index, 1);
-				$scope.singlePublication.comment_count--;
+		$scope.deleteComment = function(flag, pub, comment, index){
+			console.log(index);
+			PublicationService.deleteCommentPublication(comment.id).then(function(response){
+				if(response.status){
+					if(flag === "userPage"){
+						pub.comments = pub.comments.reverse();
+						pub.comments.splice(index, 1);
+						pub.comment_count--;
+					}else{
+						$scope.singlePublication.comments.splice(index, 1);
+						$scope.singlePublication.comment_count--;
+					}
+				}
 			},
 			function(error){
 				console.log(error);
 			});
 		}
-		$scope.getAllCommentsPublication = function(pubId, showAllComments){
-			getAllCommentsPublication(pubId, showAllComments);
+		$scope.getAllCommentsPublication = function(flag, pub, showAllComments){
+			getAllCommentsPublication(flag, pub, showAllComments);
 		}
-		function getAllCommentsPublication(pubId, showAllComments){
-			PublicationService.getAllCommentsPublication(pubId).then(function(response){
+		function getAllCommentsPublication(flag, pub, showAllComments){
+			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
 				if(showAllComments === true){
-					$scope.singlePublication.comments = response;
+					if(flag === "userPage"){
+						pub.comments = response;
+					}else{
+						$scope.singlePublication.comments = response;
+					}
 				}
 				$scope.lengthAllComments = response.length;
 			},
