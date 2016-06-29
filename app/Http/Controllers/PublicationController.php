@@ -28,10 +28,23 @@ class PublicationController extends Controller
     {
         //private profile
         $user = User::find($id);
-        if($user->is_private){
-            $user->isRealSub(Auth::id());
+        if ($user->is_private) {
+            if((!$user->isRealSub(Auth::id())&&($id!=Auth::id()))){
+                $data = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($data);
+            }
         }
-        return Publication::getUserPublication($id);
+        $data = [
+            'status' => true,
+            'publications' => Publication::getUserPublication($id)
+        ];
+        return $data;
     }
 
     /**
@@ -62,7 +75,7 @@ class PublicationController extends Controller
             return response()->json($result);
         }
         $publicationData = $request->all();
-        if($request->hasFile('cover')){
+        if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $path = Image::getImagePath($cover);
             $publicationData['cover'] = $path;
@@ -143,11 +156,11 @@ class PublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
-                if($request->hasFile('cover')){
+                if ($request->hasFile('cover')) {
                     $cover = $request->file('cover');
                     $path = Image::getImagePath($cover);
                     $publicationData['cover'] = $path;
-                }                
+                }
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
@@ -264,7 +277,7 @@ class PublicationController extends Controller
             }
             return response()->json(['status' => true,
                 'like_count' => $publication->likes()->count(),
-                'user_like' => $publication->likes()->where('user_id',Auth::id())->first()!=null
+                'user_like' => $publication->likes()->where('user_id', Auth::id())->first() != null
             ]);
         } else {
             $responseData = [
