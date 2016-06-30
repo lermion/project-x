@@ -126,11 +126,15 @@
 								<div class="user-publication">
 									<div class="user-publication-content">
 										<div class="publication-ava">
-											<img ng-src="{{mainImage || singlePublication.images[0].url}}">
+											<img ng-if="mainImage" ng-src="{{mainImage || singlePublication.images[0].url}}">
+											<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 										</div>
 										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
-											<div ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
+											<div ng-click="changeMainFile(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
 												<img ng-src="{{image.url}}">
+											</div>
+											<div ng-click="changeMainFile(video)" ng-repeat="video in singlePublication.videos" class="images-item">
+												<video width="150px" controls ngf-src="video.url"></video>
 											</div>
 											<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
 												<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>

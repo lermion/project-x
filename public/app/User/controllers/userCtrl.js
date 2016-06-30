@@ -384,14 +384,11 @@ angular.module('placePeopleApp')
 			});
 		}
 		$scope.changeMainFile = function(file, flag){
-			console.log(file);
-			console.log(flag);
 			if(file.pivot.video_id){
 				$scope.mainImage = "";
 				$scope.mainVideo = file.url;
 			}else if(file.pivot.image_id){
 				if(flag){
-					console.log("flag");
 					$scope.mainImageInPopup = file.url;
 				}else{
 					$scope.mainVideo = "";
