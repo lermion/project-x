@@ -128,7 +128,7 @@
 										<div class="publication-ava">
 											<img ng-src="{{mainImage || singlePublication.images[0].url}}">
 										</div>
-										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;">		
+										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
 											<div ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
 												<img ng-src="{{image.url}}">
 											</div>
