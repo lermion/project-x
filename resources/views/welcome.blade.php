@@ -27,7 +27,16 @@
     <script src="../../app/libs/ng-scrollbar/ng-scrollbar.min.js"></script>
     <script src="../../app/libs/moment/min/moment-with-locales.min.js"></script>
     <script src="../../app/libs/angular-moment/angular-moment.min.js"></script>
-    <link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>   
+    <link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>
+    <script src="../../app/libs/angular-sanitize.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>          
+    <!-- <script src="../../app/libs/ui-bootstrap-tpls.min.js"></script>
+    <script src="../../app/libs/angular-smiles/angular-smilies.min.js"></script>
+    <link rel="stylesheet" href="../../app/libs/angular-smiles/angular-smilies-embed.min.css"/> -->
+    <script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
+    <script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>    
+    <link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />
+
 
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>
