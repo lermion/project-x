@@ -26,8 +26,35 @@
 			</header>
 
 			<!-- Content -->
-			<a href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать новую группу</a>
-
+			<div class="groups-content">
+				<div class="groups-header">
+					<a class="public-groups" href="">Публичные группы</a>
+					<select name="" id="">
+						<option value="">Популярные</option>
+						<option value="">Новые</option>
+					</select>
+					<a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную группу</a>
+				</div>
+				<div class="groups">
+					<div class="group" ng-repeat="n in [1, 2, 3, 4]">
+						<div class="group-cover">
+							<a href="" class="group-ava">
+								<img src="../../pp/public/images/4.jpg" alt="">
+							</a>
+							<div class="group-likes">
+								<a href="" class="group-like">149</a>
+								<a href="" class="group-comments">1052</a>
+							</div>
+						</div>
+						<div class="titles">
+							<a href="" class="title">Название группы Название группы</a>
+							<p class="about">Описание группы. Группа про то, про это и все остальное.Описание группы. Группа про то, про это и все остальное.</p>
+						</div>
+						<button class="wright">Подписаться</button>
+						<button>Вы подписаны</button>
+					</div>
+				</div>
+			</div>
 
 			<footer>
 				<div class="footer">
