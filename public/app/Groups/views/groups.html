@@ -1,0 +1,54 @@
+<div style="min-height: 100%;">	
+	<div class="user-main-content">
+		<div class="user-main-content-item">
+			<header>
+				<div class="header header-user">
+					<a class="logo" ui-sref="feed"></a>
+					<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
+						<a class="drop-menu" href=""></a>
+						<div class="menu-item" ng-show="showMenu">
+							<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
+							<a class="places" href="">Места</a>
+							<a class="chat" href=""> Чаты</a>
+							<a class="settings" ui-sref="settings">Настройки</a>
+							<div class="search">
+								<input type="text" placeholder="Поиск...">
+								<span class="button"></span>
+							</div>
+						</div>
+					</div>
+					<div class="search">
+						<input type="text" placeholder="Поиск...">
+						<span class="button"></span>
+					</div>
+					<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
+				</div>
+			</header>
+
+			<!-- Content -->
+			<a href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать новую группу</a>
+
+
+			<footer>
+				<div class="footer">
+				    <div class="footer-item">
+				                <div class="footer-place">
+				                    <a href="">Place People </a>
+				                    <span>© 2016</span>
+				                </div>
+				                <div class="payment">
+				                    <a class="mastercard" href=""></a>
+				                    <a class="visa" href=""></a>
+				                </div>
+				    </div>
+				    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
+				        <a class="drop-menu" href="" ></a>
+				        <div class="menu-item" ng-show="showBottomMenu">		        	       
+				            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
+				        </div>
+				    </div>
+				</div>
+			</footer>
+		</div>
+	</div>
+</div>
