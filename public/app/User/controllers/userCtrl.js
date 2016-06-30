@@ -384,10 +384,10 @@ angular.module('placePeopleApp')
 				if(response.data.status){
 					flow.cancel();
 					if(flag === "userPage"){
-						pub.comments.push(response.data.comment);
+						pub.comments.unshift(response.data.comment);
 						pub.comment_count++;
 					}else{
-						$scope.singlePublication.comments.push(response.data.comment);
+						$scope.singlePublication.comments.unshift(response.data.comment);
 						$scope.singlePublication.comment_count++;
 					}
 					
