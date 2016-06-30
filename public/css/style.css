@@ -2125,6 +2125,7 @@ spam-item {
 }
 .publication .new-add .inner .close,
 .add-comment .new-add .inner .close {
+	z-index: 1;
 	left: 3px;
 	background-color: #333;
 }

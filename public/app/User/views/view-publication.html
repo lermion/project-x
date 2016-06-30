@@ -31,6 +31,9 @@
 			<div ng-click="changeMainImage(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
 				<img ng-src="{{image.url}}">
 			</div>
+			<div ng-repeat="video in singlePublication.videos" class="images-item">
+				<video controls ngf-src="video.url"></video>
+			</div>
 			<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
 				<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
 			</div>
