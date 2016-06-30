@@ -1156,7 +1156,8 @@ body.public.user {
 /* user.html */
 
 .content-user {
-	background: #e9eaed;
+	// background: #e9eaed;
+	background: transparent;
 	padding: 32px 0;
 	box-sizing: border-box;
 	width: 100%;
@@ -1416,7 +1417,8 @@ body.public.user {
 #user-page .photo:nth-child(3n) {
 	margin: 0 0 3px 0;
 }
-#user-page .photo a {
+#user-page .photo a,
+.groups-content .group-ava {
 	width: 100%;
 	height: 100%;
 	display: block;
@@ -1467,7 +1469,8 @@ body.public.user {
 	margin-top: -50px;
 	margin-left: -50px;
 }
-#user-page .photo a img {
+#user-page .photo a img,
+.groups-content .group-ava img {
 	max-width: 200%;
 	max-height: 100%;
 	width: auto;
@@ -2125,6 +2128,7 @@ spam-item {
 }
 .publication .new-add .inner .close,
 .add-comment .new-add .inner .close {
+	z-index: 1;
 	left: 3px;
 	background-color: #333;
 }
@@ -2252,6 +2256,7 @@ spam-item {
     	right: 0;
     	bottom: 0;
     	box-sizing: border-box;
+    	animation: ngdialog-flyin .2s;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2332,8 +2337,7 @@ spam-item {
 .user-publication-header .user-menu:hover {
 	background-image: url(../images/user-menu-hover.png);
 }
-.user-publication-header  .menu-item {
-	display: none;
+.user-publication-header  .menu-item {	
 	position: absolute;
 	width: 156px;
 	top: 20px;
@@ -2376,7 +2380,7 @@ spam-item {
 	overflow: hidden;
 }
 
-.user-publication-content .publication-ava img{
+.user-publication-content .publication-ava img, .user-publication-content .publication-ava video{
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
@@ -2429,6 +2433,7 @@ spam-item {
 	// position: absolute;
 	height: 100%;
 	position: relative;
+	background: transparent;
 } 
 .pop-user-publication {
 
@@ -3120,18 +3125,21 @@ div.my_profilll.photo-list div:last-child{
 }
 /*  main page*/
 
-.main-content {
+.main-content,
+.groups-content {
 	width: 700px;
 	margin: 0 auto;
 	background: transparent; 
 }
-.main-content .groups {
+.main-content .groups,
+.groups-content .groups-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center; 
 	padding: 20px 0;
 }
-.main-content .groups a {
+.main-content .groups a,
+.groups-content .groups-header .pub-groups {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	padding-left: 35px;
@@ -3146,7 +3154,8 @@ div.my_profilll.photo-list div:last-child{
 .main-content .groups a.create-groups {
 	background-image: url(../images/create.png);
 }
-.main-content .groups a.pub-groups {
+.main-content .groups a.pub-groups,
+.groups-content .groups-header .pub-groups {
 	background-image: url(../images/groups.png);
 	background-size: 16%;
 }
@@ -3154,7 +3163,8 @@ div.my_profilll.photo-list div:last-child{
 	background-image: url(../images/create-hover.png);
 	color: #666;
 }
-.main-content .groups a.pub-groups:hover {
+.main-content .groups a.pub-groups:hover,
+.groups-content .groups-header .pub-groups:hover {
 	background-image: url(../images/groups-hover.png);
 	color: #666;
 }
@@ -3256,7 +3266,6 @@ body.public.ngdialog-open {
 		margin-left: 0;
 	}
 }
-
 
 /*added Stasya*/
 
@@ -3610,3 +3619,221 @@ body.public.ngdialog-open {
 	}
 
 }
+
+/*groups*/
+
+.groups-content .groups-header .public-groups {
+	font-size: 20.8px;
+    text-decoration: none;
+    color: #333;
+    padding-left: 30px;
+    font-family: "SFUIDisplayMedium";
+    transition: all .3s ease-in-out .1s;
+    background-image: url(../images/public-groups.png);
+	background-position: left center;
+	background-size: 7%;
+	background-repeat: no-repeat;
+}
+.groups-content .groups-header .public-groups:hover {
+	color: #495b79;
+}
+.groups-content .groups-header .pub-groups {
+	background-size: 10%;
+}
+.groups-content .groups-header select {
+	color: #495b79;
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 14.6px;
+    padding-left: 35px;
+    background-image: url(../images/filter.png);
+	background-position: left center;
+	background-size: 16%;
+	background-repeat: no-repeat;
+	font-family: "SFUIDisplayMedium";
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    height: 30px;
+}
+.groups-content .groups-header select:hover {
+	background-image: url(../images/filter-hover.png);
+	color: #333;
+}
+.groups-content .groups-header {
+	font-family: "SFUIDisplayMedium";
+}
+.groups-content .groups {
+	display: flex;
+	flex-wrap: wrap;
+}
+.groups-content .group {
+	width: 220px;
+	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+.groups-content .group:nth-child(3n){
+	margin-right: 0;
+}
+.groups-content .group-cover {
+	height: 220px;
+	display: block;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.group-cover .group-likes {
+	position: absolute;
+	height: 60px;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(transparent, rgba(0,0,0,.15));
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 15px 10px 0;
+	opacity: 0;
+	transition: all .3s ease-in-out .1s;
+}
+.group-cover:hover .group-likes {
+	opacity: 1;
+}
+.group-likes a {
+	text-decoration: none;
+	color: #fff;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    line-height: 30px;
+}
+.group-likes a:hover {
+	color: #495b79;
+}
+.group-likes .group-like {
+	padding-left: 25px;
+	background-image: url(../images/like-hover.png);
+	background-position: left center;
+	background-size: 30%;
+	background-repeat: no-repeat;
+}
+.group-likes .group-like:hover {
+	background-image: url(../images/like.png);
+}
+.group-likes .group-comments {
+	padding-right: 25px;
+	background-image: url(../images/chat.png);
+	background-position: right center;
+	background-size: 35%;
+	background-repeat: no-repeat;
+}
+.group-likes .group-comments:hover {
+	background-image: url(../images/comment-count-hover.png);
+}
+.group .titles {
+	background-color: #fff;
+	height: 90px;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 10px;
+}
+.titles .title {
+	text-decoration: none;
+	color: #495b79;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    line-height: 30px;
+    padding-left: 25px;
+	background-image: url(../images/groups-hover.png);
+	background-position: left center;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	width: 100%;
+    box-sizing: border-box;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+.titles .title:hover {
+	color: #666;
+}
+.titles .about {
+	color: #333;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayLight";
+    line-height: 16px;
+    overflow: hidden;
+    margin: 0;
+    max-height: 34px;
+}
+.group button {
+	width: 100%;
+	display: block;
+	cursor: pointer;
+	border: none;
+	height: 40px;
+	text-align: center;
+	color: #333;
+	font-family: "SFUIDisplayMedium";
+	background: #d7dade;
+	transition: all .3s ease-in-out .1s;
+}
+.group button:hover {
+	outline: none;
+	color: #fff;
+	background: #495b79;
+}
+.group button.wright {
+	color: #fff;
+	background: #495b79;
+}
+.group button.wright:hover {
+	color: #333;
+	background: #d7dade;
+}
+@media (max-width: 720px) {
+	.groups-content .groups-header {
+		flex-direction: column;
+	}
+	.groups-content {
+		width: 100%;
+		padding: 0 10px;
+		box-sizing: border-box;
+	}
+	.groups-content .group{
+		width: 32%;
+		margin-right: 10px;
+	}
+	.groups-content .group:nth-child(3n){
+		margin-right: 0;
+	}
+}
+@media (max-width: 600px) {
+	.groups-content .group{
+		width: 49%;
+		margin-right: 0;
+	}
+	.groups-content .groups {
+		justify-content: space-between;
+	}
+}
+@media (max-width: 420px) {
+	.groups-content .group{
+		width: 100%;
+		margin-right: 0;
+	}
+	.groups-content .groups {
+		flex-direction:column;
+	}
+}
+
