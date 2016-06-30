@@ -175,6 +175,31 @@ angular.module('placePeopleApp')
 			}
 			openSubscribe($stateParams.id);
 		}
+		if($state.current.name === "mobile-pub-view"){			
+			var pubId = $stateParams.id;
+			if ($window.innerWidth > 700) {
+					$state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});
+			}			
+		}
+		
+		if($state.current.name === "desktop-pub-view"){
+			var pubId = $stateParams.id;
+			if ($window.innerWidth <= 700) {
+					$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});
+			}
+			getSinglePublication($stateParams.id);
+			ngDialog.open({
+				template: '../app/User/views/view-publication.html',
+				className: 'view-publication ngdialog-theme-default',
+				scope: $scope				
+			});
+		}
+
+		$scope.$on('ngDialog.closed', function (e, $dialog) {
+			$state.go("user", {username: $stateParams.username});	    
+		});
+
+
 		function openSubscribers(userId){
 			PublicationService.getSubscribers(userId).then(function(response){
 				$scope.subscribers = response;
@@ -192,7 +217,7 @@ angular.module('placePeopleApp')
 				});
 			}
 		}
-		
+
 		$scope.openSubscribers = function(userId){
 			openSubscribers(userId);		
 		};
@@ -340,14 +365,15 @@ angular.module('placePeopleApp')
 					$scope.mainImage = response.images[0].url;
 				}
 				if ($window.innerWidth <= 700) {
-				$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
+					$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
 					if(!flag){
-						ngDialog.open({
-							template: '../app/User/views/view-publication.html',
-							className: 'view-publication ngdialog-theme-default',
-							scope: $scope
-						});
+						// ngDialog.open({
+						// 	template: '../app/User/views/view-publication.html',
+						// 	className: 'view-publication ngdialog-theme-default',
+						// 	scope: $scope
+						// });
+						$state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});			
 					}
 				}
 			},
