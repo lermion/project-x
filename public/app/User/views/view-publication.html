@@ -32,7 +32,7 @@
 				<img ng-src="{{image.url}}">
 			</div>
 			<div ng-repeat="video in singlePublication.videos" class="images-item">
-				<video controls ngf-src="video.url"></video>
+				<video width="150px" controls ngf-src="video.url"></video>
 			</div>
 			<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
 				<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
