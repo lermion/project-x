@@ -2376,7 +2376,7 @@ spam-item {
 	overflow: hidden;
 }
 
-.user-publication-content .publication-ava img{
+.user-publication-content .publication-ava img, .user-publication-content .publication-ava video{
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;

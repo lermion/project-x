@@ -383,12 +383,19 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-		$scope.changeMainImage = function(image, flag){
-			if(flag){
-				$scope.mainImageInPopup = image.url;
-			}else{
-				$scope.mainImage = image.url;
+		$scope.changeMainFile = function(file, flag){
+			if(file.pivot.video_id){
+				$scope.mainImage = "";
+				$scope.mainVideo = file.url;
+			}else if(file.pivot.image_id){
+				$scope.mainVideo = "";
+				$scope.mainImage = file.url;
 			}
+			// if(flag){
+			// 	$scope.mainImageInPopup = file.url;
+			// }else{
+				
+			// }
 		}
 		$scope.addCommentLike = function(comment){
 			PublicationService.addCommentLike(comment.id).then(function(response){
