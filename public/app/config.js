@@ -67,8 +67,13 @@ angular.module('placePeopleApp')
 	      controller: 'userCtrl'
 	    })
 	    .state('mobile-pub-view', {
-	      url: '/:username/publication/:id',
+	      url: '/:username/pub/:id',
 	      templateUrl: '../../app/User/views/view-publication.html',
+	      controller: 'userCtrl'
+	    })
+	    .state('desktop-pub-view', {
+	      url: '/:username/publication/:id',
+	      templateUrl: '../../app/User/views/user.html',
 	      controller: 'userCtrl'
 	    })
 

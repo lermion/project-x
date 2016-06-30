@@ -2128,6 +2128,7 @@ spam-item {
 }
 .publication .new-add .inner .close,
 .add-comment .new-add .inner .close {
+	z-index: 1;
 	left: 3px;
 	background-color: #333;
 }
@@ -2379,7 +2380,7 @@ spam-item {
 	overflow: hidden;
 }
 
-.user-publication-content .publication-ava img{
+.user-publication-content .publication-ava img, .user-publication-content .publication-ava video{
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
