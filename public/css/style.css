@@ -3256,3 +3256,357 @@ body.public.ngdialog-open {
 		margin-left: 0;
 	}
 }
+
+
+/*added Stasya*/
+
+.ngdialog.popup-add-group.ngdialog-theme-default {
+	overflow: auto;
+}
+
+.popup-add-group .add_newgroup {
+	padding: 15px;
+}
+
+.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
+	background: #fff;
+	width: 700px;
+	margin-left: -350px;
+    margin-top: -150px;
+    transition: all .3s ease-in-out .1s;
+    padding: 0;
+    top: 26.5%;
+    height: auto;
+    color: #333;
+    padding: 0 !important;
+}
+.popup-add-group .add-ava {
+    width: 90px;
+    height: 85px;
+    background-color: #d7dade;
+    border-radius: 3px;
+    position: relative;
+}
+.popup-add-group .new_group {
+	font-size: 14.6px;
+	font-weight: 400;
+	line-height: 45px;
+	padding-left: 15px;
+	background: #f5f5f5;
+	margin: 0;
+	border-bottom: 1px solid #dcdee2;
+	font-family: "SFUIDisplayMedium";
+}
+
+.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close:before {
+	color:#333;
+}
+.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close:hover:before {
+	color: #999;
+}
+.popup-add-group .ava_group {
+    display: flex;
+    align-items: center;
+}
+
+.popup-add-group .ava_group img.img_ava {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.popup-add-group .ava_group .img_name {
+	color: #495b79;
+    font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    margin: 0 0 0 15px;
+}
+
+.popup-add-group .add-ava label .add-photo {
+    background-image: url(../images/plus_group.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35% 25%;
+}
+.popup-add-group .add-ava label .ava, .add-ava label .add {
+    overflow: hidden;
+    width: 100px;
+    height: 85px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    border-radius: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup-add-group .add-ava label .add-photo:hover {
+    border-radius: inherit;
+    box-shadow: inset 10px 10px 35px 8px rgba(225,225,225,1),
+    inset -10px -10px 35px 8px rgba(225,225,225,1);
+}
+
+
+.popup-add-group .second_item  {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+}
+
+.popup-add-group .second_item span.add_ava_grp{
+    color: #333;
+    font-size: 12.5px;
+    line-height: 15px;
+    margin: 10px 0;
+    margin-left: 15px;
+}
+
+.third_item {
+    width: 100%;
+    height: 90px;
+    margin: 0;
+    padding: 15px 0;
+    border: none;
+    position: relative;
+}  
+.popup-add-group .third_item textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    font-size: 14.6px;
+    color: #999;
+    background: transparent;
+    padding: 5px 30px 5px 10px;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayLight";
+}
+
+
+
+/*         smile   for group   start    */
+
+.popup-add-group .smiles {
+    position: absolute;
+    top: 16px;
+    right: 1px;
+    width: 30px;
+    height: 30px;
+}
+
+.popup-add-group .smiles .smiles-item {
+    display: block;
+    background-image: url(../images/smil.png);
+    transition: all .3s ease-in-out .1s;
+    background-position: left bottom 6px;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    width: 100%;
+    height: 100%;
+}
+.popup-add-group .smiles .smile  {
+    display: none;
+    position: absolute;
+    top: -205px;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    z-index: 9;
+    padding-bottom: 15px;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup-add-group .smiles .smile .smile-item {
+    box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 10px 5px 10px 10px;
+    box-sizing: border-box;
+}
+
+.popup-add-group .smiles .smile .inner {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.popup-add-group .smiles .smile .inner a {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+.popup-add-group .smiles .smile .inner a img {
+    width: 90%;
+}
+.popup-add-group .smiles .smiles-item:hover {
+     background-image: url(../images/smil-hover.png); 
+}
+.popup-add-group .smiles:hover .smile {
+    display: block;
+}
+
+
+/*         smile     end   */
+
+
+/*    Checkbox   for group  start   */
+.popup-add-group .first_item {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.popup-add-group .checkbox_group {
+    width: 145px;
+    height: 30px;
+    font-size: 14px;
+    color: #b0b1b3;
+}
+
+.popup-add-group input[type="checkbox"] + label {
+    line-height: 20px;
+    vertical-align: top;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.popup-add-group input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: 0 5px 0 0;
+    background-color:#ec6045;
+}
+.popup-add-group input[type="checkbox"]:checked + label::before {
+    background-image:url(/images/checkbox_group.png);
+    background-size: 85% 75%;
+    background-position: 70% 50%;
+    background-repeat: no-repeat;
+}
+
+/*    Checkbox    end  */
+
+
+
+.popup-add-group .fourth_item {
+	width: 100%;
+}
+
+.popup-add-group .fourth_item input[type="text"] {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    line-height: 20px;
+    box-sizing: border-box;
+	font-size: 14.6px;
+    color: #999;
+    padding: 10px;
+    font-family: "SFUIDisplayLight";
+}
+
+.popup-add-group .fifth_item {
+	display: flex;
+    justify-content: space-between;
+}
+
+.popup-add-group .fifth_item ul.item1 {
+	padding: 0;
+	margin-bottom: 0px;
+}
+
+.popup-add-group .fifth_item ul.item1 li {
+	position: relative;
+    list-style-type: none;
+    font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.popup-add-group .fifth_item ul.item1 li:last-child {
+    margin-bottom: 0px;
+}
+
+.popup-add-group .fifth_item ul.item1 li:before {
+	background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    content: '\00D7';
+    font-size: 16px;
+    font-weight: 400;
+    height: 15px;
+    line-height: 13px;
+    position: absolute;
+    left: 33px;
+    text-align: center;
+    top: 1px;
+    width: 15px;
+}
+
+.popup-add-group .fifth_item ul.item1 li img{
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	margin-right: 15px;
+}
+
+.popup-add-group .fifth_item .item2 {
+	margin-top: 22px;
+}
+
+.popup-add-group .fifth_item .item2 a {
+	text-decoration: inherit;
+	font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    color: #495b79;
+    padding: 5px 10px;
+    border-radius: 3px;
+} 
+
+.popup-add-group .fifth_item .item2 a.active {
+	text-decoration: inherit;
+	font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    background: #495b79;
+    color: #fff;
+} 
+
+
+@media (max-width: 700px) {
+	.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
+		width:100%;
+		margin-left:-50%;
+	}
+
+}
+
+@media (max-width: 520px) {
+	.popup-add-group .first_item {
+	    flex-direction: column;
+	}
+	.popup-add-group .checkbox_group {
+	    margin-top: 10px;
+	}
+	.popup-add-group .fifth_item {
+	    flex-direction: column;
+	}
+	.popup-add-group .new_group,
+	.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close {
+	    margin-top: -25px;
+	}
+
+	.popup-add-group .fifth_item .item2 {
+	    text-align: center;
+	}
+
+}
