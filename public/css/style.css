@@ -2333,8 +2333,7 @@ spam-item {
 .user-publication-header .user-menu:hover {
 	background-image: url(../images/user-menu-hover.png);
 }
-.user-publication-header  .menu-item {
-	display: none;
+.user-publication-header  .menu-item {	
 	position: absolute;
 	width: 156px;
 	top: 20px;
