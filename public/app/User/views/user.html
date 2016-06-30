@@ -127,7 +127,9 @@
 								<div class="user-publication">
 									<div class="user-publication-content">
 										<div class="publication-ava">
-											<img ng-if="mainImage" ng-src="{{mainImage || singlePublication.images[0].url}}">
+											<a href="javascript:void(0);" ng-click="showPublication(singlePublication)">
+												<img ng-src="{{mainImage || singlePublication.images[0].url}}">
+											</a>
 											<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 										</div>
 										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		

@@ -113,6 +113,25 @@
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
 }
 
+.settingsss .text p input[type="text"].last_name_set {
+    border-radius:  0 0 3px 3px;
+    border-bottom: 1px solid #999;
+    width: 290px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    line-height: 37px;
+    height: 37px;
+    font-size: 14.6px;
+    font-family: Tahoma;
+    font-weight: 400;
+    background: #fff;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out .2s;
+    margin-bottom: 0;
+    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+}
+
 .settingsss .text p input[type="submit"] {
     width: 30%;
     height: 30px;
@@ -370,7 +389,8 @@
       margin-left: 10px;
       margin-top: 20px;
   }
-  .settingsss .text p input[type="text"] {
+  .settingsss .text p input[type="text"],
+  .settingsss .text p input[type="text"].last_name_set {
     width: 230px;
   }
   .settingsss .text p textarea {
@@ -382,6 +402,10 @@
   .settingsss .text p:nth-child(2) input[type="submit"] {
       margin-left: 0;
   }
+
+  body .settingsss .set_1 .text p input[type="text"] {
+    border-radius: 3px;
+  }    
 }
 
 @media only screen and (max-width: 500px) {
@@ -392,6 +416,15 @@
 	    width: 240px;
 	    height: 240px;
 	}
+}
+
+@media only screen and (max-width: 474px) {
+  body .settingsss .set_1 .text p input[type="text"] {
+    border-radius: 3px 3px 0 0;
+  }   
+   body .settingsss .set_1 .text p input[type="text"].last_name_set {
+    border-radius: 0 0 3px 3px ;
+  }
 }
 
 @media only screen and (max-width: 400px) {

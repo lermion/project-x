@@ -191,14 +191,12 @@ angular.module('placePeopleApp')
 			ngDialog.open({
 				template: '../app/User/views/view-publication.html',
 				className: 'view-publication ngdialog-theme-default',
-				scope: $scope				
+				scope: $scope,
+				preCloseCallback: function(value){
+					$state.go("user", {username: $stateParams.username});
+				}
 			});
 		}
-
-		$scope.$on('ngDialog.closed', function (e, $dialog) {
-			$state.go("user", {username: $stateParams.username});	    
-		});
-
 
 		function openSubscribers(userId){
 			PublicationService.getSubscribers(userId).then(function(response){
@@ -388,10 +386,10 @@ angular.module('placePeopleApp')
 				if(response.data.status){
 					flow.cancel();
 					if(flag === "userPage"){
-						pub.comments.push(response.data.comment);
+						pub.comments.unshift(response.data.comment);
 						pub.comment_count++;
 					}else{
-						$scope.singlePublication.comments.push(response.data.comment);
+						$scope.singlePublication.comments.unshift(response.data.comment);
 						$scope.singlePublication.comment_count++;
 					}
 					

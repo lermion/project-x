@@ -80,7 +80,7 @@ class UserController extends Controller
             return response()->json($result);
         } else {
             $user->update($request->all());
-            if ($request->input('is_visible') === false)
+            if ($request->input('is_visible') == false)
                 Online::logOut(Auth::id());
             if ($request->hasFile('avatar')) {
                 $avatar = $request->file('avatar');
