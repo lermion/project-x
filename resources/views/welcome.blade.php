@@ -20,6 +20,8 @@
     <script src="../../app/libs/ng-img-crop.js"></script>
     <link rel="stylesheet" type="text/css" href="../../app/libs/ladda/ladda-themeless.min.css">    
     <script src="../../app/libs/ladda/spin.min.js"></script>
+    <script src="../../app/libs/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="../../app/libs/ng-file-upload/ng-file-upload.min.js"></script>
     <script src="../../app/libs/ladda/ladda.min.js"></script>
     <script src="../../app/libs/ladda/angular-ladda.min.js"></script>
     <script src="../../app/libs/ng-scrollbar/ng-scrollbar.min.js"></script>
@@ -42,5 +44,6 @@
     <script src="../../app/User/controllers/userCtrl.js"></script>
     
     <script src="../../app/Settings/controllers/settingsCtrl.js"></script>
+    <script src="../../app/Groups/controllers/groupsCtrl.js"></script>
 </body>
 </html>

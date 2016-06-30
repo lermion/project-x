@@ -2125,6 +2125,7 @@ spam-item {
 }
 .publication .new-add .inner .close,
 .add-comment .new-add .inner .close {
+	z-index: 1;
 	left: 3px;
 	background-color: #333;
 }
@@ -2332,8 +2333,7 @@ spam-item {
 .user-publication-header .user-menu:hover {
 	background-image: url(../images/user-menu-hover.png);
 }
-.user-publication-header  .menu-item {
-	display: none;
+.user-publication-header  .menu-item {	
 	position: absolute;
 	width: 156px;
 	top: 20px;
@@ -2376,7 +2376,7 @@ spam-item {
 	overflow: hidden;
 }
 
-.user-publication-content .publication-ava img{
+.user-publication-content .publication-ava img, .user-publication-content .publication-ava video{
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
@@ -3231,13 +3231,13 @@ body.public.user #wrapper {
 	top: 50px;
 	margin-right: -345px;
 }
-body.public.fixed {
+body.public.ngdialog-open {
 	padding-bottom: 0;
 }
-.fixed .user-main-content {
+.ngdialog-open .user-main-content {
 	position: fixed;
 }
-.fixed .user-main-content-item {
+.ngdialog-open .user-main-content-item {
 	position: relative;
 }
 @media (max-width: 720px) {

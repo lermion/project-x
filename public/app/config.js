@@ -51,6 +51,11 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Settings/views/settings.html',
 	      controller: 'settingsCtrl'
 	    })
+	    .state('groups', {
+	      url: '/groups',
+	      templateUrl: '../../app/Groups/views/groups.html',
+	      controller: 'groupsCtrl'
+	    })
 	    .state('feed', {
 	      url: '/feed',
 	      templateUrl: '../../app/Feed/views/feed.html',
@@ -62,8 +67,13 @@ angular.module('placePeopleApp')
 	      controller: 'userCtrl'
 	    })
 	    .state('mobile-pub-view', {
-	      url: '/:username/publication/:id',
+	      url: '/:username/pub/:id',
 	      templateUrl: '../../app/User/views/view-publication.html',
+	      controller: 'userCtrl'
+	    })
+	    .state('desktop-pub-view', {
+	      url: '/:username/publication/:id',
+	      templateUrl: '../../app/User/views/user.html',
 	      controller: 'userCtrl'
 	    })
 
