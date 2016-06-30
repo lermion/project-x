@@ -266,10 +266,16 @@ angular.module('placePeopleApp')
 			files.splice(index, 1);
 		};
 		$scope.publishNewPub = function(pubText, files){
+			if (!pubText || files.length == 0) {						
+				$scope.publishNewPubErr = true;				
+				return;				
+			}
+
 			$scope.newPubLoader = true;						
 			var images = [];
 			var videos = [];
-			var isMain;
+			var isMain;		
+
 			if ($scope.mainPubPhoto) {
 				images[0] = '';
 			}			
@@ -299,6 +305,7 @@ angular.module('placePeopleApp')
 				.then(					
 					function(res){						
 						if (res.status) {
+							$scope.userData.publications_count++;
 							getUserPubs(storage.userId);
 							ngDialog.closeAll();
 						} else {
@@ -596,6 +603,7 @@ angular.module('placePeopleApp')
 			.then(
 				function(res){
 					if (res.status) {
+						$scope.userData.publications_count--;
 						getUserPubs(storage.userId);
 					}
 					ngDialog.closeAll();									        
