@@ -192,6 +192,7 @@ angular.module('placePeopleApp')
 				});
 			}
 		}
+		
 		$scope.openSubscribers = function(userId){
 			openSubscribers(userId);		
 		};
