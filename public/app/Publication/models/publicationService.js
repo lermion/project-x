@@ -145,7 +145,7 @@ angular.module('placePeopleApp')
 				console.log();
 				return defer.promise;
 		}
-		function createPublication(text, isAnon, isMain, videos, images){            
+		function createPublication(text, isAnon, isMain, videos, images){
 				var data = new FormData();
 						data.append('text', text);
 						data.append('is_anonym', isAnon);

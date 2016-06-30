@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
 	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout',
+		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload',
 		function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
-			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout){
+			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload){
 		/* Service info*/
 		amMoment.changeLocale('ru');
 		$scope.$emit('userPoint', 'user');    	
@@ -288,15 +288,9 @@ angular.module('placePeopleApp')
 			$scope.mainPubPhoto = target.file.name;			
 		};
 
-		$scope.deletePubFile = function(targetName, files){			
-			for(var i=0; i < files.length; i++){
-					if (files[i].name === targetName) {						
-						files.splice(i, 1);
-					}
-					
-				}
+		$scope.deletePubFile = function(files, index){
+			files.splice(index, 1);
 		};
-
 		$scope.publishNewPub = function(pubText, files){
 			if (!pubText || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
@@ -317,13 +311,13 @@ angular.module('placePeopleApp')
 				isMain = 0;
 			}
 			files.forEach(function(file){
-				var type = file.file.type.split('/')[0];
+				var type = file.type.split('/')[0];
 				if (type === 'image') {
-					images.push(file.file);
+					images.push(file);
 				} else if (type === 'video'){
-					videos.push(file.file);
+					videos.push(file);
 				}				
-			});			
+			});
 			if ($scope.mainPubPhoto) {
 				for(var i=0; i < images.length; i++){
 					if (images[i].name === $scope.mainPubPhoto) {
@@ -415,11 +409,17 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-		$scope.changeMainImage = function(image, flag){
-			if(flag){
-				$scope.mainImageInPopup = image.url;
-			}else{
-				$scope.mainImage = image.url;
+		$scope.changeMainFile = function(file, flag){
+			if(file.pivot.video_id){
+				$scope.mainImage = "";
+				$scope.mainVideo = file.url;
+			}else if(file.pivot.image_id){
+				if(flag){
+					$scope.mainImageInPopup = file.url;
+				}else{
+					$scope.mainVideo = "";
+					$scope.mainImage = file.url;
+				}
 			}
 		}
 		$scope.addCommentLike = function(comment){
@@ -440,7 +440,6 @@ angular.module('placePeopleApp')
 			});
 		}
 		$scope.deleteComment = function(flag, pub, comment, index){
-			console.log(index);
 			PublicationService.deleteCommentPublication(comment.id).then(function(response){
 				if(response.status){
 					if(flag === "userPage"){
