@@ -56,7 +56,7 @@ angular.module('placePeopleApp')
                 $scope.showBottomMenu = false;
               } else {
                 $scope.showBottomMenu = true;
-              }			  
+              }             			  
 		  },
 		  true
 		);
@@ -68,6 +68,8 @@ angular.module('placePeopleApp')
 
 		amMoment.changeLocale('ru');
 		$scope.loggedUserId = storage.userId;
+		$scope.commentModel = {pubText: ''};
+		var emptyPost = {pubText: ''};		
 
 		FeedService.getPublications()
 			.then(function(res){					
@@ -78,13 +80,11 @@ angular.module('placePeopleApp')
 					console.log(err);
 				  });
 
-		$scope.changeMainFile = function(file, currPub){
-			// console.log(file);
-			// currPub.mainFile = file.url;
+		$scope.changeMainFile = function(file, currPub){			
 			if(file.pivot.video_id || file.pivot.image_id){
 				currPub.mainFile = file.url;		
 			}
-		}
+		};
 
 		$scope.addPublicationLike = function(pub){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
@@ -94,11 +94,11 @@ angular.module('placePeopleApp')
 			function(error){
 				console.log(error);
 			});
-		}
+		};
 
 		$scope.getAllCommentsPublication = function(flag, pub, showAllComments){
 			getAllCommentsPublication(flag, pub, showAllComments);
-		}
+		};
 		function getAllCommentsPublication(flag, pub, showAllComments){
 			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
 				if(showAllComments === true){
@@ -111,7 +111,7 @@ angular.module('placePeopleApp')
 			function(error){
 				console.log(error);
 			});
-		}
+		};
 		$scope.addCommentLike = function(comment){
 			PublicationService.addCommentLike(comment.id).then(function(response){
 				comment.like_count = response.like_count;
@@ -119,7 +119,7 @@ angular.module('placePeopleApp')
 			function(error){
 				console.log(error);
 			});
-		}
+		};
 		$scope.deleteComment = function(flag, pub, comment, index){
 			PublicationService.deleteCommentPublication(comment.id).then(function(response){
 				if(response.status){
@@ -133,7 +133,41 @@ angular.module('placePeopleApp')
 			function(error){
 				console.log(error);
 			});
-		}
+		};
+
+		$scope.deleteCommentFile = function(files, index){
+			files.splice(index, 1);
+		};
+
+		$scope.addNewComment = function(flag, pub, pubText, files){
+			var images = [];
+			var videos = [];
+			if (files != undefined) {
+				files.forEach(function(file){
+					var type = file.type.split('/')[0];
+					if (type === 'image') {
+						images.push(file);
+					} else if (type === 'video'){
+						videos.push(file);
+					}				
+				});
+			}
+
+			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
+				if(response.data.status){										
+					if(flag === "feedPage"){
+						pub.files = [];
+						pub.commentModel = angular.copy(emptyPost);
+						pub.comments.unshift(response.data.comment);
+						pub.comment_count++;
+					}					
+				}
+			},
+			function(error){
+				console.log(error);
+			});
+		};
+
 
 
 }]);

@@ -49,14 +49,15 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		}
 
-		function addCommentPublication(pubId, pubText, flow){
+		function addCommentPublication(pubId, pubText, images, videos){
 			var formData = new FormData();
-			formData.append('text', pubText);
-			if (flow){
-				angular.forEach(flow.files, function(item){
-					formData.append('images[]', item.file);
-				});
-			}
+			formData.append('text', pubText);			
+			images.forEach(function (img) {
+				formData.append('images[]', img);
+			});
+			videos.forEach(function (video) {
+				formData.append('videos[]', video);
+			});
 			return $http({
 				method: 'POST',
 				url: 'publication/comment/store/' + pubId,
