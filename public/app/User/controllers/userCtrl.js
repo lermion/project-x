@@ -388,8 +388,7 @@ angular.module('placePeopleApp')
 						videos.push(file);
 					}				
 				});
-			}
-			console.log(pub);			
+			}		
 			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
 				if(response.data.status){
 					pub.files = [];

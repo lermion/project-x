@@ -167,8 +167,9 @@
 						</div>
 					</div>
 				</div> -->
-			</div>	
-			<div class="new-add">
+			</div>
+
+			<!-- <div class="new-add">
 				<div class="new-img" ng-repeat="file in $flow.files">
 					<div class="inner">
 						<div ng-click="file.cancel()" class="close">
@@ -192,7 +193,36 @@
 						<span class="add"></span>
 					</label>                                         
 				</div>   
+			</div> -->
+
+			<div class="new-add">
+				<div class="new-img" ng-repeat="file in singlePublication.files">  
+					<div class="inner">
+						<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+							<div class="close-inner">
+								<p>Удалить</p>
+							</div>
+						</div>								
+						<img ngf-thumbnail="file || '/thumb.jpg'">
+						<video width="200px" controls ngf-src="file"></video>	
+					</div>
+					<p class="img-name">{{file.name}}</p>
+				</div>
 			</div>
+			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
+				<div class="publication-footer-button">
+					<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</a>    
+				</div>
+				<div class="add-objects">						
+					<input id="{{addFileObjId}}" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
+					<label for="{{addFileObjId}}">
+						Прикрепить
+						<span class="add"></span>
+					</label>                                         
+				</div>   
+			</div>
+											
+
 		</div>
 	</div>
 </div>
