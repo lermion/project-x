@@ -51,6 +51,8 @@
     <script src="../../app/Static/models/staticService.js"></script>    
     <script src="../../app/User/models/userService.js"></script>
     <script src="../../app/User/controllers/userCtrl.js"></script>
+    <script src="../../app/Feed/models/feedService.js"></script>
+    <script src="../../app/Feed/controllers/feedCtrl.js"></script>
     
     <script src="../../app/Settings/controllers/settingsCtrl.js"></script>
     <script src="../../app/Groups/controllers/groupsCtrl.js"></script>
