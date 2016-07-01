@@ -3261,6 +3261,9 @@ body.public.ngdialog-open {
 .ngdialog-open .user-main-content-item {
 	position: relative;
 }
+.ngdialog-open .ngdialog-content {
+	position: relative;
+}
 @media (max-width: 720px) {
 	.main-content {
 		width: 100%;
