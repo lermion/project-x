@@ -1400,11 +1400,13 @@ body.public.user {
 	background-image: url(../images/view-list-hover.png);
 	transition: all .3s ease-in-out .1s;
 }
-#user-page .my-photos {
+#user-page .my-photos,
+.group-publication .my-photos {
 	display: flex;
     	flex-wrap: wrap;
 }
-#user-page .photo {
+#user-page .photo,
+.group-publication .photo {
 	width: 231px;
 	height: 231px;
 	margin: 0 3px 3px 0;
@@ -1414,11 +1416,13 @@ body.public.user {
 	overflow: hidden;
 	box-sizing: border-box; 
 }
-#user-page .photo:nth-child(3n) {
+#user-page .photo:nth-child(3n),
+.group-publication .photo:nth-child(3n) {
 	margin: 0 0 3px 0;
 }
 #user-page .photo a,
-.groups-content .group-ava {
+.groups-content .group-ava,
+.group-publication .photo a {
 	width: 100%;
 	height: 100%;
 	display: block;
@@ -1429,7 +1433,8 @@ body.public.user {
 	background: rgba(0, 0, 0, 0.1);
 }
 #user-page .photo a .video,
-.photo-list  a .video {
+.photo-list  a .video,
+.group-publication .photo a .video {
 	position: absolute;
 	display: block;
 	width: 80px;
@@ -1454,7 +1459,8 @@ body.public.user {
     	background-size: 44%;
 }
 #user-page .photo a:hover .video,
-.photo-list  a:hover .video {
+.photo-list  a:hover .video,
+.group-publication a:hover .video {
 	background-color: rgba(0,0,0,.6);
 	background-size: 40%;
 	transition: all .3s ease-in-out .1s;
@@ -1470,7 +1476,8 @@ body.public.user {
 	margin-left: -50px;
 }
 #user-page .photo a img,
-.groups-content .group-ava img {
+.groups-content .group-ava img,
+.group-publication .photo a img {
 	max-width: 200%;
 	max-height: 100%;
 	width: auto;
@@ -1554,12 +1561,14 @@ body.public.user {
 	.comunications .view {
 		width: 20%;
 	}
-	#user-page .photo {
+	#user-page .photo,
+	.group-publication .photo {
 		width: 166px;
 		height: 166px;
 		margin: 0 1px 1px 0;
 	}
-	#user-page .photo:nth-child(3n) {
+	#user-page .photo:nth-child(3n),
+	.group-publication .photo:nth-child(3n) {
 		    margin: 0 0 1px 0;
 	}
 	/*header user*/
@@ -2448,7 +2457,8 @@ spam-item {
 	line-height: 20px; 
 	margin: 0;
 }
-.user-publication-content .publication-place {
+.user-publication-content .publication-place,
+.group-ava .group-likes .group-info .publication-place {
 	display: block;
 	text-decoration: none;
 	margin: 5px 15px 10px 15px;
@@ -3836,4 +3846,213 @@ body.public.ngdialog-open {
 		flex-direction:column;
 	}
 }
-
+.group-page {
+	width: 100%;
+	position: relative;
+}
+.group-page .group-ava {
+	height: 400px;
+    	overflow: hidden;
+    	width: 100%;	
+    	position: relative;
+}
+.group-page .group-ava .ava {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+.group-page .group-ava .ava img {
+	max-width: 200%;
+    	max-height: 200%;
+}
+.group-ava .group-likes {
+	position: absolute;
+	height: 60px;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(transparent, rgba(0,0,0,.8));
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 30px 10px 0;
+	/* opacity: 0; */
+	transition: all .3s ease-in-out .1s;
+}
+.group-ava .group-likes .group-info {
+	width: 700px;
+    	margin: 0 auto;
+    	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.group-ava .group-likes .group-info .publication-place {
+	color: #fff;
+	font-family: "SFUIDisplayLight";
+	background-image: url(../images/place.png);
+	background-size: contain;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 70%;
+}
+.group-ava .group-likes .group-info .publication-place:hover {
+	color: #999;
+}
+.group-ava .group-likes .group-info .like-item {
+	display: block;
+	text-decoration: none;
+	margin: 5px 15px 10px 15px;
+	box-sizing: border-box;
+	padding-left: 25px;
+	color: #fff;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayLight";
+	line-height: 15px;
+	background-image: url(../images/like-hover.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	transition: all .3s ease-in-out .1s;
+}
+.group-page .group-menu {
+	width: 100%;
+	height: 60px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	position: relative;
+}
+.group-page button {
+	position: absolute;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	padding: 0 10px;
+	margin: 0;
+	line-height: 27px;
+	transition: all .3s ease-in-out .1s;
+	text-decoration: none;
+	color: #fff;
+	background: #495b79;
+	cursor: pointer;
+	top: 50%;
+	margin-top: -14px;
+	right: 50%;
+    	margin-right: -465px;
+}
+.group-page button:hover {
+	border: 1px solid #495b79;
+	color: #495b79;
+	background: transparent;
+}
+.group-menu .group-menu-item {
+	width: 700px;
+	display: flex;
+    	justify-content: center;
+}
+.group-menu .group-menu-item .counts {
+	display: flex;
+	justify-content: space-between;
+	width: 400px;
+	align-items: center;
+}
+.group-menu-item .counts .counter {
+	margin: 0 0;
+	border-bottom: 2px solid transparent;
+	transition: all .3s ease-in-out .1s;
+	font-size: 14px;
+	width: 25%;
+}
+.group-menu-item .counts .counter:hover,
+.group-menu-item .counts .counter.active {
+	border-bottom: 2px solid #495b79;
+}
+.group-menu-item .counts .counter p {
+	padding-left: 0;
+	margin-bottom: 0;
+}
+.group-page .group-publication {
+	background: #fff;
+	width: 700px;
+	margin: 0 auto 20px auto;
+	z-index: 1;
+}
+.group-header {
+	z-index: -1;
+	box-shadow: 0 0 6px 1px rgba(0,0,0,.2);
+	width: 100%;
+}
+@media (max-width: 950px) {
+	.group-page button {
+		margin-right: -350px;
+	}
+}
+@media (max-width: 720px) {
+	.group-ava .group-likes .group-info {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0 10px;
+	}
+	.group-ava .group-likes .group-info .publication-place,
+	.group-ava .group-likes .group-info .like-item {
+		margin: 0;
+	}
+	.group-page .group-ava {
+		height: 320px;
+	}
+	.group-page .group-menu {
+		flex-direction: column-reverse;
+		height: auto;
+	}
+	.group-page button {
+		position: static;
+    		display: block;
+    		margin-right: 0;
+    		margin-top: 10px;
+    		margin-bottom: 10px; 
+	}
+	.group-menu .group-menu-item {
+		margin: 0 0 10px 0;
+		width: 100%;
+	}
+	.group-page .group-publication {
+		width: 500px;
+	}
+	.group-publication .photo {
+		width: 166px;
+		height: 166px;
+		margin: 0 1px 1px 0;
+	}
+	.group-publication .photo:nth-child(3n) {
+		    margin: 0 0 1px 0;
+	}
+}
+@media (max-width: 520px)  {
+	.group-page .group-publication {
+		width: 100%;
+	}
+	.group-ava .group-likes .group-info {
+		flex-direction: column-reverse;
+	}
+	.group-ava .group-likes .group-info .like-item {
+		margin: 10px 0;
+	}
+	.group-ava .group-likes .group-info .publication-place {
+		margin-bottom: 10px;
+		max-width: 90%;
+	}
+	.group-ava .group-likes {
+		padding: 0 10px;
+	}
+	.group-page .group-ava {
+		height: 200px;
+	}
+}
