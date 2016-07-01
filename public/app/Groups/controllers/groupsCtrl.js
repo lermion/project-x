@@ -54,7 +54,16 @@ angular.module('placePeopleApp')
                 $scope.showBottomMenu = false;
               } else {
                 $scope.showBottomMenu = true;
-              }			  
+              }
+
+              if (value < 520) {		    	
+				var blockThirdthLength = (parseInt(w[0].innerWidth)-2)/3;
+				$scope.resizeSizes = 'width:'+blockThirdthLength+'px;height:'+blockThirdthLength+'px;';
+				$scope.resizeHeight = 'height:'+parseInt(w[0].innerWidth)+'px;';		    		
+			  } else {
+				$scope.resizeSizes='';
+				$scope.resizeHeight='';					    	
+			  }			  
 		  },
 		  true
 		);

@@ -124,15 +124,15 @@
 					</a>
 				</div>
 
-				<div class="add-comment">
+				<div class="add-comment" ng-init="pub.commentModel = commentModel">
 					<div class="user-ava">
 						<a class="ava" ui-sref="user({username: loggedUser})">
 							<img ng-src="{{userData.avatar_path}}" alt="">
 						</a>
 					</div>
-					<div flow-init style="position:relative;" class="add">
+					<div style="position:relative;" class="add">
 						<div class="text-field">
-							<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
+							<textarea name="" id="" placeholder="Текст комментария..." ng-model="pub.commentModel.pubText"></textarea>
 							<div class="smiles">
 								<div class="smiles-item"></div>
 								<div class="smile">
@@ -205,47 +205,35 @@
 									</div>
 								</div>
 							</div>
-						</div>	
+						</div>
+						
 						<div class="new-add">
-							<div class="new-img" ng-repeat="file in $flow.files">
+							<div class="new-img" ng-repeat="file in pub.files">		  
 								<div class="inner">
-									<div ng-click="file.cancel()" class="close">
+									<div ng-click="deleteCommentFile(pub.files, $index)" class="close">
 										<div class="close-inner">
 											<p>Удалить</p>
 										</div>
 									</div>
-									<img flow-img="file">
+									<img ngf-thumbnail="file || '/thumb.jpg'">
+									<video width="200px" controls ngf-src="file"></video>						
 								</div>
 								<p class="img-name">{{file.name}}</p>
 							</div>
 						</div>
-						<!-- <div class="publication-footer" >
+						
+						<div class="publication-footer">
 							<div class="publication-footer-button">
-								<a href="javascript:void(0);" ng-click="addNewComment(pub.id, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
+								<a href="javascript:void(0);" ng-click="addNewComment('feedPage', pub, pub.commentModel.pubText, pub.files)" class="publication-button">Отправить</a>    
 							</div>
-							<div class="add-objects"> 
-								<input type="file" id="add-object" flow-btn>  
-								<label for="add-object">
+							<div class="add-objects" ng-init="addObjId='add-object-'+pub.id">						
+								<input id="{{addObjId}}" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
+								<label for="{{addObjId}}">
 									Прикрепить
 									<span class="add"></span>
 								</label>                                         
 							</div>   
 						</div>
-						 -->
-
-						 
-						 <!-- <div class="publication-footer" >
-							<div class="publication-footer-button">
-								<a href="javascript:void(0);" ng-click="addNewComment(pub.id, commentModel.pubText, files)" class="publication-button">Отправить</a>    
-							</div>
-							<div class="add-objects"> 
-								<input id="add-object" style="display: none;" ngf-select ng-model="files" ngf-multiple="true"> 
-								<label for="add-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
-									Прикрепить
-									<span class="add"></span>
-								</label>                                         
-							</div>   
-						</div> -->
 
 
 					</div>
