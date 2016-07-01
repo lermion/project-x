@@ -73,7 +73,7 @@ angular.module('placePeopleApp')
 
 		FeedService.getPublications()
 			.then(function(res){					
-					console.log(res);
+					// console.log(res);
 					$scope.limit = 6;
 					$scope.publications = res;
 				  }, function(err){
