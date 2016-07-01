@@ -459,7 +459,7 @@
 }
 
 .popup_grouppublication_1.popupgroup {
-    position: fixed;
+   /* position: fixed;*/
    /* background: rgba(0,0,0,.2);*/
    background: #fff;
     top: 0;
