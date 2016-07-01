@@ -72,12 +72,17 @@ angular.module('placePeopleApp')
 				});
 		};
 		
-		$scope.viewGroupPublication = function(){
-			ngDialog.open({
+		$scope.viewGroupPublication = function(groupId, pubId){
+			if ($window.innerWidth <= 720) {					
+				$state.go('mobile-view-group-publication', {groupId: groupId, pubId: pubId});			
+			} else {
+				ngDialog.open({
 					template:'../app/Groups/views/popup-view-group-publication.html',
 					className: 'popup-view-group-publication ngdialog-theme-default',
 					scope: $scope
 				});
+			}
+			
 		};
 
 

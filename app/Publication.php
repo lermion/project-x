@@ -62,6 +62,8 @@ class Publication extends Model
             })->orderBy('id', 'desc')->get();
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
+            if(Auth::check())
+                $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
             $publication->comment_count = $publication->comments()->count();
             if (!$publication->is_anonym) {
                 $publication->user;
