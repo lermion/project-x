@@ -3854,23 +3854,24 @@ body.public.ngdialog-open {
     color: #333;
 }
 
-.popup-view-group-publication .popup_grouppublication {
+.popup_grouppublication_1.popupgroup {
     position: fixed;
-    background: rgba(0,0,0,.2);
+   /* background: rgba(0,0,0,.2);*/
+   background: #fff;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: -1;
 }
-.popup-view-group-publication .popupgroups_head .popupgroup_function {
+.popup_grouppublication_1.popupgroup .popupgroups_head .popupgroup_function {
     display: flex;
     width: 55%;
     justify-content: space-between;
     align-items: center;
 }
 
-.popup-view-group-publication .popupgroups_head {
+.popup_grouppublication_1.popupgroup .popupgroups_head {
     background: #f5f5f5;
     border-bottom: 1px solid #e0e2e5;
     box-sizing: border-box;
@@ -3878,7 +3879,7 @@ body.public.ngdialog-open {
     position: relative;
 }
 
-.popup-view-group-publication .popupgroup_function .user {
+.popup_grouppublication_1.popupgroup .popupgroup_function .user {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -3887,19 +3888,19 @@ body.public.ngdialog-open {
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .popupgroup_function .user .ava {
+.popup_grouppublication_1.popupgroup .popupgroup_function .user .ava {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.popup-view-group-publication .popupgroup_function .user .ava img {
+.popup_grouppublication_1.popupgroup .popupgroup_function .user .ava img {
 	width: 100%;
 	height: 100%;
 }
 
-.popup-view-group-publication .popupgroup_function .user .user-name {
+.popup_grouppublication_1.popupgroup .popupgroup_function .user .user-name {
     color: #495b79;
     font-size: 14.6px;
     margin: 0 0 0 10px;
@@ -3910,7 +3911,7 @@ body.public.ngdialog-open {
     text-overflow: ellipsis;
 }
 
-.popup-view-group-publication .popupgroups_head .user-menu {
+.popup_grouppublication_1.popupgroup .popupgroups_head .user-menu {
     position: relative;
     width: 30px;
     height: 30px;
@@ -3922,7 +3923,7 @@ body.public.ngdialog-open {
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .popupgroups_head .menu-item {
+.popup_grouppublication_1.popupgroup .popupgroups_head .menu-item {
     position: absolute;
     width: 156px;
     top: 20px;
@@ -3932,11 +3933,11 @@ body.public.ngdialog-open {
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .popupgroups_head .menu-item .inner {
+.popup_grouppublication_1.popupgroup .popupgroups_head .menu-item .inner {
     box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
 }
 
-.popup-view-group-publication .popupgroups_head .menu-item a {
+.popup_grouppublication_1.popupgroup .popupgroups_head .menu-item a {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -3950,7 +3951,7 @@ body.public.ngdialog-open {
     font-family: "SFUIDisplayMedium";
 }
 
-.popup-view-group-publication .popupgroups_head .return {
+.popup_grouppublication_1.popupgroup .popupgroups_head .return {
     cursor: pointer;
     position: absolute;
     margin: 10px;
@@ -3967,11 +3968,11 @@ body.public.ngdialog-open {
     display: none;
 }
 
-.popup-view-group-publication .popupgroup-publication-content {
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content {
     border-bottom: 1px solid #dfe1e4;
 }
 
-.popup-view-group-publication .popupgroup-publication-content .publication-ava {
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-ava {
     width: 100%;
     background-color: rgba(0,0,0,.2);
     height: 395px;
@@ -3982,18 +3983,18 @@ body.public.ngdialog-open {
     overflow: hidden;
 }
 
-.popup-view-group-publication .popupgroup-publication-content .publication-images {
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-images {
     display: flex;
     flex-wrap: wrap;
 }
 
-.popup-view-group-publication .publication-images .images-item.more {
+.popup_grouppublication_1.popupgroup .publication-images .images-item.more {
     background-color: #495b79;
     color: #fff;
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .publication-images .images-item {
+.popup_grouppublication_1.popupgroup .publication-images .images-item {
     width: 97px;
     overflow: hidden;
     height: 85px;
@@ -4005,13 +4006,13 @@ body.public.ngdialog-open {
     cursor: pointer;
 }
 
-.popup-view-group-publication .images-item.more p {
+.popup_grouppublication_1.popupgroup .images-item.more p {
     margin: 0;
     text-align: center;
     font-size: 10.4px;
     line-height: 15px;
 }
-.popup-view-group-publication .popupgroup-publication-content .publication-text {
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-text {
     padding: 0 15px;
     box-sizing: border-box;
     color: #747476;
@@ -4022,7 +4023,7 @@ body.public.ngdialog-open {
     margin: 0;
 }
 
-.popup-view-group-publication .popupgroup-publication-content .publication-place {
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-place {
     display: block;
     text-decoration: none;
     margin: 5px 15px 10px 15px;
@@ -4037,7 +4038,7 @@ body.public.ngdialog-open {
     background-repeat: no-repeat;
     transition: all .3s ease-in-out .1s;
 }
-.popup-view-group-publication .popupgroup .likes-item .like {
+.popup_grouppublication_1.popupgroup .likes-item .like {
     line-height: 26px;
     display: block;
     text-decoration: none;
@@ -4055,7 +4056,7 @@ body.public.ngdialog-open {
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .popupgroup .likes-item .like-item {
+.popup_grouppublication_1.popupgroup .likes-item .like-item {
     color: #333;
     font-size: 14.6px;
     font-family: Tahoma;
@@ -4064,28 +4065,26 @@ body.public.ngdialog-open {
     margin: 0;
 }
 
-.popup-view-group-publication .popupgroup .likes-item .like-item .count-like {
+.popup_grouppublication_1.popupgroup .likes-item .like-item .count-like {
     font-family: "SFUIDisplayMedium";
 }
 
-.popup-view-group-publication .popupgroup .likes {
+.popup_grouppublication_1.popupgroup .likes {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #000;
     padding: 10px 15px;
     box-sizing: border-box;
-}
-.popup-view-group-publication .popupgroup .likes {
     border-bottom: 1px solid #dfe1e4;
 }
 
-.popup-view-group-publication .popupgroup .likes-item {
+.popup_grouppublication_1.popupgroup .likes-item {
     display: flex;
     align-items: center;
 }
 
-.popup-view-group-publication .popupgroup .comments-count {
+.popup_grouppublication_1.popupgroup .comments-count {
     color: #333;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
@@ -4100,14 +4099,14 @@ body.public.ngdialog-open {
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .popupgroup .visible-comments {
+.popup_grouppublication_1.popupgroup .visible-comments {
     border-bottom: 1px solid #dfe1e4;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group {
+.popup_grouppublication_1.popupgroup .add-comment_group {
     border-bottom: none;
 }
-.popup-view-group-publication .popupgroup .add-comment_group {
+.popup_grouppublication_1.popupgroup .add-comment_group {
     display: flex;
     align-items: flex-start;
     margin-left: 15px;
@@ -4116,28 +4115,28 @@ body.public.ngdialog-open {
     box-sizing: border-box;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .ava {
+.popup_grouppublication_1.popupgroup .add-comment_group .ava {
     display: block;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .ava {
+.popup_grouppublication_1.popupgroup .add-comment_group .ava {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .ava img {
+.popup_grouppublication_1.popupgroup .add-comment_group .ava img {
     width: 100%;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .add {
+.popup_grouppublication_1.popupgroup .add-comment_group .add {
     width: 100%;
     padding-left: 15px;
     box-sizing: border-box;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .add .text-field {
+.popup_grouppublication_1.popupgroup .add-comment_group .add .text-field {
     padding: 0 0;
     height: 75px;
     border: none;
@@ -4160,7 +4159,7 @@ body.public.ngdialog-open {
     min-width: 250px;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .add .text-field textarea {
+.popup_grouppublication_1.popupgroup .add-comment_group .add .text-field textarea {
     resize: none;
     width: 100%;
     border-radius: 2px;
@@ -4174,24 +4173,24 @@ body.public.ngdialog-open {
     height: 75px;
 }
 
-.popup-view-group-publication .add-comment_group .new-add {
+.popup_grouppublication_1.popupgroup .add-comment_group .new-add {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .publication-footer {
+.popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 10px;
 }
 
-.popup-view-group-publication .publication-footer-button {
+.popup_grouppublication_1.popupgroup .publication-footer-button {
     display: flex;
 }
 
-.popup-view-group-publication .publication-footer-button .publication-button {
+.popup_grouppublication_1.popupgroup .publication-footer-button .publication-button {
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -4199,7 +4198,7 @@ body.public.ngdialog-open {
     border: 1px solid #495b79;
     transition: all .3s ease-in-out .1s;
 }
-.popup-view-group-publication .publication-footer-button a {
+.popup_grouppublication_1.popupgroup .publication-footer-button a {
     text-decoration: none;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
@@ -4208,7 +4207,7 @@ body.public.ngdialog-open {
     transition: all .3s ease-in-out .1s;
 }
 
-.popup-view-group-publication .publication-footer #add-object {
+.popup_grouppublication_1.popupgroup .publication-footer #add-object {
     opacity: 0;
     overflow: hidden;
     position: absolute;
@@ -4218,7 +4217,7 @@ body.public.ngdialog-open {
     height: 40px;
 }
 
-.popup-view-group-publication .publication-footer .add-objects label {
+.popup_grouppublication_1.popupgroup .publication-footer .add-objects label {
     color: #495b79;
     font-size: 14px;
     font-family: "SFUIDisplayMedium";
@@ -4228,7 +4227,7 @@ body.public.ngdialog-open {
     cursor: pointer;
 }
 
-.popup-view-group-publication .popupgroup .add-comment_group .publication-footer .add-objects
+.popup_grouppublication_1.popupgroup .add-comment_group .publication-footer .add-objects
  label span.add {
     width: 40px;
     padding-left: 0;
@@ -4265,21 +4264,21 @@ body.public.ngdialog-open {
 	    margin-top: 0;
 	    top: 0;
 	}
-	.popup-view-group-publication .popupgroup .add-comment_group .add .text-field {
+	.popup_grouppublication_1.popupgroup .add-comment_group .add .text-field {
 	    padding: 10px;
 	}
 
 }
 
 @media (max-width: 520px) {
-	.popup-view-group-publication .popupgroup .add-comment_group .publication-footer {
+	.popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
 	    align-items: baseline;
 	    padding-top: 0;
 	}
 }
 
 @media (max-width: 400px) {
-	.popup-view-group-publication .popupgroup .add-comment_group .publication-footer {
+	.popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
 	    justify-content: inherit;
 	    align-items: flex-start;
 	    flex-direction: column;
