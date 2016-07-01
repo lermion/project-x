@@ -56,6 +56,11 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Groups/views/groups.html',
 	      controller: 'groupsCtrl'
 	    })
+	    .state('view-group', {
+	      url: '/group/:groupId',
+	      templateUrl: '../../app/Groups/views/group.html',
+	      controller: 'groupsCtrl'
+	    })
 	    .state('feed', {
 	      url: '/feed',
 	      templateUrl: '../../app/Feed/views/feed.html',
