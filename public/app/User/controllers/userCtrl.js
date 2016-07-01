@@ -241,10 +241,6 @@ angular.module('placePeopleApp')
 			openSubscribe(userId);
 		};
 
-		$scope.emojiMessage={};
-
-		$scope.text = "String including Emoji codes :smiley:";
-
 		$scope.createPublication = function(){			
 			ngDialog.open({
 					template: '../app/User/views/publication.html',
