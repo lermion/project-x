@@ -1931,6 +1931,19 @@ spam-item {
     	padding-bottom: 15px;
     	transition: all .3s ease-in-out .1s;
 }
+.text-field a.emoji-button{
+	position: absolute;
+    top: 16px;
+    left: 587px;
+    display: block;
+    background-image: url(../images/smil.png);
+    transition: all .3s ease-in-out .1s;
+    background-position: left bottom 6px;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    width: 30px;
+    height: 30px;
+}
 .user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item,
 .user-publication .add-comment .add  .text-field .smiles .smile .smile-item {
 	box-shadow: 0 0 10px 3px rgba(0,0,0,.3);

@@ -241,8 +241,6 @@ angular.module('placePeopleApp')
 			openSubscribe(userId);
 		};
 
-		$scope.emojiMessage={};
-
 		$scope.text = "String including Emoji codes :smiley:";
 
 		$scope.createPublication = function(){			
@@ -293,7 +291,18 @@ angular.module('placePeopleApp')
 		$scope.deletePubFile = function(files, index){
 			files.splice(index, 1);
 		};
-		$scope.publishNewPub = function(pubText, files){
+		$scope.emojiMessage = {};
+		$scope.$on('ngDialog.opened', function(e, $dialog){
+			window.emojiPicker = new EmojiPicker({
+				emojiable_selector: '[data-emojiable=true]',
+				assetsPath: 'lib/img/',
+				popupButtonClasses: 'fa fa-smile-o'
+			});
+			window.emojiPicker.discover();
+			$(".emoji-button").text("");
+		});
+		$scope.publishNewPub = function(files){
+			var pubText = $(".pubText").val();
 			if (!pubText || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
