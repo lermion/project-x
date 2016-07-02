@@ -3724,6 +3724,10 @@ body.public.ngdialog-open {
 	.group-page .group-ava {
 		height: 200px;
 	}
+	.group-menu .group-menu-item .counts {
+		box-sizing: border-box;
+    		padding: 0 10px;
+	}
 }
 .publication .emoji-wysiwyg-editor  {
 	height: 85px;
