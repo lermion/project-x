@@ -52,6 +52,39 @@ class PublicationCommentController extends Controller
             ];
             return response()->json($result);
         }
+
+        if ($request->hasFile('images')) {
+            $validator = Validator::make($request->file('images'), [
+                'image'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad image',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+        if ($request->hasFile('videos')) {
+            $validator = Validator::make($request->file('videos'), [
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad video',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
         $commentData = $request->all();
         $commentData['user_id'] = Auth::id();
         $publication = Publication::find($id);

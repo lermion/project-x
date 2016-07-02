@@ -28,6 +28,6 @@ class GroupPublicationCommentTest extends TestCase
         $this->json('POST', 'group/'.$group->id.'/publication/'.$publication->id.'/comment/store', $data)->seeJson([
             'status' => true,
         ]);
-        $this->seeInDatabase('publications', $data);
+        $this->seeInDatabase('comments', $data);
     }
 }

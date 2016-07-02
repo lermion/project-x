@@ -243,7 +243,7 @@ angular.module('placePeopleApp')
 
 		$scope.createPublication = function(){			
 			ngDialog.open({
-					template: '../app/User/views/publication.html',
+					template: '../app/User/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
 					scope: $scope
 				});
@@ -431,7 +431,7 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-		$scope.changeMainFile = function(file, flag){
+		$scope.changeMainFile = function(file, flag, pub){
 			if(file.pivot.video_id){
 				$scope.mainImage = "";
 				$scope.mainVideo = file.url;
@@ -442,6 +442,10 @@ angular.module('placePeopleApp')
 					$scope.mainVideo = "";
 					$scope.mainImage = file.url;
 				}
+			}
+
+			if (flag === 'list') {
+				pub.mainFile = file;				
 			}
 		}
 		$scope.addCommentLike = function(comment){
@@ -496,14 +500,26 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.loadMorePubFiles = function(key) {
-			if (key === false) {
-				$scope.limit = $scope.singlePublication.length;
-			}else{
-				$scope.limit = 6;
-			}
-			$scope.morePubFiles = true;
-			$scope.$broadcast('loadPubFiles');			
+		
+		$scope.loadMorePubFiles = function(key, flag, pub) {			
+			
+			if (flag === 'list') {
+				if (key === false) {
+					pub.limit = pub.images.length + pub.videos.length;
+				}else{
+					pub.limit = 6;
+				}
+				// pub.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			} else {
+				if (key === false) {
+					$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+				}else{
+					$scope.limit = 6;
+				}
+				$scope.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			}			
 		};
 		var editPubPopup;
 		$scope.editPub = function(pub){			
@@ -585,6 +601,10 @@ angular.module('placePeopleApp')
 		$scope.editedPubDeleteVideo = function(videoId){
 			pubEditDeletedVideos.push(videoId);
 			$scope.$broadcast('rebuildScroll');
+		};
+
+		$scope.rebuildScroll = function(){
+			$scope.$broadcast('loadPubFiles');
 		};
 
 		$scope.saveEditedPub = function(pubId, text, files){

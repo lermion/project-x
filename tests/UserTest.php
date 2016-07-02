@@ -44,9 +44,9 @@ class UserTest extends TestCase
     public function testShow(){
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
-            $user = \App\User::create(['phone'=>'380731059230','password'=>bcrypt('123'),'country_id'=>1]);
+            $user = \App\User::create(['phone'=>'380731059230','login'=>'bonep','password'=>bcrypt('123'),'country_id'=>1]);
         }
-        $this->json('GET', 'user/show/'.$user->login, [])->AssertResponseOk() ;
+        $this->json('GET', 'user/show/'.$user->login)->AssertResponseOk() ;
     }
     
 }
