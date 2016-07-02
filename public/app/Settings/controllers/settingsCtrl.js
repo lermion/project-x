@@ -165,7 +165,11 @@ angular.module('placePeopleApp')
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();		
 		UserService.updateAvatar(blobFile)
-			.then(function(res){				   			
+			.then(function(res){
+				console.log(res);
+				if (res.status) {
+					storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
+				}				   			
 		      }, function(err){
 		        console.log(err);
 		      });	

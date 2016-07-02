@@ -128,13 +128,18 @@ angular.module('placePeopleApp')
 
 		//Sign on
 		$scope.sign = function(subscription){
+			console.log();
 			if($scope.loggedUserId == $scope.userData.id){
 				$scope.userData.id = subscription.id;
 			}
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){
 				if (res.status) {
-					subscription.is_sub = res.is_sub;
+					if(subscription !== undefined){
+						subscription.is_sub = res.is_sub;
+					}else{
+						$scope.isSigned = res.is_sub;
+					}
 				} else {
 					if (parseInt(res.error.code) === 1) {	    					
 						// 1 userId
@@ -217,7 +222,6 @@ angular.module('placePeopleApp')
 			if ($window.innerWidth <= 700) {
 					$state.go('subscribers', {username: $stateParams.username, id: userId});
 			} else {
-				console.log($state);
 				ngDialog.open({
 					template:'../app/User/views/popup-user-subscribers.html',
 					className: 'popup-user-subscribers ngdialog-theme-default',
