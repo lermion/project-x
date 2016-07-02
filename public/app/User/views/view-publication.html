@@ -27,8 +27,7 @@
 		<div class="publication-ava">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
-		</div>
-		<!-- 262 -->		
+		</div>				
 		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:175px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
 
 			<div ng-click="changeMainFile(file)" ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: limit as results" class="images-item">

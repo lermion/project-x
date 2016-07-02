@@ -430,7 +430,7 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-		$scope.changeMainFile = function(file, flag){
+		$scope.changeMainFile = function(file, flag, pub){
 			if(file.pivot.video_id){
 				$scope.mainImage = "";
 				$scope.mainVideo = file.url;
@@ -441,6 +441,10 @@ angular.module('placePeopleApp')
 					$scope.mainVideo = "";
 					$scope.mainImage = file.url;
 				}
+			}
+
+			if (flag === 'list') {
+				pub.mainFile = file;				
 			}
 		}
 		$scope.addCommentLike = function(comment){
@@ -587,7 +591,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.rebuildScroll = function(){
-			$scope.$broadcast('rebuildScroll');
+			$scope.$broadcast('loadPubFiles');
 		};
 
 		$scope.saveEditedPub = function(pubId, text, files){
