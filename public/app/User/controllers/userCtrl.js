@@ -299,10 +299,10 @@ angular.module('placePeopleApp')
 				popupButtonClasses: 'fa fa-smile-o'
 			});
 			window.emojiPicker.discover();
-			$(".emoji-button").text("");
+			angular.element(document.querySelector(".emoji-button")).text("");
 		});
 		$scope.publishNewPub = function(files){
-			var pubText = $(".pubText").val();
+			var pubText = angular.element(document.querySelector(".pubText")).val();
 			if (!pubText || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
