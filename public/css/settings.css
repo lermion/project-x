@@ -1288,6 +1288,8 @@ a.add_comments {
 }
 .my_profilll.photo-list {
   height: 100%;
+  margin-bottom: 30px;
+    box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
 }
 // div.my_profilll.photo-list div:last-child{
 //   margin-bottom: 20px;
