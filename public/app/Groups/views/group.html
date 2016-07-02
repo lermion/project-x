@@ -26,33 +26,63 @@
 			</header>
 
 			<!-- Content -->
-			<div class="groups-content">
-				<div class="groups-header">
-					<a href="" ng-click="viewGroupPublication(1, 12)">view pub popup</a>
-					<a class="public-groups" href="">Публичные группы</a>
-					<select name="" id="">
-						<option value="">Популярные</option>
-						<option value="">Новые</option>
-					</select>
-					<a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную группу</a>
+
+			<div class="group-page">
+				<div class="group-ava">
+					<a href="" class="ava"> 
+						<img src="../../../../images/bc.png" alt=""> 
+					</a>
+					<div class="group-likes">
+						<div class="group-info">
+							<a href="" class="publication-place">Название группы Название группы Название группы Название группы</a>
+							<p class="like-item">
+								В теме 
+								<span ng-if="singlePublication.user_like" class="you"> Вы </span>
+								<span ng-if="singlePublication.user_like" class="more">и еще</span>
+								<span class="count-like">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}}</span>
+								чел.
+							</p>
+						</div>
+					</div> 
 				</div>
-				<div class="groups">
-					<div class="group" ng-repeat="n in [1, 2, 3, 4]">
-						<div class="group-cover">
-							<a ui-sref="view-group({groupId: n})" class="group-ava">
-								<img ng-src="{{image.url}}">
+				<div class="group-menu">
+					<div class="group-menu-item">
+						<div class="counts" >
+							<a href="" class="counter active">
+								<p>Публикации</p>
+								<span>25</span>
 							</a>
-							<div class="group-likes">
-								<a href="" class="group-like">149</a>
-								<a href="" class="group-comments">1052</a>
-							</div>
+							<a href="" class="counter">
+								<p>Чат</p>
+								<span>417</span>
+							</a>
+							<a href="" class="counter">
+								<p>Люди</p>
+								<span>29</span>
+							</a>
+							<a href="" class="counter">
+								<p>Файлы</p>
+								<span>858</span> 
+							</a>
+							<a href="" class="counter">
+								<p>Места</p>
+								<span>858</span> 
+							</a>
 						</div>
-						<div class="titles">
-							<a href="" class="title">Название группы Название группы</a>
-							<p class="about">Описание группы. Группа про то, про это и все остальное.Описание группы. Группа про то, про это и все остальное.</p>
+					</div>
+					<button>Подписаться</button>
+				</div>
+				<div class="group-header"></div>
+				<div class="group-publication">
+					<div class="my-photos" ng-show="true">
+						<div class="photo" ng-repeat="n in [1,2,3,4]" style="{{resizeSizes}}">		
+							<a href="" ng-click="showPublication(pub)">
+								<!-- <img ng-src="{{pub.images[0].url}}" alt="">  -->
+								<img src="">
+								<!-- <p>{{pub.images}}</p> -->
+								<!-- <span class="video" ng-show="$index==0"></span> -->
+							</a>
 						</div>
-						<button class="wright">Подписаться</button>
-						<button>Вы подписаны</button>
 					</div>
 				</div>
 			</div>

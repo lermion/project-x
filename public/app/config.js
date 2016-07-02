@@ -56,10 +56,25 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Groups/views/groups.html',
 	      controller: 'groupsCtrl'
 	    })
+	    .state('view-group', {
+	      url: '/group/:groupId',
+	      templateUrl: '../../app/Groups/views/group.html',
+	      controller: 'groupsCtrl'
+	    })
+	    .state('view-group-publication', {
+	      url: '/group/:groupId/publication/:pubId',
+	      templateUrl: '../../app/Groups/views/group.html',
+	      controller: 'groupsCtrl'
+	    })
+	    .state('mobile-view-group-publication', {
+	      url: '/group/:groupId/pub/:pubId',
+	      templateUrl: '../app/Groups/views/popup-view-group-publication.html',
+	      controller: 'groupsCtrl'
+	    })
 	    .state('feed', {
 	      url: '/feed',
 	      templateUrl: '../../app/Feed/views/feed.html',
-	      // controller: 'staticCtrl'
+	      controller: 'feedCtrl'
 	    })
 	    .state('user', {
 	      url: '/:username',

@@ -241,8 +241,6 @@ angular.module('placePeopleApp')
 			openSubscribe(userId);
 		};
 
-		$scope.text = "String including Emoji codes :smiley:";
-
 		$scope.createPublication = function(){			
 			ngDialog.open({
 					template: '../app/User/views/publication.html',
@@ -389,11 +387,23 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);
 		};
-		$scope.addNewComment = function(flag, pub, pubText, flow){
-			$scope.commentModel = angular.copy(emptyPost);
-			PublicationService.addCommentPublication(pub.id, pubText, flow).then(function(response){
+		$scope.addNewComment = function(flag, pub, pubText, files){			
+			var images = [];
+			var videos = [];
+			if (files != undefined) {
+				files.forEach(function(file){
+					var type = file.type.split('/')[0];
+					if (type === 'image') {
+						images.push(file);
+					} else if (type === 'video'){
+						videos.push(file);
+					}				
+				});
+			}		
+			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
 				if(response.data.status){
-					flow.cancel();
+					pub.files = [];
+					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
 						pub.comments.unshift(response.data.comment);
 						pub.comment_count++;

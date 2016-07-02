@@ -54,7 +54,16 @@ angular.module('placePeopleApp')
                 $scope.showBottomMenu = false;
               } else {
                 $scope.showBottomMenu = true;
-              }			  
+              }
+
+              if (value < 520) {		    	
+				var blockThirdthLength = (parseInt(w[0].innerWidth)-2)/3;
+				$scope.resizeSizes = 'width:'+blockThirdthLength+'px;height:'+blockThirdthLength+'px;';
+				$scope.resizeHeight = 'height:'+parseInt(w[0].innerWidth)+'px;';		    		
+			  } else {
+				$scope.resizeSizes='';
+				$scope.resizeHeight='';					    	
+			  }			  
 		  },
 		  true
 		);
@@ -70,6 +79,19 @@ angular.module('placePeopleApp')
 					className: 'popup-add-group ngdialog-theme-default',
 					scope: $scope
 				});
+		};
+		
+		$scope.viewGroupPublication = function(groupId, pubId){
+			if ($window.innerWidth <= 720) {					
+				$state.go('mobile-view-group-publication', {groupId: groupId, pubId: pubId});			
+			} else {
+				ngDialog.open({
+					template:'../app/Groups/views/popup-view-group-publication.html',
+					className: 'popup-view-group-publication ngdialog-theme-default',
+					scope: $scope
+				});
+			}
+			
 		};
 
 
