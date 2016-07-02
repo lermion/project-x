@@ -4,7 +4,8 @@
 	  width: 700px;
 	  /*border: 1px solid #808080;*/
 	 margin: 30px auto 0 auto;
-   color:#333;
+          color:#333;
+          box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
 }
  
 .settingsss .h1 {
@@ -21,6 +22,8 @@
    /* justify-content: space-around;*/
     padding: 15px;/*
     align-items: flex-start;*/
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .settingsss .set_2 {
@@ -53,19 +56,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
+    display:flex;
+    opacity: 0;
+    transition: all .3s ease-in-out .1s;
+    border-radius: 50%;
 }
 
 .settingsss .set_1 .img:hover .change {
-	display:flex;
+	opacity: 1;
 }
 
 .settingsss .text p{
     margin: 0;
-    width: 230px;
 }
 .settingsss .text {
-   margin-left: 50px;
+   width: 50%;
 }
 
 .settingsss .text a:nth-child(2) {
@@ -81,8 +86,8 @@
 
 .settingsss .status,
 .settingsss .contact {
-	font-size: 14px;
-  padding-top: 15px;
+	font-size: 14.6px;
+        padding-top: 15px;
 }
 
 .settingsss .status span:first-child,
@@ -95,9 +100,9 @@
 }
 
 .settingsss .text p input[type="text"] {
-    border-radius: 3px 3px 0 0;
-    border-bottom: 1px solid #999;
-    width: 290px;
+    // border-radius: 3px 3px 0 0;
+    // border: 1px solid #999;
+    width: 100%;
     padding: 0 15px;
     box-sizing: border-box;
     line-height: 37px;
@@ -107,16 +112,18 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    border: 1px solid transparent;
     transition: all .3s ease-in-out .2s;
-    margin-bottom: 0;
-    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+    border: none;
+    border-bottom: 1px solid #999;
+    color: #999;
 }
 
 .settingsss .text p input[type="text"].last_name_set {
-    border-radius:  0 0 3px 3px;
+    // border-radius:  0 0 3px 3px;
+    // border: 1px solid #999;
+    border: none;
     border-bottom: 1px solid #999;
-    width: 290px;
+    width: 100%;
     padding: 0 15px;
     box-sizing: border-box;
     line-height: 37px;
@@ -126,10 +133,10 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    border: 1px solid transparent;
     transition: all .3s ease-in-out .2s;
     margin-bottom: 0;
-    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+    color: #999;
+    border-top: 0;
 }
 
 .settingsss .text p input[type="submit"] {
@@ -145,7 +152,6 @@
 }
 
 .settingsss .text p:nth-child(2) input[type="submit"] {
-    width: 150px;
     border-radius: 3px;
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
     position: relative;
@@ -158,7 +164,9 @@
     height: inherit;
     font-family: "SFUIDisplayMedium";
     box-shadow: none;
-    margin-left: 70px;
+    width: auto;
+    padding: 0 40px;
+    margin: 0 auto;
 }
 
 .settingsss .text p:nth-child(2) input[type="submit"]:hover  {
@@ -166,17 +174,18 @@
 }
 
 .settingsss .text p textarea {
-	  width: 275px;
-    border: none;
-    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
-    background: none;
-    border-radius: 5px;
-    display: inline-block;
-    vertical-align: top;
+    border: 1px solid #999;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-size: 14.6px;
+    line-height: 15px;
     margin: 0 0 20px 0;
     height: 70px;
     resize: none;
     padding: 5px 0 0px 15px;
+    font-family: "SFUIDisplayLight";
+    color: #999;
 }
 
 .settingsss .text p textarea::-webkit-input-placeholder {
@@ -365,83 +374,83 @@
 	.settingsss {
 	    width: 100%;
 	}
+        .settingsss .img {
+            width: 250px;
+            height: 250px;
+        }
+        .settingsss .text {
+          width: 47%;
+        }
 }
 
-@media only screen and (max-width: 668px) {
-	.settingsss .set_1 {
-	    display: block;
-	    width: 100%;
-	    text-align: center;
-	    padding: 15px 0 15px 0;
-	}
-	.settingsss .img {
-		display: inline-flex;
-		flex-direction: column;
-	}
-  .settingsss .status,
-  .settingsss .contact {
-      padding-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-  .settingsss .text {
-      margin-left: 10px;
-      margin-top: 20px;
-  }
-  .settingsss .text p input[type="text"],
-  .settingsss .text p input[type="text"].last_name_set {
-    width: 230px;
-  }
-  .settingsss .text p textarea {
-    width:230px;
-  }
-  .settingsss .text p{
-    width: inherit;
-  }
-  .settingsss .text p:nth-child(2) input[type="submit"] {
-      margin-left: 0;
-  }
-
-  body .settingsss .set_1 .text p input[type="text"] {
-    border-radius: 3px;
-  }    
-}
-
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 520px) {
 	.settingsss .set_2 p {
 	    font-size: 14px;
+      margin-top: 5px;
 	}
 	.settingsss .img {
 	    width: 240px;
 	    height: 240px;
 	}
+        .settingsss .img {
+          width: 120px;
+          height: 120px;
+          margin-bottom: 10px;
+        }
+        .settingsss .set_1 {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .settingsss .text {
+          width: 90%;
+          text-align: center;
+        }
+        .settingsss .text p {
+          display: flex;
+          flex-direction: column;
+        }
+        .settingsss .h1 {
+              margin: 0 0 5px 0;
+              line-height: 25px;
+        }
+        .settingsss .text a:nth-child(2) {
+          margin-left: 0;
+        }
+        .settingsss .status span:last-child{
+              margin-top: -15px;
+        }
+        .settingsss .set_2 {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+        }
 }
 
-@media only screen and (max-width: 474px) {
-  body .settingsss .set_1 .text p input[type="text"] {
-    border-radius: 3px 3px 0 0;
-  }   
-   body .settingsss .set_1 .text p input[type="text"].last_name_set {
-    border-radius: 0 0 3px 3px ;
-  }
-}
+// @media only screen and (max-width: 474px) {
+//   body .settingsss .set_1 .text p input[type="text"] {
+//     border-radius: 3px 3px 0 0;
+//   }   
+//    body .settingsss .set_1 .text p input[type="text"].last_name_set {
+//     border-radius: 0 0 3px 3px ;
+//   }
+// }
 
-@media only screen and (max-width: 400px) {
-	.settingsss .img {
-	    width: 210px;
-	    height: 210px;
-	}
-}
+// @media only screen and (max-width: 400px) {
+// 	.settingsss .img {
+// 	    width: 210px;
+// 	    height: 210px;
+// 	}
+// }
 
-@media only screen and (max-width: 360px) {
-	.settingsss .set_2 p {
-	    font-size: 12px;
-	}
-	.settingsss .h1 {
-	    font-size: 18px;
-	}
-}
+// @media only screen and (max-width: 360px) {
+// 	.settingsss .set_2 p {
+// 	    font-size: 12px;
+// 	}
+// 	.settingsss .h1 {
+// 	    font-size: 18px;
+// 	}
+// }
 
 
 /*added Stasya*/
@@ -1256,11 +1265,14 @@ a.add_comments {
     line-height: 50px;
     font-family: SFUIDisplayLight;
     font-size: 14px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 .my_profilll.photo-list {
   height: 100%;
 }
-div.my_profilll.photo-list div:last-child{
-  margin-bottom: 20px;
-}
+// div.my_profilll.photo-list div:last-child{
+//   margin-bottom: 20px;
+// }
 /*aded  */
