@@ -100,14 +100,6 @@
 						</div>
 					</div>
 					<!-- unit grid-->						
-					<!-- <div class="my-photos" ng-show="photosGrid">
-						<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
-							<a href="" ng-click="showPublication(2)">
-								<img src="images/pic.png" alt="">
-								<span class="video" ng-show="$index==0"></span>
-							</a>
-						</div>
-					</div> -->
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 							<a href="" ng-click="showPublication(pub)">
@@ -127,7 +119,7 @@
 								<div class="user-publication">
 									<div class="user-publication-content">
 										<div class="publication-ava">
-											<a href="javascript:void(0);" ng-click="showPublication(singlePublication)">
+											<a href="javascript:void(0);" class="ava" ng-click="showPublication(singlePublication)">
 												<img ng-src="{{mainImage || singlePublication.images[0].url}}">
 											</a>
 											<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
@@ -191,11 +183,11 @@
 										</div>
 									</div>
 									<div class="added_comments">
-										<a href="" class="add_comments">
+										<a href="javascript:void(0);" class="add_comments" ng-click="showAddCommentBlock = !showAddCommentBlock" ng-hide="showAddCommentBlock">
 											Добавить комментарий 
 										</a>
 									</div>
-									<div class="add-comment">
+									<div class="add-comment"  ng-show="showAddCommentBlock">
 										<div class="user-ava">
 											<a class="ava" ui-sref="user({username: loggedUser})">
 												<img ng-src="{{userData.avatar_path}}" alt="">
@@ -222,7 +214,7 @@
 											</div>
 											<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
 												<div class="publication-footer-button">
-													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</a>    
+													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files);" class="publication-button">Отправить</a>    
 												</div>
 												<div class="add-objects">						
 													<input id="{{addFileObjId}}" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 

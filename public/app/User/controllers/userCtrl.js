@@ -387,7 +387,8 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);
 		};
-		$scope.addNewComment = function(flag, pub, pubText, files){			
+		$scope.addNewComment = function(flag, pub, pubText, files){
+			$scope.showAddCommentBlock=false;			
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
