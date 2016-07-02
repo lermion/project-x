@@ -332,15 +332,12 @@ body.main-page {
 	line-height: 40px;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
-	transition: all .2s ease-in-out;
-}
-.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	margin-top: 8px;
+	transition: none;
 }
 .check-in-button:hover,
 .check-in-button:focus,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
-	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
 }
@@ -1134,6 +1131,11 @@ body.public.user {
 // 		justify-content: center;
 // 	}
 // }
+@media (max-width: 720px) {
+	body.public.user {
+	    background: #fff;
+	}
+}
 @media (max-width: 550px)  {
 	.menu-user {
 		display: flex;

@@ -308,6 +308,7 @@
 	background: #f8f8f8;
 	cursor: pointer;
 	box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+        vertical-align: middle;
 }
 
 .settingsss .checkbox-label:before {
@@ -373,6 +374,9 @@
 @media only screen and (max-width: 700px) {
 	.settingsss {
 	    width: 100%;
+            margin: 0 auto;
+            padding: 20px 0 40px;
+            box-shadow:none;
 	}
         .settingsss .img {
             width: 250px;
@@ -386,8 +390,14 @@
 @media only screen and (max-width: 520px) {
 	.settingsss .set_2 p {
 	    font-size: 14px;
-      margin-top: 5px;
+          margin-top: 5px;
+          display: flex;
+          align-items: center;
+          line-height: 26px;
 	}
+        .settingsss .checkbox-label {
+              margin-left: 10px;
+        }
 	.settingsss .img {
 	    width: 240px;
 	    height: 240px;
@@ -411,19 +421,23 @@
           flex-direction: column;
         }
         .settingsss .h1 {
-              margin: 0 0 5px 0;
+              margin: 15px 0 5px 0;
               line-height: 25px;
         }
         .settingsss .text a:nth-child(2) {
           margin-left: 0;
         }
-        .settingsss .status span:last-child{
+        .settingsss .status span.status-text{
               margin-top: -15px;
+              line-height: 21px;
         }
         .settingsss .set_2 {
               display: flex;
               flex-direction: column;
               align-items: center;
+        }
+        .settingsss .set_2 h1 {
+          margin: 15px 0 15px 0;
         }
 }
 
@@ -972,7 +986,7 @@
     background-position: center;
     background-size: 35% 25%;
 }
-.popup-add-group .add-ava label .ava, .add-ava label .add {
+.popup-add-group .add-ava label .ava,.popup-add-group .add-ava label .add {
     overflow: hidden;
     width: 100px;
     height: 85px;
