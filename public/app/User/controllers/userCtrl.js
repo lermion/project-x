@@ -297,11 +297,11 @@ angular.module('placePeopleApp')
 				popupButtonClasses: 'fa fa-smile-o'
 			});
 			window.emojiPicker.discover();
-			angular.element(document.querySelector(".emoji-button")).text("");
+			$(".emoji-button").text("");
 		});
 		$scope.publishNewPub = function(files){
 			var pubText = angular.element(document.querySelector(".pubText")).val();
-			if (!pubText || files.length == 0) {						
+			if (!pubText || files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
@@ -388,6 +388,9 @@ angular.module('placePeopleApp')
 			getSinglePublication(pub.id);
 		};
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			if(pubText === undefined || pubText === ""){
+				pubText = angular.element(document.querySelector(".pubText")).val();
+			}
 			$scope.showAddCommentBlock=false;			
 			var images = [];
 			var videos = [];
@@ -403,6 +406,7 @@ angular.module('placePeopleApp')
 			}		
 			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
 				if(response.data.status){
+					$(".emoji-wysiwyg-editor").html("");
 					pub.files = [];
 					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
