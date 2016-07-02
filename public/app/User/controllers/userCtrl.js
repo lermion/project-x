@@ -499,14 +499,26 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.loadMorePubFiles = function(key) {			
-			if (key === false) {
-				$scope.limit = $scope.singlePublication.length;
-			}else{
-				$scope.limit = 6;
-			}
-			$scope.morePubFiles = true;
-			$scope.$broadcast('loadPubFiles');			
+		
+		$scope.loadMorePubFiles = function(key, flag, pub) {			
+			
+			if (flag === 'list') {
+				if (key === false) {
+					pub.limit = pub.images.length + pub.videos.length;
+				}else{
+					pub.limit = 6;
+				}
+				// pub.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			} else {
+				if (key === false) {
+					$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+				}else{
+					$scope.limit = 6;
+				}
+				$scope.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			}			
 		};
 		var editPubPopup;
 		$scope.editPub = function(pub){			
