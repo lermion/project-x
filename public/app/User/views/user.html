@@ -99,8 +99,8 @@
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
 					</div>
-					<p ng-show="needToSign" class="status-user" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
-					<p ng-show="needToLogin" class="status-user" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>
+					<p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
+					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>
 					<!-- unit grid-->						
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
