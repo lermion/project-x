@@ -8,7 +8,7 @@
 				</span>
 				<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
 			</a>
-			<!-- <div class="topic">Тема дня</div> -->
+			<div class="topic" ng-show="!!singlePublication.is_topic">Тема дня</div>
 			<div class="user-menu" ng-click="showPubMenu=!showPubMenu">				
 				<div class="menu-item" ng-show="showPubMenu">
 					<div class="inner">
@@ -27,17 +27,18 @@
 		<div class="publication-ava">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
-		</div>
-		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
-			<div ng-click="changeMainFile(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
-				<img ng-src="{{image.url}}">
+		</div>				
+		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:175px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
+
+			<div ng-click="changeMainFile(file)" ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: limit as results" class="images-item">
+				<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+				<video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>				
 			</div>
-			<div ng-click="changeMainFile(video)" ng-repeat="video in singlePublication.videos" class="images-item">
-				<video width="150px" controls ngf-src="video.url"></video>
+
+			<div ng-hide="results.length === (singlePublication.images.length + singlePublication.videos.length)" class="images-item more" ng-click="loadMorePubFiles(results.length === (singlePublication.images.length + singlePublication.videos.length))">
+				<p class="counter">Еще<br> {{(singlePublication.images.length + singlePublication.videos.length)  - limit}} файлов</p>
 			</div>
-			<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
-				<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
-			</div>
+
 		</div> 
 		<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
 		<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
@@ -89,7 +90,7 @@
 	<div class="add-comment">
 		<div class="user-ava">
 			<a class="ava" ui-sref="user({username: loggedUser})">
-				<img src="{{userData.avatar_path}}" alt="">
+				<img ng-src="{{userData.avatar_path}}" alt="">
 			</a>
 		</div>
 		<div flow-init style="position:relative;" class="add">

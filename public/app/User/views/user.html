@@ -100,48 +100,37 @@
 						</div>
 					</div>
 					<!-- unit grid-->						
-					<!-- <div class="my-photos" ng-show="photosGrid">
-						<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
-							<a href="" ng-click="showPublication(2)">
-								<img src="images/pic.png" alt="">
-								<span class="video" ng-show="$index==0"></span>
-							</a>
-						</div>
-					</div> -->
+					
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 							<a href="" ng-click="showPublication(pub)">
-								<img ng-src="{{pub.images[0].url}}" alt="">
-								<!-- <p>{{pub.images}}</p> -->
-								<!-- <span class="video" ng-show="$index==0"></span> -->
+								<img ng-src="{{pub.images[0].url}}" alt="">								
 							</a>
 						</div>
 					</div>
 
-
 					<!-- single unit -->
 					<div class="my-photos-list" ng-show="!photosGrid">
-						<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}">							
+						<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}" ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
 							<div class="ngdialog-content" role="document">
-
 								<div class="user-publication">
 									<div class="user-publication-content">
-										<div class="publication-ava">
+										<div class="publication-ava" ng-init="singlePublication.mainFile.pivot ? '' : singlePublication.mainFile.pivot.image_id = true;">
 											<a href="javascript:void(0);" ng-click="showPublication(singlePublication)">
-												<img ng-src="{{mainImage || singlePublication.images[0].url}}">
+												<img ng-src="{{singlePublication.mainFile.url}}" ng-if="singlePublication.mainFile.pivot.image_id">
 											</a>
-											<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
+											<video ng-if="singlePublication.mainFile.pivot.video_id" width="150px" controls ngf-src="singlePublication.mainFile.url"></video>
 										</div>
-										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
-											<div ng-click="changeMainFile(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
-												<img ng-src="{{image.url}}">
+										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:175px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">											
+											<div ng-click="changeMainFile(file, 'list', singlePublication)" ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: limit as results" class="images-item" ng-init="rebuildScroll()">
+												<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+												<video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>				
 											</div>
-											<div ng-click="changeMainFile(video)" ng-repeat="video in singlePublication.videos" class="images-item">
-												<video width="150px" controls ngf-src="video.url"></video>
+
+											<div ng-hide="results.length === (singlePublication.images.length + singlePublication.videos.length)" class="images-item more" ng-click="loadMorePubFiles(results.length === (singlePublication.images.length + singlePublication.videos.length))">
+												<p class="counter">Еще<br> {{(singlePublication.images.length + singlePublication.videos.length)  - limit}} файлов</p>
 											</div>
-											<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
-												<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
-											</div>
+
 										</div> 
 										<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
 										<a href="javascript:void(0);" class="publication-place">г. Лондон</a>

@@ -122,8 +122,9 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/2/publication/update/9\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/2/publication\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='text'><br>
+            <input type='file' name='images[]'><br>
             <input type=\"submit\">
         </form>";
     });

@@ -82,7 +82,7 @@ angular.module('placePeopleApp')
 
 		$scope.changeMainFile = function(file, currPub){			
 			if(file.pivot.video_id || file.pivot.image_id){
-				currPub.mainFile = file.url;		
+				currPub.mainFile = file;		
 			}
 		};
 

@@ -53,13 +53,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile = pub.cover : pub.mainFile = pub.images[0].url">
+				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
 					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
 					<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
 					<div class="publication-ava">
-						<img ng-src="{{pub.mainFile}}">
+						<img ng-src="{{pub.mainFile.url}}">
 					</div>					
 					<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
 						<div ng-click="changeMainFile(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">

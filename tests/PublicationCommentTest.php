@@ -32,7 +32,7 @@ class PublicationCommentTest extends TestCase
         $this->json('POST', 'publication/comment/store/'.$publication->id, $data)->seeJson([
             'status' => true,
         ]);
-        $this->seeInDatabase('publications', $data);
+        $this->seeInDatabase('comments', $data);
     }
 
     public function testDelete()

@@ -36,9 +36,12 @@ class AuthTest extends TestCase
 
     public function testAuth(){
         $user = \App\User::where('phone','380731059230')->first();
+
         if($user){
             $user->password = bcrypt('123');
             $user->save();
+        }else{
+            $user = \App\User::create(['phone'=>'380731059230','password' => bcrypt('123'),'country_id'=>1])->first();
         }
         $this->json('POST', 'auth/', ['login' => '380731059230','password'=>'123'])
             ->seeJson([
