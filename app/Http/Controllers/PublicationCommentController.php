@@ -7,6 +7,7 @@ use App\Image;
 use App\Publication;
 use App\Video;
 use Illuminate\Http\Request;
+use Validator;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;

@@ -9,6 +9,7 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
+		$scope.loggedUserAva = storage.loggedUserAva;
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};
@@ -106,8 +107,16 @@ angular.module('placePeopleApp')
 		function getUserPubs(userId){
 			PublicationService.getUserPublications(userId)
 			.then(
-				function(res){
-					$scope.userPublications = res.publications;										        
+				function(res){					
+					if (res.status) {
+						$scope.userPublications = res.publications;
+					} else {
+						if (res.error.code === "8") {							
+							$scope.needToSign = true;
+						} else if(res.error.code === "15"){
+							$scope.needToLogin = true;
+						}
+					}
 				},
 				function(err){
 					console.log(err);
@@ -208,6 +217,7 @@ angular.module('placePeopleApp')
 			if ($window.innerWidth <= 700) {
 					$state.go('subscribers', {username: $stateParams.username, id: userId});
 			} else {
+				console.log($state);
 				ngDialog.open({
 					template:'../app/User/views/popup-user-subscribers.html',
 					className: 'popup-user-subscribers ngdialog-theme-default',
@@ -370,13 +380,13 @@ angular.module('placePeopleApp')
 				if ($window.innerWidth <= 700) {
 					$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
-					if(!flag){
-						// ngDialog.open({
-						// 	template: '../app/User/views/view-publication.html',
-						// 	className: 'view-publication ngdialog-theme-default',
-						// 	scope: $scope
-						// });
-						$state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});			
+					if(!flag && $state.current.name === 'user'){
+						ngDialog.open({
+							template: '../app/User/views/view-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope
+						});
+						// $state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});			
 					}
 				}
 			},
@@ -385,7 +395,7 @@ angular.module('placePeopleApp')
 			});
 		}
 		$scope.showPublication = function(pub){
-			getSinglePublication(pub.id);
+			getSinglePublication(pub.id);			
 		};
 		$scope.addNewComment = function(flag, pub, pubText, files){			
 			var images = [];

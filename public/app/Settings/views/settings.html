@@ -26,7 +26,7 @@
 	<div class="settingsss">
 		<div class="set_1">
 			<div class="img">
-				<img ng-src="{{avatar}}" alt="" class="avatar" ng-hide="croppedFile">
+				<img ng-src="{{userData.avatar_path}}" alt="" class="avatar" ng-hide="croppedFile" ng-show="userData.is_avatar">
 				<a href="" class="change"> Изменить </a>
 
 				<div class="add-ava" ng-init="showEditAva=true;"> 
@@ -67,14 +67,18 @@
 			<span class="h1">Конфиденциальность</span>
 				<p>Показать статус "В сети"
 			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" ng-checked="!!userData.is_visible"/>
-			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on" ng-click="isVisible=!isVisible"></label>
+			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on" ng-click="isVisible=!isVisible; changeIsVisible(isVisible)"></label>
  				</p>
 				<!-- <p>Отправлять статус "Просмотрено"
 			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle"/>
 			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label> -->
+				<!-- </p>  -->
+				<p>Скрыть профиль
+			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle" ng-checked="!!userData.is_private"/>
+			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on" ng-click="isPrivate=!isPrivate; changeLockProfile(isPrivate)"></label>
 				</p> 
 				<p>Отображать мое фото
-			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" ng-checked="!!userData.is_avatar" ng-click="showAvatar=!showAvatar"/>
+			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" ng-checked="!!userData.is_avatar" ng-click="showAvatar=!showAvatar; changeShowAvatar(showAvatar)"/>
 			<label for="checkbox3" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 		</div>

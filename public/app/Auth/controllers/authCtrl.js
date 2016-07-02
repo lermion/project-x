@@ -214,6 +214,7 @@ angular.module('placePeopleApp')
 	    				$scope.userRegistred = true;
 	    				storageService.setStorageItem('username', res.login);
 	    				storageService.setStorageItem('userId', res.user_id);
+	    				storageService.setStorageItem('loggedUserAva', res.avatar_path);
 	    				$state.go('user', {username: res.login});	    				
 	    			} else {	    				
 	    				if (parseInt(res.error.code) === 1) {
