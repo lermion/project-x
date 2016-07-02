@@ -333,11 +333,11 @@ body.main-page {
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	margin-top: 8px;
+	transition: none;
 }
 .check-in-button:hover,
 .check-in-button:focus,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
-	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
 }
@@ -1131,6 +1131,11 @@ body.public.user {
 // 		justify-content: center;
 // 	}
 // }
+@media (max-width: 720px) {
+	body.public.user {
+	    background: #fff;
+	}
+}
 @media (max-width: 550px)  {
 	.menu-user {
 		display: flex;
@@ -1494,10 +1499,18 @@ body.public.user {
 	margin-bottom: 3px;
 	overflow: hidden;
 }
-.photo-list  a {
-	display: block;
+// .photo-list  a {
+// 	display: block;
+// 	height: 100%;
+// 	position: relative;
+// }
+.my-photos-list .photo-list  .ava {
 	height: 100%;
 	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .photo-list  a img {
 	display: block;
@@ -2278,7 +2291,7 @@ spam-item {
     	right: 0;
     	bottom: 0;
     	box-sizing: border-box;
-    	animation: ngdialog-flyin .2s;
+    	// animation: ngdialog-flyin .2s;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2558,7 +2571,7 @@ spam-item {
 	background-image: url(../images/comment-count.png);
 	background-position: right; center;
 	background-repeat: no-repeat;
-	background-size: 50%;
+	background-size: contain;
 	transition: all .3s ease-in-out .1s;
 }
 .user-publication .comments-count:hover  {
@@ -2640,7 +2653,7 @@ spam-item {
 	background-image: url(../images/comment-like.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 50%;
+	background-size: contain;
 	transition: all .3s ease-in-out .1s;
 	display: none;
 }
@@ -2878,7 +2891,8 @@ spam-item {
 	color: #333;
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default {
-	background-color: rgba(0, 0, 0, .9);
+	background-color: transparent;
+	position: absolute;
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
 	background-color: transparent;
@@ -3239,12 +3253,20 @@ body.public.user #wrapper {
 	margin-left: -350px;
 	left: 50%;
 	position: absolute;
-	margin-bottom: 50px;
+	// margin-bottom: 50px;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
 	right: 50%;
 	top: 50px;
 	margin-right: -345px;
+}
+.ngdialog.popup-comment-images.ngdialog-theme-default .ngdialog-overlay {
+	background-color: rgba(0, 0, 0, .9);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 body.public.ngdialog-open {
 	padding-bottom: 0;
@@ -3702,4 +3724,7 @@ body.public.ngdialog-open {
 	.group-page .group-ava {
 		height: 200px;
 	}
+}
+.publication .emoji-wysiwyg-editor  {
+	height: 85px;
 }

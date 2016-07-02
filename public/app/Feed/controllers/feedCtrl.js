@@ -1,12 +1,11 @@
 angular.module('placePeopleApp')
     .controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService', 
-    	'AuthService', 'FeedService', '$window', '$http', 'storageService',  'ngDialog', 'amMoment', 'Upload',
+    	'AuthService', 'FeedService', '$window', '$http', 'storageService',  'ngDialog', 'amMoment', 'Upload', '$timeout',
     	function($scope, $state, $stateParams, StaticService, PublicationService, AuthService, 
-    		FeedService, $window, $http, storageService, ngDialog, amMoment, Upload){
+    		FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout){
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
-
 		$http.get('/static_page/get/name')
 		            .success(function (response){            	
 		                $scope.staticPages = response;
@@ -65,7 +64,15 @@ angular.module('placePeopleApp')
 		});
 
 		/*Page content*/
-
+		$scope.ngRepeatHasRendered = function(){
+			window.emojiPicker = new EmojiPicker({
+				emojiable_selector: '[data-emojiable=true]',
+				assetsPath: 'lib/img/',
+				popupButtonClasses: 'fa fa-smile-o'
+			});
+			window.emojiPicker.discover();
+			$(".emoji-button").text("");
+		}
 		amMoment.changeLocale('ru');
 		$scope.loggedUserId = storage.userId;
 		$scope.commentModel = {pubText: ''};
@@ -76,9 +83,9 @@ angular.module('placePeopleApp')
 					// console.log(res);
 					$scope.limit = 6;
 					$scope.publications = res;
-				  }, function(err){
+				}, function(err){
 					console.log(err);
-				  });
+				});
 
 		$scope.changeMainFile = function(file, currPub){			
 			if(file.pivot.video_id || file.pivot.image_id){
@@ -153,8 +160,9 @@ angular.module('placePeopleApp')
 				});
 			}
 
-			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
-				if(response.data.status){										
+			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				if(response.data.status){
+					$(".emoji-wysiwyg-editor").html("");
 					if(flag === "feedPage"){
 						pub.files = [];
 						pub.commentModel = angular.copy(emptyPost);

@@ -102,7 +102,6 @@
 					<p ng-show="needToSign" class="status-user" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
 					<p ng-show="needToLogin" class="status-user" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>
 					<!-- unit grid-->						
-					
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 							<a href="" ng-click="showPublication(pub)">
@@ -117,8 +116,9 @@
 							<div class="ngdialog-content" role="document">
 								<div class="user-publication">
 									<div class="user-publication-content">
+
 										<div class="publication-ava" ng-init="singlePublication.mainFile.pivot ? '' : singlePublication.mainFile.pivot.image_id = true;">
-											<a href="javascript:void(0);" ng-click="showPublication(singlePublication)">
+											<a href="javascript:void(0);"  class="ava" ng-click="showPublication(singlePublication)">
 												<img ng-src="{{singlePublication.mainFile.url}}" ng-if="singlePublication.mainFile.pivot.image_id">
 											</a>
 											<video ng-if="singlePublication.mainFile.pivot.video_id" width="150px" controls ngf-src="singlePublication.mainFile.url"></video>
@@ -169,7 +169,7 @@
 													</div>
 													<a href="javascript:void(0);" ng-click="deleteComment('userPage', singlePublication, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 												</div>
-												<p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
+												<p class="comment-item" ng-bind-html="comment.text | codeToSmiley"></p>
 												<div ng-if="comment.images[0]" class="comment-pic">
 													<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 														<img ng-src="{{image.url}}">
@@ -182,11 +182,11 @@
 										</div>
 									</div>
 									<div class="added_comments">
-										<a href="" class="add_comments">
+										<a href="javascript:void(0);" class="add_comments" ng-click="showAddCommentBlock = !showAddCommentBlock" ng-hide="showAddCommentBlock">
 											Добавить комментарий 
 										</a>
 									</div>
-									<div class="add-comment">
+									<div class="add-comment"  ng-show="showAddCommentBlock">
 										<div class="user-ava">
 											<a class="ava" ui-sref="user({username: loggedUser})">
 												<img ng-src="{{loggedUserAva}}" alt="">
@@ -194,7 +194,13 @@
 										</div>
 										<div flow-init style="position:relative;" class="add">
 											<div class="text-field">
-												<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
+												<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
+												<div emoji-form emoji-message="emojiMessage">
+													<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+													<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+														<i class="icon icon-emoji"></i>
+													</a>
+												</div>
 											</div>	
 											
 											<div class="new-add">
@@ -213,7 +219,7 @@
 											</div>
 											<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
 												<div class="publication-footer-button">
-													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</a>    
+													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, emojiMessage.rawhtml, singlePublication.files);" class="publication-button">Отправить</a>    
 												</div>
 												<div class="add-objects">						
 													<input id="{{addFileObjId}}" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
