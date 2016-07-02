@@ -388,6 +388,7 @@ angular.module('placePeopleApp')
 			getSinglePublication(pub.id);
 		};
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			pubText = angular.element(document.querySelector(".pubText")).val();
 			$scope.showAddCommentBlock=false;			
 			var images = [];
 			var videos = [];
