@@ -9,7 +9,7 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
-		$scope.loggedUserAva = storage.loggedUserAva;
+		
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};
@@ -90,6 +90,8 @@ angular.module('placePeopleApp')
 				function(res){
 					if (res.login === storage.username) {
 						$scope.myProfile = true;
+						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						$scope.loggedUserAva = res.avatar_path;
 					} else {
 						$scope.myProfile = false;
 					}

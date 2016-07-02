@@ -26,7 +26,7 @@
 	<div class="main-content">
 		<div class="groups">
 			<a ui-sref="groups" class="pub-groups">Публичные группы</a>
-			<a href="" class="create-groups">Создать публикацию</a>
+			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
 		</div>
 		<div class="content-item" ng-init="$last ? ngRepeatHasRendered() : null" ng-repeat="pub in publications">
 			<div class="user-publication">
