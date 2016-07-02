@@ -161,7 +161,8 @@ angular.module('placePeopleApp')
 			}
 
 			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
-				if(response.data.status){										
+				if(response.data.status){
+					$(".emoji-wysiwyg-editor").html("");
 					if(flag === "feedPage"){
 						pub.files = [];
 						pub.commentModel = angular.copy(emptyPost);
