@@ -153,26 +153,23 @@
     vertical-align: top;
 }
 
-.settingsss .text p:nth-child(2) input[type="submit"] {
+.settingsss .status button {
+    border:none;
     border-radius: 3px;
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
-    position: relative;
-    display: block;
-    background: #ec6045;
     font-size: 14.6px;
-    color: #fff;
-    cursor: pointer;
-    height: 40px;
-    
     font-family: "SFUIDisplayMedium";
-    box-shadow: none;
-    width: auto;
     padding: 0 40px;
     margin: 0 auto;
+    line-height: 40px;
+    height: 40px;
+    color: #fff;
+    transition: all .3s ease-in-out .1s;
+    outline: none;
+    background: #ec6045;
+    cursor: pointer;
 }
-
-.settingsss .text p:nth-child(2) input[type="submit"]:hover  {
-  background: #DA5036;
+.settingsss .status button:hover {
+      background: #DA5036;
 }
 
 .settingsss .text p textarea {
