@@ -243,7 +243,7 @@ angular.module('placePeopleApp')
 
 		$scope.createPublication = function(){			
 			ngDialog.open({
-					template: '../app/User/views/publication.html',
+					template: '../app/User/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
 					scope: $scope
 				});
@@ -495,7 +495,7 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.loadMorePubFiles = function(key) {
+		$scope.loadMorePubFiles = function(key) {			
 			if (key === false) {
 				$scope.limit = $scope.singlePublication.length;
 			}else{
@@ -583,6 +583,10 @@ angular.module('placePeopleApp')
 		};
 		$scope.editedPubDeleteVideo = function(videoId){
 			pubEditDeletedVideos.push(videoId);
+			$scope.$broadcast('rebuildScroll');
+		};
+
+		$scope.rebuildScroll = function(){
 			$scope.$broadcast('rebuildScroll');
 		};
 
