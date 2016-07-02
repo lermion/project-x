@@ -93,7 +93,12 @@ angular.module('placePeopleApp')
 		UserService.getUserData($scope.loggedUser)
 			.then(
 				function(res){									
-					$scope.userData = res;					
+					$scope.userData = res;
+					if (res.login === storage.username) {
+						$scope.myProfile = true;
+						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						$scope.loggedUserAva = res.avatar_path;
+					}					
 				},
 				function(err){
 					console.log(err);
