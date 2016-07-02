@@ -10,6 +10,7 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 		$scope.loggedUserAva = storage.loggedUserAva;
+		console.log($scope.loggedUserAva);
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};

@@ -3,7 +3,7 @@
 	<div class="publication-item">
 		<a class="user" ui-sref="user({username: loggedUser})">
 			<span class="ava">
-				<img ng-src="{{userData.avatar_path}}" alt="">
+				<img src="{{userData.avatar_path}}" alt="">
 			</span>
 			<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
 		</a>
@@ -26,8 +26,9 @@
 				</div>
 			</div>
 		</div> -->
-	</div>		
-		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">
+	</div>
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 252px; overflow:hidden; position:relative;">
+
 			<div class="new-img" ng-repeat="file in files">		  
 				<div class="inner">
 					<div class="close" ng-click="deletePubFile(files, $index)">
@@ -46,10 +47,10 @@
 				<p class="img-name">{{file.name}}</p>
 			</div>
 		</div>
-	<div class="publication-footer" >
-		<div class="add-objects">
-			<input id="add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="files" ngf-multiple="true">
-			<label for="add-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
+	<div class="publication-footer">
+		<div class="add-objects"> 
+			<input id="add-main-pub-object" style="display: none;" ngf-select ng-model="files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)" ngf-keep="true">
+			<label for="add-main-pub-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
 			<span class="add"></span>
 				Добавить фото или видео *
 			</label>
