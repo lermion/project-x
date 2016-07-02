@@ -113,6 +113,25 @@
     box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
 }
 
+.settingsss .text p input[type="text"].last_name_set {
+    border-radius:  0 0 3px 3px;
+    border-bottom: 1px solid #999;
+    width: 290px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    line-height: 37px;
+    height: 37px;
+    font-size: 14.6px;
+    font-family: Tahoma;
+    font-weight: 400;
+    background: #fff;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out .2s;
+    margin-bottom: 0;
+    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+}
+
 .settingsss .text p input[type="submit"] {
     width: 30%;
     height: 30px;
@@ -370,7 +389,8 @@
       margin-left: 10px;
       margin-top: 20px;
   }
-  .settingsss .text p input[type="text"] {
+  .settingsss .text p input[type="text"],
+  .settingsss .text p input[type="text"].last_name_set {
     width: 230px;
   }
   .settingsss .text p textarea {
@@ -382,6 +402,10 @@
   .settingsss .text p:nth-child(2) input[type="submit"] {
       margin-left: 0;
   }
+
+  body .settingsss .set_1 .text p input[type="text"] {
+    border-radius: 3px;
+  }    
 }
 
 @media only screen and (max-width: 500px) {
@@ -392,6 +416,15 @@
 	    width: 240px;
 	    height: 240px;
 	}
+}
+
+@media only screen and (max-width: 474px) {
+  body .settingsss .set_1 .text p input[type="text"] {
+    border-radius: 3px 3px 0 0;
+  }   
+   body .settingsss .set_1 .text p input[type="text"].last_name_set {
+    border-radius: 0 0 3px 3px ;
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -409,3 +442,825 @@
 	    font-size: 18px;
 	}
 }
+
+
+/*added Stasya*/
+/*              popup               group              start */
+.ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-content {
+  background: #fff;
+  width: 700px;
+  margin-left: -350px;
+    margin-top: -150px;
+    transition: all .3s ease-in-out .1s;
+    padding: 0;
+    top: 26.5%;
+    height: auto;
+    color: #333;
+}
+
+.popup_grouppublication_1.popupgroup {
+   /* position: fixed;*/
+   /* background: rgba(0,0,0,.2);*/
+   background: #fff;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+.popup_grouppublication_1.popupgroup .popupgroups_head .popupgroup_function {
+    display: flex;
+    width: 55%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroups_head {
+    background: #f5f5f5;
+    border-bottom: 1px solid #e0e2e5;
+    box-sizing: border-box;
+    padding: 10px;
+    position: relative;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup_function .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    opacity: 1;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup_function .user .ava {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup_function .user .ava img {
+  width: 100%;
+  height: 100%;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup_function .user .user-name {
+    color: #495b79;
+    font-size: 14.6px;
+    margin: 0 0 0 10px;
+    line-height: 30px;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroups_head .user-menu {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/user-menu.png);
+    background-repeat: no-repeat;
+    background-size: 99%;
+    background-position: center;
+    cursor: pointer;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroups_head .menu-item {
+    position: absolute;
+    width: 156px;
+    top: 20px;
+    left: 50%;
+    margin-left: -78px;
+    padding-top: 20px;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroups_head .menu-item .inner {
+    box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+}
+
+.popup_grouppublication_1.popupgroup .popupgroups_head .menu-item a {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    line-height: 35px;
+    color: #333;
+    cursor: pointer;
+    background-color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: "SFUIDisplayMedium";
+}
+
+.popup_grouppublication_1.popupgroup .popupgroups_head .return {
+    cursor: pointer;
+    position: absolute;
+    margin: 10px;
+    color: #4678b1;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    width: auto;
+    height: 30px;
+    right: 0;
+    top: 0;
+    line-height: 30px;
+    transition: all .3s ease-in-out .1s;
+    text-decoration: none;
+    display: none;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content {
+    border-bottom: 1px solid #dfe1e4;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-ava {
+    width: 100%;
+    background-color: rgba(0,0,0,.2);
+    height: 395px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popup_grouppublication_1.popupgroup .publication-images .images-item.more {
+    background-color: #495b79;
+    color: #fff;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .publication-images .images-item {
+    width: 97px;
+    overflow: hidden;
+    height: 85px;
+    margin: 0 3.5px 3px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+}
+
+.popup_grouppublication_1.popupgroup .images-item.more p {
+    margin: 0;
+    text-align: center;
+    font-size: 10.4px;
+    line-height: 15px;
+}
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-text {
+    padding: 0 15px;
+    box-sizing: border-box;
+    color: #747476;
+    font-size: 14.6px;
+    font-family: Tahoma;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+}
+
+.popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-place {
+    display: block;
+    text-decoration: none;
+    margin: 5px 15px 10px 15px;
+    box-sizing: border-box;
+    padding-left: 25px;
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 15px;
+    background-image: url(../images/public-place.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+}
+.popup_grouppublication_1.popupgroup .likes-item .like {
+    line-height: 26px;
+    display: block;
+    text-decoration: none;
+    color: #495b79;
+    padding: 0 10px 0 25px;
+    background-color: transparent;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    margin-right: 15px;
+    background-image: url(../images/like.png);
+    background-position: left 5px center;
+    background-repeat: no-repeat;
+    background-size: 20%;
+    font-size: 14px;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .likes-item .like-item {
+    color: #333;
+    font-size: 14.6px;
+    font-family: Tahoma;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+}
+
+.popup_grouppublication_1.popupgroup .likes-item .like-item .count-like {
+    font-family: "SFUIDisplayMedium";
+}
+
+.popup_grouppublication_1.popupgroup .likes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #dfe1e4;
+}
+
+.popup_grouppublication_1.popupgroup .likes-item {
+    display: flex;
+    align-items: center;
+}
+
+.popup_grouppublication_1.popupgroup .comments-count {
+    color: #333;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 20px;
+    margin: 0;
+    text-decoration: none;
+    padding-right: 30px;
+    background-image: url(../images/comment-count.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .visible-comments {
+    border-bottom: 1px solid #dfe1e4;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group {
+    border-bottom: none;
+}
+.popup_grouppublication_1.popupgroup .add-comment_group {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 15px;
+    padding: 10px 15px 10px 0;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .ava {
+    display: block;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .ava {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .ava img {
+    width: 100%;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .add {
+    width: 100%;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .add .text-field {
+    padding: 0 0;
+    height: 75px;
+    border: none;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 35px;
+    line-height: 37px;
+    border-radius: 2px;
+    font-size: 14.6px;
+    font-family: Tahoma;
+    font-weight: 400;
+    background: #fff;
+    color: #999;
+    border: none;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out .2s;
+    min-width: 250px;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .add .text-field textarea {
+    resize: none;
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    font-size: 14.6px;
+    color: #999;
+    background: transparent;
+    padding: 5px 30px 5px 10px;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayLight";
+    height: 75px;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .new-add {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.popup_grouppublication_1.popupgroup .publication-footer-button {
+    display: flex;
+}
+
+.popup_grouppublication_1.popupgroup .publication-footer-button .publication-button {
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    margin-left: 0;
+    border: 1px solid #495b79;
+    transition: all .3s ease-in-out .1s;
+}
+.popup_grouppublication_1.popupgroup .publication-footer-button a {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup_grouppublication_1.popupgroup .publication-footer #add-object {
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    padding: 0 0;
+    width: 120px;
+    height: 40px;
+}
+
+.popup_grouppublication_1.popupgroup .publication-footer .add-objects label {
+    color: #495b79;
+    font-size: 14px;
+    font-family: "SFUIDisplayMedium";
+    margin: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.popup_grouppublication_1.popupgroup .add-comment_group .publication-footer .add-objects
+ label span.add {
+    width: 40px;
+    padding-left: 0;
+    background-image: url(../images/clip.png);
+    background-position: right center;
+    background-size: 60%;
+    box-sizing: border-box;
+    height: 40px;
+    display: block;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup-view-group-publication .ngdialog.ngdialog-theme-default .ngdialog-close {
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-close:before {
+    color: #333;
+}
+.ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-close:hover:before {
+    color: #bbb;
+}
+
+@media (max-width: 700px) {
+  .ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-content {
+    width: 100%;
+    height: 100%;
+    margin-left: -50%;
+      margin-top: 0;
+      top: 0;
+  }
+  .popup_grouppublication_1.popupgroup .add-comment_group .add .text-field {
+      padding: 10px;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
+      align-items: baseline;
+      padding-top: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
+      justify-content: inherit;
+      align-items: flex-start;
+      flex-direction: column;
+  }
+}
+
+
+/*              popup               group            end */
+
+/*added Stasya*/
+
+.ngdialog.popup-add-group.ngdialog-theme-default {
+  overflow: auto;
+}
+
+.popup-add-group .add_newgroup {
+  padding: 15px;
+}
+
+.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
+  background: #fff;
+  width: 700px;
+  margin-left: -350px;
+    margin-top: -150px;
+    transition: all .3s ease-in-out .1s;
+    padding: 0;
+    top: 26.5%;
+    height: auto;
+    color: #333;
+    padding: 0 !important;
+}
+.popup-add-group .add-ava {
+    width: 90px;
+    height: 85px;
+    background-color: #d7dade;
+    border-radius: 3px;
+    position: relative;
+}
+.popup-add-group .new_group {
+  font-size: 14.6px;
+  font-weight: 400;
+  line-height: 45px;
+  padding-left: 15px;
+  background: #f5f5f5;
+  margin: 0;
+  border-bottom: 1px solid #dcdee2;
+  font-family: "SFUIDisplayMedium";
+}
+
+.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close:before {
+  color:#333;
+}
+.ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close:hover:before {
+  color: #999;
+}
+.popup-add-group .ava_group {
+    display: flex;
+    align-items: center;
+}
+
+.popup-add-group .ava_group img.img_ava {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.popup-add-group .ava_group .img_name {
+  color: #495b79;
+    font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    margin: 0 0 0 15px;
+}
+
+.popup-add-group .add-ava label .add-photo {
+    background-image: url(../images/plus_group.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35% 25%;
+}
+.popup-add-group .add-ava label .ava, .add-ava label .add {
+    overflow: hidden;
+    width: 100px;
+    height: 85px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    border-radius: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup-add-group .add-ava label .add-photo:hover {
+    border-radius: inherit;
+    box-shadow: inset 10px 10px 35px 8px rgba(225,225,225,1),
+    inset -10px -10px 35px 8px rgba(225,225,225,1);
+}
+
+
+.popup-add-group .second_item  {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+}
+
+.popup-add-group .second_item span.add_ava_grp{
+    color: #333;
+    font-size: 12.5px;
+    line-height: 15px;
+    margin: 10px 0;
+    margin-left: 15px;
+}
+
+.third_item {
+    width: 100%;
+    height: 90px;
+    margin: 0;
+    padding: 15px 0;
+    border: none;
+    position: relative;
+}  
+.popup-add-group .third_item textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    font-size: 14.6px;
+    color: #999;
+    background: transparent;
+    padding: 5px 30px 5px 10px;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayLight";
+}
+
+
+
+/*         smile   for group   start    */
+
+.popup-add-group .smiles {
+    position: absolute;
+    top: 16px;
+    right: 1px;
+    width: 30px;
+    height: 30px;
+}
+
+.popup-add-group .smiles .smiles-item {
+    display: block;
+    background-image: url(../images/smil.png);
+    transition: all .3s ease-in-out .1s;
+    background-position: left bottom 6px;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    width: 100%;
+    height: 100%;
+}
+.popup-add-group .smiles .smile  {
+    display: none;
+    position: absolute;
+    top: -205px;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    z-index: 9;
+    padding-bottom: 15px;
+    transition: all .3s ease-in-out .1s;
+}
+
+.popup-add-group .smiles .smile .smile-item {
+    box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 10px 5px 10px 10px;
+    box-sizing: border-box;
+}
+
+.popup-add-group .smiles .smile .inner {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.popup-add-group .smiles .smile .inner a {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+.popup-add-group .smiles .smile .inner a img {
+    width: 90%;
+}
+.popup-add-group .smiles .smiles-item:hover {
+     background-image: url(../images/smil-hover.png); 
+}
+.popup-add-group .smiles:hover .smile {
+    display: block;
+}
+
+
+/*         smile     end   */
+
+
+/*    Checkbox   for group  start   */
+.popup-add-group .first_item {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.popup-add-group .checkbox_group {
+    width: 145px;
+    height: 30px;
+    font-size: 14px;
+    color: #b0b1b3;
+}
+
+.popup-add-group input[type="checkbox"] + label {
+    line-height: 20px;
+    vertical-align: top;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.popup-add-group input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: 0 5px 0 0;
+    background-color:#ec6045;
+}
+.popup-add-group input[type="checkbox"]:checked + label::before {
+    background-image:url(/images/checkbox_group.png);
+    background-size: 85% 75%;
+    background-position: 70% 50%;
+    background-repeat: no-repeat;
+}
+
+/*    Checkbox    end  */
+
+
+
+.popup-add-group .fourth_item {
+  width: 100%;
+}
+
+.popup-add-group .fourth_item input[type="text"] {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    line-height: 20px;
+    box-sizing: border-box;
+  font-size: 14.6px;
+    color: #999;
+    padding: 10px;
+    font-family: "SFUIDisplayLight";
+}
+
+.popup-add-group .fifth_item {
+  display: flex;
+    justify-content: space-between;
+}
+
+.popup-add-group .fifth_item ul.item1 {
+  padding: 0;
+  margin-bottom: 0px;
+}
+
+.popup-add-group .fifth_item ul.item1 li {
+  position: relative;
+    list-style-type: none;
+    font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.popup-add-group .fifth_item ul.item1 li:last-child {
+    margin-bottom: 0px;
+}
+
+.popup-add-group .fifth_item ul.item1 li:before {
+  background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    content: '\00D7';
+    font-size: 16px;
+    font-weight: 400;
+    height: 15px;
+    line-height: 13px;
+    position: absolute;
+    left: 33px;
+    text-align: center;
+    top: 1px;
+    width: 15px;
+}
+
+.popup-add-group .fifth_item ul.item1 li img{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+
+.popup-add-group .fifth_item .item2 {
+  margin-top: 22px;
+}
+
+.popup-add-group .fifth_item .item2 a {
+  text-decoration: inherit;
+  font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    color: #495b79;
+    padding: 5px 10px;
+    border-radius: 3px;
+} 
+
+.popup-add-group .fifth_item .item2 a.active {
+  text-decoration: inherit;
+  font-size: 15.6px;
+    font-family: "SFUIDisplayMedium";
+    background: #495b79;
+    color: #fff;
+} 
+
+
+@media (max-width: 700px) {
+  .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
+    width:100%;
+    margin-left:-50%;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .popup-add-group .first_item {
+      flex-direction: column;
+  }
+  .popup-add-group .checkbox_group {
+      margin-top: 10px;
+  }
+  .popup-add-group .fifth_item {
+      flex-direction: column;
+  }
+  .popup-add-group .new_group,
+  .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close {
+      margin-top: -25px;
+  }
+
+  .popup-add-group .fifth_item .item2 {
+      text-align: center;
+  }
+
+}
+
+/*aded  */
+.user-publication .visible-comments.added_comments {
+  border:none;
+}
+a.add_comments {
+    text-decoration: inherit;
+    color: #a0a0a0;
+    padding: 0 0 0px 15px;
+    line-height: 50px;
+    font-family: SFUIDisplayLight;
+    font-size: 14px;
+}
+.my_profilll.photo-list {
+  height: 100%;
+}
+div.my_profilll.photo-list div:last-child{
+  margin-bottom: 20px;
+}
+/*aded  */

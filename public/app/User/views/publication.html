@@ -14,78 +14,15 @@
 				Анонимная публикация
 			</label>
 		</form> -->
-	</div>
+	</div>	
 	<div class="text-field">
-		<textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea>
+		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea> -->
+		<input type="text" class="pubText" data-emojiable="true" name="">
 		<!-- <div class="smiles">
 			<div class="smiles-item"></div>
 			<div class="smile">
 				<div class="smile-item">
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
+					
 				</div>
 			</div>
 		</div> -->
@@ -119,7 +56,7 @@
 		</div>
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
-			<a href="" class="publication-button" ng-click="publishNewPub(pubText, files);" ladda="newPubLoader">Опубликовать</a>    
+			<a href="" class="publication-button" ng-click="publishNewPub(files);" ladda="newPubLoader">Опубликовать</a>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>

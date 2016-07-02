@@ -191,14 +191,12 @@ angular.module('placePeopleApp')
 			ngDialog.open({
 				template: '../app/User/views/view-publication.html',
 				className: 'view-publication ngdialog-theme-default',
-				scope: $scope				
+				scope: $scope,
+				preCloseCallback: function(value){
+					$state.go("user", {username: $stateParams.username});
+				}
 			});
 		}
-
-		$scope.$on('ngDialog.closed', function (e, $dialog) {
-			$state.go("user", {username: $stateParams.username});	    
-		});
-
 
 		function openSubscribers(userId){
 			PublicationService.getSubscribers(userId).then(function(response){
@@ -291,7 +289,18 @@ angular.module('placePeopleApp')
 		$scope.deletePubFile = function(files, index){
 			files.splice(index, 1);
 		};
-		$scope.publishNewPub = function(pubText, files){
+		$scope.emojiMessage = {};
+		$scope.$on('ngDialog.opened', function(e, $dialog){
+			window.emojiPicker = new EmojiPicker({
+				emojiable_selector: '[data-emojiable=true]',
+				assetsPath: 'lib/img/',
+				popupButtonClasses: 'fa fa-smile-o'
+			});
+			window.emojiPicker.discover();
+			angular.element(document.querySelector(".emoji-button")).text("");
+		});
+		$scope.publishNewPub = function(files){
+			var pubText = angular.element(document.querySelector(".pubText")).val();
 			if (!pubText || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -378,16 +387,28 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);
 		};
-		$scope.addNewComment = function(flag, pub, pubText, flow){
-			$scope.commentModel = angular.copy(emptyPost);
-			PublicationService.addCommentPublication(pub.id, pubText, flow).then(function(response){
+		$scope.addNewComment = function(flag, pub, pubText, files){			
+			var images = [];
+			var videos = [];
+			if (files != undefined) {
+				files.forEach(function(file){
+					var type = file.type.split('/')[0];
+					if (type === 'image') {
+						images.push(file);
+					} else if (type === 'video'){
+						videos.push(file);
+					}				
+				});
+			}		
+			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
 				if(response.data.status){
-					flow.cancel();
+					pub.files = [];
+					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
-						pub.comments.push(response.data.comment);
+						pub.comments.unshift(response.data.comment);
 						pub.comment_count++;
 					}else{
-						$scope.singlePublication.comments.push(response.data.comment);
+						$scope.singlePublication.comments.unshift(response.data.comment);
 						$scope.singlePublication.comment_count++;
 					}
 					

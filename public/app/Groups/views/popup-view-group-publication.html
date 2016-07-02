@@ -1,7 +1,7 @@
-<div class="user-publication-bg"></div>
-<div class="user-publication">
-	<div class="user-publication-header">
-		<div class="user-function">
+<div class="popup_grouppublication"></div>
+<div class="popup_grouppublication_1 popupgroup">
+	<div class="popupgroups_head">
+		<div class="popupgroup_function">
 			<a class="user" ui-sref="user({username: loggedUser})">
 				<span class="ava">
 					<img src="{{userData.avatar_path}}" alt="">
@@ -23,7 +23,7 @@
 		</div>
 		<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 	</div>
-	<div class="user-publication-content">
+	<div class="popupgroup-publication-content">
 		<div class="publication-ava">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
@@ -86,7 +86,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="add-comment">
+	<div class="added_comments">
+		<a href="" class="add_comments">
+			Добавить комментарий 
+		</a>
+	</div>
+	<div class="add-comment_group">
 		<div class="user-ava">
 			<a class="ava" ui-sref="user({username: loggedUser})">
 				<img src="{{userData.avatar_path}}" alt="">
@@ -167,9 +172,8 @@
 						</div>
 					</div>
 				</div> -->
-			</div>
-
-			<!-- <div class="new-add">
+			</div>	
+			<div class="new-add">
 				<div class="new-img" ng-repeat="file in $flow.files">
 					<div class="inner">
 						<div ng-click="file.cancel()" class="close">
@@ -182,7 +186,7 @@
 					<p class="img-name">{{file.name}}</p>
 				</div>
 			</div>
-			<div class="publication-footer" >
+			<div class="publication-footer">
 				<div class="publication-footer-button">
 					<a href="javascript:void(0);" ng-click="addNewComment('viewPage', singlePublication, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
 				</div>
@@ -193,36 +197,7 @@
 						<span class="add"></span>
 					</label>                                         
 				</div>   
-			</div> -->
-
-			<div class="new-add">
-				<div class="new-img" ng-repeat="file in singlePublication.files">  
-					<div class="inner">
-						<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
-							<div class="close-inner">
-								<p>Удалить</p>
-							</div>
-						</div>								
-						<img ngf-thumbnail="file || '/thumb.jpg'">
-						<video width="200px" controls ngf-src="file"></video>	
-					</div>
-					<p class="img-name">{{file.name}}</p>
-				</div>
 			</div>
-			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
-				<div class="publication-footer-button">
-					<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</a>    
-				</div>
-				<div class="add-objects">						
-					<input id="{{addFileObjId}}" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
-					<label for="{{addFileObjId}}">
-						Прикрепить
-						<span class="add"></span>
-					</label>                                         
-				</div>   
-			</div>
-											
-
 		</div>
 	</div>
 </div>

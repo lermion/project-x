@@ -60,7 +60,8 @@
 									<span>{{userData.subscription_count}}</span> 
 								</a>
 							</div>
-							<p class="status-user" ng-hide="profileEdition">{{userData.status}}</p>					
+							<p class="status-user" ng-hide="profileEdition" ng-bind-html="userData.status | colonToSmiley">{{userData.status}}</p>	
+							<!-- <div ng-bind-html="text | colonToSmiley">{{text}}</div>				 -->
 							<input class="status-correct" type="text" name="" ng-show="profileEdition && !showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 							<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше 140 символов</p>
 							<div class="comunications" ng-show="myProfile">
@@ -126,7 +127,9 @@
 								<div class="user-publication">
 									<div class="user-publication-content">
 										<div class="publication-ava">
-											<img ng-if="mainImage" ng-src="{{mainImage || singlePublication.images[0].url}}">
+											<a href="javascript:void(0);" ng-click="showPublication(singlePublication)">
+												<img ng-src="{{mainImage || singlePublication.images[0].url}}">
+											</a>
 											<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 										</div>
 										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
@@ -140,7 +143,7 @@
 												<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
 											</div>
 										</div> 
-										<p class="publication-text">{{singlePublication.text}}</p>
+										<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
 										<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 									</div>
 									<div class="likes">
@@ -175,7 +178,7 @@
 													</div>
 													<a href="javascript:void(0);" ng-click="deleteComment('userPage', singlePublication, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 												</div>
-												<p class="comment-item">{{comment.text}}</p>
+												<p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
 												<div ng-if="comment.images[0]" class="comment-pic">
 													<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 														<img ng-src="{{image.url}}">
@@ -202,30 +205,34 @@
 											<div class="text-field">
 												<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
 											</div>	
+											
 											<div class="new-add">
-												<div class="new-img" ng-repeat="file in $flow.files">
+												<div class="new-img" ng-repeat="file in singlePublication.files">  
 													<div class="inner">
-														<div ng-click="file.cancel()" class="close">
+														<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 															<div class="close-inner">
 																<p>Удалить</p>
 															</div>
-														</div>
-														<img flow-img="file">
+														</div>								
+														<img ngf-thumbnail="file || '/thumb.jpg'">
+														<video width="200px" controls ngf-src="file"></video>	
 													</div>
 													<p class="img-name">{{file.name}}</p>
 												</div>
 											</div>
-											<div class="publication-footer" >
+											<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
 												<div class="publication-footer-button">
-													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
+													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</a>    
 												</div>
-												<div class="add-objects"> 
-												<input style="display: none;" type="file" id="add-file-to-comment" flow-btn>  
-													<label for="add-file-to-comment">Прикрепить
+												<div class="add-objects">						
+													<input id="{{addFileObjId}}" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
+													<label for="{{addFileObjId}}">
+														Прикрепить
 														<span class="add"></span>
 													</label>                                         
 												</div>   
 											</div>
+
 										</div>
 									</div>
 								</div>
