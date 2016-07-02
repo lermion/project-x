@@ -211,7 +211,10 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-
+		$scope.uploadFiles = function(files){
+			$scope.files = files;
+			console.log($scope.files);
+		}
 		function openSubscribers(userId){
 			PublicationService.getSubscribers(userId).then(function(response){
 				$scope.subscribers = response;

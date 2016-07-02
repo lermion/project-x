@@ -48,7 +48,7 @@
 		</div>
 	<div class="publication-footer" >
 		<div class="add-objects"> 
-			<input id="add-object" style="display: none;" ngf-select ng-model="files" ngf-multiple="true">
+			<input id="add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="files" ngf-multiple="true">
 			<label for="add-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
 			<span class="add"></span>
 				Добавить фото или видео *

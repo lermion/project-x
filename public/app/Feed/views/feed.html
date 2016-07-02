@@ -169,7 +169,7 @@
 								<a href="javascript:void(0);" ng-click="addNewComment('feedPage', pub, emojiMessage, pub.files)" class="publication-button">Отправить</a>    
 							</div>
 							<div class="add-objects" ng-init="addObjId='add-object-'+pub.id">						
-								<input id="{{addObjId}}" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
+								<input id="{{addObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
 								<label for="{{addObjId}}">
 									Прикрепить
 									<span class="add"></span>
