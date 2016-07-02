@@ -100,9 +100,9 @@
 }
 
 .settingsss .text p input[type="text"] {
-    border-radius: 3px 3px 0 0;
-    border-bottom: 1px solid #999;
-    width: 290px;
+    // border-radius: 3px 3px 0 0;
+    // border: 1px solid #999;
+    width: 100%;
     padding: 0 15px;
     box-sizing: border-box;
     line-height: 37px;
@@ -112,16 +112,18 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    border: 1px solid transparent;
     transition: all .3s ease-in-out .2s;
-    margin-bottom: 0;
-    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+    border: none;
+    border-bottom: 1px solid #999;
+    color: #999;
 }
 
 .settingsss .text p input[type="text"].last_name_set {
-    border-radius:  0 0 3px 3px;
+    // border-radius:  0 0 3px 3px;
+    // border: 1px solid #999;
+    border: none;
     border-bottom: 1px solid #999;
-    width: 290px;
+    width: 100%;
     padding: 0 15px;
     box-sizing: border-box;
     line-height: 37px;
@@ -131,10 +133,10 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    border: 1px solid transparent;
     transition: all .3s ease-in-out .2s;
     margin-bottom: 0;
-    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
+    color: #999;
+    border-top: 0;
 }
 
 .settingsss .text p input[type="submit"] {
@@ -150,7 +152,6 @@
 }
 
 .settingsss .text p:nth-child(2) input[type="submit"] {
-    width: 150px;
     border-radius: 3px;
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
     position: relative;
@@ -163,7 +164,9 @@
     height: inherit;
     font-family: "SFUIDisplayMedium";
     box-shadow: none;
-    margin-left: 70px;
+    width: auto;
+    padding: 0 40px;
+    margin: 0 auto;
 }
 
 .settingsss .text p:nth-child(2) input[type="submit"]:hover  {
@@ -171,17 +174,18 @@
 }
 
 .settingsss .text p textarea {
-	  width: 275px;
-    border: none;
-    box-shadow: 0 3px 3px rgba(0,0,0,.2), 0 0 0 2px #dddddd;
-    background: none;
-    border-radius: 5px;
-    display: inline-block;
-    vertical-align: top;
+    border: 1px solid #999;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-size: 14.6px;
+    line-height: 15px;
     margin: 0 0 20px 0;
     height: 70px;
     resize: none;
     padding: 5px 0 0px 15px;
+    font-family: "SFUIDisplayLight";
+    color: #999;
 }
 
 .settingsss .text p textarea::-webkit-input-placeholder {
