@@ -1493,6 +1493,9 @@ body.public.user {
 	width: 100%;
 	display: block;
 }
+.my-photos-list {
+	background-color: #e9eaed;
+}
 .photo-list {
 	height: 700px;
 	box-sizing: border-box;

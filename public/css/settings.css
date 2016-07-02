@@ -153,23 +153,26 @@
     vertical-align: top;
 }
 
-.settingsss .status button {
-    border:none;
+.settingsss .text p:nth-child(2) input[type="submit"] {
     border-radius: 3px;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
+    position: relative;
+    display: block;
+    background: #ec6045;
     font-size: 14.6px;
+    color: #fff;
+    cursor: pointer;
+    height: 40px;
+    
     font-family: "SFUIDisplayMedium";
+    box-shadow: none;
+    width: auto;
     padding: 0 40px;
     margin: 0 auto;
-    line-height: 40px;
-    height: 40px;
-    color: #fff;
-    transition: all .3s ease-in-out .1s;
-    outline: none;
-    background: #ec6045;
-    cursor: pointer;
 }
-.settingsss .status button:hover {
-      background: #DA5036;
+
+.settingsss .text p:nth-child(2) input[type="submit"]:hover  {
+  background: #DA5036;
 }
 
 .settingsss .text p textarea {
@@ -210,7 +213,7 @@
     display: flex;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     justify-content: center;
     align-items: center;
     position: relative;
@@ -222,7 +225,7 @@
 
 .settingsss .add-ava label .ava,
 .settingsss .add-ava label .add {
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
@@ -1285,6 +1288,8 @@ a.add_comments {
 }
 .my_profilll.photo-list {
   height: 100%;
+  margin-bottom: 30px;
+    box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
 }
 // div.my_profilll.photo-list div:last-child{
 //   margin-bottom: 20px;
