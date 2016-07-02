@@ -36,7 +36,7 @@ class GroupController extends Controller
                 'name' => 'required|unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
-                'avatar' => 'file'
+                'avatar' => 'image'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -74,7 +74,7 @@ class GroupController extends Controller
                 return null;
             }
             $group->count_users = $group->users()->count();
-            $group->count_publications = 0;
+            $group->count_publications = $group->publications()->count();
         }
         return $group;
     }

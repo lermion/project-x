@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PublicationController extends Controller
 {
@@ -27,10 +28,11 @@ class PublicationController extends Controller
     public function topic(){
         $publication = Publication::with(['videos', 'group', 'images', 'comments' => function ($query) {
             $query->take(3);
-            $query->orderBy('id', 'desc');
+            $query->orderBy('id', 'asc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where('is_topic',true)
             ->first();
+        if(!$publication)return null;
         $publication->like_count = $publication->likes()->count();
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
@@ -93,6 +95,38 @@ class PublicationController extends Controller
                 ]
             ];
             return response()->json($result);
+        }
+        if ($request->hasFile('images')) {
+            $validator = Validator::make($request->file('images'), [
+                'image'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad image',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+        if ($request->hasFile('videos')) {
+            $validator = Validator::make($request->file('videos'), [
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad video',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
         }
         $publicationData = $request->all();
         if ($request->hasFile('cover')) {
