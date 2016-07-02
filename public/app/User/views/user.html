@@ -60,7 +60,7 @@
 									<span>{{userData.subscription_count}}</span> 
 								</a>
 							</div>
-							<p class="status-user" ng-hide="profileEdition" ng-bind-html="userData.status | colonToSmiley">{{userData.status}}</p>	
+							<p class="status-user" ng-hide="profileEdition" ng-bind-html="userData.status | colonToSmiley"></p>	
 							<!-- <div ng-bind-html="text | colonToSmiley">{{text}}</div>				 -->
 							<input class="status-correct" type="text" name="" ng-show="profileEdition && !showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 							<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше 140 символов</p>
@@ -81,7 +81,7 @@
 							</div>
 						</div>
 					</div>
-					<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea">{{userData.status}}</p>
+					<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea" ng-bind-html="userData.status | colonToSmiley"></p>
 					<input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 					<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 					<div class="comunications adaptiv" ng-show="myProfile">
@@ -99,6 +99,8 @@
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
 					</div>
+					<p ng-show="needToSign" class="status-user" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
+					<p ng-show="needToLogin" class="status-user" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>
 					<!-- unit grid-->						
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
@@ -154,7 +156,7 @@
 									<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 										<div ng-repeat="comment in singlePublication.comments | reverse" class="user-comment">
 											<div class="user-ava">
-												<a class="ava" ui-sref="user({username: loggedUser})">
+												<a class="ava" ui-sref="user({username: comment.user.login})">
 													<img ng-src="{{comment.user.avatar_path}}" alt="">
 												</a>
 											</div>
@@ -187,7 +189,7 @@
 									<div class="add-comment"  ng-show="showAddCommentBlock">
 										<div class="user-ava">
 											<a class="ava" ui-sref="user({username: loggedUser})">
-												<img ng-src="{{userData.avatar_path}}" alt="">
+												<img ng-src="{{loggedUserAva}}" alt="">
 											</a>
 										</div>
 										<div flow-init style="position:relative;" class="add">

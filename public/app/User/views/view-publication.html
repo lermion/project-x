@@ -2,7 +2,7 @@
 <div class="user-publication">
 	<div class="user-publication-header">
 		<div class="user-function">
-			<a class="user" ui-sref="user({username: loggedUser})">
+			<a class="user" ui-sref="user({username: userData.login})">
 				<span class="ava">
 					<img src="{{userData.avatar_path}}" alt="">
 				</span>
@@ -62,7 +62,7 @@
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 		<div ng-repeat="comment in singlePublication.comments | reverse" class="user-comment">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: loggedUser})">
+				<a class="ava" ui-sref="user({username: comment.user.login})">
 					<img ng-src="{{comment.user.avatar_path}}" alt="">
 				</a>
 			</div>
