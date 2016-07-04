@@ -316,7 +316,7 @@ angular.module('placePeopleApp')
 		});
 		$scope.publishNewPub = function(files){
 			var pubText = angular.element(document.querySelector(".pubText")).val();
-			if (!pubText || files === undefined || files.length == 0) {						
+			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
