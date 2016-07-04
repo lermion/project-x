@@ -147,6 +147,7 @@ angular.module('placePeopleApp')
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
+				$scope.myImage = evt.target.result;
 				ngDialog.open({
 					template: '../app/Settings/views/crop-image.html',
 					className: 'settings-add-ava ngdialog-theme-default',
