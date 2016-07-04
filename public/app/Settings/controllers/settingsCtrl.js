@@ -145,12 +145,14 @@ angular.module('placePeopleApp')
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
-				$scope.myImage = file.file;
-				ngDialog.open({
-					template: '../app/Settings/views/crop-image.html',
-					className: 'settings-add-ava ngdialog-theme-default',
-					scope: $scope
-				});
+				setTimeout(function(){
+					$scope.myImage = file.file;
+					ngDialog.open({
+						template: '../app/Settings/views/crop-image.html',
+						className: 'settings-add-ava ngdialog-theme-default',
+						scope: $scope
+					});
+				}, 3000);
 			});
 		};
 		reader.readAsDataURL(file.file);
@@ -163,7 +165,6 @@ angular.module('placePeopleApp')
 		ngDialog.closeAll();		
 		UserService.updateAvatar(blobFile)
 			.then(function(res){
-				console.log(res);
 				if (res.status) {
 					storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
 				}				   			
