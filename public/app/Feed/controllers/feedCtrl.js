@@ -175,6 +175,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			console.log(flag, pubText);
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -230,6 +231,23 @@ angular.module('placePeopleApp')
 			}
 			$scope.$broadcast('rebuild:me');
 		};
+
+		$scope.showMoreImages = function(images){
+			$scope.imagesInPopup = images;
+			$scope.mainImageInPopup = images[0].url;			
+			// angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+			ngDialog.open({
+				template: '../app/User/views/popup-comment-images.html',
+				className: 'popup-comment-images ngdialog-theme-default',
+				scope: $scope,
+				data: {
+					images: images
+				},
+				preCloseCallback: function(value){
+					// angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+				}
+			});
+		}
 
 		$scope.closePopup = function(){
 			ngDialog.closeAll();
