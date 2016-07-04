@@ -3746,3 +3746,6 @@ body.public.ngdialog-open {
 	font-weight: lighter;
 	font-family: "SFUIDisplayLight"; 
 }
+.posFixedPopup{
+	position: fixed !important;
+}
