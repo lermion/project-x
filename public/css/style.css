@@ -2068,6 +2068,9 @@ spam-item {
 	padding: 0 10px;
 	transition: all .3s ease-in-out .1s;
 }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 .publication-footer-button .publication-button {
 	color: #fff;
 	background-color: #495b79;
