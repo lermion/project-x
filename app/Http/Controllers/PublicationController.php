@@ -20,9 +20,11 @@ class PublicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Publication::getMainPublication();
+        $offset = 0;
+        $limit = 10;
+        return Publication::getMainPublication($offset,$limit);
     }
 
     public function topic(){
@@ -79,7 +81,7 @@ class PublicationController extends Controller
     {
         try {
             $this->validate($request, [
-                'text' => 'required|min:1',
+                'text' => 'min:1',
                 'cover' => 'file',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
@@ -190,7 +192,7 @@ class PublicationController extends Controller
             if ($publication->user_id == Auth::id()) {
                 try {
                     $this->validate($request, [
-                        'text' => 'required|min:1',
+                        'text' => 'min:1',
                         'cover' => 'file',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',

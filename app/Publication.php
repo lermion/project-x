@@ -42,7 +42,7 @@ class Publication extends Model
         return $this->belongsTo('App\User');
     }
 
-    public static function getMainPublication($userId = null)
+    public static function getMainPublication($userId = null,$offset,$limit)
     {
         $publications = Publication::with(['user', 'videos', 'group', 'images', 'comments' => function ($query) {
             $query->take(3);
@@ -59,7 +59,7 @@ class Publication extends Model
                                 ->whereRaw('subscribers.user_id = publications.user_id');
                         });
                     });
-            })->orderBy('id', 'desc')->get();
+            })->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
             if(Auth::check())

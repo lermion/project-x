@@ -25,11 +25,11 @@
 
 	<div class="settingsss">
 		<div class="set_1">
-			<div class="img">
-				<img ng-src="{{userData.avatar_path}}" alt="" class="avatar" ng-hide="croppedFile" ng-show="userData.is_avatar">
+			<!-- <div class="img">
+				<img ng-src="{{userData.avatar_path}}" alt="" class="avatar" ng-hide="croppedFile" ng-show="userData.is_avatar"> -->
 				<!-- <a href="" class="change"> Изменить </a> -->
 
-				<div class="add-ava" ng-init="showEditAva=true;"> 
+				<!-- <div class="add-ava" ng-init="showEditAva=true;"> 
 					<input type="file" id="avatarImg">  
 					<label for="avatarImg">                                            
 		                <span class="ava ng-hide" ng-show="croppedFile">         
@@ -42,7 +42,20 @@
 		            </label>
 			    </div>
 
-			</div>
+			</div> -->
+
+			<div class="add-ava"  ng-init="showEditAva=true;">
+	                                            <input type="file" id="avatarImg"/>  
+	                                            <label for="avatarImg">                                            
+	                                            	<span class="ava">         
+	                                            		<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">
+	                                            		<img  ng-show="userData.is_avatar &&  croppedFile" style="width:100%;"  data-ng-src="{{croppedFile}}">
+	                                               	</span>
+	                                                	<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+	                                                    		<span class="add-photo"  ng-show="!croppedFile || showEditAva"></span>
+	                                                	</span>
+	                                            </label>                                         
+	                              </div>     
 
 			<div class="text">
 				<p class="">
