@@ -25,7 +25,7 @@
 				</div>
 			</header>	
 			<div class="content-user">		
-				<div id="user-page">
+				<div id="user-page"  ng-class="photosGrid ? '' : 'list-style'">
 					<div class="my-profile">
 						<div class="ava">
 							<a href="">
@@ -203,7 +203,7 @@
 												</div>
 											</div>	
 											
-											<div class="new-add">
+											<div class="new-add" ng-show="singlePublication.files" class="visible-comments">
 												<div class="new-img" ng-repeat="file in singlePublication.files">  
 													<div class="inner">
 														<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">

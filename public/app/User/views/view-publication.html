@@ -125,7 +125,7 @@
 				</div>   
 			</div> -->
 
-			<div class="new-add">
+			<div class="new-add" ng-show="singlePublication.files">
 				<div class="new-img" ng-repeat="file in singlePublication.files">  
 					<div class="inner">
 						<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
