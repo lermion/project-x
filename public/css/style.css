@@ -352,6 +352,7 @@ body.main-page {
 	border-radius: 3px; 
 	position: relative;
 }
+.add-ava #avatarImg,
 .publication-footer #add-object{
 	width: 100%;
 	height: 100%; 
