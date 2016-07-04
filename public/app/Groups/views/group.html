@@ -48,19 +48,19 @@
 				<div class="group-menu">
 					<div class="group-menu-item">
 						<div class="counts" >
-							<a href="" class="counter active">
+							<a ui-sref="group.publications" class="counter" ng-class="checkState('group.publications') ? 'active' : ''">
 								<p>Публикации</p>
 								<span>25</span>
 							</a>
-							<a href="" class="counter">
+							<a ui-sref="group.chat" class="counter" ng-class="checkState('group.chat') ? 'active' : ''">
 								<p>Чат</p>
 								<span>417</span>
 							</a>
-							<a href="" class="counter">
+							<a ui-sref="group.people" class="counter" ng-class="checkState('group.people') ? 'active' : ''">
 								<p>Люди</p>
 								<span>29</span>
 							</a>
-							<a href="" class="counter">
+							<a ui-sref="group.files" class="counter" ng-class="checkState('group.files') ? 'active' : ''">
 								<p>Файлы</p>
 								<span>858</span> 
 							</a>
@@ -74,21 +74,8 @@
 				</div>
 				<div class="group-header"></div>
 
-				<div class="group-publication">
-					<div class="my-photos" ng-show="true">
-						<div class="photo" ng-repeat="n in [1,2,3,4]" style="{{resizeSizes}}">		
-							<a href="" ng-click="showPublication(pub)">
-								<!-- <img ng-src="{{pub.images[0].url}}" alt="">  -->
-								<img src="">
-								<!-- <p>{{pub.images}}</p> -->
-								<!-- <span class="video" ng-show="$index==0"></span> -->
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="group-chat"></div>
-				<div class="group-peoples"></div>
-				<div class="group-files"></div>
+				<div ui-view></div>	
+				
 
 				
 			</div>
