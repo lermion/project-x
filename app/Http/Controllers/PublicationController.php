@@ -22,8 +22,26 @@ class PublicationController extends Controller
      */
     public function index(Request $request)
     {
-        $offset = 0;
-        $limit = 10;
+        /*try {
+            $this->validate($request, [
+                'offset' => 'required|numeric',
+                'limit' => 'required|numeric'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        $Data = $request->all();*/
+        $offset = 0;//$Data['offset'];
+        $limit = 100;//$Data['limit'];
+
         return Publication::getMainPublication($offset,$limit);
     }
 
