@@ -209,34 +209,34 @@
 }
 
 
-.settingsss .add-ava label {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    /*overflow: hidden;*/
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    z-index: 999999999;
-}
-.settingsss  label {
-    cursor: default;
-}
+// .settingsss .add-ava label {
+//     display: flex;
+//     width: 100%;
+//     height: 100%;
+//     /*overflow: hidden;*/
+//     justify-content: center;
+//     align-items: center;
+//     position: relative;
+//     cursor: pointer;
+//     z-index: 999999999;
+// }
+// .settingsss  label {
+//     cursor: default;
+// }
 
-.settingsss .add-ava label .ava,
-.settingsss .add-ava label .add {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+// .settingsss .add-ava label .ava,
+// .settingsss .add-ava label .add {
+//     overflow: hidden;
+//     width: 100%;
+//     height: 100%;
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-size: 100%;
+//     border-radius: 50%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
 
 .settingsss [ng\:cloak],
 .settingsss [ng-cloak],
@@ -248,40 +248,40 @@
     display: none !important;
 }
 
-.settingsss .add-ava label .add-photo {
-    cursor: pointer;
-    background-image: none;
-    transition: all .3s ease-in-out .1s;
-    overflow: hidden;
-    width: 0;
-    height: 0;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    border-radius: 50%;
-}
-.settingsss .add-ava {
-    width: 100%;
-    margin-bottom: 10px;
-    height: 100%;
-    background-color:transparent;
-    border-radius: 3px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
+// .settingsss .add-ava label .add-photo {
+//     cursor: pointer;
+//     background-image: none;
+//     transition: all .3s ease-in-out .1s;
+//     overflow: hidden;
+//     width: 0;
+//     height: 0;
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-size: 100%;
+//     border-radius: 50%;
+// }
+// .settingsss .add-ava {
+//     width: 100%;
+//     margin-bottom: 10px;
+//     height: 100%;
+//     background-color:transparent;
+//     border-radius: 3px;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+// }
 
-.settingsss .add-ava #avatarImg {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-    padding: 0 0;
-}
+// .settingsss .add-ava #avatarImg {
+//     width: 100%;
+//     height: 100%;
+//     opacity: 0;
+//     overflow: hidden;
+//     position: absolute;
+//     z-index: -1;
+//     padding: 0 0;
+// }
 
 /*          download avatar   end    */
 
@@ -1296,3 +1296,53 @@ a.add_comments {
 //   margin-bottom: 20px;
 // }
 /*aded  */
+.set_1 .add-ava {
+  width: 50%;
+  height: auto;
+  background: transparent;
+}
+.set_1 .add-ava label {
+  width: 300px;
+  height: 300px;
+}
+.set_1 .add-ava label .add {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.set_1 .add-ava label .ava {
+  width: 100%;
+  height: 100%;
+}
+.set_1 .add-ava label .add.edit-ava {
+    margin-left: 0; 
+    margin-top: 0; 
+}
+ .set_1 .add-ava label .add-photo {
+      width: 140px;
+      height: 140px;
+ }
+ .add-ava label .add-photo:hover {
+      width: 100px;
+      height: 100px;
+ }
+@media only screen and (max-width: 620px) {
+    .set_1 .add-ava label {
+      width: 230px;
+      height: 230px;
+    }
+    .set_1 .add-ava label .add-photo:hover {
+      width: 100px;
+      height: 100px;
+ }
+ .set_1 .add-ava {
+      width: 230px;
+ }
+}

@@ -135,7 +135,7 @@
 
 										</div> 
 										<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
-										<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
+										<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 									</div>
 									<div class="likes">
 										<div class="likes-item">
@@ -219,7 +219,7 @@
 											</div>
 											<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
 												<div class="publication-footer-button">
-													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, emojiMessage.rawhtml, singlePublication.files);" class="publication-button">Отправить</a>    
+													<button  ng-click="addNewComment('userPage', singlePublication, emojiMessage.rawhtml, singlePublication.files);" class="publication-button">Отправить</button>    
 												</div>
 												<div class="add-objects">						
 													<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
