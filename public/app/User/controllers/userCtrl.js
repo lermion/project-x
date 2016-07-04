@@ -438,15 +438,20 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
+		
 		$scope.showMoreImages = function(images){
 			$scope.imagesInPopup = images;
-			$scope.mainImageInPopup = images[0].url;
+			$scope.mainImageInPopup = images[0].url;			
+			angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
 				scope: $scope,
 				data: {
 					images: images
+				},
+				preCloseCallback: function(value){
+					angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
 				}
 			});
 		}
