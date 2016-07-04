@@ -141,8 +141,8 @@ angular.module('placePeopleApp')
 
 	$scope.myImage='';
 	$scope.myCroppedImage='';
-	var handleFileSelect = function(evt) {
-		var file = evt.currentTarget.files[0];		
+	$scope.handleFileSelect = function(file, event, flow) {
+		var file = file.file;
 		$scope.fileName = file.name;
 		var reader = new FileReader();
 		reader.onload = function (evt) {
@@ -157,8 +157,7 @@ angular.module('placePeopleApp')
 		};
 		reader.readAsDataURL(file);
 	};
-	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
-
+	
 	$scope.saveCropp = function(img, cropped){	
 		var blobFile = blobToFile(img, $scope.fileName);
 		$scope.croppedFile = cropped;

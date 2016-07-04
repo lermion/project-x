@@ -2060,7 +2060,8 @@ spam-item {
 .publication-footer-button {
 	display: flex;
 }
-.publication-footer-button a {
+.publication-footer-button a,
+.publication-footer-button button {
 	text-decoration: none;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
@@ -2735,6 +2736,25 @@ spam-item {
 }
 .user-publication .add-comment .publication-footer-button .publication-button {
 	margin-left: 0;
+}
+.user-publication .add-comment .publication-footer-button .publication-button {
+	text-decoration: none;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	line-height: 30px;
+	padding: 0 10px;
+	transition: all .3s ease-in-out .1s;
+	color: #fff;
+	background-color: #495b79;
+	border-radius: 3px;
+	margin-left: 15px;
+	border: 1px solid #495b79;
+	outline: none;
+	cursor: pointer;
+}
+.user-publication .add-comment .publication-footer-button .publication-button:hover {
+	background-color: #fff;
+    	color: #495b79;
 }
 .user-publication .add-comment .publication-footer .add-objects label span.add {
 	width: 40px;
