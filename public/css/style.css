@@ -333,11 +333,11 @@ body.main-page {
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	margin-top: 8px;
+	transition: none;
 }
 .check-in-button:hover,
 .check-in-button:focus,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
-	transition: all .3s ease-in-out .3s; 
 	outline: none;
 	background: #DA5036;
 }
@@ -1131,6 +1131,11 @@ body.public.user {
 // 		justify-content: center;
 // 	}
 // }
+@media (max-width: 720px) {
+	body.public.user {
+	    background: #fff;
+	}
+}
 @media (max-width: 550px)  {
 	.menu-user {
 		display: flex;
@@ -1488,16 +1493,27 @@ body.public.user {
 	width: 100%;
 	display: block;
 }
+.my-photos-list {
+	background-color: #e9eaed;
+}
 .photo-list {
 	height: 700px;
 	box-sizing: border-box;
 	margin-bottom: 3px;
 	overflow: hidden;
 }
-.photo-list  a {
-	display: block;
+// .photo-list  a {
+// 	display: block;
+// 	height: 100%;
+// 	position: relative;
+// }
+.my-photos-list .photo-list  .ava {
 	height: 100%;
 	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .photo-list  a img {
 	display: block;
@@ -2270,7 +2286,7 @@ spam-item {
 	background: transparent;
 	width: 100%;
 	padding:  50px 0;
-	margin-left: 0;
+	margin-left: 8.5px;
 	height: auto;
 	top: 0;
     	margin-top: 0;
@@ -2278,7 +2294,7 @@ spam-item {
     	right: 0;
     	bottom: 0;
     	box-sizing: border-box;
-    	animation: ngdialog-flyin .2s;
+    	// animation: ngdialog-flyin .2s;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2558,7 +2574,7 @@ spam-item {
 	background-image: url(../images/comment-count.png);
 	background-position: right; center;
 	background-repeat: no-repeat;
-	background-size: 50%;
+	background-size: contain;
 	transition: all .3s ease-in-out .1s;
 }
 .user-publication .comments-count:hover  {
@@ -2640,7 +2656,7 @@ spam-item {
 	background-image: url(../images/comment-like.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 50%;
+	background-size: contain;
 	transition: all .3s ease-in-out .1s;
 	display: none;
 }
@@ -2878,7 +2894,8 @@ spam-item {
 	color: #333;
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default {
-	background-color: rgba(0, 0, 0, .9);
+	background-color: transparent;
+	position: absolute;
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
 	background-color: transparent;
@@ -3219,7 +3236,7 @@ body.public.user #wrapper {
 	width: 100%;
 	height: 100%;
 }
-.user-main-content-item {
+.ngdialog-open .user-main-content-item {
 	padding-bottom: 75px;
 	min-height: 100%;
 	box-sizing: border-box;
@@ -3239,12 +3256,20 @@ body.public.user #wrapper {
 	margin-left: -350px;
 	left: 50%;
 	position: absolute;
-	margin-bottom: 50px;
+	// margin-bottom: 50px;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
 	right: 50%;
 	top: 50px;
 	margin-right: -345px;
+}
+.ngdialog.popup-comment-images.ngdialog-theme-default .ngdialog-overlay {
+	background-color: rgba(0, 0, 0, .9);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 body.public.ngdialog-open {
 	padding-bottom: 0;
@@ -3494,11 +3519,12 @@ body.public.ngdialog-open {
 
 
 .group-page {
-	width: 100%;
+	width: 700px;
+    	margin: 0 auto;
 	position: relative;
 }
 .group-page .group-ava {
-	height: 400px;
+	height: 240px;
     	overflow: hidden;
     	width: 100%;	
     	position: relative;
@@ -3592,8 +3618,7 @@ body.public.ngdialog-open {
 	cursor: pointer;
 	top: 50%;
 	margin-top: -14px;
-	right: 50%;
-    	margin-right: -465px;
+	right: 5px;
 }
 .group-page button:hover {
 	border: 1px solid #495b79;
@@ -3609,7 +3634,7 @@ body.public.ngdialog-open {
 	display: flex;
 	justify-content: space-between;
 	width: 400px;
-	align-items: center;
+	align-items: stretch;
 }
 .group-menu-item .counts .counter {
 	margin: 0 0;
@@ -3637,24 +3662,24 @@ body.public.ngdialog-open {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.2);
 	width: 100%;
 }
-@media (max-width: 950px) {
-	.group-page button {
-		margin-right: -350px;
-	}
-}
 @media (max-width: 720px) {
+	.group-page {
+		width: 100%;
+	}
+	.group-menu-item .counts .counter {
+		width: 18%;
+	}
 	.group-ava .group-likes .group-info {
 		width: 100%;
 		box-sizing: border-box;
-		padding: 0 10px;
 	}
 	.group-ava .group-likes .group-info .publication-place,
 	.group-ava .group-likes .group-info .like-item {
 		margin: 0;
 	}
-	.group-page .group-ava {
-		height: 320px;
-	}
+	// .group-page .group-ava {
+	// 	height: 320px;
+	// }
 	.group-page .group-menu {
 		flex-direction: column-reverse;
 		height: auto;
@@ -3702,4 +3727,22 @@ body.public.ngdialog-open {
 	.group-page .group-ava {
 		height: 200px;
 	}
+	.group-menu .group-menu-item .counts {
+		box-sizing: border-box;
+    		padding: 0 10px;
+	}
+}
+.publication .emoji-wysiwyg-editor  {
+	height: 85px;
+}
+#user-page .content-error {
+	text-align: center;
+	line-height: 20px;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding: 20px 0;
+	font-size: 16px;
+	color: #666;
+	font-weight: lighter;
+	font-family: "SFUIDisplayLight"; 
 }

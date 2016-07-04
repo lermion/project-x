@@ -26,8 +26,9 @@
 				</div>
 			</div>
 		</div> -->
-	</div>		
-		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">
+	</div>
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 252px; overflow:hidden; position:relative;">
+
 			<div class="new-img" ng-repeat="file in files">		  
 				<div class="inner">
 					<div class="close" ng-click="deletePubFile(files, $index)">
@@ -37,19 +38,19 @@
 					</div>
 					<img ngf-thumbnail="file || '/thumb.jpg'">
 					<video width="200px" controls ngf-src="file"></video>
-					<div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">				
+					<!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">				
 						<div class="check-inner">
 							<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<p class="img-name">{{file.name}}</p>
 			</div>
 		</div>
-	<div class="publication-footer" >
+	<div class="publication-footer">
 		<div class="add-objects"> 
-			<input id="add-object" style="display: none;" ngf-select ng-model="files" ngf-multiple="true">
-			<label for="add-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
+			<input id="add-main-pub-object" style="display: none;" ngf-select ng-model="files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)" ngf-keep="true">
+			<label for="add-main-pub-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
 			<span class="add"></span>
 				Добавить фото или видео *
 			</label>

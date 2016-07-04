@@ -28,7 +28,7 @@
 			<!-- Content -->
 			<div class="groups-content">
 				<div class="groups-header">
-					<a href="" ng-click="viewGroupPublication(1, 12)">view pub popup</a>
+					<!-- <a href="" ng-click="viewGroupPublication(1, 12)">view pub popup</a> -->
 					<a class="public-groups" href="">Публичные группы</a>
 					<select name="" id="">
 						<option value="">Популярные</option>
@@ -39,7 +39,7 @@
 				<div class="groups">
 					<div class="group" ng-repeat="n in [1, 2, 3, 4]">
 						<div class="group-cover">
-							<a ui-sref="view-group({groupId: n})" class="group-ava">
+							<a ui-sref="group({groupId: n})" class="group-ava">
 								<img ng-src="{{image.url}}">
 							</a>
 							<div class="group-likes">
@@ -52,7 +52,7 @@
 							<p class="about">Описание группы. Группа про то, про это и все остальное.Описание группы. Группа про то, про это и все остальное.</p>
 						</div>
 						<button class="wright">Подписаться</button>
-						<button>Вы подписаны</button>
+						<!-- <button>Вы подписаны</button> -->
 					</div>
 				</div>
 			</div>

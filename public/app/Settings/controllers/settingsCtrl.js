@@ -62,13 +62,7 @@ angular.module('placePeopleApp')
 		  $scope.$apply();
 		});
 
-	/*Page code*/
-
-	// function blobToFile(blob){
-	// 	blob.lastModifiedDate = new Date();
-	// 	blob.name = 'image';		
-	// 	return blob;
-	// }
+	/*Page code*/	
 
 	function blobToFile(theBlob, fileName){    
 	    theBlob.lastModifiedDate = new Date();	    
@@ -80,8 +74,8 @@ angular.module('placePeopleApp')
 		.then(
 			function(res){										
 				$scope.userData = res;			
-				$scope.avatar = res.avatar_path;
 				$scope.isVisible = res.is_visible;	
+				$scope.isPrivate = res.is_private;	
 				$scope.showAvatar = res.is_avatar;									        
 			},
 			function(err){
@@ -94,11 +88,52 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.saveSettings = function(username, userLastname, userStatus){			
-		UserService.settingsEdit(username, userLastname, userStatus, $scope.showAvatar ? 1 : 0, $scope.isVisible ? 1 : 0)
+		UserService.settingsEdit(username, userLastname, userStatus)
 			.then(					
 				function(res){								
 					$scope.settingsEdit = false;	        
 				},
+				function(err){
+					console.log(err);
+				});
+	};
+
+	$scope.changeShowAvatar = function(flag){			
+		UserService.changeShowAvatar(flag ? 1 : 0)
+			.then(
+				function(res){
+					console.log(res);
+					if (res.status) {						
+						$scope.userData = res.user;
+						$scope.showAvatar = res.user.is_avatar;	
+					}
+				}, 
+				function(err){
+					console.log(err);
+				});
+		};
+	$scope.changeIsVisible = function(flag){			
+		UserService.changeIsVisible(flag ? 1 : 0)
+			.then(
+				function(res){
+					if (res.status) {
+						$scope.userData = res.user;			
+						$scope.isVisible = res.user.is_visible;				
+					}
+				}, 
+				function(err){
+					console.log(err);
+				});
+	};
+	$scope.changeLockProfile = function(flag){		
+		UserService.changeLockProfile(flag ? 1 : 0)
+			.then(
+				function(res){
+					if (res.status) {
+						$scope.userData = res.user;
+						$scope.isPrivate = res.user.is_private;
+					}
+				}, 
 				function(err){
 					console.log(err);
 				});
@@ -130,7 +165,11 @@ angular.module('placePeopleApp')
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();		
 		UserService.updateAvatar(blobFile)
-			.then(function(res){				   			
+			.then(function(res){
+				console.log(res);
+				if (res.status) {
+					storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
+				}				   			
 		      }, function(err){
 		        console.log(err);
 		      });	

@@ -1,12 +1,12 @@
 angular.module('placePeopleApp')
     .controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService', 
-    	'AuthService', 'FeedService', '$window', '$http', 'storageService',  'ngDialog', 'amMoment', 'Upload',
+    	'AuthService', 'FeedService', '$window', '$http', 'storageService',  'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
     	function($scope, $state, $stateParams, StaticService, PublicationService, AuthService, 
-    		FeedService, $window, $http, storageService, ngDialog, amMoment, Upload){
+    		FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout, UserService){
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
-
+		$scope.loggedUserAva = storage.loggedUserAva;
 		$http.get('/static_page/get/name')
 		            .success(function (response){            	
 		                $scope.staticPages = response;
@@ -65,24 +65,59 @@ angular.module('placePeopleApp')
 		});
 
 		/*Page content*/
-
+		$scope.ngRepeatHasRendered = function(){
+			window.emojiPicker = new EmojiPicker({
+				emojiable_selector: '[data-emojiable=true]',
+				assetsPath: 'lib/img/',
+				popupButtonClasses: 'fa fa-smile-o'
+			});
+			window.emojiPicker.discover();
+			$(".emoji-button").text("");
+		}
 		amMoment.changeLocale('ru');
 		$scope.loggedUserId = storage.userId;
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};		
 
-		FeedService.getPublications()
-			.then(function(res){					
-					// console.log(res);
+		function getMainPubs(){
+			FeedService.getPublications()
+			.then(function(res){
 					$scope.limit = 6;
 					$scope.publications = res;
-				  }, function(err){
+				}, function(err){
 					console.log(err);
-				  });
+				});
+		}
+		getMainPubs();
+
+		UserService.getUserData($scope.loggedUser)
+			.then(
+				function(res){									
+					$scope.userData = res;
+					if (res.login === storage.username) {
+						$scope.myProfile = true;
+						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						$scope.loggedUserAva = res.avatar_path;
+					}					
+				},
+				function(err){
+					console.log(err);
+				}
+			);
+
+		$scope.$on('ngDialog.opened', function(e, $dialog){
+			window.emojiPicker = new EmojiPicker({
+				emojiable_selector: '[data-emojiable=true]',
+				assetsPath: 'lib/img/',
+				popupButtonClasses: 'fa fa-smile-o'
+			});
+			window.emojiPicker.discover();
+			$(".emoji-button").text("");
+		});
 
 		$scope.changeMainFile = function(file, currPub){			
 			if(file.pivot.video_id || file.pivot.image_id){
-				currPub.mainFile = file.url;		
+				currPub.mainFile = file;		
 			}
 		};
 
@@ -153,8 +188,9 @@ angular.module('placePeopleApp')
 				});
 			}
 
-			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
-				if(response.data.status){										
+			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				if(response.data.status){
+					$(".emoji-wysiwyg-editor").html("");
 					if(flag === "feedPage"){
 						pub.files = [];
 						pub.commentModel = angular.copy(emptyPost);
@@ -166,6 +202,91 @@ angular.module('placePeopleApp')
 			function(error){
 				console.log(error);
 			});
+		};
+
+		$scope.createPublication = function(){
+			ngDialog.open({
+					template: '../app/Feed/views/create-publication.html',
+					className: 'user-publication ngdialog-theme-default',
+					scope: $scope
+				});
+		};
+
+		$scope.deletePubFile = function(files, index){
+			files.splice(index, 1);
+		};
+
+		$scope.openPublicationPreviewBlock = function(files){			
+			if (!$scope.showPubAdd) {
+				$scope.showPubAdd=!$scope.showPubAdd;
+			}			
+		};
+
+		$scope.pubFiles = function(files){											
+			if (files.length > 4) {
+				$scope.pubFilesNeedScroll = true;
+			} else if(files.length > 100){
+				console.log('too much files');
+			}
+			$scope.$broadcast('rebuild:me');
+		};
+
+		$scope.closePopup = function(){
+			ngDialog.closeAll();
+		};
+
+		$scope.publishNewPub = function(files){
+			var pubText = angular.element(document.querySelector(".pubText")).val();
+			if (!pubText || files === undefined || files.length == 0) {						
+				$scope.publishNewPubErr = true;				
+				return;				
+			}
+
+			$scope.newPubLoader = true;						
+			var images = [];
+			var videos = [];
+			var isMain = 1;		
+
+			// if ($scope.mainPubPhoto) {
+			// 	images[0] = '';
+			// }			
+			
+			files.forEach(function(file){
+				var type = file.type.split('/')[0];
+				if (type === 'image') {
+					images.push(file);
+				} else if (type === 'video'){
+					videos.push(file);
+				}				
+			});
+
+
+			// if ($scope.mainPubPhoto) {
+			// 	for(var i=0; i < images.length; i++){
+			// 		if (images[i].name === $scope.mainPubPhoto) {
+			// 			var mainPhoto = images.splice(i, 1);
+			// 			images[0] = mainPhoto[0];
+
+			// 		}
+			// 	}				
+			// }
+
+
+			PublicationService.createPublication(pubText, 0, isMain, videos, images)			
+				.then(					
+					function(res){						
+						if (res.status) {
+							// getMainPubs();
+							ngDialog.closeAll();
+						} else {
+							console.log('Error');							
+						}
+						$scope.newPubLoader = false;	        
+					},
+					function(err){
+						console.log(err);
+					});
+			
 		};
 
 

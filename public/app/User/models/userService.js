@@ -8,7 +8,10 @@ angular.module('placePeopleApp')
             sign: sign,
             quickEdit: quickEdit,
             updateAvatar: updateAvatar,
-            settingsEdit: settingsEdit
+            settingsEdit: settingsEdit,
+            changeShowAvatar: changeShowAvatar,
+            changeIsVisible: changeIsVisible,
+            changeLockProfile: changeLockProfile
 		}
 
 		function getUserData(login){                
@@ -54,13 +57,53 @@ angular.module('placePeopleApp')
                 });
             return defer.promise;           
         }
-        function settingsEdit(name, lastname, status, showAva, visible){
+        function settingsEdit(name, lastname, status){
             var data = {
                 'first_name': name,
                 'last_name': lastname,
-                'status': status,
-                'is_visible': visible,
+                'status': status
+            };
+            var defer = $q.defer();
+            $http.post(path + 'user/update', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });
+            return defer.promise;           
+        }
+        function changeShowAvatar(showAva){
+            var data = {                
                 'is_avatar': showAva
+            };
+            var defer = $q.defer();
+            $http.post(path + 'user/update', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });
+            return defer.promise;           
+        }
+        function changeIsVisible(isVisible){
+            var data = {
+                'is_visible': isVisible
+            };
+            var defer = $q.defer();
+            $http.post(path + 'user/update', data)
+                .success(function (response){
+                    defer.resolve(response);
+                })
+                .error(function (error){
+                    defer.reject(error);
+                });
+            return defer.promise;           
+        }
+        function changeLockProfile(isPrivate){
+            var data = {                
+                'is_private': isPrivate
             };
             var defer = $q.defer();
             $http.post(path + 'user/update', data)

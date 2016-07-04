@@ -125,8 +125,6 @@ img.emoji {
 .emoji-menu {
     position: absolute;
     z-index: 10000004;
-    top: -13px !important;
-    left: 765px !important;
     width: 225px;
     box-shadow: 0 0 10px 3px rgba(0,0,0,.3) !important;
     border: 1px #dfdfdf solid;

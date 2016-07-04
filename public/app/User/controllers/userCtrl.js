@@ -9,6 +9,7 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
+		
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};
@@ -89,6 +90,8 @@ angular.module('placePeopleApp')
 				function(res){
 					if (res.login === storage.username) {
 						$scope.myProfile = true;
+						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						$scope.loggedUserAva = res.avatar_path;
 					} else {
 						$scope.myProfile = false;
 					}
@@ -106,8 +109,16 @@ angular.module('placePeopleApp')
 		function getUserPubs(userId){
 			PublicationService.getUserPublications(userId)
 			.then(
-				function(res){
-					$scope.userPublications = res.publications;										        
+				function(res){					
+					if (res.status) {
+						$scope.userPublications = res.publications;
+					} else {
+						if (res.error.code === "8") {							
+							$scope.needToSign = true;
+						} else if(res.error.code === "15"){
+							$scope.needToLogin = true;
+						}
+					}
 				},
 				function(err){
 					console.log(err);
@@ -119,13 +130,18 @@ angular.module('placePeopleApp')
 
 		//Sign on
 		$scope.sign = function(subscription){
+			console.log();
 			if($scope.loggedUserId == $scope.userData.id){
 				$scope.userData.id = subscription.id;
 			}
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){
 				if (res.status) {
-					subscription.is_sub = res.is_sub;
+					if(subscription !== undefined){
+						subscription.is_sub = res.is_sub;
+					}else{
+						$scope.isSigned = res.is_sub;
+					}
 				} else {
 					if (parseInt(res.error.code) === 1) {	    					
 						// 1 userId
@@ -197,7 +213,6 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-
 		function openSubscribers(userId){
 			PublicationService.getSubscribers(userId).then(function(response){
 				$scope.subscribers = response;
@@ -243,7 +258,7 @@ angular.module('placePeopleApp')
 
 		$scope.createPublication = function(){			
 			ngDialog.open({
-					template: '../app/User/views/publication.html',
+					template: '../app/User/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
 					scope: $scope
 				});
@@ -297,11 +312,11 @@ angular.module('placePeopleApp')
 				popupButtonClasses: 'fa fa-smile-o'
 			});
 			window.emojiPicker.discover();
-			angular.element(document.querySelector(".emoji-button")).text("");
+			$(".emoji-button").text("");
 		});
 		$scope.publishNewPub = function(files){
 			var pubText = angular.element(document.querySelector(".pubText")).val();
-			if (!pubText || files.length == 0) {						
+			if (!pubText || files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
@@ -370,13 +385,13 @@ angular.module('placePeopleApp')
 				if ($window.innerWidth <= 700) {
 					$state.go('mobile-pub-view', {username: $stateParams.username, id: pubId});								
 				}else{
-					if(!flag){
-						// ngDialog.open({
-						// 	template: '../app/User/views/view-publication.html',
-						// 	className: 'view-publication ngdialog-theme-default',
-						// 	scope: $scope
-						// });
-						$state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});			
+					if(!flag && $state.current.name === 'user'){
+						ngDialog.open({
+							template: '../app/User/views/view-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope
+						});
+						// $state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});			
 					}
 				}
 			},
@@ -385,9 +400,13 @@ angular.module('placePeopleApp')
 			});
 		}
 		$scope.showPublication = function(pub){
-			getSinglePublication(pub.id);
+			getSinglePublication(pub.id);			
 		};
-		$scope.addNewComment = function(flag, pub, pubText, files){			
+		$scope.addNewComment = function(flag, pub, pubText, files){
+			if(pubText === undefined || pubText === ""){
+				pubText = angular.element(document.querySelector(".pubText")).val();
+			}
+			$scope.showAddCommentBlock=false;			
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -402,6 +421,7 @@ angular.module('placePeopleApp')
 			}		
 			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
 				if(response.data.status){
+					$(".emoji-wysiwyg-editor").html("");
 					pub.files = [];
 					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
@@ -430,7 +450,7 @@ angular.module('placePeopleApp')
 				}
 			});
 		}
-		$scope.changeMainFile = function(file, flag){
+		$scope.changeMainFile = function(file, flag, pub){
 			if(file.pivot.video_id){
 				$scope.mainImage = "";
 				$scope.mainVideo = file.url;
@@ -441,6 +461,10 @@ angular.module('placePeopleApp')
 					$scope.mainVideo = "";
 					$scope.mainImage = file.url;
 				}
+			}
+
+			if (flag === 'list') {
+				pub.mainFile = file;				
 			}
 		}
 		$scope.addCommentLike = function(comment){
@@ -495,14 +519,26 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.loadMorePubFiles = function(key) {
-			if (key === false) {
-				$scope.limit = $scope.singlePublication.length;
-			}else{
-				$scope.limit = 6;
-			}
-			$scope.morePubFiles = true;
-			$scope.$broadcast('loadPubFiles');			
+		
+		$scope.loadMorePubFiles = function(key, flag, pub) {			
+			
+			if (flag === 'list') {
+				if (key === false) {
+					pub.limit = pub.images.length + pub.videos.length;
+				}else{
+					pub.limit = 6;
+				}
+				// pub.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			} else {
+				if (key === false) {
+					$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+				}else{
+					$scope.limit = 6;
+				}
+				$scope.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			}			
 		};
 		var editPubPopup;
 		$scope.editPub = function(pub){			
@@ -584,6 +620,10 @@ angular.module('placePeopleApp')
 		$scope.editedPubDeleteVideo = function(videoId){
 			pubEditDeletedVideos.push(videoId);
 			$scope.$broadcast('rebuildScroll');
+		};
+
+		$scope.rebuildScroll = function(){
+			$scope.$broadcast('loadPubFiles');
 		};
 
 		$scope.saveEditedPub = function(pubId, text, files){

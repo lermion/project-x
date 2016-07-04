@@ -26,8 +26,8 @@
 	<div class="settingsss">
 		<div class="set_1">
 			<div class="img">
-				<img ng-src="{{avatar}}" alt="" class="avatar" ng-hide="croppedFile">
-				<a href="" class="change"> Изменить </a>
+				<img ng-src="{{userData.avatar_path}}" alt="" class="avatar" ng-hide="croppedFile" ng-show="userData.is_avatar">
+				<!-- <a href="" class="change"> Изменить </a> -->
 
 				<div class="add-ava" ng-init="showEditAva=true;"> 
 					<input type="file" id="avatarImg">  
@@ -52,10 +52,10 @@
 					<input type="text"  placeholder="Фамилия" ng-show="settingsEdit" ng-model="userData.last_name" class="last_name_set">	
 				</p>
 				<p class="status">
-					 <span ng-hide="settingsEdit">Статус</span>
-					 <br> <span ng-hide="settingsEdit">{{userData.status}}</span>
+					 <span  ng-hide="settingsEdit">Статус</span>
+					 <br> <span class="status-text" ng-hide="settingsEdit">{{userData.status}}</span>
 					<textarea name="comment" placeholder="Cтатус" ng-show="settingsEdit" ng-model="userData.status"></textarea>
-					<input type="submit" value="Сохранить" ng-show = "settingsEdit" ng-click="saveSettings(userData.first_name, userData.last_name, userData.status)">
+					<button  ng-show = "settingsEdit" ng-click="saveSettings(userData.first_name, userData.last_name, userData.status)">Сохранить</button>
 				</p>				
 				<!-- <p class="contact">
 					<span>Телефон</span>
@@ -67,14 +67,18 @@
 			<span class="h1">Конфиденциальность</span>
 				<p>Показать статус "В сети"
 			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" ng-checked="!!userData.is_visible"/>
-			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on" ng-click="isVisible=!isVisible"></label>
+			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on" ng-click="isVisible=!isVisible; changeIsVisible(isVisible)"></label>
  				</p>
 				<!-- <p>Отправлять статус "Просмотрено"
 			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle"/>
 			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label> -->
+				<!-- </p>  -->
+				<p>Скрыть профиль
+			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle" ng-checked="!!userData.is_private"/>
+			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on" ng-click="isPrivate=!isPrivate; changeLockProfile(isPrivate)"></label>
 				</p> 
 				<p>Отображать мое фото
-			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" ng-checked="!!userData.is_avatar" ng-click="showAvatar=!showAvatar"/>
+			<input type="checkbox" name="checkbox3" id="checkbox3" class="ios-toggle" ng-checked="!!userData.is_avatar" ng-click="showAvatar=!showAvatar; changeShowAvatar(showAvatar)"/>
 			<label for="checkbox3" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 		</div>

@@ -26,9 +26,9 @@
 	<div class="main-content">
 		<div class="groups">
 			<a ui-sref="groups" class="pub-groups">Публичные группы</a>
-			<a href="" class="create-groups">Создать публикацию</a>
+			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
 		</div>
-		<div class="content-item" ng-repeat="pub in publications">
+		<div class="content-item" ng-init="$last ? ngRepeatHasRendered() : null" ng-repeat="pub in publications">
 			<div class="user-publication">
 				<div class="user-publication-header">
 					<div class="user-function">
@@ -53,13 +53,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile = pub.cover : pub.mainFile = pub.images[0].url">
-					<p class="publication-text">{{pub.text}}</p>
+				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
+					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
 					<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
 					<div class="publication-ava">
-						<img ng-src="{{pub.mainFile}}">
+						<img ng-src="{{pub.mainFile.url}}">
 					</div>					
 					<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
 						<div ng-click="changeMainFile(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
@@ -105,7 +105,7 @@
 								</div>
 								<a href="javascript:void(0);" ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>				
 							</div>
-							<p class="comment-item">{{comment.text}}</p>
+							<p ng-bind-html="comment.text | codeToSmiley" class="comment-item"></p>
 							<div ng-if="comment.images[0]" class="comment-pic">
 								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 									<img ng-src="{{image.url}}">
@@ -132,81 +132,23 @@
 					</div>
 					<div style="position:relative;" class="add">
 						<div class="text-field">
-							<textarea name="" id="" placeholder="Текст комментария..." ng-model="pub.commentModel.pubText"></textarea>
-							<div class="smiles">
+							<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="pub.commentModel.pubText"></textarea> -->
+							<!-- <input type="text" class="pubText" data-emojiable="true" name=""> -->
+							<div emoji-form emoji-message="emojiMessage">
+								<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+								<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+									<i class="icon icon-emoji"></i>
+								</a>
+							</div>
+							<!-- <div class="smiles">
 								<div class="smiles-item"></div>
 								<div class="smile">
 									<div class="smile-item">
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
-										<div class="inner">
-											<a href="">
-												<img src="../../../images/smil-hover.png" alt=""> 
-											</a>
-										</div>
+										
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
-						
 						<div class="new-add">
 							<div class="new-img" ng-repeat="file in pub.files">		  
 								<div class="inner">
@@ -224,10 +166,10 @@
 						
 						<div class="publication-footer">
 							<div class="publication-footer-button">
-								<a href="javascript:void(0);" ng-click="addNewComment('feedPage', pub, pub.commentModel.pubText, pub.files)" class="publication-button">Отправить</a>    
+								<a href="javascript:void(0);" ng-click="addNewComment('feedPage', pub, emojiMessage, pub.files)" class="publication-button">Отправить</a>    
 							</div>
 							<div class="add-objects" ng-init="addObjId='add-object-'+pub.id">						
-								<input id="{{addObjId}}" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
+								<input id="{{addObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
 								<label for="{{addObjId}}">
 									Прикрепить
 									<span class="add"></span>
@@ -245,22 +187,22 @@
 
 	<footer>
 		<div class="footer">
-		    <div class="footer-item">
-		                <div class="footer-place">
-		                    <a href="">Place People </a>
-		                    <span>© 2016</span>
-		                </div>
-		                <div class="payment">
-		                    <a class="mastercard" href=""></a>
-		                    <a class="visa" href=""></a>
-		                </div>
-		    </div>
-		    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-		        <a class="drop-menu" href="" ></a>
-		        <div class="menu-item" ng-show="showBottomMenu">		        	       
-		            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
-		        </div>
-		    </div>
+			<div class="footer-item">
+						<div class="footer-place">
+							<a href="">Place People </a>
+							<span>© 2016</span>
+						</div>
+						<div class="payment">
+							<a class="mastercard" href=""></a>
+							<a class="visa" href=""></a>
+						</div>
+			</div>
+			<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
+				<a class="drop-menu" href="" ></a>
+				<div class="menu-item" ng-show="showBottomMenu">		        	       
+					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
+				</div>
+			</div>
 		</div>
 	</footer>
 

@@ -60,7 +60,7 @@
 									<span>{{userData.subscription_count}}</span> 
 								</a>
 							</div>
-							<p class="status-user" ng-hide="profileEdition" ng-bind-html="userData.status | colonToSmiley">{{userData.status}}</p>	
+							<p class="status-user" ng-hide="profileEdition" ng-bind-html="userData.status | colonToSmiley"></p>	
 							<!-- <div ng-bind-html="text | colonToSmiley">{{text}}</div>				 -->
 							<input class="status-correct" type="text" name="" ng-show="profileEdition && !showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 							<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше 140 символов</p>
@@ -81,7 +81,7 @@
 							</div>
 						</div>
 					</div>
-					<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea">{{userData.status}}</p>
+					<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea" ng-bind-html="userData.status | colonToSmiley"></p>
 					<input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 					<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 					<div class="comunications adaptiv" ng-show="myProfile">
@@ -99,49 +99,40 @@
 							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
 					</div>
+					<p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
+					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>
 					<!-- unit grid-->						
-					<!-- <div class="my-photos" ng-show="photosGrid">
-						<div class="photo" ng-repeat="num in [0,1,2,3,4,5,6,7]" style="{{resizeSizes}}">				
-							<a href="" ng-click="showPublication(2)">
-								<img src="images/pic.png" alt="">
-								<span class="video" ng-show="$index==0"></span>
-							</a>
-						</div>
-					</div> -->
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 							<a href="" ng-click="showPublication(pub)">
-								<img ng-src="{{pub.images[0].url}}" alt="">
-								<!-- <p>{{pub.images}}</p> -->
-								<!-- <span class="video" ng-show="$index==0"></span> -->
+								<img ng-src="{{pub.images[0].url}}" alt="">								
 							</a>
 						</div>
 					</div>
 
-
 					<!-- single unit -->
 					<div class="my-photos-list" ng-show="!photosGrid">
-						<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}">							
-							<div class="ngdialog-content" role="document">
-
+						<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}" ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
+							<div role="document">
 								<div class="user-publication">
 									<div class="user-publication-content">
-										<div class="publication-ava">
-											<a href="javascript:void(0);" ng-click="showPublication(singlePublication)">
-												<img ng-src="{{mainImage || singlePublication.images[0].url}}">
+
+										<div class="publication-ava" ng-init="singlePublication.mainFile.pivot ? '' : singlePublication.mainFile.pivot.image_id = true;">
+											<a href="javascript:void(0);"  class="ava" ng-click="showPublication(singlePublication)">
+												<img ng-src="{{singlePublication.mainFile.url}}" ng-if="singlePublication.mainFile.pivot.image_id">
 											</a>
-											<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
+											<video ng-if="singlePublication.mainFile.pivot.video_id" width="150px" controls ngf-src="singlePublication.mainFile.url"></video>
 										</div>
-										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
-											<div ng-click="changeMainFile(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
-												<img ng-src="{{image.url}}">
+										<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:175px; overflow:hidden; position:relative;" ng-hide="(singlePublication.images.length + singlePublication.videos.length) === 1" ng-init="singlePublication.limit = 6">											
+											<div ng-click="changeMainFile(file, 'list', singlePublication)" ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: singlePublication.limit as results" class="images-item" ng-init="rebuildScroll()">
+												<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+												<video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>				
 											</div>
-											<div ng-click="changeMainFile(video)" ng-repeat="video in singlePublication.videos" class="images-item">
-												<video width="150px" controls ngf-src="video.url"></video>
+
+											<div ng-hide="results.length === (singlePublication.images.length + singlePublication.videos.length)" class="images-item more" ng-click="loadMorePubFiles(results.length === (singlePublication.images.length + singlePublication.videos.length), 'list', singlePublication)">
+												<p class="counter">Еще<br> {{(singlePublication.images.length + singlePublication.videos.length)  - singlePublication.limit}} файлов</p>
 											</div>
-											<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
-												<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
-											</div>
+
 										</div> 
 										<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
 										<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
@@ -165,7 +156,7 @@
 									<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 										<div ng-repeat="comment in singlePublication.comments | reverse" class="user-comment">
 											<div class="user-ava">
-												<a class="ava" ui-sref="user({username: loggedUser})">
+												<a class="ava" ui-sref="user({username: comment.user.login})">
 													<img ng-src="{{comment.user.avatar_path}}" alt="">
 												</a>
 											</div>
@@ -178,7 +169,7 @@
 													</div>
 													<a href="javascript:void(0);" ng-click="deleteComment('userPage', singlePublication, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
 												</div>
-												<p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
+												<p class="comment-item" ng-bind-html="comment.text | codeToSmiley"></p>
 												<div ng-if="comment.images[0]" class="comment-pic">
 													<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 														<img ng-src="{{image.url}}">
@@ -191,19 +182,25 @@
 										</div>
 									</div>
 									<div class="added_comments">
-										<a href="" class="add_comments">
+										<a href="javascript:void(0);" class="add_comments" ng-click="showAddCommentBlock = !showAddCommentBlock" ng-hide="showAddCommentBlock">
 											Добавить комментарий 
 										</a>
 									</div>
-									<div class="add-comment">
+									<div class="add-comment"  ng-show="showAddCommentBlock">
 										<div class="user-ava">
 											<a class="ava" ui-sref="user({username: loggedUser})">
-												<img ng-src="{{userData.avatar_path}}" alt="">
+												<img ng-src="{{loggedUserAva}}" alt="">
 											</a>
 										</div>
 										<div flow-init style="position:relative;" class="add">
 											<div class="text-field">
-												<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
+												<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
+												<div emoji-form emoji-message="emojiMessage">
+													<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+													<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+														<i class="icon icon-emoji"></i>
+													</a>
+												</div>
 											</div>	
 											
 											<div class="new-add">
@@ -222,10 +219,10 @@
 											</div>
 											<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
 												<div class="publication-footer-button">
-													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</a>    
+													<a href="javascript:void(0);" ng-click="addNewComment('userPage', singlePublication, emojiMessage.rawhtml, singlePublication.files);" class="publication-button">Отправить</a>    
 												</div>
 												<div class="add-objects">						
-													<input id="{{addFileObjId}}" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
+													<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 
 													<label for="{{addFileObjId}}">
 														Прикрепить
 														<span class="add"></span>
