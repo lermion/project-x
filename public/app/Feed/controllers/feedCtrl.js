@@ -115,11 +115,15 @@ angular.module('placePeopleApp')
 			$(".emoji-button").text("");
 		});
 
-		$scope.changeMainFile = function(file, currPub){			
+		$scope.changeMainFileFeed = function(file, currPub){			
 			if(file.pivot.video_id || file.pivot.image_id){
 				currPub.mainFile = file;		
 			}
 		};
+
+		$scope.changeMainFile = function(file, pub){			
+			$scope.mainImageInPopup = file.url;			
+		}
 
 		$scope.addPublicationLike = function(pub){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
@@ -232,19 +236,19 @@ angular.module('placePeopleApp')
 			$scope.$broadcast('rebuild:me');
 		};
 
-		$scope.showMoreImages = function(images){
-			$scope.imagesInPopup = images;
-			$scope.mainImageInPopup = images[0].url;			
-			// angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+		$scope.showMoreImages = function(images, currImg){
+			if (currImg != null) {
+				$scope.mainImageInPopup = currImg.url;
+			} else {
+				$scope.mainImageInPopup = images[0].url;
+			}		
+			
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
 				scope: $scope,
 				data: {
 					images: images
-				},
-				preCloseCallback: function(value){
-					// angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
 				}
 			});
 		}
@@ -255,7 +259,7 @@ angular.module('placePeopleApp')
 
 		$scope.publishNewPub = function(files){
 			var pubText = angular.element(document.querySelector(".pubText")).val();
-			if (!pubText || files === undefined || files.length == 0) {						
+			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
