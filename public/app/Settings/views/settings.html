@@ -44,8 +44,8 @@
 
 			</div> -->
 
-			<div class="add-ava" flow-init flow-file-added="handleFileSelect($file)" ng-init="showEditAva=true;">
-	                                            <input flow-btn type="file" id="avatarImg"/>  
+			<div class="add-ava" ng-init="showEditAva=true;">
+	                                            <input type="file" id="avatarImg"/>  
 	                                            <label for="avatarImg">                                            
 	                                            	<span class="ava">         
 	                                            		<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">

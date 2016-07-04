@@ -139,14 +139,16 @@ angular.module('placePeopleApp')
 				});
 	};
 
+	$scope.myImage='';
 	$scope.myCroppedImage='';
-	$scope.handleFileSelect = function(file) {
+	var handleFileSelect = function(evt) {
+		var file = evt.currentTarget.files[0];		
 		$scope.fileName = file.name;
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
 				setTimeout(function(){
-					$scope.myImage = file.file;
+					$scope.myImage = evt.target.result;
 					ngDialog.open({
 						template: '../app/Settings/views/crop-image.html',
 						className: 'settings-add-ava ngdialog-theme-default',
@@ -155,9 +157,10 @@ angular.module('placePeopleApp')
 				}, 3000);
 			});
 		};
-		reader.readAsDataURL(file.file);
+		reader.readAsDataURL(file);
 	};
-	
+	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
+
 	$scope.saveCropp = function(img, cropped){	
 		var blobFile = blobToFile(img, $scope.fileName);
 		$scope.croppedFile = cropped;
@@ -165,6 +168,7 @@ angular.module('placePeopleApp')
 		ngDialog.closeAll();		
 		UserService.updateAvatar(blobFile)
 			.then(function(res){
+				console.log(res);
 				if (res.status) {
 					storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
 				}				   			
