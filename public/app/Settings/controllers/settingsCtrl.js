@@ -139,10 +139,8 @@ angular.module('placePeopleApp')
 				});
 	};
 
-	$scope.myImage='';
 	$scope.myCroppedImage='';
 	$scope.handleFileSelect = function(file) {
-		console.log(file.file);
 		$scope.fileName = file.name;
 		var reader = new FileReader();
 		reader.onload = function (evt) {
