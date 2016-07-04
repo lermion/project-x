@@ -42,7 +42,7 @@ class Publication extends Model
         return $this->belongsTo('App\User');
     }
 
-    public static function getMainPublication($userId = null,$offset,$limit)
+    public static function getMainPublication($offset,$limit,$userId = null)
     {
         $publications = Publication::with(['user', 'videos', 'group', 'images', 'comments' => function ($query) {
             $query->take(3);
