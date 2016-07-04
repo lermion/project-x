@@ -72,6 +72,9 @@ angular.module('placePeopleApp')
 		});
 
 		/*Page content*/
+		$scope.checkState = function(stateName){
+			return stateName === $state.current.name;
+		};
 
 		$scope.openNewGroupCreation = function(){
 			ngDialog.open({
