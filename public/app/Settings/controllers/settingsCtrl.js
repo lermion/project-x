@@ -64,7 +64,8 @@ angular.module('placePeopleApp')
 
 	/*Page code*/	
 
-	function blobToFile(theBlob, fileName){    
+	function blobToFile(theBlob, fileName){
+
 	    theBlob.lastModifiedDate = new Date();	    
 	    theBlob.filename = fileName;
 	    return theBlob;
@@ -159,8 +160,8 @@ angular.module('placePeopleApp')
 	};
 	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
 
-	$scope.saveCropp = function(img, cropped){	
-		var blobFile = blobToFile(img, $scope.fileName);
+	$scope.saveCropp = function(img, cropped){
+		var blobFile = blobToFile(cropped, $scope.fileName);
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();		
