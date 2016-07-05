@@ -121,9 +121,45 @@ angular.module('placePeopleApp')
 			}
 		};
 
-		$scope.changeMainFile = function(file, pub){			
-			$scope.mainImageInPopup = file.url;			
+		$scope.changeMainFile = function(file, flag, pub){			
+			// $scope.mainImageInPopup = file.url;	
+			// console.log(file);
+			// console.log(flag);
+			if(file.pivot.video_id){
+				$scope.mainImage = "";
+				$scope.mainVideo = file.url;
+			}else if(file.pivot.image_id){
+				if(flag){
+					$scope.mainImageInPopup = file.url;
+				}else{
+					$scope.mainVideo = "";
+					$scope.mainImage = file.url;
+				}
+			}
+
+			// console.log($scope.mainVideo);		
+			// console.log($scope.mainImage);		
 		}
+
+		$scope.loadMorePubFiles = function(key, flag, pub) {			
+			if (flag === 'list') {
+				if (key === false) {
+					pub.limit = pub.images.length + pub.videos.length;
+				}else{
+					pub.limit = 6;
+				}
+				// pub.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			} else {
+				if (key === false) {
+					$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+				}else{
+					$scope.limit = 6;
+				}
+				$scope.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			}			
+		};
 
 		$scope.addPublicationLike = function(pub){
 			PublicationService.addPublicationLike(pub.id).then(function(response){
@@ -311,6 +347,33 @@ angular.module('placePeopleApp')
 						console.log(err);
 					});
 			
+		};
+
+		function getSinglePublication(pubId, flag){
+			PublicationService.getSinglePublication(pubId).then(function(response){				
+				$scope.limit = 6;
+				$scope.singlePublication = response;
+				if(response.images[0] !== undefined){
+					$scope.mainImage = response.images[0].url;
+				}
+				if ($window.innerWidth <= 700) {
+					// $state.go('mobile-pub-view', {username: response.user.login, id: pubId});								
+				}else{
+					if(!flag && $state.current.name === 'feed'){
+						ngDialog.open({
+							template: '../app/Feed/views/view-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope
+						});									
+					}
+				}
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+		$scope.showPublication = function(pub){
+			getSinglePublication(pub.id);			
 		};
 
 
