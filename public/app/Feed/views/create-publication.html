@@ -29,7 +29,7 @@
 	</div>
 		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 252px; overflow:hidden; position:relative;">
 
-			<div class="new-img" ng-repeat="file in files">		  
+			<div class="new-img" ng-repeat="file in files" ng-click="showMoreImages(files, file)">		  
 				<div class="inner">
 					<div class="close" ng-click="deletePubFile(files, $index)">
 						<div class="close-inner">

@@ -1,15 +1,16 @@
 <div style="min-height: 100%;">	
 	<div class="user-main-content">
+	<!-- style="{{fixBodyPosition ? 'top:-'+500+'px' : ''}}" -->
 		<div class="user-main-content-item">
 			<header>
 				<div class="header header-user">
 					<a class="logo" ui-sref="feed"></a>
 					<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">			
-						<a class="drop-menu" href=""></a>
+						<a class="drop-menu" href="javascript:void(0)"></a>
 						<div class="menu-item" ng-show="showMenu">
 							<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
-							<a class="places" href="">Места</a>
-							<a class="chat" href=""> Чаты</a>
+							<a class="places" href="javascript:void(0)">Места</a>
+							<a class="chat" href="javascript:void(0)"> Чаты</a>
 							<a class="settings" ui-sref="settings">Настройки</a>
 							<div class="search">
 								<input type="text" placeholder="Поиск...">
@@ -28,13 +29,13 @@
 				<div id="user-page"  ng-class="photosGrid ? '' : 'list-style'">
 					<div class="my-profile">
 						<div class="ava">
-							<a href="">
+							<a href="javascript:void(0)">
 								<img ng-src="{{userData.avatar_path}}" alt="">
 							</a>
 						</div>
 						<div class="my-profile-item"> 
 							<div class="user-status">
-								<a class="user-name" href="" ng-hide="profileEdition">{{userData.first_name}} {{userData.last_name}}</a>
+								<a class="user-name" href="javascript:void(0)" ng-hide="profileEdition">{{userData.first_name}} {{userData.last_name}}</a>
 								<div class="rewrite-fields">
 									<input type="text" ng-show="profileEdition" placeholder="Имя" ng-model="userData.first_name">
 									<input type="text" ng-show="profileEdition" placeholder="Фамилия" ng-model="userData.last_name">
@@ -43,19 +44,19 @@
 							</div>
 							
 							<div class="counts" ng-class="myProfile ? '' : 'another-user'" >
-								<a href="" class="counter">
+								<a href="javascript:void(0)" class="counter">
 									<p class="notes">Публикации</p>
 									<span>{{userData.publications_count}}</span>
 								</a>
-								<a href="" class="counter" ng-show="myProfile">
+								<a href="javascript:void(0)" class="counter" ng-show="myProfile">
 									<p class="contacts">Контакты</p>
 									<span>417</span>
 								</a>
-								<a href="" class="counter" ng-click="userData.subscribers_count > 0 && openSubscribers(userData.id)">
+								<a href="javascript:void(0)" class="counter" ng-click="userData.subscribers_count > 0 && openSubscribers(userData.id)">
 									<p class="contacts-off">Подписчики</p>
 									<span>{{userData.subscribers_count}}</span>
 								</a>
-								<a href="" class="counter" ng-click="userData.subscription_count > 0 && openSubscribe(userData.id)">
+								<a href="javascript:void(0)" class="counter" ng-click="userData.subscription_count > 0 && openSubscribe(userData.id)">
 									<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 									<span>{{userData.subscription_count}}</span> 
 								</a>
@@ -65,18 +66,18 @@
 							<input class="status-correct" type="text" name="" ng-show="profileEdition && !showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 							<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше 140 символов</p>
 							<div class="comunications" ng-show="myProfile">
-								<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
-								<a href="" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
+								<a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать публикацию</a>
+								<a href="javascript:void(0)" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
 								<div class="view" ng-init="photosGrid=true;">
-									<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-									<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
+									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 								</div>
 							</div>
 							<div class="comunications" ng-hide="myProfile">
-								<a href="" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
+								<a href="javascript:void(0)" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
 								<div class="view" ng-init="photosGrid=true;">
-									<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-									<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
+									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 								</div>
 							</div>
 						</div>
@@ -85,18 +86,18 @@
 					<input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea" ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"  ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 					<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition" >Статус не может быть больше 140 символов</p>
 					<div class="comunications adaptiv" ng-show="myProfile">
-						<a href="" class="create" ng-click="createPublication()">Создать публикацию</a>
-						<a href="" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
+						<a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать публикацию</a>
+						<a href="javascript:void(0)" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
 						<div class="view">
-							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
+							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
 					</div>
 					<div class="comunications adaptiv" ng-hide="myProfile">
-						<a href="" class="read" ng-click="isSigned=!isSigned;">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a>				
+						<a href="javascript:void(0)" class="read" ng-click="isSigned=!isSigned;">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a>				
 						<div class="view">
-							<a href="" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-							<a href="" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
+							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
 						</div>
 					</div>
 					<p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
@@ -104,7 +105,7 @@
 					<!-- unit grid-->						
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
-							<a href="" ng-click="showPublication(pub)">
+							<a href="javascript:void(0)" ng-click="showPublication(pub)">
 								<img ng-src="{{pub.images[0].url}}" alt="">								
 							</a>
 						</div>
@@ -201,8 +202,7 @@
 														<i class="icon icon-emoji"></i>
 													</a>
 												</div>
-											</div>	
-											
+											</div>								
 											<div class="new-add" ng-show="singlePublication.files" class="visible-comments">
 												<div class="new-img" ng-repeat="file in singlePublication.files">  
 													<div class="inner">
@@ -246,16 +246,16 @@
 				<div class="footer">
 				    <div class="footer-item">
 				                <div class="footer-place">
-				                    <a href="">Place People </a>
+				                    <a href="javascript:void(0)">Place People </a>
 				                    <span>© 2016</span>
 				                </div>
 				                <div class="payment">
-				                    <a class="mastercard" href=""></a>
-				                    <a class="visa" href=""></a>
+				                    <a class="mastercard" href="javascript:void(0)"></a>
+				                    <a class="visa" href="javascript:void(0)"></a>
 				                </div>
 				    </div>
 				    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-				        <a class="drop-menu" href="" ></a>
+				        <a class="drop-menu" href="javascript:void(0)" ></a>
 				        <div class="menu-item" ng-show="showBottomMenu">		        	       
 				            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
 				        </div>
