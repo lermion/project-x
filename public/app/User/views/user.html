@@ -217,7 +217,7 @@
 											</div>
 											<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
 												<div class="publication-footer-button">
-													<button  ng-click="addNewComment('userPage', singlePublication, emojiMessage.rawhtml, singlePublication.files);" class="publication-button">Отправить</button>    
+													<button ng-disabled="disableAddComment" ng-click="addNewComment('userPage', singlePublication, emojiMessage.rawhtml, singlePublication.files);" class="publication-button">Отправить</button>    
 												</div>
 												<div class="add-objects">						
 													<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 

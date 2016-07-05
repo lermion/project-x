@@ -317,13 +317,16 @@ angular.module('placePeopleApp')
 		};
 		$scope.emojiMessage = {};
 		$scope.$on('ngDialog.opened', function(e, $dialog){
-			window.emojiPicker = new EmojiPicker({
-				emojiable_selector: '[data-emojiable=true]',
-				assetsPath: 'lib/img/',
-				popupButtonClasses: 'fa fa-smile-o'
-			});
-			window.emojiPicker.discover();
-			$(".emoji-button").text("");
+			var openDialogs = ngDialog.getOpenDialogs();
+			if(openDialogs.length === 1){
+				window.emojiPicker = new EmojiPicker({
+					emojiable_selector: '[data-emojiable=true]',
+					assetsPath: 'lib/img/',
+					popupButtonClasses: 'fa fa-smile-o'
+				});
+				window.emojiPicker.discover();
+				$(".emoji-button").text("");
+			}
 		});
 		$scope.publishNewPub = function(files){
 			var pubText = angular.element(document.querySelector(".pubText")).val();
@@ -433,6 +436,7 @@ angular.module('placePeopleApp')
 			getSinglePublication(pub.id);			
 		};
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
 				pubText = angular.element(document.querySelector(".pubText")).val();
 			}
@@ -450,6 +454,7 @@ angular.module('placePeopleApp')
 				});
 			}		
 			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
+				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
 					pub.files = [];
