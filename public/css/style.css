@@ -1719,7 +1719,8 @@ body.public.user {
 /* ngdialog*/
 
 .ngdialog.ngdialog-theme-default,
-.ngdialog.user-publication.ngdialog-theme-default {
+.ngdialog.user-publication.ngdialog-theme-default,
+.ngdialog.popup-add-group.ngdialog-theme-default {
 	position: fixed;
 	top: 0;
 	bottom: 0;
