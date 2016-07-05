@@ -57,7 +57,7 @@ angular.module('placePeopleApp')
                     }
 
                     if (value < 520) {
-                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 2) / 4;
+                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
                         $scope.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
                         $scope.resizeHeight = 'height:' + blockThirdthLength + 'px;';
                     } else {
