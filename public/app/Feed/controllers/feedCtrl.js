@@ -271,8 +271,9 @@ angular.module('placePeopleApp')
 		$scope.pubFiles = function(files){											
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
-			} else if(files.length > 100){
+			} else if(files.length > 100){				
 				console.log('too much files');
+				return;
 			}
 			$scope.$broadcast('rebuild:me');
 		};
@@ -388,9 +389,9 @@ angular.module('placePeopleApp')
 				if(response.images[0] !== undefined){
 					$scope.mainImage = response.images[0].url;
 				}
-				if ($window.innerWidth <= 700) {
-					// $state.go('feed.mobile', {pubId: pubId});								
-				}else{
+				// if ($window.innerWidth <= 700) {
+				// 	// $state.go('feed.mobile', {pubId: pubId});								
+				// }else{
 					if(!flag && $state.current.name === 'feed'){
 						ngDialog.open({
 							template: '../app/Feed/views/view-publication.html',
@@ -398,7 +399,7 @@ angular.module('placePeopleApp')
 							scope: $scope
 						});									
 					}
-				}
+				// }
 			},
 			function(error){
 				console.log(error);

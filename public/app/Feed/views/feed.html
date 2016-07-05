@@ -133,25 +133,16 @@
 						</a>
 					</div>
 					<div style="position:relative;" class="add">
-						<div class="text-field">
-							<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="pub.commentModel.pubText"></textarea> -->
-							<!-- <input type="text" class="pubText" data-emojiable="true" name=""> -->
+						<div class="text-field">							
 							<div emoji-form emoji-message="emojiMessage">
 								<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
 								<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
 									<i class="icon icon-emoji"></i>
 								</a>
 							</div>
-							<!-- <div class="smiles">
-								<div class="smiles-item"></div>
-								<div class="smile">
-									<div class="smile-item">
-										
-									</div>
-								</div>
-							</div> -->
+							
 						</div>
-						<div class="new-add"  ng-show="pub.files">
+						<div class="new-add"  ng-show="pub.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 							<div class="new-img" ng-repeat="file in pub.files">		  
 								<div class="inner">
 									<div ng-click="deleteCommentFile(pub.files, $index)" class="close">
@@ -171,7 +162,7 @@
 								<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', pub, emojiMessage, pub.files)" class="publication-button">Отправить</button>    
 							</div>
 							<div class="add-objects" ng-init="addObjId='add-object-'+pub.id">						
-								<input id="{{addObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
+								<input id="{{addObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
 								<label for="{{addObjId}}">
 									Прикрепить
 									<span class="add"></span>
