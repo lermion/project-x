@@ -403,6 +403,7 @@ angular.module('placePeopleApp')
 			getSinglePublication(pub.id);			
 		};
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
 				pubText = angular.element(document.querySelector(".pubText")).val();
 			}
@@ -420,15 +421,16 @@ angular.module('placePeopleApp')
 				});
 			}		
 			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
+				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
 					pub.files = [];
 					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
-						pub.comments.unshift(response.data.comment);
+						pub.comments.push(response.data.comment);
 						pub.comment_count++;
 					}else{
-						$scope.singlePublication.comments.unshift(response.data.comment);
+						$scope.singlePublication.comments.push(response.data.comment);
 						$scope.singlePublication.comment_count++;
 					}
 					
