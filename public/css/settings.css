@@ -1076,6 +1076,12 @@
 .popup-add-group.ngdialog-theme-default .add_newgroup .emoji-wysiwyg-editor {
     height: 85px;
 }
+.popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
+    content: 'Описание группы ...';
+}
+.popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
+    content: '';
+}
 .popup-add-group .smiles {
     position: absolute;
     top: 16px;
