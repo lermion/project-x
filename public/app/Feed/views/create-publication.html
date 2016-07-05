@@ -7,13 +7,13 @@
 			</span>
 			<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
 		</a>
-		<!-- <form action="">
+		<form action="">
 			<input type="checkbox" id="anon" ng-model="isAnonPub">
 			<label for="anon">
 				<span></span>
 				Анонимная публикация
 			</label>
-		</form> -->
+		</form>
 	</div>	
 	<div class="text-field">
 		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea> -->
@@ -56,9 +56,8 @@
 			</label>
 		</div>
 		<div class="publication-footer-button">
-			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
-			<!-- <a href="" class="publication-button" ng-click="publishNewPub(files);" ladda="newPubLoader" ng-disabled="true">Опубликовать</a>  -->
-			<button class="publication-button">Опубликовать</button>   
+			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>			
+			<button class="publication-button" ng-click="publishNewPub(isAnonPub, files);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>   
 		</div>       
 	</div>
 	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
