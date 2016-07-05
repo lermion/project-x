@@ -97,6 +97,14 @@ angular.module('placePeopleApp')
 			
 		};
 
+        $scope.showPublication = function(pubId) {
+            ngDialog.open({
+                template:'../app/Groups/views/popup-view-group-publication.html',
+                className: 'popup-add-group ngdialog-theme-default',
+                scope: $scope
+            });
+        }
+
 
 
 }]);
