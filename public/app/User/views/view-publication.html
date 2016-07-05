@@ -4,7 +4,7 @@
 		<div class="user-function">
 			<a class="user" ui-sref="user({username: userData.login})">
 				<span class="ava">
-					<img src="{{userData.avatar_path}}" alt="">
+					<img ng-src="{{userData.avatar_path}}" alt="">
 				</span>
 				<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
 			</a>
@@ -60,7 +60,7 @@
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
-		<div ng-repeat="comment in singlePublication.comments | reverse" class="user-comment">
+		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: comment.user.login})">
 					<img ng-src="{{comment.user.avatar_path}}" alt="">
@@ -141,7 +141,7 @@
 			</div>
 			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-popup-'+singlePublication.id">
 				<div class="publication-footer-button">
-					<button ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</button>    
+					<button ng-disabled="disableAddComment" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</button>    
 				</div>
 				<div class="add-objects">						
 					<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true"> 

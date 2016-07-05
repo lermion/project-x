@@ -167,6 +167,7 @@ angular.module('placePeopleApp')
 
 	$scope.saveCropp = function(img, cropped){
 		var blobFile = blobToFile(cropped, $scope.fileName);
+		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();		
