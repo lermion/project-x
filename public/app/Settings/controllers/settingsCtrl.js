@@ -64,7 +64,8 @@ angular.module('placePeopleApp')
 
 	/*Page code*/	
 
-	function blobToFile(theBlob, fileName){    
+	function blobToFile(theBlob, fileName){
+
 	    theBlob.lastModifiedDate = new Date();	    
 	    theBlob.filename = fileName;
 	    return theBlob;
@@ -147,22 +148,20 @@ angular.module('placePeopleApp')
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
-				setTimeout(function(){
-					$scope.myImage = evt.target.result;
-					ngDialog.open({
-						template: '../app/Settings/views/crop-image.html',
-						className: 'settings-add-ava ngdialog-theme-default',
-						scope: $scope
-					});
-				}, 3000);
+				$scope.myImage = evt.target.result;
+				ngDialog.open({
+					template: '../app/Settings/views/crop-image.html',
+					className: 'settings-add-ava ngdialog-theme-default',
+					scope: $scope
+				});
 			});
 		};
 		reader.readAsDataURL(file);
 	};
 	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
 
-	$scope.saveCropp = function(img, cropped){	
-		var blobFile = blobToFile(img, $scope.fileName);
+	$scope.saveCropp = function(img, cropped){
+		var blobFile = blobToFile(cropped, $scope.fileName);
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();		
