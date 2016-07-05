@@ -332,8 +332,11 @@ body.main-page {
 	line-height: 40px;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
-	margin-top: 0;
+	margin-top: 8px;
 	transition: none;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
+	margin-top: 0;
 }
 .check-in-button:hover,
 .check-in-button:focus,
@@ -2762,6 +2765,9 @@ spam-item {
 	outline: none;
 	cursor: pointer;
 }
+.user-publication .add-comment .publication-footer-button .publication-button:disabled{
+	cursor: not-allowed;
+}
 .user-publication .add-comment .publication-footer-button .publication-button:hover,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
@@ -2769,7 +2775,7 @@ spam-item {
     	color: #495b79;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button .ladda-label {
-	transition: all .3s ease-in-out .1s!important;
+	transition: all .2s ease-in-out !important;
 }
 .user-publication .add-comment .publication-footer .add-objects label span.add {
 	width: 40px;

@@ -179,7 +179,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.addNewComment = function(flag, pub, pubText, files){
-			console.log(flag, pubText);
+			$scope.disableAddComment = true;
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -194,12 +194,13 @@ angular.module('placePeopleApp')
 			}
 
 			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
 					if(flag === "feedPage"){
 						pub.files = [];
 						pub.commentModel = angular.copy(emptyPost);
-						pub.comments.unshift(response.data.comment);
+						pub.comments.push(response.data.comment);
 						pub.comment_count++;
 					}					
 				}
