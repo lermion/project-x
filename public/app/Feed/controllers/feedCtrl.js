@@ -216,6 +216,10 @@ angular.module('placePeopleApp')
 
 		$scope.addNewComment = function(flag, pub, pubText, files){
 			$scope.disableAddComment = true;
+			if(pubText === undefined || pubText === ""){
+				pubText = {};
+				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
+			}	
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -294,6 +298,34 @@ angular.module('placePeopleApp')
 			ngDialog.closeAll();
 		};
 
+		// $scope.returnToBack = function(){
+		// 		$state.go("feed");
+		// };
+
+		// if($state.current.name === "feed.mobile"){			
+		// 	var pubId = $stateParams.pubId;
+		// 	console.log(pubId);
+		// 	if ($window.innerWidth > 700) {
+		// 			$state.go('feed.desktop', {pubId: pubId});
+		// 	}			
+		// }
+		// if($state.current.name === "feed.desktop"){			
+		// 	var pubId = $stateParams.pubId;
+		// 	if ($window.innerWidth < 700) {
+		// 			console.log(pubId);
+		// 			$state.go('feed.mobile', {pubId: pubId});
+
+		// 	} else {
+		// 		// getSinglePublication(pubId);
+		// 		ngDialog.open({
+		// 					template: '../app/Feed/views/view-publication.html',
+		// 					className: 'view-publication ngdialog-theme-default',
+		// 					scope: $scope
+		// 				});
+		// 	}
+							
+		// }
+
 		$scope.publishNewPub = function(isAnon, files){
 
 			var pubText = angular.element(document.querySelector(".pubText")).val();
@@ -357,7 +389,7 @@ angular.module('placePeopleApp')
 					$scope.mainImage = response.images[0].url;
 				}
 				if ($window.innerWidth <= 700) {
-					// $state.go('mobile-pub-view', {username: response.user.login, id: pubId});								
+					// $state.go('feed.mobile', {pubId: pubId});								
 				}else{
 					if(!flag && $state.current.name === 'feed'){
 						ngDialog.open({
