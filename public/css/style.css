@@ -2748,7 +2748,7 @@ spam-item {
 }
 .user-publication .add-comment .publication-footer-button .publication-button,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button {
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
 	text-decoration: none;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
@@ -2763,8 +2763,8 @@ spam-item {
 	cursor: pointer;
 }
 .user-publication .add-comment .publication-footer-button .publication-button:hover,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover,
-.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
 	background-color: #fff;
     	color: #495b79;
 }
@@ -3092,7 +3092,10 @@ spam-item {
     		margin-top: 20px;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
-		margin-top: 0;
+		margin-top: 8px;
+	}
+	.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
+		margin-bottom: 0;
 	}
 	.publication .new-add  {
 		width: 100%;
