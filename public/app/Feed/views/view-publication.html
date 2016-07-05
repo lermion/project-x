@@ -12,11 +12,11 @@
 			<div class="user-menu" ng-click="showPubMenu=!showPubMenu">				
 				<div class="menu-item" ng-show="showPubMenu">
 					<div class="inner">
-						<a href="" ng-click="editPub(singlePublication)">Редактировать</a>
+						<!-- <a href="" ng-click="editPub(singlePublication)">Редактировать</a> -->
 						<a href="" ng-click="sharePub(singlePublication)">Переслать</a>
 						<a href="" ng-click="getPubLink(singlePublication)">Получить ссылку</a>
 						<a href="" ng-click="alertPub(singlePublication)">Пожаловаться</a>
-						<a href="" ng-click="deletePub(singlePublication)">Удалить</a>
+						<!-- <a href="" ng-click="deletePub(singlePublication)">Удалить</a> -->
 					</div>
 				</div>
 			</div>
@@ -112,9 +112,10 @@
 					<p class="img-name">{{file.name}}</p>
 				</div>
 			</div>
+			{{commentModel.pubText}}
 			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-popup-'+singlePublication.id">
 				<div class="publication-footer-button">
-					<button ng-disabled="disableAddComment" ng-click="addNewComment('userPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</button>    
+					<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</button>    
 				</div>
 				<div class="add-objects">						
 					<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 

@@ -1062,6 +1062,26 @@
 
 /*         smile   for group   start    */
 
+.popup-add-group.ngdialog-theme-default .add_newgroup .text-field {
+    width: 100%;
+    height: 130px;
+    margin: 0;
+    padding: 15px 0;
+    border: none;
+    position: relative;
+}
+.popup-add-group.ngdialog-theme-default .add_newgroup .text-field a.emoji-button {
+    top: 20px;
+}
+.popup-add-group.ngdialog-theme-default .add_newgroup .emoji-wysiwyg-editor {
+    height: 85px;
+}
+.popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
+    content: 'Описание группы ...';
+}
+.popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
+    content: '';
+}
 .popup-add-group .smiles {
     position: absolute;
     top: 16px;
@@ -1385,3 +1405,123 @@ a.add_comments {
       width: 230px;
  }
 }
+
+
+
+
+
+
+
+
+/*05.07.16 Editing "Files"*/
+
+.group-files {
+  width: 700px;
+  z-index: 1;
+  flex-wrap: wrap;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin: 0 auto 0px auto;
+}
+.group-files:last-child {
+  padding-bottom: 30px;
+}
+  .group-files-title {
+    display: flex;
+    box-sizing: border-box;
+    background-color: white;
+    width: 700px;
+    padding: 8px;
+    justify-content: flex-start;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    color: rgb(51,51,51);
+  }
+  .group-files-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 4px;
+    margin-top: 3px;
+    box-sizing: border-box;
+  }
+    .group-files-content {
+      box-sizing: border-box;
+      display: flex;
+      width: 136px;
+      height: 136px;
+      margin: 0 3px 3px 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+      .group-files a {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      .group-files-content a img {
+        display: flex;
+        max-width: 200%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        box-sizing: border-box;
+      }
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 720px) {
+  .group-files {
+    width: 500px;
+  }
+  .group-files-title {
+    width: 500px;
+    padding: 5px;
+    padding-left: 8px;
+    /*font-size: 0.9em;*/
+    font-family: "SFUIDisplayMedium";
+  }
+  .group-files-content {
+    width: 97px;
+    height: 97px;
+    margin: 0 1px 1px 0;
+    }
+
+}
+
+
+
+@media (max-width: 520px) {
+  .group-files {
+    width: 100%;
+  }
+  .group-files-title {
+    width: 100%;
+    padding: 5px;
+    padding-left: 8px;
+    /*font-size: 0.9em;*/
+    font-family: "SFUIDisplayMedium";
+  }
+  .group-files-content {
+    width: 24.6%;
+    padding: 0;
+    }
+  .group-files-container {
+    width: 100%;
+    margin: 0;
+  }
+}
+
