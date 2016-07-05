@@ -103,8 +103,15 @@ angular.module('placePeopleApp')
                 className: 'popup-add-group ngdialog-theme-default',
                 scope: $scope
             });
-        }
+        };
 
+			// set default tab (view) for group view
+			$scope.$on("$stateChangeSuccess", function() {
+				var state = $state.current.name;
+				if (state === 'group') {
+					$state.go('group.publications');
+				}
+			});
 
 
 }]);
