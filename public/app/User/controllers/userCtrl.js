@@ -9,6 +9,17 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
+
+		if (!storage.pubView) {
+			storageService.setStorageItem('pubView', 'greed');
+			storage = storageService.getStorage();
+		} else {
+			if (storage.pubView === 'greed') {
+				$scope.photosGrid = true;
+			} else if(storage.pubView === 'list'){
+				$scope.photosGrid = false;
+			}
+		}
 		
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
@@ -374,6 +385,25 @@ angular.module('placePeopleApp')
 				$state.go("user", {username: $stateParams.username});
 			}
 		}
+
+		if (!$stateParams.pubView) {
+			$stateParams.pubView = 'greed';
+		}		
+
+		$scope.pubViewStyleChange = function(flag){
+			if (flag) {
+				$scope.photosGrid = true;
+				storageService.setStorageItem('pubView', 'greed');
+			} else {
+				$scope.photosGrid = false;
+				storageService.setStorageItem('pubView', 'list');
+			}
+			console.log(storage);
+		}
+		
+
+
+
 		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
 				//getAllCommentsPublication(pubId);
