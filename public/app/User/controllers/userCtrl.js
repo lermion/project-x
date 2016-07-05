@@ -425,10 +425,10 @@ angular.module('placePeopleApp')
 					pub.files = [];
 					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
-						pub.comments.unshift(response.data.comment);
+						pub.comments.push(response.data.comment);
 						pub.comment_count++;
 					}else{
-						$scope.singlePublication.comments.unshift(response.data.comment);
+						$scope.singlePublication.comments.push(response.data.comment);
 						$scope.singlePublication.comment_count++;
 					}
 					
