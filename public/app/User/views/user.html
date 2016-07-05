@@ -1,6 +1,5 @@
 <div style="min-height: 100%;">	
-	<div class="user-main-content">
-	<!-- style="{{fixBodyPosition ? 'top:-'+500+'px' : ''}}" -->
+	<div class="user-main-content">	
 		<div class="user-main-content-item">
 			<header>
 				<div class="header header-user">
@@ -68,16 +67,16 @@
 							<div class="comunications" ng-show="myProfile">
 								<a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать публикацию</a>
 								<a href="javascript:void(0)" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
-								<div class="view" ng-init="photosGrid=true;">
-									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+								<div class="view">
+									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="pubViewStyleChange(true);"></a>
+									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="pubViewStyleChange(false);"></a>
 								</div>
 							</div>
 							<div class="comunications" ng-hide="myProfile">
 								<a href="javascript:void(0)" class="read" ng-click="sign()">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a> 
-								<div class="view" ng-init="photosGrid=true;">
-									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+								<div class="view">
+									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="pubViewStyleChange(true)"></a>
+									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="pubViewStyleChange(false)"></a>
 								</div>
 							</div>
 						</div>
@@ -89,19 +88,19 @@
 						<a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать публикацию</a>
 						<a href="javascript:void(0)" class="rewrite" ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition ? 'Сохранить' : 'Редактировать'}}</a>
 						<div class="view">
-							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="pubViewStyleChange(true);"></a>
+							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="pubViewStyleChange(false);"></a>
 						</div>
 					</div>
 					<div class="comunications adaptiv" ng-hide="myProfile">
 						<a href="javascript:void(0)" class="read" ng-click="isSigned=!isSigned;">{{isSigned ? 'Отписаться' : 'Подписаться'}}</a>				
 						<div class="view">
-							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="photosGrid=true;"></a>
-							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="photosGrid=false;"></a>
+							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table" ng-click="pubViewStyleChange(true);"></a>
+							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list" ng-click="pubViewStyleChange(false);"></a>
 						</div>
 					</div>
 					<p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
-					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>
+					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>					
 					<!-- unit grid-->						
 					<div class="my-photos" ng-show="photosGrid">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
@@ -110,8 +109,7 @@
 							</a>
 						</div>
 					</div>
-
-					<!-- single unit -->
+					<!-- single unit -->					
 					<div class="my-photos-list" ng-show="!photosGrid">
 						<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}" ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
 							<div role="document">
