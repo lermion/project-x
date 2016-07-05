@@ -257,7 +257,8 @@ angular.module('placePeopleApp')
 			ngDialog.closeAll();
 		};
 
-		$scope.publishNewPub = function(files){
+		$scope.publishNewPub = function(isAnon, files){
+
 			var pubText = angular.element(document.querySelector(".pubText")).val();
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
@@ -294,7 +295,7 @@ angular.module('placePeopleApp')
 			// }
 
 
-			PublicationService.createPublication(pubText, 0, isMain, videos, images)			
+			PublicationService.createPublication(pubText, !!isAnon ? 1 : 0, isMain, videos, images)			
 				.then(					
 					function(res){						
 						if (res.status) {
