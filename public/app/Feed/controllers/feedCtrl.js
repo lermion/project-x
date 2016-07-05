@@ -179,7 +179,6 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.addNewComment = function(flag, pub, pubText, files){
-			console.log(flag, pubText);
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -199,7 +198,7 @@ angular.module('placePeopleApp')
 					if(flag === "feedPage"){
 						pub.files = [];
 						pub.commentModel = angular.copy(emptyPost);
-						pub.comments.unshift(response.data.comment);
+						pub.comments.push(response.data.comment);
 						pub.comment_count++;
 					}					
 				}
