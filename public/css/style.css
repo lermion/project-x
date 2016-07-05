@@ -332,7 +332,7 @@ body.main-page {
 	line-height: 40px;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
-	margin-top: 8px;
+	margin-top: 0;
 	transition: none;
 }
 .check-in-button:hover,
@@ -2746,13 +2746,15 @@ spam-item {
 .user-publication .add-comment .publication-footer-button .publication-button {
 	margin-left: 0;
 }
-.user-publication .add-comment .publication-footer-button .publication-button {
+.user-publication .add-comment .publication-footer-button .publication-button,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	text-decoration: none;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	line-height: 30px;
 	padding: 0 10px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .3s ease-in-out .1s!important;
 	color: #fff;
 	background-color: #495b79;
 	border-radius: 3px;
@@ -2760,9 +2762,14 @@ spam-item {
 	outline: none;
 	cursor: pointer;
 }
-.user-publication .add-comment .publication-footer-button .publication-button:hover {
+.user-publication .add-comment .publication-footer-button .publication-button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button:hover {
 	background-color: #fff;
     	color: #495b79;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button .ladda-label {
+	transition: all .3s ease-in-out .1s!important;
 }
 .user-publication .add-comment .publication-footer .add-objects label span.add {
 	width: 40px;
@@ -3811,4 +3818,12 @@ body.public.ngdialog-open {
 }
 .posFixedPopup{
 	position: fixed !important;
+}
+body.ngdialog-open {
+    overflow: hidden;
+}
+.ngdialog.view-publication.ngdialog-theme-default {
+	position: fixed;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
