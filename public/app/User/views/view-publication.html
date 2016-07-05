@@ -125,13 +125,8 @@
 				</div>   
 			</div> -->
 
-<<<<<<< HEAD
-			<div class="new-add">
-				<div class="new-img" ng-repeat="file in singlePublication.files" ng-click="showMoreImages(singlePublication.files)">  
-=======
 			<div class="new-add" ng-show="singlePublication.files">
-				<div class="new-img" ng-repeat="file in singlePublication.files">  
->>>>>>> 8917765f01d8208828c704001b5ba355d8658e87
+				<div class="new-img" ng-repeat="file in singlePublication.files" ng-click="showMoreImages(singlePublication.files)">  
 					<div class="inner">
 						<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 							<div class="close-inner">
