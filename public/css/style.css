@@ -2969,6 +2969,7 @@ spam-item {
  	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
  }
 .comment-imges .comment-list {
 	width: 13.8%;
@@ -4333,4 +4334,5 @@ body.public.ngdialog-open .user-main-content {
 	padding-bottom: 75px;
 	height: 100%;
 	box-sizing: border-box;
+	min-height: 100vh;
 }
