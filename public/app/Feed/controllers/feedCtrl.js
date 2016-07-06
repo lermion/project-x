@@ -79,16 +79,30 @@ angular.module('placePeopleApp')
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};		
 
-		function getMainPubs(){
-			FeedService.getPublications()
+		function getMainPubs(offset){
+			FeedService.getPublications(offset)
 			.then(function(res){
 					$scope.limit = 6;
-					$scope.publications = res;
+					if (!$scope.publications) {
+						$scope.publications = res;
+					} else {						
+						if (res.length > 0) {
+							res.forEach(function(publication){							
+								$scope.publications.push(publication);
+							});
+						}
+					}
+					
 				}, function(err){
 					console.log(err);
 				});
 		}
-		getMainPubs();
+		var counter = 0;		
+		getMainPubs(counter);
+		$scope.loadMorePubs = function(){
+			counter+=10;			
+			getMainPubs(counter);
+		};		
 
 		UserService.getUserData($scope.loggedUser)
 			.then(

@@ -106,6 +106,13 @@ angular.module('placePeopleApp')
 	    //   templateUrl: '../../app/Feed/views/feed.html',
 	    //   controller: 'feedCtrl'
 	    // })
+	    .state('chat', {
+	      url: '/chat',
+	      templateUrl: '../../app/Chat/views/dla-testa.html',
+	      controller: 'chatCtrl'
+	    })
+
+	    /*User must be in the end*/
 	    .state('user', {
 	      url: '/:username',
 	      templateUrl: '../../app/User/views/user.html',
@@ -121,6 +128,7 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/User/views/user.html',
 	      controller: 'userCtrl'
 	    })
+	    
 
 
 
