@@ -3847,15 +3847,18 @@ body.ngdialog-open {
 /* group-chat */
 
 .group-chat {
-	max-height: 645px;
 	height: auto;
 	width: 100%;
 	background: url(../images/chat-bg.png) repeat; 
-	padding: 5px 10px;
 	box-sizing: border-box;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
-	overflow-x: auto;
 	margin-bottom: 20px;
+}
+.group-chat-inner {
+	padding: 5px 10px;
+	overflow-x: auto;
+	max-height: 645px;
+	height: auto;
 }
 .group-chat .date-messeges {
 	display: flex;
@@ -3907,9 +3910,10 @@ body.ngdialog-open {
 	align-items: flex-end;
 	position: relative;
 }
-.my-messege .group-chat .user-messege {
+.group-chat .my-messege  .user-messege {
 	margin-left: 0;
 	margin-right: 10px;
+	background: #d7e2fa;
 }
 .group-chat .user-messege:before {
 	position: absolute;
@@ -3920,6 +3924,12 @@ body.ngdialog-open {
 	background-repeat: no-repeat;
 	width: 15px;
     	height: 10px;
+}
+.group-chat .my-messege  .user-messege:before {
+	bottom: -2px;
+	right: -7px;
+	background-image: url(../images/my-user-tail.png);
+	left: auto;
 }
 .group-chat .user-messege .user-name {
 	font-size: 14.6px;
@@ -3947,6 +3957,12 @@ body.ngdialog-open {
 	margin: 0;
 	font-size: 12.5px;
 	padding-left: 15px;
+}
+.group-chat .my-messege .user-messege  .messege-time {
+	padding-right: 20px;
+	background-image: url(../images/done.png);
+	background-position: right center;
+	background-repeat: no-repeat;
 }
 .group-chat .user-messege .pictures {
 	height: 100px;
@@ -3984,12 +4000,128 @@ body.ngdialog-open {
 	border: 1px solid #dadde1;
 	margin-bottom: 15px;
 }
+.my-messege .chat-user-pulication {
+	background: #d7e2fa;
+	margin-left: 0;
+	border: 1px solid #d7e2fa;
+	margin-right: 10px;
+}
 #wrapper .chat-user-pulication .user-publication-header {
 	background: #fff;
+}
+#wrapper .my-messege .chat-user-pulication  .user-publication-header{
+	background: #d7e2fa;
 }
 .chat-user-pulication .user-publication-header .user-function {
  	width: 100%;
  }
 .chat-user-pulication  .user-publication-content {
 	border-bottom: none;
+}
+.group-chat .rewrite {
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	background: #495b79;
+	line-height: 40px;
+	border-radius: 0;
+	border: 1px solid #495b79; 
+	position: static;
+	margin-top: 15px;
+}
+.group-comment {
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #f5f5f5;
+	border-top: 1px solid #e8eaeb; 
+}
+.group-comment  .textarea {
+	resize: none;
+	width: 100%;
+	height: 100%;
+	border-radius: 2px;
+	border: 1px solid #e5e7e9;
+	font-size: 14.6px;
+	color: #999;
+	background: #fff;
+	padding: 5px 30px 5px 10px;
+	box-sizing: border-box;
+	font-family: "SFUIDisplayLight";
+	height: 30px;
+}
+.group-comment .smile {
+	display: block;
+	width: 45px;
+	height: 40px;
+	background-image: url(../images/smil.png);
+	background-position:  center;
+	background-repeat: no-repeat;
+	background-size: 50%;
+}
+.group-comment .smile:hover {
+	background-image: url(../images/smil-hover.png);
+}
+.group-comment  .send {
+	position: static;
+	height: 40px;
+	margin-top: 0;
+	border-radius: 0;
+	background: transparent;
+	color: #495b79;
+	font-family: "SFUIDisplayMedium";
+}
+.group-comment  .add-objects,
+.group-comment  .add-objects label {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	display: block;
+}
+.group-comment  .add-objects label span.add {
+	width: 40px;
+	padding-left: 0;
+	background-image: url(../images/clip-hover.png);
+	background-position: center;
+	background-size: 55%;
+	display: block;
+	height: 40px;
+	background-repeat: no-repeat;
+}
+.group-comment  .add-objects label span.add:hover {
+	background-image: url(../images/clip.png);
+}
+.group-comments .pictures {
+	padding: 5px 10px;
+	overflow-x: auto;
+	max-height: 112px;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.group-comments .pictures .pic {
+	width: 132px;
+	height: 100px;
+	overflow: hidden;
+	margin-bottom: 2px;
+	margin-right: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0,0,0,.2);
+}
+.group-comments .pictures .pic img {
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
+.group-comments .pictures .pic:nth-child(5n) {
+	margin-right: 0;
 }
