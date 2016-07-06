@@ -444,5 +444,42 @@ angular.module('placePeopleApp')
 			});
 		}
 
+		$scope.openComplainBlock = function(commentId){			
+			ngDialog.open({
+							template: '../app/Feed/views/alert-publication.html',
+							className: 'alert-publication ngdialog-theme-default',
+							scope: $scope,
+							data: {
+								commentId: commentId
+							}							
+						});
+		};
+
+		$scope.sendCommentComplain = function(commentId, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
+			var complainCategory = [];
+			cat1 ? complainCategory.push(1) : '';
+			cat2 ? complainCategory.push(2) : '';
+			cat3 ? complainCategory.push(3) : '';
+			cat4 ? complainCategory.push(4) : '';
+			cat5 ? complainCategory.push(5) : '';
+			cat6 ? complainCategory.push(6) : '';
+			cat7 ? complainCategory.push(7) : '';
+			
+			// console.log(commentId, complainCategory);
+
+			// PublicationService.complaintCommentAuthor(commentId, complainCategory)
+			// .then(					
+			// 		function(res){						
+			// 			if (res.status) {							
+			// 				ngDialog.closeAll();
+			// 			} else {
+			// 				console.log('Error');							
+			// 			}						
+			// 		},
+			// 		function(err){
+			// 			console.log(err);
+			// 		});
+		};
+
 
 }]);
