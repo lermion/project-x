@@ -2,5 +2,5 @@
 	'use strict';
 /* App Module */
 	angular.module('placePeopleApp', ['ui.router', 'flow', 'ngImgCrop', 'ngDialog', 'angular-ladda', 
-		'ngScrollbar', 'angularMoment', 'ngFileUpload', 'ngSanitize', 'emojiApp', 'app.places']);
+		'ngScrollbar', 'angularMoment', 'ngFileUpload', 'ngSanitize', 'emojiApp', 'app.places', 'infinite-scroll']);
 }())
