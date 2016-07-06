@@ -252,6 +252,7 @@ angular.module('placePeopleApp')
 			}
 
 			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				$scope.showAddComment = false;
 				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
@@ -311,6 +312,14 @@ angular.module('placePeopleApp')
 					images: images
 				}
 			});
+		}
+
+		$scope.showAddCommentBlock = function(showAddComment){
+			if(showAddComment){
+				$scope.showAddComment = false;
+			}else{
+				$scope.showAddComment = true;
+			}
 		}
 
 		$scope.closePopup = function(){

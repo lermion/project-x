@@ -14,7 +14,7 @@ class CreateTypePlacesTable extends Migration
     {
         Schema::create('type_places', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description');
             $table->string('avatar');
             $table->timestamps();

@@ -46,7 +46,7 @@ class Publication extends Model
     {
         $publications = Publication::with(['user', 'videos', 'group', 'images', 'comments' => function ($query) {
             $query->take(3);
-            $query->orderBy('id', 'desc');
+           // $query->orderBy('id', 'desc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where(function ($query) use ($userId) {
                 $query->where(['is_main'=> true,'is_moderate'=>true])
@@ -79,7 +79,7 @@ class Publication extends Model
     {
         $publications = Publication::with(['videos', 'images', 'user', 'comments' => function ($query) {
             $query->take(3);
-            $query->orderBy('id', 'desc');
+           // $query->orderBy('id', 'desc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where('user_id', $userId)
             ->where('is_anonym', false)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
@@ -97,7 +97,7 @@ class Publication extends Model
     {
         $publication = Publication::with(['videos', 'group', 'images', 'comments' => function ($query) {
             $query->take(3);
-            $query->orderBy('id', 'desc');
+           // $query->orderBy('id', 'desc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->find($id);
         $publication->like_count = $publication->likes()->count();
