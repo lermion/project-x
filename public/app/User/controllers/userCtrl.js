@@ -151,7 +151,7 @@ angular.module('placePeopleApp')
 				counter+=12;
 			} else {
 				return;
-			}						
+			}
 			getUserPubs($scope.userData.id, counter);
 		};
 
@@ -472,7 +472,6 @@ angular.module('placePeopleApp')
 			}
 		}
 		$scope.addNewComment = function(flag, pub, pubText, files){
-			$scope.showAddComment = false;
 			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
 				pubText = {};
@@ -491,6 +490,7 @@ angular.module('placePeopleApp')
 				});
 			}		
 			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				$scope.showAddComment = false;
 				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
