@@ -145,15 +145,17 @@ angular.module('placePeopleApp')
 				});
 	};
 
-	$scope.myImage='';
-	$scope.myCroppedImage='';
+	$scope.image = {
+		myImage: "",
+		myCroppedImage: ""
+	};
 	var handleFileSelect = function(evt) {
 		var file = evt.currentTarget.files[0];		
 		$scope.fileName = file.name;
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
-				$scope.myImage = evt.target.result;
+				$scope.image.myImage = evt.target.result;
 				ngDialog.open({
 					template: '../app/Settings/views/crop-image.html',
 					className: 'settings-add-ava ngdialog-theme-default',
