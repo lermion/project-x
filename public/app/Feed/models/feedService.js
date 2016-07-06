@@ -9,7 +9,7 @@ angular.module('placePeopleApp')
 
 		function getPublications(offset){			
 			var defer = $q.defer();
-			var limit = 2;			
+			var limit = 10;			
 			var data = {
 				'offset': offset,
 				'limit' : limit

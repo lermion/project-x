@@ -91,9 +91,7 @@ angular.module('placePeopleApp')
 								$scope.publications.push(publication);
 							});
 						}
-					}
-					console.log($scope.publications);
-					
+					}										
 				}, function(err){
 					console.log(err);
 				});
@@ -102,10 +100,8 @@ angular.module('placePeopleApp')
 		getMainPubs(counter);
 
 		$scope.loadMorePubs = function(){			
-			// console.log(counter);
-			// console.log($scope.publications.length);
 			if ($scope.publications && counter < $scope.publications.length) {
-				counter+=2;
+				counter+=10;
 			} else {
 				return;
 			}			
