@@ -25,7 +25,7 @@
 		</div>
 	</header>
 	
-	<div class="main-content">
+	<div class="main-content" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 		<div class="groups">
 			<a ui-sref="groups" class="pub-groups">Публичные группы</a>
 			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
@@ -61,7 +61,9 @@
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
 					<div class="publication-ava" ng-click="showPublication(pub)">
-						<img ng-src="{{pub.mainFile.url}}">
+						<a href="javascript:void(0);">
+							<img ng-src="{{pub.mainFile.url}}">
+						</a>
 					</div>					
 					<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
 						<div ng-click="changeMainFileFeed(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
@@ -121,12 +123,10 @@
 				</div>
 
 				<div class="added_comments">
-					<a href="" class="add_comments">
-						Добавить комментарий 
-					</a>
+					<a ng-hide="showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(showAddComment)" class="add_comments">Добавить комментарий</a>
 				</div>
 
-				<div class="add-comment" ng-init="pub.commentModel = commentModel">
+				<div class="add-comment" ng-show="showAddComment" ng-init="pub.commentModel = commentModel">
 					<div class="user-ava">
 						<a class="ava" ui-sref="user({username: loggedUser})">
 							<img ng-src="{{userData.avatar_path}}" alt="">
@@ -175,7 +175,7 @@
 				</div> 
 			</div>
 		</div>  <!-- end of publication -->
-		<p ng-click="loadMorePubs()">load more</p>
+		<!-- <p ng-click="loadMorePubs()">load more</p> -->
 
 	</div> 
 
