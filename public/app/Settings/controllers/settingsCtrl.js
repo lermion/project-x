@@ -166,8 +166,8 @@ angular.module('placePeopleApp')
 		var blobFile = blobToFile(cropped, $scope.fileName);
 		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
-		$scope.showEditAva = false;	
-		// ngDialog.closeAll();
+		$scope.showEditAva = false;
+		ngDialog.closeAll();
 		UserService.updateAvatar(blobFile).then(function(res){
 			$scope.consoleLog = res;
 			if(res.status){

@@ -118,7 +118,7 @@ angular.module('placePeopleApp')
 
         function updateAvatar(avatar){
             var data = new FormData();            
-            data.set('avatar', avatar, avatar.filename);                        
+            data.append('avatar', avatar);                        
             var config = {
                     headers: {
                         'Content-Type': undefined,                        
