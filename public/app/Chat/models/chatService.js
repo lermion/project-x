@@ -1,5 +1,5 @@
 angular.module('placePeopleApp')
-	.factory('PublicationService', ['$http', '$q', '$location', function($http, $q, $location){
+	.factory('ChatService', ['$http', '$q', '$location', function($http, $q, $location){
 
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
