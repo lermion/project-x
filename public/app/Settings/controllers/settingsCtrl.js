@@ -170,10 +170,12 @@ angular.module('placePeopleApp')
 		ngDialog.closeAll();
 		UserService.updateAvatar(blobFile)
 			.then(function(res){
+				$scope.consoleLog = res;
 				if (res.status) {
 					storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
 				}				   			
 			  }, function(err){
+			  	$scope.consoleLog = err;
 				console.log(err);
 			  });	
 	};
