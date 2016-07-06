@@ -63,17 +63,14 @@ angular.module('placePeopleApp')
 		});
 
 	/*Page code*/	
-
-	function blobToFile(dataURI, callback){
+	function blobToFile(dataURI){
 		var byteString = atob(dataURI.split(',')[1]);
-		var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
 		var ab = new ArrayBuffer(byteString.length);
 		var ia = new Uint8Array(ab);
 		for (var i = 0; i < byteString.length; i++) {
 			ia[i] = byteString.charCodeAt(i);
 		}
-		var bb = new Blob([ab]);
-		return bb;
+		return new Blob([ab], { type: 'image/jpeg' });
 	}
 
 	UserService.getUserData(storage.username)
@@ -170,7 +167,7 @@ angular.module('placePeopleApp')
 		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
-		ngDialog.closeAll();		
+		ngDialog.closeAll();
 		UserService.updateAvatar(blobFile)
 			.then(function(res){
 				if (res.status) {
