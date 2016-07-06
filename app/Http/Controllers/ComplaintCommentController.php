@@ -8,6 +8,7 @@ use App\ComplaintComment;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
 
 class ComplaintCommentController extends Controller
 {
@@ -16,7 +17,7 @@ class ComplaintCommentController extends Controller
         try {
             $this->validate($request, [
                 'comment_id' => 'required|exists:comments,id',
-                'complaint_category_id' => 'required|exists:complaint_categories,id',
+                'complaint_category_ids' => 'array',
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -28,14 +29,22 @@ class ComplaintCommentController extends Controller
             ];
             return response()->json($result);
         }
-        $complaintData = $request->all();
+        $validator = Validator::make($request->input('complaint_category_ids'), [
+            'required|exists:complaint_categories,id'
+        ]);
+
+        if ($validator->fails()) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Bad category id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
         $userWhichIdSub = Auth::id();
-
         $userTo = Comment::find($request->input('comment_id'));
-
-        $complaintData['user_to_id'] = $userTo->user_id;
-
-        $complaintData['user_which_id'] = $userWhichIdSub;
         if ($userTo->user_id == $userWhichIdSub) {
             $result = [
                 "status" => false,
@@ -46,7 +55,13 @@ class ComplaintCommentController extends Controller
             ];
             return response()->json($result);
         }
-        $complaint = ComplaintComment::create($complaintData);
+        foreach($request->input('complaint_category_ids') as $categoryId){
+            $complaintData = $request->all();
+            $complaintData['complaint_category_id'] = $categoryId;
+            $complaintData['user_to_id'] = $userTo->user_id;
+            $complaintData['user_which_id'] = $userWhichIdSub;
+            $complaint = ComplaintComment::create($complaintData);
+        }
         $resultData = [
             'status' => true
         ];
