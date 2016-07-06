@@ -1261,9 +1261,17 @@
 .popup-add-group .fifth_item ul.item1 li:last-child {
     margin-bottom: 0px;
 }
-
-.popup-add-group .fifth_item ul.item1 li:before {
-  background: #ec6045;
+.popup-add-group .fifth_item .item__remove {
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 33px;
+    top: 1px;
+}
+.popup-add-group .fifth_item .item__remove:before {
+    background: #ec6045;
     border-radius: 50%;
     color: #bbb;
     content: '\00D7';
@@ -1272,9 +1280,9 @@
     height: 15px;
     line-height: 13px;
     position: absolute;
-    left: 33px;
+    left: 0;
     text-align: center;
-    top: 1px;
+    top: 0;
     width: 15px;
 }
 

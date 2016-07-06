@@ -11,9 +11,17 @@ angular.module('placePeopleApp')
                 avatar: null
             };
             $scope.subscribers = [];
-            $scope.name = '';
-            $scope.onItemSelected = function () {
-                console.log('selected=' + $scope.name);
+            $scope.users = [];
+            $scope.strSearch = '';
+            $scope.onItemSelected = function (user) {
+
+                var item = {
+                    userId: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    avatar: user.avatar_path
+                };
+                $scope.users.push(item);
             };
             activate();
 
@@ -157,17 +165,18 @@ angular.module('placePeopleApp')
                 });
             };
 
-            $scope.filterSubscribers = function(){
-
-                return $scope.users.filter(function(item){
-                    return (item.userId.toString().indexOf($scope.filterValue) > -1 || item.firstName.toLowerCase().indexOf($scope.filterValue) > -1)
-                }); //end of filter
-            }; //end of filterUsers
+            $scope.removeUser = function (user) {
+                for (var i = $scope.users.length - 1; i >= 0; i--) {
+                    if ($scope.users[i].userId == user.userId) {
+                        $scope.users.splice(i, 1);
+                    }
+                }
+            };
 
 
             function getSubscribers(userId) {
                 UserService.getSubscribers(userId)
-                    .then(function(subscribers) {
+                    .then(function (subscribers) {
                         $scope.subscribers = subscribers;
                     });
             }

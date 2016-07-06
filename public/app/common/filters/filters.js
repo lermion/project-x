@@ -6,9 +6,12 @@ angular.module('placePeopleApp')
             }
         };
     })
-    .filter('userByName', function () {
-    return function (items) {
-        return (item.userId.toString().indexOf($scope.filterValue) > -1 ||
-        item.firstName.toLowerCase().indexOf($scope.filterValue) > -1)
-    };
-});
+    .filter('filterBy', ['$parse', function ($parse) {
+        return function (collection, search) {
+            search = search.toLowerCase();
+            return collection.filter(function (item) {
+                return (item.first_name.toLowerCase().indexOf(search) > -1 ||
+                item.last_name.toLowerCase().indexOf(search) > -1)
+            });
+        }
+    }]);

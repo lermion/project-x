@@ -43,15 +43,18 @@
                 prompt="Пригласить в группу"
                 key1="first_name"
                 key2="last_name"
-                model="search"
-                on-select="onItemSelected()"
+                model="strSearch"
+                on-select="onItemSelected(user)"
         ></typeahead>
         <!--<input type="text" id="" placeholder="Пригласить в группу...">-->
     </div>
 
     <div class="fifth_item">
         <ul class="item1">
-            <li><img src="images/picture.jpg"> Петров Василий</li>
+            <li ng-repeat="user in users">
+                <div class="item__remove" ng-click="removeUser(user)"></div>
+                <img ng-src="{{user.avatar}}">{{user.firstName + ' ' + user.lastName}}
+            </li>
         </ul>
         <div class="item2">
             <a href=""> Отменить </a>

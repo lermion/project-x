@@ -22,11 +22,11 @@
             templateUrl: './app/common/directives/typeahead/typeahead.tpl.html',
             link: function (scope, elem, attrs) {
                 scope.handleSelection = function (selectedItem) {
-                    scope.model = selectedItem;
+                    scope.model = '';
                     scope.current = 0;
                     scope.selected = true;
                     $timeout(function () {
-                        scope.onSelect();
+                        scope.onSelect({user: selectedItem});
                     }, 200);
                 };
                 scope.current = 0;
