@@ -1,12 +1,12 @@
 angular.module('placePeopleApp')
-	.config(['$urlRouterProvider', '$stateProvider', 'laddaProvider', 
+	.config(['$urlRouterProvider', '$stateProvider', 'laddaProvider',
 		function($urlRouterProvider, $stateProvider, laddaProvider){
-		
+
     laddaProvider.setOption({
       style: 'expand-right',
       spinnerSize: 30,
       spinnerColor: '#ffffff'
-    }); 
+    });
 
   	$urlRouterProvider.otherwise('/');
 
@@ -122,7 +122,7 @@ angular.module('placePeopleApp')
 	      controller: 'userCtrl'
 	    })
 
-	    
-	    	    
-	    
+
+
+
 	}]);
