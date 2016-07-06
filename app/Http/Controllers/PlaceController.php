@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Place;
+use App\PlaceUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class PlaceController extends Controller
 {
@@ -21,8 +23,8 @@ class PlaceController extends Controller
                 'name' => 'required|unique:places',
                 'description' => 'required',
                 //'address' =>
-                'coordinates_x'=> 'numeric',
-                'coordinates_y'=> 'numeric',
+                //'coordinates_x'=> 'numeric',
+                //'coordinates_y'=> 'numeric',
                 'expired_days' => 'integer',
                 'avatar' => 'image'
             ]);
@@ -37,16 +39,30 @@ class PlaceController extends Controller
             return response()->json($result);
         }
         $placeData = $request->all();
-        $placeData['url_name'] = $this->transliterate($request->input('name')); //????????
+        $placeData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
             $placeData['avatar'] = $path;
         }
-        $group = Place::create($placeData);
-        GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true]);
-        return response()->json(["status" => true, 'group' => $group]);
+        $place = Place::create($placeData);
+        PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true]);
+        return response()->json(["status" => true, 'place' => $place]);
     }
+
+    public function show($name)
+    {
+        $place = Place::where('url_name', $name)->first();
+       /* if ($place) {
+            if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+                //return null;
+            }
+            $place->count_users = $place->users()->count();
+            $place->count_publications = $place->publications()->count();
+        }*/
+        return $place;
+    }
+
     function transliterate($input)
     {
         $translite = array(

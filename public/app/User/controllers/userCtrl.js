@@ -96,6 +96,7 @@ angular.module('placePeopleApp')
 
 		/*User info*/
 
+		var counter = 0;
 		UserService.getUserData($stateParams.username)
 			.then(
 				function(res){
@@ -110,19 +111,28 @@ angular.module('placePeopleApp')
 						$scope.isSigned = res.is_sub;
 					}					
 					$scope.userData = res;
-					getUserPubs(res.id);
+					getUserPubs(res.id, counter);
 				},
 				function(err){
 					console.log(err);
 				}
 			);
 
-		function getUserPubs(userId){
-			PublicationService.getUserPublications(userId)
+		function getUserPubs(userId, counter){
+			PublicationService.getUserPublications(userId, counter)
 			.then(
 				function(res){					
 					if (res.status) {
-						$scope.userPublications = res.publications;
+						// $scope.userPublications = res.publications;
+						if (!$scope.userPublications) {
+							$scope.userPublications = res.publications;
+						} else {						
+							if (res.publications.length > 0) {
+									res.publications.forEach(function(pub){							
+										$scope.userPublications.push(pub);
+									});
+							}
+						}
 					} else {
 						if (res.error.code === "8") {							
 							$scope.needToSign = true;
@@ -137,11 +147,17 @@ angular.module('placePeopleApp')
 			);
 		}
 
-		
+		$scope.loadMorePubs = function(flag){
+			if (flag === 'greed') {
+				counter+=12;
+			} else {
+				counter+=12;
+			}						
+			getUserPubs($scope.userData.id, counter);
+		};
 
 		//Sign on
-		$scope.sign = function(subscription){
-			console.log();
+		$scope.sign = function(subscription){			
 			if($scope.loggedUserId == $scope.userData.id){
 				$scope.userData.id = subscription.id;
 			}
@@ -271,7 +287,8 @@ angular.module('placePeopleApp')
 			ngDialog.open({
 					template: '../app/User/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					name: "create-publication"
 				});
 		};
 
@@ -317,10 +334,27 @@ angular.module('placePeopleApp')
 		};
 		$scope.emojiMessage = {};
 		$scope.$on('ngDialog.opened', function(e, $dialog){
-			var openDialogs = ngDialog.getOpenDialogs();
-			if(openDialogs.length === 1){
+			if($dialog.name === "view-publication"){
 				window.emojiPicker = new EmojiPicker({
-					emojiable_selector: '[data-emojiable=true]',
+					emojiable_selector: '.view-publication-pub-text',
+					assetsPath: 'lib/img/',
+					popupButtonClasses: 'fa fa-smile-o'
+				});
+				window.emojiPicker.discover();
+				$(".emoji-button").text("");
+			}else if($dialog.name === "edit-publication"){
+				window.emojiPicker = new EmojiPicker({
+					emojiable_selector: '.edit-publication-pub-text',
+					assetsPath: 'lib/img/',
+					popupButtonClasses: 'fa fa-smile-o'
+				});
+				window.emojiPicker.discover();
+				$(".emoji-button").text("");
+				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text;
+			}else if($dialog.name === "create-publication"){
+				console.log("hgello");
+				window.emojiPicker = new EmojiPicker({
+					emojiable_selector: '.create-publication-pub-text',
 					assetsPath: 'lib/img/',
 					popupButtonClasses: 'fa fa-smile-o'
 				});
@@ -329,7 +363,7 @@ angular.module('placePeopleApp')
 			}
 		});
 		$scope.publishNewPub = function(files){
-			var pubText = angular.element(document.querySelector(".pubText")).val();
+			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -401,7 +435,6 @@ angular.module('placePeopleApp')
 				$scope.photosGrid = false;
 				storageService.setStorageItem('pubView', 'list');
 			}
-			console.log(storage);
 		}
 		
 
@@ -422,7 +455,8 @@ angular.module('placePeopleApp')
 						ngDialog.open({
 							template: '../app/User/views/view-publication.html',
 							className: 'view-publication ngdialog-theme-default',
-							scope: $scope
+							scope: $scope,
+							name: "view-publication"
 						});
 						// $state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});			
 					}
@@ -435,13 +469,20 @@ angular.module('placePeopleApp')
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);			
 		};
+		$scope.showAddCommentBlock = function(showAddComment){
+			if(showAddComment){
+				$scope.showAddComment = false;
+			}else{
+				$scope.showAddComment = true;
+			}
+		}
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			$scope.showAddComment = false;
 			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
 				pubText = {};
 				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
 			}
-			$scope.showAddCommentBlock=false;			
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -459,7 +500,6 @@ angular.module('placePeopleApp')
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
 					pub.files = [];
-					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
 						pub.comments.push(response.data.comment);
 						pub.comment_count++;
@@ -585,10 +625,11 @@ angular.module('placePeopleApp')
 		$scope.editPub = function(pub){			
 			$scope.currPub = pub;
 			editPubPopup = ngDialog.open({
-							template: '../app/User/views/edit-publication.html',
-							className: 'user-publication ngdialog-theme-default',
-							scope: $scope
-						});
+				template: '../app/User/views/edit-publication.html',
+				className: 'user-publication ngdialog-theme-default',
+				scope: $scope,
+				name: "edit-publication"
+			});
 		};
 
 		function getBlobFromUrl(item, callback) {
@@ -668,6 +709,7 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.saveEditedPub = function(pubId, text, files){
+			text = $(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML;
 			$scope.updatePubLoader = true;
 			var images = [];
 			var videos = [];

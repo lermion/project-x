@@ -1,5 +1,5 @@
 angular.module('placePeopleApp')
-	.factory('PublicationService', ['$http', '$q', '$location', function($http, $q, $location){
+	.factory('ChatService', ['$http', '$q', '$location', function($http, $q, $location){
 
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
@@ -121,14 +121,9 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		}
 		
-		function getUserPublications(userId, offset){
+		function getUserPublications(userId){        
 				defer = $q.defer();
-				var limit = 12;			
-				var data = {
-					'offset': offset,
-					'limit' : limit
-				}
-				$http.post(path + 'user/'+userId+'/publication', data)
+				$http.get(path + 'user/'+userId+'/publication')
 						.success(function (response){              
 								defer.resolve(response);
 						})

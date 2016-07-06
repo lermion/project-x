@@ -79,16 +79,30 @@ angular.module('placePeopleApp')
 		$scope.commentModel = {pubText: ''};
 		var emptyPost = {pubText: ''};		
 
-		function getMainPubs(){
-			FeedService.getPublications()
+		function getMainPubs(offset){
+			FeedService.getPublications(offset)
 			.then(function(res){
 					$scope.limit = 6;
-					$scope.publications = res;
+					if (!$scope.publications) {
+						$scope.publications = res;
+					} else {						
+						if (res.length > 0) {
+							res.forEach(function(publication){							
+								$scope.publications.push(publication);
+							});
+						}
+					}
+					
 				}, function(err){
 					console.log(err);
 				});
 		}
-		getMainPubs();
+		var counter = 0;		
+		getMainPubs(counter);
+		$scope.loadMorePubs = function(){
+			counter+=10;			
+			getMainPubs(counter);
+		};		
 
 		UserService.getUserData($scope.loggedUser)
 			.then(
@@ -299,25 +313,24 @@ angular.module('placePeopleApp')
 			ngDialog.closeAll();
 		};
 
-		// $scope.returnToBack = function(){
-		// 		$state.go("feed");
-		// };
+		$scope.returnToBack = function(){
+				$state.go("feed");
+		};
 
-		// if($state.current.name === "feed.mobile"){			
-		// 	var pubId = $stateParams.pubId;
-		// 	console.log(pubId);
+		// if($state.current.name === "feed-mobile"){				
+		// 	var pubId = $stateParams.pubId;			
 		// 	if ($window.innerWidth > 700) {
-		// 			$state.go('feed.desktop', {pubId: pubId});
+		// 			$state.go('feed-desktop', {pubId: pubId});
 		// 	}			
 		// }
-		// if($state.current.name === "feed.desktop"){			
+		// if($state.current.name === "feed-desktop"){						
 		// 	var pubId = $stateParams.pubId;
 		// 	if ($window.innerWidth < 700) {
 		// 			console.log(pubId);
-		// 			$state.go('feed.mobile', {pubId: pubId});
+		// 			$state.go('feed-mobile', {pubId: pubId});
 
 		// 	} else {
-		// 		// getSinglePublication(pubId);
+		// 		getSinglePublication(pubId);
 		// 		ngDialog.open({
 		// 					template: '../app/Feed/views/view-publication.html',
 		// 					className: 'view-publication ngdialog-theme-default',
@@ -328,8 +341,7 @@ angular.module('placePeopleApp')
 		// }
 
 		$scope.publishNewPub = function(isAnon, files){
-
-			var pubText = angular.element(document.querySelector(".pubText")).val();
+			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -368,8 +380,7 @@ angular.module('placePeopleApp')
 			PublicationService.createPublication(pubText, !!isAnon ? 1 : 0, isMain, videos, images)			
 				.then(					
 					function(res){						
-						if (res.status) {
-							// getMainPubs();
+						if (res.status) {							
 							ngDialog.closeAll();
 						} else {
 							console.log('Error');							
@@ -390,7 +401,7 @@ angular.module('placePeopleApp')
 					$scope.mainImage = response.images[0].url;
 				}
 				// if ($window.innerWidth <= 700) {
-				// 	// $state.go('feed.mobile', {pubId: pubId});								
+				// 	$state.go('feed-mobile', {pubId: pubId});											
 				// }else{
 					if(!flag && $state.current.name === 'feed'){
 						ngDialog.open({
@@ -404,11 +415,30 @@ angular.module('placePeopleApp')
 			function(error){
 				console.log(error);
 			});
-		}
+		}	
+		
 		$scope.showPublication = function(pub){
 			getSinglePublication(pub.id);			
 		};
 
+		$scope.getAllCommentsPublication = function(flag, pub, showAllComments){
+			getAllCommentsPublication(flag, pub, showAllComments);
+		}
+		function getAllCommentsPublication(flag, pub, showAllComments){
+			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
+				if(showAllComments === true){
+					if(flag === "feedPage"){
+						pub.comments = response;
+					}else{
+						$scope.singlePublication.comments = response;
+					}
+				}
+				$scope.lengthAllComments = response.length;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 
 
 }]);

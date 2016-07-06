@@ -40,7 +40,7 @@
 			</div>
 
 		</div> 
-		<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
+		<p class="publication-text" ng-bind-html="singlePublication.text | codeToSmiley">{{singlePublication.text}}</p>
 		<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 	</div>
 	<div class="likes">
@@ -96,7 +96,7 @@
 		<div flow-init style="position:relative;" class="add">
 			<div class="text-field">
 				<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
-				<input type="text" class="pubText" data-emojiable="true" name="">
+				<input type="text" class="pubText view-publication-pub-text" data-emojiable="true" name="">
 			</div>
 			<div class="new-add" ng-show="singlePublication.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 				<div class="new-img" ng-repeat="file in singlePublication.files" ng-click="showMoreImages(singlePublication.files)">  

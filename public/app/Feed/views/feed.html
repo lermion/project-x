@@ -9,7 +9,7 @@
 				<div class="menu-item" ng-show="showMenu">
 					<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 					<a class="places" ui-sref="places">Места</a>
-					<a class="chat" href=""> Чаты</a>
+					<a class="chat" ui-sref="chat"> Чаты</a>
 					<a class="settings" ui-sref="settings">Настройки</a>
 					<div class="search">
 						<input type="text" placeholder="Поиск...">
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
+					<p class="publication-text" ng-bind-html="pub.text | codeToSmiley"></p>
 					<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
@@ -175,6 +175,7 @@
 				</div> 
 			</div>
 		</div>  <!-- end of publication -->
+		<p ng-click="loadMorePubs()">load more</p>
 
 	</div> 
 
