@@ -4,7 +4,6 @@ angular.module('placePeopleApp')
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getMainPublications: getMainPublications,
 			getUserPublications: getUserPublications,						
 			createPublication: createPublication,
 			updatePublication: updatePublication,

@@ -96,6 +96,7 @@ angular.module('placePeopleApp')
 
 		/*User info*/
 
+		var counter = 0;
 		UserService.getUserData($stateParams.username)
 			.then(
 				function(res){
@@ -110,19 +111,28 @@ angular.module('placePeopleApp')
 						$scope.isSigned = res.is_sub;
 					}					
 					$scope.userData = res;
-					getUserPubs(res.id);
+					getUserPubs(res.id, counter);
 				},
 				function(err){
 					console.log(err);
 				}
 			);
 
-		function getUserPubs(userId){
-			PublicationService.getUserPublications(userId)
+		function getUserPubs(userId, counter){
+			PublicationService.getUserPublications(userId, counter)
 			.then(
 				function(res){					
 					if (res.status) {
-						$scope.userPublications = res.publications;
+						// $scope.userPublications = res.publications;
+						if (!$scope.userPublications) {
+							$scope.userPublications = res.publications;
+						} else {						
+							if (res.publications.length > 0) {
+									res.publications.forEach(function(pub){							
+										$scope.userPublications.push(pub);
+									});
+							}
+						}
 					} else {
 						if (res.error.code === "8") {							
 							$scope.needToSign = true;
@@ -137,11 +147,17 @@ angular.module('placePeopleApp')
 			);
 		}
 
-		
+		$scope.loadMorePubs = function(flag){
+			if (flag === 'greed') {
+				counter+=12;
+			} else {
+				counter+=12;
+			}						
+			getUserPubs($scope.userData.id, counter);
+		};
 
 		//Sign on
-		$scope.sign = function(subscription){
-			console.log();
+		$scope.sign = function(subscription){			
 			if($scope.loggedUserId == $scope.userData.id){
 				$scope.userData.id = subscription.id;
 			}

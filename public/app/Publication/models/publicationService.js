@@ -4,7 +4,6 @@ angular.module('placePeopleApp')
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getMainPublications: getMainPublications,
 			getUserPublications: getUserPublications,						
 			createPublication: createPublication,
 			updatePublication: updatePublication,
@@ -122,9 +121,14 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		}
 		
-		function getUserPublications(userId){        
+		function getUserPublications(userId, offset){
 				defer = $q.defer();
-				$http.get(path + 'user/'+userId+'/publication')
+				var limit = 12;			
+				var data = {
+					'offset': offset,
+					'limit' : limit
+				}
+				$http.post(path + 'user/'+userId+'/publication', data)
 						.success(function (response){              
 								defer.resolve(response);
 						})
