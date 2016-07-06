@@ -6,7 +6,7 @@
 				<a class="drop-menu" href=""></a>
 				<div class="menu-item" ng-show="showMenu">
 					<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
-					<a class="places" href="">Места</a>
+					<a class="places" ui-sref="places">Места</a>
 					<a class="chat" href=""> Чаты</a>
 					<a class="settings" ui-sref="settings">Настройки</a>
 					<div class="search">
@@ -44,8 +44,8 @@
 
 			</div> -->
 
-			<div flow-init flow-file-added="handleFileSelect($file, $event, $flow)" class="add-ava"  ng-init="showEditAva=true;">
-	                                            <input flow-btn type="file" id="avatarImg"/>  
+			<div class="add-ava" ng-init="showEditAva=true;">
+	                                            <input type="file" id="avatarImg"/>  
 	                                            <label for="avatarImg">                                            
 	                                            	<span class="ava">         
 	                                            		<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">

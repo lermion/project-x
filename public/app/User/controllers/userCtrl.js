@@ -9,6 +9,17 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
+
+		if (!storage.pubView) {
+			storageService.setStorageItem('pubView', 'greed');
+			storage = storageService.getStorage();
+		} else {
+			if (storage.pubView === 'greed') {
+				$scope.photosGrid = true;
+			} else if(storage.pubView === 'list'){
+				$scope.photosGrid = false;
+			}
+		}
 		
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
@@ -306,17 +317,20 @@ angular.module('placePeopleApp')
 		};
 		$scope.emojiMessage = {};
 		$scope.$on('ngDialog.opened', function(e, $dialog){
-			window.emojiPicker = new EmojiPicker({
-				emojiable_selector: '[data-emojiable=true]',
-				assetsPath: 'lib/img/',
-				popupButtonClasses: 'fa fa-smile-o'
-			});
-			window.emojiPicker.discover();
-			$(".emoji-button").text("");
+			var openDialogs = ngDialog.getOpenDialogs();
+			if(openDialogs.length === 1){
+				window.emojiPicker = new EmojiPicker({
+					emojiable_selector: '[data-emojiable=true]',
+					assetsPath: 'lib/img/',
+					popupButtonClasses: 'fa fa-smile-o'
+				});
+				window.emojiPicker.discover();
+				$(".emoji-button").text("");
+			}
 		});
 		$scope.publishNewPub = function(files){
-			var pubText = angular.element(document.querySelector(".pubText")).val();
-			if (!pubText || files === undefined || files.length == 0) {						
+			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
+			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
@@ -374,6 +388,24 @@ angular.module('placePeopleApp')
 				$state.go("user", {username: $stateParams.username});
 			}
 		}
+
+		if (!$stateParams.pubView) {
+			$stateParams.pubView = 'greed';
+		}		
+
+		$scope.pubViewStyleChange = function(flag){
+			if (flag) {
+				$scope.photosGrid = true;
+				storageService.setStorageItem('pubView', 'greed');
+			} else {
+				$scope.photosGrid = false;
+				storageService.setStorageItem('pubView', 'list');
+			}
+		}
+		
+
+
+
 		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
 				//getAllCommentsPublication(pubId);
@@ -403,8 +435,10 @@ angular.module('placePeopleApp')
 			getSinglePublication(pub.id);			
 		};
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
-				pubText = angular.element(document.querySelector(".pubText")).val();
+				pubText = {};
+				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
 			}
 			$scope.showAddCommentBlock=false;			
 			var images = [];
@@ -419,16 +453,17 @@ angular.module('placePeopleApp')
 					}				
 				});
 			}		
-			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
 					pub.files = [];
 					$scope.commentModel = angular.copy(emptyPost);
 					if(flag === "userPage"){
-						pub.comments.unshift(response.data.comment);
+						pub.comments.push(response.data.comment);
 						pub.comment_count++;
 					}else{
-						$scope.singlePublication.comments.unshift(response.data.comment);
+						$scope.singlePublication.comments.push(response.data.comment);
 						$scope.singlePublication.comment_count++;
 					}
 					
@@ -439,16 +474,16 @@ angular.module('placePeopleApp')
 			});
 		}
 		
-		$scope.showMoreImages = function(images){
-			$scope.imagesInPopup = images;
-			$scope.mainImageInPopup = images[0].url;			
+		$scope.showMoreImages = function(files){			
+			$scope.imagesInPopup = files;
+			$scope.mainImageInPopup = files[0].url;			
 			angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
 				scope: $scope,
 				data: {
-					images: images
+					images: files
 				},
 				preCloseCallback: function(value){
 					angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');

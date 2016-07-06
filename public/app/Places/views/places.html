@@ -1,0 +1,57 @@
+<div>
+    <header>
+        <div class="header header-user">
+            <a class="logo" ui-sref="feed"></a>
+
+            <div class="main-menu" ng-click="vm.openMenu();" ng-class="vm.showMenu ? 'show-menu' : ''"
+                 ng-init="vm.showMenu=true;">
+                <a class="drop-menu" href=""></a>
+
+                <div class="menu-item" ng-show="vm.showMenu">
+                    <a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
+                    <a class="places" ui-sref="places">Места</a>
+                    <a class="chat" href=""> Чаты</a>
+                    <a class="settings" ui-sref="settings">Настройки</a>
+
+                    <div class="search">
+                        <input type="text" placeholder="Поиск...">
+                        <span class="button"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Поиск...">
+                <span class="button"></span>
+            </div>
+            <a class="exit" href="javascript:void(0);" ng-click="vm.logOut()"><span></span>Выйти</a>
+        </div>
+    </header>
+
+    <div ui-view>
+        <h3>Places view</h3>
+        <a ui-sref="places.add">Add new place</a>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <div class="footer-item">
+                <div class="footer-place">
+                    <a href="">Place People </a>
+                    <span>© 2016</span>
+                </div>
+                <div class="payment">
+                    <a class="mastercard" href=""></a>
+                    <a class="visa" href=""></a>
+                </div>
+            </div>
+            <div class="menu" ng-click="vm.openBottomMenu()" ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
+                 ng-init="vm.showBottomMenu=true;">
+                <a class="drop-menu" href=""></a>
+
+                <div class="menu-item" ng-show="vm.showBottomMenu">
+                    <a ng-repeat="staticPage in vm.staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

@@ -59,5 +59,8 @@
     
     <script src="../../app/Settings/controllers/settingsCtrl.js"></script>
     <script src="../../app/Groups/controllers/groupsCtrl.js"></script>
+
+    <script src="../../app/Places/index.js"></script>
+    <script src="../../app/Places/controllers/places.ctrl.js"></script>
 </body>
 </html>

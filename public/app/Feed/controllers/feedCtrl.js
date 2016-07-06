@@ -115,10 +115,50 @@ angular.module('placePeopleApp')
 			$(".emoji-button").text("");
 		});
 
-		$scope.changeMainFile = function(file, currPub){			
+		$scope.changeMainFileFeed = function(file, currPub){			
 			if(file.pivot.video_id || file.pivot.image_id){
 				currPub.mainFile = file;		
 			}
+		};
+
+		$scope.changeMainFile = function(file, flag, pub){			
+			// $scope.mainImageInPopup = file.url;	
+			// console.log(file);
+			// console.log(flag);
+			if(file.pivot.video_id){
+				$scope.mainImage = "";
+				$scope.mainVideo = file.url;
+			}else if(file.pivot.image_id){
+				if(flag){
+					$scope.mainImageInPopup = file.url;
+				}else{
+					$scope.mainVideo = "";
+					$scope.mainImage = file.url;
+				}
+			}
+
+			// console.log($scope.mainVideo);		
+			// console.log($scope.mainImage);		
+		}
+
+		$scope.loadMorePubFiles = function(key, flag, pub) {			
+			if (flag === 'list') {
+				if (key === false) {
+					pub.limit = pub.images.length + pub.videos.length;
+				}else{
+					pub.limit = 6;
+				}
+				// pub.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			} else {
+				if (key === false) {
+					$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+				}else{
+					$scope.limit = 6;
+				}
+				$scope.morePubFiles = true;
+				$scope.$broadcast('loadPubFiles');
+			}			
 		};
 
 		$scope.addPublicationLike = function(pub){
@@ -175,6 +215,11 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.addNewComment = function(flag, pub, pubText, files){
+			$scope.disableAddComment = true;
+			if(pubText === undefined || pubText === ""){
+				pubText = {};
+				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
+			}	
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -189,12 +234,13 @@ angular.module('placePeopleApp')
 			}
 
 			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
 					if(flag === "feedPage"){
 						pub.files = [];
 						pub.commentModel = angular.copy(emptyPost);
-						pub.comments.unshift(response.data.comment);
+						pub.comments.push(response.data.comment);
 						pub.comment_count++;
 					}					
 				}
@@ -225,19 +271,64 @@ angular.module('placePeopleApp')
 		$scope.pubFiles = function(files){											
 			if (files.length > 4) {
 				$scope.pubFilesNeedScroll = true;
-			} else if(files.length > 100){
+			} else if(files.length > 100){				
 				console.log('too much files');
+				return;
 			}
 			$scope.$broadcast('rebuild:me');
 		};
+
+		$scope.showMoreImages = function(images, currImg){
+			if (currImg != null) {
+				$scope.mainImageInPopup = currImg.url;
+			} else {
+				$scope.mainImageInPopup = images[0].url;
+			}		
+			
+			ngDialog.open({
+				template: '../app/User/views/popup-comment-images.html',
+				className: 'popup-comment-images ngdialog-theme-default',
+				scope: $scope,
+				data: {
+					images: images
+				}
+			});
+		}
 
 		$scope.closePopup = function(){
 			ngDialog.closeAll();
 		};
 
-		$scope.publishNewPub = function(files){
-			var pubText = angular.element(document.querySelector(".pubText")).val();
-			if (!pubText || files === undefined || files.length == 0) {						
+		$scope.returnToBack = function(){
+				$state.go("feed");
+		};
+
+		// if($state.current.name === "feed-mobile"){				
+		// 	var pubId = $stateParams.pubId;			
+		// 	if ($window.innerWidth > 700) {
+		// 			$state.go('feed-desktop', {pubId: pubId});
+		// 	}			
+		// }
+		// if($state.current.name === "feed-desktop"){						
+		// 	var pubId = $stateParams.pubId;
+		// 	if ($window.innerWidth < 700) {
+		// 			console.log(pubId);
+		// 			$state.go('feed-mobile', {pubId: pubId});
+
+		// 	} else {
+		// 		getSinglePublication(pubId);
+		// 		ngDialog.open({
+		// 					template: '../app/Feed/views/view-publication.html',
+		// 					className: 'view-publication ngdialog-theme-default',
+		// 					scope: $scope
+		// 				});
+		// 	}
+							
+		// }
+
+		$scope.publishNewPub = function(isAnon, files){
+			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
+			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
@@ -272,11 +363,10 @@ angular.module('placePeopleApp')
 			// }
 
 
-			PublicationService.createPublication(pubText, 0, isMain, videos, images)			
+			PublicationService.createPublication(pubText, !!isAnon ? 1 : 0, isMain, videos, images)			
 				.then(					
 					function(res){						
-						if (res.status) {
-							// getMainPubs();
+						if (res.status) {							
 							ngDialog.closeAll();
 						} else {
 							console.log('Error');							
@@ -289,6 +379,52 @@ angular.module('placePeopleApp')
 			
 		};
 
+		function getSinglePublication(pubId, flag){
+			PublicationService.getSinglePublication(pubId).then(function(response){				
+				$scope.limit = 6;
+				$scope.singlePublication = response;
+				if(response.images[0] !== undefined){
+					$scope.mainImage = response.images[0].url;
+				}
+				// if ($window.innerWidth <= 700) {
+				// 	$state.go('feed-mobile', {pubId: pubId});											
+				// }else{
+					if(!flag && $state.current.name === 'feed'){
+						ngDialog.open({
+							template: '../app/Feed/views/view-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope
+						});									
+					}
+				// }
+			},
+			function(error){
+				console.log(error);
+			});
+		}	
+		
+		$scope.showPublication = function(pub){
+			getSinglePublication(pub.id);			
+		};
+
+		$scope.getAllCommentsPublication = function(flag, pub, showAllComments){
+			getAllCommentsPublication(flag, pub, showAllComments);
+		}
+		function getAllCommentsPublication(flag, pub, showAllComments){
+			PublicationService.getAllCommentsPublication(pub.id).then(function(response){
+				if(showAllComments === true){
+					if(flag === "feedPage"){
+						pub.comments = response;
+					}else{
+						$scope.singlePublication.comments = response;
+					}
+				}
+				$scope.lengthAllComments = response.length;
+			},
+			function(error){
+				console.log(error);
+			});
+		}
 
 
 }]);

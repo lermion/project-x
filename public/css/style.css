@@ -16,6 +16,10 @@ html{
 	width: 100%;
 	height: auto;
 }
+html.ngdialog-open, body.ngdialog-open {
+    overflow: initial !important;
+    width: 100%;
+}
 *:focus {
 	outline: none;
 }
@@ -334,6 +338,9 @@ body.main-page {
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
 	margin-top: 8px;
 	transition: none;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
+	margin-top: 0;
 }
 .check-in-button:hover,
 .check-in-button:focus,
@@ -1483,7 +1490,7 @@ body.public.user {
 #user-page .photo a img,
 .groups-content .group-ava img,
 .group-publication .photo a img {
-	max-width: 200%;
+	max-width: 100%;
 	max-height: 100%;
 	width: auto;
 	height: auto;
@@ -1716,7 +1723,8 @@ body.public.user {
 /* ngdialog*/
 
 .ngdialog.ngdialog-theme-default,
-.ngdialog.user-publication.ngdialog-theme-default {
+.ngdialog.user-publication.ngdialog-theme-default,
+.ngdialog.popup-add-group.ngdialog-theme-default {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -1907,6 +1915,12 @@ spam-item {
 	border: none; 
 	position: relative;
 }
+.user-publication.ngdialog-theme-default .publication .text-field {
+	height: 130px;
+}
+.user-publication.ngdialog-theme-default .publication .text-field a.emoji-button {
+	top: 20px;
+}
 .user-publication.ngdialog-theme-default .publication .text-field textarea,
 .user-publication .add-comment .add  .text-field textarea{
 	resize: none;
@@ -1958,16 +1972,16 @@ spam-item {
 }
 .text-field a.emoji-button{
 	position: absolute;
-    top: 16px;
-    left: 587px;
-    display: block;
-    background-image: url(../images/smil.png);
-    transition: all .3s ease-in-out .1s;
-    background-position: left bottom 6px;
-    background-repeat: no-repeat;
-    background-size: 65%;
-    width: 30px;
-    height: 30px;
+	top: 6px;
+	right: 0;
+	display: block;
+	background-image: url(../images/smil.png);
+	transition: all .3s ease-in-out .1s;
+	background-position: left bottom 6px;
+	background-repeat: no-repeat;
+	background-size: 65%;
+	width: 30px;
+	height: 30px;
 }
 .user-publication.ngdialog-theme-default .publication .text-field .smiles .smile .smile-item,
 .user-publication .add-comment .add  .text-field .smiles .smile .smile-item {
@@ -2179,12 +2193,15 @@ spam-item {
 	font-size: 26px;
 	font-weight: 400;
 	height: 25px;
-	line-height: 25px;
-	position: absolute;
+	// line-height: 25px;
+	// position: absolute;
 	left: 0;
 	text-align: center;
 	top: 0;
 	width: 25px;
+	width: 25px;
+	display: block;
+	line-height: 24px;
 }
 .publication .new-add .inner .close:hover,
 .add-comment .new-add .inner .close:hover {
@@ -2204,8 +2221,8 @@ spam-item {
 .publication .new-add .inner img,
  .add-comment .new-add .inner img,
  .comment .comment-pic .comment-pic-item img {
-	max-width: 400%;
-	max-height: 400%;
+	max-width: 100%;
+	max-height: 100%;
 	width: auto;
 	height: auto;
 }
@@ -2452,8 +2469,8 @@ spam-item {
 	transition: all .3s ease-in-out .1s;
 }
 .publication-images .images-item img {
-	max-width: 200%;
-	max-height: 200%;
+	max-width: 100%;
+	max-height: 100%;
 	width: auto;
 	height: auto;
 }
@@ -2737,24 +2754,33 @@ spam-item {
 .user-publication .add-comment .publication-footer-button .publication-button {
 	margin-left: 0;
 }
-.user-publication .add-comment .publication-footer-button .publication-button {
+.user-publication .add-comment .publication-footer-button .publication-button,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
 	text-decoration: none;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	line-height: 30px;
 	padding: 0 10px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .3s ease-in-out .1s!important;
 	color: #fff;
 	background-color: #495b79;
 	border-radius: 3px;
-	margin-left: 15px;
 	border: 1px solid #495b79;
 	outline: none;
 	cursor: pointer;
 }
-.user-publication .add-comment .publication-footer-button .publication-button:hover {
+.user-publication .add-comment .publication-footer-button .publication-button:disabled{
+	cursor: not-allowed;
+}
+.user-publication .add-comment .publication-footer-button .publication-button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
 	background-color: #fff;
     	color: #495b79;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button .ladda-label {
+	transition: all .2s ease-in-out !important;
 }
 .user-publication .add-comment .publication-footer .add-objects label span.add {
 	width: 40px;
@@ -3077,7 +3103,10 @@ spam-item {
     		margin-top: 20px;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
-		margin-top: 0;
+		margin-top: 8px;
+	}
+	.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
+		margin-bottom: 0;
 	}
 	.publication .new-add  {
 		width: 100%;
@@ -3256,11 +3285,11 @@ body.public.user #wrapper {
 	width: 100%;
 	height: 100%;
 }
-.ngdialog-open .user-main-content-item {
+/*.ngdialog-open .user-main-content-item {
 	padding-bottom: 75px;
 	min-height: 100%;
 	box-sizing: border-box;
-}
+}*/
 .user-publication-bg {
 	position: fixed;
 	// background: rgba(0,0,0,.2);
@@ -3293,9 +3322,11 @@ body.public.user #wrapper {
 }
 body.public.ngdialog-open {
 	padding-bottom: 0;
+	overflow-x: hidden;
 }
-.ngdialog-open .user-main-content {
-	position: fixed;
+body.ngdialog-open {
+	/*position: fixed;*/
+	overflow: hidden !important;
 }
 .ngdialog-open .user-main-content-item {
 	position: relative;
@@ -3766,6 +3797,331 @@ body.public.ngdialog-open {
 	font-weight: lighter;
 	font-family: "SFUIDisplayLight"; 
 }
+.ngdialog.view-publication.ngdialog-theme-default .ngdialog-overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,.2);
+}
+.content-user #user-page.list-style {
+	box-shadow: none;
+}
+#user-page.list-style .my-profile {
+	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+}
+#user-page.list-style .my-photos {
+	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+}
+.user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor {
+	box-sizing: border-box;
+    	height: 75px;
+}
+// .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after {
+// 	content: 'Текст комментария...';
+// }
+.user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:after,
+.user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:after { 
+	content: '';
+}
+.user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after,
+.user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:empty:after {
+	content: 'Текст комментария...'; 
+}
 .posFixedPopup{
 	position: fixed !important;
+}
+body.ngdialog-open {
+    overflow: hidden;
+}
+.ngdialog.view-publication.ngdialog-theme-default {
+	position: fixed;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+
+/* group-chat */
+
+.group-chat {
+	height: auto;
+	width: 100%;
+	background: url(../images/chat-bg.png) repeat; 
+	box-sizing: border-box;
+	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+	margin-bottom: 20px;
+}
+.group-chat-inner {
+	padding: 5px 10px;
+	overflow-x: auto;
+	max-height: 645px;
+	height: auto;
+}
+.group-chat .date-messeges {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 0;
+	margin: 0;
+}
+.group-chat .date-messeges p {
+	margin: 0;
+	line-height: 20px;
+	padding: 0 15px;
+	border-radius: 20px;
+	font-size: 12.5px;
+	color: #fff;
+	background: #9ca5b4;
+	font-family: "SFUIDisplayMedium";
+}
+.group-chat .users-messege {
+	display: flex;
+    	align-items: flex-end;
+    	padding-right: 10px;
+    	box-sizing: border-box;
+    	padding-bottom: 15px;
+}
+.group-chat .users-messege.my-messege {
+	padding-right: 0;
+    	padding-left: 10px;
+}
+.group-chat .users-messege .ava {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: block;
+}
+.group-chat .users-messege .ava img {
+	width: 100%;
+}
+.group-chat .user-messege  {
+	margin-left: 10px;
+	max-width: 100%;
+	background: #fff;
+	border: 1px solid #dadde1;
+	border-radius: 10px;
+	padding: 7px 10px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: flex-end;
+	position: relative;
+}
+.group-chat .my-messege  .user-messege {
+	margin-left: 0;
+	margin-right: 10px;
+	background: #d7e2fa;
+}
+.group-chat .user-messege:before {
+	position: absolute;
+	bottom: -1px;
+	left: -8px;
+	content: '';
+	background-image: url(../images/user-tail.png);
+	background-repeat: no-repeat;
+	width: 15px;
+    	height: 10px;
+}
+.group-chat .my-messege  .user-messege:before {
+	bottom: -2px;
+	right: -7px;
+	background-image: url(../images/my-user-tail.png);
+	left: auto;
+}
+.group-chat .user-messege .user-name {
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	color: #495b79;
+	line-height: 15px;
+	margin-bottom: 5px;
+	display: block;
+	max-width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.group-chat .user-messege .messege-text {
+	color: #333;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayLight";
+	margin: 0;
+	line-height: 16px;
+}
+.group-chat .user-messege  .messege-time {
+	color: #999;
+	font-family: "SFUIDisplayLight";
+	line-height: 16px;
+	margin: 0;
+	font-size: 12.5px;
+	padding-left: 15px;
+}
+.group-chat .my-messege .user-messege  .messege-time {
+	padding-right: 20px;
+	background-image: url(../images/done.png);
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+.group-chat .user-messege .pictures {
+	height: 100px;
+	margin: 10px 0;
+	overflow: hidden;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.group-chat .user-messege .pictures .pic {
+	width: 134px;
+	height: 100px;
+	overflow: hidden;
+	margin-bottom: 2px;
+    	margin-right: 2px;
+    	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0,0,0,.2);
+}
+.group-chat .user-messege .pictures .pic:nth-child(4n){
+	margin-right: 0;
+}
+.group-chat .user-messege .pictures .pic img {
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
+.chat-user-pulication {
+	width: 495px;
+	background: #fff;
+	margin-left: 10px;
+	border: 1px solid #dadde1;
+	margin-bottom: 15px;
+}
+.my-messege .chat-user-pulication {
+	background: #d7e2fa;
+	margin-left: 0;
+	border: 1px solid #d7e2fa;
+	margin-right: 10px;
+}
+#wrapper .chat-user-pulication .user-publication-header {
+	background: #fff;
+}
+#wrapper .my-messege .chat-user-pulication  .user-publication-header{
+	background: #d7e2fa;
+}
+.chat-user-pulication .user-publication-header .user-function {
+ 	width: 100%;
+ }
+.chat-user-pulication  .user-publication-content {
+	border-bottom: none;
+}
+.group-chat .rewrite {
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	background: #495b79;
+	line-height: 40px;
+	border-radius: 0;
+	border: 1px solid #495b79; 
+	position: static;
+	margin-top: 15px;
+}
+.group-comment {
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #f5f5f5;
+	border-top: 1px solid #e8eaeb; 
+}
+.group-comment  .textarea {
+	resize: none;
+	width: 100%;
+	height: 100%;
+	border-radius: 2px;
+	border: 1px solid #e5e7e9;
+	font-size: 14.6px;
+	color: #999;
+	background: #fff;
+	padding: 5px 30px 5px 10px;
+	box-sizing: border-box;
+	font-family: "SFUIDisplayLight";
+	height: 30px;
+}
+.group-comment .smile {
+	display: block;
+	width: 45px;
+	height: 40px;
+	background-image: url(../images/smil.png);
+	background-position:  center;
+	background-repeat: no-repeat;
+	background-size: 50%;
+}
+.group-comment .smile:hover {
+	background-image: url(../images/smil-hover.png);
+}
+.group-comment  .send {
+	position: static;
+	height: 40px;
+	margin-top: 0;
+	border-radius: 0;
+	background: transparent;
+	color: #495b79;
+	font-family: "SFUIDisplayMedium";
+}
+.group-comment  .add-objects,
+.group-comment  .add-objects label {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	display: block;
+}
+.group-comment  .add-objects label span.add {
+	width: 40px;
+	padding-left: 0;
+	background-image: url(../images/clip-hover.png);
+	background-position: center;
+	background-size: 55%;
+	display: block;
+	height: 40px;
+	background-repeat: no-repeat;
+}
+.group-comment  .add-objects label span.add:hover {
+	background-image: url(../images/clip.png);
+}
+.group-comments .pictures {
+	padding: 5px 10px;
+	overflow-x: auto;
+	max-height: 112px;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.group-comments .pictures .pic {
+	width: 132px;
+	height: 100px;
+	overflow: hidden;
+	margin-bottom: 2px;
+	margin-right: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0,0,0,.2);
+}
+.group-comments .pictures .pic img {
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
+.group-comments .pictures .pic:nth-child(5n) {
+	margin-right: 0;
 }

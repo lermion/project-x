@@ -1,3 +1,5 @@
+<div class="user-main-content">	
+<div class="user-main-content-item">	
 <div>
 	<header>
 		<div class="header header-user">
@@ -6,7 +8,7 @@
 				<a class="drop-menu" href=""></a>
 				<div class="menu-item" ng-show="showMenu">
 					<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
-					<a class="places" href="">Места</a>
+					<a class="places" ui-sref="places">Места</a>
 					<a class="chat" href=""> Чаты</a>
 					<a class="settings" ui-sref="settings">Настройки</a>
 					<div class="search">
@@ -54,18 +56,18 @@
 					</div>
 				</div>
 				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
+					<p class="publication-text" ng-bind-html="pub.text | codeToSmiley"></p>
 					<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
-					<div class="publication-ava">
+					<div class="publication-ava" ng-click="showPublication(pub)">
 						<img ng-src="{{pub.mainFile.url}}">
 					</div>					
 					<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
-						<div ng-click="changeMainFile(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
+						<div ng-click="changeMainFileFeed(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
 							<img ng-src="{{image.url}}">
 						</div>
-						<div ng-click="changeMainFile(video, pub)" ng-repeat="video in pub.videos" class="images-item">
+						<div ng-click="changeMainFileFeed(video, pub)" ng-repeat="video in pub.videos" class="images-item">
 							<video width="150px" controls ngf-src="video.url"></video>
 						</div>
 						<div ng-hide="results.length === pub.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === pub.images.length)">
@@ -107,10 +109,10 @@
 							</div>
 							<p ng-bind-html="comment.text | codeToSmiley" class="comment-item"></p>
 							<div ng-if="comment.images[0]" class="comment-pic">
-								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
+								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images, image)" href="javascript:void(0);" class="comment-pic-item">
 									<img ng-src="{{image.url}}">
 								</a>
-								<a ng-show="comment.images.length >= 4" href="javascript:void(0);" ng-click="showMoreImages(comment.images)" class="comment-pic-item">
+								<a ng-show="comment.images.length >= 4" href="javascript:void(0);" ng-click="showMoreImages(comment.images, null)" class="comment-pic-item">
 									<p>Ещё {{comment.images.length - 3}} фото</p>
 								</a>
 							</div>
@@ -131,25 +133,16 @@
 						</a>
 					</div>
 					<div style="position:relative;" class="add">
-						<div class="text-field">
-							<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="pub.commentModel.pubText"></textarea> -->
-							<!-- <input type="text" class="pubText" data-emojiable="true" name=""> -->
+						<div class="text-field">							
 							<div emoji-form emoji-message="emojiMessage">
 								<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
 								<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
 									<i class="icon icon-emoji"></i>
 								</a>
 							</div>
-							<!-- <div class="smiles">
-								<div class="smiles-item"></div>
-								<div class="smile">
-									<div class="smile-item">
-										
-									</div>
-								</div>
-							</div> -->
+							
 						</div>
-						<div class="new-add">
+						<div class="new-add"  ng-show="pub.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 							<div class="new-img" ng-repeat="file in pub.files">		  
 								<div class="inner">
 									<div ng-click="deleteCommentFile(pub.files, $index)" class="close">
@@ -166,10 +159,10 @@
 						
 						<div class="publication-footer">
 							<div class="publication-footer-button">
-								<a href="javascript:void(0);" ng-click="addNewComment('feedPage', pub, emojiMessage, pub.files)" class="publication-button">Отправить</a>    
+								<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', pub, emojiMessage, pub.files)" class="publication-button">Отправить</button>    
 							</div>
 							<div class="add-objects" ng-init="addObjId='add-object-'+pub.id">						
-								<input id="{{addObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true"> 
+								<input id="{{addObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="pub.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
 								<label for="{{addObjId}}">
 									Прикрепить
 									<span class="add"></span>
@@ -207,3 +200,5 @@
 	</footer>
 
 </div> 
+</div>
+</div>
