@@ -1579,8 +1579,8 @@ a.add_comments {
 }
 .peoples-item-photo a img {
   width: 100%;
+  border: 0px;
   transition: all .3s ease-in-out .2s;
-  border-radius: 50%;
 }
 
 .peoples-item-name-content {
@@ -1614,6 +1614,10 @@ a.add_comments {
 .peoples-item-name-comment {
   margin: 0;
   padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 340px;
+  text-overflow: ellipsis;
 }
 .peoples-inner-item-admin {
   display: flex;
@@ -1621,4 +1625,49 @@ a.add_comments {
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
   margin-right: 5px;
+}
+
+
+@media (max-width: 720px) {
+  .group-peoples {
+    width: 500px;
+    margin: 0 auto 0px auto;
+  }
+  .peoples-inner-item-admin {
+    font-size: .95em;
+    margin-left: 10px;
+  }
+  .peoples-item-name-comment {
+    max-width: 180px;
+    text-overflow: ellipsis;
+  }
+}
+
+
+
+@media (max-width: 520px) {
+
+  .group-peoples {
+    width: 100%;
+    margin: 0 auto 0px auto;
+  }
+  .group-peoples-inner {
+    width: 100%;
+    margin: 5px 0px;
+  }
+  .peoples-inner-item-admin {
+    font-size: .8em;
+    margin-right: 0px;
+  }
+  .peoples-item-name-content {
+    font-size: 14.6px;
+  }
+  .peoples-item-name-comment {
+    max-width: 100px;
+    text-overflow: ellipsis;
+  }
+  .peoples-item-photo a {
+    width: 40px;
+    height: 40px;
+  }
 }
