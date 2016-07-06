@@ -3325,6 +3325,7 @@ body.public.ngdialog-open {
 	overflow-x: hidden;
 }
 body.ngdialog-open {
+	padding-right: 0 !important;
 	/*position: fixed;*/
 	overflow: hidden !important;
 }
@@ -4324,4 +4325,13 @@ body.ngdialog-open {
 	right: 0;
     	margin-left: 0;
     	left: auto; 
+}
+body.public.ngdialog-open #wrapper,
+body.public.ngdialog-open .user-main-content {
+	min-height: 100vh;
+}
+.ngdialog-open .user-main-content-item {
+	padding-bottom: 75px;
+	height: 100%;
+	box-sizing: border-box;
 }
