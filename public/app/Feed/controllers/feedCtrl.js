@@ -328,8 +328,7 @@ angular.module('placePeopleApp')
 		// }
 
 		$scope.publishNewPub = function(isAnon, files){
-
-			var pubText = angular.element(document.querySelector(".pubText")).val();
+			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
