@@ -1567,14 +1567,22 @@ a.add_comments {
   width: 100px;
   height: 100px;
   overflow: hidden;
-  z-index: 10;
-  background-color: white;
   border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .3s ease-in-out .2s;
+}
+.peoples-item-photo a:hover {
+  opacity: .8;
 }
 .peoples-item-photo a img {
-  display: flex;
   width: 100%;
+  transition: all .3s ease-in-out .2s;
+  border-radius: 50%;
 }
+
 .peoples-item-name-content {
   margin-left: 10px;
   font-size: 16.7px;
@@ -1600,7 +1608,7 @@ a.add_comments {
 }
 .peoples-item-name-family span:hover {
   display: block;
-  color: #333;
+  color: #777;;
   transition: all .3s ease-in-out .1s;
 }
 .peoples-item-name-comment {
