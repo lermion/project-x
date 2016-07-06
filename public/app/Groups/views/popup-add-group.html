@@ -1,133 +1,62 @@
-<div class="new_group"> Новая группа </div>
-<div class="add_newgroup"> 
-	<div class="first_item">
-		<div class="ava_group">
-			<img src="http://migranov.ru/photoalbum/spring/krocus.jpg" alt="" class="img_ava">
-			<a class="img_name"> Владимир Зеленский</a>
-		</div>
-		<div class="checkbox_group">
-			<input type="checkbox" value="Y" name="arr1" id="arr1"/>
-		    <label for="arr1">Публичная группа</label>
-		</div>
-	</div>
+<div class="new_group"> Новая группа</div>
+<div class="add_newgroup">
+    <div class="first_item">
+        <div class="ava_group">
+            <img src="http://migranov.ru/photoalbum/spring/krocus.jpg" alt="" class="img_ava">
+            <a class="img_name"> Владимир Зеленский</a>
+        </div>
+        <div class="checkbox_group">
+            <input type="checkbox" id="arr1" ng-model="newGroup.isOpen"/>
+            <label for="arr1">Публичная группа</label>
+        </div>
+    </div>
 
-	<div class="second_item">
-		<div class="add-ava" ng-init="showEditAva=true;">
-            <input type="file" id="avatarImg">  
+    <div class="second_item">
+        <div class="add-ava" ng-init="showEditAva=true;">
+            <input type="file" id="avatarImg">
             <label for="avatarImg">                                            
                 <span class="ava ng-hide" ng-show="croppedFile">         
                     <img style="width:100%;">
                 </span>
-                <span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+                <span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;"
+                      ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
                     <span class="add-photo" ng-show="!croppedFile || showEditAva"></span>
                 </span>
-            </label>                                         
+            </label>
         </div>
-		<span class="add_ava_grp"> Добавить обложку группе </span>
-	</div>
-	<div class="text-field">
-		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea> -->
-		<input type="text" data-emojiable="true">
-		<!-- <div class="smiles">
-			<div class="smiles-item"></div>
-			<div class="smile">
-				<div class="smile-item">
+        <span class="add_ava_grp"> Добавить обложку группе </span>
+    </div>
 
-				</div>
-			</div>
-		</div> -->
-	</div>
-	<!--<div class="third_item">-->
-		<!--<textarea placeholder="Описание группы..." class="" id="" name=""></textarea>-->
-		<!--<div class="smiles">-->
-			<!--<div class="smiles-item"></div>-->
-			<!--<div class="smile">-->
-				<!--<div class="smile-item">-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-					<!--<div class="inner">-->
-						<!--<a href="">-->
-							<!--<img src="../../../images/smil-hover.png" alt=""> -->
-						<!--</a>-->
-					<!--</div>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div> -->
-	<!--</div>-->
 
-	<div class="fourth_item">
-		 <input type="text" id="" placeholder="Пригласить в группу...">  
-	</div>
+    <input type="text"
+           ng-model="newGroup.name"
+           placeholder="Название">
 
-	<div class="fifth_item">
-		<ul class="item1">
-			<li> <img src="images/picture.jpg">  Петров Василий </li>
-			<li> <img src="images/picture.jpg">  Петров Василий </li>
-			<li> <img src="images/picture.jpg">  Петров Василий </li>
-			<li> <img src="images/picture.jpg">  Петров Василий </li>
-		</ul>
-		<div class="item2">
-			<a href=""> Отменить </a>
-			<a href="" class="active"> Создать группу</a>
-		</div>
-	</div>
+    <div class="text-field">
+        <input type="text" data-emojiable="true">
+    </div>
+
+
+    <div class="fourth_item">
+        <typeahead
+                items="subscribers"
+                prompt="Пригласить в группу"
+                key1="first_name"
+                key2="last_name"
+                model="search"
+                on-select="onItemSelected()"
+        ></typeahead>
+        <!--<input type="text" id="" placeholder="Пригласить в группу...">-->
+    </div>
+
+    <div class="fifth_item">
+        <ul class="item1">
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+        </ul>
+        <div class="item2">
+            <a href=""> Отменить </a>
+            <a href="" class="active"> Создать группу</a>
+        </div>
+    </div>
 
 </div>

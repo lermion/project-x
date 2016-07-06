@@ -928,6 +928,36 @@
 .popup-add-group .add_newgroup {
   padding: 15px;
 }
+.popup-add-group .add_newgroup .typeahead-items {
+    position: absolute;
+    top: 190px;
+    left: 15px;
+    background: #FFF;
+    width: 248px;
+    z-index: 800;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 6px #999;
+}
+.popup-add-group .add_newgroup .typeahead-items__item {
+    display: block;
+    height: 40px;
+    padding: 4px 8px;
+    line-height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0px;
+    position: relative;
+}
+.popup-add-group .add_newgroup .typeahead-items__item.active{
+    background-color: #FFFFFF;
+    color:#000000;
+}
+
+.popup-add-group .add_newgroup .typeahead-item__title {
+    font-size: 18px;
+    font-weight: bold;
+}
 
 .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
   background: #fff;
@@ -1194,7 +1224,8 @@
   width: 100%;
 }
 
-.popup-add-group .fourth_item input[type="text"] {
+.popup-add-group .fourth_item input[type="text"],
+.popup-add-group input[type="text"] {
     width: 100%;
     height: 100%;
     border-radius: 2px;
