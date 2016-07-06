@@ -131,6 +131,7 @@ angular.module('placePeopleApp')
 										$scope.userPublications.push(pub);
 									});
 							}
+							console.log($scope.userPublications.length);
 						}
 					} else {
 						if (res.error.code === "8") {							
@@ -151,7 +152,8 @@ angular.module('placePeopleApp')
 				counter+=12;
 			} else {
 				return;
-			}						
+			}
+			console.log(counter);						
 			getUserPubs($scope.userData.id, counter);
 		};
 
