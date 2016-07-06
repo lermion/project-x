@@ -182,11 +182,11 @@
 										</div>
 									</div>
 									<div class="added_comments">
-										<a href="javascript:void(0);" class="add_comments" ng-click="showAddCommentBlock = !showAddCommentBlock" ng-hide="showAddCommentBlock">
+										<a href="javascript:void(0);" class="add_comments" ng-click="showAddCommentBlock(showAddComment)" ng-hide="showAddComment">
 											Добавить комментарий 
 										</a>
 									</div>
-									<div class="add-comment"  ng-show="showAddCommentBlock">
+									<div class="add-comment"  ng-show="showAddComment">
 										<div class="user-ava">
 											<a class="ava" ui-sref="user({username: loggedUser})">
 												<img ng-src="{{loggedUserAva}}" alt="">
@@ -194,9 +194,8 @@
 										</div>
 										<div style="position:relative;" class="add">
 											<div class="text-field">
-												<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
 												<div emoji-form emoji-message="emojiMessage">
-													<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+													<textarea id="messageInputs" ng-model="emojiMessage.messagetext"></textarea>
 													<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
 														<i class="icon icon-emoji"></i>
 													</a>
