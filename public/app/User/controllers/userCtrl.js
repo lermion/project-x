@@ -9,6 +9,17 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
+
+		if (!storage.pubView) {
+			storageService.setStorageItem('pubView', 'greed');
+			storage = storageService.getStorage();
+		} else {
+			if (storage.pubView === 'greed') {
+				$scope.photosGrid = true;
+			} else if(storage.pubView === 'list'){
+				$scope.photosGrid = false;
+			}
+		}
 		
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
@@ -306,13 +317,16 @@ angular.module('placePeopleApp')
 		};
 		$scope.emojiMessage = {};
 		$scope.$on('ngDialog.opened', function(e, $dialog){
-			window.emojiPicker = new EmojiPicker({
-				emojiable_selector: '[data-emojiable=true]',
-				assetsPath: 'lib/img/',
-				popupButtonClasses: 'fa fa-smile-o'
-			});
-			window.emojiPicker.discover();
-			$(".emoji-button").text("");
+			var openDialogs = ngDialog.getOpenDialogs();
+			if(openDialogs.length === 1){
+				window.emojiPicker = new EmojiPicker({
+					emojiable_selector: '[data-emojiable=true]',
+					assetsPath: 'lib/img/',
+					popupButtonClasses: 'fa fa-smile-o'
+				});
+				window.emojiPicker.discover();
+				$(".emoji-button").text("");
+			}
 		});
 		$scope.publishNewPub = function(files){
 			var pubText = angular.element(document.querySelector(".pubText")).val();
@@ -374,6 +388,25 @@ angular.module('placePeopleApp')
 				$state.go("user", {username: $stateParams.username});
 			}
 		}
+
+		if (!$stateParams.pubView) {
+			$stateParams.pubView = 'greed';
+		}		
+
+		$scope.pubViewStyleChange = function(flag){
+			if (flag) {
+				$scope.photosGrid = true;
+				storageService.setStorageItem('pubView', 'greed');
+			} else {
+				$scope.photosGrid = false;
+				storageService.setStorageItem('pubView', 'list');
+			}
+			console.log(storage);
+		}
+		
+
+
+
 		function getSinglePublication(pubId, flag){
 			PublicationService.getSinglePublication(pubId).then(function(response){
 				//getAllCommentsPublication(pubId);
@@ -405,7 +438,8 @@ angular.module('placePeopleApp')
 		$scope.addNewComment = function(flag, pub, pubText, files){
 			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
-				pubText = angular.element(document.querySelector(".pubText")).val();
+				pubText = {};
+				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
 			}
 			$scope.showAddCommentBlock=false;			
 			var images = [];
@@ -420,7 +454,7 @@ angular.module('placePeopleApp')
 					}				
 				});
 			}		
-			PublicationService.addCommentPublication(pub.id, pubText, images, videos).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
 				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");

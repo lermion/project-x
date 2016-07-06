@@ -1,1 +1,171 @@
-<div class="group-chat">group-chat.html</div>
+<div class="group-chat">
+	<div class="group-chat-inner">
+		<div class="date-messeges">
+			<p class="date">Вчера</p>
+		</div>
+		<div class="users-messege">
+			<div class="user-ava">
+				<a href="" class="ava">
+					<img src="" alt="">
+				</a>
+			</div>
+			<div class="user-messeges">
+				<div class="chat-user-pulication">
+					<div class="user-publication">
+						<div class="user-publication-header">
+							<div class="user-function">
+								<a class="user" ui-sref="user({username: pub.user.login})">
+									<span class="ava">
+										<img ng-src="{{pub.user.avatar_path}}" alt="">
+									</span>
+									<span class="block-info">
+										<p class="user-name">{{pub.user.first_name}} {{pub.user.last_name}}</p>
+										<p class="time" am-time-ago="pub.created_at"></p>
+									</span>
+								</a>
+								<div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
+								<div href="" class="user-menu" ng-click="showPubMenu=!showPubMenu">
+									<div class="menu-item" ng-show="showPubMenu">
+										<div class="inner">			
+											<a href="" ng-click="sharePub(pub.id)">Переслать</a>
+											<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
+											<a href="" ng-click="alertPub(pub.id)">Пожаловаться</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
+							<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
+							<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
+							<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
+							<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
+							<div class="publication-ava">
+								<img ng-src="{{pub.mainFile.url}}">
+							</div>					
+							<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
+								<div ng-click="changeMainFileFeed(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
+									<img ng-src="{{image.url}}">
+								</div>
+								<div ng-click="changeMainFileFeed(video, pub)" ng-repeat="video in pub.videos" class="images-item">
+									<video width="150px" controls ngf-src="video.url"></video>
+								</div>
+								<div ng-hide="results.length === pub.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === pub.images.length)">
+									<p class="counter">Еще<br> {{pub.images.length - limit}} фото</p>
+								</div>
+							</div>
+						</div>
+						<div class="likes">
+							<div class="likes-item">
+								<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
+								<p class="like-item">
+									В теме 
+									<span ng-if="pub.user_like" class="you"> Вы </span>
+									<span ng-if="pub.user_like" class="more">и еще</span>
+									<span class="count-like">{{pub.user_like ? pub.like_count - 1 : pub.like_count}}</span>
+									чел.
+								</p>
+							</div>
+							<a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
+						</div> 
+					</div>
+				</div>
+				<div class="user-messege">
+					<div class="messege">
+						<a class="user-name">Танюшка Мильцына</a>
+						<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
+							<span class="pictures">
+								<span class="pic" ng-repeat="pub in [1,2,3,4,5]">
+									<img src="../../../images/bc.png" alt="">
+								</span>
+							</span>
+						</p>
+					</div>
+					<p class="messege-time">10:55</p>
+				</div>
+			</div>
+		</div>
+		<div class="users-messege my-messege">
+			<div class="user-messeges">
+				<div class="chat-user-pulication">
+					<div class="user-publication">
+						<div class="user-publication-header">
+							<div class="user-function">
+								<a class="user" ui-sref="user({username: pub.user.login})">
+									<span class="ava">
+										<img ng-src="{{pub.user.avatar_path}}" alt="">
+									</span>
+									<span class="block-info">
+										<p class="user-name">{{pub.user.first_name}} {{pub.user.last_name}}</p>
+										<p class="time" am-time-ago="pub.created_at"></p>
+									</span>
+								</a>
+								<div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
+								<div href="" class="user-menu" ng-click="showPubMenu=!showPubMenu">
+									<div class="menu-item" ng-show="showPubMenu">
+										<div class="inner">			
+											<a href="" ng-click="sharePub(pub.id)">Переслать</a>
+											<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
+											<a href="" ng-click="alertPub(pub.id)">Пожаловаться</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
+							<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
+							<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
+							<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
+							<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
+							<div class="publication-ava">
+								<img ng-src="{{pub.mainFile.url}}">
+							</div>					
+							<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
+								<div ng-click="changeMainFileFeed(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
+									<img ng-src="{{image.url}}">
+								</div>
+								<div ng-click="changeMainFileFeed(video, pub)" ng-repeat="video in pub.videos" class="images-item">
+									<video width="150px" controls ngf-src="video.url"></video>
+								</div>
+								<div ng-hide="results.length === pub.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === pub.images.length)">
+									<p class="counter">Еще<br> {{pub.images.length - limit}} фото</p>
+								</div>
+							</div>
+						</div>
+						<div class="likes">
+							<div class="likes-item">
+								<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
+								<p class="like-item">
+									В теме 
+									<span ng-if="pub.user_like" class="you"> Вы </span>
+									<span ng-if="pub.user_like" class="more">и еще</span>
+									<span class="count-like">{{pub.user_like ? pub.like_count - 1 : pub.like_count}}</span>
+									чел.
+								</p>
+							</div>
+							<a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
+						</div> 
+					</div>
+				</div>
+				<div class="user-messege">
+					<div class="messege">
+						<a class="user-name">Танюшка Мильцына</a>
+						<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
+							<span class="pictures">
+								<span class="pic" ng-repeat="pub in [1,2,3,4,5]">
+									<img src="../../../images/bc.png" alt="">
+								</span>
+							</span>
+						</p>
+					</div>
+					<p class="messege-time">10:55</p>
+				</div>
+			</div>
+			<div class="user-ava">
+				<a href="" class="ava">
+					<img src="" alt="">
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

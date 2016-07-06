@@ -27,7 +27,7 @@
 			</div>
 		</div> -->
 	</div>		
-		<div class="new-add" ng-show="showPubAdd" ng-scrollbar is-bar-shown="pubFilesNeedScroll" rebuild-on="rebuild:me" style="max-height: 200px; overflow:hidden; position:relative;">
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 			<div class="new-img" ng-repeat="file in files"  ng-click="showMoreImages(files)">		  
 				<div class="inner">
 					<div class="close" ng-click="deletePubFile(files, $index)">
@@ -48,7 +48,7 @@
 		</div>
 	<div class="publication-footer" >
 		<div class="add-objects">
-			<input id="add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="files" ngf-multiple="true">
+			<input id="add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="files" ngf-before-model-change="pubFiles($files)" ngf-multiple="true">
 			<label for="add-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
 			<span class="add"></span>
 				Добавить фото или видео *
