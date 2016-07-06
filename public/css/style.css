@@ -4125,3 +4125,92 @@ body.ngdialog-open {
 .group-comments .pictures .pic:nth-child(5n) {
 	margin-right: 0;
 }
+.my-messege .user-messeges {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+@media (max-width: 720px)  {
+	.group-chat {
+		padding: 0 10px;
+	}
+	.chat-user-pulication {
+		width: 80%;
+	}
+	.group-chat .user-messege .pictures {
+		height: 71px;
+	}
+	.group-chat .user-messege .pictures .pic,
+	.group-chat .user-messege .pictures .pic:nth-child(4n) {
+		width: 32%;
+		margin-right: 2px;
+		height: 70px;
+	}
+	.group-chat .user-messege .pictures .pic:nth-child(3n) {
+		margin-right: 0;
+	}
+	.group-comments .pictures .pic {
+		width: 32%;
+    		height: 80px;
+	}
+	.group-comments .pictures {
+		height: 91px;
+	}
+}
+@media (max-width: 520px)  {
+	.group-comment {
+		flex-wrap: wrap;
+    		justify-content: flex-end;
+    		padding: 5px;
+	}
+	.group-chat {
+		padding: 0px 5px;
+	}
+	.group-chat-inner {
+		    padding: 0 0;
+	}
+	.chat-user-pulication {
+	    	width: 96%;
+	    	box-sizing: border-box;
+	}
+	.group-chat-inner .user-ava {
+		display: none;
+	}
+	.group-chat .users-messege {
+		padding-right: 0;
+	}
+	.group-chat .user-messege .pictures {
+		height: 71px;
+	}
+	.group-chat .user-messege .pictures .pic,
+	.group-chat .user-messege .pictures .pic:nth-child(4n) {
+		width: 32%;
+		margin-right: 2px;
+		height: 50px;
+	}
+	.group-chat .user-messege .pictures .pic:nth-child(3n) {
+		margin-right: 0;
+	}
+	.group-comments .pictures .pic {
+		width: 32%;
+    		height: 60px;
+	}
+	.group-comments .pictures {
+		height: 91px;
+	}
+	.group-chat .user-messege .messege-text {
+		font-size: 12.5px;
+		line-height: 15px;
+	}
+	.group-comment .smile {
+		order: 1;
+	}
+	.group-comment  .send {
+		order: 2;
+		margin-bottom: 0;
+	}
+	.group-comment  .send:hover {
+		border: 1px solid transparent;
+		color: #999;
+	}
+}
