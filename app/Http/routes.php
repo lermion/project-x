@@ -105,7 +105,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'publication'], function () {
-        Route::get('/', 'PublicationController@index');
+        Route::post('/', 'PublicationController@index');
         Route::get('/topic', 'PublicationController@topic');
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
         Route::post('update/{id}', 'PublicationController@update')->middleware(['auth']);
@@ -117,15 +117,22 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('store/{id}', 'PublicationCommentController@store')->middleware(['auth']);
             Route::get('destroy/{id}', 'PublicationCommentController@destroy')->middleware(['auth']);
             Route::get('like/{id}', 'PublicationCommentController@like')->middleware(['auth']);
+            Route::post('complaint', 'ComplaintCommentController@create')->middleware(['auth']);
+
         });
     });
 
+    Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
+        //Route::get('/', 'GroupController@index');
+        Route::post('create', 'PlaceController@create')->middleware(['auth']);;
+        Route::get('show/{name}', 'PlaceController@show');
+            });
+
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/publication\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='text'><br>
-            <input type='text' name='text'><br>
-
+        echo "<form action=\"http://pp.dev/publication/comment/complaint\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='comment_id'><br>
+            <input type='text' name='complaint_category_id'><br>
             <input type=\"submit\">
         </form>";
     });

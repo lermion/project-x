@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypePlacesTable extends Migration
+class CreateComplaintCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateTypePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_places', function (Blueprint $table) {
+        Schema::create('complaint_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->text('description');
-            $table->string('avatar');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateTypePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('type_places');
+        Schema::drop('complaint_categories');
     }
 }
