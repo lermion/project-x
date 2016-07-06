@@ -75,14 +75,14 @@ class Publication extends Model
         return $publications;
     }
 
-    public static function getUserPublication($userId)
+    public static function getUserPublication($offset,$limit,$userId)
     {
         $publications = Publication::with(['videos', 'images', 'user', 'comments' => function ($query) {
             $query->take(3);
             $query->orderBy('id', 'desc');
         }, 'comments.images', 'comments.videos', 'comments.user'])
             ->where('user_id', $userId)
-            ->where('is_anonym', false)->orderBy('id', 'desc')->get();
+            ->where('is_anonym', false)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();

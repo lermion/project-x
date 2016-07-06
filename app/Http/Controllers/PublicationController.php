@@ -66,8 +66,28 @@ class PublicationController extends Controller
         return $publication;
     }
 
-    public function userPublication($id)
+    public function userPublication(Request $request, $id)
     {
+        try {
+            $this->validate($request, [
+                'offset' => 'required|numeric',
+                'limit' => 'required|numeric'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        $Data = $request->all();
+        $offset = $Data['offset'];
+        $limit = $Data['limit'];
+
         //private profile
         $user = User::find($id);
         if ($user->is_private) {
@@ -84,7 +104,7 @@ class PublicationController extends Controller
         }
         $data = [
             'status' => true,
-            'publications' => Publication::getUserPublication($id)
+            'publications' => Publication::getUserPublication($offset,$limit,$id)
         ];
         return $data;
     }
