@@ -329,7 +329,7 @@ angular.module('placePeopleApp')
 			}
 		});
 		$scope.publishNewPub = function(files){
-			var pubText = angular.element(document.querySelector(".pubText")).val();
+			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -401,7 +401,6 @@ angular.module('placePeopleApp')
 				$scope.photosGrid = false;
 				storageService.setStorageItem('pubView', 'list');
 			}
-			console.log(storage);
 		}
 		
 
