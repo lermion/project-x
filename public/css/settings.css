@@ -1276,7 +1276,13 @@
     background: #495b79;
     color: #fff;
 } 
-
+.user-publication-content .publication-ava a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 @media (max-width: 720px) {
   .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
