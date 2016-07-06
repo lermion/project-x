@@ -165,10 +165,10 @@ angular.module('placePeopleApp')
 	$scope.saveCropp = function(img, cropped){
 		var blobFile = blobToFile(cropped, $scope.fileName);
 		blobFile.filename = $scope.fileName;
-		$scope.consoleLog = blobFile;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
 		ngDialog.closeAll();
+		$scope.consoleLog = blobFile;
 		UserService.updateAvatar(blobFile)
 			.then(function(res){
 				if (res.status) {
