@@ -287,7 +287,8 @@ angular.module('placePeopleApp')
 			ngDialog.open({
 					template: '../app/User/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					name: "create-publication"
 				});
 		};
 
@@ -350,6 +351,15 @@ angular.module('placePeopleApp')
 				window.emojiPicker.discover();
 				$(".emoji-button").text("");
 				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text;
+			}else if($dialog.name === "create-publication"){
+				console.log("hgello");
+				window.emojiPicker = new EmojiPicker({
+					emojiable_selector: '.create-publication-pub-text',
+					assetsPath: 'lib/img/',
+					popupButtonClasses: 'fa fa-smile-o'
+				});
+				window.emojiPicker.discover();
+				$(".emoji-button").text("");
 			}
 		});
 		$scope.publishNewPub = function(files){
