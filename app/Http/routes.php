@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
     });
     Route::get('country', 'CountryController@index');
+    Route::get('city/{country_id}', 'CityController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
     Route::get('static_page/get/name', 'StaticPageController@getNames');
 
@@ -130,7 +131,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/publication/comment/complaint\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/city/2\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='comment_id'><br>
             <input type='text' name='complaint_category_id'><br>
             <input type=\"submit\">
