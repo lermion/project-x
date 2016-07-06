@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Country;
 use App\City;
 use App\StaticPage;
+use App\ComplaintCategory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -351,5 +352,21 @@ class StaticPageTableSeeder extends Seeder {
         StaticPage::create(array('description'=> 'Реклама','name' => 'advertising','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
         StaticPage::create(array('description'=> 'Разработчикам','name' => 'developers','text'=>'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'));
 
+    }
+}
+
+class ComplaintCategoryTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('complaint_categories')->delete();
+
+        ComplaintCategory::create(array('id'=> 1, 'name' => 'Спам'));
+        ComplaintCategory::create(array('id'=> 2, 'name' => 'Оскорбление'));
+        ComplaintCategory::create(array('id'=> 3, 'name' => 'Материал для взрослых'));
+        ComplaintCategory::create(array('id'=> 4, 'name' => 'Пропаганда наркотиков'));
+        ComplaintCategory::create(array('id'=> 5, 'name' => 'Детская порнография'));
+        ComplaintCategory::create(array('id'=> 6, 'name' => 'Экстремизм'));
+        ComplaintCategory::create(array('id'=> 7, 'name' => 'Насилие'));
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Group;
-use App\GroupUser;
+use App\Place;
+use App\PlaceUser;
 use App\Image;
 use App\Publication;
 use App\Video;
@@ -14,13 +14,13 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class GroupPublicationCommentController extends Controller
+class PlacePublicationCommentController extends Controller
 {
-    public function store(Request $request, $groupId, $publicationId)
+    public function store(Request $request, $placeId, $publicationId)
     {
-        if (($publication = Publication::find($publicationId)) && ($group = Group::find($groupId))) {
-            if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId])->first()
-                && $group->publications()->where('publications.id', $publicationId)->first()
+        if (($publication = Publication::find($publicationId)) && ($place = Place::find($placeId))) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId])->first()
+                && $place->publications()->where('publications.id', $publicationId)->first()
             ) {
                 try {
                     $this->validate($request, [
