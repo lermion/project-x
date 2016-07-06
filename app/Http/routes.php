@@ -105,7 +105,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'publication'], function () {
-        Route::get('/', 'PublicationController@index');
+        Route::post('/', 'PublicationController@index');
         Route::get('/topic', 'PublicationController@topic');
         Route::post('store', 'PublicationController@store')->middleware(['auth']);
         Route::post('update/{id}', 'PublicationController@update')->middleware(['auth']);
