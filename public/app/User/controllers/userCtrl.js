@@ -398,22 +398,19 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText, 0, isMain, videos, images)			
-				.then(					
-					function(res){						
-						if (res.status) {
-							$scope.userData.publications_count++;
-							getUserPubs(storage.userId);
-							ngDialog.closeAll();
-						} else {
-							console.log('Error');							
-						}
-						$scope.newPubLoader = false;	        
-					},
-					function(err){
-						console.log(err);
-					});
-			
+			PublicationService.createPublication(pubText, 0, isMain, videos, images).then(function(res){
+				if(res.status){
+				$scope.userPublications.unshift(res.publication);
+					$scope.userData.publications_count++;
+					ngDialog.closeAll();
+				} else {
+					console.log('Error');							
+				}
+				$scope.newPubLoader = false;	        
+			},
+			function(err){
+				console.log(err);
+			});
 		};
 		if($state.current.name === "mobile-pub-view" && $stateParams.id){
 			getSinglePublication($stateParams.id);
