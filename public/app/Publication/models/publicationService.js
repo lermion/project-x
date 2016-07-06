@@ -121,8 +121,9 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		}
 		
-		function getUserPublications(userId, offset){				
-				defer = $q.defer();
+
+		function getUserPublications(userId, offset){
+				var defer = $q.defer();
 				var limit = 12;			
 				var data = {
 					'offset': offset,
