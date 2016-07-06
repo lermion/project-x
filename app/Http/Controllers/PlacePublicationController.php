@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
-use App\GroupUser;
+use App\Place;
+use App\PlaceUser;
 use App\Image;
 use App\Publication;
 use App\Video;
@@ -13,7 +13,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class GroupPublicationController extends Controller
+class PlacePublicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,11 +22,11 @@ class GroupPublicationController extends Controller
      */
     public function index($id)
     {
-        $group = Group::with(['publications', 'publications.group', 'publications.user', 'publications.videos', 'publications.images', 'publications.comments' => function ($query) {
+        $place = Place::with(['publications', 'publications.place', 'publications.user', 'publications.videos', 'publications.images', 'publications.comments' => function ($query) {
             $query->take(3);
         }, 'publications.comments.images', 'publications.comments.videos', 'publications.comments.user'])
             ->find($id);
-        $publications = $group->publications;
+        $publications = $place->publications;
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();
@@ -100,7 +100,7 @@ class GroupPublicationController extends Controller
             }
         }
 
-        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
+        if (!$placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $id, 'is_admin' => true])->first()) {
             $responseData = [
                 "status" => false,
                 "error" => [
@@ -113,8 +113,8 @@ class GroupPublicationController extends Controller
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
-        $group = Group::find($id);
-        $publication = $group->publications()->create($publicationData);
+        $group = Place::find($id);
+        $publication = $place->publications()->create($publicationData);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 if (!$image) {
@@ -151,11 +151,11 @@ class GroupPublicationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $groupId,$publicationId)
+    public function update(Request $request,$placeId,$publicationId)
     {
-        if (($publication = Publication::find($publicationId)) && ($group = Group::find($groupId))) {
-            if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()
-            &&$group->publications()->where('publications.id', $publicationId)->first()) {
+        if (($publication = Publication::find($publicationId)) && ($place = Place::find($placeId))) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true])->first()
+                &&$place->publications()->where('publications.id', $publicationId)->first()) {
                 try {
                     $this->validate($request, [
                         'text' => 'required|min:1',
@@ -221,7 +221,7 @@ class GroupPublicationController extends Controller
                 }
                 $responseData = [
                     "status" => true,
-                    "publication" => Publication::with('videos','group', 'images', 'user')->find($publication->id)
+                    "publication" => Publication::with('videos','place', 'images', 'user')->find($publication->id)
                 ];
                 return response()->json($responseData);
             } else {
@@ -252,11 +252,11 @@ class GroupPublicationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($groupId,$publicationId)
+    public function destroy($placeId,$publicationId)
     {
-        if (($publication = Publication::find($publicationId)) && ($group = Group::find($groupId))) {
-            if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()
-                &&$group->publications()->where('publications.id', $publicationId)->first()) {
+        if (($publication = Publication::find($publicationId)) && ($place = Place::find($placeId))) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true])->first()
+                &&$place->publications()->where('publications.id', $publicationId)->first()) {
                 $publication->delete();
                 $responseData = [
                     "status" => true
