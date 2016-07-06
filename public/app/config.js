@@ -96,16 +96,16 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Feed/views/feed.html',
 	      controller: 'feedCtrl'
 	    })
-	    .state('feed.mobile', {
-	      url: '/pub/:pubId',
-	      templateUrl: '../../app/Feed/views/view-publication.html',
-	      controller: 'feedCtrl'
-	    })
-	    .state('feed.desktop', {
-	      url: '/publication/:pubId',
-	      templateUrl: '../../app/Feed/views/feed.html',
-	      controller: 'feedCtrl'
-	    })
+	    // .state('feed-mobile', {
+	    //   url: 'feed/:pubId',
+	    //   templateUrl: '../../app/Feed/views/view-publication.html',
+	    //   controller: 'feedCtrl'
+	    // })
+	    // .state('feed-desktop', {
+	    //   url: 'feed/pubs/:pubId',
+	    //   templateUrl: '../../app/Feed/views/feed.html',
+	    //   controller: 'feedCtrl'
+	    // })
 	    .state('user', {
 	      url: '/:username',
 	      templateUrl: '../../app/User/views/user.html',
