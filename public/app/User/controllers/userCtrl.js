@@ -477,7 +477,7 @@ angular.module('placePeopleApp')
 			$scope.disableAddComment = true;
 			if(pubText === undefined || pubText === ""){
 				pubText = {};
-				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
+				pubText.rawhtml = $(".ngdialog .emoji-wysiwyg-editor").html();
 			}
 			var images = [];
 			var videos = [];
