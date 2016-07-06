@@ -163,6 +163,7 @@ angular.module('placePeopleApp')
 	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
 
 	$scope.saveCropp = function(img, cropped){
+		$scope.consoleLog = "gogogogo";
 		var blobFile = blobToFile(cropped, $scope.fileName);
 		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
