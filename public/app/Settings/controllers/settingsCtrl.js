@@ -63,17 +63,14 @@ angular.module('placePeopleApp')
 		});
 
 	/*Page code*/	
-
-	function blobToFile(dataURI, callback){
+	function blobToFile(dataURI){
 		var byteString = atob(dataURI.split(',')[1]);
-		var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
 		var ab = new ArrayBuffer(byteString.length);
 		var ia = new Uint8Array(ab);
 		for (var i = 0; i < byteString.length; i++) {
 			ia[i] = byteString.charCodeAt(i);
 		}
-		var bb = new Blob([ab]);
-		return bb;
+		return new Blob([ab], { type: 'image/jpeg' });
 	}
 
 	UserService.getUserData(storage.username)
@@ -145,17 +142,15 @@ angular.module('placePeopleApp')
 				});
 	};
 
-	$scope.image = {
-		myImage: "",
-		myCroppedImage: ""
-	};
+	$scope.myImage='';
+	$scope.myCroppedImage='';
 	var handleFileSelect = function(evt) {
 		var file = evt.currentTarget.files[0];		
 		$scope.fileName = file.name;
 		var reader = new FileReader();
 		reader.onload = function (evt) {
 			$scope.$apply(function($scope){
-				$scope.image.myImage = evt.target.result;
+				$scope.myImage = evt.target.result;
 				ngDialog.open({
 					template: '../app/Settings/views/crop-image.html',
 					className: 'settings-add-ava ngdialog-theme-default',
@@ -172,7 +167,7 @@ angular.module('placePeopleApp')
 		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;	
-		ngDialog.closeAll();		
+		ngDialog.closeAll();
 		UserService.updateAvatar(blobFile)
 			.then(function(res){
 				if (res.status) {
