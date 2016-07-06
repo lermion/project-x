@@ -2,91 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Place;
+use App\PlaceUser;
 use App\Image;
 use App\Publication;
-use App\User;
 use App\Video;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class PublicationController extends Controller
+class PlacePublicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($id)
     {
-        try {
-            $this->validate($request, [
-                'offset' => 'required|numeric',
-                'limit' => 'required|numeric'
-            ]);
-        } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return response()->json($result);
-        }
-
-        $Data = $request->all();
-        $offset = $Data['offset'];
-        $limit = $Data['limit'];
-
-        return Publication::getMainPublication($offset,$limit);
-    }
-
-    public function topic(){
-        $publication = Publication::with(['videos', 'group', 'images', 'comments' => function ($query) {
+        $place = Place::with(['publications', 'publications.place', 'publications.user', 'publications.videos', 'publications.images', 'publications.comments' => function ($query) {
             $query->take(3);
-            $query->orderBy('id', 'asc');
-        }, 'comments.images', 'comments.videos', 'comments.user'])
-            ->where('is_topic',true)
-            ->first();
-        if(!$publication)return null;
-        $publication->like_count = $publication->likes()->count();
-        $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
-        $publication->comment_count = $publication->comments()->count();
-        if(!$publication->is_anonym){
-            $publication->user;
-        }
-        foreach ($publication->comments as &$comment) {
-            $comment->like_count = $comment->likes()->count();
-        }
-
-        return $publication;
-    }
-
-    public function userPublication($id)
-    {
-        //private profile
-        $user = User::find($id);
-        if ($user->is_private) {
-            if((!$user->isRealSub(Auth::id())&&($id!=Auth::id()))){
-                $data = [
-                    "status" => false,
-                    "error" => [
-                        'message' => "Permission denied",
-                        'code' => '8'
-                    ]
-                ];
-                return response()->json($data);
+        }, 'publications.comments.images', 'publications.comments.videos', 'publications.comments.user'])
+            ->find($id);
+        $publications = $place->publications;
+        foreach ($publications as &$publication) {
+            $publication->like_count = $publication->likes()->count();
+            $publication->comment_count = $publication->comments()->count();
+            if (!$publication->is_anonym) {
+                $publication->user;
+            }
+            foreach ($publication->comments as &$comment) {
+                $comment->like_count = $comment->likes()->count();
             }
         }
-        $data = [
-            'status' => true,
-            'publications' => Publication::getUserPublication($id)
-        ];
-        return $data;
+        return $publications;
     }
 
     /**
@@ -95,12 +46,11 @@ class PublicationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
             $this->validate($request, [
-                'text' => 'min:1',
-                'cover' => 'file',
+                'text' => 'required|min:1',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
                 'videos' => 'array',
@@ -116,6 +66,7 @@ class PublicationController extends Controller
             ];
             return response()->json($result);
         }
+
         if ($request->hasFile('images')) {
             $validator = Validator::make($request->file('images'), [
                 'image'
@@ -148,15 +99,22 @@ class PublicationController extends Controller
                 return response()->json($result);
             }
         }
-        $publicationData = $request->all();
-        if ($request->hasFile('cover')) {
-            $cover = $request->file('cover');
-            $path = Image::getImagePath($cover);
-            $publicationData['cover'] = $path;
+
+        if (!$placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $id, 'is_admin' => true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
         }
+        $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
-        $publication = Publication::create($publicationData);
+        $group = Place::find($id);
+        $publication = $place->publications()->create($publicationData);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 if (!$image) {
@@ -187,31 +145,20 @@ class PublicationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return Publication::show($id);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$placeId,$publicationId)
     {
-        if ($publication = Publication::find($id)) {
-            if ($publication->user_id == Auth::id()) {
+        if (($publication = Publication::find($publicationId)) && ($place = Place::find($placeId))) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true])->first()
+                &&$place->publications()->where('publications.id', $publicationId)->first()) {
                 try {
                     $this->validate($request, [
-                        'text' => 'min:1',
-                        'cover' => 'file',
+                        'text' => 'required|min:1',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',
                         'videos' => 'array',
@@ -230,11 +177,6 @@ class PublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
-                if ($request->hasFile('cover')) {
-                    $cover = $request->file('cover');
-                    $path = Image::getImagePath($cover);
-                    $publicationData['cover'] = $path;
-                }
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
@@ -279,7 +221,7 @@ class PublicationController extends Controller
                 }
                 $responseData = [
                     "status" => true,
-                    "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+                    "publication" => Publication::with('videos','place', 'images', 'user')->find($publication->id)
                 ];
                 return response()->json($responseData);
             } else {
@@ -310,12 +252,16 @@ class PublicationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($placeId,$publicationId)
     {
-        if ($publication = Publication::find($id)) {
-            if ($publication->user_id == Auth::id()) {
+        if (($publication = Publication::find($publicationId)) && ($place = Place::find($placeId))) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true])->first()
+                &&$place->publications()->where('publications.id', $publicationId)->first()) {
                 $publication->delete();
-                return response()->json(['status' => true]);
+                $responseData = [
+                    "status" => true
+                ];
+                return response()->json($responseData);
             } else {
                 $responseData = [
                     "status" => false,
@@ -326,33 +272,6 @@ class PublicationController extends Controller
                 ];
                 return response()->json($responseData);
             }
-        } else {
-            $responseData = [
-                "status" => false,
-                "error" => [
-                    'message' => 'Incorrect id',
-                    'code' => '1'
-                ]
-            ];
-            return response()->json($responseData);
-        }
-    }
-
-    public function like($id)
-    {
-        if ($publication = Publication::find($id)) {
-            $userId = Auth::id();
-            if ($like = $publication->likes()->where('user_id', $userId)->first()) {
-                $like->delete();
-            } else {
-                $publication->likes()->create([
-                    'user_id' => $userId
-                ]);
-            }
-            return response()->json(['status' => true,
-                'like_count' => $publication->likes()->count(),
-                'user_like' => $publication->likes()->where('user_id', Auth::id())->first() != null
-            ]);
         } else {
             $responseData = [
                 "status" => false,
