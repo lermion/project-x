@@ -170,13 +170,23 @@
 			<div class="add-objects">						
 				<input id="addfile" type='file' ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
 				<label for="addfile">
-					<span class="add"></span>
+					<span class="add"  ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
+						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
+							<a href="" class="active">Публикация</a>
+							<a href="" class="">Файл</a>
+						</span>
+					</span>
 				</label>                                         
 			</div> 
 			<button class="send">Отправить</button>
 		</div>
 		<div class="pictures">
 			<div class="pic" ng-repeat="pub in [1,2,3,4,5]">
+				<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+					<div class="close-inner">
+						<p>Удалить</p>
+					</div>
+				</div>
 				<img src="../../../images/bc.png" alt="">
 			</div>
 		</div>
