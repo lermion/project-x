@@ -22,7 +22,7 @@ class PublicationController extends Controller
      */
     public function index(Request $request)
     {
-        /*try {
+        try {
             $this->validate($request, [
                 'offset' => 'required|numeric',
                 'limit' => 'required|numeric'
@@ -38,9 +38,9 @@ class PublicationController extends Controller
             return response()->json($result);
         }
 
-        $Data = $request->all();*/
-        $offset = 0;//$Data['offset'];
-        $limit = 100;//$Data['limit'];
+        $Data = $request->all();
+        $offset = $Data['offset'];
+        $limit = $Data['limit'];
 
         return Publication::getMainPublication($offset,$limit);
     }
