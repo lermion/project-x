@@ -102,16 +102,15 @@
 					<p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций следует подписаться</p>
 					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций следует авторизоваться</p>					
 					<!-- unit grid-->						
-					<div class="my-photos" ng-show="photosGrid">
+					<div class="my-photos" ng-show="photosGrid" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 						<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
 							<a href="javascript:void(0)" ng-click="showPublication(pub)">
 								<img ng-src="{{pub.images[0].url}}" alt="">								
 							</a>
-						</div>
-						<p ng-click="loadMorePubs('greed')">Load more</p>
+						</div>						
 					</div>
 					<!-- single unit -->					
-					<div class="my-photos-list" ng-show="!photosGrid">
+					<div class="my-photos-list" ng-show="!photosGrid" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 						<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications" style="{{resizeHeight}}" ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
 							<div role="document">
 								<div class="user-publication">
@@ -232,9 +231,7 @@
 									</div>
 								</div>
 							</div>
-
-						</div>
-						<p ng-click="loadMorePubs()">Load more</p>
+						</div>						
 					</div>
 
 

@@ -122,8 +122,7 @@ angular.module('placePeopleApp')
 			PublicationService.getUserPublications(userId, counter)
 			.then(
 				function(res){					
-					if (res.status) {
-						// $scope.userPublications = res.publications;
+					if (res.status) {						
 						if (!$scope.userPublications) {
 							$scope.userPublications = res.publications;
 						} else {						
@@ -147,11 +146,11 @@ angular.module('placePeopleApp')
 			);
 		}
 
-		$scope.loadMorePubs = function(flag){
-			if (flag === 'greed') {
+		$scope.loadMorePubs = function(){
+			if ($scope.userPublications && counter < $scope.userPublications.length) {
 				counter+=12;
 			} else {
-				counter+=12;
+				return;
 			}						
 			getUserPubs($scope.userData.id, counter);
 		};
