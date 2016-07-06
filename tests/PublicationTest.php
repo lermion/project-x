@@ -15,7 +15,7 @@ class PublicationTest extends TestCase
      */
     public function testIndex()
     {
-        $this->json('GET', 'publication/')->AssertResponseOk();
+        $this->json('POST', 'publication/')->AssertResponseOk();
     }
 
     public function testTopic()
