@@ -91,16 +91,20 @@ angular.module('placePeopleApp')
 								$scope.publications.push(publication);
 							});
 						}
-					}
-					
+					}										
 				}, function(err){
 					console.log(err);
 				});
 		}
 		var counter = 0;		
 		getMainPubs(counter);
-		$scope.loadMorePubs = function(){
-			counter+=10;			
+
+		$scope.loadMorePubs = function(){			
+			if ($scope.publications && counter < $scope.publications.length) {
+				counter+=10;
+			} else {
+				return;
+			}			
 			getMainPubs(counter);
 		};		
 
@@ -248,6 +252,7 @@ angular.module('placePeopleApp')
 			}
 
 			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+				$scope.showAddComment = false;
 				$scope.disableAddComment = false;
 				if(response.data.status){
 					$(".emoji-wysiwyg-editor").html("");
@@ -307,6 +312,14 @@ angular.module('placePeopleApp')
 					images: images
 				}
 			});
+		}
+
+		$scope.showAddCommentBlock = function(showAddComment){
+			if(showAddComment){
+				$scope.showAddComment = false;
+			}else{
+				$scope.showAddComment = true;
+			}
 		}
 
 		$scope.closePopup = function(){
@@ -439,6 +452,43 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
+
+		$scope.openComplainBlock = function(commentId){			
+			ngDialog.open({
+							template: '../app/Feed/views/alert-publication.html',
+							className: 'alert-publication ngdialog-theme-default',
+							scope: $scope,
+							data: {
+								commentId: commentId
+							}							
+						});
+		};
+
+		$scope.sendCommentComplain = function(commentId, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
+			var complainCategory = [];
+			cat1 ? complainCategory.push(1) : '';
+			cat2 ? complainCategory.push(2) : '';
+			cat3 ? complainCategory.push(3) : '';
+			cat4 ? complainCategory.push(4) : '';
+			cat5 ? complainCategory.push(5) : '';
+			cat6 ? complainCategory.push(6) : '';
+			cat7 ? complainCategory.push(7) : '';
+			
+			// console.log(commentId, complainCategory);
+
+			// PublicationService.complaintCommentAuthor(commentId, complainCategory)
+			// .then(					
+			// 		function(res){						
+			// 			if (res.status) {							
+			// 				ngDialog.closeAll();
+			// 			} else {
+			// 				console.log('Error');							
+			// 			}						
+			// 		},
+			// 		function(err){
+			// 			console.log(err);
+			// 		});
+		};
 
 
 }]);

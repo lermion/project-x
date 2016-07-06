@@ -31,4 +31,9 @@ class StaticTest extends TestCase
         $country = \App\Country::first();
         $this->json('GET', 'city/'.$country->id)->AssertResponseOk();
     }
+
+    public function testTypePlace()
+    {
+        $this->json('GET', 'place/type')->AssertResponseOk();
+    }
 }

@@ -11,6 +11,7 @@
 <body ng-controller="mainCtrl" ng-class="bodyClass">
     <div id="wrapper" ui-view></div> 
     <!-- Scripts -->
+    <script type="text/javascript" src="../../app/libs/jquery-2.1.3.min.js"></script>
     <script src="../../app/libs/angular.min.js"></script>
     <script src="../../app/libs/angular-ui-router.min.js"></script>
     <script src="../../app/libs/ngDialog.min.js"></script>
@@ -31,7 +32,8 @@
     <script src="../../app/libs/angular-moment/angular-moment.min.js"></script>
     <link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>
     <script src="../../app/libs/angular-sanitize.js"></script>        
-    <script type="text/javascript" src="../../app/libs/jquery-2.1.3.min.js"></script>
+    
+    <script type="text/javascript" src="../../app/libs/ng-infinite-scroll.min.js"></script>
     <script src="../../app/libs/nanoscroller.min.js"></script>
     <script src="../../app/libs/tether.min.js"></script>
     <script src="../../app/libs/config.js"></script>

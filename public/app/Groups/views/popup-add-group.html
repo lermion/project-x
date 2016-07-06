@@ -49,17 +49,33 @@
         <!--<input type="text" id="" placeholder="Пригласить в группу...">-->
     </div>
 
-    <div class="fifth_item">
-        <ul class="item1">
-            <li ng-repeat="user in users">
-                <div class="item__remove" ng-click="removeUser(user)"></div>
-                <img ng-src="{{user.avatar}}">{{user.firstName + ' ' + user.lastName}}
-            </li>
-        </ul>
-        <div class="item2">
-            <a href=""> Отменить </a>
-            <a href="" class="active"> Создать группу</a>
-        </div>
+    <div class="button">
+        <a href="" class="cansel"> Отменить </a>
+        <a href="" class="create"> Создать группу</a>
     </div>
+
+    <!--<div class="fifth_item">-->
+        <!--<ul class="item1">-->
+            <!--<li ng-repeat="user in users">-->
+                <!--<div class="item__remove" ng-click="removeUser(user)"></div>-->
+                <!--<img ng-src="{{user.avatar}}">{{user.firstName + ' ' + user.lastName}}-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+	<div class="fifth_item">
+		<ul class="item1">
+			<input type="text" id="" placeholder="Пригласить в группу...">
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+		</ul>
+		<div class="item1 add-people">
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+			<li> <img src="images/picture.jpg">  Петров Василий </li>
+		</div>
+	</div>
 
 </div>

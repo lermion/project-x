@@ -2770,7 +2770,8 @@ spam-item {
 	outline: none;
 	cursor: pointer;
 }
-.user-publication .add-comment .publication-footer-button .publication-button:disabled{
+.user-publication .add-comment .publication-footer-button .publication-button:disabled,
+.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:disabled{
 	cursor: not-allowed;
 }
 .user-publication .add-comment .publication-footer-button .publication-button:hover,
@@ -2969,6 +2970,7 @@ spam-item {
  	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
  }
 .comment-imges .comment-list {
 	width: 13.8%;
@@ -3325,6 +3327,7 @@ body.public.ngdialog-open {
 	overflow-x: hidden;
 }
 body.ngdialog-open {
+	padding-right: 0 !important;
 	/*position: fixed;*/
 	overflow: hidden !important;
 }
@@ -3623,6 +3626,10 @@ body.ngdialog-open {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 70%;
+}
+.group-ava .group-likes .group-info .publication-place {
+	background-image: none;
+	padding-left: 0;
 }
 .group-ava .group-likes .group-info .publication-place:hover {
 	color: #999;
@@ -4333,4 +4340,5 @@ body.public.ngdialog-open .user-main-content {
 	padding-bottom: 75px;
 	height: 100%;
 	box-sizing: border-box;
+	min-height: 100vh;
 }

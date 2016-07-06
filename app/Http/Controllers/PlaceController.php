@@ -22,6 +22,7 @@ class PlaceController extends Controller
             $this->validate($request, [
                 'name' => 'required|unique:places',
                 'description' => 'required',
+                'city_id' =>'',
                 //'address' =>
                 //'coordinates_x'=> 'numeric',
                 //'coordinates_y'=> 'numeric',

@@ -6,6 +6,7 @@ use App\Country;
 use App\City;
 use App\StaticPage;
 use App\ComplaintCategory;
+use App\TypePlace;
 
 class DatabaseSeeder extends Seeder
 {
@@ -355,18 +356,35 @@ class StaticPageTableSeeder extends Seeder {
     }
 }
 
-class ComplaintCategoryTableSeeder extends Seeder {
+class ComplaintCategoryTableSeeder extends Seeder
+{
 
     public function run()
     {
         DB::table('complaint_categories')->delete();
 
-        ComplaintCategory::create(array('id'=> 1, 'name' => 'Спам'));
-        ComplaintCategory::create(array('id'=> 2, 'name' => 'Оскорбление'));
-        ComplaintCategory::create(array('id'=> 3, 'name' => 'Материал для взрослых'));
-        ComplaintCategory::create(array('id'=> 4, 'name' => 'Пропаганда наркотиков'));
-        ComplaintCategory::create(array('id'=> 5, 'name' => 'Детская порнография'));
-        ComplaintCategory::create(array('id'=> 6, 'name' => 'Экстремизм'));
-        ComplaintCategory::create(array('id'=> 7, 'name' => 'Насилие'));
+        ComplaintCategory::create(array('id' => 1, 'name' => 'Спам'));
+        ComplaintCategory::create(array('id' => 2, 'name' => 'Оскорбление'));
+        ComplaintCategory::create(array('id' => 3, 'name' => 'Материал для взрослых'));
+        ComplaintCategory::create(array('id' => 4, 'name' => 'Пропаганда наркотиков'));
+        ComplaintCategory::create(array('id' => 5, 'name' => 'Детская порнография'));
+        ComplaintCategory::create(array('id' => 6, 'name' => 'Экстремизм'));
+        ComplaintCategory::create(array('id' => 7, 'name' => 'Насилие'));
+    }
+}
+
+class TypePlaceTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        DB::table('type_places')->delete();
+
+        TypePlace::create(array('id' => 1, 'name' => 'Магазин', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
+        TypePlace::create(array('id' => 2, 'name' => 'Кафе/Ресторан', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
+        TypePlace::create(array('id' => 3, 'name' => 'Развлечение', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
+        TypePlace::create(array('id' => 4, 'name' => 'Организация', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
+        TypePlace::create(array('id' => 5, 'name' => 'Университет', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
+        TypePlace::create(array('id' => 6, 'name' => 'Школа', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
     }
 }
