@@ -25,7 +25,7 @@
 		</div>
 	</header>
 	
-	<div class="main-content">
+	<div class="main-content" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 		<div class="groups">
 			<a ui-sref="groups" class="pub-groups">Публичные группы</a>
 			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
@@ -175,7 +175,7 @@
 				</div> 
 			</div>
 		</div>  <!-- end of publication -->
-		<p ng-click="loadMorePubs()">load more</p>
+		<!-- <p ng-click="loadMorePubs()">load more</p> -->
 
 	</div> 
 
