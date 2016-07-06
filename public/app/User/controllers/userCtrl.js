@@ -352,7 +352,6 @@ angular.module('placePeopleApp')
 				$(".emoji-button").text("");
 				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text;
 			}else if($dialog.name === "create-publication"){
-				console.log("hgello");
 				window.emojiPicker = new EmojiPicker({
 					emojiable_selector: '.create-publication-pub-text',
 					assetsPath: 'lib/img/',
