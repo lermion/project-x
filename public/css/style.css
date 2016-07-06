@@ -3627,6 +3627,10 @@ body.ngdialog-open {
 	text-overflow: ellipsis;
 	max-width: 70%;
 }
+.group-ava .group-likes .group-info .publication-place {
+	background-image: none;
+	padding-left: 0;
+}
 .group-ava .group-likes .group-info .publication-place:hover {
 	color: #999;
 }
