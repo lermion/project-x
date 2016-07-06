@@ -1527,6 +1527,8 @@ a.add_comments {
 
 
 
+
+
 /*Create tab-people*/
 .group-peoples {
   width: 700px;
@@ -1534,53 +1536,81 @@ a.add_comments {
   flex-wrap: wrap;
   display: flex;
   box-sizing: border-box;
-  background-color: red;
   margin: 0 auto 0px auto;
+  background-color: #fff;
 }
 .group-peoples-inner {
-  padding: 30px 25px;
-}
-
-
-
-/*
-.group-peoples-inner {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
-}
-.group-peoples-item {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
-  background-color: green;
-  box-sizing: border-box;
+  flex-wrap: wrap;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 30px 25px;
 }
-
-.group-item-info {
+.group-peoples-inner-item {
+  display: flex;
+  border-bottom: 2px solid #eee;
+  width: 100%;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+}
+.peoples-inner-item-data {
   display: flex;
   width: 80%;
   justify-content: flex-start;
+  align-items: center;
 }
-.peoples-item-ava {
-  margin-right: 20px;
-}
-.item-ava-a {
-  border-radius: 50%;
-  display: block;
-  overflow: hidden;
+.peoples-item-photo a {
+  margin: 0;
+  padding: 0;
+  display: flex;
   width: 100px;
   height: 100px;
-  opacity: 1;
-  cursor: pointer;
+  overflow: hidden;
+  z-index: 10;
+  background-color: white;
+  border-radius: 50%;
 }
-.peoples-item-ava img {
+.peoples-item-photo a img {
+  display: flex;
   width: 100%;
 }
-
-.group-people-admin {
-  display: flex;
+.peoples-item-name-content {
   margin-left: 10px;
-}*/
+  font-size: 16.7px;
+  font-family: "SFUIDisplayMedium";
+}
+.peoples-item-name-content a {
+  text-decoration: none;
+  line-height: 25px;
+}
+.peoples-item-name-content p {
+  font-weight: lighter;
+  font-size: 13px;
+  font-family: "SFUIDisplayLight";
+  line-height: 25px;
+}
+.peoples-item-name-family {
+  display: block;
+}
+.peoples-item-name-family span {
+  display: block;
+  color: #333;
+  transition: all .3s ease-in-out .1s;
+}
+.peoples-item-name-family span:hover {
+  display: block;
+  color: #333;
+  transition: all .3s ease-in-out .1s;
+}
+.peoples-item-name-comment {
+  margin: 0;
+  padding: 0;
+}
+.peoples-inner-item-admin {
+  display: flex;
+  color: red;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayMedium";
+  margin-right: 5px;
+}
