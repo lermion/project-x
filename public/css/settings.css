@@ -1996,7 +1996,10 @@ a.add_comments {
     align-items: center;
     margin-bottom: 10px;
 }
-
+.item1.add-people ul {
+  margin: 0;
+  padding: 0;
+}
 
 
 
