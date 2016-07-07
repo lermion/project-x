@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-					<p class="publication-text" ng-bind-html="pub.text | codeToSmiley"></p>
+					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
 					<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
@@ -110,7 +110,7 @@
 								<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert">Жалоба</a>
 								<a href="javascript:void(0);" ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>				
 							</div>
-							<p ng-bind-html="comment.text | codeToSmiley" class="comment-item"></p>
+							<p ng-bind-html="comment.text | colonToSmiley" class="comment-item"></p>
 							<div ng-if="comment.images[0]" class="comment-pic">
 								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images, image)" href="javascript:void(0);" class="comment-pic-item">
 									<img ng-src="{{image.url}}">
@@ -141,7 +141,6 @@
 									<i class="icon icon-emoji"></i>
 								</a>
 							</div>
-							
 						</div>
 						<div class="new-add"  ng-show="pub.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 							<div class="new-img" ng-repeat="file in pub.files">		  
