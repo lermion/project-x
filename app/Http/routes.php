@@ -125,7 +125,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
-        Route::post('create', 'PlaceController@create')->middleware(['auth']);;
+        Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
         Route::group(['prefix' => 'type'], function () {
             Route::get('static', 'TypePlaceController@getStatic');
@@ -136,9 +136,15 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/type/dynamic\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='comment_id' value='138'><br>
-            <input type='text' name='complaint_category_id[]'><br>
+        echo "<form action=\"http://pp.dev/place/create\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='name'><br>
+            <input type='text' name='description' value='138'><br>
+            <input type='text' name='city_id' value='5'><br>
+            <input type='text' name='address'><br>
+            <input type='text' name='coordinates_x' value='138'><br>
+            <input type='text' name='coordinates_y' value='138'><br>
+            <input type='text' name='type_place_id' value='8'><br>
+            <input type='text' name='expired_date' value='8'><br>
 
             <input type=\"submit\">
         </form>";

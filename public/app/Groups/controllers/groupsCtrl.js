@@ -4,17 +4,25 @@ angular.module('app.groups')
 
             var storage = storageService.getStorage();
             var myId = storage.userId;
-            var modalNewGroup, modalCropImage;
+            var modalNewGroup, modalEditGroup, modalCropImage;
 
             $scope.myName = storage.firstName + ' ' + storage.lastName;
             $scope.myAvatar = storage.loggedUserAva;
             $scope.showEditAva = true;
 
+            $scope.showGroupMenu = false;
+
 
             $scope.newGroup = {
                 name: '',
                 description: '',
-                isOpen: false,
+                isOpen: true,
+                avatar: null
+            };
+            $scope.editGroup = {
+                name: '',
+                description: '',
+                isOpen: true,
                 avatar: null
             };
             $scope.emojiMessage = {};
@@ -47,6 +55,7 @@ angular.module('app.groups')
 
             function activate() {
                 init();
+                getGroupList();
             }
 
             function init() {
@@ -123,16 +132,9 @@ angular.module('app.groups')
 
             /*Page content*/
 
-            // set default tab (view) for group view
-            $scope.$on("$stateChangeSuccess", function () {
-                var state = $state.current.name;
-                if (state === 'group') {
-                    $state.go('group.publications');
-                }
-            });
 
             $scope.$on('ngDialog.opened', function (e, $dialog) {
-                if ($dialog.name === 'modal-new-group') {
+                if ($dialog.name === 'modal-new-group' || $dialog.name === 'modal-edit-group') {
                     angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
 
                     // init emoji picker
@@ -148,6 +150,12 @@ angular.module('app.groups')
                 }
             });
 
+            $scope.goGroup = function(group) {
+                $state.go('group', {
+                    groupId: group.id,
+                    groupName: group.url_name
+                });
+            };
 
             $scope.checkState = function (stateName) {
                 return stateName === $state.current.name;
@@ -158,7 +166,8 @@ angular.module('app.groups')
                     template: '../app/Groups/views/popup-add-group.html',
                     name: 'modal-new-group',
                     className: 'popup-add-group ngdialog-theme-default',
-                    scope: $scope
+                    scope: $scope,
+                    preCloseCallback: resetFormNewGroup
                 });
             };
 
@@ -203,18 +212,6 @@ angular.module('app.groups')
                 $scope.newGroup.avatar = blobFile;
 
                 modalCropImage.close();
-                //
-                //
-                //UserService.updateAvatar(blobFile).then(function (res) {
-                //        $scope.consoleLog = res;
-                //        if (res.status) {
-                //            ngDialog.closeAll();
-                //            storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
-                //        }
-                //    },
-                //    function (err) {
-                //        console.log(err);
-                //    });
             };
 
             $scope.addGroup = function () {
@@ -222,10 +219,22 @@ angular.module('app.groups')
                 groupsService.addGroup($scope.newGroup)
                     .then(function (data) {
                         if (data.status) {
+                            resetFormNewGroup();
                             modalNewGroup.close();
                         }
                     });
             };
+
+            $scope.cancelNewGroup = function() {
+                modalNewGroup.close();
+            };
+
+            function getGroupList() {
+                groupsService.getGroupList()
+                    .then(function (groupList) {
+                        $scope.groupList = groupList;
+                    });
+            }
 
             function getSubscribers(userId) {
                 UserService.getSubscribers(userId)
@@ -233,6 +242,21 @@ angular.module('app.groups')
                         $scope.subscribers = subscribers;
                     });
             }
+
+            function resetFormNewGroup() {
+                $scope.newGroup = {
+                    name: '',
+                    description: '',
+                    isOpen: true,
+                    avatar: null
+                };
+                $scope.dataURI = null;
+                $scope.emojiMessage = {};
+                $scope.users = [];
+                $scope.subscribers = [];
+            }
+
+
 
             function onFileSelected(e) {
                 var file = e.currentTarget.files[0];

@@ -22,7 +22,10 @@ class PlaceTest extends TestCase
              'name' => 'test',
              'description' => 'lorem',
              'city_id' => '1',
-             'type_place_id' => '1'
+             'type_place_id' => '1',
+             'address' => 'test',
+             'coordinates_x'=> '1',
+             'coordinates_y'=> '1',
          ];
          $this->json('POST', 'place/create', $data)->seeJson([
              'status' => true,

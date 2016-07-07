@@ -11,10 +11,32 @@
 
 
         return {
+            getGroupList: getGroupList,
             addGroup: addGroup
         };
 
         ////////////
+
+        function getGroupList() {
+
+            return $http({
+                method: 'GET',
+                url: 'group/',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getGroupListComplete)
+                .catch(getGroupListFailed);
+
+            function getGroupListComplete(response) {
+                return response.data;
+            }
+
+            function getGroupListFailed(error) {
+                console.error('XHR Failed for getGroupList. ' + error.data);
+            }
+        }
 
         function addGroup(group) {
             var fd = new FormData();
