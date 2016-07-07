@@ -45,8 +45,11 @@
     <link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>
-    <script src="../../app/mainCtrl.js"></script>    
+    <script src="../../app/mainCtrl.js"></script>
+
     <script src="../../app/common/services/storageService.js"></script>
+    <script src="../../app/common/directives/index.js"></script>
+    <script src="../../app/common/directives/typeahead/typeahead.js"></script>
     <script src="../../app/common/filters/filters.js"></script>
     <script src="../../app/Publication/models/publicationService.js"></script>
 

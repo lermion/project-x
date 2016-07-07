@@ -15,7 +15,8 @@ angular.module('placePeopleApp')
 			addPublicationLike: addPublicationLike,
 			getSinglePublication: getSinglePublication,
 			getSubscribers: getSubscribers,
-			getSubscription: getSubscription
+			getSubscription: getSubscription,
+			complaintCommentAuthor:	complaintCommentAuthor
 
 		}
 
@@ -203,6 +204,22 @@ angular.module('placePeopleApp')
 		function deletePublication(pubId){        
 				var defer = $q.defer();
 				$http.get(path + 'publication/destroy/'+pubId)
+						.success(function (response){              
+								defer.resolve(response);
+						})
+						.error(function (error){
+								defer.reject(error);
+						});
+				return defer.promise;        
+		}
+		function complaintCommentAuthor(commentId, compCat){ 
+				console.log(commentId, compCat);
+				var defer = $q.defer();
+				var data = {
+					'comment_id': commentId,
+					'complaint_category_id': compCat
+				};
+				$http.post(path + 'publication/comment/complaint', data)
 						.success(function (response){              
 								defer.resolve(response);
 						})
