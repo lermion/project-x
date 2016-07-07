@@ -12,7 +12,6 @@ angular.module('placePeopleApp')
             changeShowAvatar: changeShowAvatar,
             changeIsVisible: changeIsVisible,
             changeLockProfile: changeLockProfile,
-
             getSubscribers: getSubscribers
 		};
 

@@ -82,11 +82,10 @@
 						<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
 						<p class="like-item">
 							В теме 
-							<span ng-if="pub.user_like" class="you"> Вы </span>
-							<span ng-if="pub.user_like" class="more">и еще</span>
-							<span class="count-like">{{pub.user_like ? pub.like_count - 1 : pub.like_count}}</span>
-							чел.
-						</p>
+							<span ng-show="pub.user_like" class="you"> Вы </span>
+							<span ng-show="pub.user_like && pub.like_count > 1" class="more">и еще</span>
+							<span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>							
+						</p>						
 					</div>
 					<a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
 				</div> 
