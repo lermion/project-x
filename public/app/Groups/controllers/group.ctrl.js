@@ -5,12 +5,13 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$scope', '$http', '$window', 'AuthService', 'storageService', 'ngDialog'];
+    GroupCtrl.$inject = ['$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog'];
 
-    function GroupCtrl($scope, $http, $window, AuthService, storageService, ngDialog) {
+    function GroupCtrl($scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog) {
 
         var vm = this;
         var modalEditGroup;
+        var groupName = $stateParams.groupName;
 
         activate();
 
@@ -92,6 +93,14 @@
             });
 
         }
+
+        // set default tab (view) for group view
+        $scope.$on("$stateChangeSuccess", function () {
+            var state = $state.current.name;
+            if (state === 'group') {
+                $state.go('group.publications');
+            }
+        });
 
         vm.editGroup = function() {
             modalEditGroup = ngDialog.open({

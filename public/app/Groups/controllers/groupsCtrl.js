@@ -132,13 +132,6 @@ angular.module('app.groups')
 
             /*Page content*/
 
-            // set default tab (view) for group view
-            $scope.$on("$stateChangeSuccess", function () {
-                var state = $state.current.name;
-                if (state === 'group') {
-                    $state.go('group.publications');
-                }
-            });
 
             $scope.$on('ngDialog.opened', function (e, $dialog) {
                 if ($dialog.name === 'modal-new-group' || $dialog.name === 'modal-edit-group') {
@@ -157,6 +150,12 @@ angular.module('app.groups')
                 }
             });
 
+            $scope.goGroup = function(group) {
+                $state.go('group', {
+                    groupId: group.id,
+                    groupName: group.url_name
+                });
+            };
 
             $scope.checkState = function (stateName) {
                 return stateName === $state.current.name;
@@ -225,8 +224,6 @@ angular.module('app.groups')
                         }
                     });
             };
-
-
 
             $scope.cancelNewGroup = function() {
                 modalNewGroup.close();

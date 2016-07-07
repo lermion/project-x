@@ -19,7 +19,10 @@
                 url: '/group/:groupId',
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    groupName: ''
+                }
             })
             .state('group.publications', {
                 url: '/publications',
