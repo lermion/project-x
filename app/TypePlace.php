@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class TypePlace extends Model
 {
     protected $fillable = [
-        'name','description','avatar'
+        'name','description','avatar','is_dynamic'
     ];
 }
