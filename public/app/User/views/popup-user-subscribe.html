@@ -3,15 +3,15 @@
 	<div class="subscriber" ng-repeat="subscription in subscriptions">
 		<div class="subscriber-item">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: subscription.login})">
+				<a class="ava" ui-sref="user({username: subscription.login})" ng-click="closePopup()">
 					<img ng-src="{{subscription.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-info">
-				<a class="user-name">{{subscription.first_name}} {{subscription.last_name}}</a>
+				<a class="user-name" ui-sref="user({username: subscription.login})" ng-click="closePopup()">{{subscription.first_name}} {{subscription.last_name}}</a>
 				<p class="status-user" ng-hide="profileEdition">{{subscription.status}}</p>
 			</div>
 		</div>
-		<a href="javascript:void(0);" class="read" ng-click="sign(subscription)">{{subscription.is_sub ? 'Отписаться' : 'Подписаться'}}</a> 
+		<a href="javascript:void(0);" class="read" ng-click="sign(subscription)" ng-hide="loggedUserId == subscription.id">{{subscription.is_sub ? 'Отписаться' : 'Подписаться'}}</a> 
 	</div>
 </div>

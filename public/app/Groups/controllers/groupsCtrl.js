@@ -1,22 +1,31 @@
-angular.module('placePeopleApp')
-    .controller('groupsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog',
-        function ($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog) {
+angular.module('app.groups')
+    .controller('groupsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
+        function ($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
 
             var storage = storageService.getStorage();
             var myId = storage.userId;
-            var modalNewGroup, modalCropImage;
+            var modalNewGroup, modalEditGroup, modalCropImage;
 
             $scope.myName = storage.firstName + ' ' + storage.lastName;
             $scope.myAvatar = storage.loggedUserAva;
             $scope.showEditAva = true;
 
+            $scope.showGroupMenu = false;
+
 
             $scope.newGroup = {
                 name: '',
                 description: '',
-                isOpen: false,
+                isOpen: true,
                 avatar: null
             };
+            $scope.editGroup = {
+                name: '',
+                description: '',
+                isOpen: true,
+                avatar: null
+            };
+            $scope.emojiMessage = {};
             $scope.myImage = null;
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
@@ -29,9 +38,14 @@ angular.module('placePeopleApp')
                     userId: user.id,
                     firstName: user.first_name,
                     lastName: user.last_name,
-                    avatar: user.avatar_path
+                    avatar: user.avatar_path,
+
+                    isAdmin: false
                 };
                 $scope.users.push(item);
+            };
+            $scope.setAdmin = function (user) {
+                user.isAdmin = !user.isAdmin;
             };
 
 
@@ -41,6 +55,7 @@ angular.module('placePeopleApp')
 
             function activate() {
                 init();
+                getGroupList();
             }
 
             function init() {
@@ -126,7 +141,7 @@ angular.module('placePeopleApp')
             });
 
             $scope.$on('ngDialog.opened', function (e, $dialog) {
-                if ($dialog.name === 'modal-new-group') {
+                if ($dialog.name === 'modal-new-group' || $dialog.name === 'modal-edit-group') {
                     angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
 
                     // init emoji picker
@@ -152,7 +167,8 @@ angular.module('placePeopleApp')
                     template: '../app/Groups/views/popup-add-group.html',
                     name: 'modal-new-group',
                     className: 'popup-add-group ngdialog-theme-default',
-                    scope: $scope
+                    scope: $scope,
+                    preCloseCallback: resetFormNewGroup
                 });
             };
 
@@ -194,21 +210,34 @@ angular.module('placePeopleApp')
                 blobFile.name = 'image';
                 blobFile.lastModifiedDate = new Date();
 
+                $scope.newGroup.avatar = blobFile;
+
                 modalCropImage.close();
-                //
-                //
-                //UserService.updateAvatar(blobFile).then(function (res) {
-                //        $scope.consoleLog = res;
-                //        if (res.status) {
-                //            ngDialog.closeAll();
-                //            storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
-                //        }
-                //    },
-                //    function (err) {
-                //        console.log(err);
-                //    });
             };
 
+            $scope.addGroup = function () {
+                $scope.newGroup.description = $scope.emojiMessage.messagetext;
+                groupsService.addGroup($scope.newGroup)
+                    .then(function (data) {
+                        if (data.status) {
+                            resetFormNewGroup();
+                            modalNewGroup.close();
+                        }
+                    });
+            };
+
+
+
+            $scope.cancelNewGroup = function() {
+                modalNewGroup.close();
+            };
+
+            function getGroupList() {
+                groupsService.getGroupList()
+                    .then(function (groupList) {
+                        $scope.groupList = groupList;
+                    });
+            }
 
             function getSubscribers(userId) {
                 UserService.getSubscribers(userId)
@@ -217,23 +246,40 @@ angular.module('placePeopleApp')
                     });
             }
 
+            function resetFormNewGroup() {
+                $scope.newGroup = {
+                    name: '',
+                    description: '',
+                    isOpen: true,
+                    avatar: null
+                };
+                $scope.dataURI = null;
+                $scope.emojiMessage = {};
+                $scope.users = [];
+                $scope.subscribers = [];
+            }
+
+
+
             function onFileSelected(e) {
                 var file = e.currentTarget.files[0];
-                var reader = new FileReader();
+                if (file) {
+                    var reader = new FileReader();
 
-
-                reader.onload = function (e) {
-                    $scope.$apply(function ($scope) {
-                        $scope.myImage = e.target.result;
-                        modalCropImage = ngDialog.open({
-                            template: '../app/Groups/views/popup-crop-image.html',
-                            className: 'settings-add-ava ngdialog-theme-default',
-                            scope: $scope
+                    reader.onload = function (e) {
+                        $scope.$apply(function ($scope) {
+                            $scope.myImage = e.target.result;
+                            modalCropImage = ngDialog.open({
+                                template: '../app/Groups/views/popup-crop-image.html',
+                                className: 'settings-add-ava ngdialog-theme-default',
+                                scope: $scope
+                            });
                         });
-                    });
-                };
+                    };
 
-                reader.readAsDataURL(file);
+                    reader.readAsDataURL(file);
+                }
+
             }
 
             function blobToFile(dataURI) {

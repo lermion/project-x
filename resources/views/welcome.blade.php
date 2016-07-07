@@ -46,6 +46,7 @@
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>
     <script src="../../app/mainCtrl.js"></script>
+    <script src="../../app/libs/socket.io-1.3.4.js"></script>
 
     <script src="../../app/common/services/storageService.js"></script>
     <script src="../../app/common/services/socketService.js"></script>
@@ -66,7 +67,11 @@
     <script src="../../app/Chat/controllers/chatCtrl.js"></script>
     
     <script src="../../app/Settings/controllers/settingsCtrl.js"></script>
+
+    <script src="../../app/Groups/index.js"></script>
     <script src="../../app/Groups/controllers/groupsCtrl.js"></script>
+    <script src="../../app/Groups/controllers/group.ctrl.js"></script>
+    <script src="../../app/Groups/services/groups.srv.js"></script>
 
     <script src="../../app/Places/index.js"></script>
     <script src="../../app/Places/controllers/places.ctrl.js"></script>

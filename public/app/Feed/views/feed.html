@@ -82,11 +82,10 @@
 						<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
 						<p class="like-item">
 							В теме 
-							<span ng-if="pub.user_like" class="you"> Вы </span>
-							<span ng-if="pub.user_like" class="more">и еще</span>
-							<span class="count-like">{{pub.user_like ? pub.like_count - 1 : pub.like_count}}</span>
-							чел.
-						</p>
+							<span ng-show="pub.user_like" class="you"> Вы </span>
+							<span ng-show="pub.user_like && pub.like_count > 1" class="more">и еще</span>
+							<span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>							
+						</p>						
 					</div>
 					<a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
 				</div> 
@@ -123,11 +122,11 @@
 					</div>
 				</div>
 
-				<div class="added_comments">
-					<a ng-hide="showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(showAddComment)" class="add_comments">Добавить комментарий</a>
+				<div class="added_comments" ng-init="pub.showAddComment = false;">
+					<a ng-hide="pub.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(pub)" class="add_comments">Добавить комментарий</a>
 				</div>
 
-				<div class="add-comment" ng-show="showAddComment" ng-init="pub.commentModel = commentModel">
+				<div class="add-comment" ng-show="pub.showAddComment" ng-init="pub.commentModel = commentModel">
 					<div class="user-ava">
 						<a class="ava" ui-sref="user({username: loggedUser})">
 							<img ng-src="{{userData.avatar_path}}" alt="">

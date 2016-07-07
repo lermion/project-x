@@ -10,6 +10,8 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 
+		
+
 		if (!storage.pubView) {
 			storageService.setStorageItem('pubView', 'greed');
 			storage = storageService.getStorage();
@@ -111,10 +113,10 @@ angular.module('placePeopleApp')
 					}
 					if (!$scope.myProfile) {
 						$scope.isSigned = res.is_sub;
-					}
-					if (!res.is_sub && !!res.is_private) {
-						$scope.needToSign = true;
-					}					
+						if (!res.is_sub && !!res.is_private) {
+							$scope.needToSign = true;
+						}
+					}										
 					$scope.userData = res;
 					getUserPubs(res.id, counter);
 				},
@@ -161,9 +163,9 @@ angular.module('placePeopleApp')
 		};
 
 		//Sign on
-		$scope.sign = function(subscription){			
-			if($scope.loggedUserId == $scope.userData.id){
-				$scope.userData.id = subscription.id;
+		$scope.sign = function(subscription){						
+			if (subscription) {
+				$scope.userData.id = subscription.id;			
 			}			
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){
@@ -480,11 +482,11 @@ angular.module('placePeopleApp')
 			$scope.indexCurrentPublication = index;
 			getSinglePublication(pub.id);			
 		};
-		$scope.showAddCommentBlock = function(showAddComment){
-			if(showAddComment){
-				$scope.showAddComment = false;
+		$scope.showAddCommentBlock = function(pub){
+			if(pub.showAddComment){
+				pub.showAddComment = false;
 			}else{
-				$scope.showAddComment = true;
+				pub.showAddComment = true;
 			}
 		}
 		$scope.addNewComment = function(flag, pub, pubText, files){
