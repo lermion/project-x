@@ -3,12 +3,12 @@
 	<div class="subscriber" ng-repeat="subscriber in subscribers">
 		<div class="subscriber-item">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: subscriber.login})">
+				<a class="ava" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">
 					<img ng-if="subscriber.avatar_path" ng-src="{{subscriber.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-info">
-				<a class="user-name" ui-sref="user({username: subscriber.login})">{{subscriber.first_name}} {{subscriber.last_name}}</a>
+				<a class="user-name" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">{{subscriber.first_name}} {{subscriber.last_name}}</a>
 				<p class="status-user">{{subscriber.status}}</p>
 			</div>
 		</div>

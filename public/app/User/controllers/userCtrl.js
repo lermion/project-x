@@ -10,6 +10,8 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 
+		
+
 		if (!storage.pubView) {
 			storageService.setStorageItem('pubView', 'greed');
 			storage = storageService.getStorage();
