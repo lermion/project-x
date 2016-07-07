@@ -2694,6 +2694,10 @@ spam-item {
 	width: 20px;
 	height: 20px;
 }
+.visible-comments .comment .alert-text {	
+	padding-right: 0px;	
+	width: auto;	
+}
 .visible-comments .comment .alert:before {
 	background: 0 0;
 	border-radius: 3px;
@@ -2709,6 +2713,9 @@ spam-item {
 	top: 0;
 	width: 15px;
 	transition: all .3s ease-in-out .1s; 
+}
+.visible-comments .comment .alert-text:before {	
+	content: '';	
 }
 .visible-comments .comment .alert:hover {
 	color: #495b79;
