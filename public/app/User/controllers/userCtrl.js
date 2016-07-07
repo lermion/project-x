@@ -790,19 +790,20 @@ angular.module('placePeopleApp')
 			
 			
 			if (flag === 'comment') {
-				console.log(complainUnitId, complainCategory, flag);
-				// PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
-				// 	.then(					
-				// 		function(res){						
-				// 			if (res.status) {							
+				// console.log(complainUnitId, complainCategory, flag);
+				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
+					.then(					
+						function(res){	
+							console.log(res);					
+							if (res.status) {							
 								ngDialog.closeAll();
-				// 			} else {
-				// 				console.log('Error');							
-				// 			}						
-				// 		},
-				// 		function(err){
-				// 			console.log(err);
-				// 		});
+							} else {
+								console.log('Error');							
+							}						
+						},
+						function(err){
+							console.log(err);
+						});
 			} else if (flag === 'pub') {
 				console.log(complainUnitId, complainCategory, flag);
 

@@ -477,7 +477,7 @@ angular.module('placePeopleApp')
 						});
 		};
 
-		$scope.sendComplain = function(complainId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
+		$scope.sendComplain = function(complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
 
 			var complainCategory = [];
 			cat1 ? complainCategory.push(1) : '';
@@ -490,23 +490,24 @@ angular.module('placePeopleApp')
 			
 			
 			if (flag === 'comment') {
-				console.log(complainId, complainCategory, flag);
-				// PublicationService.complaintCommentAuthor(complainId, complainCategory)
-				// 	.then(					
-				// 		function(res){						
-				// 			if (res.status) {							
+				console.log(complainUnitId, complainCategory, flag);
+				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
+					.then(					
+						function(res){
+							console.log(res);						
+							if (res.status) {							
 								ngDialog.closeAll();
-				// 			} else {
-				// 				console.log('Error');							
-				// 			}						
-				// 		},
-				// 		function(err){
-				// 			console.log(err);
-				// 		});
+							} else {
+								console.log('Error');							
+							}						
+						},
+						function(err){
+							console.log(err);
+						});
 			} else if (flag === 'pub') {
-				console.log(complainId, complainCategory, flag);
+				console.log(complainUnitId, complainCategory, flag);
 
-				// PublicationService.complaintPubAuthor(complainId, complainCategory)
+				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
 				// 	.then(					
 				// 		function(res){						
 				// 			if (res.status) {							
