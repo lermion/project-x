@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    protected $fillable = ['url'];
+    protected $fillable = ['url','img_url'];
 
     public static function getVideoPath($video){
         $path = '/upload/publication/videos/';

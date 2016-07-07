@@ -61,6 +61,10 @@ return [
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
+        'video' => [
+            'driver' => 'local',
+            'root' => storage_path('tmp/video'),
+        ],
 
     ],
 
