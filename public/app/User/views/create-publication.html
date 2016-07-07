@@ -17,7 +17,12 @@
 	</div>	
 	<div class="text-field">
 		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea> -->
-		<input type="text" class="pubText create-publication-pub-text" data-emojiable="true" name="">
+		<div emoji-form emoji-message="emojiMessage">
+			<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+			<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+				<i class="icon icon-emoji"></i>
+			</a>
+		</div>
 		<!-- <div class="smiles">
 			<div class="smiles-item"></div>
 			<div class="smile">
@@ -57,7 +62,7 @@
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>
 			<!-- <a href="" class="publication-button" ng-click="publishNewPub(files);" ladda="newPubLoader">Опубликовать</a> -->
-			<button class="publication-button" ng-click="publishNewPub(files);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>    
+			<button class="publication-button" ng-click="publishNewPub(files, emojiMessage);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
