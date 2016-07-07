@@ -753,18 +753,32 @@ angular.module('placePeopleApp')
 							scope: $scope
 						});
 		};
-		$scope.alertPub = function(id){
+		$scope.alertPub = function(pubId){
 			ngDialog.open({
 				template: '../app/User/views/alert-publication.html',
 				className: 'alert-publication ngdialog-theme-default',
 				scope: $scope,							
 				data: {
-					id: id
+					id: pubId,
+					flag: 'pub'
 				}
 			});
 		};
 
-		$scope.sendCommentComplain = function(commentId, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
+		$scope.alertPubComment = function(commentId){
+			ngDialog.open({
+				template: '../app/User/views/alert-publication.html',
+				className: 'alert-publication ngdialog-theme-default',
+				scope: $scope,							
+				data: {
+					id: commentId,
+					flag: 'comment'
+				}
+			});
+		};
+
+		$scope.sendComplain = function(complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){
+
 			var complainCategory = [];
 			cat1 ? complainCategory.push(1) : '';
 			cat2 ? complainCategory.push(2) : '';
@@ -774,20 +788,39 @@ angular.module('placePeopleApp')
 			cat6 ? complainCategory.push(6) : '';
 			cat7 ? complainCategory.push(7) : '';
 			
-			console.log(commentId, complainCategory);
+			
+			if (flag === 'comment') {
+				// console.log(complainUnitId, complainCategory, flag);
+				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
+					.then(					
+						function(res){	
+							console.log(res);					
+							if (res.status) {							
+								ngDialog.closeAll();
+							} else {
+								console.log('Error');							
+							}						
+						},
+						function(err){
+							console.log(err);
+						});
+			} else if (flag === 'pub') {
+				console.log(complainUnitId, complainCategory, flag);
 
-			// PublicationService.complaintCommentAuthor(commentId, complainCategory)
-			// .then(					
-			// 		function(res){						
-			// 			if (res.status) {							
-			// 				ngDialog.closeAll();
-			// 			} else {
-			// 				console.log('Error');							
-			// 			}						
-			// 		},
-			// 		function(err){
-			// 			console.log(err);
-			// 		});
+				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
+				// 	.then(					
+				// 		function(res){						
+				// 			if (res.status) {							
+								ngDialog.closeAll();
+				// 			} else {
+				// 				console.log('Error');							
+				// 			}						
+				// 		},
+				// 		function(err){
+				// 			console.log(err);
+				// 		});
+			}
+			
 		};
 		
 		$scope.deletePub = function(pub){

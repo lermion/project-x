@@ -49,7 +49,7 @@
 								<div class="inner">									
 									<a href="" ng-click="sharePub(pub.id)">Переслать</a>
 									<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
-									<a href="" ng-click="alertPub(pub.id)">Пожаловаться</a>
+									<a href="" ng-click="openPubComplainBlock(pub.id)">Пожаловаться</a>
 								</div>
 							</div>
 						</div>
@@ -101,7 +101,7 @@
 							</a>
 						</div>
 						<div class="comment">
-							<!-- <p ng-click="openComplainBlock(comment.id)">Жалоба</p> -->
+							<p ng-click="openCommentComplainBlock(comment.id)">Жалоба</p>
 							<div class="user-info">				
 								<div class="info-item">
 									<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
