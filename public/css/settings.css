@@ -1247,9 +1247,9 @@
   padding: 0;
   margin: 10px 0 0 0;
 }
-.popup-add-group .fifth_item .item1.add-people {
+/*.popup-add-group .fifth_item .item1.add-people {
   margin-top: 50px;
-}
+}*/
 .popup-add-group .fifth_item .item1 li {
   position: relative;
     list-style-type: none;
@@ -1276,7 +1276,7 @@
     /*background: #ec6045;*/
 /*=======*/
 
-.popup-add-group .fifth_item .item1 li:before {
+/*.popup-add-group .fifth_item .item1 li:before {
   background: #ec6045;
     border-radius: 50%;
     color: #bbb;
@@ -1290,7 +1290,7 @@
     text-align: center;
     top: 0;
     width: 15px;
-}
+}*/
 
 .popup-add-group .fifth_item .item1 li img{
   border-radius: 50%;
@@ -1862,3 +1862,164 @@ a.add_comments {
     color: #9aa2ab;
 }
 
+
+
+
+/*Редактирование попапа создания группы*/
+.popup-add-group input[type="checkbox"] + label::before {
+    border-radius: 2px;
+}
+.popup-add-group .fifth_item .item1 li {
+  position: relative;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+.popup-add-group .fifth_item .item1 li p {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 230px;
+}
+.popup-add-group .fifth_item .item1.add-people li p {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 140px;
+}
+.popup-add-group .fifth_item .item1 li span.group-add-item1-user-plus {
+  display: flex;
+  position: absolute;
+  right: 5px;
+  top: 24px;
+}
+.popup-add-group .fifth_item .item1 li span img {
+  display: flex;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+.item1.add-people li span.add-people-delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    font-size: 16px;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 35px;
+    text-align: center;
+    top: 0px;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+}
+.item1.add-people li span.add-people-admin {
+    color: red;
+    display: flex;
+    position: absolute;
+    line-height: 55px;
+    right: 0px;
+    cursor: pointer;
+}
+.item1-add-people-title {
+  margin: 0;
+  line-height: 35px;
+  padding: 0;
+  padding-left: 15px;
+}
+
+
+@media (max-width: 720px) {
+  .popup-add-group .fifth_item .item1 li p {
+    max-width: 60%;
+    font-size: .8em;
+  }
+  .item1.add-people li span.add-people-admin {
+    line-height: 51px;
+    font-size: .7em;
+    width: 68px;
+  }
+  .popup-add-group .fifth_item .item1.add-people li p {
+    max-width: 40%;
+  }
+  .add_newgroup .button .create {
+    font-size: .8em;
+  }
+  .add_newgroup .button .cansel {
+    font-size: .8em;
+  }
+  .popup-add-group .fifth_item .item1 li span.group-add-item1-user-plus {
+    top: 21px;
+  }
+  .popup-add-group .fifth_item .item1 li img {
+    width: 40px;
+    height: 40px;
+  }
+  .item1.add-people li span.add-people-delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    height: 10px;
+    line-height: 10px;
+    left: 29px;
+    top: 5px;
+    width: 10px;
+    font-size: .5em;
+  }
+  .popup-add-group .fifth_item .item1 li img {
+    margin-right: 8px;
+  }
+  .item1-add-people-title {
+  margin: 0;
+  line-height: 35px;
+  padding: 0;
+  font-size: .8em;
+  padding-left: 10px;
+  }
+}
+
+
+@media (max-width: 520px) {
+  .fifth_item .item1 {
+    width: 100%;
+  }
+  .popup-add-group .fifth_item .item1 li img {
+    margin-right: 15px;
+  }
+  .popup-add-group .fifth_item .item1 li p {
+    max-width: 55%;
+    font-size: .8em;
+  }
+  .popup-add-group .fifth_item .item1 li img {
+    width: 50px;
+    height: 50px;
+  }
+  .item1.add-people li span.add-people-delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    font-size: 16px;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 35px;
+    text-align: center;
+    top: 0px;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+  }
+  .item1.add-people li span.add-people-admin {
+    line-height: 52px;
+    font-size: .7em;
+    width: 70px;
+  }
+  .popup-add-group .fifth_item .item1.add-people li p {
+    max-width: 40%;
+  }
+}
