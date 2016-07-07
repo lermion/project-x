@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Place;
+use App\TypePlace;
 use App\PlaceUser;
+use App\Image;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,12 +24,13 @@ class PlaceController extends Controller
             $this->validate($request, [
                 'name' => 'required|unique:places',
                 'description' => 'required',
-                'city_id' =>'',
-                //'address' =>
-                //'coordinates_x'=> 'numeric',
-                //'coordinates_y'=> 'numeric',
-                'expired_days' => 'integer',
-                'avatar' => 'image'
+                'city_id' =>'required',
+                'address' => 'required',
+                'coordinates_x'=> 'required|numeric',
+                'coordinates_y'=> 'required|numeric',
+                'avatar' => 'image',
+                'cover' => 'image',
+                'type_place_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -39,17 +42,46 @@ class PlaceController extends Controller
             ];
             return response()->json($result);
         }
+
         $placeData = $request->all();
+
+        if (TypePlace::where('id', $placeData['type_place_id'])->value('is_dynamic')) {
+            try {
+                $this->validate($request, [
+                    'expired_date' => 'required'
+                ]);
+            } catch (\Exception $ex) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => $ex->validator->errors(),
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+
+
         $placeData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
             $placeData['avatar'] = $path;
         }
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $path = Image::getCoverPath($cover);
+            $placeData['cover'] = $path;
+        }
         $place = Place::create($placeData);
         PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true]);
         return response()->json(["status" => true, 'place' => $place]);
     }
+
+
+
+
 
     public function show($name)
     {
