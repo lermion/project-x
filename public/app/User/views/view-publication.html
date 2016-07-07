@@ -48,10 +48,9 @@
 			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема</a>
 			<p class="like-item">
 				В теме 
-				<span ng-if="singlePublication.user_like" class="you"> Вы </span>
-				<span ng-if="singlePublication.user_like" class="more">и еще</span>
-				<span class="count-like">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}}</span>
-				чел.
+				<span ng-show="singlePublication.user_like" class="you"> Вы </span>
+				<span ng-show="singlePublication.user_like && singlePublication.like_count > 1" class="more">и еще</span>
+				<span class="count-like" ng-hide="singlePublication.user_like && singlePublication.like_count == 1">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}} чел.</span>		
 			</p>
 		</div>
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
@@ -95,8 +94,7 @@
 			</a>
 		</div>
 		<div style="position:relative;" class="add">
-			<div class="text-field">
-				<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
+			<div class="text-field">				
 				<div emoji-form emoji-message="emojiMessage">
 				<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
 					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
