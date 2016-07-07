@@ -1893,6 +1893,7 @@ a.add_comments {
   white-space: nowrap;
   overflow: hidden;
   max-width: 210px;
+  cursor: pointer;
 }
 .popup-add-group .fifth_item .item1.add-people li p {
   display: flex;
@@ -2066,7 +2067,7 @@ a.add_comments {
     margin-right: 15px;
   }
   .popup-add-group .fifth_item .item1 li p {
-    max-width: 55%;
+    max-width: 50%;
     font-size: .8em;
   }
   .popup-add-group .fifth_item .item1 li img {
@@ -2089,9 +2090,9 @@ a.add_comments {
     cursor: pointer;
   }
   .item1.add-people li span.add-people-admin {
-    line-height: 52px;
+    line-height: 50px;
     font-size: .7em;
-    width: 70px;
+    width: 40px;
   }
   .popup-add-group .fifth_item .item1.add-people li p {
     max-width: 40%;
@@ -2108,6 +2109,22 @@ a.add_comments {
     width: 100%;
     box-sizing: border-box;
   }
+}
 
 
+
+.popup-add-group .add-ava label .ava,.popup-add-group .add-ava label .add {
+    height: 100px;
+}
+
+
+
+
+
+
+
+
+/* Pravki (made early)*/
+.user-publication-content .publication-text {
+    margin-bottom: 12px;
 }
