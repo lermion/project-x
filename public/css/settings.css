@@ -1934,7 +1934,7 @@ a.add_comments {
     display: flex;
     position: absolute;
     line-height: 55px;
-    right: 0px;
+    right: 15px;
     cursor: pointer;
 }
 .item1-add-people-title {
@@ -1996,21 +1996,22 @@ a.add_comments {
     margin-bottom: 10px;
 }
 
-/*
+
 
 
 @media (max-width: 720px) {
   .popup-add-group .fifth_item .item1 li p {
-    max-width: 60%;
+    max-width: 56%;
     font-size: .8em;
   }
   .item1.add-people li span.add-people-admin {
-    line-height: 51px;
-    font-size: .7em;
-    width: 68px;
+    line-height: 50px;
+    font-size: .8em;
+    width: 50px;
+    right: 0px;
   }
   .popup-add-group .fifth_item .item1.add-people li p {
-    max-width: 40%;
+    max-width: 41%;
   }
   .add_newgroup .button .create {
     font-size: .8em;
@@ -2041,11 +2042,19 @@ a.add_comments {
   }
   .item1-add-people-title {
   margin: 0;
-  line-height: 35px;
+  line-height: 45px;
   padding: 0;
   font-size: .8em;
   padding-left: 10px;
   }
+  .fifth_item .item1 {
+    width: 100%;
+    height: 290px;
+    overflow-y: auto;
+    margin: 0px;
+}
+
+
 }
 
 
@@ -2087,5 +2096,18 @@ a.add_comments {
   .popup-add-group .fifth_item .item1.add-people li p {
     max-width: 40%;
   }
+  .item1-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .item1-add-people-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
 }
-*/
