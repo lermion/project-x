@@ -13,7 +13,7 @@ class AddCoverPlacesTable extends Migration
     public function up()
     {
         Schema::table('places', function (Blueprint $table) {
-            $table->date('expired_date');
+            $table->dropColumn('expired_date');
             $table->string('cover');
             $table->dateTime('expired_date');
         });
