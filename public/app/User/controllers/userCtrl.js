@@ -10,7 +10,7 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 
-		
+
 
 		if (!storage.pubView) {
 			storageService.setStorageItem('pubView', 'greed');
@@ -666,38 +666,26 @@ angular.module('placePeopleApp')
 
 		}
 
-		$scope.editedPubFiles = function(pub){
-		// createBlobFromURL(pub.images).then(function(res){
-			// 	angular.forEach(res, function (item) {
-			// 		$timeout(function () {
-			// 			var blob = new Blob([item], {type: 'image/jpeg'});
-			// 			blob.name = 'image';
-			// 			$scope.images.flow.addFile(blob);
-			// 		});
-			// 	});
-			// },
-			// function(err){
-			// 	console.log(err);
-			// });
-
-			var files = [];
-			// pub.videos.forEach(function(video){
-			// 	files.push(video);
-			// });			
+		$scope.editedPubFiles = function(pub){		
+			var files = [];						
 			pub.images.forEach(function(img){
 				var filename = img.url.split('/')[(img.url.split('/')).length-1];
 				img.name = filename.substring(8, filename.length);						
 				files.push(img);
-			});							
+			});	
+			pub.videos.forEach(function(video){
+				files.push(video);
+			});						
 			$scope.editedPubFilesArray = files;
-			$scope.$broadcast('rebuildScroll');					 			
+			$scope.$broadcast('rebuild:me');	
+			console.log('asd');				 			
 		};
 
 		$scope.addedEditedPubFiles = function(files, event, flow){									
 			if(files.length > 100){
 				console.log('too much files');
 			}
-			$scope.$broadcast('rebuildScroll');
+			$scope.$broadcast('rebuild:me');
 		};
 
 		var	pubEditDeletedPhotos = [];
@@ -706,11 +694,11 @@ angular.module('placePeopleApp')
 		$scope.editedPubDeletePhoto = function(index, photoId){			
 			$scope.editedPubFilesArray.splice(index, 1);
 			pubEditDeletedPhotos.push(photoId);
-			$scope.$broadcast('rebuildScroll');			
+			$scope.$broadcast('rebuild:me');			
 		};
 		$scope.editedPubDeleteVideo = function(videoId){
 			pubEditDeletedVideos.push(videoId);
-			$scope.$broadcast('rebuildScroll');
+			$scope.$broadcast('rebuild:me');
 		};
 
 		$scope.rebuildScroll = function(){
@@ -729,11 +717,11 @@ angular.module('placePeopleApp')
 				isMain = 0;
 			}
 			files.forEach(function(file){
-				var type = file.file.type.split('/')[0];
+				var type = file.type.split('/')[0];
 				if (type === 'image') {
-					images.push(file.file);
+					images.push(file);
 				} else if (type === 'video'){
-					videos.push(file.file);
+					videos.push(file);
 				}				
 			});			
 			PublicationService.updatePublication(pubId ,text, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)

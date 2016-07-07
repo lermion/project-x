@@ -15,12 +15,11 @@
 			</label>
 		</form> -->
 	</div>
-	<div class="text-field">
-		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="currPub.text"></textarea> -->
-		<input type="text" class="pubText edit-publication-pub-text" data-emojiable="true" name="">
-		
-	</div>		
-		<div class="new-add" ng-scrollbar rebuild-on="rebuildScroll" style="max-height: 200px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
+	<div class="text-field">		
+		<input type="text" class="pubText edit-publication-pub-text" data-emojiable="true" name="">		
+	</div>	
+		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
+
 			<div class="new-img" ng-repeat="file in editedPubFilesArray">		  
 				<div class="inner">
 					<div class="close" ng-click="editedPubDeletePhoto($index, file.id)">
@@ -28,7 +27,8 @@
 							<p>Удалить</p>
 						</div>
 					</div>					
-					<img ng-src="{{file.url}}"> 
+					<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+					<video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>
 					<!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{$index === 0  ? 'display:block;' : ''}}">	
 						<div class="check-inner">
 							<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
@@ -38,15 +38,16 @@
 				<p class="img-name">{{file.name}}</p>
 			</div>
 
-			<div class="new-img" ng-repeat="file in $flow.files">		  
+			<div class="new-img" ng-repeat="file in files"  ng-click="showMoreImages(files)">		  
 				<div class="inner">
-					<div class="close" ng-click="deletePubFile(file.name, $flow.files)">
+					<div class="close" ng-click="deletePubFile(files, $index)">
 						<div class="close-inner">
 							<p>Удалить</p>
 						</div>
 					</div>
-					<img flow-img="file" > 
-					<!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">	ng-show="fileTypeCheck(file.file.type)"			
+					<img ngf-thumbnail="file || '/thumb.jpg'">
+					<video width="200px" controls ngf-src="file"></video>
+					<!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">	
 						<div class="check-inner">
 							<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
 						</div>
@@ -55,10 +56,13 @@
 				<p class="img-name">{{file.name}}</p>
 			</div>
 
+			
+
 		</div>
 	<div class="publication-footer" >
 		<div class="add-objects"> 
-			<input type="file" style="display:none;" id="edited-pub-add-object" flow-btn multiple/>			  
+			<input id="edited-pub-add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="files" ngf-before-model-change="pubFiles($files)" ngf-multiple="true">
+			<!-- <input type="file" style="display:none;" id="edited-pub-add-object" flow-btn multiple/>			   -->
 			<label for="edited-pub-add-object">
 				<span class="add"></span>
 				Добавить фото или видео *
@@ -66,7 +70,7 @@
 		</div>
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
-			<a href="" class="publication-button" ng-click="saveEditedPub(currPub.id, currPub.text, $flow.files);" ladda="updatePubLoader">Сохранить</a>    
+			<a href="" class="publication-button" ng-click="saveEditedPub(currPub.id, currPub.text,files);" ladda="updatePubLoader">Сохранить</a>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>
