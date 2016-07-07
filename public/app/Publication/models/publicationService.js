@@ -217,7 +217,7 @@ angular.module('placePeopleApp')
 				var defer = $q.defer();
 				var data = {
 					'comment_id': commentId,
-					'complaint_category_id': compCat
+					'complaint_category_id[]': compCat
 				};
 				$http.post(path + 'publication/comment/complaint', data)
 						.success(function (response){              
