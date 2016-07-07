@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCoverPlacesTable extends Migration
+class AddDynamicTypePlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,8 @@ class AddCoverPlacesTable extends Migration
      */
     public function up()
     {
-        Schema::table('places', function (Blueprint $table) {
-            $table->dropColumn('expired_days');
-            $table->string('cover');
-            $table->dateTime('expired_date');
+        Schema::table('type_places', function (Blueprint $table) {
+            $table->boolean('is_dynamic')->default(false);
         });
     }
 
@@ -26,7 +24,7 @@ class AddCoverPlacesTable extends Migration
      */
     public function down()
     {
-        Schema::table('places', function (Blueprint $table) {
+        Schema::table('type_places', function (Blueprint $table) {
             //
         });
     }
