@@ -2,7 +2,14 @@ angular.module('placePeopleApp')
     .controller('groupsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog',
         function ($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog) {
 
-            var myId;
+            var storage = storageService.getStorage();
+            var myId = storage.userId;
+            var modalNewGroup, modalCropImage;
+
+            $scope.myName = storage.firstName + ' ' + storage.lastName;
+            $scope.myAvatar = storage.loggedUserAva;
+            $scope.showEditAva = true;
+
 
             $scope.newGroup = {
                 name: '',
@@ -10,6 +17,9 @@ angular.module('placePeopleApp')
                 isOpen: false,
                 avatar: null
             };
+            $scope.myImage = null;
+            $scope.myCroppedImage = null;
+            $scope.blobImg = null;
             $scope.subscribers = [];
             $scope.users = [];
             $scope.strSearch = '';
@@ -23,6 +33,8 @@ angular.module('placePeopleApp')
                 };
                 $scope.users.push(item);
             };
+
+
             activate();
 
             /////////////////////////////////////////////////
@@ -33,11 +45,6 @@ angular.module('placePeopleApp')
 
             function init() {
                 $scope.$emit('userPoint', 'user');
-                var storage = storageService.getStorage();
-
-                myId = storage.userId;
-
-                $scope.loggedUser = storage.username;
 
                 $http.get('/static_page/get/name')
                     .success(function (response) {
@@ -119,16 +126,20 @@ angular.module('placePeopleApp')
             });
 
             $scope.$on('ngDialog.opened', function (e, $dialog) {
-                // init emoji picker
-                window.emojiPicker = new EmojiPicker({
-                    emojiable_selector: '[data-emojiable=true]',
-                    assetsPath: 'lib/img/',
-                    popupButtonClasses: 'fa fa-smile-o'
-                });
-                window.emojiPicker.discover();
-                $(".emoji-button").text("");
+                if ($dialog.name === 'modal-new-group') {
+                    angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
 
-                getSubscribers(myId);
+                    // init emoji picker
+                    window.emojiPicker = new EmojiPicker({
+                        emojiable_selector: '[data-emojiable=true]',
+                        assetsPath: 'lib/img/',
+                        popupButtonClasses: 'fa fa-smile-o'
+                    });
+                    window.emojiPicker.discover();
+                    $(".emoji-button").text("");
+
+                    getSubscribers(myId);
+                }
             });
 
 
@@ -137,8 +148,9 @@ angular.module('placePeopleApp')
             };
 
             $scope.openNewGroupCreation = function () {
-                ngDialog.open({
+                modalNewGroup = ngDialog.open({
                     template: '../app/Groups/views/popup-add-group.html',
+                    name: 'modal-new-group',
                     className: 'popup-add-group ngdialog-theme-default',
                     scope: $scope
                 });
@@ -173,6 +185,30 @@ angular.module('placePeopleApp')
                 }
             };
 
+            $scope.saveCropp = function (img, cropped) {
+
+                var blobFile = blobToFile(cropped);
+
+                $scope.dataURI = cropped;
+
+                blobFile.name = 'image';
+                blobFile.lastModifiedDate = new Date();
+
+                modalCropImage.close();
+                //
+                //
+                //UserService.updateAvatar(blobFile).then(function (res) {
+                //        $scope.consoleLog = res;
+                //        if (res.status) {
+                //            ngDialog.closeAll();
+                //            storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
+                //        }
+                //    },
+                //    function (err) {
+                //        console.log(err);
+                //    });
+            };
+
 
             function getSubscribers(userId) {
                 UserService.getSubscribers(userId)
@@ -181,6 +217,34 @@ angular.module('placePeopleApp')
                     });
             }
 
+            function onFileSelected(e) {
+                var file = e.currentTarget.files[0];
+                var reader = new FileReader();
+
+
+                reader.onload = function (e) {
+                    $scope.$apply(function ($scope) {
+                        $scope.myImage = e.target.result;
+                        modalCropImage = ngDialog.open({
+                            template: '../app/Groups/views/popup-crop-image.html',
+                            className: 'settings-add-ava ngdialog-theme-default',
+                            scope: $scope
+                        });
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            function blobToFile(dataURI) {
+                var byteString = atob(dataURI.split(',')[1]);
+                var ab = new ArrayBuffer(byteString.length);
+                var ia = new Uint8Array(ab);
+                for (var i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ab], {type: 'image/jpeg'});
+            }
 
         }]);
 

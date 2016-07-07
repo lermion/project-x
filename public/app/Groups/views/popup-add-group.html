@@ -2,8 +2,8 @@
 <div class="add_newgroup">
     <div class="first_item">
         <div class="ava_group">
-            <img src="http://migranov.ru/photoalbum/spring/krocus.jpg" alt="" class="img_ava">
-            <a class="img_name"> Владимир Зеленский</a>
+            <img ng-src="{{myAvatar}}" alt="My Avatar" class="img_ava">
+            <a class="img_name">{{::myName}}</a>
         </div>
         <div class="checkbox_group">
             <input type="checkbox" id="arr1" ng-model="newGroup.isOpen"/>
@@ -12,15 +12,15 @@
     </div>
 
     <div class="second_item">
-        <div class="add-ava" ng-init="showEditAva=true;">
-            <input type="file" id="avatarImg">
+        <div class="add-ava">
+            <input type="file" id="avatarImg" class="js-group-avatar">
             <label for="avatarImg">                                            
-                <span class="ava ng-hide" ng-show="croppedFile">         
-                    <img style="width:100%;">
+                <span class="ava" ng-show="dataURI">
+                    <img ng-src="{{dataURI}}" style="width:100%;">
                 </span>
-                <span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;"
+                <span class="add" ng-class="dataURI ? 'edit-ava' : ''" ng-mouseenter="showEditAva=true;"
                       ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-                    <span class="add-photo" ng-show="!croppedFile || showEditAva"></span>
+                    <span class="add-photo" ng-show="!dataURI || showEditAva"></span>
                 </span>
             </label>
         </div>
@@ -55,14 +55,15 @@
     </div>
 
     <!--<div class="fifth_item">-->
-        <!--<ul class="item1">-->
-            <!--<li ng-repeat="user in users">-->
-                <!--<div class="item__remove" ng-click="removeUser(user)"></div>-->
-                <!--<img ng-src="{{user.avatar}}">{{user.firstName + ' ' + user.lastName}}-->
-            <!--</li>-->
-        <!--</ul>-->
+    <!--<ul class="item1">-->
+    <!--<li ng-repeat="user in users">-->
+    <!--<div class="item__remove" ng-click="removeUser(user)"></div>-->
+    <!--<img ng-src="{{user.avatar}}">{{user.firstName + ' ' + user.lastName}}-->
+    <!--</li>-->
+    <!--</ul>-->
     <!--</div>-->
 
+<!-- <<<<<<< HEAD -->
 	<div class="fifth_item">
 		<ul class="item1">
 			<input type="text" id="" placeholder="Пригласить в группу...">
@@ -107,5 +108,21 @@
             </li>
 		</div>
 	</div>
-
+<!-- =======
+    <div class="fifth_item">
+        <ul class="item1">
+            <input type="text" id="" placeholder="Пригласить в группу...">
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+        </ul>
+        <div class="item1 add-people">
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+            <li><img src="images/picture.jpg"> Петров Василий</li>
+        </div>
+    </div>
+>>>>>>> 999ef27e5cf9680b15bb3047b7112e84473a928c
+ -->
 </div>

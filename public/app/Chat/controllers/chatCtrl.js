@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
     .controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-        '$window', '$http', 'storageService', 'ngDialog', 'ChatService',
+        '$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket',
         function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
-            $window, $http, storageService, ngDialog, ChatService) {
+            $window, $http, storageService, ngDialog, ChatService, $rootScope, socket) {
             $scope.$emit('userPoint', 'user');
             var storage = storageService.getStorage();
             $scope.loggedUser = storage.username;

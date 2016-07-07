@@ -125,16 +125,21 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
-        Route::get('type', 'TypePlaceController@index');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);;
         Route::get('show/{name}', 'PlaceController@show');
+        Route::group(['prefix' => 'type'], function () {
+            Route::get('static', 'TypePlaceController@getStatic');
+            Route::get('dynamic', 'TypePlaceController@getDynamic');
+        });
+
             });
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/type\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='comment_id'><br>
-            <input type='text' name='complaint_category_id'><br>
+        echo "<form action=\"http://pp.dev/place/type/dynamic\" method=\"get\" enctype=\"multipart/form-data\">
+            <input type='text' name='comment_id' value='138'><br>
+            <input type='text' name='complaint_category_id[]'><br>
+
             <input type=\"submit\">
         </form>";
     });
