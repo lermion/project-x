@@ -2131,3 +2131,35 @@ a.add_comments {
 .user-publication-content .publication-text {
     margin-bottom: 12px;
 }
+
+
+
+
+
+
+
+
+/*Чаты*/
+.chat-main-container {
+  width: 1025px;
+  margin: 0 auto;
+  display: flex;
+  padding: 0;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  height: 100%;
+  background-color: gray;
+  min-height: 100%;
+  margin-top: 30px;
+}
+.chat-main-container-left {
+  display: flex;
+  background-color: red;
+  width: 325px;
+  height: 100%;
+}
+.chat-main-container-right {
+  display: flex;
+  width: 700px;
+  height: 100%;
+}
