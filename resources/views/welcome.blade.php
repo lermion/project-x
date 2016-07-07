@@ -69,6 +69,7 @@
 
     <script src="../../app/Groups/index.js"></script>
     <script src="../../app/Groups/controllers/groupsCtrl.js"></script>
+    <script src="../../app/Groups/controllers/group.ctrl.js"></script>
     <script src="../../app/Groups/services/groups.srv.js"></script>
 
     <script src="../../app/Places/index.js"></script>

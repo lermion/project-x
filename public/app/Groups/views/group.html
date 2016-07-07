@@ -64,6 +64,14 @@
 								<p>Файлы</p>
 								<span>858</span> 
 							</a>
+							<div class="user-menu" ng-click="showGroupMenu=!showGroupMenu">
+								<div class="menu-item" ng-if="showGroupMenu">
+									<div class="inner">
+										<a href="" ng-click="vm.editGroup()">Редактировать</a>
+										<a href="" ng-click="vm.deleteGroup()">Удалить</a>
+									</div>
+								</div>
+							</div>
 							<!-- <a href="" class="counter">
 								<p>Места</p>
 								<span>858</span> 
