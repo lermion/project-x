@@ -16,7 +16,8 @@ angular.module('placePeopleApp')
 			getSinglePublication: getSinglePublication,
 			getSubscribers: getSubscribers,
 			getSubscription: getSubscription,
-			complaintCommentAuthor:	complaintCommentAuthor
+			complaintCommentAuthor:	complaintCommentAuthor,
+			complaintPubAuthor: complaintPubAuthor
 
 		}
 
@@ -212,14 +213,28 @@ angular.module('placePeopleApp')
 						});
 				return defer.promise;        
 		}
-		function complaintCommentAuthor(commentId, compCat){ 
-				console.log(commentId, compCat);
+		function complaintCommentAuthor(commentId, compCat){ 				
 				var defer = $q.defer();
 				var data = {
 					'comment_id': commentId,
 					'complaint_category_id[]': compCat
 				};
 				$http.post(path + 'publication/comment/complaint', data)
+						.success(function (response){              
+								defer.resolve(response);
+						})
+						.error(function (error){
+								defer.reject(error);
+						});
+				return defer.promise;        
+		}
+		function complaintPubAuthor(pubId, compCat){ 				
+				var defer = $q.defer();
+				var data = {
+					'publication_id': pubId,
+					'complaint_category_id[]': compCat
+				};
+				$http.post(path + 'need/to/change/route', data)
 						.success(function (response){              
 								defer.resolve(response);
 						})
