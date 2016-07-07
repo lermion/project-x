@@ -461,7 +461,8 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.showPublication = function(pub){
+		$scope.showPublication = function(pub, index){
+			$scope.indexCurrentPublication = index;
 			getSinglePublication(pub.id);			
 		};
 		$scope.showAddCommentBlock = function(showAddComment){
@@ -826,31 +827,23 @@ angular.module('placePeopleApp')
 		$scope.deletePub = function(pub){
 			$scope.pubToDelete = pub.id;						
 			ngDialog.open({
-							template: '../app/User/views/delete-publication.html',
-							className: 'delete-publication ngdialog-theme-default',
-							scope: $scope
-						});
+				template: '../app/User/views/delete-publication.html',
+				className: 'delete-publication ngdialog-theme-default',
+				scope: $scope
+			});
 		};
 
-		$scope.confirmPubDelete = function (pubToDelete) {			
-			PublicationService.deletePublication(pubToDelete)
-			.then(
-				function(res){
-					if (res.status) {
-						$scope.userData.publications_count--;
-						getUserPubs(storage.userId);
-					}
-					ngDialog.closeAll();									        
-				},
-				function(err){
-					console.log(err);
-				}
-			);
-
-		};
-
-
-
-		
-		
-	}]);
+	$scope.confirmPubDelete = function(pubToDelete){
+		PublicationService.deletePublication(pubToDelete).then(function(res){
+			if(res.status){
+				$scope.userPublications.splice($scope.indexCurrentPublication, 1);
+				$scope.userData.publications_count--;
+				getUserPubs(storage.userId);
+			}
+			ngDialog.closeAll();									        
+		},
+		function(err){
+			console.log(err);
+		});
+	};
+}]);

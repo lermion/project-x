@@ -48,6 +48,7 @@
     <script src="../../app/mainCtrl.js"></script>
 
     <script src="../../app/common/services/storageService.js"></script>
+    <script src="../../app/common/services/socketService.js"></script>
     <script src="../../app/common/directives/index.js"></script>
     <script src="../../app/common/directives/typeahead/typeahead.js"></script>
     <script src="../../app/common/filters/filters.js"></script>

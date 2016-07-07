@@ -73,8 +73,8 @@
 						<p class="time" am-time-ago="comment.created_at"></p>
 						<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert">Жалоба</a>
-					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert"></a>
+					<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
+					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
 				</div>
 				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
@@ -97,7 +97,12 @@
 		<div flow-init style="position:relative;" class="add">
 			<div class="text-field">
 				<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
-				<input type="text" class="pubText" data-emojiable="true" name="">
+				<div emoji-form emoji-message="emojiMessage">
+				<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+						<i class="icon icon-emoji"></i>
+					</a>
+				</div>
 			</div>
 			<div class="new-add" ng-show="singlePublication.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 				<div class="new-img" ng-repeat="file in singlePublication.files" ng-click="showMoreImages(singlePublication.files)">  
@@ -116,7 +121,7 @@
 			{{commentModel.pubText}}
 			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-popup-'+singlePublication.id">
 				<div class="publication-footer-button">
-					<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', singlePublication, commentModel.pubText, singlePublication.files)" class="publication-button">Отправить</button>    
+					<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', singlePublication, emojiMessage, singlePublication.files)" class="publication-button">Отправить</button>    
 				</div>
 				<div class="add-objects">						
 					<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
