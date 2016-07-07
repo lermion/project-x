@@ -60,8 +60,7 @@
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
-		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
-			<p ng-click="alertPubComment(comment.id)">Жалоба</p>
+		<div ng-repeat="comment in singlePublication.comments" class="user-comment">			
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: comment.user.login})">
 					<img ng-src="{{comment.user.avatar_path}}" alt="">
@@ -74,7 +73,8 @@
 						<p class="time" am-time-ago="comment.created_at"></p>
 						<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
+					<a href="javascript:void(0);" ng-click="alertPubComment(comment.id)" class="alert">Жалоба</a>
+					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert"></a>
 				</div>
 				<p class="comment-item" ng-bind-html="comment.text | codeToSmiley">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
@@ -94,7 +94,7 @@
 				<img ng-src="{{userData.avatar_path}}" alt="">
 			</a>
 		</div>
-		<div flow-init style="position:relative;" class="add">
+		<div style="position:relative;" class="add">
 			<div class="text-field">
 				<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
 				<input type="text" class="pubText view-publication-pub-text" data-emojiable="true" name="">

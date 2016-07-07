@@ -8,7 +8,7 @@ use App\ComplaintComment;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Validator;
+use Validator;
 
 class ComplaintCommentController extends Controller
 {
@@ -17,7 +17,7 @@ class ComplaintCommentController extends Controller
         try {
             $this->validate($request, [
                 'comment_id' => 'required|exists:comments,id',
-                'complaint_category_ids' => 'array',
+                'complaint_category_id' => 'array',
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -29,7 +29,7 @@ class ComplaintCommentController extends Controller
             ];
             return response()->json($result);
         }
-        $validator = Validator::make($request->input(array('complaint_category_ids')), [
+        $validator = Validator::make($request->input('complaint_category_id'), [
             'required|exists:complaint_categories,id'
         ]);
 
@@ -55,7 +55,7 @@ class ComplaintCommentController extends Controller
             ];
             return response()->json($result);
         }
-        foreach($request->input('complaint_category_ids') as $categoryId){
+        foreach($request->input('complaint_category_id') as $categoryId){
             $complaintData = $request->all();
             $complaintData['complaint_category_id'] = $categoryId;
             $complaintData['user_to_id'] = $userTo->user_id;

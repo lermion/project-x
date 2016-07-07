@@ -101,13 +101,13 @@
 							</a>
 						</div>
 						<div class="comment">
-							<p ng-click="openCommentComplainBlock(comment.id)">Жалоба</p>
 							<div class="user-info">				
 								<div class="info-item">
 									<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 									<p class="time" am-time-ago="comment.created_at"></p>
 									<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 								</div>
+								<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert">Жалоба</a>
 								<a href="javascript:void(0);" ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>				
 							</div>
 							<p ng-bind-html="comment.text | codeToSmiley" class="comment-item"></p>
