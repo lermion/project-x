@@ -103,12 +103,17 @@ angular.module('placePeopleApp')
 					if (res.login === storage.username) {
 						$scope.myProfile = true;
 						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						storageService.setStorageItem('firstName', res.first_name);
+						storageService.setStorageItem('lastName', res.last_name);
 						$scope.loggedUserAva = res.avatar_path;
 					} else {
 						$scope.myProfile = false;
 					}
 					if (!$scope.myProfile) {
 						$scope.isSigned = res.is_sub;
+					}
+					if (!res.is_sub && !!res.is_private) {
+						$scope.needToSign = true;
 					}					
 					$scope.userData = res;
 					getUserPubs(res.id, counter);
@@ -134,7 +139,7 @@ angular.module('placePeopleApp')
 						}
 					} else {
 						if (res.error.code === "8") {							
-							$scope.needToSign = true;
+							
 						} else if(res.error.code === "15"){
 							$scope.needToLogin = true;
 						}
@@ -159,14 +164,26 @@ angular.module('placePeopleApp')
 		$scope.sign = function(subscription){			
 			if($scope.loggedUserId == $scope.userData.id){
 				$scope.userData.id = subscription.id;
-			}
+			}			
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){
 				if (res.status) {
 					if(subscription !== undefined){
 						subscription.is_sub = res.is_sub;
 					}else{
-						$scope.isSigned = res.is_sub;
+						$scope.isSigned = res.is_sub;						
+						if (res.is_sub) {							
+							$scope.needToSign = false;
+							$scope.userData.subscribers_count++;
+							if (!!$scope.userData.is_private && res.is_sub) {
+								getUserPubs($scope.userData.id, counter);
+							}
+						} else {							
+							if ($scope.userData.is_private) {
+								$scope.needToSign = true;
+							}
+							$scope.userData.subscribers_count--;
+						}
 					}
 				} else {
 					if (parseInt(res.error.code) === 1) {	    					
@@ -360,13 +377,11 @@ angular.module('placePeopleApp')
 				$(".emoji-button").text("");
 			}
 		});
-		$scope.publishNewPub = function(files){
-			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
-			if (files === undefined || files.length == 0) {						
+		$scope.publishNewPub = function(files, pubText){
+			if(files === undefined || files.length == 0){						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
-
 			$scope.newPubLoader = true;						
 			var images = [];
 			var videos = [];
@@ -397,7 +412,7 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText, 0, isMain, videos, images).then(function(res){
+			PublicationService.createPublication(pubText.messagetext, 0, isMain, videos, images).then(function(res){
 				if(res.status){
 				$scope.userPublications.unshift(res.publication);
 					$scope.userData.publications_count++;
@@ -474,10 +489,6 @@ angular.module('placePeopleApp')
 		}
 		$scope.addNewComment = function(flag, pub, pubText, files){
 			$scope.disableAddComment = true;
-			if(pubText === undefined || pubText === ""){
-				pubText = {};
-				pubText.rawhtml = $(".ngdialog .emoji-wysiwyg-editor").html();
-			}
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -490,7 +501,7 @@ angular.module('placePeopleApp')
 					}				
 				});
 			}		
-			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText.messagetext, images, videos).then(function(response){
 				$scope.showAddComment = false;
 				$scope.disableAddComment = false;
 				if(response.data.status){
