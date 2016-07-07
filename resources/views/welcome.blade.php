@@ -46,6 +46,7 @@
     <script src="../../app/app.js"></script>
     <script src="../../app/config.js"></script>
     <script src="../../app/mainCtrl.js"></script>
+    <script src="../../app/libs/socket.io-1.3.4.js"></script>
 
     <script src="../../app/common/services/storageService.js"></script>
     <script src="../../app/common/services/socketService.js"></script>
