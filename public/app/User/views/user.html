@@ -155,6 +155,7 @@
 										</div>
 										<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 											<div ng-repeat="comment in singlePublication.comments" class="user-comment">
+												<p ng-click="alertPubComment(comment.id)">Жалоба</p>
 												<div class="user-ava">
 													<a class="ava" ui-sref="user({username: comment.user.login})">
 														<img ng-src="{{comment.user.avatar_path}}" alt="">

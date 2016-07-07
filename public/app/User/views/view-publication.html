@@ -15,7 +15,7 @@
 						<a href="" ng-click="editPub(singlePublication)">Редактировать</a>
 						<a href="" ng-click="sharePub(singlePublication)">Переслать</a>
 						<a href="" ng-click="getPubLink(singlePublication)">Получить ссылку</a>
-						<a href="" ng-click="alertPub(singlePublication)">Пожаловаться</a>
+						<a href="" ng-click="alertPub(singlePublication.id)">Пожаловаться</a>
 						<a href="" ng-click="deletePub(singlePublication)">Удалить</a>
 					</div>
 				</div>
@@ -61,6 +61,7 @@
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
 		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
+			<p ng-click="alertPubComment(comment.id)">Жалоба</p>
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: comment.user.login})">
 					<img ng-src="{{comment.user.avatar_path}}" alt="">
