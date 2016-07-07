@@ -1893,6 +1893,7 @@ a.add_comments {
   white-space: nowrap;
   overflow: hidden;
   max-width: 210px;
+  cursor: pointer;
 }
 .popup-add-group .fifth_item .item1.add-people li p {
   display: flex;
@@ -2114,4 +2115,16 @@ a.add_comments {
 
 .popup-add-group .add-ava label .ava,.popup-add-group .add-ava label .add {
     height: 100px;
+}
+
+
+
+
+
+
+
+
+/* Pravki (made early)*/
+.user-publication-content .publication-text {
+    margin-bottom: 12px;
 }
