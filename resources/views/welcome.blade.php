@@ -66,7 +66,10 @@
     <script src="../../app/Chat/controllers/chatCtrl.js"></script>
     
     <script src="../../app/Settings/controllers/settingsCtrl.js"></script>
+
+    <script src="../../app/Groups/index.js"></script>
     <script src="../../app/Groups/controllers/groupsCtrl.js"></script>
+    <script src="../../app/Groups/services/groups.srv.js"></script>
 
     <script src="../../app/Places/index.js"></script>
     <script src="../../app/Places/controllers/places.ctrl.js"></script>
