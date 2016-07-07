@@ -29,7 +29,7 @@ class ComplaintCommentController extends Controller
             ];
             return response()->json($result);
         }
-        $validator = Validator::make($request->input('complaint_category_ids'), [
+        $validator = Validator::make($request->input(array('complaint_category_ids')), [
             'required|exists:complaint_categories,id'
         ]);
 
