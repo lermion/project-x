@@ -311,11 +311,11 @@ angular.module('placePeopleApp')
 			});
 		}
 
-		$scope.showAddCommentBlock = function(showAddComment){
-			if(showAddComment){
-				$scope.showAddComment = false;
+		$scope.showAddCommentBlock = function(pub){
+			if(pub.showAddComment){
+				pub.showAddComment = false;
 			}else{
-				$scope.showAddComment = true;
+				pub.showAddComment = true;
 			}
 		}
 
