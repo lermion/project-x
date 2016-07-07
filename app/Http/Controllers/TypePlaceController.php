@@ -8,6 +8,20 @@ use App\Http\Requests;
 
 class TypePlaceController extends Controller
 {
+//   try {
+//   $this->validate($request, ['name' => 'required|unique:type_places',]);
+//   } catch (\Exception $ex) {
+//    $result = [
+//        "status" => false,
+//        "error" => [
+//            'message' => $ex->validator->errors(),
+//            'code' => '1'
+//        ]
+//    ];
+//    return response()->json($result);
+//    }
+
+
     public function getStatic($is_dynamic = false)
     {
         $static_type_place = TypePlace::where('is_dynamic',$is_dynamic)->get();
