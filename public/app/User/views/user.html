@@ -105,7 +105,7 @@
 						<!-- unit grid-->						
 						<div class="my-photos" ng-show="photosGrid">
 							<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">				
-								<a href="javascript:void(0)" ng-click="showPublication(pub)">
+								<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
 									<img ng-src="{{pub.images[0].url}}" alt="">								
 								</a>
 							</div>						
@@ -118,7 +118,7 @@
 										<div class="user-publication-content">
 
 											<div class="publication-ava" ng-init="singlePublication.mainFile.pivot ? '' : singlePublication.mainFile.pivot.image_id = true;">
-												<a href="javascript:void(0);"  class="ava" ng-click="showPublication(singlePublication)">
+												<a href="javascript:void(0);"  class="ava" ng-click="showPublication(singlePublication, $index)">
 													<img ng-src="{{singlePublication.mainFile.url}}" ng-if="singlePublication.mainFile.pivot.image_id">
 												</a>
 												<video ng-if="singlePublication.mainFile.pivot.video_id" width="150px" controls ngf-src="singlePublication.mainFile.url"></video>
