@@ -76,7 +76,7 @@ class PublicationCommentTest extends TestCase
         $this->be($user1);
         $comment = \App\Comment::create(['user_id'=> $user2->id,'text' => 'test']);
         $this->json('POST', 'publication/comment/complaint', ['comment_id' =>$comment->id,
-            'complaint_category_id'=>1])
+            'complaint_category_id'=>array(1,3)])
             ->seeJson([
             'status' => true,
         ]);

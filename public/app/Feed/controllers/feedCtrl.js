@@ -6,6 +6,7 @@ angular.module('placePeopleApp')
     	$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
+		$scope.emojiMessage = {};
 		$scope.loggedUserAva = storage.loggedUserAva;
 		$http.get('/static_page/get/name')
 		            .success(function (response){            	
@@ -234,10 +235,6 @@ angular.module('placePeopleApp')
 
 		$scope.addNewComment = function(flag, pub, pubText, files){
 			$scope.disableAddComment = true;
-			if(pubText === undefined || pubText === ""){
-				pubText = {};
-				pubText.rawhtml = angular.element(document.querySelector(".pubText")).val();
-			}	
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -251,7 +248,7 @@ angular.module('placePeopleApp')
 				});
 			}
 
-			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText.messagetext, images, videos).then(function(response){
 				$scope.showAddComment = false;
 				$scope.disableAddComment = false;
 				if(response.data.status){
@@ -353,8 +350,7 @@ angular.module('placePeopleApp')
 							
 		// }
 
-		$scope.publishNewPub = function(isAnon, files){
-			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
+		$scope.publishNewPub = function(isAnon, files, pubText){
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -390,7 +386,7 @@ angular.module('placePeopleApp')
 			// }
 
 
-			PublicationService.createPublication(pubText, !!isAnon ? 1 : 0, isMain, videos, images)			
+			PublicationService.createPublication(pubText.messagetext, !!isAnon ? 1 : 0, isMain, videos, images)			
 				.then(					
 					function(res){						
 						if (res.status) {							
@@ -453,18 +449,32 @@ angular.module('placePeopleApp')
 			});
 		}
 
-		$scope.openComplainBlock = function(commentId){			
+		$scope.openCommentComplainBlock = function(commentId){			
 			ngDialog.open({
 							template: '../app/Feed/views/alert-publication.html',
 							className: 'alert-publication ngdialog-theme-default',
 							scope: $scope,
 							data: {
-								commentId: commentId
+								id: commentId,
+								flag: 'comment'
 							}							
 						});
 		};
 
-		$scope.sendCommentComplain = function(commentId, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
+		$scope.openPubComplainBlock = function(pubId){			
+			ngDialog.open({
+							template: '../app/Feed/views/alert-publication.html',
+							className: 'alert-publication ngdialog-theme-default',
+							scope: $scope,
+							data: {
+								id: pubId,
+								flag: 'pub'
+							}							
+						});
+		};
+
+		$scope.sendComplain = function(complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
+
 			var complainCategory = [];
 			cat1 ? complainCategory.push(1) : '';
 			cat2 ? complainCategory.push(2) : '';
@@ -474,20 +484,39 @@ angular.module('placePeopleApp')
 			cat6 ? complainCategory.push(6) : '';
 			cat7 ? complainCategory.push(7) : '';
 			
-			// console.log(commentId, complainCategory);
+			
+			if (flag === 'comment') {
+				console.log(complainUnitId, complainCategory, flag);
+				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
+					.then(					
+						function(res){
+							console.log(res);						
+							if (res.status) {							
+								ngDialog.closeAll();
+							} else {
+								console.log('Error');							
+							}						
+						},
+						function(err){
+							console.log(err);
+						});
+			} else if (flag === 'pub') {
+				console.log(complainUnitId, complainCategory, flag);
 
-			// PublicationService.complaintCommentAuthor(commentId, complainCategory)
-			// .then(					
-			// 		function(res){						
-			// 			if (res.status) {							
-			// 				ngDialog.closeAll();
-			// 			} else {
-			// 				console.log('Error');							
-			// 			}						
-			// 		},
-			// 		function(err){
-			// 			console.log(err);
-			// 		});
+				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
+				// 	.then(					
+				// 		function(res){						
+				// 			if (res.status) {							
+								ngDialog.closeAll();
+				// 			} else {
+				// 				console.log('Error');							
+				// 			}						
+				// 		},
+				// 		function(err){
+				// 			console.log(err);
+				// 		});
+			}
+			
 		};
 
 
