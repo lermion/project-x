@@ -32,8 +32,13 @@ class StaticTest extends TestCase
         $this->json('GET', 'city/'.$country->id)->AssertResponseOk();
     }
 
-    public function testTypePlace()
+    public function testStaticTypePlace()
     {
-        $this->json('GET', 'place/type')->AssertResponseOk();
+        $this->json('GET', 'place/type/static')->AssertResponseOk();
+    }
+
+    public function testDynamicTypePlace()
+    {
+        $this->json('GET', 'place/type/dynamic')->AssertResponseOk();
     }
 }

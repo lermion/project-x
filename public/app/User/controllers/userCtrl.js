@@ -103,6 +103,8 @@ angular.module('placePeopleApp')
 					if (res.login === storage.username) {
 						$scope.myProfile = true;
 						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						storageService.setStorageItem('firstName', res.first_name);
+						storageService.setStorageItem('lastName', res.last_name);
 						$scope.loggedUserAva = res.avatar_path;
 					} else {
 						$scope.myProfile = false;
