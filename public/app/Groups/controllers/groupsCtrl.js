@@ -219,21 +219,23 @@ angular.module('placePeopleApp')
 
             function onFileSelected(e) {
                 var file = e.currentTarget.files[0];
-                var reader = new FileReader();
+                if (file) {
+                    var reader = new FileReader();
 
-
-                reader.onload = function (e) {
-                    $scope.$apply(function ($scope) {
-                        $scope.myImage = e.target.result;
-                        modalCropImage = ngDialog.open({
-                            template: '../app/Groups/views/popup-crop-image.html',
-                            className: 'settings-add-ava ngdialog-theme-default',
-                            scope: $scope
+                    reader.onload = function (e) {
+                        $scope.$apply(function ($scope) {
+                            $scope.myImage = e.target.result;
+                            modalCropImage = ngDialog.open({
+                                template: '../app/Groups/views/popup-crop-image.html',
+                                className: 'settings-add-ava ngdialog-theme-default',
+                                scope: $scope
+                            });
                         });
-                    });
-                };
+                    };
 
-                reader.readAsDataURL(file);
+                    reader.readAsDataURL(file);
+                }
+
             }
 
             function blobToFile(dataURI) {
