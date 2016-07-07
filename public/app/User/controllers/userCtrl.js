@@ -111,10 +111,10 @@ angular.module('placePeopleApp')
 					}
 					if (!$scope.myProfile) {
 						$scope.isSigned = res.is_sub;
-					}
-					if (!res.is_sub && !!res.is_private) {
-						$scope.needToSign = true;
-					}					
+						if (!res.is_sub && !!res.is_private) {
+							$scope.needToSign = true;
+						}
+					}										
 					$scope.userData = res;
 					getUserPubs(res.id, counter);
 				},
@@ -161,9 +161,9 @@ angular.module('placePeopleApp')
 		};
 
 		//Sign on
-		$scope.sign = function(subscription){			
-			if($scope.loggedUserId == $scope.userData.id){
-				$scope.userData.id = subscription.id;
+		$scope.sign = function(subscription){						
+			if (subscription) {
+				$scope.userData.id = subscription.id;			
 			}			
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){
