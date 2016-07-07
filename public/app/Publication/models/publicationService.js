@@ -4,24 +4,20 @@ angular.module('placePeopleApp')
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getMainPublications: getMainPublications,
-						getUserPublications: getUserPublications,
-						getPublication: getPublication,
-						createPublication: createPublication,
-						updatePublication: updatePublication,
-						deletePublication: deletePublication,
-						likePublication: likePublication,
-						getPublicationComments: getPublicationComments,
-						addPublicationComment: addPublicationComment,
-						deletePublicationComment: deletePublicationComment,
-						addCommentPublication: addCommentPublication,
-						getAllCommentsPublication: getAllCommentsPublication,
-						deleteCommentPublication: deleteCommentPublication,
-						addCommentLike: addCommentLike,
-						addPublicationLike: addPublicationLike,
-						getSinglePublication: getSinglePublication,
-						getSubscribers: getSubscribers,
-						getSubscription: getSubscription
+			getUserPublications: getUserPublications,						
+			createPublication: createPublication,
+			updatePublication: updatePublication,
+			deletePublication: deletePublication,
+			addCommentPublication: addCommentPublication,
+			getAllCommentsPublication: getAllCommentsPublication,
+			deleteCommentPublication: deleteCommentPublication,
+			addCommentLike: addCommentLike,
+			addPublicationLike: addPublicationLike,
+			getSinglePublication: getSinglePublication,
+			getSubscribers: getSubscribers,
+			getSubscription: getSubscription,
+			complaintCommentAuthor:	complaintCommentAuthor,
+			complaintPubAuthor: complaintPubAuthor
 
 		}
 
@@ -126,14 +122,16 @@ angular.module('placePeopleApp')
 				});
 			return defer.promise;
 		}
+		
 
-		function getMainPublications(){
-				console.log();
-				return defer.promise;
-		}
-		function getUserPublications(userId){        
-				defer = $q.defer();
-				$http.get(path + 'user/'+userId+'/publication')
+		function getUserPublications(userId, offset){
+				var defer = $q.defer();
+				var limit = 12;			
+				var data = {
+					'offset': offset,
+					'limit' : limit
+				}
+				$http.post(path + 'user/'+userId+'/publication', data)
 						.success(function (response){              
 								defer.resolve(response);
 						})
@@ -141,11 +139,7 @@ angular.module('placePeopleApp')
 								defer.reject(error);
 						});
 				return defer.promise;
-		}
-		function getPublication(){
-				console.log();
-				return defer.promise;
-		}
+		}		
 		function createPublication(text, isAnon, isMain, videos, images){
 				var data = new FormData();
 						data.append('text', text);
@@ -219,67 +213,35 @@ angular.module('placePeopleApp')
 						});
 				return defer.promise;        
 		}
-		function likePublication(){
-				console.log();
-				return defer.promise;
+		function complaintCommentAuthor(commentId, compCat){ 				
+				var defer = $q.defer();
+				var data = {
+					'comment_id': commentId,
+					'complaint_category_id[]': compCat
+				};
+				$http.post(path + 'publication/comment/complaint', data)
+						.success(function (response){              
+								defer.resolve(response);
+						})
+						.error(function (error){
+								defer.reject(error);
+						});
+				return defer.promise;        
 		}
-		function getPublicationComments(){
-				console.log();
-				return defer.promise;
-		}
-		function addPublicationComment(){
-				console.log();
-				return defer.promise;
-		}
-		function deletePublicationComment(){
-				console.log();
-				return defer.promise;
-		}
-
-
-
-		// function getUserData(login){                
-	//           defer = $q.defer();
-	//               $http.get(path + 'user/show/'+login)
-	//                   .success(function (response){
-	//                       defer.resolve(response);
-	//                   })
-	//                   .error(function (error){
-	//                       defer.reject(error);
-	//                   });
-	//           return defer.promise;
-	//       }
-	//       function quickEdit(name, lastname, status, userId){
-	//           var data = {
-	//               'first_name': name,
-	//               'last_name': lastname,
-	//               'status': status
-	//           };
-	//           defer = $q.defer();
-	//           $http.post(path + 'user/update', data)
-	//               .success(function (response){
-	//                   defer.resolve(response);
-	//               })
-	//               .error(function (error){
-	//                   defer.reject(error);
-	//               });
-	//           return defer.promise;           
-	//       }
-
-	//       function sign(userId){                
-	//           defer = $q.defer();
-	//           var data = {
-	//               user_id: userId
-	//           };            
-	//           $http.post(path + 'user/subscribe/store', data)
-	//               .success(function (response){
-	//                   defer.resolve(response);
-	//               })
-	//               .error(function (error){
-	//                   defer.reject(error);
-	//               });            
-	//           return defer.promise;
-	//       }
-				
+		function complaintPubAuthor(pubId, compCat){ 				
+				var defer = $q.defer();
+				var data = {
+					'publication_id': pubId,
+					'complaint_category_id[]': compCat
+				};
+				$http.post(path + 'need/to/change/route', data)
+						.success(function (response){              
+								defer.resolve(response);
+						})
+						.error(function (error){
+								defer.reject(error);
+						});
+				return defer.promise;        
+		}		
 	
 	}]);

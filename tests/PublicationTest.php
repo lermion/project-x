@@ -15,7 +15,7 @@ class PublicationTest extends TestCase
      */
     public function testIndex()
     {
-        $this->json('GET', 'publication/')->AssertResponseOk();
+        $this->json('POST', 'publication/')->AssertResponseOk();
     }
 
     public function testTopic()
@@ -26,6 +26,9 @@ class PublicationTest extends TestCase
     public function testStore()
     {
         $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
+        }
         $this->be($user);
         $data = [
             'text' => 'test', 'is_anonym' => false, 'is_main' => false,
@@ -39,6 +42,9 @@ class PublicationTest extends TestCase
     public function testUpdate()
     {
         $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
+        }
         $this->be($user);
         $publication = \App\Publication::create(['user_id' => $user->id]);
         $data = [
@@ -53,6 +59,9 @@ class PublicationTest extends TestCase
     public function testDeleet()
     {
         $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
+        }
         $this->be($user);
         $publication = \App\Publication::create(['user_id' => $user->id]);
         $this->json('GET', 'publication/destroy/' . $publication->id)->seeJson([
@@ -63,6 +72,9 @@ class PublicationTest extends TestCase
     public function testLike()
     {
         $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
+        }
         $this->be($user);
         $publication = \App\Publication::create(['user_id' => $user->id]);
         $this->json('GET', 'publication/like/' . $publication->id)->seeJson([
@@ -73,6 +85,9 @@ class PublicationTest extends TestCase
     public function testShow()
     {
         $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
+        }
         $this->be($user);
         $publication = \App\Publication::create(['user_id' => $user->id]);
         $this->json('GET', 'publication/show/' . $publication->id)->seeJson();

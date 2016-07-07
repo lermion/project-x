@@ -22,7 +22,7 @@ class PublicationController extends Controller
      */
     public function index(Request $request)
     {
-        /*try {
+        try {
             $this->validate($request, [
                 'offset' => 'required|numeric',
                 'limit' => 'required|numeric'
@@ -38,9 +38,9 @@ class PublicationController extends Controller
             return response()->json($result);
         }
 
-        $Data = $request->all();*/
-        $offset = 0;//$Data['offset'];
-        $limit = 100;//$Data['limit'];
+        $Data = $request->all();
+        $offset = $Data['offset'];
+        $limit = $Data['limit'];
 
         return Publication::getMainPublication($offset,$limit);
     }
@@ -66,8 +66,28 @@ class PublicationController extends Controller
         return $publication;
     }
 
-    public function userPublication($id)
+    public function userPublication(Request $request, $id)
     {
+        try {
+            $this->validate($request, [
+                'offset' => 'required|numeric',
+                'limit' => 'required|numeric'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        $Data = $request->all();
+        $offset = $Data['offset'];
+        $limit = $Data['limit'];
+
         //private profile
         $user = User::find($id);
         if ($user->is_private) {
@@ -84,7 +104,7 @@ class PublicationController extends Controller
         }
         $data = [
             'status' => true,
-            'publications' => Publication::getUserPublication($id)
+            'publications' => Publication::getUserPublication($offset,$limit,$id)
         ];
         return $data;
     }

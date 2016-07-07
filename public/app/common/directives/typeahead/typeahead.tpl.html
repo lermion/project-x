@@ -1,0 +1,8 @@
+<input type="text" ng-model="model" placeholder="{{prompt}}" ng-keydown="selected=false"/><br/>
+<div class="typeahead-items" ng-hide="!model.length || selected">
+    <div class="typeahead-items__item" ng-repeat="item in items | filterBy:model track by $index"
+         ng-click="handleSelection(item)"
+         style="cursor:pointer" ng-class="{active:isCurrent($index)}" ng-mouseenter="setCurrent($index)">
+        {{item[key1] + ' ' + item[key2]}}
+    </div>
+</div>

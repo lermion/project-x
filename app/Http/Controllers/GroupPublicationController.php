@@ -8,10 +8,10 @@ use App\Image;
 use App\Publication;
 use App\Video;
 use Illuminate\Http\Request;
-use Validator;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class GroupPublicationController extends Controller
 {
@@ -66,6 +66,40 @@ class GroupPublicationController extends Controller
             ];
             return response()->json($result);
         }
+
+        if ($request->hasFile('images')) {
+            $validator = Validator::make($request->file('images'), [
+                'image'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad image',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+        if ($request->hasFile('videos')) {
+            $validator = Validator::make($request->file('videos'), [
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad video',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+
         if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
             $responseData = [
                 "status" => false,

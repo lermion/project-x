@@ -11,8 +11,10 @@ angular.module('placePeopleApp')
             settingsEdit: settingsEdit,
             changeShowAvatar: changeShowAvatar,
             changeIsVisible: changeIsVisible,
-            changeLockProfile: changeLockProfile
-		}
+            changeLockProfile: changeLockProfile,
+
+            getSubscribers: getSubscribers
+		};
 
 		function getUserData(login){                
             var defer = $q.defer();
@@ -116,9 +118,9 @@ angular.module('placePeopleApp')
             return defer.promise;           
         }
 
-        function updateAvatar(avatar){            
+        function updateAvatar(avatar){
             var data = new FormData();            
-            data.set('avatar', avatar, avatar.filename);                        
+            data.append('avatar', avatar);                        
             var config = {
                     headers: {
                         'Content-Type': undefined,                        
@@ -135,6 +137,26 @@ angular.module('placePeopleApp')
                     });
                 return defer.promise;
             }
+
+        function getSubscribers(userId) {
+            return $http({
+                method: 'GET',
+                url: 'user/' + userId + '/subscribers',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getSubscribersComplete)
+                .catch(getSubscribersFailed);
+
+            function getSubscribersComplete(response) {
+                return response.data;
+            }
+
+            function getSubscribersFailed(error) {
+                $log.error('XHR Failed for getMySubscribers. ' + error.data);
+            }
+        }
         
 	
 	}]);

@@ -21,7 +21,7 @@ class AdminUserTest extends TestCase
     {
         $user = \App\User::first();
         if(!$user){
-            $user = \App\User::create();
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
         }
         $this->json('GET', 'admin/user/show/'.$user->id)->AssertResponseOk();
     }
@@ -30,7 +30,7 @@ class AdminUserTest extends TestCase
     {
         $user = \App\User::first();
         if(!$user){
-            $user = \App\User::create();
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
         }
         $this->json('GET', 'admin/user/delete/'.$user->id.'/1')->assertRedirectedTo('/admin/user');
         $this->seeInDatabase('black_lists', ['phone'=>$user->phone]);

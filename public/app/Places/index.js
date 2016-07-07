@@ -13,7 +13,8 @@
             .state('places', {
                 url: '/places',
                 templateUrl: '../../app/Places/views/places.html',
-                controller: 'PlacesCtrl'
+                controller: 'PlacesCtrl',
+                controllerAs: 'vm'
             })
             .state('places.add', {
                 url: '/add',

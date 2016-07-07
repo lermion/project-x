@@ -9,7 +9,7 @@
 				<div class="menu-item" ng-show="showMenu">
 					<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 					<a class="places" ui-sref="places">Места</a>
-					<a class="chat" href=""> Чаты</a>
+					<a class="chat" ui-sref="chat"> Чаты</a>
 					<a class="settings" ui-sref="settings">Настройки</a>
 					<div class="search">
 						<input type="text" placeholder="Поиск...">
@@ -25,7 +25,7 @@
 		</div>
 	</header>
 	
-	<div class="main-content">
+	<div class="main-content" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 		<div class="groups">
 			<a ui-sref="groups" class="pub-groups">Публичные группы</a>
 			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
@@ -49,19 +49,21 @@
 								<div class="inner">									
 									<a href="" ng-click="sharePub(pub.id)">Переслать</a>
 									<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
-									<a href="" ng-click="alertPub(pub.id)">Пожаловаться</a>
+									<a href="" ng-click="openPubComplainBlock(pub.id)">Пожаловаться</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
+					<p class="publication-text" ng-bind-html="pub.text | codeToSmiley"></p>
 					<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
 					<div class="publication-ava" ng-click="showPublication(pub)">
-						<img ng-src="{{pub.mainFile.url}}">
+						<a href="javascript:void(0);">
+							<img ng-src="{{pub.mainFile.url}}">
+						</a>
 					</div>					
 					<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="pub.images.length === 1">		
 						<div ng-click="changeMainFileFeed(image, pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
@@ -105,6 +107,7 @@
 									<p class="time" am-time-ago="comment.created_at"></p>
 									<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 								</div>
+								<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert">Жалоба</a>
 								<a href="javascript:void(0);" ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>				
 							</div>
 							<p ng-bind-html="comment.text | codeToSmiley" class="comment-item"></p>
@@ -121,12 +124,10 @@
 				</div>
 
 				<div class="added_comments">
-					<a href="" class="add_comments">
-						Добавить комментарий 
-					</a>
+					<a ng-hide="showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(showAddComment)" class="add_comments">Добавить комментарий</a>
 				</div>
 
-				<div class="add-comment" ng-init="pub.commentModel = commentModel">
+				<div class="add-comment" ng-show="showAddComment" ng-init="pub.commentModel = commentModel">
 					<div class="user-ava">
 						<a class="ava" ui-sref="user({username: loggedUser})">
 							<img ng-src="{{userData.avatar_path}}" alt="">
@@ -174,7 +175,7 @@
 					</div>
 				</div> 
 			</div>
-		</div>  <!-- end of publication -->
+		</div>  <!-- end of publication -->		
 
 	</div> 
 

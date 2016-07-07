@@ -11,16 +11,29 @@ class StaticTest extends TestCase
      *
      * @return void
      */
-    public function testCountry()
+    public function testStaticPage()
     {
         $this->json('GET', 'static_page/help')->AssertResponseOk();
     }
 
-    public function testStaticPage(){
+    public function testCountry()
+    {
         $this->json('GET', 'country/')->AssertResponseOk();
     }
     
-    public function testStaticName(){
+    public function testStaticName()
+    {
         $this->json('GET', 'static_page/get/name/')->AssertResponseOk();
+    }
+
+    public function testCity()
+    {
+        $country = \App\Country::first();
+        $this->json('GET', 'city/'.$country->id)->AssertResponseOk();
+    }
+
+    public function testTypePlace()
+    {
+        $this->json('GET', 'place/type')->AssertResponseOk();
     }
 }

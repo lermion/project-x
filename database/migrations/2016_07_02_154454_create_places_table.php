@@ -20,7 +20,7 @@ class CreatePlacesTable extends Migration
             $table->string('address');
             $table->string('coordinates_x');
             $table->string('coordinates_y');
-            $table->integer('expired_days');
+            $table->intenger('expired_days');
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->integer('type_place_id')->unsigned();

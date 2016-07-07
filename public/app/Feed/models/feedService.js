@@ -7,9 +7,14 @@ angular.module('placePeopleApp')
 			getPublications: getPublications
 		}
 
-		function getPublications(){
+		function getPublications(offset){			
 			var defer = $q.defer();
-			$http.get("publication")
+			var limit = 10;			
+			var data = {
+				'offset': offset,
+				'limit' : limit
+			}
+			$http.post("publication", data)
 				.success(function (response){
 					defer.resolve(response);
 				})
