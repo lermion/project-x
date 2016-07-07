@@ -1867,7 +1867,18 @@ a.add_comments {
 
 /*Редактирование попапа создания группы*/
 .popup-add-group input[type="checkbox"] + label::before {
-    border-radius: 2px;
+  border-radius: 2px;
+}
+.fifth_item .item1 {
+  width: 100%;
+  height: 325px;
+  overflow-y: auto;
+  margin: 0px;
+}
+.fifth_item .add-people {
+  width: 100%;
+  height: 325px;
+  margin: 0px;
 }
 .popup-add-group .fifth_item .item1 li {
   position: relative;
@@ -1881,7 +1892,8 @@ a.add_comments {
   align-items: center;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 230px;
+  max-width: 210px;
+  cursor: pointer;
 }
 .popup-add-group .fifth_item .item1.add-people li p {
   display: flex;
@@ -1889,7 +1901,7 @@ a.add_comments {
   align-items: center;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 140px;
+  max-width: 130px;
 }
 .popup-add-group .fifth_item .item1 li span.group-add-item1-user-plus {
   display: flex;
@@ -1923,7 +1935,7 @@ a.add_comments {
     display: flex;
     position: absolute;
     line-height: 55px;
-    right: 0px;
+    right: 15px;
     cursor: pointer;
 }
 .item1-add-people-title {
@@ -1933,19 +1945,74 @@ a.add_comments {
   padding-left: 15px;
 }
 
+.item1-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  box-sizing: border-box;
+}
+.popup-add-group .fourth_item input[type="text"],
+.popup-add-group input[type="text"] {
+    width: 100%;
+    display: flex;
+    /*height: 100%;*/
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    line-height: 20px;
+    box-sizing: border-box;
+    font-size: 14.6px;
+    color: #999;
+    padding: 10px;
+    font-family: "SFUIDisplayLight";
+}
+.popup-add-group .fifth_item .item1 {
+  padding: 0;
+  margin: 10px 0 10px 0;
+}
+.item1-add-people-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  box-sizing: border-box;
+}
+.item1-add-people-title {
+    line-height: 45px;
+    padding-left: 15px;
+    margin-top: 0px;
+    height: 45px;
+}
+.fifth_item .item1-container input {
+  height: 45px;
+  display: flex;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.popup-add-group .fifth_item .item1 li {
+  position: relative;
+    list-style-type: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+
 
 @media (max-width: 720px) {
   .popup-add-group .fifth_item .item1 li p {
-    max-width: 60%;
+    max-width: 56%;
     font-size: .8em;
   }
   .item1.add-people li span.add-people-admin {
-    line-height: 51px;
-    font-size: .7em;
-    width: 68px;
+    line-height: 50px;
+    font-size: .8em;
+    width: 50px;
+    right: 0px;
   }
   .popup-add-group .fifth_item .item1.add-people li p {
-    max-width: 40%;
+    max-width: 41%;
   }
   .add_newgroup .button .create {
     font-size: .8em;
@@ -1976,11 +2043,19 @@ a.add_comments {
   }
   .item1-add-people-title {
   margin: 0;
-  line-height: 35px;
+  line-height: 45px;
   padding: 0;
   font-size: .8em;
   padding-left: 10px;
   }
+  .fifth_item .item1 {
+    width: 100%;
+    height: 290px;
+    overflow-y: auto;
+    margin: 0px;
+}
+
+
 }
 
 
@@ -1992,7 +2067,7 @@ a.add_comments {
     margin-right: 15px;
   }
   .popup-add-group .fifth_item .item1 li p {
-    max-width: 55%;
+    max-width: 50%;
     font-size: .8em;
   }
   .popup-add-group .fifth_item .item1 li img {
@@ -2015,11 +2090,41 @@ a.add_comments {
     cursor: pointer;
   }
   .item1.add-people li span.add-people-admin {
-    line-height: 52px;
+    line-height: 50px;
     font-size: .7em;
-    width: 70px;
+    width: 40px;
   }
   .popup-add-group .fifth_item .item1.add-people li p {
     max-width: 40%;
   }
+  .item1-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .item1-add-people-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+
+
+.popup-add-group .add-ava label .ava,.popup-add-group .add-ava label .add {
+    height: 100px;
+}
+
+
+
+
+
+
+
+
+/* Pravki (made early)*/
+.user-publication-content .publication-text {
+    margin-bottom: 12px;
 }

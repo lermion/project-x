@@ -6,12 +6,19 @@ angular.module('placePeopleApp')
             }
         };
     })
-    .filter('filterBy', ['$parse', function ($parse) {
-        return function (collection, search) {
-            search = search.toLowerCase();
-            return collection.filter(function (item) {
-                return (item.first_name.toLowerCase().indexOf(search) > -1 ||
-                item.last_name.toLowerCase().indexOf(search) > -1)
+    .filter('searchFor', function () {
+        return function (arr, searchString) {
+            if (!searchString) {
+                return arr;
+            }
+            var result = [];
+            searchString = searchString.toLowerCase();
+            angular.forEach(arr, function (item) {
+                if (item.first_name.toLowerCase().indexOf(searchString) !== -1 ||
+                    item.last_name.toLowerCase().indexOf(searchString) !== -1) {
+                    result.push(item);
+                }
             });
-        }
-    }]);
+            return result;
+        };
+    });

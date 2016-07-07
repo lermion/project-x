@@ -44,10 +44,7 @@ class Publication extends Model
 
     public static function getMainPublication($offset,$limit,$userId = null)
     {
-        $publications = Publication::with(['user', 'videos', 'group', 'images', 'comments' => function ($query) {
-            $query->take(3);
-           // $query->orderBy('id', 'desc');
-        }, 'comments.images', 'comments.videos', 'comments.user'])
+        $publications = Publication::with(['user', 'videos', 'group', 'images'])
             ->where(function ($query) use ($userId) {
                 $query->where(['is_main'=> true,'is_moderate'=>true])
                     ->orWhere(function ($query) use ($userId) {
@@ -61,6 +58,7 @@ class Publication extends Model
                     });
             })->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
+            $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->get();
             $publication->like_count = $publication->likes()->count();
             if(Auth::check())
                 $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
@@ -77,13 +75,11 @@ class Publication extends Model
 
     public static function getUserPublication($offset,$limit,$userId)
     {
-        $publications = Publication::with(['videos', 'images', 'user', 'comments' => function ($query) {
-            $query->take(3);
-           // $query->orderBy('id', 'desc');
-        }, 'comments.images', 'comments.videos', 'comments.user'])
+        $publications = Publication::with(['videos', 'images', 'user'])
             ->where('user_id', $userId)
             ->where('is_anonym', false)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
+            $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->take(3)->get();
             $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();
             foreach ($publication->comments as &$comment) {
