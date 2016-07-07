@@ -180,13 +180,11 @@
 													</div>
 												</div>
 											</div>
+										</div>										
+										<div class="added_comments" ng-init="singlePublication.showAddComment = false;">
+											<a ng-hide="singlePublication.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(singlePublication)" class="add_comments">Добавить комментарий</a>
 										</div>
-										<div class="added_comments">
-											<a href="javascript:void(0);" class="add_comments" ng-click="showAddCommentBlock(showAddComment)" ng-hide="showAddComment">
-												Добавить комментарий 
-											</a>
-										</div>
-										<div class="add-comment"  ng-show="showAddComment">
+										<div class="add-comment"  ng-show="singlePublication.showAddComment">
 											<div class="user-ava">
 												<a class="ava" ui-sref="user({username: loggedUser})">
 													<img ng-src="{{loggedUserAva}}" alt="">

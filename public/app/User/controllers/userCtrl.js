@@ -480,11 +480,11 @@ angular.module('placePeopleApp')
 			$scope.indexCurrentPublication = index;
 			getSinglePublication(pub.id);			
 		};
-		$scope.showAddCommentBlock = function(showAddComment){
-			if(showAddComment){
-				$scope.showAddComment = false;
+		$scope.showAddCommentBlock = function(pub){
+			if(pub.showAddComment){
+				pub.showAddComment = false;
 			}else{
-				$scope.showAddComment = true;
+				pub.showAddComment = true;
 			}
 		}
 		$scope.addNewComment = function(flag, pub, pubText, files){
