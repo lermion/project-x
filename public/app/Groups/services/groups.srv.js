@@ -12,6 +12,7 @@
 
         return {
             getGroupList: getGroupList,
+            getGroup: getGroup,
             addGroup: addGroup
         };
 
@@ -35,6 +36,27 @@
 
             function getGroupListFailed(error) {
                 console.error('XHR Failed for getGroupList. ' + error.data);
+            }
+        }
+
+        function getGroup(groupName) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/show/' + groupName,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getGroupComplete)
+                .catch(getGroupFailed);
+
+            function getGroupComplete(response) {
+                return response.data;
+            }
+
+            function getGroupFailed(error) {
+                console.error('XHR Failed for getGroup. ' + error.data);
             }
         }
 
