@@ -75,7 +75,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update/{id}', 'GroupController@update');
         Route::get('destroy/{id}', 'GroupController@destroy');
         Route::get('subscription/{id}', 'GroupController@subscription');
-        Route::get('invite/{group_id}/{user_id}', 'GroupController@invite');
+        Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
@@ -136,15 +136,11 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/create\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='text' name='name'><br>
-            <input type='text' name='description' value='138'><br>
-            <input type='text' name='city_id' value='5'><br>
-            <input type='text' name='address'><br>
-            <input type='text' name='coordinates_x' value='138'><br>
-            <input type='text' name='coordinates_y' value='138'><br>
-            <input type='text' name='type_place_id' value='8'><br>
-            <input type='text' name='expired_date' value='8'><br>
+        echo "<form action=\"http://pp.dev/group/invite/1\" method=\"post\" enctype=\"multipart/form-data\">
+
+            <input type='text' name='user_id[]' value='5'><br>
+            <input type='text' name='user_id[]' value='1'><br>
+            <input type='text' name='user_id[]' value='2'><br>
 
             <input type=\"submit\">
         </form>";
