@@ -81,7 +81,7 @@ class Publication extends Model
         foreach ($publications as &$publication) {
             $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->take(3)->get();
             $publication->like_count = $publication->likes()->count();
-          //  $publication->user_like = $publication->likes()->first($userId);
+            $publication->user_like = $publication->likes()->where('user_id', Auth::id())->first() != null;
             $publication->comment_count = $publication->comments()->count();
             foreach ($publication->comments as &$comment) {
                 $comment->like_count = $comment->likes()->count();
