@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Video extends Model
 {
-    protected $fillable = ['url','img_url'];
+    protected $fillable = ['url','img_url','is_coded'];
 
     public static function makeFrame($f_name, $f_path, $new_fname){
         $ffmpeg = FFMpeg::create();
@@ -34,7 +34,7 @@ class Video extends Model
 
         // Avatar
         $video->move($fullPath, $fileName);*/
-
+            
             $ffmpeg = FFMpeg::create();
             $file = $ffmpeg->open($f_path . $f_name);
 

@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+
 
 class PublicationController extends Controller
 {
@@ -193,17 +193,22 @@ class PublicationController extends Controller
                 if (!$video) {
                     continue;
                 }
+
                 try {
                     $f_name = $video->getClientOriginalName();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
-
                     Video::makeFrame($f_name, $f_path, $new_fname);
-                    Video::makeVideo($f_name, $f_path, $new_fname);
+                    $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
+                    if (substr(php_uname(), 0, 7) == "Windows"){
+                        pclose(popen("start /B ". $cmd, "r"));
+                    }
+                    else {
+                        exec($cmd . " > /dev/null &");
+                    }
                 }
                 catch (\Exception $e) {
-
                     $result = [
                         "status" => false,
                         "error" => [
@@ -213,10 +218,12 @@ class PublicationController extends Controller
                     ];
                     return response()->json($result);
                 }
+
                 $publication->videos()->create([
                     'url' => $new_fname . '.webm',
-                    'img_url' => $new_fname . 'jpg'
+                    'img_url' => $new_fname . '.jpg',
                 ]);
+                
             }
         }
         $responseData = [
@@ -301,9 +308,10 @@ class PublicationController extends Controller
                 if ($deleteVideos) {
                     foreach ($deleteVideos as $deleteVideo) {
                         $video = Video::find($deleteVideo);
-                        dd($deleteVideo);
                         if ($video) {
                             $video->delete();
+                            Storage::disk('video')->delete($video->url);
+                            Storage::disk('video')->delete($video->img_url);
                         }
                     }
                 }
@@ -313,14 +321,22 @@ class PublicationController extends Controller
                         if (!$video) {
                             continue;
                         }
+
                         try {
-                            $paths = Video::getVideoPath($video);
-                            $publication->videos()->create([
-                                'url' => $paths
-                            ]);
+                            $f_name = $video->getClientOriginalName();
+                            $f_path = storage_path('tmp/video/');
+                            $video->move($f_path, $f_name);
+                            $new_fname = 'upload/publication/videos/' . uniqid();
+                            Video::makeFrame($f_name, $f_path, $new_fname);
+                            $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
+                            if (substr(php_uname(), 0, 7) == "Windows"){
+                                pclose(popen("start /B ". $cmd, "r"));
+                            }
+                            else {
+                                exec($cmd . " > /dev/null &");
+                            }
                         }
                         catch (\Exception $e) {
-
                             $result = [
                                 "status" => false,
                                 "error" => [
@@ -330,8 +346,13 @@ class PublicationController extends Controller
                             ];
                             return response()->json($result);
                         }
+                        $publication->videos()->create([
+                            'url' => $new_fname . '.webm',
+                            'img_url' => $new_fname . 'jpg'
+                        ]);
+                     }
                         
-                    }
+
                 }
                 $responseData = [
                     "status" => true,

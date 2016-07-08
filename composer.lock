@@ -4,13 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "hash": "db6aea5b25518a48ee848b37cd8de9f3",
     "content-hash": "48c5dbe6e97a5884a561a1ee6dfbee47",
-=======
-    "hash": "d59f50dd45937c37ef4a30cc65011e56",
-    "content-hash": "9c1efe3ce0ae159a0868834136adfb16",
->>>>>>> 8f863a89c9ed1d1d8af8f2409c998b91def88e70
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -1190,23 +1185,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -1239,7 +1234,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "symfony/console",
@@ -2124,7 +2119,6 @@
         {
             "name": "fzaninotto/faker",
             "version": "v1.6.0",
-<<<<<<< HEAD
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
@@ -2173,8 +2167,6 @@
         {
             "name": "hamcrest/hamcrest-php",
             "version": "v1.2.2",
-=======
->>>>>>> 8f863a89c9ed1d1d8af8f2409c998b91def88e70
             "source": {
                 "type": "git",
                 "url": "https://github.com/hamcrest/hamcrest-php.git",
