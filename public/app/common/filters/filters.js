@@ -21,4 +21,17 @@ angular.module('placePeopleApp')
             });
             return result;
         };
+    })
+    // only for search object in array by userId === id
+    .filter('getById', function () {
+        return function (input, id) {
+            var i = 0, len = input.length;
+            for (; i < len; i++) {
+                // TODO change userId to id
+                if (+input[i].userId == +id) {
+                    return input[i];
+                }
+            }
+            return null;
+        }
     });

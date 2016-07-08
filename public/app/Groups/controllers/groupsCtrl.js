@@ -1,6 +1,6 @@
 angular.module('app.groups')
-    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
-        function ($rootScope, $scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
+    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
+        function ($rootScope, $scope, $state, $stateParams, $filter, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
 
             var storage = storageService.getStorage();
             var myId = storage.userId;
@@ -17,7 +17,8 @@ angular.module('app.groups')
                 name: '',
                 description: '',
                 isOpen: true,
-                avatar: null
+                avatar: null,
+                users: []
             };
             $scope.editGroup = {
                 name: '',
@@ -30,19 +31,22 @@ angular.module('app.groups')
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
             $scope.subscribers = [];
-            $scope.users = [];
             $scope.strSearch = '';
             $scope.onItemSelected = function (user) {
 
-                var item = {
-                    userId: user.id,
-                    firstName: user.first_name,
-                    lastName: user.last_name,
-                    avatar: user.avatar_path,
+                var isExist = $filter('getById')($scope.newGroup.users, user.id);
 
-                    isAdmin: false
-                };
-                $scope.users.push(item);
+                if (!isExist) {
+                    var item = {
+                        userId: user.id,
+                        firstName: user.first_name,
+                        lastName: user.last_name,
+                        avatar: user.avatar_path,
+
+                        isAdmin: false
+                    };
+                    $scope.newGroup.users.push(item);
+                }
             };
             $scope.setAdmin = function (user) {
                 user.isAdmin = !user.isAdmin;
@@ -150,11 +154,11 @@ angular.module('app.groups')
                 }
             });
 
-            $rootScope.$on('emoji:group', function(event, args) {
+            $rootScope.$on('emoji:group', function (event, args) {
                 $scope.emojiMessage.rawhtml = args;
             });
 
-            $scope.goGroup = function(group) {
+            $scope.goGroup = function (group) {
                 $state.go('group', {
                     groupId: group.id,
                     groupName: group.url_name
@@ -197,9 +201,9 @@ angular.module('app.groups')
             };
 
             $scope.removeUser = function (user) {
-                for (var i = $scope.users.length - 1; i >= 0; i--) {
-                    if ($scope.users[i].userId == user.userId) {
-                        $scope.users.splice(i, 1);
+                for (var i = $scope.newGroup.users.length - 1; i >= 0; i--) {
+                    if ($scope.newGroup.users[i].userId == user.userId) {
+                        $scope.newGroup.users.splice(i, 1);
                     }
                 }
             };
@@ -223,13 +227,17 @@ angular.module('app.groups')
                 groupsService.addGroup($scope.newGroup)
                     .then(function (data) {
                         if (data.status) {
-                            resetFormNewGroup();
-                            modalNewGroup.close();
+                            if ($scope.newGroup.users.length > 0) {
+                                inviteUsers(data.group.id);
+                            } else {
+                                resetFormNewGroup();
+                                modalNewGroup.close();
+                            }
                         }
                     });
             };
 
-            $scope.cancelNewGroup = function() {
+            $scope.cancelNewGroup = function () {
                 modalNewGroup.close();
             };
 
@@ -247,19 +255,26 @@ angular.module('app.groups')
                     });
             }
 
+            function inviteUsers(groupId) {
+                groupsService.inviteUsers(groupId, $scope.newGroup.users)
+                    .then(function (data) {
+                        resetFormNewGroup();
+                        modalNewGroup.close();
+                    });
+            }
+
             function resetFormNewGroup() {
                 $scope.newGroup = {
                     name: '',
                     description: '',
                     isOpen: true,
-                    avatar: null
+                    avatar: null,
+                    users: []
                 };
                 $scope.dataURI = null;
                 $scope.emojiMessage = {};
-                $scope.users = [];
                 $scope.subscribers = [];
             }
-
 
 
             function onFileSelected(e) {

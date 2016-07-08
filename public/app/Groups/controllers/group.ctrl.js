@@ -10,10 +10,11 @@
     function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog, groupsService) {
 
         var vm = this;
-        var modalEditGroup;
+        var modalEditGroup, modalDeleteGroup;
         var groupName = $stateParams.groupName;
 
         vm.group = {};
+        vm.showGroupMenu = false;
         $scope.emoji = {
         };
         //$scope.emojiMessage = {
@@ -110,13 +111,36 @@
             }
         });
 
-        vm.editGroup = function () {
+        vm.openModalEditGroup = function () {
             modalEditGroup = ngDialog.open({
                 template: '../app/Groups/views/popup-edit-group.html',
                 name: 'modal-edit-group',
                 className: 'popup-add-group ngdialog-theme-default',
                 scope: $scope
             });
+        };
+
+        vm.openModalDeleteGroup = function() {
+            modalDeleteGroup = ngDialog.open({
+                template: '../app/Groups/views/popup-delete-group.html',
+                name: 'modal-delete-group',
+                className: 'popup-delete-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.deleteGroup = function() {
+            groupsService.deleteGroup(vm.group.id)
+                .then(function(data) {
+                    if (data.status) {
+                        $state.go('groups');
+                        modalDeleteGroup.close();
+                    }
+                });
+        };
+
+        vm.abortDeleteGroup = function() {
+            modalDeleteGroup.close();
         };
 
         function getGroup() {
