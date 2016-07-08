@@ -51,6 +51,26 @@ class PlaceTest extends TestCase
             ];
             $this->json('GET', 'place/show/' . $place->url_name, $data)->AssertResponseOk();
      }
+
+    public function testUserAdmin()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'avatar' => 'test', 'city_id' =>11, 'address' => 'test', 'coordinates_x'=> 1, 'coordinates_y'=> 1, 'cover' => 'test', 'type_place_id' => 3]);
+        \App\PlaceUser::create(['user_id' => $user->id, 'group_id' => $place->id, 'is_admin' => 1]);
+        \App\PlaceUser::create(['user_id' => $user2->id, 'group_id' => $place->id, 'is_admin' => 1]);
+        $this->json('GET', 'place/set_user_admin/' . $place->id . '/' . $user2->id)->seeJson([
+            'status' => true,
+        ]);
     }
+
+}
 
 

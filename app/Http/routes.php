@@ -127,6 +127,17 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
+        Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
+        Route::post('invite/{place_id}', 'PlaceController@invite');
+        Route::group(['prefix' => '{placeId}/publication'], function () {
+            Route::get('/', 'PlacePublicationController@index');
+            Route::post('store', 'PlacePublicationController@store');
+            Route::post('update/{id}', 'PlacePublicationController@update');
+            Route::get('destroy/{id}', 'PlacePublicationController@destroy');
+            Route::group(['prefix' => '{publicationId}/comment'], function () {
+                Route::post('store', 'PlacePublicationCommentController@store');
+            });
+        });
         Route::group(['prefix' => 'type'], function () {
             Route::get('static', 'TypePlaceController@getStatic');
             Route::get('dynamic', 'TypePlaceController@getDynamic');
@@ -136,11 +147,11 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/1069/publication\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/group/show/adfadf\" method=\"get\" enctype=\"multipart/form-data\">
 
-            <input type='text' name='offset' value='0'><br>
-            <input type='text' name='limit' value='10'><br>
-            <input type='text' name='user_id[]' value='1095'><br>
+            <input type='text' name='text'><br>
+            <input type='text' name='is_anonym'><br>
+            <input type='text' name='is_main'><br>
 
 
             <input type=\"submit\">

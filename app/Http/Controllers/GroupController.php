@@ -75,6 +75,13 @@ class GroupController extends Controller
             }
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
+            $group->users = $group->users()->lists('user_id');
+            if (GroupInvite::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
+                $group->is_sub = true;
+            } else {$group->is_sub = false;}
+            if($group->is_open && GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
+                $group->is_admin = true;
+            } else {$group->is_admin = false;}
         }
         return $group;
     }
