@@ -69,7 +69,7 @@ angular.module('placePeopleApp')
 	    // })
 	    .state('chat', {
 	      url: '/chat',
-	      templateUrl: '../../app/Chat/views/dla-testa.html',
+	      templateUrl: '../../app/Chat/views/chat-main.html',
 	      controller: 'chatCtrl'
 	    })
 	    .state('chat.list', {
