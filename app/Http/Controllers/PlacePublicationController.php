@@ -113,7 +113,7 @@ class PlacePublicationController extends Controller
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
-        $group = Place::find($id);
+        $place = Place::find($id);
         $publication = $place->publications()->create($publicationData);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
