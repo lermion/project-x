@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-					<p class="publication-text" ng-bind-html="pub.text | codeToSmiley"></p>
+					<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
 					<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
 					<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
@@ -82,11 +82,10 @@
 						<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
 						<p class="like-item">
 							В теме 
-							<span ng-if="pub.user_like" class="you"> Вы </span>
-							<span ng-if="pub.user_like" class="more">и еще</span>
-							<span class="count-like">{{pub.user_like ? pub.like_count - 1 : pub.like_count}}</span>
-							чел.
-						</p>
+							<span ng-show="pub.user_like" class="you"> Вы </span>
+							<span ng-show="pub.user_like && pub.like_count > 1" class="more">и еще</span>
+							<span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>							
+						</p>						
 					</div>
 					<a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
 				</div> 
@@ -107,10 +106,10 @@
 									<p class="time" am-time-ago="comment.created_at"></p>
 									<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 								</div>
-								<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert">Жалоба</a>
+								<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 								<a href="javascript:void(0);" ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>				
 							</div>
-							<p ng-bind-html="comment.text | codeToSmiley" class="comment-item"></p>
+							<p ng-bind-html="comment.text | colonToSmiley" class="comment-item"></p>
 							<div ng-if="comment.images[0]" class="comment-pic">
 								<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images, image)" href="javascript:void(0);" class="comment-pic-item">
 									<img ng-src="{{image.url}}">
@@ -123,11 +122,11 @@
 					</div>
 				</div>
 
-				<div class="added_comments">
-					<a ng-hide="showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(showAddComment)" class="add_comments">Добавить комментарий</a>
+				<div class="added_comments" ng-init="pub.showAddComment = false;">
+					<a ng-hide="pub.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(pub)" class="add_comments">Добавить комментарий</a>
 				</div>
 
-				<div class="add-comment" ng-show="showAddComment" ng-init="pub.commentModel = commentModel">
+				<div class="add-comment" ng-show="pub.showAddComment" ng-init="pub.commentModel = commentModel">
 					<div class="user-ava">
 						<a class="ava" ui-sref="user({username: loggedUser})">
 							<img ng-src="{{userData.avatar_path}}" alt="">
@@ -141,7 +140,6 @@
 									<i class="icon icon-emoji"></i>
 								</a>
 							</div>
-							
 						</div>
 						<div class="new-add"  ng-show="pub.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 							<div class="new-img" ng-repeat="file in pub.files">		  

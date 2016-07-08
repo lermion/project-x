@@ -12,7 +12,6 @@ angular.module('placePeopleApp')
             changeShowAvatar: changeShowAvatar,
             changeIsVisible: changeIsVisible,
             changeLockProfile: changeLockProfile,
-
             getSubscribers: getSubscribers
 		};
 
@@ -28,7 +27,7 @@ angular.module('placePeopleApp')
             return defer.promise;
         }        
 
-        function sign(userId){                
+        function sign(userId){                            
            var defer = $q.defer();
             var data = {
                 user_id: userId

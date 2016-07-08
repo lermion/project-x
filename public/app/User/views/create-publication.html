@@ -1,7 +1,7 @@
 <h5>Новая публикация</h5>
 <div class="publication">
 	<div class="publication-item">
-		<a class="user" ui-sref="user({username: loggedUser})">
+		<a class="user" ui-sref="user({username: loggedUser})" ng-click="closePopup()">
 			<span class="ava">
 				<img ng-src="{{userData.avatar_path}}" alt="">
 			</span>
@@ -15,17 +15,13 @@
 			</label>
 		</form> -->
 	</div>	
-	<div class="text-field">
-		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="pubText" ng-click="publishNewPubErr=false;" ng-change="publishNewPubErr=false;"></textarea> -->
-		<input type="text" class="pubText create-publication-pub-text" data-emojiable="true" name="">
-		<!-- <div class="smiles">
-			<div class="smiles-item"></div>
-			<div class="smile">
-				<div class="smile-item">
-					
-				</div>
-			</div>
-		</div> -->
+	<div class="text-field">		
+		<div emoji-form emoji-message="emojiMessage">
+			<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+			<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+				<i class="icon icon-emoji"></i>
+			</a>
+		</div>		
 	</div>		
 		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 			<div class="new-img" ng-repeat="file in files"  ng-click="showMoreImages(files)">		  
@@ -57,7 +53,7 @@
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>
 			<!-- <a href="" class="publication-button" ng-click="publishNewPub(files);" ladda="newPubLoader">Опубликовать</a> -->
-			<button class="publication-button" ng-click="publishNewPub(files);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>    
+			<button class="publication-button" ng-click="publishNewPub(files, emojiMessage);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>    
 		</div>       
 	</div>
 	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>

@@ -126,9 +126,13 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
-        Route::get('type', 'TypePlaceController@index');
-        Route::post('create', 'PlaceController@create')->middleware(['auth']);;
+        Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
+        Route::group(['prefix' => 'type'], function () {
+            Route::get('static', 'TypePlaceController@getStatic');
+            Route::get('dynamic', 'TypePlaceController@getDynamic');
+        });
+
             });
 
 
@@ -136,6 +140,7 @@ Route::group(['middleware' => ['web']], function () {
         echo "<form action=\"http://pp.dev/test\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='file' name='video'><br>
             <input type='text' name='text'><br>
+
             <input type=\"submit\">
         </form>";
     });

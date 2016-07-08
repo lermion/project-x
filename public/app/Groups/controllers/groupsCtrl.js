@@ -1,15 +1,34 @@
-angular.module('placePeopleApp')
-    .controller('groupsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog',
-        function ($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog) {
+angular.module('app.groups')
+    .controller('groupsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
+        function ($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
 
-            var myId;
+            var storage = storageService.getStorage();
+            var myId = storage.userId;
+            var modalNewGroup, modalEditGroup, modalCropImage;
+
+            $scope.myName = storage.firstName + ' ' + storage.lastName;
+            $scope.myAvatar = storage.loggedUserAva;
+            $scope.showEditAva = true;
+
+            $scope.showGroupMenu = false;
+
 
             $scope.newGroup = {
                 name: '',
                 description: '',
-                isOpen: false,
+                isOpen: true,
                 avatar: null
             };
+            $scope.editGroup = {
+                name: '',
+                description: '',
+                isOpen: true,
+                avatar: null
+            };
+            $scope.emojiMessage = {};
+            $scope.myImage = null;
+            $scope.myCroppedImage = null;
+            $scope.blobImg = null;
             $scope.subscribers = [];
             $scope.users = [];
             $scope.strSearch = '';
@@ -19,25 +38,28 @@ angular.module('placePeopleApp')
                     userId: user.id,
                     firstName: user.first_name,
                     lastName: user.last_name,
-                    avatar: user.avatar_path
+                    avatar: user.avatar_path,
+
+                    isAdmin: false
                 };
                 $scope.users.push(item);
             };
+            $scope.setAdmin = function (user) {
+                user.isAdmin = !user.isAdmin;
+            };
+
+
             activate();
 
             /////////////////////////////////////////////////
 
             function activate() {
                 init();
+                getGroupList();
             }
 
             function init() {
                 $scope.$emit('userPoint', 'user');
-                var storage = storageService.getStorage();
-
-                myId = storage.userId;
-
-                $scope.loggedUser = storage.username;
 
                 $http.get('/static_page/get/name')
                     .success(function (response) {
@@ -110,37 +132,42 @@ angular.module('placePeopleApp')
 
             /*Page content*/
 
-            // set default tab (view) for group view
-            $scope.$on("$stateChangeSuccess", function () {
-                var state = $state.current.name;
-                if (state === 'group') {
-                    $state.go('group.publications');
+
+            $scope.$on('ngDialog.opened', function (e, $dialog) {
+                if ($dialog.name === 'modal-new-group' || $dialog.name === 'modal-edit-group') {
+                    angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
+
+                    // init emoji picker
+                    window.emojiPicker = new EmojiPicker({
+                        emojiable_selector: '[data-emojiable=true]',
+                        assetsPath: 'lib/img/',
+                        popupButtonClasses: 'fa fa-smile-o'
+                    });
+                    window.emojiPicker.discover();
+                    $(".emoji-button").text("");
+
+                    getSubscribers(myId);
                 }
             });
 
-            $scope.$on('ngDialog.opened', function (e, $dialog) {
-                // init emoji picker
-                window.emojiPicker = new EmojiPicker({
-                    emojiable_selector: '[data-emojiable=true]',
-                    assetsPath: 'lib/img/',
-                    popupButtonClasses: 'fa fa-smile-o'
+            $scope.goGroup = function(group) {
+                $state.go('group', {
+                    groupId: group.id,
+                    groupName: group.url_name
                 });
-                window.emojiPicker.discover();
-                $(".emoji-button").text("");
-
-                getSubscribers(myId);
-            });
-
+            };
 
             $scope.checkState = function (stateName) {
                 return stateName === $state.current.name;
             };
 
             $scope.openNewGroupCreation = function () {
-                ngDialog.open({
+                modalNewGroup = ngDialog.open({
                     template: '../app/Groups/views/popup-add-group.html',
+                    name: 'modal-new-group',
                     className: 'popup-add-group ngdialog-theme-default',
-                    scope: $scope
+                    scope: $scope,
+                    preCloseCallback: resetFormNewGroup
                 });
             };
 
@@ -173,6 +200,41 @@ angular.module('placePeopleApp')
                 }
             };
 
+            $scope.saveCropp = function (img, cropped) {
+
+                var blobFile = blobToFile(cropped);
+
+                $scope.dataURI = cropped;
+
+                blobFile.name = 'image';
+                blobFile.lastModifiedDate = new Date();
+
+                $scope.newGroup.avatar = blobFile;
+
+                modalCropImage.close();
+            };
+
+            $scope.addGroup = function () {
+                $scope.newGroup.description = $scope.emojiMessage.messagetext;
+                groupsService.addGroup($scope.newGroup)
+                    .then(function (data) {
+                        if (data.status) {
+                            resetFormNewGroup();
+                            modalNewGroup.close();
+                        }
+                    });
+            };
+
+            $scope.cancelNewGroup = function() {
+                modalNewGroup.close();
+            };
+
+            function getGroupList() {
+                groupsService.getGroupList()
+                    .then(function (groupList) {
+                        $scope.groupList = groupList;
+                    });
+            }
 
             function getSubscribers(userId) {
                 UserService.getSubscribers(userId)
@@ -181,6 +243,51 @@ angular.module('placePeopleApp')
                     });
             }
 
+            function resetFormNewGroup() {
+                $scope.newGroup = {
+                    name: '',
+                    description: '',
+                    isOpen: true,
+                    avatar: null
+                };
+                $scope.dataURI = null;
+                $scope.emojiMessage = {};
+                $scope.users = [];
+                $scope.subscribers = [];
+            }
+
+
+
+            function onFileSelected(e) {
+                var file = e.currentTarget.files[0];
+                if (file) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $scope.$apply(function ($scope) {
+                            $scope.myImage = e.target.result;
+                            modalCropImage = ngDialog.open({
+                                template: '../app/Groups/views/popup-crop-image.html',
+                                className: 'settings-add-ava ngdialog-theme-default',
+                                scope: $scope
+                            });
+                        });
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+
+            }
+
+            function blobToFile(dataURI) {
+                var byteString = atob(dataURI.split(',')[1]);
+                var ab = new ArrayBuffer(byteString.length);
+                var ia = new Uint8Array(ab);
+                for (var i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ab], {type: 'image/jpeg'});
+            }
 
         }]);
 

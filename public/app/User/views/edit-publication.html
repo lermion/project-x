@@ -1,7 +1,7 @@
 <h5>Редактировать публикацию</h5>
 <div class="publication" flow-init flow-name="flowObj.flow" flow-files-submitted="addedEditedPubFiles( $files, $event, $flow )">
 	<div class="publication-item">
-		<a class="user" ui-sref="user({username: loggedUser})">
+		<a class="user" ui-sref="user({username: loggedUser})"  ng-click="closePopup()">
 			<span class="ava">
 				<img src="{{currPub.user.avatar_path}}" alt="">				
 			</span>
@@ -18,78 +18,7 @@
 	<div class="text-field">
 		<!-- <textarea name="" id="" placeholder="Текст публикации..." ng-model="currPub.text"></textarea> -->
 		<input type="text" class="pubText edit-publication-pub-text" data-emojiable="true" name="">
-		<!-- <div class="smiles">
-			<div class="smiles-item"></div>
-			<div class="smile">
-				<div class="smile-item">
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-					<div class="inner">
-						<a href="">
-							<img src="../../../images/smil-hover.png" alt=""> 
-						</a>
-					</div>
-				</div>
-			</div>
-		</div> -->
+		
 	</div>		
 		<div class="new-add" ng-scrollbar rebuild-on="rebuildScroll" style="max-height: 200px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
 			<div class="new-img" ng-repeat="file in editedPubFilesArray">		  

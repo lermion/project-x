@@ -10,6 +10,8 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 
+		
+
 		if (!storage.pubView) {
 			storageService.setStorageItem('pubView', 'greed');
 			storage = storageService.getStorage();
@@ -103,13 +105,18 @@ angular.module('placePeopleApp')
 					if (res.login === storage.username) {
 						$scope.myProfile = true;
 						storageService.setStorageItem('loggedUserAva', res.avatar_path);
+						storageService.setStorageItem('firstName', res.first_name);
+						storageService.setStorageItem('lastName', res.last_name);
 						$scope.loggedUserAva = res.avatar_path;
 					} else {
 						$scope.myProfile = false;
 					}
 					if (!$scope.myProfile) {
 						$scope.isSigned = res.is_sub;
-					}					
+						if (!res.is_sub && !!res.is_private) {
+							$scope.needToSign = true;
+						}
+					}										
 					$scope.userData = res;
 					getUserPubs(res.id, counter);
 				},
@@ -134,7 +141,7 @@ angular.module('placePeopleApp')
 						}
 					} else {
 						if (res.error.code === "8") {							
-							$scope.needToSign = true;
+							
 						} else if(res.error.code === "15"){
 							$scope.needToLogin = true;
 						}
@@ -156,17 +163,29 @@ angular.module('placePeopleApp')
 		};
 
 		//Sign on
-		$scope.sign = function(subscription){			
-			if($scope.loggedUserId == $scope.userData.id){
-				$scope.userData.id = subscription.id;
-			}
+		$scope.sign = function(subscription){						
+			if (subscription) {
+				$scope.userData.id = subscription.id;			
+			}			
 			UserService.sign(parseInt($scope.userData.id))
 			.then(function(res){
 				if (res.status) {
 					if(subscription !== undefined){
 						subscription.is_sub = res.is_sub;
 					}else{
-						$scope.isSigned = res.is_sub;
+						$scope.isSigned = res.is_sub;						
+						if (res.is_sub) {							
+							$scope.needToSign = false;
+							$scope.userData.subscribers_count++;
+							if (!!$scope.userData.is_private && res.is_sub) {
+								getUserPubs($scope.userData.id, counter);
+							}
+						} else {							
+							if ($scope.userData.is_private) {
+								$scope.needToSign = true;
+							}
+							$scope.userData.subscribers_count--;
+						}
 					}
 				} else {
 					if (parseInt(res.error.code) === 1) {	    					
@@ -360,13 +379,11 @@ angular.module('placePeopleApp')
 				$(".emoji-button").text("");
 			}
 		});
-		$scope.publishNewPub = function(files){
-			var pubText = $(".ngdialog .emoji-wysiwyg-editor").html();
-			if (files === undefined || files.length == 0) {						
+		$scope.publishNewPub = function(files, pubText){
+			if(files === undefined || files.length == 0){						
 				$scope.publishNewPubErr = true;				
 				return;				
 			}
-
 			$scope.newPubLoader = true;						
 			var images = [];
 			var videos = [];
@@ -397,7 +414,7 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText, 0, isMain, videos, images).then(function(res){
+			PublicationService.createPublication(pubText.messagetext, 0, isMain, videos, images).then(function(res){
 				if(res.status){
 				$scope.userPublications.unshift(res.publication);
 					$scope.userData.publications_count++;
@@ -461,22 +478,19 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		}
-		$scope.showPublication = function(pub){
+		$scope.showPublication = function(pub, index){
+			$scope.indexCurrentPublication = index;
 			getSinglePublication(pub.id);			
 		};
-		$scope.showAddCommentBlock = function(showAddComment){
-			if(showAddComment){
-				$scope.showAddComment = false;
+		$scope.showAddCommentBlock = function(pub){
+			if(pub.showAddComment){
+				pub.showAddComment = false;
 			}else{
-				$scope.showAddComment = true;
+				pub.showAddComment = true;
 			}
 		}
 		$scope.addNewComment = function(flag, pub, pubText, files){
 			$scope.disableAddComment = true;
-			if(pubText === undefined || pubText === ""){
-				pubText = {};
-				pubText.rawhtml = $(".ngdialog .emoji-wysiwyg-editor").html();
-			}
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -489,7 +503,7 @@ angular.module('placePeopleApp')
 					}				
 				});
 			}		
-			PublicationService.addCommentPublication(pub.id, pubText.rawhtml, images, videos).then(function(response){
+			PublicationService.addCommentPublication(pub.id, pubText.messagetext, images, videos).then(function(response){
 				$scope.showAddComment = false;
 				$scope.disableAddComment = false;
 				if(response.data.status){
@@ -826,31 +840,23 @@ angular.module('placePeopleApp')
 		$scope.deletePub = function(pub){
 			$scope.pubToDelete = pub.id;						
 			ngDialog.open({
-							template: '../app/User/views/delete-publication.html',
-							className: 'delete-publication ngdialog-theme-default',
-							scope: $scope
-						});
+				template: '../app/User/views/delete-publication.html',
+				className: 'delete-publication ngdialog-theme-default',
+				scope: $scope
+			});
 		};
 
-		$scope.confirmPubDelete = function (pubToDelete) {			
-			PublicationService.deletePublication(pubToDelete)
-			.then(
-				function(res){
-					if (res.status) {
-						$scope.userData.publications_count--;
-						getUserPubs(storage.userId);
-					}
-					ngDialog.closeAll();									        
-				},
-				function(err){
-					console.log(err);
-				}
-			);
-
-		};
-
-
-
-		
-		
-	}]);
+	$scope.confirmPubDelete = function(pubToDelete){
+		PublicationService.deletePublication(pubToDelete).then(function(res){
+			if(res.status){
+				$scope.userPublications.splice($scope.indexCurrentPublication, 1);
+				$scope.userData.publications_count--;
+				getUserPubs(storage.userId);
+			}
+			ngDialog.closeAll();									        
+		},
+		function(err){
+			console.log(err);
+		});
+	};
+}]);
