@@ -1,6 +1,6 @@
 angular.module('app.groups')
-    .controller('groupsCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
-        function ($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
+    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
+        function ($rootScope, $scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
 
             var storage = storageService.getStorage();
             var myId = storage.userId;
@@ -148,6 +148,10 @@ angular.module('app.groups')
 
                     getSubscribers(myId);
                 }
+            });
+
+            $rootScope.$on('emoji:group', function(event, args) {
+                $scope.emojiMessage.rawhtml = args;
             });
 
             $scope.goGroup = function(group) {
