@@ -2613,3 +2613,93 @@ span.users-today-time-time.early {
 .chat-users-today-info.tab-contact-title {
   width: 94%;
 }
+
+
+
+
+/*Chat right selected contact*/
+
+.chat-contact-right-selected {
+  display: flex;
+  padding: 20px;
+}
+
+.chat-contact-selected-ava {
+  display: flex;
+  background-color: red;
+  width: 290px;
+  height: 290px;
+  box-sizing: border-box;
+}
+.chat-contact-selected-ava img {
+  width: 100%;
+}
+
+.chat-contact-selected-data {
+  display: flex;
+  flex-wrap: wrap;
+  width: 49%;
+  box-sizing: border-box;
+  background-color: gray;
+  margin-left: 20px;
+  padding-left: 10px;
+  height: 290px;
+  font-family: "SFUIDisplayMedium";
+}
+.contact-selected-data-name {
+  width: 100%;
+  background-color: red;
+  margin: 0;
+  padding: 0;
+  font-size: 19.6px;
+  color: rgb(51,51,51);
+}
+.contact-selected-data-status {
+  width: 100%;
+  background-color: gray;
+  margin: 0;
+  padding: 0;
+  color: rgb(51,51,51);
+}
+.contact-selected-data-title {
+  width: 100%;
+  background-color: green;
+  margin: 0;
+  padding: 0;
+  color: rgb(51,51,51);
+}
+.contact-selected-data-phone {
+  width: 100%;
+  background-color: gray;
+  margin: 0;
+  padding: 0;
+  color: rgb(51,51,51);
+}
+.contact-selected-data-tel-number {
+  width: 100%;
+  background-color: green;
+  margin: 0;
+  padding: 0;
+  color: rgb(51,51,51);
+}
+.contact-selected-data-message {
+  width: 100%;
+  background-color: gray;
+  margin: 0;
+  padding: 0;
+  color: rgb(73,91,121);
+}
+.contact-selected-data-block {
+  width: 100%;
+  background-color: green;
+  margin: 0;
+  padding: 0;
+  color: rgb(73,91,121);
+}
+.contact-selected-data-delete {
+  width: 100%;
+  background-color: gray;
+  margin: 0;
+  padding: 0;
+  color: rgb(73,91,121);
+}
