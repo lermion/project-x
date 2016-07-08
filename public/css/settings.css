@@ -2152,12 +2152,7 @@ a.add_comments {
   min-height: 100%;
   margin-top: 30px;
 }
-.chat-main-container-left {
-  display: flex;
-  background-color: red;
-  width: 325px;
-  height: 100%;
-}
+
 .chat-main-container-right {
   display: flex;
   flex-wrap: wrap;
@@ -2233,7 +2228,7 @@ a.add_comments {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin: 10px;
+  margin: 5px;
 }
 .chat-person-top-ava a img {
   width: 100%;
@@ -2323,4 +2318,175 @@ p.top-person-status {
     color: #999;
     font-size: 12.6px;
     font-family: "SFUIDisplayMedium";
+}
+
+
+
+.chat-main-container-left {
+  display: flex;
+  flex-wrap: wrap;
+  width: 325px;
+  min-height: 100%;
+  align-content: flex-start;
+  border: 1px solid #e0e2e5;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin-bottom: 19px;
+  font-family: "SFUIDisplayMedium";
+
+}
+.chat-left-users-menu {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e2e5;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+.users-menu-tab-chats {
+  display: flex;
+  box-sizing: border-box;
+  border-right: 1px solid #e0e2e5;
+  height: 100%;
+  align-items: center;
+  width: 25%;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.users-menu-tab-chats span {
+  width: 21px;
+  height: 21px;
+  display: flex;
+  margin: 0 auto;
+}
+.users-menu-tab-chats span img {
+  width: 100%;
+}
+
+.users-menu-tab-users {
+  display: flex;
+  box-sizing: border-box;
+  border-right: 1px solid #e0e2e5;
+  height: 100%;
+  align-items: center;
+  width: 25%;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.users-menu-tab-users span {
+  width: 21px;
+  height: 21px;
+  display: flex;
+  margin: 0 auto;
+}
+.users-menu-tab-users span img {
+  width: 100%;
+}
+
+.users-menu-tab-block {
+  display: flex;
+  box-sizing: border-box;
+  border-right: 1px solid #e0e2e5;
+  height: 100%;
+  align-items: center;
+  width: 25%;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.users-menu-tab-block span {
+  width: 21px;
+  height: 21px;
+  display: flex;
+  margin: 0 auto;
+}
+.users-menu-tab-block span img {
+  width: 100%;
+}
+
+.users-menu-tab-menu-do {
+  display: flex;
+  box-sizing: border-box;
+  height: 100%;
+  align-items: center;
+  width: 25%;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.users-menu-tab-menu-do span {
+  width: 21px;
+  height: 21px;
+  display: flex;
+  margin: 0 auto;
+}
+.users-menu-tab-menu-do span img {
+  width: 100%;
+}
+
+.chat-left-users-search {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  background-color: rgb(245,245,245);
+
+}
+.chat-left-users-search input {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  border: 0px;
+  padding: 9px;
+  border-radius: 5px;
+  font-family: "SFUIDisplayMedium";
+
+  background-image: url(../images/search-hover.png);   
+  background-repeat: no-repeat;
+  background-position: 98%;
+  background-size: 17px;
+  outline: none;
+}
+
+
+.chat-left-users-all {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  align-content: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-left-users-users-today {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: orange;
+}
+
+
+.chat-left-users-users-early {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: green;
+}
+
+
+.chat-left-users-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-content: flex-start;
+  border-left: 1px solid #e0e2e5;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-family: "SFUIDisplayMedium";
 }
