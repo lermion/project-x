@@ -5,13 +5,20 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog'];
+    GroupCtrl.$inject = ['$filter', '$rootScope', '$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog', 'groupsService'];
 
-    function GroupCtrl($scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog) {
+    function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog, groupsService) {
 
         var vm = this;
         var modalEditGroup;
         var groupName = $stateParams.groupName;
+
+        vm.group = {};
+        $scope.emoji = {
+        };
+        //$scope.emojiMessage = {
+        //    rawhtml: '5555555'
+        //};
 
         activate();
 
@@ -19,6 +26,7 @@
 
         function activate() {
             init();
+            getGroup();
         }
 
         function init() {
@@ -102,13 +110,24 @@
             }
         });
 
-        vm.editGroup = function() {
+        vm.editGroup = function () {
             modalEditGroup = ngDialog.open({
                 template: '../app/Groups/views/popup-edit-group.html',
                 name: 'modal-edit-group',
-                className: 'popup-add-group ngdialog-theme-default'
+                className: 'popup-add-group ngdialog-theme-default',
+                scope: $scope
             });
         };
+
+        function getGroup() {
+            groupsService.getGroup(groupName)
+                .then(function (data) {
+                    vm.group = data;
+                    $scope.emoji.messagetext = data.description;
+                    //$scope.emoji.rawhtml = '123';
+                    //$rootScope.$broadcast('emoji:group', {message: data.description});
+                });
+        }
     }
 
 })(angular);

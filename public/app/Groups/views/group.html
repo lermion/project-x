@@ -34,7 +34,7 @@
 					</a>
 					<div class="group-likes">
 						<div class="group-info">
-							<a href="" class="publication-place">Название группы Название группы Название группы Название группы</a>
+							<a href="" class="publication-place">{{::vm.group.name}}</a>
 							<p class="like-item">
 								В теме 
 								<span ng-if="singlePublication.user_like" class="you"> Вы </span>
@@ -50,15 +50,15 @@
 						<div class="counts" >
 							<a ui-sref="group.publications" ui-sref-active="active" class="counter">
 								<p>Публикации</p>
-								<span>25</span>
+								<span>{{::vm.group.count_publications}}</span>
 							</a>
 							<a ui-sref="group.chat" ui-sref-active="active" class="counter">
 								<p>Чат</p>
-								<span>417</span>
+								<span>{{::vm.group.count_publications}}</span>
 							</a>
 							<a ui-sref="group.people" ui-sref-active="active" class="counter">
 								<p>Люди</p>
-								<span>29</span>
+								<span>{{::vm.group.count_users}}</span>
 							</a>
 							<a ui-sref="group.files" ui-sref-active="active" class="counter">
 								<p>Файлы</p>
