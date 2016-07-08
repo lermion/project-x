@@ -188,7 +188,21 @@ class GroupController extends Controller
         }
     }
 
-    public function invite($groupId,$userId){
+    public function invite(Request $request, $groupId){
+        try {
+            $this->validate($request, [
+                'user_id' => 'array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
         if ($group = Group::find($groupId)) {
             if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
                 $responseData = [
@@ -200,14 +214,14 @@ class GroupController extends Controller
                 ];
                 return response()->json($responseData);
             }
-            if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()){
-                $isInvited = false;
-                $invite->delete();
-            }else{
-                $isInvited = true;
-                GroupInvite::create(['group_id' => $group->id,'inviter_user_id'=> Auth::id(), 'user_id' => $userId]);
+            foreach($request->input('user_id') as $userId) {
+                if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
+                    $invite->delete();
+                } else {
+                    GroupInvite::create(['group_id' => $group->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+                }
             }
-            return response()->json(['status' => true, 'is_invited' => $isInvited]);
+            return response()->json(['status' => true]);
         }else{
             $result = [
                 "status" => false,

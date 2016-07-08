@@ -134,7 +134,7 @@ class GroupTest extends TestCase
         $group->is_open = 1;
         $group->save();
         \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1]);
-        $this->json('GET', 'group/invite/' . $group->id . '/' . $user2->id)->seeJson([
+        $this->json('POST', 'group/invite/' . $group->id,['user_id'=>array($user2->id)])->seeJson([
             'status' => true,
         ]);
     }
