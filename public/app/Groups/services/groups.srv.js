@@ -13,7 +13,8 @@
         return {
             getGroupList: getGroupList,
             getGroup: getGroup,
-            addGroup: addGroup
+            addGroup: addGroup,
+            inviteUsers: inviteUsers
         };
 
         ////////////
@@ -84,6 +85,33 @@
 
             function addGroupFailed(error) {
                 console.error('XHR Failed for addGroup. ' + error.data);
+            }
+        }
+
+        function inviteUsers(groupId, users) {
+            var fd = new FormData();
+
+            angular.forEach(users, function(user) {
+                fd.append('user_id[]', user.userId);
+            });
+
+
+            return $http({
+                method: 'POST',
+                url: 'group/invite/' + groupId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(inviteUserComplete)
+                .catch(inviteUserFailed);
+
+            function inviteUserComplete(response) {
+                return response.data;
+            }
+
+            function inviteUserFailed(error) {
+                console.error('XHR Failed for inviteUser. ' + error.data);
             }
         }
 
