@@ -27,7 +27,7 @@
 
 		<div class="chat-main-container-left">
 	    	<div class="chat-left-users-menu">
-	    		<div class="users-menu-tab-chats">
+	    		<div class="users-menu-tab-chats active">
 	    			<span>
 	    				<img src="../images/chat-tab-chat.png" alt="">
 	    			</span>
@@ -53,21 +53,103 @@
 		    		<input type="text" placeholder="Поиск или новый чат">
 		    	</div>
 		    	<div class="chat-left-users-all">
-			    	<div class="chat-left-users-users-today">
-			    		User1
+			    	<div class="chat-left-users-users-today active">
+			    		<div class="chat-users-today-ava">
+			    			<a href="">
+			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    			</a>
+			    		</div>
+
+			    		<div class="chat-users-today-data">
+			    			<div class="chat-users-today-info">
+			    				<p class="users-today-name">Елена Новикова</p>
+			    				<p class="users-today-message">Ну так ты будешь в парке или нет? или мне</p>
+			    			</div>
+			    			<div class="chat-users-today-time">
+			    				<span class="users-today-time-time">13:20</span>
+			    				<span class="users-today-time-count">123</span>
+			    			</div>
+			    			<div style="display:none" class="chat-users-today-time">
+			    				<span class="users-today-time-time early">12.04.16</span>
+			    				<span class="users-today-time-count early">1</span>
+			    			</div>
+			    		</div>
 			    	</div>
-			    	<div class="chat-left-users-users-early">
-			    		User2
-		    		</div>
+			    	<div class="chat-left-users-users-today">
+			    		<div class="chat-users-today-ava">
+			    			<a href="">
+			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    			</a>
+			    		</div>
+
+			    		<div class="chat-users-today-data">
+			    			<div class="chat-users-today-info">
+			    				<p class="users-today-name">Виталий Залевский</p>
+			    				<p class="users-today-message">Думаю все будет гуд )))</p>
+			    			</div>
+			    			<div class="chat-users-today-time">
+			    				<span class="users-today-time-time">13:20</span>
+			    				<span class="users-today-time-count">123</span>
+			    			</div>
+			    			<div style="display:none" class="chat-users-today-time">
+			    				<span class="users-today-time-time early">12.04.16</span>
+			    				<span class="users-today-time-count early">1</span>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	
+			    	<div class="chat-left-users-users-today">
+			    		<div class="chat-users-today-ava">
+			    			<a href="">
+			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    			</a>
+			    		</div>
+
+			    		<div class="chat-users-today-data">
+			    			<div class="chat-users-today-info">
+			    				<p class="users-today-name">Николай Островский</p>
+			    				<p class="users-today-message">
+			    					<span class="users-today-message-container">
+			    						<span class="chat-message-photo-icon">
+			    							<img src="../images/done.png" alt="">
+			    						</span>
+			    						<span>Наверное</span>
+			    					</span>
+			    					<span>
+			    						<span class="chat-message-photo-icon">
+			    							<img src="../images/chat-title-camera12.png" alt="">
+			    						</span>
+			    						<span>Фото</span>
+			    					</span>
+			    				</p>
+			    			</div>
+			    			<div class="chat-users-today-time">
+			    				<span class="users-today-time-time early">12.04.16</span>
+			    				<!-- <span class="users-today-time-count early">1</span> -->
+			    			</div>
+			    		</div>	
+			    	</div>
+			    	<div class="chat-left-users-users-today">
+			    		<div class="chat-users-today-ava">
+			    			<a href="">
+			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    			</a>
+			    		</div>
+
+			    		<div class="chat-users-today-data">
+			    			<div class="chat-users-today-info">
+			    				<p class="users-today-name">Валера Константинопольскииииий</p>
+			    				<p class="users-today-message">Думаю, все будет гуд )))</p>
+			    			</div>
+			    			<div class="chat-users-today-time">
+			    				<span class="users-today-time-time early">12.04.16</span>
+			    				<!-- <span class="users-today-time-count early">1</span> -->
+			    			</div>
+			    		</div>	
+			    	</div>
 		    	</div>
 	    	</div>
 	    </div>
-
-
-
-
-
-
 
 
 
@@ -279,7 +361,7 @@
 					</div> 
 					<button class="send">Отправить</button>
 				</div>
-				<!-- <div class="pictures">
+				<div class="pictures">
 					<div class="pic">
 						<div class="close">
 							<div class="close-inner">
@@ -288,7 +370,25 @@
 						</div>
 						<img src="../../../images/bc.png" alt="">
 					</div>
-				</div> -->
+					<div class="pic">
+						<div class="close">
+							<div class="close-inner">
+								<p>Удалить</p>
+							</div>
+						</div>
+						<img src="../../../images/bc.png" alt="">
+					</div>
+					<div class="pic">
+						<div class="close">
+							<div class="close-inner">
+								<p>Удалить</p>
+							</div>
+						</div>
+						<img src="../../../images/bc.png" alt="">
+					</div>
+
+				</div>
+
 			</div>
 		</div>
 	    </div>
