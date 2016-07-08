@@ -14,6 +14,7 @@
         var groupName = $stateParams.groupName;
 
         vm.group = {};
+        vm.showGroupMenu = false;
         $scope.emoji = {
         };
         //$scope.emojiMessage = {
