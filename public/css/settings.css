@@ -199,8 +199,31 @@
 .settingsss .text p input[type="text"]::-webkit-input-placeholder {
 	 color: #7e7b7b;
 	 padding-left: 10px;
-}   
+}
 
+
+
+
+
+/*******************************
+            Modal dialogs
+*******************************/
+
+/*----------------------
+     Group Delete
+----------------------*/
+.ngdialog.popup-delete-group.ngdialog-theme-default  .ngdialog-content {
+    height: auto;
+    padding: 30px 10px 30px 10px !important;
+    /*width: 300px;*/
+    /*margin-left: -150px;*/ /*left sidebar*/
+}
+.ngdialog.popup-delete-group .del-text {
+    text-align: center;
+}
+.ngdialog.popup-delete-group .del-item button {
+    margin-bottom: 10px;
+}
 
 
 /*             download avatar                */
@@ -2219,7 +2242,7 @@ a.add_comments {
 }
 .chat-top-person-data {
   display: flex;
-  width: 100%;
+  width: 80%;
   align-items: center;
 
 }
@@ -2357,6 +2380,9 @@ p.top-person-status {
   margin: 0;
   padding: 0;
 }
+.users-menu-tab-chats.active {
+  background-color: rgb(245,245,245);
+}
 .users-menu-tab-chats span {
   width: 21px;
   height: 21px;
@@ -2435,7 +2461,7 @@ p.top-person-status {
   box-sizing: border-box;
   padding: 4px;
   background-color: rgb(245,245,245);
-
+  border-bottom: 1px solid #e0e2e5;
 }
 .chat-left-users-search input {
   width: 100%;
@@ -2445,12 +2471,12 @@ p.top-person-status {
   padding: 9px;
   border-radius: 5px;
   font-family: "SFUIDisplayMedium";
-
   background-image: url(../images/search-hover.png);   
   background-repeat: no-repeat;
   background-position: 98%;
   background-size: 17px;
   outline: none;
+
 }
 
 
@@ -2468,15 +2494,102 @@ p.top-person-status {
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  background-color: orange;
+  align-items: center;
+}
+.chat-left-users-users-today.active {
+  background-color: rgb(245,245,245);
+}
+.chat-users-today-data {
+  display: flex;
+  width: 262px;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayMedium";
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e2e5;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+.chat-users-today-ava {
+  display: flex;
+}
+.chat-users-today-ava a {
+  display: flex;
+  display: flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+}
+.chat-users-today-ava a img {
+  width: 100%;
+}
+.chat-users-today-info {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0;
+  padding: 0;
+}
+.chat-users-today-info p {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.users-today-message {
+  font-size: 12.6px;
+  color: #999;
+}
+.chat-users-today-time {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  align-items: center;
+  align-content: center;
+  width: 50px;
+  text-align: center;
+}
+span.users-today-time-time {
+  /*width: 100%;*/
+  font-size: 12.6px;
+  color: rgb(236,96,69);
+  display: block;
+  width: 50px;
+  text-align: center;
+}
+span.users-today-time-count {
+  background-color: rgb(236,96,69);
+  color: #fff;
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+  line-height: 21px;
+  font-size: 11.6px;
+  text-align: center;
+  margin-left: 14px;
+}
+span.users-today-time-time.early {
+  /*width: 100%;*/
+  font-size: 12.6px;
+  color: #999;
+  display: block;
+  width: 50px;
+  text-align: center;
+  margin-top: 0px;
 }
 
-
-.chat-left-users-users-early {
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: green;
+.chat-message-photo-icon {
+  margin-right: 5px;
+}
+.users-today-message-container {
+  margin-right: 10px;
 }
 
 

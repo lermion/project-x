@@ -14,6 +14,7 @@
             getGroupList: getGroupList,
             getGroup: getGroup,
             addGroup: addGroup,
+            deleteGroup: deleteGroup,
             inviteUsers: inviteUsers
         };
 
@@ -85,6 +86,27 @@
 
             function addGroupFailed(error) {
                 console.error('XHR Failed for addGroup. ' + error.data);
+            }
+        }
+
+        function deleteGroup(groupId) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/destroy/' + groupId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(deleteGroupComplete)
+                .catch(deleteGroupFailed);
+
+            function deleteGroupComplete(response) {
+                return response.data;
+            }
+
+            function deleteGroupFailed(error) {
+                console.error('XHR Failed for deleteGroup. ' + error.data);
             }
         }
 
