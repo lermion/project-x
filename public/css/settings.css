@@ -2239,6 +2239,8 @@ a.add_comments {
   justify-content: space-between;
   background-color: #fff;
   border: 1px solid #e0e2e5;
+
+  height: 61px;
 }
 .chat-top-person-data {
   display: flex;
@@ -2598,8 +2600,16 @@ span.users-today-time-time.early {
   flex-wrap: wrap;
   width: 100%;
   align-content: flex-start;
-  border-left: 1px solid #e0e2e5;
+  border-left: 0px solid #e0e2e5;
   background-color: #fff;
   box-sizing: border-box;
   font-family: "SFUIDisplayMedium";
+}
+
+
+
+
+/*Chat tab CONTACTS*/
+.chat-users-today-info.tab-contact-title {
+  width: 94%;
 }
