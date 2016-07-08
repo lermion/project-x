@@ -1,4 +1,4 @@
-<div class="new_group"> Редактирование группы</div>
+<div class="new_group">Редактирование группы</div>
 <div class="add_newgroup">
     <div class="first_item">
         <div class="ava_group">
@@ -29,12 +29,13 @@
 
 
     <input type="text"
-           ng-model="newGroup.name"
+           ng-model="vm.group.name"
            placeholder="Название">
 
     <div class="text-field">
-        <div emoji-form emoji-message="emojiMessage">
-            <textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+        <div emoji-form emoji-message="emoji">
+            <textarea id="messageInput" ng-model="emoji.messagetext"></textarea>
+            <div class="emoji-wysiwyg-editor" id="messageDiv" ng-model="emoji.rawhtml" ng-bind-html="emoji.messagetext | colonToSmiley"></div>
             <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                 <i class="icon icon-emoji"></i>
             </a>
