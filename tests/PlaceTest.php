@@ -64,8 +64,8 @@ class PlaceTest extends TestCase
         }
         $this->be($user);
         $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'avatar' => 'test', 'city_id' =>11, 'address' => 'test', 'coordinates_x'=> 1, 'coordinates_y'=> 1, 'cover' => 'test', 'type_place_id' => 3]);
-        \App\PlaceUser::create(['user_id' => $user->id, 'group_id' => $place->id, 'is_admin' => 1]);
-        \App\PlaceUser::create(['user_id' => $user2->id, 'group_id' => $place->id, 'is_admin' => 1]);
+        \App\PlaceUser::create(['user_id' => $user->id, 'place_id' => $place->id, 'is_admin' => 1]);
+        \App\PlaceUser::create(['user_id' => $user2->id, 'place_id' => $place->id, 'is_admin' => 1]);
         $this->json('GET', 'place/set_user_admin/' . $place->id . '/' . $user2->id)->seeJson([
             'status' => true,
         ]);
