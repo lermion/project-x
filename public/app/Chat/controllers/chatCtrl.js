@@ -1,8 +1,10 @@
 angular.module('placePeopleApp')
     .controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
         '$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
+        'PublicationService',
         function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
-            $window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment) {
+            $window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
+            PublicationService) {
             $scope.$emit('userPoint', 'user');
             amMoment.changeLocale('ru');
             var storage = storageService.getStorage();
@@ -162,8 +164,57 @@ angular.module('placePeopleApp')
             };
 
 
+
+            function getSubscribers(userId){
+                           
+            }            
+
+            function getSubscribes(userId){
+                    
+            }
+            
+            $scope.userContacts = [];
+
+            function loadUserContacts(){                
+               var subs = [];
+               var sub = [];
+
+               PublicationService.getSubscription($scope.loggedUserId).then(function(response){                        
+                        sub = response;
+                        PublicationService.getSubscribers($scope.loggedUserId)
+                            .then(function(response){
+                                subs = response;
+
+                                var contacts = sub.concat(subs.filter(function (item) {
+                                    
+                                    return sub.indexOf(item) < 0;
+                                }));
+
+                                console.log(contacts);
+
+                            },
+                            function(error){
+                                console.log(error);
+                            }); 
+
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+
+                
+
+                
+
+                // $scope.userContacts.push();
+            };
+
+            loadUserContacts();
+        
+
             $scope.sendMes = function(message){
-                console.log(userId, chatId);
+                console.log(message);
+                $scope.chatMes = '';
             };
 
 
