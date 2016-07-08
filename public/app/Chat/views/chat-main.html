@@ -7,7 +7,7 @@
 					<div class="menu-item" ng-show="showMenu">
 						<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 						<a class="places" ui-sref="places">Места</a>
-						<a class="chat" ui-sref="chat"> Чаты</a>
+						<a class="chat" ui-sref="chat.list"> Чаты</a>
 						<a class="settings" ui-sref="settings">Настройки</a>
 						<div class="search">
 							<input type="text" placeholder="Поиск...">
@@ -63,8 +63,9 @@
 
 
 	    <div class="chat-main-container-right">
-	    	<div>
-		    <div class="chat-right-top-person">
+	      <div>
+	      <p>Op: {{opponent.id}}</p>
+		    <div class="chat-right-top-person" ng-init="opponent = reloadOpponentData()">
 			    <div class="chat-top-person-data">	
 			    	<div class="chat-person-top-ava">
 			    		<a ui-sref="user({username: opponent.login})">
@@ -301,7 +302,7 @@
 	    	</div>
 	    
 
-			</div>
+		  </div>
 	    </div>
 
 
