@@ -141,9 +141,6 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.changeMainFile = function(file, flag, pub){			
-			// $scope.mainImageInPopup = file.url;	
-			// console.log(file);
-			// console.log(flag);
 			if(file.pivot.video_id){
 				$scope.mainImage = "";
 				$scope.mainVideo = file.url;
@@ -154,10 +151,7 @@ angular.module('placePeopleApp')
 					$scope.mainVideo = "";
 					$scope.mainImage = file.url;
 				}
-			}
-
-			// console.log($scope.mainVideo);		
-			// console.log($scope.mainImage);		
+			}	
 		}
 
 		$scope.loadMorePubFiles = function(key, flag, pub) {			
@@ -166,8 +160,7 @@ angular.module('placePeopleApp')
 					pub.limit = pub.images.length + pub.videos.length;
 				}else{
 					pub.limit = 6;
-				}
-				// pub.morePubFiles = true;
+				}				
 				$scope.$broadcast('loadPubFiles');
 			} else {
 				if (key === false) {
@@ -479,8 +472,7 @@ angular.module('placePeopleApp')
 						});
 		};
 
-		$scope.sendComplain = function(complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){			
-
+		$scope.sendComplain = function(complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){
 			var complainCategory = [];
 			cat1 ? complainCategory.push(1) : '';
 			cat2 ? complainCategory.push(2) : '';
@@ -489,14 +481,10 @@ angular.module('placePeopleApp')
 			cat5 ? complainCategory.push(5) : '';
 			cat6 ? complainCategory.push(6) : '';
 			cat7 ? complainCategory.push(7) : '';
-			
-			
-			if (flag === 'comment') {
-				console.log(complainUnitId, complainCategory, flag);
+			if (flag === 'comment') {				
 				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
 					.then(					
-						function(res){
-							console.log(res);						
+						function(res){												
 							if (res.status) {							
 								ngDialog.closeAll();
 							} else {
@@ -506,9 +494,7 @@ angular.module('placePeopleApp')
 						function(err){
 							console.log(err);
 						});
-			} else if (flag === 'pub') {
-				console.log(complainUnitId, complainCategory, flag);
-
+			} else if (flag === 'pub') {				
 				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
 				// 	.then(					
 				// 		function(res){						
@@ -521,9 +507,6 @@ angular.module('placePeopleApp')
 				// 		function(err){
 				// 			console.log(err);
 				// 		});
-			}
-			
+			}			
 		};
-
-
 }]);
