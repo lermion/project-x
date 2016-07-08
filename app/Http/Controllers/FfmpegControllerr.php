@@ -27,10 +27,11 @@ class FfmpegControllerr extends Controller
      */
     public function put(Request $request)
     {
+        
         try {
             $file = $request->file('video');
             $f_name = $file->getClientOriginalName();
-            $f_path = $_SERVER['DOCUMENT_ROOT'] . "/../storage/tmp/video/";
+            $f_path = storage_path('tmp/video');
             $file->move($f_path, $f_name);
             $ffmpeg = FFMpeg::create();
             $video = $ffmpeg->open($f_path . $f_name);

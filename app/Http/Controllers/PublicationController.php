@@ -145,7 +145,7 @@ class PublicationController extends Controller
                 $result = [
                     "status" => false,
                     "error" => [
-                        'message' => 'Bad image',
+                        'message' => 'Bad video',
                         'code' => '1'
                     ]
                 ];
@@ -193,9 +193,29 @@ class PublicationController extends Controller
                 if (!$video) {
                     continue;
                 }
-                $path = Video::getVideoPath($video);
+                try {
+                    $f_name = $video->getClientOriginalName();
+                    $f_path = storage_path('tmp/video/');
+                    $video->move($f_path, $f_name);
+                    $new_fname = 'upload/publication/videos/' . uniqid();
+
+                    Video::makeFrame($f_name, $f_path, $new_fname);
+                    Video::makeVideo($f_name, $f_path, $new_fname);
+                }
+                catch (\Exception $e) {
+
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => 'Bad video',
+                            'code' => '1'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
                 $publication->videos()->create([
-                    'url' => $path,
+                    'url' => $new_fname . '.webm',
+                    'img_url' => $new_fname . 'jpg'
                 ]);
             }
         }
@@ -203,6 +223,7 @@ class PublicationController extends Controller
             "status" => true,
             "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
         ];
+
         return response()->json($responseData);
     }
 
@@ -280,6 +301,7 @@ class PublicationController extends Controller
                 if ($deleteVideos) {
                     foreach ($deleteVideos as $deleteVideo) {
                         $video = Video::find($deleteVideo);
+                        dd($deleteVideo);
                         if ($video) {
                             $video->delete();
                         }
@@ -291,10 +313,24 @@ class PublicationController extends Controller
                         if (!$video) {
                             continue;
                         }
-                        $path = Video::getVideoPath($video);
-                        $publication->videos()->create([
-                            'url' => $path,
-                        ]);
+                        try {
+                            $paths = Video::getVideoPath($video);
+                            $publication->videos()->create([
+                                'url' => $paths
+                            ]);
+                        }
+                        catch (\Exception $e) {
+
+                            $result = [
+                                "status" => false,
+                                "error" => [
+                                    'message' => 'Bad video',
+                                    'code' => '1'
+                                ]
+                            ];
+                            return response()->json($result);
+                        }
+                        
                     }
                 }
                 $responseData = [
