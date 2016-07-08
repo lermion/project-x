@@ -1,268 +1,278 @@
-<div>
-    <header>
-        <div class="header header-user">
-            <a class="logo" ui-sref="feed"></a>
+	<div>
+	    <header>
+	        <div class="header header-user">
+	            <a class="logo"></a>
 
-            <div class="main-menu" ng-click="vm.openMenu();" ng-class="vm.showMenu ? 'show-menu' : ''"
-                 ng-init="vm.showMenu=true;">
-                <a class="drop-menu" href=""></a>
+	            <div class="main-menu" >
+	                <a class="drop-menu" href=""></a>
 
-                <div class="menu-item" ng-show="vm.showMenu">
-                    <a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
-                    <a class="places" ui-sref="places">Места</a>
-                    <a class="chat" ui-sref="chat"> Чаты</a>
-                    <a class="settings" ui-sref="settings">Настройки</a>
+	                <div class="menu-item" >
+	                    <a class="profile">Мой профиль</a>
+	                    <a class="places" >Места</a>
+	                    <a class="chat" > Чаты</a>
+	                    <a class="settings">Настройки</a>
 
-                    <div class="search">
-                        <input type="text" placeholder="Поиск...">
-                        <span class="button"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="search">
-                <input type="text" placeholder="Поиск...">
-                <span class="button"></span>
-            </div>
-            <a class="exit" href="javascript:void(0);" ng-click="vm.logOut()"><span></span>Выйти</a>
-        </div>
-    </header>
+	                    <div class="search">
+	                        <input type="text" placeholder="Поиск...">
+	                        <span class="button"></span>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="search">
+	                <input type="text" placeholder="Поиск...">
+	                <span class="button"></span>
+	            </div>
+	            <a class="exit" href="javascript:void(0);"><span></span>Выйти</a>
+	        </div>
+	    </header>
 
-    
-    <div class="chat-main-container">
-    	<div class="chat-main-container-left">
-    		<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum modi rerum, repellat tempora, cum aspernatur tenetur similique quae provident beatae!</h1>
-    	</div>
-    	<div class="chat-main-container-right">
-    		<div class="group-chat">
-		<div class="group-chat-inner">
-			<div class="date-messeges">
-				<p class="date">Вчера</p>
-			</div>
-			<div class="users-messege">
-				<div class="user-ava">
-					<a href="" class="ava">
-						<img src="" alt="">
-					</a>
-				</div>
-				<div class="user-messeges">
-					<div class="chat-user-pulication">
-						<div class="user-publication">
-							<div class="user-publication-header">
-								<div class="user-function">
-									<a class="user">
-										<span class="ava">
-											<img alt="">
-										</span>
-										<span class="block-info">
-											<p class="user-name">Hello World</p>
-											<p class="time"></p>
-										</span>
-									</a>
-									<!-- <div class="topic">Тема дня</div> -->
-									<div href="" class="user-menu">
-										<div class="menu-item">
-											<div class="inner">			
-												<a href="">Переслать</a>
-												<a href="">Получить ссылку</a>
-												<a href="">Пожаловаться</a>
+	    
+	<div class="chat-main-container">
+		<div class="chat-main-container-left">
+	    		<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum modi rerum, repellat tempora, cum aspernatur tenetur similique quae provident beatae!</h1>
+	    </div>
+	    <div class="chat-main-container-right">
+		    <div class="chat-right-top-person">
+			    <div class="chat-top-person-data">	
+			    	<div class="chat-person-top-ava">
+			    		<a href="">
+			    			<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    		</a>
+			    	</div>
+			    	<div class="chat-person-top-info">
+			    		<p class="top-person-name">Елена Новикова</p>
+			    		<p class="top-person-status">Подключена</p>
+			    	</div>
+			    </div>
+			    	<div href="" class="user-menu-top">
+						<div class="user-menu-top-do">
+							<div class="user-menu-top-inner">			
+								<a href="">О контакте</a>
+								<a href="">Очистить чат</a>
+								<a href="">Удалить чат</a>
+							</div>
+						</div>
+					</div>
+		    </div>
+	    		<div class="group-chat">
+					<div class="group-chat-inner">
+						<div class="date-messeges">
+							<p class="date">Вчера</p>
+						</div>
+						<div class="users-messege">
+						<!-- <div class="user-ava">
+							<a href="" class="ava">
+								<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+							</a>
+						</div> -->
+						<div class="user-messeges">
+						<div class="chat-user-pulication">
+							<div class="user-publication">
+								<div class="user-publication-header">
+									<div class="user-function">
+										<a class="user">
+											<span class="ava">
+												<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico"  alt="">
+											</span>
+											<span class="block-info">
+												<p class="user-name">Lorem ipsum dolor sit.</p>
+												<p class="time">01.01.01</p>
+											</span>
+										</a>
+										<!-- <div class="topic">Тема дня</div> -->
+										<div href="" class="user-menu">
+											<div class="menu-item">
+												<div class="inner">			
+													<a href="">Переслать</a>
+													<a href="">Получить ссылку</a>
+													<a href="">Пожаловаться</a>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="user-publication-content">
-								<p class="publication-text"></p>
-								<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-								<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-								<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
-								<div class="publication-ava">
-									<img>
-								</div>					
-								<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
-									<div class="images-item">
-										<img ng-src="{{image.url}}">
-									</div>
-									<div class="images-item">
-										<video width="150px"></video>
-									</div>
-									<div class="images-item more">
-										<p class="counter">Еще<br> 15 фото</p>
+								<div class="user-publication-content">
+									<p class="publication-text"></p>
+									<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
+									<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
+									<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
+									<div class="publication-ava">
+										<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
+									</div>					
+									<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
+										<div class="images-item">
+											<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
+										</div>
+										<div class="images-item">
+											<video width="150px"></video>
+										</div>
+										<div class="images-item more">
+											<p class="counter">Еще<br> 15 фото</p>
+										</div>
 									</div>
 								</div>
+								<div class="likes">
+									<div class="likes-item">
+										<a href="javascript:void(0);" class="like">Тема</a>
+										<p class="like-item">
+											В теме 
+											<span class="you"> Вы </span>
+											<span class="more"> и еще</span>
+											<span class="count-like">12</span>
+											чел.
+										</p>
+									</div>
+									<a href="javascript:void(0);" class="comments-count">123</a>
+								</div> 
 							</div>
-							<div class="likes">
-								<div class="likes-item">
-									<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
-									<p class="like-item">
-										В теме 
-										<span ng-if="pub.user_like" class="you"> Вы </span>
-										<span ng-if="pub.user_like" class="more">и еще</span>
-										<span class="count-like">12</span>
-										чел.
-									</p>
-								</div>
-								<a href="javascript:void(0);" class="comments-count">123</a>
-							</div> 
 						</div>
-					</div>
-					<div class="user-messege">
-						<div class="messege">
-							<a class="user-name">Танюшка Мильцына</a>
-							<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
-								<span class="pictures">
-									<span class="pic" ng-repeat="pub in [1,2,3,4,5]">
-										<img src="../../../images/bc.png" alt="">
+						<div class="user-messege">
+							<div class="messege">
+								<a class="user-name">Танюшка Мильцына</a>
+								<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
+									<span class="pictures">
+										<span class="pic">
+											<img src="../../../images/bc.png" alt="">
+										</span>
 									</span>
-								</span>
-							</p>
+								</p>
+							</div>
+							<p class="messege-time">10:55</p>
 						</div>
-						<p class="messege-time">10:55</p>
 					</div>
 				</div>
-			</div>
-			<div class="users-messege my-messege">
-				<div class="user-messeges">
-					<div class="chat-user-pulication">
-						<div class="user-publication">
-							<div class="user-publication-header">
-								<div class="user-function">
-									<a class="user" >
-										<span class="ava">
-											<img src="http://kingofwallpapers.com/face/face-004.jpg" alt="">
-										</span>
-										<span class="block-info">
-											<p class="user-name">Lorem Lorem</p>
-											<p class="time"></p>
-										</span>
-									</a>
-									<!-- <div class="topic">Тема дня</div> -->
-									<div href="" class="user-menu">
-										<div class="menu-item">
-											<div class="inner">			
-												<a href="">Переслать</a>
-												<a href="">Получить ссылку</a>
-												<a href="">Пожаловаться</a>
+				<div class="users-messege my-messege">
+					<div class="user-messeges">
+						<div class="chat-user-pulication">
+							<div class="user-publication">
+								<div class="user-publication-header">
+									<div class="user-function">
+										<a class="user" >
+											<span class="ava">
+												<img src="http://kingofwallpapers.com/face/face-004.jpg" alt="">
+											</span>
+											<span class="block-info">
+												<p class="user-name">Lorem Lorem</p>
+												<p class="time">Год назад</p>
+											</span>
+										</a>
+										<!-- <div class="topic">Тема дня</div> -->
+										<div href="" class="user-menu">
+											<div class="menu-item">
+												<div class="inner">			
+													<a href="">Переслать</a>
+													<a href="">Получить ссылку</a>
+													<a href="">Пожаловаться</a>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="user-publication-content">
-								<p class="publication-text"></p>
-								<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-								<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-								<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
-								<div class="publication-ava">
-									<img>
-								</div>					
-								<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
-									<div class="images-item">
-										<img>
-									</div>
-									<div class="images-item">
-										<video width="150px"></video>
-									</div>
-									<div class="images-item more">
-										<p class="counter">Еще<br> фото</p>
+								<div class="user-publication-content">
+									<p class="publication-text"></p>
+									<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
+									<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
+									<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
+									<div class="publication-ava">
+										<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
+									</div>					
+									<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
+										<div class="images-item">
+											<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
+										</div>
+										<div class="images-item">
+											<video width="150px"></video>
+										</div>
+										<div class="images-item more">
+											<p class="counter">Еще<br> фото</p>
+										</div>
 									</div>
 								</div>
+								<div class="likes">
+									<div class="likes-item">
+										<a href="javascript:void(0);" class="like">Тема</a>
+										<p class="like-item">
+											В теме 
+											<span class="you"> Вы </span>
+											<span class="more">и еще</span>
+											<span class="count-like">100</span>
+											чел.
+										</p>
+									</div>
+									<a href="javascript:void(0);" class="comments-count">Lorem1</a>
+								</div> 
 							</div>
-							<div class="likes">
-								<div class="likes-item">
-									<a href="javascript:void(0);" class="like">Тема</a>
-									<p class="like-item">
-										В теме 
-										<span class="you"> Вы </span>
-										<span class="more">и еще</span>
-										<span class="count-like">Ipsum</span>
-										чел.
-									</p>
-								</div>
-								<a href="javascript:void(0);" class="comments-count">Lorem1</a>
-							</div> 
 						</div>
-					</div>
-					<div class="user-messege">
-						<div class="messege">
-							<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
-								<span class="pictures">
-									<span class="pic">
-										<img src="../../../images/bc.png" alt="">
+						<div class="user-messege">
+							<div class="messege">
+								<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
+									<span class="pictures">
+										<span class="pic">
+											<img src="../../../images/bc.png" alt="">
+										</span>
 									</span>
-								</span>
-							</p>
+								</p>
+							</div>
+							<p class="messege-time">10:55</p>
 						</div>
-						<p class="messege-time">10:55</p>
 					</div>
 				</div>
-			</div>
-		</div>
-		<!-- <button class="rewrite">Подписаться</button> -->
-		<div class="group-comments">
-			<div class="group-comment">
-				<a href="" class="smile"></a>
-				<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
-				<div class="add-objects">						
-					<input id="addfile" type='file' style="display: none;"> 
-					<label for="addfile">
-						<span class="add">
-							<span  class="dropp">
-								<a href="" class="active">Публикация</a>
-								<a href="" class="">Файл</a>
+					</div>
+			<!-- <button class="rewrite">Подписаться</button> -->
+			<div class="group-comments">
+				<div class="group-comment">
+					<a href="" class="smile"></a>
+					<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
+					<div class="add-objects">						
+						<input id="addfile" type='file' style="display: none;"> 
+						<label for="addfile">
+							<span class="add">
+								<span  class="dropp">
+									<a href="" class="active">Публикация</a>
+									<a href="" class="">Файл</a>
+								</span>
 							</span>
-						</span>
-					</label>                                         
-				</div> 
-				<button class="send">Отправить</button>
-			</div>
-			<div class="pictures">
-				<div class="pic">
-					<div class="close">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>
-					<img src="../../../images/bc.png" alt="">
+						</label>                                         
+					</div> 
+					<button class="send">Отправить</button>
 				</div>
+				<!-- <div class="pictures">
+					<div class="pic">
+						<div class="close">
+							<div class="close-inner">
+								<p>Удалить</p>
+							</div>
+						</div>
+						<img src="../../../images/bc.png" alt="">
+					</div>
+				</div> -->
 			</div>
 		</div>
+	    </div>
+	    </div>
+
+
+
+
+	    <footer>
+	        <div class="footer">
+	            <div class="footer-item">
+	                <div class="footer-place">
+	                    <a href="">Place People </a>
+	                    <span>© 2016</span>
+	                </div>
+	                <div class="payment">
+	                    <a class="mastercard" href=""></a>
+	                    <a class="visa" href=""></a>
+	                </div>
+	            </div>
+	            <div class="menu" >
+	                <a class="drop-menu" href=""></a>
+
+	                <div class="menu-item">
+	                    <a>Page.description</a>
+	                </div>
+	            </div>
+	        </div>
+	    </footer>
 	</div>
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <footer>
-        <div class="footer">
-            <div class="footer-item">
-                <div class="footer-place">
-                    <a href="">Place People </a>
-                    <span>© 2016</span>
-                </div>
-                <div class="payment">
-                    <a class="mastercard" href=""></a>
-                    <a class="visa" href=""></a>
-                </div>
-            </div>
-            <div class="menu" ng-click="vm.openBottomMenu()" ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
-                 ng-init="vm.showBottomMenu=true;">
-                <a class="drop-menu" href=""></a>
-
-                <div class="menu-item" ng-show="vm.showBottomMenu">
-                    <a ng-repeat="staticPage in vm.staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
