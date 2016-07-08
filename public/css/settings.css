@@ -2133,49 +2133,151 @@ a.add_comments {
 }
 
 
-.group-menu .user-menu {
-    position: relative;
-    width: 30px;
-    height: 30px;
-    background-image: url(../images/user-menu.png);
-    background-repeat: no-repeat;
-    background-size: 99%;
-    background-position: center;
-    cursor: pointer;
-    transition: all .3s ease-in-out .1s;
+
+
+
+
+
+
+
+/*Чаты*/
+.chat-main-container {
+  width: 1025px;
+  margin: 0 auto;
+  display: flex;
+  padding: 0;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  height: 100%;
+  min-height: 100%;
+  margin-top: 30px;
 }
-.group-menu .user-menu:hover {
-    background-image: url(../images/user-menu-hover.png);
+.chat-main-container-left {
+  display: flex;
+  background-color: red;
+  width: 325px;
+  height: 100%;
 }
-.group-menu  .menu-item {
-    position: absolute;
-    width: 156px;
-    top: 20px;
-    left: 0;
-    padding-top: 20px;
-    transition: all .3s ease-in-out .1s;
-    z-index: 10;
+.chat-main-container-right {
+  display: flex;
+  flex-wrap: wrap;
+  width: 700px;
+  height: 100%;
 }
-.group-menu .user-menu:hover  .menu-item {
-    display: block;
+
+
+
+/*Chat*/
+.chat-right-top-person {
+  display: flex;
+  width: 100%; 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px solid #e0e2e5;
 }
-.group-menu  .menu-item .inner {
-    box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+.chat-top-person-data {
+  display: flex;
+  width: 100%;
+  align-items: center;
+
 }
-.group-menu .menu-item a {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 15px;
-    line-height: 35px;
-    color: #333;
-    cursor: pointer;
-    background-color: #fff;
-    text-decoration: none;
-    font-size: 15px;
+.chat-person-top-ava a {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+}
+.chat-person-top-ava a img {
+  width: 100%;
+}
+.chat-person-top-info {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+.chat-person-top-info p {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 20px;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayMedium";
+}
+p.top-person-status {
+  font-size: 12.6px;
+  color: #999;
+}
+.user-menu-top {
+  display: flex;
+  margin-right: 20px;
+  position: relative;
+}
+.user-menu-top {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-image: url(../images/user-menu.png);
+  background-repeat: no-repeat;
+  background-size: 99%;
+  background-position: center;
+  cursor: pointer;
+  transition: all .3s ease-in-out .1s;
+}
+.user-menu-top:hover {
+  background-image: url(../images/user-menu-hover.png);
+}
+.user-menu-top-do {
+  position: absolute;
+  width: 140px;
+  top: 30px;
+  right: 0;
+}
+.user-menu-top-inner {
+  box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+}
+.user-menu-top-inner a {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #333;
+  cursor: pointer;
+  background-color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: "SFUIDisplayMedium";
+  z-index: 1000;
+}
+.user-menu-top-inner a:hover {
+  color: #4678b1;
+  background-color: #f5f5f5;
+ }
+
+
+
+
+
+.block-info {
+  margin-left: 10px;
+}
+.block-info p {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+}
+.block-info .time {
+    line-height: 20px;
+    font-size: 12.6px;
+    color: #999;
+    font-size: 12.6px;
     font-family: "SFUIDisplayMedium";
-}
-.group-menu .menu-item a:hover {
-    color: #4678b1;
-    background-color: #f5f5f5;
 }
