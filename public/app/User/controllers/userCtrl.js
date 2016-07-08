@@ -368,7 +368,7 @@ angular.module('placePeopleApp')
 				});
 				window.emojiPicker.discover();
 				$(".emoji-button").text("");
-				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text;
+				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text.split(' messagetext: ')[0];
 			}else if($dialog.name === "create-publication"){
 				window.emojiPicker = new EmojiPicker({
 					emojiable_selector: '.create-publication-pub-text',
@@ -379,7 +379,8 @@ angular.module('placePeopleApp')
 				$(".emoji-button").text("");
 			}
 		});
-		$scope.publishNewPub = function(files, pubText){
+		$scope.publishNewPub = function(files, pubText){					
+			var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
 			if(files === undefined || files.length == 0){						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -414,7 +415,7 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText.messagetext, 0, isMain, videos, images).then(function(res){
+			PublicationService.createPublication(textToSave, 0, isMain, videos, images).then(function(res){
 				if(res.status){
 				$scope.userPublications.unshift(res.publication);
 					$scope.userData.publications_count++;
@@ -427,6 +428,11 @@ angular.module('placePeopleApp')
 			function(err){
 				console.log(err);
 			});
+		};
+
+		$scope.splitText = function(text){
+			var mes = text.split(' messagetext: ');
+			return mes[1];
 		};
 		if($state.current.name === "mobile-pub-view" && $stateParams.id){
 			getSinglePublication($stateParams.id);
@@ -635,7 +641,7 @@ angular.module('placePeopleApp')
 			$scope.currPub = pub;
 			editPubPopup = ngDialog.open({
 				template: '../app/User/views/edit-publication.html',
-				className: 'user-publication ngdialog-theme-default',
+				className: 'user-publication user-publication-edit ngdialog-theme-default',
 				scope: $scope,
 				name: "edit-publication"
 			});
@@ -676,9 +682,7 @@ angular.module('placePeopleApp')
 			pub.videos.forEach(function(video){
 				files.push(video);
 			});						
-			$scope.editedPubFilesArray = files;
-			$scope.$broadcast('rebuild:me');	
-			console.log('asd');				 			
+			$scope.editedPubFilesArray = files;									 			
 		};
 
 		$scope.addedEditedPubFiles = function(files, event, flow){									
@@ -704,9 +708,8 @@ angular.module('placePeopleApp')
 		$scope.rebuildScroll = function(){
 			$scope.$broadcast('loadPubFiles');
 		};
-
-		$scope.saveEditedPub = function(pubId, text, files){
-			text = $(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML;
+		$scope.saveEditedPub = function(pubId, pubText, files){
+			var textToSave = $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
 			$scope.updatePubLoader = true;
 			var images = [];
 			var videos = [];
@@ -716,15 +719,17 @@ angular.module('placePeopleApp')
 			} else{
 				isMain = 0;
 			}
-			files.forEach(function(file){
-				var type = file.type.split('/')[0];
-				if (type === 'image') {
-					images.push(file);
-				} else if (type === 'video'){
-					videos.push(file);
+			if (files) {
+				files.forEach(function(file){
+					var type = file.type.split('/')[0];
+					if (type === 'image') {
+						images.push(file);
+					} else if (type === 'video'){
+						videos.push(file);
 				}				
-			});			
-			PublicationService.updatePublication(pubId ,text, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+			});
+			}			
+			PublicationService.updatePublication(pubId, textToSave, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
 			.then(					
 					function(res){									
 						if (res.status) {

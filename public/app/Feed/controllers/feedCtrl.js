@@ -266,6 +266,11 @@ angular.module('placePeopleApp')
 			});
 		};
 
+		$scope.splitText = function(text){
+			var mes = text.split(' messagetext: ');
+			return mes[1];
+		};
+
 		$scope.createPublication = function(){
 			ngDialog.open({
 					template: '../app/Feed/views/create-publication.html',
@@ -351,6 +356,7 @@ angular.module('placePeopleApp')
 		// }
 
 		$scope.publishNewPub = function(isAnon, files, pubText){
+			var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
 			if (files === undefined || files.length == 0) {						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -386,7 +392,7 @@ angular.module('placePeopleApp')
 			// }
 
 
-			PublicationService.createPublication(pubText.messagetext, !!isAnon ? 1 : 0, isMain, videos, images)			
+			PublicationService.createPublication(textToSave, !!isAnon ? 1 : 0, isMain, videos, images)			
 				.then(					
 					function(res){						
 						if (res.status) {							
