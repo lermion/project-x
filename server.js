@@ -80,7 +80,32 @@ io.sockets.on('connection', function(socket){
 			socket.emit("get user rooms", result);
 		});
 	});
-	socket.on('get user rooms', function(data){
-		
+	socket.on('send message', function(data){
+		var message = {
+			user_id: data.userId,
+			text: data.message,
+			created_at: new Date(),
+			updated_at: new Date()
+		};
+		connection.query('INSERT INTO messages SET ?', message, function(error, result){
+			console.log(result);
+			var messageId = result.insertId;
+			console.log(messageId);
+			return;
+			if(error){
+				console.error("error to set message in table messages: " + error.stack);
+				return;
+			}
+			console.log("message saved in table messages");
+			connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = 90", function(error, result){
+				if(error){
+					console.error("error to get user rooms: " + error.stack);
+					return;
+				}
+				console.log(result);
+				return;
+				//socket.emit("get user rooms", result);
+			});
+		});
 	});
 });
