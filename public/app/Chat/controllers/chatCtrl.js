@@ -79,31 +79,34 @@ angular.module('placePeopleApp')
 
             /*Page content*/
 
+            if($state.current.name === "chat"){           
+                $state.go("chat.list");
+            }
             //FOR TEST
 
-            $scope.opponent = {
-                avatar_path:"http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico",
-                birthday:"0000-00-00",
-                country_id:12,
-                created_at:"2016-06-21 06:38:44",
-                first_name:"Елена",
-                gender:"0",
-                id:2,
-                is_avatar:1,
-                is_online:true,
-                is_private:1,
-                is_sub:false,
-                is_visible:1,
-                last_name:"Новикова",
-                login:"lenka-kolenka",
-                original_avatar_path:"/upload/avatars/tx3bEJMG10.png",
-                phone:"380930000000",
-                publications_count:29,
-                status:"Azaza",
-                subscribers_count:2,
-                subscription_count:2,
-                updated_at:"2016-07-08 09:55:09"
-            }
+            // $scope.opponent = {
+            //     avatar_path:"http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico",
+            //     birthday:"0000-00-00",
+            //     country_id:12,
+            //     created_at:"2016-06-21 06:38:44",
+            //     first_name:"Елена",
+            //     gender:"0",
+            //     id:2,
+            //     is_avatar:1,
+            //     is_online:true,
+            //     is_private:1,
+            //     is_sub:false,
+            //     is_visible:1,
+            //     last_name:"Новикова",
+            //     login:"lenka-kolenka",
+            //     original_avatar_path:"/upload/avatars/tx3bEJMG10.png",
+            //     phone:"380930000000",
+            //     publications_count:29,
+            //     status:"Azaza",
+            //     subscribers_count:2,
+            //     subscription_count:2,
+            //     updated_at:"2016-07-08 09:55:09"
+            // }
 
             $scope.pub = {
                 comment_count:0,
@@ -163,35 +166,27 @@ angular.module('placePeopleApp')
                 console.log(userId, chatId);
             };
 
-
-
-            function getSubscribers(userId){
-                           
-            }            
-
-            function getSubscribes(userId){
-                    
-            }
-            
-            $scope.userContacts = [];
-
             function loadUserContacts(){                
                var subs = [];
                var sub = [];
-
                PublicationService.getSubscription($scope.loggedUserId).then(function(response){                        
                         sub = response;
                         PublicationService.getSubscribers($scope.loggedUserId)
                             .then(function(response){
                                 subs = response;
 
-                                var contacts = sub.concat(subs.filter(function (item) {
-                                    
-                                    return sub.indexOf(item) < 0;
-                                }));
-
-                                console.log(contacts);
-
+                                var contacts = [];
+                                for(var i in sub){
+                                   var shared = false;
+                                   for (var j in subs)
+                                       if (subs[j].id == sub[i].id) {
+                                           shared = true;
+                                           break;
+                                       }
+                                   if(!shared) contacts.push(sub[i])
+                                }
+                                contacts = contacts.concat(subs);
+                                $scope.userContacts = contacts;
                             },
                             function(error){
                                 console.log(error);
@@ -201,12 +196,6 @@ angular.module('placePeopleApp')
                     function(error){
                         console.log(error);
                     });
-
-                
-
-                
-
-                // $scope.userContacts.push();
             };
 
             loadUserContacts();
@@ -216,6 +205,16 @@ angular.module('placePeopleApp')
                 console.log(message);
                 $scope.chatMes = '';
             };
+
+            $scope.openChatWith = function(opponent){
+                console.log(opponent);
+                $scope.opponent = opponent;
+                $scope.openChatBlock = true;                
+            };
+
+             $scope.reloadOpponentData = function(){
+                return $scope.opponent;
+             }
 
 
 
