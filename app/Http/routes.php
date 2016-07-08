@@ -136,11 +136,12 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/invite/1\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/1069/publication\" method=\"post\" enctype=\"multipart/form-data\">
 
-            <input type='text' name='user_id[]' value='5'><br>
-            <input type='text' name='user_id[]' value='1'><br>
-            <input type='text' name='user_id[]' value='2'><br>
+            <input type='text' name='offset' value='0'><br>
+            <input type='text' name='limit' value='10'><br>
+            <input type='text' name='user_id[]' value='1095'><br>
+
 
             <input type=\"submit\">
         </form>";
