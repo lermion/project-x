@@ -69,7 +69,27 @@ angular.module('placePeopleApp')
 	    // })
 	    .state('chat', {
 	      url: '/chat',
-	      templateUrl: '../../app/Chat/views/dla-testa.html',
+	      templateUrl: '../../app/Chat/views/chat-main.html',
+	      controller: 'chatCtrl'
+	    })
+	    .state('chat.list', {
+	      url: '/',
+	      templateUrl: '../../app/Chat/views/chat-list.html',
+	      controller: 'chatCtrl'
+	    })
+	    .state('chat.contacts', {
+	      url: '/contacts',
+	      templateUrl: '../../app/Chat/views/chat-contacts.html',
+	      controller: 'chatCtrl'
+	    })
+	    .state('chat.blocked', {
+	      url: '/blocked',
+	      templateUrl: '../../app/Chat/views/chat-blocked.html',
+	      controller: 'chatCtrl'
+	    })
+	    .state('chat.menu', {
+	      url: '/menu',
+	      templateUrl: '../../app/Chat/views/chat-menu.html',
 	      controller: 'chatCtrl'
 	    })
 

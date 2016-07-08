@@ -27,39 +27,33 @@
 
 		<div class="chat-main-container-left">
 	    	<div class="chat-left-users-menu">
-	    		<div class="users-menu-tab-chats">
+	    		<div class="users-menu-tab-chats active" ng-click="refTo('chat.list')">
 	    			<span>
 	    				<img src="../images/chat-tab-chat.png" alt="">
 	    			</span>
 	    		</div>
-	    		<div class="users-menu-tab-users">
+	    		<div class="users-menu-tab-users" ng-click="refTo('chat.contacts')">
 	    			<span>
 	    				<img src="../images/chat-tab-people.png" alt="">
 	    			</span>
 	    		</div>
-	    		<div class="users-menu-tab-block">
+	    		<div class="users-menu-tab-block" ng-click="refTo('chat.blocked')">
 	    			<span>
 	    				<img src="../images/chat-tab-block.png" alt="">
 	    			</span>
 	    		</div>
-	    		<div class="users-menu-tab-menu-do">
+	    		<div class="users-menu-tab-menu-do" ng-click="refTo('chat.menu')">
 	    			<span>
 	    				<img src="../images/chat-tab-more.png" alt="">
 	    			</span>
 	    		</div>
 	    	</div>
+
 	    	<div class="chat-left-users-container">
-		    	<div class="chat-left-users-search">
-		    		<input type="text" placeholder="Поиск или новый чат">
-		    	</div>
-		    	<div class="chat-left-users-all">
-			    	<div class="chat-left-users-users-today">
-			    		User1
-			    	</div>
-			    	<div class="chat-left-users-users-early">
-			    		User2
-		    		</div>
-		    	</div>
+	    		<div class="chat-left-users-search">
+					<input type="text" placeholder="Поиск или новый чат">
+				</div>		    	
+		    	<div ui-view></div>
 	    	</div>
 	    </div>
 
@@ -68,31 +62,26 @@
 
 
 
-
-
-
-
-
-
 	    <div class="chat-main-container-right">
+	    	<div>
 		    <div class="chat-right-top-person">
 			    <div class="chat-top-person-data">	
 			    	<div class="chat-person-top-ava">
-			    		<a href="">
-			    			<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    		<a ui-sref="user({username: opponent.login})">
+			    			<img ng-src="{{opponent.avatar_path}}" alt="">
 			    		</a>
 			    	</div>
 			    	<div class="chat-person-top-info">
-			    		<p class="top-person-name">Елена Новикова</p>
-			    		<p class="top-person-status">Подключена</p>
+			    		<p class="top-person-name">{{opponent.first_name + ' ' + opponent.last_name}}</p>
+			    		<p class="top-person-status">{{opponent.is_online ? 'Подключена':'Отключена'}}</p>
 			    	</div>
 			    </div>
-			    	<div href="" class="user-menu-top">
-						<div class="user-menu-top-do">
+			    	<div class="user-menu-top" ng-click="showTopChatMenu=!showTopChatMenu">
+						<div class="user-menu-top-do" ng-show="showTopChatMenu">
 							<div class="user-menu-top-inner">			
-								<a href="">О контакте</a>
-								<a href="">Очистить чат</a>
-								<a href="">Удалить чат</a>
+								<a ng-click="showContactData(opponent.id)">О контакте</a>
+								<a href="" ng-init="chatId=1" ng-click="clearChat(loggedUserId, chatId)">Очистить чат</a>
+								<a href="" ng-click="deleteChat(loggedUserId, chatId)">Удалить чат</a>
 							</div>
 						</div>
 					</div>
@@ -113,18 +102,18 @@
 							<div class="user-publication">
 								<div class="user-publication-header">
 									<div class="user-function">
-										<a class="user">
+										<a ui-sref="user({username: pub.user.login})" class="user">
 											<span class="ava">
-												<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico"  alt="">
+												<img ng-src="{{pub.user.avatar_path}}"  alt="">
 											</span>
 											<span class="block-info">
-												<p class="user-name">Lorem ipsum dolor sit.</p>
-												<p class="time">01.01.01</p>
+												<p class="user-name">{{pub.user.first_name + ' ' + pub.user.last_name}}</p>
+												<p class="time" am-time-ago="pub.created_at"></p>
 											</span>
 										</a>
 										<!-- <div class="topic">Тема дня</div> -->
-										<div href="" class="user-menu">
-											<div class="menu-item">
+										<div class="user-menu" ng-click="showPubMenu=!showPubMenu">
+											<div class="menu-item" ng-show="showPubMenu">
 												<div class="inner">			
 													<a href="">Переслать</a>
 													<a href="">Получить ссылку</a>
@@ -265,7 +254,7 @@
 			<div class="group-comments">
 				<div class="group-comment">
 					<a href="" class="smile"></a>
-					<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
+					<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="chatMes"></textarea>
 					<div class="add-objects">						
 						<input id="addfile" type='file' style="display: none;"> 
 						<label for="addfile">
@@ -277,9 +266,9 @@
 							</span>
 						</label>                                         
 					</div> 
-					<button class="send">Отправить</button>
+					<button class="send" ng-click="sendMes(chatMes)">Отправить</button>
 				</div>
-				<!-- <div class="pictures">
+				<div class="pictures">
 					<div class="pic">
 						<div class="close">
 							<div class="close-inner">
@@ -288,10 +277,31 @@
 						</div>
 						<img src="../../../images/bc.png" alt="">
 					</div>
-				</div> -->
+					<div class="pic">
+						<div class="close">
+							<div class="close-inner">
+								<p>Удалить</p>
+							</div>
+						</div>
+						<img src="../../../images/bc.png" alt="">
+					</div>
+					<div class="pic">
+						<div class="close">
+							<div class="close-inner">
+								<p>Удалить</p>
+							</div>
+						</div>
+						<img src="../../../images/bc.png" alt="">
+					</div>
+
+				</div>
+
 			</div>
-		</div>
-	    </div>
+				</div>
+	    	</div>
+	    
+
+			</div>
 	    </div>
 
 

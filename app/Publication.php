@@ -17,6 +17,11 @@ class Publication extends Model
         return $this->belongsToMany('App\Image', 'publication_images')->withTimestamps();
     }
 
+    public function place()
+    {
+        return $this->belongsToMany('App\Place', 'place_publications')->withTimestamps();
+    }
+
     public function group()
     {
         return $this->belongsToMany('App\Group', 'group_publications')->withTimestamps();
