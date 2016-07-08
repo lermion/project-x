@@ -10,16 +10,17 @@
     function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog, groupsService) {
 
         var vm = this;
+        var storage = storageService.getStorage();
+
+        var myId = storage.userId;
+
         var modalEditGroup, modalDeleteGroup;
         var groupName = $stateParams.groupName;
 
         vm.group = {};
+        vm.groupEdited = {};
         vm.showGroupMenu = false;
-        $scope.emoji = {
-        };
-        //$scope.emojiMessage = {
-        //    rawhtml: '5555555'
-        //};
+        $scope.emoji = {};
 
         activate();
 
@@ -112,15 +113,17 @@
         });
 
         vm.openModalEditGroup = function () {
+            vm.groupEdited = angular.copy(vm.group);
+
             modalEditGroup = ngDialog.open({
                 template: '../app/Groups/views/popup-edit-group.html',
                 name: 'modal-edit-group',
-                className: 'popup-add-group ngdialog-theme-default',
+                className: 'popup-add-group popup-edit-group ngdialog-theme-default',
                 scope: $scope
             });
         };
 
-        vm.openModalDeleteGroup = function() {
+        vm.openModalDeleteGroup = function () {
             modalDeleteGroup = ngDialog.open({
                 template: '../app/Groups/views/popup-delete-group.html',
                 name: 'modal-delete-group',
@@ -129,9 +132,9 @@
             });
         };
 
-        vm.deleteGroup = function() {
+        vm.deleteGroup = function () {
             groupsService.deleteGroup(vm.group.id)
-                .then(function(data) {
+                .then(function (data) {
                     if (data.status) {
                         $state.go('groups');
                         modalDeleteGroup.close();
@@ -139,14 +142,37 @@
                 });
         };
 
-        vm.abortDeleteGroup = function() {
+        vm.updateGroup = function () {
+            groupsService.updateGroup(vm.groupEdited)
+                .then(function (data) {
+
+                });
+        };
+
+        vm.abortDeleteGroup = function () {
             modalDeleteGroup.close();
         };
 
+        vm.subscribe = function () {
+            groupsService.subscribeGroup(vm.group.id)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.isSub = data.is_sub;
+                    }
+                });
+        };
+
         function getGroup() {
-            groupsService.getGroup(groupName)
+            return groupsService.getGroup(groupName)
                 .then(function (data) {
                     vm.group = data;
+                    vm.group.is_open = !!vm.group.is_open;
+                    vm.group.avatarIsChange = false;
+
+                    //TODO: remove!
+                    vm.group.isAdmin = true;
+
+
                     $scope.emoji.messagetext = data.description;
                     //$scope.emoji.rawhtml = '123';
                     //$rootScope.$broadcast('emoji:group', {message: data.description});
