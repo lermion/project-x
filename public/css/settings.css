@@ -199,8 +199,31 @@
 .settingsss .text p input[type="text"]::-webkit-input-placeholder {
 	 color: #7e7b7b;
 	 padding-left: 10px;
-}   
+}
 
+
+
+
+
+/*******************************
+            Modal dialogs
+*******************************/
+
+/*----------------------
+     Group Delete
+----------------------*/
+.ngdialog.popup-delete-group.ngdialog-theme-default  .ngdialog-content {
+    height: auto;
+    padding: 30px 10px 30px 10px !important;
+    /*width: 300px;*/
+    /*margin-left: -150px;*/ /*left sidebar*/
+}
+.ngdialog.popup-delete-group .del-text {
+    text-align: center;
+}
+.ngdialog.popup-delete-group .del-item button {
+    margin-bottom: 10px;
+}
 
 
 /*             download avatar                */
