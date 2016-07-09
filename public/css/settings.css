@@ -1795,6 +1795,7 @@ a.add_comments {
   margin-bottom: 20px;
   justify-content: space-between;
   background-color: white;
+  box-shadow: 0px 0px 17px 1px #c0c0c0;
 }
 .create-places-item {
   display: flex;
@@ -1841,6 +1842,7 @@ a.add_comments {
   color: rgb(73,91,121);
   font-family: "SFUIDisplayLight";
   font-size: 14.6px;
+  font-weight: 600;
 }
 
 .add_newgroup .button {
