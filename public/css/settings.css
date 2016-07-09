@@ -2500,6 +2500,7 @@ p.top-person-status {
   align-content: flex-start;
   padding: 0;
   margin: 0;
+  overflow-y: auto;
 }
 
 .chat-left-users-users-today {
@@ -2507,13 +2508,14 @@ p.top-person-status {
   width: 100%;
   box-sizing: border-box;
   align-items: center;
+  justify-content: space-between;
 }
 .chat-left-users-users-today.active {
   background-color: rgb(245,245,245);
 }
 .chat-users-today-data {
   display: flex;
-  width: 262px;
+  width: 246px;
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
   align-items: center;
@@ -2811,4 +2813,25 @@ span.users-today-time-time.early {
     top: 50%;
     margin-top: -14px;
     right: 5px;
+}
+
+
+.chat-left-users-i-sign {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 15px;
+  color: #495b79;
+  background-color: #e0e2e5;
+}
+.chat-left-users-my-sign {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 15px;
+  color: #495b79;
+  background-color: #e0e2e5;
+  border-bottom: 1px solid #e0e2e5;
 }
