@@ -151,7 +151,7 @@ class GroupPublicationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $groupId,$publicationId)
+    public function update(Request $request, $groupId, $publicationId)
     {
         if (($publication = Publication::find($publicationId)) && ($group = Group::find($groupId))) {
             if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()

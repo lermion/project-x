@@ -225,6 +225,16 @@
     margin-bottom: 10px;
 }
 
+/*----------------------
+     Group Edit
+----------------------*/
+.popup-add-group.popup-edit-group  .first_item {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+}
+
 
 /*             download avatar                */
 .settingsss .add-ava label .ava img {

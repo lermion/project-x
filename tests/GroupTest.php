@@ -139,7 +139,7 @@ class GroupTest extends TestCase
         ]);
     }
 
-    public function setUserAdmin()
+    public function testUserAdmin()
     {
         $user = \App\User::where('phone', '380731059230')->first();
         if (!$user) {
