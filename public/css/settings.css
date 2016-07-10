@@ -3025,3 +3025,74 @@ span.users-today-time-time.early {
   input[type="date"]:valid:before {
     content: "";
   }*/
+
+
+
+
+  /*Places*/
+  .places-page {
+    width: 700px;
+    flex-wrap: wrap;
+    display: flex;
+    box-sizing: border-box;
+    margin: 20px auto 0px auto;
+    font-family: "SFUIDisplayMedium";
+  }
+  .places-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+  }
+  .places-page-header-title {
+    display: flex;
+    font-size: 20.6px;
+    text-decoration: none;
+    color: #333;
+    padding-left: 30px;
+    font-family: "SFUIDisplayMedium";
+    transition: all .3s ease-in-out .1s;
+    background-image: url(/images/public-groups.png);
+    background-position: left center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+  }
+  .places-page-header-category {
+    display: flex;
+    font-size: 14.6px;
+  }
+  .places-page-header-category select {
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 14.6px;
+    padding-left: 30px;
+    background-image: url(/images/filter.png);
+    background-position: left center;
+    background-size: 12%;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    height: 30px;
+   }
+.places-page-type-place {
+  display: flex;
+  font-size: 16.6px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.places-type-place-btn {
+  border: 1px solid rgb(92,108,135);;
+  line-height: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 3px;
+  color: rgb(92,108,135);
+}
