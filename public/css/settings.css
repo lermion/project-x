@@ -1794,7 +1794,7 @@ a.add_comments {
   width: 100%;
   margin-bottom: 20px;
   justify-content: space-between;
-  background-color: white;
+  background-color: #fff;
   box-shadow: 0px 0px 17px 1px #c0c0c0;
 }
 .create-places-item {
@@ -2836,4 +2836,130 @@ span.users-today-time-time.early {
   color: #495b79;
   background-color: #e0e2e5;
   border-bottom: 1px solid #e0e2e5;
+}
+
+
+
+
+
+
+/*Create places COMMON*/
+.create-places-common {
+  width: 700px;
+  flex-wrap: wrap;
+  display: flex;
+  box-sizing: border-box;
+  margin: 20px auto 0px auto;
+  /*background-color: red;*/
+  font-family: "SFUIDisplayMedium";
+}
+.create-places-header {
+  width: 100%;
+  display: flex;
+  padding: 20px;
+  padding-left: 0px;
+  box-sizing: border-box;
+}
+.create-places-header-a {
+  font-size: 20.8px;
+  text-decoration: none;
+  color: #333;
+  padding-left: 20px;
+  font-family: "SFUIDisplayMedium";
+  transition: all .3s ease-in-out .1s;
+  background-image: url(/images/public-groups.png);
+  background-position: left center;
+  background-size: 8%;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+.create-places-common-inner {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 15px;
+  font-size: 16.6px;
+  background-color: #fff;
+  box-shadow: 0px 0px 17px 1px #c0c0c0;
+}
+.place-type-title {
+
+}
+.place-type-name {
+  font-family: "SFUIDisplayLight";
+  padding-left: 10px;
+}
+
+.create-places-description {
+  font-family: "SFUIDisplayLight";
+  margin-top: 10px;
+  font-size: 14.6px;
+  margin-bottom: 20px;
+}
+.create-places-select-country {
+  width: 100%;
+  /*background-color: green;*/
+  font-family: "SFUIDisplayLight";
+  margin-top: 15px;
+}
+.select-country-country {
+  font-size: 12.6px;
+  line-height: 30px;
+  color: rgb(102,102,102);
+}
+.select-country-name select {
+  font-family: "SFUIDisplayMedium";
+  font-size: 14.6px;
+  padding: 4px;
+  border: 1px solid #e0e2e5;
+  width: 100%;
+  border-radius: 3px;
+}
+.create-places-select-street {
+  width: 100%;
+  font-family: "SFUIDisplayLight";
+  margin-top: 15px;
+  box-sizing: border-box;
+}
+.select-street-input {
+  width: 100%;
+  position: relative;
+}
+.create-places-select-street input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #e0e2e5;
+  line-height: 19px;
+  border-radius: 3px;
+}
+.street-on-map {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  color: #576883;
+  font-family: "SFUIDisplayMedium";
+  font-size: 14.6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.select-street-input textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #e0e2e5;
+  line-height: 19px;
+  border-radius: 3px;
+  height: 100px;
+  resize: none;
+  font-family: "SFUIDisplayLight";
+  color: #576883;
+}
+.create-places-add-cover {
+  width: 100%;
+  background-color: gray;
+  height: 80px;
+  display: flex;
+  margin-top: 20px;
 }
