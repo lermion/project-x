@@ -3008,3 +3008,20 @@ span.users-today-time-time.early {
    .create-places-select-country.days select {
     font-family: "SFUIDisplayLight";
    }
+    .create-places-select-country.days input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #e0e2e5;
+      line-height: 19px;
+      border-radius: 3px;
+   }
+    .create-places-select-country.days input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+  }
+/*  .create-places-select-country.days input[type="date"]:focus:before,
+  input[type="date"]:valid:before {
+    content: "";
+  }*/
