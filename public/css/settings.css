@@ -2958,8 +2958,53 @@ span.users-today-time-time.early {
 }
 .create-places-add-cover {
   width: 100%;
-  background-color: gray;
-  height: 80px;
   display: flex;
   margin-top: 20px;
+  font-family: "SFUIDisplayLight";
+  justify-content: space-between;
+  align-items: center;
 }
+.create-places-add-cover-img {
+  display: flex;
+  align-items: center;
+}
+.create-places-add-cover-img a {
+  width: 80px;
+  height: 80px;
+  background-image: url(/images/plus_group.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30% 30%;
+  background-color: rgb(215,218,222);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+}
+.create-places-add-cover-img span {
+  color: rgb(51,51,51);
+  font-family: "SFUIDisplayMedium";
+  font-size: 12.5px;
+  margin-left: 20px;
+}
+.create-places-add-cover-button-create {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s!important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+  }
+   .create-places-add-cover-button-create:hover {
+    background-color: #fff;
+    color: #495b79;
+   }
+
+   .create-places-select-country.days select {
+    font-family: "SFUIDisplayLight";
+   }
