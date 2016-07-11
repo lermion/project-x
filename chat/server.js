@@ -5,12 +5,8 @@ var fs = require('fs');
 var mysql = require('mysql');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
-var connection = mysql.createConnection({
-  host     : config.host,
-  user     : config.user,
-  password : config.password,
-  database: config.database
-});
+var DatabaseConnection = require('./databaseConnection');
+var connection = new DatabaseConnection();
 var users = {};
 server.listen(config.port);
 connection.connect(function(error){
