@@ -157,7 +157,7 @@
             groupsService.subscribeGroup(vm.group.id)
                 .then(function (data) {
                     if (data.status) {
-                        vm.isSub = data.is_sub;
+                        vm.group.is_sub = data.is_sub;
                     }
                 });
         };
