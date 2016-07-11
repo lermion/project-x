@@ -19,7 +19,7 @@ class Video extends Model
 
         $file
             ->filters()
-            ->resize(new Dimension(200, 200))
+            ->resize(new Dimension(640, 480))
             ->synchronize();
         $file
             ->frame(TimeCode::fromSeconds(10))
@@ -40,7 +40,7 @@ class Video extends Model
 
             $file
                 ->filters()
-                ->resize(new Dimension(200, 200))
+                ->resize(new Dimension(640, 480))
                 ->synchronize();
             $file
                 ->save(new WebM(), $new_fname . '.webm');
