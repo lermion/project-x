@@ -13,7 +13,7 @@
         var baseUrl = 'http://pp.hqsale.com:8303';
         var localUrl = 'localhost:8303';
 
-        var socket = io.connect(baseUrl);
+        var socket = io.connect(localUrl);
 
         var service = {
             on: on,
