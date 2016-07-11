@@ -9,13 +9,6 @@ var DatabaseConnection = require('./databaseConnection');
 var connection = new DatabaseConnection();
 var users = {};
 server.listen(config.port);
-connection.connect(function(error){
-	if(error){
-		console.log('error connecting: ' + error.stack);
-		return;
-	}
-	console.log('connected as id ' + connection.threadId);
-});
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.userIdFrom + "') AND `user_id` = '" + data.userIdTo + "' GROUP BY room_id";

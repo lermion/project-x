@@ -8,6 +8,13 @@ var connection = mysql.createConnection({
 	password : config.password,
 	database: config.database
 });
+connection.connect(function(error){
+	if(error){
+		console.log('error connecting: ' + error.stack);
+		return;
+	}
+	console.log('connected as id ' + connection.threadId);
+});
 function DatabaseConnection(){
 	return connection;
 }
