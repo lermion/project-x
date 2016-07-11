@@ -24,6 +24,10 @@ io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.userIdFrom + "') AND `user_id` = '" + data.userIdTo + "' GROUP BY room_id";
 		connection.query(sql, function(error, results, fields){
+			if(error){
+				console.error("error select users from user_chats: " + error.stack);
+				return;
+			}
 			if(results.length >= 1){
 				console.log("these users already have the room");
 				return;
@@ -44,7 +48,6 @@ io.sockets.on('connection', function(socket){
 						}
 						console.log("users saved to chat_rooms");
 						var roomId = result.insertId;
-						console.log("roomId", roomId);
 						connection.query('INSERT INTO user_chats SET ?', {room_id: roomId, user_id: data.userIdFrom, created_at: new Date(), updated_at: new Date()}, function(error, result){
 							if(error){
 								console.error("error to set userIdFrom in chat room: " + error.stack);
