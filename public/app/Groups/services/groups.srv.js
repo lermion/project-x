@@ -17,7 +17,8 @@
             updateGroup: updateGroup,
             deleteGroup: deleteGroup,
             inviteUsers: inviteUsers,
-            subscribeGroup: subscribeGroup
+            subscribeGroup: subscribeGroup,
+            setAdmin: setAdmin
         };
 
         ////////////
@@ -184,6 +185,27 @@
 
             function subscribeGroupFailed(error) {
                 console.error('XHR Failed for subscribeGroup. ' + error.data);
+            }
+        }
+
+        function setAdmin(groupId, userId) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/set_user_admin/' + groupId + '/' + userId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(setAdminComplete)
+                .catch(setAdminFailed);
+
+            function setAdminComplete(response) {
+                return response.data;
+            }
+
+            function setAdminFailed(error) {
+                console.error('XHR Failed for setAdmin. ' + error.data);
             }
         }
 
