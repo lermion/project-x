@@ -6,10 +6,10 @@ var mysql = require('mysql');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database: "pp"
+  host     : config.host,
+  user     : config.user,
+  password : config.password,
+  database: config.database
 });
 var users = {};
 server.listen(config.port);

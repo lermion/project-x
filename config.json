@@ -1,3 +1,7 @@
 {
-	"port": 8303
+	"port": 8303,
+	"host": "localhost",
+	"user": "root",
+	"password": "",
+	"database": "pp"
 }
