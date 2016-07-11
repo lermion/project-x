@@ -15,6 +15,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::post('test', 'FfmpegControllerr@put');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'Admin\HomeController@index');
@@ -152,13 +153,9 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/create/1069\" method=\"get\" enctype=\"multipart/form-data\">
-
+        echo "<form action=\"http://pp.dev/test\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='file' name='video'><br>
             <input type='text' name='text'><br>
-            <input type='text' name='is_anonym'><br>
-            <input type='text' name='is_main'><br>
-
-
             <input type=\"submit\">
         </form>";
     });

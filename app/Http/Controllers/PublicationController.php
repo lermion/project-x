@@ -10,8 +10,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
 
 class PublicationController extends Controller
 {
@@ -145,7 +146,7 @@ class PublicationController extends Controller
                 $result = [
                     "status" => false,
                     "error" => [
-                        'message' => 'Bad image',
+                        'message' => 'Bad video',
                         'code' => '1'
                     ]
                 ];
@@ -193,16 +194,44 @@ class PublicationController extends Controller
                 if (!$video) {
                     continue;
                 }
-                $path = Video::getVideoPath($video);
+
+                try {
+                    $f_name = $video->getClientOriginalName();
+                    $f_path = storage_path('tmp/video/');
+                    $video->move($f_path, $f_name);
+                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    Video::makeFrame($f_name, $f_path, $new_fname);
+                    $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
+                    if (substr(php_uname(), 0, 7) == "Windows"){
+                        pclose(popen("start /B ". $cmd, "r"));
+                    }
+                    else {
+                        exec($cmd . " > /dev/null &");
+                    }
+                }
+                catch (\Exception $e) {
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => 'Bad video',
+                            'code' => '1'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
+
                 $publication->videos()->create([
-                    'url' => $path,
+                    'url' => $new_fname . '.webm',
+                    'img_url' => $new_fname . '.jpg',
                 ]);
+                
             }
         }
         $responseData = [
             "status" => true,
             "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
         ];
+
         return response()->json($responseData);
     }
 
@@ -281,6 +310,8 @@ class PublicationController extends Controller
                     foreach ($deleteVideos as $deleteVideo) {
                         $video = Video::find($deleteVideo);
                         if ($video) {
+                            Storage::disk('video')->delete($video->url);
+                            Storage::disk('video')->delete($video->img_url);
                             $video->delete();
                         }
                     }
@@ -291,11 +322,38 @@ class PublicationController extends Controller
                         if (!$video) {
                             continue;
                         }
-                        $path = Video::getVideoPath($video);
+
+                        try {
+                            $f_name = $video->getClientOriginalName();
+                            $f_path = storage_path('tmp/video/');
+                            $video->move($f_path, $f_name);
+                            $new_fname = 'upload/publication/videos/' . uniqid();
+                            Video::makeFrame($f_name, $f_path, $new_fname);
+                            $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
+                            if (substr(php_uname(), 0, 7) == "Windows"){
+                                pclose(popen("start /B ". $cmd, "r"));
+                            }
+                            else {
+                                exec($cmd . " > /dev/null &");
+                            }
+                        }
+                        catch (\Exception $e) {
+                            $result = [
+                                "status" => false,
+                                "error" => [
+                                    'message' => 'Bad video',
+                                    'code' => '1'
+                                ]
+                            ];
+                            return response()->json($result);
+                        }
                         $publication->videos()->create([
-                            'url' => $path,
+                            'url' => $new_fname . '.webm',
+                            'img_url' => $new_fname . 'jpg'
                         ]);
-                    }
+                     }
+                        
+
                 }
                 $responseData = [
                     "status" => true,
@@ -332,8 +390,17 @@ class PublicationController extends Controller
      */
     public function destroy($id)
     {
+
         if ($publication = Publication::find($id)) {
             if ($publication->user_id == Auth::id()) {
+                foreach ($publication->videos->toArray() as $p){
+                    $arr[] = $p['url'];
+                    Storage::disk('public_path')->delete($p['url']);
+                    Storage::disk('public_path')->delete($p['img_url']);
+
+                }
+
+
                 $publication->delete();
                 return response()->json(['status' => true]);
             } else {
