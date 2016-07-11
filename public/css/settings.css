@@ -225,6 +225,16 @@
     margin-bottom: 10px;
 }
 
+/*----------------------
+     Group Edit
+----------------------*/
+.popup-add-group.popup-edit-group  .first_item {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+}
+
 
 /*             download avatar                */
 .settingsss .add-ava label .ava img {
@@ -1784,7 +1794,8 @@ a.add_comments {
   width: 100%;
   margin-bottom: 20px;
   justify-content: space-between;
-  background-color: white;
+  background-color: #fff;
+  box-shadow: 0px 0px 17px 1px #c0c0c0;
 }
 .create-places-item {
   display: flex;
@@ -1831,6 +1842,7 @@ a.add_comments {
   color: rgb(73,91,121);
   font-family: "SFUIDisplayLight";
   font-size: 14.6px;
+  font-weight: 600;
 }
 
 .add_newgroup .button {
@@ -2239,6 +2251,8 @@ a.add_comments {
   justify-content: space-between;
   background-color: #fff;
   border: 1px solid #e0e2e5;
+
+  height: 61px;
 }
 .chat-top-person-data {
   display: flex;
@@ -2488,6 +2502,7 @@ p.top-person-status {
   align-content: flex-start;
   padding: 0;
   margin: 0;
+  overflow-y: auto;
 }
 
 .chat-left-users-users-today {
@@ -2495,13 +2510,14 @@ p.top-person-status {
   width: 100%;
   box-sizing: border-box;
   align-items: center;
+  justify-content: space-between;
 }
 .chat-left-users-users-today.active {
   background-color: rgb(245,245,245);
 }
 .chat-users-today-data {
   display: flex;
-  width: 262px;
+  width: 246px;
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
   align-items: center;
@@ -2598,8 +2614,485 @@ span.users-today-time-time.early {
   flex-wrap: wrap;
   width: 100%;
   align-content: flex-start;
-  border-left: 1px solid #e0e2e5;
+  border-left: 0px solid #e0e2e5;
   background-color: #fff;
   box-sizing: border-box;
   font-family: "SFUIDisplayMedium";
+}
+
+
+
+
+/*Chat tab CONTACTS*/
+.chat-users-today-info.tab-contact-title {
+  width: 94%;
+}
+
+
+
+
+/*Chat right selected contact*/
+
+.chat-contact-right-selected {
+  display: flex;
+  padding-left: 15px;
+  padding-top: 15px;
+  background-color: white;
+  width: 700px;
+}
+
+.chat-contact-selected-ava {
+  display: flex;
+  width: 290px;
+  height: 290px;
+  box-sizing: border-box;
+}
+.chat-contact-selected-ava img {
+  width: 100%;
+}
+
+.chat-contact-selected-data {
+/*  display: flex;
+  flex-wrap: wrap;*/
+  width: 350px;
+  box-sizing: border-box;
+  margin-left: 25px;
+  height: 290px;
+  font-family: "SFUIDisplayMedium";
+
+}
+.contact-selected-data-name {
+  width: 100%;
+  font-size: 20px;
+  color: rgb(51,51,51);
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-status {
+  width: 100%;
+  color: rgb(73,91,121);
+  font-size: 12.6px;
+  font-family: "SFUIDisplayLight";
+  height: 15px;
+  line-height: 15px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-title {
+  width: 100%;
+  color: rgb(51,51,51);
+  font-size: 14.6px;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-phone {
+  width: 100%;
+  color: rgb(73,91,121);
+  height: 15px;
+  line-height: 15px;
+  font-size: 12.6px;
+  font-family: "SFUIDisplayLight";
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-tel-number {
+  width: 100%;
+  color: rgb(51,51,51);
+  font-size: 14.6px;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-message {
+  width: 100%;
+  color: rgb(73,91,121);
+  font-size: 13.6px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+.contact-selected-message-span {
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-message span img {
+  width: 21px;
+  height: 21px;
+}
+.contact-selected-data-block {
+  width: 100%;
+  color: rgb(73,91,121);
+  font-size: 13.6px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-block-span {
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-block span img {
+  width: 21px;
+  height: 21px;
+}
+.contact-selected-data-delete {
+  width: 100%;
+  color: rgb(73,91,121);
+  font-size: 13.6px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-delete-span {
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-selected-data-delete span img {
+  width: 21px;
+  height: 21px;
+}
+
+
+
+
+/*Edit button send*/
+.group-chat button:hover {
+    border: 1px solid #495b79;
+    color: #495b79;
+    background: transparent;
+}
+
+.group-comment .send {
+    position: static;
+    height: 40px;
+    margin-top: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #495b79;
+    font-family: "SFUIDisplayMedium";
+}
+.group-chat button {
+    position: absolute;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    padding: 0 10px;
+    margin: 0;
+    line-height: 27px;
+    transition: all .3s ease-in-out .1s;
+    text-decoration: none;
+    color: #fff;
+    background: #495b79;
+    cursor: pointer;
+    top: 50%;
+    margin-top: -14px;
+    right: 5px;
+}
+
+
+.chat-left-users-i-sign {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 15px;
+  color: #495b79;
+  background-color: #e0e2e5;
+}
+.chat-left-users-my-sign {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 15px;
+  color: #495b79;
+  background-color: #e0e2e5;
+  border-bottom: 1px solid #e0e2e5;
+}
+
+
+
+
+
+
+/*Create places COMMON*/
+.create-places-common {
+  width: 700px;
+  flex-wrap: wrap;
+  display: flex;
+  box-sizing: border-box;
+  margin: 20px auto 0px auto;
+  /*background-color: red;*/
+  font-family: "SFUIDisplayMedium";
+}
+.create-places-header {
+  width: 100%;
+  display: flex;
+  padding: 20px;
+  padding-left: 0px;
+  box-sizing: border-box;
+}
+.create-places-header-a {
+  font-size: 20.8px;
+  text-decoration: none;
+  color: #333;
+  padding-left: 20px;
+  font-family: "SFUIDisplayMedium";
+  transition: all .3s ease-in-out .1s;
+  background-image: url(/images/public-groups.png);
+  background-position: left center;
+  background-size: 8%;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+.create-places-common-inner {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 15px;
+  font-size: 16.6px;
+  background-color: #fff;
+  box-shadow: 0px 0px 17px 1px #c0c0c0;
+}
+.place-type-title {
+
+}
+.place-type-name {
+  font-family: "SFUIDisplayLight";
+  padding-left: 10px;
+}
+
+.create-places-description {
+  font-family: "SFUIDisplayLight";
+  margin-top: 10px;
+  font-size: 14.6px;
+  margin-bottom: 20px;
+}
+.create-places-select-country {
+  width: 100%;
+  /*background-color: green;*/
+  font-family: "SFUIDisplayLight";
+  margin-top: 15px;
+}
+.select-country-country {
+  font-size: 12.6px;
+  line-height: 30px;
+  color: rgb(102,102,102);
+}
+.select-country-name select {
+  font-family: "SFUIDisplayMedium";
+  font-size: 14.6px;
+  padding: 4px;
+  border: 1px solid #e0e2e5;
+  width: 100%;
+  border-radius: 3px;
+}
+.create-places-select-street {
+  width: 100%;
+  font-family: "SFUIDisplayLight";
+  margin-top: 15px;
+  box-sizing: border-box;
+}
+.select-street-input {
+  width: 100%;
+  position: relative;
+}
+.create-places-select-street input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #e0e2e5;
+  line-height: 19px;
+  border-radius: 3px;
+}
+.street-on-map {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  color: #576883;
+  font-family: "SFUIDisplayMedium";
+  font-size: 14.6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.select-street-input textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #e0e2e5;
+  line-height: 19px;
+  border-radius: 3px;
+  height: 100px;
+  resize: none;
+  font-family: "SFUIDisplayLight";
+  color: #576883;
+}
+.create-places-add-cover {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  font-family: "SFUIDisplayLight";
+  justify-content: space-between;
+  align-items: center;
+}
+.create-places-add-cover-img {
+  display: flex;
+  align-items: center;
+}
+.create-places-add-cover-img a {
+  width: 80px;
+  height: 80px;
+  background-image: url(/images/plus_group.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30% 30%;
+  background-color: rgb(215,218,222);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+}
+.create-places-add-cover-img span {
+  color: rgb(51,51,51);
+  font-family: "SFUIDisplayMedium";
+  font-size: 12.5px;
+  margin-left: 20px;
+}
+.create-places-add-cover-button-create {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s!important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+  }
+   .create-places-add-cover-button-create:hover {
+    background-color: #fff;
+    color: #495b79;
+   }
+
+   .create-places-select-country.days select {
+    font-family: "SFUIDisplayLight";
+   }
+    .create-places-select-country.days input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #e0e2e5;
+      line-height: 19px;
+      border-radius: 3px;
+   }
+    .create-places-select-country.days input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+  }
+/*  .create-places-select-country.days input[type="date"]:focus:before,
+  input[type="date"]:valid:before {
+    content: "";
+  }*/
+
+
+
+
+  /*Places*/
+  .places-page {
+    width: 700px;
+    flex-wrap: wrap;
+    display: flex;
+    box-sizing: border-box;
+    margin: 20px auto 0px auto;
+    font-family: "SFUIDisplayMedium";
+  }
+  .places-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+  }
+  .places-page-header-title {
+    display: flex;
+    font-size: 20.6px;
+    text-decoration: none;
+    color: #333;
+    padding-left: 30px;
+    font-family: "SFUIDisplayMedium";
+    transition: all .3s ease-in-out .1s;
+    background-image: url(/images/public-groups.png);
+    background-position: left center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+  }
+  .places-page-header-category {
+    display: flex;
+    font-size: 14.6px;
+  }
+  .places-page-header-category select {
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 14.6px;
+    padding-left: 30px;
+    background-image: url(/images/filter.png);
+    background-position: left center;
+    background-size: 12%;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    height: 30px;
+   }
+.places-page-type-place {
+  display: flex;
+  font-size: 16.6px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.places-type-place-btn {
+  border: 1px solid rgb(92,108,135);;
+  line-height: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 3px;
+  color: rgb(92,108,135);
 }

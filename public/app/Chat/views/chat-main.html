@@ -7,7 +7,7 @@
 					<div class="menu-item" ng-show="showMenu">
 						<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 						<a class="places" ui-sref="places">Места</a>
-						<a class="chat" ui-sref="chat"> Чаты</a>
+						<a class="chat" ui-sref="chat.list"> Чаты</a>
 						<a class="settings" ui-sref="settings">Настройки</a>
 						<div class="search">
 							<input type="text" placeholder="Поиск...">
@@ -63,8 +63,9 @@
 
 
 	    <div class="chat-main-container-right">
-	    	<div>
-		    <div class="chat-right-top-person">
+	      <div>
+	      <p>Op: {{opponent.id}}</p>
+		    <div class="chat-right-top-person" ng-init="opponent = reloadOpponentData()">
 			    <div class="chat-top-person-data">	
 			    	<div class="chat-person-top-ava">
 			    		<a ui-sref="user({username: opponent.login})">
@@ -299,9 +300,28 @@
 			</div>
 				</div>
 	    	</div>
-	    
 
-			</div>
+
+	    	<div class="chat-contact-right-selected">
+	    		<div class="chat-contact-selected-ava">
+	    			<img src="https://static.pexels.com/photos/7045/pexels-photo.jpeg" alt="">
+	    		</div>
+	    		<div class="chat-contact-selected-data">
+	    			<div class="contact-selected-data-name">Елена Новикова</div>
+	    			<div class="contact-selected-data-status">Статус</div>
+	    			<div class="contact-selected-data-title">Солнце, лето и вода</div>
+	    			<div class="contact-selected-data-phone">Телефон</div>
+	    			<div class="contact-selected-data-tel-number">+7 (926) 403-22-76</div>
+	    			<div class="contact-selected-data-message"><span><img src="/images/chat-icon.png" alt=""></span><span class="contact-selected-message-span">Написать сообщение</span></div>
+	    			<div class="contact-selected-data-block"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
+	    			<div class="contact-selected-data-delete"><span><img src="/images/chat-delete-contact.png" alt=""></span><span class="contact-selected-delete-span">Удалить контакт</span></div>
+
+	    		</div>
+
+
+	    	</div>
+
+		  </div>
 	    </div>
 
 

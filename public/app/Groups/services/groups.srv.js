@@ -14,8 +14,10 @@
             getGroupList: getGroupList,
             getGroup: getGroup,
             addGroup: addGroup,
+            updateGroup: updateGroup,
             deleteGroup: deleteGroup,
-            inviteUsers: inviteUsers
+            inviteUsers: inviteUsers,
+            subscribeGroup: subscribeGroup
         };
 
         ////////////
@@ -89,6 +91,33 @@
             }
         }
 
+        function updateGroup(group) {
+            var fd = new FormData();
+
+            fd.append('name', group.name);
+            fd.append('description', group.description);
+            fd.append('is_open', +group.is_open);
+            //fd.append('avatar', group.avatar, group.avatar.name);
+
+            return $http({
+                method: 'POST',
+                url: 'group/update/' + group.id,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(updateGroupComplete)
+                .catch(updateGroupFailed);
+
+            function updateGroupComplete(response) {
+                return response.data;
+            }
+
+            function updateGroupFailed(error) {
+                console.error('XHR Failed for updateGroup. ' + error.data);
+            }
+        }
+
         function deleteGroup(groupId) {
 
             return $http({
@@ -134,6 +163,27 @@
 
             function inviteUserFailed(error) {
                 console.error('XHR Failed for inviteUser. ' + error.data);
+            }
+        }
+
+        function subscribeGroup(groupId) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/subscription/' + groupId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(subscribeGroupComplete)
+                .catch(subscribeGroupFailed);
+
+            function subscribeGroupComplete(response) {
+                return response.data;
+            }
+
+            function subscribeGroupFailed(error) {
+                console.error('XHR Failed for subscribeGroup. ' + error.data);
             }
         }
 
