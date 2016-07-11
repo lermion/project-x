@@ -144,7 +144,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('dynamic', 'TypePlaceController@getDynamic');
         });
 
-            });
+    });
+
+    Route::group(['prefix' => 'chat'], function () {
+        Route::get('create/{locked_user_id}', 'ChatLockedUserController@create');
+        Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
+    });
 
 
     Route::get('test', function () {

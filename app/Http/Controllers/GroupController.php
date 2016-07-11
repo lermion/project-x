@@ -6,6 +6,7 @@ use App\Group;
 use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -75,11 +76,12 @@ class GroupController extends Controller
             }
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
-            $group->users = $group->users()->lists('user_id');
-            if (GroupInvite::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
+            $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'group_users.is_admin')
+            ->where('group_users.group_id',$group->id)->get();
+            if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
                 $group->is_sub = true;
             } else {$group->is_sub = false;}
-            if($group->is_open && GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
+            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $group->is_admin = true;
             } else {$group->is_admin = false;}
         }
@@ -162,7 +164,7 @@ class GroupController extends Controller
     {
         if ($group = Group::find($id)) {
             if ($user = GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
-                $isSub = false;
+                    $isSub = false;
                 $user->delete();
             } else {
                 $isSub = true;
@@ -210,7 +212,7 @@ class GroupController extends Controller
             ];
             return response()->json($result);
         }
-//        dd($request->input('user_id'));
+
         if ($group = Group::find($groupId)) {
             if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
                 $responseData = [
@@ -224,7 +226,6 @@ class GroupController extends Controller
             }
             foreach($request->input('user_id') as $userId) {
                 if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
-                dd('11');
                     $invite->delete();
                 } else {
                     GroupInvite::create(['group_id' => $group->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
