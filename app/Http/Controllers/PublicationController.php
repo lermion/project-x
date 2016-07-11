@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -309,9 +310,9 @@ class PublicationController extends Controller
                     foreach ($deleteVideos as $deleteVideo) {
                         $video = Video::find($deleteVideo);
                         if ($video) {
-                            $video->delete();
                             Storage::disk('video')->delete($video->url);
                             Storage::disk('video')->delete($video->img_url);
+                            $video->delete();
                         }
                     }
                 }
@@ -389,8 +390,17 @@ class PublicationController extends Controller
      */
     public function destroy($id)
     {
+
         if ($publication = Publication::find($id)) {
             if ($publication->user_id == Auth::id()) {
+                foreach ($publication->videos->toArray() as $p){
+                    $arr[] = $p['url'];
+                    Storage::disk('public_path')->delete($p['url']);
+                    Storage::disk('public_path')->delete($p['img_url']);
+
+                }
+
+
                 $publication->delete();
                 return response()->json(['status' => true]);
             } else {
