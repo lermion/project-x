@@ -31,6 +31,14 @@ class Publication extends Model
     {
         return $this->belongsToMany('App\Video', 'publication_videos')->withTimestamps();
     }
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($publication) { // before delete() method call this
+            $publication->videos()->delete();
+            // do the rest of the cleanup...
+        });
+    }
 
     public function likes()
     {

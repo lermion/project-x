@@ -1627,7 +1627,21 @@ a.add_comments {
  }
 }
 
+/*******************************
+            Groups
+*******************************/
 
+/*----------------------
+     Main
+----------------------*/
+
+.groups-content {
+    font-family: "SFUIDisplayMedium";
+}
+.places-page-type-place h4 {
+    font-weight: 400;
+    font-size: 16.6px;
+}
 
 
 
@@ -1774,6 +1788,26 @@ a.add_comments {
   align-items: center;
   padding: 10px;
   justify-content: space-between;
+    position: relative;
+}
+.group-peoples-inner-item .peoples-item__delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 86px;
+    text-align: center;
+    top: 12px;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+}
+.group-peoples-inner-item:hover {
+    /*color: #777;;*/
+    background: #e4e4e4;
+    transition: all .3s ease-in-out .1s;
 }
 .peoples-inner-item-data {
   display: flex;
@@ -1827,11 +1861,11 @@ a.add_comments {
   color: #333;
   transition: all .3s ease-in-out .1s;
 }
-.peoples-item-name-family span:hover {
-  display: block;
-  color: #777;;
-  transition: all .3s ease-in-out .1s;
-}
+/*.peoples-item-name-family span:hover {*/
+  /*display: block;*/
+  /*color: #777;;*/
+  /*transition: all .3s ease-in-out .1s;*/
+/*}*/
 .peoples-item-name-comment {
   margin: 0;
   padding: 0;
@@ -1846,6 +1880,9 @@ a.add_comments {
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
   margin-right: 5px;
+}
+.peoples-inner-item-admin:hover {
+    cursor: pointer;
 }
 
 

@@ -194,12 +194,16 @@
             }
         };
 
-        vm.removeUser = function (user) {
+        vm.removeUserFromInviteList = function (user) {
             for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
                 if (vm.invitedUsers[i].userId == user.userId) {
                     vm.invitedUsers.splice(i, 1);
                 }
             }
+        };
+
+        vm.removeUser = function() {
+          console.log('User removed!')
         };
 
         vm.submitInviteUsers = function () {
@@ -221,6 +225,15 @@
         vm.abortInviteUsers = function () {
             resetFormInviteUsers();
             modalInviteUsers.close();
+        };
+
+        vm.setAdmin = function (user) {
+            groupsService.setAdmin(group.id, user.id)
+                .then(function(data) {
+                    if (data.status) {
+                        user.is_admin = data.is_admin;
+                    }
+                });
         };
 
 
