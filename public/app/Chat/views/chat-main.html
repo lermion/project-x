@@ -26,22 +26,22 @@
 	<div class="chat-main-container">
 		<div class="chat-main-container-left">
 	    	<div class="chat-left-users-menu">
-	    		<div class="users-menu-tab-chats" ng-class="Model.currTabName ===  'chat.list' ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false;" style="cursor:pointer;">
+	    		<div class="users-menu-tab-chats" ng-class="Model.showChatBlock ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false; Model.showBlockedBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">
 	    			<span>
 	    				<img src="../images/chat-tab-chat.png" alt="">
 	    			</span>
 	    		</div>
-	    		<div class="users-menu-tab-users" ng-class="Model.currTabName ===  'chat.contacts' ? 'active' : ''" ng-click="refTo('chat.contacts'); Model.showContactBlock=true; Model.showChatBlock=false;" style="cursor:pointer;">
+	    		<div class="users-menu-tab-users" ng-class="Model.showContactBlock ? 'active' : ''" ng-click="refTo('chat.contacts'); Model.showContactBlock=true; Model.showChatBlock=false; Model.showBlockedBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">
 	    			<span>
 	    				<img src="../images/chat-tab-people.png" alt="">
 	    			</span>
 	    		</div>
-	    		<div class="users-menu-tab-block" ng-click="refTo('chat.blocked')" style="cursor:pointer;">
+	    		<div class="users-menu-tab-block" ng-class="Model.showBlockedBlock ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showMenuBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;" style="cursor:pointer;">
 	    			<span>
 	    				<img src="../images/chat-tab-block.png" alt="">
 	    			</span>
 	    		</div>
-	    		<div class="users-menu-tab-menu-do" ng-click="refTo('chat.menu')" style="cursor:pointer;">
+	    		<div class="users-menu-tab-menu-do" ng-class="Model.showMenuBlock ? 'active' : ''" ng-click="refTo('chat.menu'); Model.showMenuBlock=true; Model.showBlockedBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;" style="cursor:pointer;">
 	    			<span>
 	    				<img src="../images/chat-tab-more.png" alt="">
 	    			</span>
@@ -54,11 +54,6 @@
 		    	<div ui-view></div>
 	    	</div>
 	    </div>
-
-
-
-
-
 
 	    <div class="chat-main-container-right">
 
@@ -251,7 +246,8 @@
 					<div class="group-comment">
 						<a href="" class="smile"></a>
 						<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes"></textarea>
-						<div class="add-objects">						
+						<div class="add-objects">
+
 							<input id="addfile" type='file' style="display: none;"> 
 							<label for="addfile">
 								<span class="add">
@@ -260,7 +256,8 @@
 										<a href="" class="">Файл</a>
 									</span>
 								</span>
-							</label>                                         
+							</label>  
+							                                       
 						</div> 
 						<button class="send" ng-click="Model.sendMes(Model.chatMes)">Отправить</button>
 					</div>
@@ -307,8 +304,8 @@
 	    			<div class="contact-selected-data-phone">Телефон</div>
 	    			<div class="contact-selected-data-tel-number">{{Model.contact.phone}}</div>
 	    			<div class="contact-selected-data-message" ng-click="Model.openChatWith(Model.contact)" style="cursor:pointer;"><span><img src="/images/chat-icon.png" alt=""></span><span class="contact-selected-message-span">Написать сообщение</span></div>
-	    			<div class="contact-selected-data-block" style="cursor:pointer;"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
-	    			<div class="contact-selected-data-delete" style="cursor:pointer;"><span><img src="/images/chat-delete-contact.png" alt=""></span><span class="contact-selected-delete-span">Удалить контакт</span></div>
+	    			<div class="contact-selected-data-block" style="cursor:pointer;" ng-click="Model.blockContact(Model.contact)"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
+	    			<div class="contact-selected-data-delete" style="cursor:pointer;" ng-click="Model.deleteContact(Model.contact)"><span><img src="/images/chat-delete-contact.png" alt=""></span><span class="contact-selected-delete-span">Удалить контакт</span></div>
 
 	    		</div>
 	    	</div>
