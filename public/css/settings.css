@@ -1642,6 +1642,25 @@ a.add_comments {
     font-weight: 400;
     font-size: 16.6px;
 }
+.groups-filter {
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 14.6px;
+    padding-left: 30px;
+    background-image: url(/images/filter.png);
+    background-position: left center;
+    background-size: 12%;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    height: 30px;
+}
 
 
 
