@@ -11,6 +11,8 @@ angular.module('placePeopleApp')
             $scope.loggedUser = storage.username;
             $scope.loggedUserId = storage.userId;
 
+            $scope.Model = $scope.Model || {Name : "xxx"};
+
             $http.get('/static_page/get/name')
                 .success(function (response) {
                     $scope.staticPages = response;
@@ -153,9 +155,13 @@ angular.module('placePeopleApp')
                 updated_at:"2016-07-08 09:55:09"
             }
 
+            // $scope.contactBlock = {};
+            // $scope.chatBlock = {};
+
             $scope.refTo = function(stateName){    
                 $state.go(stateName);
             };
+            $scope.Model.currTabName = $state.current.name;
             $scope.showContactData = function(contactId){
                 console.log(contactId);
             };
@@ -166,56 +172,106 @@ angular.module('placePeopleApp')
                 console.log(userId, chatId);
             };
 
-            function loadUserContacts(){                
-               var subs = [];
-               var sub = [];
-               PublicationService.getSubscription($scope.loggedUserId).then(function(response){                        
-                        sub = response;
-                        PublicationService.getSubscribers($scope.loggedUserId)
-                            .then(function(response){
-                                subs = response;
+            // function loadUserContacts(){                
+            //    var subs = [];
+            //    var sub = [];
+            //    PublicationService.getSubscription($scope.loggedUserId).then(function(response){                        
+            //             sub = response;
+            //             PublicationService.getSubscribers($scope.loggedUserId)
+            //                 .then(function(response){
+            //                     subs = response;
 
-                                var contacts = [];
-                                for(var i in sub){
-                                   var shared = false;
-                                   for (var j in subs)
-                                       if (subs[j].id == sub[i].id) {
-                                           shared = true;
-                                           break;
-                                       }
-                                   if(!shared) contacts.push(sub[i])
-                                }
-                                contacts = contacts.concat(subs);
-                                $scope.userContacts = contacts;
-                            },
-                            function(error){
-                                console.log(error);
-                            }); 
+            //                     var contacts = [];
+            //                     for(var i in sub){
+            //                        var shared = false;
+            //                        for (var j in subs)
+            //                            if (subs[j].id == sub[i].id) {
+            //                                shared = true;
+            //                                break;
+            //                            }
+            //                        if(!shared) contacts.push(sub[i])
+            //                     }
+            //                     contacts = contacts.concat(subs);
+            //                     $scope.userContacts = contacts;
+            //                 },
+            //                 function(error){
+            //                     console.log(error);
+            //                 }); 
 
+            //         },
+            //         function(error){
+            //             console.log(error);
+            //         });
+            // };
+
+            // loadUserContacts();
+
+            function loadUserContacts(){
+                PublicationService.getSubscribers($scope.loggedUserId)
+                    .then(function(response){
+                        $scope.Model.subscribers = response;                        
                     },
                     function(error){
                         console.log(error);
                     });
+
+                PublicationService.getSubscription($scope.loggedUserId)
+                    .then(function(response){
+                        $scope.Model.subscriptions = response;                        
+                    },
+                    function(error){
+                        console.log(error);
+                    });                
+            }
+
+            $scope.Model.loadUserContactList = function(){
+                loadUserContacts();
             };
 
-            loadUserContacts();
-        
+            
 
-            $scope.sendMes = function(message){
-                console.log(message);
-                $scope.chatMes = '';
+            $scope.Model.showContactData = function(contact){
+                if ($state.current.name === 'chat.list') {
+                    $scope.Model.showChatBlock = false;
+                    $state.go('chat.contacts');
+                }
+                $scope.Model.showContactBlock = true;
+                $scope.Model.displayContactBlock = true;
+                $scope.Model.contact = contact;
+            }            
+
+            $scope.Model.openChatWith = function(opponent){                
+                if ($state.current.name === 'chat.contacts') {
+                    $scope.Model.showContactBlock = false;
+                    $state.go('chat.list');
+                }
+                $scope.Model.opponent = opponent; 
+                $scope.Model.showChatBlock = true; 
+                $scope.Model.displayChatBlock = true;
+
+                var data = {
+                    from: $scope.loggedUserId,
+                    to: opponent.id
+                };
+
+                socket.emit('createRoom', data, function(){
+                    
+                });           
+                                             
             };
 
-            $scope.openChatWith = function(opponent){
-                console.log(opponent);
-                $scope.opponent = opponent;
-                $scope.openChatBlock = true;                
+            $scope.Model.sendMes = function(message){
+                // console.log(message);
+                var data = {
+                    userId: $scope.loggedUserId,
+                    message: message
+                }
+                $scope.Model.chatMes = '';
+
+                socket.emit('sendMessage', data, function(){
+                    
+                });
+
             };
-
-             $scope.reloadOpponentData = function(){
-                return $scope.opponent;
-             }
-
-
 
     }]);

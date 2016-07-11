@@ -1,97 +1,46 @@
 
-	    	<div class="chat-left-users-container">
+	    	<div class="chat-left-users-container" ng-init="Model.loadUserContactList()">
 		    	<div class="chat-left-users-all">
 		    		<div class="chat-left-users-i-sign">
 		    			<div class="chat-left-users-sign-inner">
 		    				Я подписан
 		    			</div>
 		    		</div>
-			    	<div class="chat-left-users-users-today active">
+			    	<!-- <div class="chat-left-users-users-today active"> -->
+			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
-			    			<a href="">
-			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    			<a ui-sref="user({username: contact.login})">
+			    				<img ng-src="{{contact.avatar_path}}" alt="">
 			    			</a>
 			    		</div>
 
-			    		<div class="chat-users-today-data">
+			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
 			    			<div class="chat-users-today-info tab-contact-title">
-			    				<p class="users-today-name">Елена Новикова</p>
-			    				<p class="users-today-message">Ну так ты будешь в парке или нет? или мне</p>
+			    				<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
+			    				<p class="users-today-message">{{contact.status}}</p>
 			    			</div>
 			    			
 			    		</div>
 			    	</div>
-			    	<div class="chat-left-users-users-today">
-			    		<div class="chat-users-today-ava">
-			    			<a href="">
-			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
-			    			</a>
-			    		</div>
-
-			    		<div class="chat-users-today-data">
-			    			<div class="chat-users-today-info">
-			    				<p class="users-today-name">Виталий Залевский</p>
-			    				<p class="users-today-message">Думаю все будет гуд )))</p>
-			    			</div>
-
-			    		</div>
-			    	</div>
-
-			    	<div class="chat-left-users-users-today">
-			    		<div class="chat-users-today-ava">
-			    			<a href="">
-			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
-			    			</a>
-			    		</div>
-
-			    		<div class="chat-users-today-data">
-			    			<div class="chat-users-today-info">
-			    				<p class="users-today-name">Николай Островский</p>
-			    				<p class="users-today-message"></p>
-			    			</div>
-
-			    		</div>
-			    	</div>
-
 			    	<div class="chat-left-users-my-sign">
 		    			<div class="chat-left-users-sign-inner">
 		    				Подписчики
 		    			</div>
 		    		</div>
 
-			    	<div class="chat-left-users-users-today">
+			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscribers" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
-			    			<a href="">
-			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			    			<a ui-sref="user({username: contact.login})">
+			    				<img ng-src="{{contact.avatar_path}}" alt="">
 			    			</a>
 			    		</div>
-
-			    		<div class="chat-users-today-data">
-			    			<div class="chat-users-today-info">
-			    				<p class="users-today-name">Валера Константинопольский</p>
-			    				<p class="users-today-message"></p>
-			    			</div>
-
+			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
+			    			<div class="chat-users-today-info tab-contact-title">
+			    				<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
+			    				<p class="users-today-message">{{contact.status}}</p>
+			    			</div>			    			
 			    		</div>
 			    	</div>
-
-			    	<div class="chat-left-users-users-today">
-			    		<div class="chat-users-today-ava">
-			    			<a href="">
-			    				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
-			    			</a>
-			    		</div>
-
-			    		<div class="chat-users-today-data">
-			    			<div class="chat-users-today-info">
-			    				<p class="users-today-name">Николай Решетняков</p>
-			    				<p class="users-today-message">Думаю все будет гуд )))</p>
-			    			</div>
-
-			    		</div>
-			    	</div>
-			    
-		    	</div>
 	    	</div>
 
 
