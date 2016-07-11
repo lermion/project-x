@@ -1,0 +1,43 @@
+<div class="chat-left-users-all">
+	<!-- <div class="chat-left-users-users-today active">
+		<div class="chat-users-today-ava">
+			<a href="">
+				<img src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" alt="">
+			</a>
+		</div>
+
+		<div class="chat-users-today-data">
+			<div class="chat-users-today-info">
+				<p class="users-today-name">Елена Новикова</p>
+				<p class="users-today-message">Ну так ты будешь в парке или нет? или мне</p>
+			</div>
+			<div class="chat-users-today-time">
+				<span class="users-today-time-time">13:20</span>
+				<span class="users-today-time-count">123</span>
+			</div>
+			<div style="display:none" class="chat-users-today-time">
+				<span class="users-today-time-time early">12.04.16</span>
+				<span class="users-today-time-count early">1</span>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="chat-left-users-users-today" ng-repeat="contact in userContacts">
+		<div class="chat-users-today-ava">
+			<a ui-sref="user({username: contact.login})">
+				<img ng-src="{{contact.avatar_path}}" alt="">
+			</a>
+		</div>
+		<div class="chat-users-today-data" ng-click="openChatWith(contact)">
+			<div class="chat-users-today-info">
+				<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
+				<p class="users-today-message">Думаю все будет гуд )))</p>
+			</div>
+			<!-- <div class="chat-users-today-time">
+				<span class="users-today-time-time early">13:20</span>
+				<span class="users-today-time-count early">123</span>
+			</div> -->			
+		</div>
+	</div>
+
+</div>

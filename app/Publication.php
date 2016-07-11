@@ -17,6 +17,11 @@ class Publication extends Model
         return $this->belongsToMany('App\Image', 'publication_images')->withTimestamps();
     }
 
+    public function place()
+    {
+        return $this->belongsToMany('App\Place', 'place_publications')->withTimestamps();
+    }
+
     public function group()
     {
         return $this->belongsToMany('App\Group', 'group_publications')->withTimestamps();
@@ -81,6 +86,7 @@ class Publication extends Model
         foreach ($publications as &$publication) {
             $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->take(3)->get();
             $publication->like_count = $publication->likes()->count();
+            $publication->user_like = $publication->likes()->where('user_id', Auth::id())->first() != null;
             $publication->comment_count = $publication->comments()->count();
             foreach ($publication->comments as &$comment) {
                 $comment->like_count = $comment->likes()->count();

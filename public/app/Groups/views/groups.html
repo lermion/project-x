@@ -44,7 +44,7 @@
                 <div class="groups">
                     <div class="group" ng-repeat="group in groupList">
                         <div class="group-cover">
-                            <a href ng-click="goGroup(group)" class="group-ava">
+                            <a ui-sref="group({groupName: group.url_name})" class="group-ava">
                                 <img ng-src="{{group.avatar}}">
                             </a>
                             <div class="group-likes">
@@ -56,8 +56,8 @@
                             <a href="" class="title">{{::group.name}}</a>
                             <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                         </div>
-                        <button class="wright">Подписаться</button>
-                        <button class="wright">Вы подписаны</button>
+                        <button class="wright" ng-if="!isSub(group.users)">Подписаться</button>
+                        <button class="wright" ng-if="isSub(group.users)">Вы подписаны</button>
                     </div>
                 </div>
             </div>

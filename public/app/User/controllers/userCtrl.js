@@ -10,7 +10,7 @@ angular.module('placePeopleApp')
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
 
-		
+
 
 		if (!storage.pubView) {
 			storageService.setStorageItem('pubView', 'greed');
@@ -339,10 +339,6 @@ angular.module('placePeopleApp')
 				}
 		};
 
-		$scope.checkFileAmount = function(files, event, flow){
-			console.log(files, event, flow);
-		};
-
 		$scope.setMainPubPhoto = function(target){
 			$scope.mainPubPhoto = target.file.name;			
 		};
@@ -368,7 +364,7 @@ angular.module('placePeopleApp')
 				});
 				window.emojiPicker.discover();
 				$(".emoji-button").text("");
-				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text;
+				$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text.split(' messagetext: ')[0];
 			}else if($dialog.name === "create-publication"){
 				window.emojiPicker = new EmojiPicker({
 					emojiable_selector: '.create-publication-pub-text',
@@ -379,7 +375,8 @@ angular.module('placePeopleApp')
 				$(".emoji-button").text("");
 			}
 		});
-		$scope.publishNewPub = function(files, pubText){
+		$scope.publishNewPub = function(files, pubText){					
+			var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
 			if(files === undefined || files.length == 0){						
 				$scope.publishNewPubErr = true;				
 				return;				
@@ -414,7 +411,7 @@ angular.module('placePeopleApp')
 					}
 				}				
 			}
-			PublicationService.createPublication(pubText.messagetext, 0, isMain, videos, images).then(function(res){
+			PublicationService.createPublication(textToSave, 0, isMain, videos, images).then(function(res){
 				if(res.status){
 				$scope.userPublications.unshift(res.publication);
 					$scope.userData.publications_count++;
@@ -427,6 +424,11 @@ angular.module('placePeopleApp')
 			function(err){
 				console.log(err);
 			});
+		};
+
+		$scope.splitText = function(text){
+			var mes = text.split(' messagetext: ');
+			return mes[1];
 		};
 		if($state.current.name === "mobile-pub-view" && $stateParams.id){
 			getSinglePublication($stateParams.id);
@@ -635,7 +637,7 @@ angular.module('placePeopleApp')
 			$scope.currPub = pub;
 			editPubPopup = ngDialog.open({
 				template: '../app/User/views/edit-publication.html',
-				className: 'user-publication ngdialog-theme-default',
+				className: 'user-publication user-publication-edit ngdialog-theme-default',
 				scope: $scope,
 				name: "edit-publication"
 			});
@@ -666,38 +668,24 @@ angular.module('placePeopleApp')
 
 		}
 
-		$scope.editedPubFiles = function(pub){
-		// createBlobFromURL(pub.images).then(function(res){
-			// 	angular.forEach(res, function (item) {
-			// 		$timeout(function () {
-			// 			var blob = new Blob([item], {type: 'image/jpeg'});
-			// 			blob.name = 'image';
-			// 			$scope.images.flow.addFile(blob);
-			// 		});
-			// 	});
-			// },
-			// function(err){
-			// 	console.log(err);
-			// });
-
-			var files = [];
-			// pub.videos.forEach(function(video){
-			// 	files.push(video);
-			// });			
+		$scope.editedPubFiles = function(pub){		
+			var files = [];						
 			pub.images.forEach(function(img){
 				var filename = img.url.split('/')[(img.url.split('/')).length-1];
 				img.name = filename.substring(8, filename.length);						
 				files.push(img);
-			});							
-			$scope.editedPubFilesArray = files;
-			$scope.$broadcast('rebuildScroll');					 			
+			});	
+			pub.videos.forEach(function(video){
+				files.push(video);
+			});						
+			$scope.editedPubFilesArray = files;									 			
 		};
 
 		$scope.addedEditedPubFiles = function(files, event, flow){									
 			if(files.length > 100){
 				console.log('too much files');
 			}
-			$scope.$broadcast('rebuildScroll');
+			$scope.$broadcast('rebuild:me');
 		};
 
 		var	pubEditDeletedPhotos = [];
@@ -706,19 +694,18 @@ angular.module('placePeopleApp')
 		$scope.editedPubDeletePhoto = function(index, photoId){			
 			$scope.editedPubFilesArray.splice(index, 1);
 			pubEditDeletedPhotos.push(photoId);
-			$scope.$broadcast('rebuildScroll');			
+			$scope.$broadcast('rebuild:me');			
 		};
 		$scope.editedPubDeleteVideo = function(videoId){
 			pubEditDeletedVideos.push(videoId);
-			$scope.$broadcast('rebuildScroll');
+			$scope.$broadcast('rebuild:me');
 		};
 
 		$scope.rebuildScroll = function(){
 			$scope.$broadcast('loadPubFiles');
 		};
-
-		$scope.saveEditedPub = function(pubId, text, files){
-			text = $(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML;
+		$scope.saveEditedPub = function(pubId, pubText, files){
+			var textToSave = $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
 			$scope.updatePubLoader = true;
 			var images = [];
 			var videos = [];
@@ -728,15 +715,17 @@ angular.module('placePeopleApp')
 			} else{
 				isMain = 0;
 			}
-			files.forEach(function(file){
-				var type = file.file.type.split('/')[0];
-				if (type === 'image') {
-					images.push(file.file);
-				} else if (type === 'video'){
-					videos.push(file.file);
+			if (files) {
+				files.forEach(function(file){
+					var type = file.type.split('/')[0];
+					if (type === 'image') {
+						images.push(file);
+					} else if (type === 'video'){
+						videos.push(file);
 				}				
-			});			
-			PublicationService.updatePublication(pubId ,text, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+			});
+			}			
+			PublicationService.updatePublication(pubId, textToSave, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
 			.then(					
 					function(res){									
 						if (res.status) {
@@ -792,7 +781,6 @@ angular.module('placePeopleApp')
 		};
 
 		$scope.sendComplain = function(complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8){
-
 			var complainCategory = [];
 			cat1 ? complainCategory.push(1) : '';
 			cat2 ? complainCategory.push(2) : '';
@@ -800,11 +788,8 @@ angular.module('placePeopleApp')
 			cat4 ? complainCategory.push(4) : '';
 			cat5 ? complainCategory.push(5) : '';
 			cat6 ? complainCategory.push(6) : '';
-			cat7 ? complainCategory.push(7) : '';
-			
-			
+			cat7 ? complainCategory.push(7) : '';			
 			if (flag === 'comment') {
-				// console.log(complainUnitId, complainCategory, flag);
 				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
 					.then(					
 						function(res){	
@@ -818,9 +803,7 @@ angular.module('placePeopleApp')
 						function(err){
 							console.log(err);
 						});
-			} else if (flag === 'pub') {
-				console.log(complainUnitId, complainCategory, flag);
-
+			} else if (flag === 'pub') {				
 				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
 				// 	.then(					
 				// 		function(res){						

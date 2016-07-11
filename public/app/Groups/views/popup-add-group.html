@@ -63,7 +63,7 @@
             <p class="item1-add-people-title">Список пользователей</p>
     		<div class="item1 add-people">
             <ul>
-    			<li ng-repeat="user in users" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
+    			<li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
                     <img ng-src="{{user.avatar}}">
                     <p>{{::user.firstName}} {{::user.lastName}}</p>
                     <span class="add-people-delete" ng-click="removeUser(user)">&#10006;</span>

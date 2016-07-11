@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update/{id}', 'GroupController@update');
         Route::get('destroy/{id}', 'GroupController@destroy');
         Route::get('subscription/{id}', 'GroupController@subscription');
-        Route::get('invite/{group_id}/{user_id}', 'GroupController@invite');
+        Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
@@ -128,6 +128,17 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
+        Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
+        Route::post('invite/{place_id}', 'PlaceController@invite');
+        Route::group(['prefix' => '{placeId}/publication'], function () {
+            Route::get('/', 'PlacePublicationController@index');
+            Route::post('store', 'PlacePublicationController@store');
+            Route::post('update/{id}', 'PlacePublicationController@update');
+            Route::get('destroy/{id}', 'PlacePublicationController@destroy');
+            Route::group(['prefix' => '{publicationId}/comment'], function () {
+                Route::post('store', 'PlacePublicationCommentController@store');
+            });
+        });
         Route::group(['prefix' => 'type'], function () {
             Route::get('static', 'TypePlaceController@getStatic');
             Route::get('dynamic', 'TypePlaceController@getDynamic');
@@ -140,7 +151,6 @@ Route::group(['middleware' => ['web']], function () {
         echo "<form action=\"http://pp.dev/test\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='file' name='video'><br>
             <input type='text' name='text'><br>
-
             <input type=\"submit\">
         </form>";
     });

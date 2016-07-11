@@ -16,33 +16,26 @@
                 controller: 'groupsCtrl'
             })
             .state('group', {
-                url: '/group/:groupId',
+                url: '/group/:groupName',
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
-                controllerAs: 'vm',
-                params: {
-                    groupName: ''
-                }
+                controllerAs: 'vm'
             })
             .state('group.publications', {
                 url: '/publications',
-                templateUrl: '../../app/Groups/views/group-publications.html',
-                controller: 'groupsCtrl'
+                templateUrl: '../../app/Groups/views/group-publications.html'
             })
             .state('group.chat', {
                 url: '/chat',
-                templateUrl: '../../app/Groups/views/group-chat.html',
-                controller: 'groupsCtrl'
+                templateUrl: '../../app/Groups/views/group-chat.html'
             })
             .state('group.people', {
                 url: '/people',
-                templateUrl: '../../app/Groups/views/group-people.html',
-                controller: 'groupsCtrl'
+                templateUrl: '../../app/Groups/views/group-people.html'
             })
             .state('group.files', {
                 url: '/files',
-                templateUrl: '../../app/Groups/views/group-files.html',
-                controller: 'groupsCtrl'
+                templateUrl: '../../app/Groups/views/group-files.html'
             })
             .state('view-group-publication', {
                 url: '/group/:groupId/publication/:pubId',

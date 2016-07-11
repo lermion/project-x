@@ -5,13 +5,22 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog'];
+    GroupCtrl.$inject = ['$filter', '$rootScope', '$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog', 'groupsService'];
 
-    function GroupCtrl($scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog) {
+    function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog, groupsService) {
 
         var vm = this;
-        var modalEditGroup;
+        var storage = storageService.getStorage();
+
+        var myId = storage.userId;
+
+        var modalEditGroup, modalDeleteGroup;
         var groupName = $stateParams.groupName;
+
+        vm.group = {};
+        vm.groupEdited = {};
+        vm.showGroupMenu = false;
+        $scope.emoji = {};
 
         activate();
 
@@ -19,6 +28,7 @@
 
         function activate() {
             init();
+            getGroup();
         }
 
         function init() {
@@ -102,13 +112,72 @@
             }
         });
 
-        vm.editGroup = function() {
+        vm.openModalEditGroup = function () {
+            vm.groupEdited = angular.copy(vm.group);
+
             modalEditGroup = ngDialog.open({
                 template: '../app/Groups/views/popup-edit-group.html',
                 name: 'modal-edit-group',
-                className: 'popup-add-group ngdialog-theme-default'
+                className: 'popup-add-group popup-edit-group ngdialog-theme-default',
+                scope: $scope
             });
         };
+
+        vm.openModalDeleteGroup = function () {
+            modalDeleteGroup = ngDialog.open({
+                template: '../app/Groups/views/popup-delete-group.html',
+                name: 'modal-delete-group',
+                className: 'popup-delete-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.deleteGroup = function () {
+            groupsService.deleteGroup(vm.group.id)
+                .then(function (data) {
+                    if (data.status) {
+                        $state.go('groups');
+                        modalDeleteGroup.close();
+                    }
+                });
+        };
+
+        vm.updateGroup = function () {
+            groupsService.updateGroup(vm.groupEdited)
+                .then(function (data) {
+
+                });
+        };
+
+        vm.abortDeleteGroup = function () {
+            modalDeleteGroup.close();
+        };
+
+        vm.subscribe = function () {
+            groupsService.subscribeGroup(vm.group.id)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.group.is_sub = data.is_sub;
+                    }
+                });
+        };
+
+        function getGroup() {
+            return groupsService.getGroup(groupName)
+                .then(function (data) {
+                    vm.group = data;
+                    vm.group.is_open = !!vm.group.is_open;
+                    vm.group.avatarIsChange = false;
+
+                    //TODO: remove!
+                    vm.group.isAdmin = true;
+
+
+                    $scope.emoji.messagetext = data.description;
+                    //$scope.emoji.rawhtml = '123';
+                    //$rootScope.$broadcast('emoji:group', {message: data.description});
+                });
+        }
     }
 
 })(angular);
