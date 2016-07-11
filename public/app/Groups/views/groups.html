@@ -33,10 +33,6 @@
             <div class="groups-content">
                 <div class="groups-header">
                     <a class="public-groups" href="">Публичные группы</a>
-                    <!--<select name="" id="">-->
-                    <!--<option value="">Популярные</option>-->
-                    <!--<option value="">Новые</option>-->
-                    <!--</select>-->
                     <a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную
                         группу</a>
                 </div>
@@ -46,8 +42,12 @@
                         <div>
                             <h4>Мои группы</h4>
                         </div>
-                        <div class="places-type-place-btn" ng-if="!showAllButtons" ng-click="toogleGroupsView('my')">Ещё</div>
-                        <div class="places-type-place-btn"ng-if="showAllButtons" ng-click="toogleGroupsView('all')">Все</div>
+                        <div class="places-type-place-btn" ng-if="!showAllButtons" ng-click="toogleGroupsView('my')">
+                            Ещё
+                        </div>
+                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
+                            Все
+                        </div>
                     </div>
                     <div class="groups">
                         <div class="group" ng-repeat="group in groupList">
@@ -77,8 +77,17 @@
                         <div>
                             <h4>Все публичные группы</h4>
                         </div>
-                        <div class="places-type-place-btn" ng-if="!showAllButtons" ng-click="toogleGroupsView('public')">Ещё</div>
-                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">Все</div>
+                        <select class="groups-filter" name="" id="" ng-if="showAllButtons">
+                            <option value="">Популярные</option>
+                            <option value="">Новые</option>
+                        </select>
+
+                        <div class="places-type-place-btn" ng-if="!showAllButtons"
+                             ng-click="toogleGroupsView('public')">Ещё
+                        </div>
+                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
+                            Все
+                        </div>
                     </div>
                     <div class="groups">
                         <div class="group" ng-repeat="group in groupList">
