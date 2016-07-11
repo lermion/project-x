@@ -19,7 +19,26 @@
                 url: '/group/:groupName',
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                resolve: {
+                    group: ['groupsService', '$stateParams', '$q', 'ngDialog', function (groupsService, $stateParams, $q, ngDialog) {
+                        var deferred = $q.defer();
+                        groupsService.getGroup($stateParams.groupName)
+                            .then(function (data) {
+                                if (!data) {
+                                    deferred.reject();
+                                    ngDialog.open({
+                                        template: '../app/Groups/views/popup-notfound-group.html',
+                                        name: 'modal-notfound-group',
+                                        className: 'popup-delete-group ngdialog-theme-default'
+                                    });
+                                } else {
+                                    deferred.resolve(data);
+                                }
+                            });
+                        return deferred.promise;
+                    }]
+                }
             })
             .state('group.publications', {
                 url: '/publications',
