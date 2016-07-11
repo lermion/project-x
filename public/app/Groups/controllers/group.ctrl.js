@@ -5,10 +5,10 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$filter', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
+    GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
         'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService'];
 
-    function GroupCtrl($filter, $scope, $state, $stateParams, group, $http, $window,
+    function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
                        AuthService, storageService, ngDialog, groupsService, UserService) {
 
         var vm = this;
@@ -24,6 +24,8 @@
         vm.showGroupMenu = false;
         vm.subscribers = [];
         vm.invitedUsers = [];
+
+        vm.inviteNotSend = true;
         $scope.emoji = {};
 
         activate();
@@ -135,8 +137,8 @@
             });
         };
 
-        vm.openModalInviteUsers = function() {
-            getSubscribers().then(function() {
+        vm.openModalInviteUsers = function () {
+            getSubscribers().then(function () {
                 modalInviteUsers = ngDialog.open({
                     template: '../app/Groups/views/popup-invite-group.html',
                     name: 'modal-invite-group',
@@ -176,7 +178,7 @@
                 });
         };
 
-        vm.onItemSelected = function(user) {
+        vm.onItemSelected = function (user) {
             var isExist = $filter('getById')(vm.invitedUsers, user.id);
 
             if (!isExist) {
@@ -200,6 +202,28 @@
             }
         };
 
+        vm.submitInviteUsers = function () {
+            if (!vm.inviteNotSend) {
+                return false;
+            }
+            groupsService.inviteUsers(group.id, vm.invitedUsers)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.inviteNotSend = false;
+                        $timeout(function () {
+                            resetFormInviteUsers();
+                            modalInviteUsers.close();
+                        }, 2000);
+                    }
+                });
+        };
+
+        vm.abortInviteUsers = function () {
+            resetFormInviteUsers();
+            modalInviteUsers.close();
+        };
+
+
         function getSubscribers() {
             return UserService.getSubscribers(myId)
                 .then(function (subscribers) {
@@ -207,7 +231,11 @@
                 });
         }
 
-
+        function resetFormInviteUsers() {
+            vm.invitedUsers = [];
+            vm.subscribers = [];
+            vm.inviteNotSend = true;
+        }
 
         //function getGroup() {
         //    return groupsService.getGroup(groupName)

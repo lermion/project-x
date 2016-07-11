@@ -1,6 +1,6 @@
 <div class="modal__title">Пригласить пользователя в группу</div>
 
-<div class="modal__content">
+<div class="modal__content" ng-if="vm.inviteNotSend">
     <div class="invite-group__items">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul>
@@ -24,10 +24,13 @@
         </ul>
     </div>
 </div>
+<div class="modal__content" ng-if="!vm.inviteNotSend">
+    <p>Приглашение отправлено</p>
+</div>
 
 <div class="modal__footer">
     <div class="modal__buttons">
-        <a href="" class="modal__buttons-negative" ng-click="cancelNewGroup()">Отменить</a>
-        <a href="" class="modal__buttons-positive" ng-click="addGroup()">Отправить</a>
+        <a href="" class="modal__buttons-negative" ng-click="vm.abortInviteUsers()">Отменить</a>
+        <a href="" class="modal__buttons-positive" ng-click="vm.submitInviteUsers()">Отправить</a>
     </div>
 </div>
