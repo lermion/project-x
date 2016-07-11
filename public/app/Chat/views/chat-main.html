@@ -55,10 +55,10 @@
 	    	</div>
 	    </div>
 
-	    <div class="chat-main-container-right">
+	    <div class="chat-main-container-right" ng-if="Model.showChatBlock && Model.displayChatBlock">
 
 <!-- Chat block -->
-		    <div ng-if="Model.showChatBlock && Model.displayChatBlock">	      
+		   <!--  <div ng-if="Model.showChatBlock && Model.displayChatBlock">	      --> 
 			    <div class="chat-right-top-person">
 				    <div class="chat-top-person-data">	
 				    	<div class="chat-person-top-ava">
@@ -81,7 +81,7 @@
 							</div>
 						</div>
 			    </div>
-			    
+
 			    <div class="chat-right-chat-inner">
 			    	<div class="chat-message-date">
 			    		<span>Вчера</span>
@@ -145,20 +145,52 @@
 				    		</div>
 				    	</div>
 			    	</div>
-			    	<div class="to-my-msg-wrap">
-				    	<div class="right-chat-to-my-msg">
-				    		<div class="right-chat-to-my-msg-inner">
-				    			<div class="to-my-msg-inner-text">Но чето влом ((((</div>
-				    			
-				    		</div>
-				    		<div class="right-chat-to-my-msg-date">
-				    			<span>10:55</span>
-				    		</div>
-				    	</div>
+
+			    	<div class="chat-right-inner-publication-my">
+			    		<div class="chat-publication-wrap">
+			    			<div class="chat-publication-data">
+			    				<div class="chat-right-top-person">
+								    <div class="chat-top-person-data">	
+								    	<div class="chat-person-top-ava">
+								    		<a>
+								    			<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+								    		</a>
+								    	</div>
+								    	<div class="chat-person-top-info">
+								    		<p class="top-person-name">Виталий</p>
+								    		<p class="top-person-status"><span>Вчера,</span><span>17:31</span></p>
+								    	</div>
+								    </div>
+								    	<div class="user-menu-top">
+											<div class="user-menu-top-do" style="display:none">
+												<div class="user-menu-top-inner">			
+													<a>Текст 1</a>
+													<a href="">Текст 2</a>
+													<a href="">Текст 3</a>
+												</div>
+											</div>
+										</div>
+							    </div>
+			    			</div>
+			    			<div class="chat-publication-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum, accusantium non accusamus, temporibus labore, obcaecati incidunt ea, facilis rem aperiam sed sapiente eius quas tenetur. Corporis et sunt velit.Lorem ipsum dolor</div>
+			    			<div class="chat-publication-adress">
+			    				<span class="publication-adress-span">Школа №209, </span>
+			    				<span> г. Санкт-Петербург</span>
+			    			</div>
+			    			<div class="chat-publication-photo">
+			    				<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+			    			</div>
+			    			<div class="chat-publication-relations">
+			    				<div class="publication-relations-left">
+			    					<span class="publication-relations-left-btn">Тема</span>
+			    					<span>В теме</span><span>1600</span><span>чел.</span>
+			    				</div>
+			    				<div class="publication-relations-right">Картинки</div>
+			    			</div>
+			    		</div>
 			    	</div>
 
-
-
+<!-- 
 			    	<div class="group-comments">
 						<div class="group-comment">
 							<a href="" class="smile"></a>
@@ -177,45 +209,45 @@
 							
 						</div>
 						<div class="pictures">
-							<!-- ngRepeat: pub in [1,2,3,4,5] --><div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+							ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
 								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 									<div class="close-inner">
 										<p>Удалить</p>
 									</div>
 								</div>
 								<img src="../../../images/bc.png" alt="">
-							</div><!-- end ngRepeat: pub in [1,2,3,4,5] --><div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
 								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 									<div class="close-inner">
 										<p>Удалить</p>
 									</div>
 								</div>
 								<img src="../../../images/bc.png" alt="">
-							</div><!-- end ngRepeat: pub in [1,2,3,4,5] --><div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
 								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 									<div class="close-inner">
 										<p>Удалить</p>
 									</div>
 								</div>
 								<img src="../../../images/bc.png" alt="">
-							</div><!-- end ngRepeat: pub in [1,2,3,4,5] --><div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
 								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 									<div class="close-inner">
 										<p>Удалить</p>
 									</div>
 								</div>
 								<img src="../../../images/bc.png" alt="">
-							</div><!-- end ngRepeat: pub in [1,2,3,4,5] --><div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
 								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 									<div class="close-inner">
 										<p>Удалить</p>
 									</div>
 								</div>
 								<img src="../../../images/bc.png" alt="">
-							</div><!-- end ngRepeat: pub in [1,2,3,4,5] -->
+							</div>end ngRepeat: pub in [1,2,3,4,5]
 						</div>
 					</div>
-
+ -->
 
 			    </div>
 
@@ -224,13 +256,13 @@
 
 
 
-		    </div>
+		    <!-- </div> -->
 
  <!-- Contact Block -->
 	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">
 	    		<div class="chat-contact-selected-ava">
 	    			<img ng-src="{{Model.contact.avatar_path}}" alt="">
-	    		</div>	    		
+	    		</div>
 	    		<div class="chat-contact-selected-data">
 	    			<div class="contact-selected-data-name">{{Model.contact.first_name + ' ' + Model.contact.last_name}}</div>
 	    			<div class="contact-selected-data-status">Статус</div>
