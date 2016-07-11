@@ -6,6 +6,7 @@ use App\Group;
 use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -75,13 +76,14 @@ class GroupController extends Controller
             }
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
-            $group->users = $group->users()->lists('user_id');
+            $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'group_users.is_admin')
+            ->where('group_users.group_id',$group->id)->get();
             if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
                 $group->is_sub = true;
             } else {$group->is_sub = false;}
-            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
-                $group->is_admin = true;
-            } else {$group->is_admin = false;}
+//            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
+//                $group->is_admin = true;
+//            } else {$group->is_admin = false;}
         }
         return $group;
     }
