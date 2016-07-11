@@ -143,11 +143,16 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('dynamic', 'TypePlaceController@getDynamic');
         });
 
-            });
+    });
+
+    Route::group(['prefix' => 'chat'], function () {
+        Route::get('create/{locked_user_id}', 'ChatLockedUserController@create');
+        Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
+    });
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/show/adfadf\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/create/1069\" method=\"get\" enctype=\"multipart/form-data\">
 
             <input type='text' name='text'><br>
             <input type='text' name='is_anonym'><br>
