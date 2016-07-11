@@ -5,21 +5,25 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$filter', '$rootScope', '$scope', '$state', '$stateParams', 'group', '$http', '$window', 'AuthService', 'storageService', 'ngDialog', 'groupsService'];
+    GroupCtrl.$inject = ['$filter', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
+        'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService'];
 
-    function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, group, $http, $window, AuthService, storageService, ngDialog, groupsService) {
+    function GroupCtrl($filter, $scope, $state, $stateParams, group, $http, $window,
+                       AuthService, storageService, ngDialog, groupsService, UserService) {
 
         var vm = this;
         var storage = storageService.getStorage();
 
         var myId = storage.userId;
 
-        var modalEditGroup, modalDeleteGroup, modalNoticeGroupNotFound;
+        var modalEditGroup, modalDeleteGroup, modalInviteUsers;
         var groupName = $stateParams.groupName;
 
         vm.group = group;
         vm.groupEdited = {};
         vm.showGroupMenu = false;
+        vm.subscribers = [];
+        vm.invitedUsers = [];
         $scope.emoji = {};
 
         activate();
@@ -28,7 +32,6 @@
 
         function activate() {
             init();
-            //getGroup();
         }
 
         function init() {
@@ -132,6 +135,17 @@
             });
         };
 
+        vm.openModalInviteUsers = function() {
+            getSubscribers().then(function() {
+                modalInviteUsers = ngDialog.open({
+                    template: '../app/Groups/views/popup-invite-group.html',
+                    name: 'modal-invite-group',
+                    className: 'popup-invite-group ngdialog-theme-default',
+                    scope: $scope
+                });
+            });
+        };
+
         vm.deleteGroup = function () {
             groupsService.deleteGroup(vm.group.id)
                 .then(function (data) {
@@ -162,10 +176,38 @@
                 });
         };
 
-        vm.stateGo = function (state) {
-            $state.go(state);
-            modalNoticeGroupNotFound.close();
+        vm.onItemSelected = function(user) {
+            var isExist = $filter('getById')(vm.invitedUsers, user.id);
+
+            if (!isExist) {
+                var item = {
+                    userId: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    avatar: user.avatar_path,
+
+                    isAdmin: false
+                };
+                vm.invitedUsers.push(item);
+            }
         };
+
+        vm.removeUser = function (user) {
+            for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
+                if (vm.invitedUsers[i].userId == user.userId) {
+                    vm.invitedUsers.splice(i, 1);
+                }
+            }
+        };
+
+        function getSubscribers() {
+            return UserService.getSubscribers(myId)
+                .then(function (subscribers) {
+                    vm.subscribers = subscribers;
+                });
+        }
+
+
 
         //function getGroup() {
         //    return groupsService.getGroup(groupName)
@@ -182,14 +224,6 @@
         //        });
         //}
 
-        function showNoticeGroupNotFound() {
-            modalNoticeGroupNotFound = ngDialog.open({
-                template: '../app/Groups/views/popup-notfound-group.html',
-                name: 'modal-notfound-group',
-                className: 'popup-delete-group ngdialog-theme-default',
-                scope: $scope
-            });
-        }
     }
 
 })(angular);

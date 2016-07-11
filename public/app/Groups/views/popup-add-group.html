@@ -50,7 +50,7 @@
         <div class="item1-container">
             <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
             <ul class="item1">
-                <li ng-repeat="user in subscribers | searchFor:searchString track by $index">
+                <li ng-repeat="user in subscribers | searchFor:searchString">
                     <img ng-src="{{user.avatar_path}}">
 
                     <p>{{::user.first_name}} {{::user.last_name}}</p>
