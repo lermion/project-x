@@ -76,25 +76,25 @@ angular.module('placePeopleApp')
 	      url: '/',
 	      parent: 'chat',
 	      templateUrl: '../../app/Chat/views/chat-list.html',
-	      controller: 'chatCtrl'
+	      // controller: 'chatCtrl'
 	    })
 	    .state('chat.contacts', {
 	      url: '/contacts',
 	      parent: 'chat',
 	      templateUrl: '../../app/Chat/views/chat-contacts.html',
-	      controller: 'chatCtrl'
+	      // controller: 'chatCtrl'
 	    })
 	    .state('chat.blocked', {
 	      url: '/blocked',
 	      parent: 'chat',
 	      templateUrl: '../../app/Chat/views/chat-blocked.html',
-	      controller: 'chatCtrl'
+	      // controller: 'chatCtrl'
 	    })
 	    .state('chat.menu', {
 	      url: '/menu',
 	      parent: 'chat',
 	      templateUrl: '../../app/Chat/views/chat-menu.html',
-	      controller: 'chatCtrl'
+	      // controller: 'chatCtrl'
 	    })
 
 	    /*User must be in the end*/
