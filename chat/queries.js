@@ -71,7 +71,6 @@ Queries.prototype.addUsersInUserChat = function(dataUserFrom, dataUserTo){
 	return deferred.promise;
 }
 Queries.prototype.getUserRooms = function(data){
-	console.log("data", data);
 	var deferred = Q.defer();
 	connection.query('SELECT chat_rooms.id, chat_rooms.name FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE users.id = ' + data.userIdFrom, function(error, result){
 		if(error){

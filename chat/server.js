@@ -12,6 +12,8 @@ var users = {};
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
+		data.created_at = new Date();
+		data.updated_at = new Date();
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
 				console.log("these users already have the room");
@@ -46,8 +48,8 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
-							console.log("response", response);
-							//socket.emit("get user rooms", result);
+							console.log("response!!!!", response);
+							socket.emit("get user rooms", response);
 						},
 						function(error){
 							console.log(error);
@@ -83,10 +85,6 @@ io.sockets.on('connection', function(socket){
 			updated_at: new Date()
 		};
 		connection.query('INSERT INTO messages SET ?', message, function(error, result){
-			console.log(result);
-			var messageId = result.insertId;
-			console.log(messageId);
-			return;
 			if(error){
 				console.error("error to set message in table messages: " + error.stack);
 				return;
@@ -97,8 +95,6 @@ io.sockets.on('connection', function(socket){
 					console.error("error to get user rooms: " + error.stack);
 					return;
 				}
-				console.log(result);
-				return;
 				//socket.emit("get user rooms", result);
 			});
 		});

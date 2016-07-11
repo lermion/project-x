@@ -1,221 +1,274 @@
 angular.module('placePeopleApp')
-    .controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-        '$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-        'PublicationService',
-        function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
-            $window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-            PublicationService) {
-            $scope.$emit('userPoint', 'user');
-            amMoment.changeLocale('ru');
-            var storage = storageService.getStorage();
-            $scope.loggedUser = storage.username;
-            $scope.loggedUserId = storage.userId;
-            $http.get('/static_page/get/name')
-                .success(function (response) {
-                    $scope.staticPages = response;
-                })
-                .error(function (error) {
-                    console.log(error);
-                });
-            $scope.logOut = function () {
-                AuthService.userLogOut()
-                    .then(function (res) {
-                        storageService.deleteStorage();
-                        $state.go('login');
-                    }, function (err) {
-                        console.log(err);
-                    });
-            };
+	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
+		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
+		'PublicationService',
+		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
+			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
+			PublicationService) {
+			$scope.$emit('userPoint', 'user');
+			amMoment.changeLocale('ru');
+			var storage = storageService.getStorage();
+			$scope.loggedUser = storage.username;
+			$scope.loggedUserId = storage.userId;
+			$scope.Model = $scope.Model || {Name : "xxx"};
+			$http.get('/static_page/get/name')
+				.success(function (response) {
+					$scope.staticPages = response;
+				})
+				.error(function (error) {
+					console.log(error);
+				});
+			$scope.logOut = function () {
+				AuthService.userLogOut()
+					.then(function (res) {
+						storageService.deleteStorage();
+						$state.go('login');
+					}, function (err) {
+						console.log(err);
+					});
+			};
 
-            $scope.openMenu = function () {
-                if ($window.innerWidth <= 800) {
-                    $scope.showMenu = !$scope.showMenu;
-                } else {
-                    $scope.showMenu = true;
-                }
-            };
+			$scope.openMenu = function () {
+				if ($window.innerWidth <= 800) {
+					$scope.showMenu = !$scope.showMenu;
+				} else {
+					$scope.showMenu = true;
+				}
+			};
 
-            $scope.openBottomMenu = function () {
-                if ($window.innerWidth <= 650) {
-                    $scope.showBottomMenu = !$scope.showBottomMenu;
-                } else {
-                    $scope.showBottomMenu = false;
-                }
-            };
+			$scope.openBottomMenu = function () {
+				if ($window.innerWidth <= 650) {
+					$scope.showBottomMenu = !$scope.showBottomMenu;
+				} else {
+					$scope.showBottomMenu = false;
+				}
+			};
 
-            var w = angular.element($window);
-            $scope.$watch(
-                function () {
-                    return $window.innerWidth;
-                },
-                function (value) {
-                    if (value <= 800) {
-                        $scope.showMenu = false;
-                    } else {
-                        $scope.showMenu = true;
-                    }
+			var w = angular.element($window);
+			$scope.$watch(
+				function () {
+					return $window.innerWidth;
+				},
+				function (value) {
+					if (value <= 800) {
+						$scope.showMenu = false;
+					} else {
+						$scope.showMenu = true;
+					}
 
-                    if (value <= 650) {
-                        $scope.showBottomMenu = false;
-                    } else {
-                        $scope.showBottomMenu = true;
-                    }
+					if (value <= 650) {
+						$scope.showBottomMenu = false;
+					} else {
+						$scope.showBottomMenu = true;
+					}
 
-                    if (value < 520) {
-                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
-                        $scope.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
-                        $scope.resizeHeight = 'height:' + blockThirdthLength + 'px;';
-                    } else {
-                        $scope.resizeSizes = '';
-                        $scope.resizeHeight = '';
-                    }
-                },
-                true
-            );
-            w.bind('resize', function () {
-                $scope.$apply();
-            });
+					if (value < 520) {
+						var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
+						$scope.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
+						$scope.resizeHeight = 'height:' + blockThirdthLength + 'px;';
+					} else {
+						$scope.resizeSizes = '';
+						$scope.resizeHeight = '';
+					}
+				},
+				true
+			);
+			w.bind('resize', function () {
+				$scope.$apply();
+			});
 
-            /*Page content*/
+			/*Page content*/
 
-            if($state.current.name === "chat"){           
-                $state.go("chat.list");
-            }
-            //FOR TEST
+			if($state.current.name === "chat"){           
+				$state.go("chat.list");
+			}
+			//FOR TEST
 
-            // $scope.opponent = {
-            //     avatar_path:"http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico",
-            //     birthday:"0000-00-00",
-            //     country_id:12,
-            //     created_at:"2016-06-21 06:38:44",
-            //     first_name:"Елена",
-            //     gender:"0",
-            //     id:2,
-            //     is_avatar:1,
-            //     is_online:true,
-            //     is_private:1,
-            //     is_sub:false,
-            //     is_visible:1,
-            //     last_name:"Новикова",
-            //     login:"lenka-kolenka",
-            //     original_avatar_path:"/upload/avatars/tx3bEJMG10.png",
-            //     phone:"380930000000",
-            //     publications_count:29,
-            //     status:"Azaza",
-            //     subscribers_count:2,
-            //     subscription_count:2,
-            //     updated_at:"2016-07-08 09:55:09"
-            // }
+			// $scope.opponent = {
+			//     avatar_path:"http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico",
+			//     birthday:"0000-00-00",
+			//     country_id:12,
+			//     created_at:"2016-06-21 06:38:44",
+			//     first_name:"Елена",
+			//     gender:"0",
+			//     id:2,
+			//     is_avatar:1,
+			//     is_online:true,
+			//     is_private:1,
+			//     is_sub:false,
+			//     is_visible:1,
+			//     last_name:"Новикова",
+			//     login:"lenka-kolenka",
+			//     original_avatar_path:"/upload/avatars/tx3bEJMG10.png",
+			//     phone:"380930000000",
+			//     publications_count:29,
+			//     status:"Azaza",
+			//     subscribers_count:2,
+			//     subscription_count:2,
+			//     updated_at:"2016-07-08 09:55:09"
+			// }
 
-            $scope.pub = {
-                comment_count:0,
-                comments:[],
-                cover:"",
-                created_at:"2016-07-08 12:21:05",
-                group:[],
-                id:46,
-                images:[
-                    ],
-                is_anonym:0,
-                is_main:0,
-                is_moderate:0,
-                is_topic:0,
-                like_count:0,
-                text:"asd sad asd asd",
-                updated_at:"2016-07-08 12:55:11",
-                user_id:2,
-                user_like:false,
-                videos:[]
-            };
+			$scope.pub = {
+				comment_count:0,
+				comments:[],
+				cover:"",
+				created_at:"2016-07-08 12:21:05",
+				group:[],
+				id:46,
+				images:[
+					],
+				is_anonym:0,
+				is_main:0,
+				is_moderate:0,
+				is_topic:0,
+				like_count:0,
+				text:"asd sad asd asd",
+				updated_at:"2016-07-08 12:55:11",
+				user_id:2,
+				user_like:false,
+				videos:[]
+			};
 
-            $scope.pub.user = {
-                avatar_path:"http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico",
-                birthday:"0000-00-00",
-                country_id:12,
-                created_at:"2016-06-21 06:38:44",
-                first_name:"Елена",
-                gender:"0",
-                id:2,
-                is_avatar:1,
-                is_online:true,
-                is_private:1,
-                is_sub:false,
-                is_visible:1,
-                last_name:"Новикова",
-                login:"lenka-kolenka",
-                original_avatar_path:"/upload/avatars/tx3bEJMG10.png",
-                phone:"380930000000",
-                publications_count:29,
-                status:"Azaza",
-                subscribers_count:2,
-                subscription_count:2,
-                updated_at:"2016-07-08 09:55:09"
-            }
+			$scope.pub.user = {
+				avatar_path:"http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico",
+				birthday:"0000-00-00",
+				country_id:12,
+				created_at:"2016-06-21 06:38:44",
+				first_name:"Елена",
+				gender:"0",
+				id:2,
+				is_avatar:1,
+				is_online:true,
+				is_private:1,
+				is_sub:false,
+				is_visible:1,
+				last_name:"Новикова",
+				login:"lenka-kolenka",
+				original_avatar_path:"/upload/avatars/tx3bEJMG10.png",
+				phone:"380930000000",
+				publications_count:29,
+				status:"Azaza",
+				subscribers_count:2,
+				subscription_count:2,
+				updated_at:"2016-07-08 09:55:09"
+			}
 
-            $scope.refTo = function(stateName){    
-                $state.go(stateName);
-            };
-            $scope.showContactData = function(contactId){
-                console.log(contactId);
-            };
-            $scope.clearChat = function(userId, chatId){
-                console.log(userId, chatId);
-            };
-            $scope.deleteChat = function(userId, chatId){
-                console.log(userId, chatId);
-            };
+			// $scope.contactBlock = {};
+			// $scope.chatBlock = {};
 
-            function loadUserContacts(){                
-               var subs = [];
-               var sub = [];
-               PublicationService.getSubscription($scope.loggedUserId).then(function(response){                        
-                        sub = response;
-                        PublicationService.getSubscribers($scope.loggedUserId)
-                            .then(function(response){
-                                subs = response;
+			$scope.refTo = function(stateName){    
+				$state.go(stateName);
+			};
+			$scope.Model.currTabName = $state.current.name;
+			$scope.showContactData = function(contactId){
+				console.log(contactId);
+			};
+			$scope.clearChat = function(userId, chatId){
+				console.log(userId, chatId);
+			};
+			$scope.deleteChat = function(userId, chatId){
+				console.log(userId, chatId);
+			};
 
-                                var contacts = [];
-                                for(var i in sub){
-                                   var shared = false;
-                                   for (var j in subs)
-                                       if (subs[j].id == sub[i].id) {
-                                           shared = true;
-                                           break;
-                                       }
-                                   if(!shared) contacts.push(sub[i])
-                                }
-                                contacts = contacts.concat(subs);
-                                $scope.userContacts = contacts;
-                            },
-                            function(error){
-                                console.log(error);
-                            }); 
+			// function loadUserContacts(){                
+			//    var subs = [];
+			//    var sub = [];
+			//    PublicationService.getSubscription($scope.loggedUserId).then(function(response){                        
+			//             sub = response;
+			//             PublicationService.getSubscribers($scope.loggedUserId)
+			//                 .then(function(response){
+			//                     subs = response;
 
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
+			//                     var contacts = [];
+			//                     for(var i in sub){
+			//                        var shared = false;
+			//                        for (var j in subs)
+			//                            if (subs[j].id == sub[i].id) {
+			//                                shared = true;
+			//                                break;
+			//                            }
+			//                        if(!shared) contacts.push(sub[i])
+			//                     }
+			//                     contacts = contacts.concat(subs);
+			//                     $scope.userContacts = contacts;
+			//                 },
+			//                 function(error){
+			//                     console.log(error);
+			//                 }); 
 
-            loadUserContacts();
-        
+			//         },
+			//         function(error){
+			//             console.log(error);
+			//         });
+			// };
 
-            $scope.sendMes = function(message){
-            	socket.emit('create room', {userIdTo: 2, userIdFrom: 5});
-                console.log(message);
-                $scope.chatMes = '';
-            };
+			// loadUserContacts();
 
-            $scope.openChatWith = function(opponent){
-                console.log(opponent);
-                $scope.opponent = opponent;
-                $scope.openChatBlock = true;                
-            };
+			function loadUserContacts(){
+				PublicationService.getSubscribers($scope.loggedUserId)
+					.then(function(response){
+						$scope.Model.subscribers = response;                        
+					},
+					function(error){
+						console.log(error);
+					});
 
-             $scope.reloadOpponentData = function(){
-                return $scope.opponent;
-             }
+				PublicationService.getSubscription($scope.loggedUserId)
+					.then(function(response){
+						$scope.Model.subscriptions = response;                        
+					},
+					function(error){
+						console.log(error);
+					});                
+			}
 
+			$scope.Model.loadUserContactList = function(){
+				loadUserContacts();
+			};
 
+			$scope.Model.showContactData = function(contact){
+				if ($state.current.name === 'chat.list') {
+					$scope.Model.showChatBlock = false;
+					$state.go('chat.contacts');
+				}
+				$scope.Model.showContactBlock = true;
+				$scope.Model.displayContactBlock = true;
+				$scope.Model.contact = contact;
+			}            
 
-    }]);
+			$scope.Model.openChatWith = function(opponent){                
+				if ($state.current.name === 'chat.contacts') {
+					$scope.Model.showContactBlock = false;
+					$state.go('chat.list');
+				}
+				$scope.Model.opponent = opponent; 
+				$scope.Model.showChatBlock = true; 
+				$scope.Model.displayChatBlock = true;
+
+				var data = {
+					userIdFrom: $scope.loggedUserId,
+					userIdTo: opponent.id
+				};
+
+				socket.emit('create room', data);
+			};
+			socket.emit("get user rooms", $scope.loggedUserId);
+			socket.on("get user rooms", function(response){
+				console.log(response);
+			});
+			
+			$scope.Model.sendMes = function(message){
+				// console.log(message);
+				var data = {
+					userId: $scope.loggedUserId,
+					message: message
+				}
+				$scope.Model.chatMes = '';
+
+				socket.emit('sendMessage', data, function(){
+					
+				});
+
+			};
+
+	}]);
