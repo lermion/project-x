@@ -26,7 +26,7 @@
 		<div class="new-add" ng-scrollbar rebuild-on="loadPubFiles || rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
 			<div class="new-img" ng-repeat="file in editedPubFilesArray" ng-init="rebuildScroll()">		  
 				<div class="inner">
-					<div class="close" ng-click="editedPubDeletePhoto($index, file.id)">
+					<div class="close" ng-click="editedPubDeleteFile($index, file.id, file.pivot)">
 						<div class="close-inner">
 							<p>Удалить</p>
 						</div>
