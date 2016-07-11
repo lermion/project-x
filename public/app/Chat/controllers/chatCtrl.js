@@ -10,7 +10,6 @@ angular.module('placePeopleApp')
             var storage = storageService.getStorage();
             $scope.loggedUser = storage.username;
             $scope.loggedUserId = storage.userId;
-
             $http.get('/static_page/get/name')
                 .success(function (response) {
                     $scope.staticPages = response;
@@ -202,6 +201,7 @@ angular.module('placePeopleApp')
         
 
             $scope.sendMes = function(message){
+            	socket.emit('create room', {userIdTo: 2, userIdFrom: 5});
                 console.log(message);
                 $scope.chatMes = '';
             };
