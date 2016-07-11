@@ -3096,3 +3096,228 @@ span.users-today-time-time.early {
   border-radius: 3px;
   color: rgb(92,108,135);
 }
+
+
+
+
+
+
+
+
+/*CHAT*/
+.chat-right-chat-inner {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.chat-message-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.chat-message-date span {
+  background-color: gray;
+  border-radius: 10px;
+  padding: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #fff;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.my-msg-wrap {
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.my-msg-wrap:after{
+  bottom: -2px;
+  right: -4px;
+  background-image: url(/images/my-user-tail.png);
+  background-repeat: no-repeat;
+  left: auto;
+  width: 15px;
+  content: " ";
+  height: 10px;
+  position: absolute;
+}
+.right-chat-my-msg {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  padding-right: 0px;
+  align-items: flex-end;
+  background-color: rgb(215,226,250);
+  border-radius: 10px;
+  box-sizing: border-box;  
+}
+.right-chat-my-msg-inner {
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayLight";
+  font-weight: 600;
+  color: rgb(116,120,130);
+}
+.right-chat-my-msg-date {
+  display: flex;
+  margin-right: 5px;
+  box-sizing: border-box;
+  background-image: url(/images/done.png);
+  background-position: right center;
+  background-size: 20%;
+  background-repeat: no-repeat;
+}
+.right-chat-my-msg-date span {
+  font-family: "SFUIDisplayLight";
+  font-size: 11.6px;
+  color: gray;
+  line-height: 20px;
+  box-sizing: border-box;
+  margin-left: 10px;
+  padding-right: 15px;
+  }
+.my-msg-inner-photo {
+  flex-wrap: wrap;
+  max-height: 204px;
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  margin-top: 10px;
+}
+.my-img-inner-photo-pict {
+    width: 140px;
+    height: 100px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+}
+ .my-img-inner-photo-pict img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+ }
+
+
+.to-my-msg-wrap {
+  display: flex;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+.to-my-msg-wrap:after{
+  bottom: -3px;
+  left: 4px;
+  background-image: url(/images/user-tail.png);
+  background-repeat: no-repeat;
+  right: auto;
+  width: 15px;
+  content: "";
+  height: 10px;
+  position: absolute;
+  /*padding-left: 10px;*/
+}
+.right-chat-to-my-msg {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  padding-right: 0px;
+  align-items: flex-end;
+  background-color: rgb(255,255,255);
+  border-radius: 10px;
+  box-sizing: border-box;  
+}
+.right-chat-to-my-msg-inner {
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayLight";
+  font-weight: 600;
+  color: rgb(116,120,130);
+}
+.right-chat-to-my-msg-date {
+  display: flex;
+  margin-right: 5px;
+  box-sizing: border-box;
+  background-image: url(/images/done.png);
+  background-position: right center;
+  background-size: 20%;
+  background-repeat: no-repeat;
+}
+.right-chat-to-my-msg-date span {
+  font-family: "SFUIDisplayLight";
+  font-size: 11.6px;
+  color: gray;
+  line-height: 20px;
+  box-sizing: border-box;
+  margin-left: 10px;
+  padding-right: 15px;
+  }
+.to-my-msg-inner-photo {
+  flex-wrap: wrap;
+  max-height: 204px;
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  margin-top: 10px;
+}
+.to-my-img-inner-photo-pict {
+    width: 140px;
+    height: 100px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+}
+ .to-my-img-inner-photo-pict img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+ }
+
+
+
+
+
+ .group-comments .pictures {
+    padding: 5px 10px;
+    overflow-x: auto;
+    max-height: 107px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.group-comments .pictures .pic:nth-child(4n) {
+    margin-right: 0;
+}
+
+    
