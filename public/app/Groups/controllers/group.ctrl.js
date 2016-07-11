@@ -5,21 +5,27 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$filter', '$rootScope', '$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog', 'groupsService'];
+    GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
+        'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService'];
 
-    function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog, groupsService) {
+    function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
+                       AuthService, storageService, ngDialog, groupsService, UserService) {
 
         var vm = this;
         var storage = storageService.getStorage();
 
         var myId = storage.userId;
 
-        var modalEditGroup, modalDeleteGroup;
+        var modalEditGroup, modalDeleteGroup, modalInviteUsers;
         var groupName = $stateParams.groupName;
 
-        vm.group = {};
+        vm.group = group;
         vm.groupEdited = {};
         vm.showGroupMenu = false;
+        vm.subscribers = [];
+        vm.invitedUsers = [];
+
+        vm.inviteNotSend = true;
         $scope.emoji = {};
 
         activate();
@@ -28,7 +34,6 @@
 
         function activate() {
             init();
-            getGroup();
         }
 
         function init() {
@@ -132,6 +137,17 @@
             });
         };
 
+        vm.openModalInviteUsers = function () {
+            getSubscribers().then(function () {
+                modalInviteUsers = ngDialog.open({
+                    template: '../app/Groups/views/popup-invite-group.html',
+                    name: 'modal-invite-group',
+                    className: 'popup-invite-group ngdialog-theme-default',
+                    scope: $scope
+                });
+            });
+        };
+
         vm.deleteGroup = function () {
             groupsService.deleteGroup(vm.group.id)
                 .then(function (data) {
@@ -162,22 +178,80 @@
                 });
         };
 
-        function getGroup() {
-            return groupsService.getGroup(groupName)
+        vm.onItemSelected = function (user) {
+            var isExist = $filter('getById')(vm.invitedUsers, user.id);
+
+            if (!isExist) {
+                var item = {
+                    userId: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    avatar: user.avatar_path,
+
+                    isAdmin: false
+                };
+                vm.invitedUsers.push(item);
+            }
+        };
+
+        vm.removeUser = function (user) {
+            for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
+                if (vm.invitedUsers[i].userId == user.userId) {
+                    vm.invitedUsers.splice(i, 1);
+                }
+            }
+        };
+
+        vm.submitInviteUsers = function () {
+            if (!vm.inviteNotSend) {
+                return false;
+            }
+            groupsService.inviteUsers(group.id, vm.invitedUsers)
                 .then(function (data) {
-                    vm.group = data;
-                    vm.group.is_open = !!vm.group.is_open;
-                    vm.group.avatarIsChange = false;
+                    if (data.status) {
+                        vm.inviteNotSend = false;
+                        $timeout(function () {
+                            resetFormInviteUsers();
+                            modalInviteUsers.close();
+                        }, 2000);
+                    }
+                });
+        };
 
-                    //TODO: remove!
-                    vm.group.isAdmin = true;
+        vm.abortInviteUsers = function () {
+            resetFormInviteUsers();
+            modalInviteUsers.close();
+        };
 
 
-                    $scope.emoji.messagetext = data.description;
-                    //$scope.emoji.rawhtml = '123';
-                    //$rootScope.$broadcast('emoji:group', {message: data.description});
+        function getSubscribers() {
+            return UserService.getSubscribers(myId)
+                .then(function (subscribers) {
+                    vm.subscribers = subscribers;
                 });
         }
+
+        function resetFormInviteUsers() {
+            vm.invitedUsers = [];
+            vm.subscribers = [];
+            vm.inviteNotSend = true;
+        }
+
+        //function getGroup() {
+        //    return groupsService.getGroup(groupName)
+        //        .then(function (data) {
+        //            if (data) {
+        //                vm.group = data;
+        //                vm.group.is_open = !!vm.group.is_open;
+        //                vm.group.avatarIsChange = false;
+        //
+        //                $scope.emoji.messagetext = data.description;
+        //            } else {
+        //                showNoticeGroupNotFound();
+        //            }
+        //        });
+        //}
+
     }
 
 })(angular);
