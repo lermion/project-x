@@ -232,6 +232,9 @@ angular.module('app.groups')
                 groupsService.addGroup($scope.newGroup)
                     .then(function (data) {
                         if (data.status) {
+                            data.group.users = [{id: myId}];
+                            $scope.groupList.push(data.group);
+
                             if ($scope.newGroup.users.length > 0) {
                                 inviteUsers(data.group.id);
                             } else {

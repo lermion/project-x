@@ -3291,6 +3291,7 @@ span.users-today-time-time.early {
   padding-right: 10px;
   border-radius: 3px;
   color: rgb(92,108,135);
+    cursor: pointer;
 }
 
 
