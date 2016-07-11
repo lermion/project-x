@@ -72,30 +72,26 @@ angular.module('placePeopleApp')
 	      templateUrl: '../../app/Chat/views/chat-main.html',
 	      controller: 'chatCtrl'
 	    })
-	    .state('chat.list', {
-	      url: '/',
-	      parent: 'chat',
-	      templateUrl: '../../app/Chat/views/chat-list.html',
-	      // controller: 'chatCtrl'
-	    })
-	    .state('chat.contacts', {
-	      url: '/contacts',
-	      parent: 'chat',
-	      templateUrl: '../../app/Chat/views/chat-contacts.html',
-	      // controller: 'chatCtrl'
-	    })
-	    .state('chat.blocked', {
-	      url: '/blocked',
-	      parent: 'chat',
-	      templateUrl: '../../app/Chat/views/chat-blocked.html',
-	      // controller: 'chatCtrl'
-	    })
-	    .state('chat.menu', {
-	      url: '/menu',
-	      parent: 'chat',
-	      templateUrl: '../../app/Chat/views/chat-menu.html',
-	      // controller: 'chatCtrl'
-	    })
+		    .state('chat.list', {
+		      url: '/',
+		      parent: 'chat',
+		      templateUrl: '../../app/Chat/views/chat-list.html',	      
+		    })
+		    .state('chat.contacts', {
+		      url: '/contacts',
+		      parent: 'chat',
+		      templateUrl: '../../app/Chat/views/chat-contacts.html'
+		    })
+		    .state('chat.blocked', {
+		      url: '/blocked',
+		      parent: 'chat',
+		      templateUrl: '../../app/Chat/views/chat-blocked.html'
+		    })
+		    .state('chat.menu', {
+		      url: '/menu',
+		      parent: 'chat',
+		      templateUrl: '../../app/Chat/views/chat-menu.html'
+		    })
 
 	    /*User must be in the end*/
 	    .state('user', {
