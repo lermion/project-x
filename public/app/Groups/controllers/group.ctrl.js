@@ -5,19 +5,19 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$filter', '$rootScope', '$scope', '$state', '$stateParams', '$http', '$window', 'AuthService', 'storageService', 'ngDialog', 'groupsService'];
+    GroupCtrl.$inject = ['$filter', '$rootScope', '$scope', '$state', '$stateParams', 'group', '$http', '$window', 'AuthService', 'storageService', 'ngDialog', 'groupsService'];
 
-    function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, $http, $window, AuthService, storageService, ngDialog, groupsService) {
+    function GroupCtrl($filter, $rootScope, $scope, $state, $stateParams, group, $http, $window, AuthService, storageService, ngDialog, groupsService) {
 
         var vm = this;
         var storage = storageService.getStorage();
 
         var myId = storage.userId;
 
-        var modalEditGroup, modalDeleteGroup;
+        var modalEditGroup, modalDeleteGroup, modalNoticeGroupNotFound;
         var groupName = $stateParams.groupName;
 
-        vm.group = {};
+        vm.group = group;
         vm.groupEdited = {};
         vm.showGroupMenu = false;
         $scope.emoji = {};
@@ -28,7 +28,7 @@
 
         function activate() {
             init();
-            getGroup();
+            //getGroup();
         }
 
         function init() {
@@ -162,21 +162,33 @@
                 });
         };
 
-        function getGroup() {
-            return groupsService.getGroup(groupName)
-                .then(function (data) {
-                    vm.group = data;
-                    vm.group.is_open = !!vm.group.is_open;
-                    vm.group.avatarIsChange = false;
+        vm.stateGo = function (state) {
+            $state.go(state);
+            modalNoticeGroupNotFound.close();
+        };
 
-                    //TODO: remove!
-                    vm.group.isAdmin = true;
+        //function getGroup() {
+        //    return groupsService.getGroup(groupName)
+        //        .then(function (data) {
+        //            if (data) {
+        //                vm.group = data;
+        //                vm.group.is_open = !!vm.group.is_open;
+        //                vm.group.avatarIsChange = false;
+        //
+        //                $scope.emoji.messagetext = data.description;
+        //            } else {
+        //                showNoticeGroupNotFound();
+        //            }
+        //        });
+        //}
 
-
-                    $scope.emoji.messagetext = data.description;
-                    //$scope.emoji.rawhtml = '123';
-                    //$rootScope.$broadcast('emoji:group', {message: data.description});
-                });
+        function showNoticeGroupNotFound() {
+            modalNoticeGroupNotFound = ngDialog.open({
+                template: '../app/Groups/views/popup-notfound-group.html',
+                name: 'modal-notfound-group',
+                className: 'popup-delete-group ngdialog-theme-default',
+                scope: $scope
+            });
         }
     }
 
