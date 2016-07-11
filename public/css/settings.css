@@ -2545,7 +2545,7 @@ p.top-person-status {
   border: 1px solid #e0e2e5;
   background-color: #fff;
   box-sizing: border-box;
-  margin-bottom: 19px;
+  margin-bottom: 0px;
   font-family: "SFUIDisplayMedium";
 
 }
@@ -2688,6 +2688,7 @@ p.top-person-status {
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
+  height: 60px;
 }
 .chat-left-users-users-today.active {
   background-color: rgb(245,245,245);
@@ -3291,6 +3292,9 @@ span.users-today-time-time.early {
   flex-wrap: wrap;
   box-sizing: border-box;
   padding: 10px;
+  background: url(../images/chat-bg.png) repeat;
+  max-height: 600px;
+  overflow-y: auto;
 }
 .chat-message-date {
   display: flex;
@@ -3500,6 +3504,7 @@ span.users-today-time-time.early {
   width: 100%;
   justify-content: flex-end;
   box-sizing: border-box;
+  margin-top: 30px;
 }
 .chat-publication-wrap {
   width: 80%;
@@ -3518,7 +3523,7 @@ span.users-today-time-time.early {
   box-sizing: border-box;
   width: 100%;
   padding: 5px;
-  font-family: "SFUIDisplayMedium";
+  font-family: "SFUIDisplayLight";
   font-size: 14.6px;
   line-height: 21px;
 }
@@ -3574,3 +3579,104 @@ span.users-today-time-time.early {
   background-position: left 5px center;
   margin-right: 5px;
 }
+.relations-right-img {
+  background-image: url(/images/chat-tab-chat.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  padding-right: 30px;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+}
+.chat-right-top-person.my-msg {
+  background-color: rgb(215, 226, 250);
+}
+
+.chat-right-inner-publication-to-my {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+.chat-right-top-person.to-my-msg {
+  background-color: #fff;
+}
+.chat-publication-wrap.to-my-msg {
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 1px solid #e0e2e5;
+}
+.chat-right-top-person.chat-my-msg {
+  border: 0px;
+}
+
+
+.chat-right-send-wrap {
+  width: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+
+}
+.send-wrap-top {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-right-send-smile {
+    display: block;
+    width: 45px;
+    height: 40px;
+    background-image: url(../images/smil.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    box-sizing: border-box;
+}
+.chat-right-send-wrap textarea {
+    resize: none;
+    width: 75%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    font-size: 14.6px;
+    color: #999;
+    background: #fff;
+    padding: 5px 30px 5px 10px;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayLight";
+    height: 30px;
+ }
+ .send-add-file {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+ }
+.send-add-file a {
+  width: 100%;
+  height: 100%;
+  background-image: url(/images/clip.png);
+  background-repeat: no-repeat;
+  background-position: left 5px center;
+  background-size: 70%;
+}
+.chat-send-btn {
+  display: flex;
+  color: #495b79;
+  font-family: "SFUIDisplayMedium";
+  padding: 5px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.chat-send-btn:hover {
+  border: 1px solid #495b79;
+  color: #495b79;
+  background: transparent;
+  cursor: pointer;
+ }
