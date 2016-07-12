@@ -8,6 +8,9 @@ var connection = mysql.createConnection({
 	password : config.password,
 	database: config.database
 });
+setInterval(function () {
+    connection.query('SELECT 1');
+}, 5000);
 connection.connect(function(error){
 	if(error){
 		console.log('error connecting: ' + error.stack);
