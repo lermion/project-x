@@ -9,9 +9,26 @@ var Queries = require('./queries');
 var connection = new DatabaseConnection();
 var queries = new Queries();
 var users = {};
+var usernames = {
+	username: null
+};
+var rooms = ['room1','room2','room3'];
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
+		socket.username = username;
+		var username = "vlad";
+		// store the room name in the socket session for this client
+		socket.room = 'room1';
+		// add the client's username to the global list
+		usernames[username] = username;
+		// send client to room 1
+		socket.join('room1');
+		// echo to client they've connected
+		socket.emit('updatechat', 'SERVER', 'you have connected to room1');
+		// echo to room 1 that a person has connected to their room
+		socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
+		socket.emit('updaterooms', rooms, 'room1');
 		data.created_at = new Date();
 		data.updated_at = new Date();
 		queries.createRoom(data).then(function(response){
@@ -85,7 +102,8 @@ io.sockets.on('connection', function(socket){
 	socket.on('send message', function(data){
 		queries.sendMessage(data).then(function(response){
 			queries.getUserDialogue(data).then(function(response){
-				socket.emit('send message', response);
+				io.sockets.in(socket.room).emit('updatechat', socket.username, response);
+				//socket.emit('send message', response);
 			},
 			function(error){
 				console.log(error);
