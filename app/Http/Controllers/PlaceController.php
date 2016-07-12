@@ -16,7 +16,12 @@ class PlaceController extends Controller
 {
     public function index()
     {
-        //
+        return Place::with(['users'])->get();
+    }
+
+    public function adminPlace()
+    {
+        return Place::join('place_users','place_users.place_id','=','places.id')->where(['place_users.user_id'=>Auth::id(),'is_admin'=>true])->get();
     }
 
     public function create(Request $request)
@@ -80,21 +85,141 @@ class PlaceController extends Controller
         return response()->json(["status" => true, 'place' => $place]);
     }
 
-
-
-
-
     public function show($name)
     {
         $place = Place::where('url_name', $name)->first();
-       /* if ($place) {
+        if ($place) {
             if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
-                //return null;
+                return null;
             }
             $place->count_users = $place->users()->count();
             $place->count_publications = $place->publications()->count();
-        }*/
+//            $place->users = Place::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'place_users.is_admin')
+//                ->where('place_users.place_id',$place->id)->get();
+            if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
+                $place->is_sub = true;
+            } else {$place->is_sub = false;}
+            if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
+                $place->is_admin = true;
+            } else {$place->is_admin = false;}
+        }
         return $place;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:places',
+                'description' => 'required',
+                'city_id' =>'required',
+                'address' => 'required',
+                'coordinates_x'=> 'required|numeric',
+                'coordinates_y'=> 'required|numeric',
+                'avatar' => 'image',
+                'cover' => 'image',
+                'type_place_id' => 'required'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        if (!PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $id, 'is_admin' => true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $placeData = $request->all();
+        $placeData['url_name'] = $this->transliterate($request->input('name'));
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $path = Image::getAvatarPath($avatar);
+            $placeData['avatar'] = $path;
+        }
+        $place = Place::find($id);
+        $place->update($placeData);
+        return response()->json(["status" => true]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function destroy($id)
+    {
+        if (!$placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $id, 'is_admin' => true, 'is_creator' => true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        if ($place = Place::find($id)) {
+            $place->delete();
+        }
+        return response()->json(["status" => true]);
+    }
+
+    public function subscription($id)
+    {
+        if ($place = Place::find($id)) {
+            if ($user = PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+                $isSub = false;
+                $user->delete();
+            } else {
+                $isSub = true;
+                if($place->is_open){
+                    PlaceUser::create(['place_id' => $place->id, 'user_id' => Auth::id()]);
+                }elseif ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
+                    $invite->delete();
+                    PlaceUser::create(['place_id' => $place->id, 'user_id' => Auth::id()]);
+                }else{
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => "Permission denied",
+                            'code' => '8'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
+            }
+            return response()->json(['status' => true, 'is_sub' => $isSub]);
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
     }
 
     public function setUserAdmin($placeId, $userId){
@@ -180,6 +305,38 @@ class PlaceController extends Controller
             return response()->json($result);
         }
     }
+
+    public function setUserCreator($placeId,$userId)
+    {
+        if ($place = Place::find($placeId)) {
+            if (!$creatorUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true, 'is_creator' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            if ($user = PlaceUser::where(['place_id' => $place->id, 'user_id' => $userId, 'is_admin' => true])->first()) {
+                $user->is_creator = !$user->is_creator;
+                $creatorUser->delete();
+                $user->save();
+                return response()->json(['status' => true, 'is_creator' => $user->is_creator]);
+            } else {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Incorrect group id",
+                        'code' => '6'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+    }
+
 
     function transliterate($input)
     {

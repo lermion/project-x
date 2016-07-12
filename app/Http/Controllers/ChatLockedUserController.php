@@ -16,7 +16,7 @@ class ChatLockedUserController extends Controller
         return $locked_users;
     }
 
-    public function create($locked_user_id)
+    public function locked($locked_user_id)
     {
         if ($chat_locked_user = ChatLockedUser::where(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()])->first()) {
             $chat_locked_user->delete();

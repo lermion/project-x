@@ -16,9 +16,8 @@ io.sockets.on('connection', function(socket){
 		data.updated_at = new Date();
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
-				console.log("these users already have the room");
 				queries.getUserDialogue(data).then(function(response){
-					console.log(response);
+					socket.emit('send message', response);
 				},
 				function(error){
 					console.log(error);
@@ -84,14 +83,7 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
-		console.log(data);
-		var message = {
-			user_id: data.userId,
-			text: data.message,
-			created_at: new Date(),
-			updated_at: new Date()
-		};
-		queries.sendMessage(message).then(function(response){
+		queries.sendMessage(data).then(function(response){
 			console.log(response);
 		},
 		function(error){
