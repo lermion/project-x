@@ -51,15 +51,15 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | limitTo: limitMyGroups">
+                             ng-repeat="group in groupList | filter: {'is_admin': true}:true | limitTo: limitMyGroups">
                             <div class="group-cover">
                                 <a ui-sref="group({groupName: group.url_name})" class="group-ava">
                                     <img ng-src="{{group.avatar}}">
                                 </a>
 
                                 <div class="group-likes">
-                                    <a href="" class="group-like">149</a>
-                                    <a href="" class="group-comments">1052</a>
+                                    <a href="" class="group-like">{{::group.count_user}}</a>
+                                    <a href="" class="group-comments">{{::group.publications}}</a>
                                 </div>
                             </div>
                             <div class="titles">
@@ -79,7 +79,7 @@
                             <h4>Все публичные группы</h4>
                         </div>
                         <select class="groups-filter" name="" id="" ng-model="filterGroups.value" ng-if="showAllButtons">
-                            <option value="-users.length">Популярные</option>
+                            <option value="-count_user">Популярные</option>
                             <option value="-created_at">Новые</option>
                         </select>
 
@@ -99,8 +99,8 @@
                                 </a>
 
                                 <div class="group-likes">
-                                    <a href="" class="group-like">149</a>
-                                    <a href="" class="group-comments">1052</a>
+                                    <a href="" class="group-like">{{::group.count_user}}</a>
+                                    <a href="" class="group-comments">{{::group.publications}}</a>
                                 </div>
                             </div>
                             <div class="titles">
