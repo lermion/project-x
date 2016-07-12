@@ -3860,3 +3860,40 @@ span.users-today-time-time.early {
     color: rgb(70, 120, 177);
     background-color: rgb(245, 245, 245);
 }
+
+
+.users-menu-tab-menu-do {
+  position: relative;
+}
+.users-menu-tab-menu-do-inner {
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px;
+  position: absolute;
+  top: 65px;
+  left: -70px;
+  box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+  background-color: #fff;
+}
+.chat-do-inner-link-create {
+  width: 100%;
+  line-height: 35px;
+  text-decoration: none;
+  padding-left: 15px;
+  font-size: 14.6px;
+}
+.chat-do-inner-link-create:hover {
+  color: rgb(70, 120, 177);
+  background-color: rgb(245, 245, 245);
+}
+.chat-do-inner-link-alert {
+  width: 100%;
+  line-height: 35px;
+  text-decoration: none;
+  padding-left: 15px;
+  font-size: 14.6px;
+}
+.chat-do-inner-link-alert:hover {
+  color: rgb(70, 120, 177);
+  background-color: rgb(245, 245, 245);
+}
