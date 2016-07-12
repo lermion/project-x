@@ -17,7 +17,7 @@ class UserTest extends TestCase
     {
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
-            $user = \App\User::create(['phone'=>'380731059230','password'=>bcrypt('123'),'country_id'=>1]);
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
         }
         $this->be($user);
         $this->json('POST', 'user/update/', ['first_name' => 'test','last_name'=>'test'])
@@ -31,7 +31,7 @@ class UserTest extends TestCase
     {
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
-            $user = \App\User::create(['phone'=>'380731059230','password'=>bcrypt('123'),'country_id'=>1]);
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
         }
         $this->withSession(['canRegistered' => true,'user_id' => $user->id])
             ->json('POST', 'user/add_first_info/', ['login' => 'test','password'=>'testtest','first_name'=>'test','last_name'=>'test'])
@@ -45,8 +45,11 @@ class UserTest extends TestCase
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
             $user = \App\User::create(['phone'=>'380731059230','login'=>'bonep','password'=>bcrypt('123'),'country_id'=>1]);
+        }elseif(!$user->login){
+            $user->login = 'bonep';
+            $user->save();
         }
         $this->json('GET', 'user/show/'.$user->login)->AssertResponseOk() ;
     }
-    
+
 }

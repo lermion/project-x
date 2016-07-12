@@ -1,37 +1,24 @@
 
-	    	<div class="chat-left-users-container">
+	    	<div class="chat-left-users-container" ng-init="getLockedUsers()">
 		    	<div class="chat-left-users-all blocked-users">	
 
-			    	<div class="chat-left-users-users-today">
+			    	<div class="chat-left-users-users-today" ng-repeat="blockedUser in Model.subscribers">
 			    		<div class="chat-users-today-ava">
 			    			<a >
-			    				<img src="https://pbs.twimg.com/profile_images/633782900077408256/F541mrSs_400x400.jpg" alt="">
+			    				<img ng-src="{{blockedUser.avatar_path}}" alt="">
 			    			</a>
 			    		</div>
 
-			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
+			    		<div class="chat-users-today-data" ng-click="Model.showBlockedContactChat(blockedUser)" style="cursor:pointer;">
 			    			<div class="chat-users-today-info tab-contact-title">
-			    				<p class="users-today-name">Елена Новикова</p>
-			    				<p class="users-today-message">Солнце, море и вода</p>
+			    				<p class="users-today-name">{{blockedUser.first_name + ' ' +  blockedUser.last_name}}</p>
+			    				<p class="users-today-message">{{blockedUser.status}}</p>
 			    			</div>
 			    			
 			    		</div>
-			    	</div>
-			    	<div class="chat-left-users-users-today">
-			    		<div class="chat-users-today-ava">
-			    			<a >
-			    				<img src="https://pbs.twimg.com/profile_images/633782900077408256/F541mrSs_400x400.jpg" alt="">
-			    			</a>
-			    		</div>
+			    	</div>	
 
-			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
-			    			<div class="chat-users-today-info tab-contact-title">
-			    				<p class="users-today-name">Елена Новикова</p>
-			    				<p class="users-today-message">Солнце, море и вода</p>
-			    			</div>
-			    			
-			    		</div>
-			    	</div>
+
 			    </div>
 
 	    	</div>

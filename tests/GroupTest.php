@@ -18,6 +18,11 @@ class GroupTest extends TestCase
         $this->json('GET', 'group/')->AssertResponseOk();
     }
 
+    public function testAdminGroup()
+    {
+        $this->json('GET', 'group/admin_group')->AssertResponseOk();
+    }
+
     public function testStore()
     {
         $user = \App\User::where('phone', '380731059230')->first();
@@ -72,7 +77,7 @@ class GroupTest extends TestCase
         if (!$group) {
             $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
         }
-        \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1]);
+        \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1, 'is_creator' => 1]);
         $this->be($user);
         $data = [
             'name' => 'test',
@@ -152,6 +157,25 @@ class GroupTest extends TestCase
         $this->be($user);
         $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
         \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1]);
+        \App\GroupUser::create(['user_id' => $user2->id, 'group_id' => $group->id, 'is_admin' => 1]);
+        $this->json('GET', 'group/set_user_admin/' . $group->id . '/' . $user2->id)->seeJson([
+            'status' => true,
+        ]);
+    }
+
+    public function testUserCreator()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
+        \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1, 'is_creator' => 1]);
         \App\GroupUser::create(['user_id' => $user2->id, 'group_id' => $group->id, 'is_admin' => 1]);
         $this->json('GET', 'group/set_user_admin/' . $group->id . '/' . $user2->id)->seeJson([
             'status' => true,

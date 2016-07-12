@@ -55,10 +55,11 @@
 	    	</div>
 	    </div>
 
-	    <div class="chat-main-container-right" ng-if="Model.showChatBlock && Model.displayChatBlock">
+	    
 
-<!-- Chat block -->
-		   <!--  <div ng-if="Model.showChatBlock && Model.displayChatBlock">	      --> 
+	    <div class="chat-main-container-right">
+	    	<!-- Chat block -->
+		    <div  ng-if="Model.showChatBlock && Model.displayChatBlock || Model.showBlockedBlock && Model.displayBlockedBlock">	      
 			    <div class="chat-right-top-person">
 				    <div class="chat-top-person-data">	
 				    	<div class="chat-person-top-ava">
@@ -238,7 +239,7 @@
 			    		</div>
 			    	</div>
 
-<!-- 
+					<!-- 
 			    	<div class="group-comments">
 						<div class="group-comment">
 							<a href="" class="smile"></a>
@@ -295,7 +296,7 @@
 							</div>end ngRepeat: pub in [1,2,3,4,5]
 						</div>
 					</div>
- -->
+ 			-->
 
 			    </div>
 
@@ -310,7 +311,7 @@
 				    			<label class="chat-add-file-file"  for="">Файл</label>
 				    		</div>
 				    	</div>
-				    	<button class="chat-send-btn" ng-click="Model.sendMes(Model.chatMes, Model.opponent.room_id)">Отправить</button>
+				    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent.id) : Model.sendMes(Model.chatMes, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 			    	</div>
 			    	<div class="send-wrap-bottom">
 							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
@@ -354,15 +355,10 @@
 								<img src="../../../images/bc.png" alt="">
 							</div>
 			    	</div>
-			    </div>
-
-
-
-
-
-		    <!-- </div> -->
- <!-- Contact Block -->
-	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">
+			    </div>		    
+ 			</div>
+		 <!-- Contact Block -->		 
+	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">	    	
 	    		<div class="chat-contact-selected-ava">
 	    			<img ng-src="{{Model.contact.avatar_path}}" alt="">
 	    		</div>
@@ -373,15 +369,13 @@
 	    			<div class="contact-selected-data-phone">Телефон</div>
 	    			<div class="contact-selected-data-tel-number">{{Model.contact.phone}}</div>
 	    			<div class="contact-selected-data-message" ng-click="Model.openChatWith(Model.contact)" style="cursor:pointer;"><span><img src="/images/chat-icon.png" alt=""></span><span class="contact-selected-message-span">Написать сообщение</span></div>
-	    			<div class="contact-selected-data-block" style="cursor:pointer;" ng-click="Model.blockContact(Model.contact)"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
+	    			<div class="contact-selected-data-block" style="cursor:pointer;" ng-click="Model.blockContact(Model.contact.id)"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
 	    			<div class="contact-selected-data-delete" style="cursor:pointer;" ng-click="Model.deleteContact(Model.contact)"><span><img src="/images/chat-delete-contact.png" alt=""></span><span class="contact-selected-delete-span">Удалить контакт</span></div>
 
 	    		</div>
 	    	</div>
-
-
-		  </div>
-	    </div>
+		</div>
+	</div>
 
 
 
