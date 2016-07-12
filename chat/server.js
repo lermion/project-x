@@ -17,7 +17,7 @@ io.sockets.on('connection', function(socket){
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
 				console.log("these users already have the room");
-				queries.getUserMessages(data).then(function(response){
+				queries.getUserDialogue(data).then(function(response){
 					console.log(response);
 				},
 				function(error){
