@@ -229,18 +229,30 @@ angular.module('placePeopleApp')
 
 				socket.emit('send message', data);
 
+				console.log();
+
 				var mesInFormat = {
 					text: message,
 					login: $scope.loggedUser
 				}
 
-				$scope.Model.Chat.push(mesInFormat);
+				$scope.Model.Chat.push(mesInFormat);			
 
+			};	
+
+			$scope.Model.scrollBottom = function(){
+				setTimeout(function(){
+					var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
+					var height = chatWindow[0].scrollHeight;
+					chatWindow.scrollTop(height);
+				}, 100);
 			};
 			socket.on('updatechat', function(username, data){
+				console.log(data);
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){
+				// console.log(response);
 				$scope.Model.Chat = response;
 				// if ($scope.Model.Chat.length === 0) {
 				// 	$scope.Model.Chat = response;
