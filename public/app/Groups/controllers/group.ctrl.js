@@ -181,7 +181,8 @@
                             vm.group.users.push({
                                 avatar_path: myAvatar,
                                 first_name: firstName,
-                                last_name: lastName
+                                last_name: lastName,
+                                id: myId
                             });
                             vm.group.count_users += 1;
                         } else {
@@ -217,8 +218,11 @@
             }
         };
 
-        vm.removeUser = function () {
-            console.log('User removed!')
+        vm.removeUser = function (user) {
+            removeUser({
+                userId: user.id,
+                isAdmin: user.is_admin
+            });
         };
 
         vm.submitInviteUsers = function () {
@@ -243,7 +247,7 @@
         };
 
         vm.setAdmin = function (user) {
-            if (!vm.group.is_admin) {
+            if (!vm.group.is_creator) {
                 return false;
             }
             groupsService.setAdmin(group.id, user.id)
@@ -271,7 +275,10 @@
         function removeUser(user) {
             for (var i = vm.group.users.length - 1; i >= 0; i--) {
                 if (vm.group.users[i].id == user.userId) {
-                    vm.group.users.splice(i, 1);
+                    if (user.isAdmin && vm.group.is_creator || !user.isAdmin && vm.group.is_admin || user.userId === myId) {
+                        vm.group.users.splice(i, 1);
+                    }
+
                 }
             }
         }
