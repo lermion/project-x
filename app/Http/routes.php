@@ -154,14 +154,13 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'chat'], function () {
-        Route::get('locked/{locked_user_id}', 'ChatLockedUserController@create');
+        Route::get('locked/{locked_user_id}', 'ChatLockedUserController@locked');
         Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
     });
 
 
     Route::get('test', function () {
         echo "<form action=\"http://pp.dev/group\" method=\"get\" enctype=\"multipart/form-data\">
-
             <input type='text' name='name'><br>
             <input type='text' name='description'><br>
             <input type='text' name='address'><br>
