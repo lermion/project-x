@@ -9,6 +9,7 @@ angular.module('placePeopleApp')
 		}
 
 		function blockUser(userId){
+			console.log(userId);
 			var defer = $q.defer();
 			$http.get('create/' + userId)
 				.success(function (response){
@@ -31,6 +32,14 @@ angular.module('placePeopleApp')
 				});
 			return defer.promise;
 		}
+
+
+
+
+
+
+
+
 
 		function addCommentPublication(pubId, pubText, images, videos){
 			var formData = new FormData();

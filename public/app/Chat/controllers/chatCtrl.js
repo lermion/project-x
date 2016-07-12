@@ -134,7 +134,6 @@ angular.module('placePeopleApp')
 			};
 			$scope.currTabName = $state.current.name;
 			$scope.showContactData = function(contactId){
-
 				console.log(contactId);
 			};
 			$scope.clearChat = function(userId, chatId){
@@ -167,6 +166,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.showContactData = function(contact){
+				console.log(contact);
 				if ($state.current.name === 'chat.list') {
 					$scope.Model.showChatBlock = false;
 					$state.go('chat.contacts');
@@ -175,9 +175,16 @@ angular.module('placePeopleApp')
 				$scope.Model.displayContactBlock = true;
 				$scope.Model.contact = contact;
 			};
-            $scope.Model.blockContact = function(contact){
-                console.log('blockContact');
-                console.log(contact);
+
+            $scope.Model.blockContact = function(contactId){
+            	console.log(contactId);
+                ChatService.blockUser(contactId)
+                    .then(function(response){
+                        console.log(response);                        
+                    },
+                    function(error){
+                        console.log(error);
+                    });
             };
             $scope.Model.deleteContact = function(contact){
                 console.log('deleteContact');
@@ -192,6 +199,7 @@ angular.module('placePeopleApp')
 				$scope.Model.opponent = opponent; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
+				$scope.Model.displayBlockedBlock = false;
 
 				var data = {
 					userIdFrom: $scope.loggedUserId,
@@ -224,15 +232,6 @@ angular.module('placePeopleApp')
 				console.log(response);
 			});
 
-            $scope.Model.blockUser = function(userId){
-                ChatService.blockUser(userId)
-                    .then(function(response){
-                        console.log(response);                        
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
             $scope.Model.getLockedUsers = function(){
                 ChatService.getLockedUsers()
                     .then(function(response){
@@ -242,6 +241,12 @@ angular.module('placePeopleApp')
                         console.log(error);
                     });
             };
+
+            $scope.Model.showBlockedContactChat = function(user){
+            	console.log(user);
+            	$scope.Model.opponent = user;
+            	$scope.Model.displayBlockedBlock = true;
+            }
 
             // $scope.Model.getLockedUsers();
 
