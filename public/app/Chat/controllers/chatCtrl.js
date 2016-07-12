@@ -235,7 +235,8 @@ angular.module('placePeopleApp')
             $scope.Model.getLockedUsers = function(){
                 ChatService.getLockedUsers()
                     .then(function(response){
-                        console.log(response);                           
+                    	console.log(response);
+                        $scope.Model.blockedUsers = response;                           
                     },
                     function(error){
                         console.log(error);
