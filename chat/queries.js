@@ -99,7 +99,7 @@ Queries.prototype.getUserRooms = function(data){
 }
 Queries.prototype.getUserDialogue = function(data){
 	var deferred = Q.defer();
-	connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.roomId + "'", function(error, result){
+	var sql = connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id, function(error, result){
 		if(error){
 			console.error("error to get user dialogue: " + error.stack);
 			deferred.reject(error);
@@ -110,7 +110,13 @@ Queries.prototype.getUserDialogue = function(data){
 	});
 	return deferred.promise;
 }
-Queries.prototype.sendMessage = function(message){
+Queries.prototype.sendMessage = function(data){
+	var message = {
+		"user_id": data.userId,
+		"text": data.message,
+		"created_at": new Date(),
+		"updated_at": new Date()
+	};
 	var deferred = Q.defer();
 	connection.query('INSERT INTO messages SET ?', message, function(error, result){
 		if(error){
@@ -118,8 +124,21 @@ Queries.prototype.sendMessage = function(message){
 			deferred.reject(error);
 			return;
 		}else{
-			connection.query('INSERT INTO messages SET ?', message, function(error, result){
-				
+			var messageId = result.insertId;
+			var userRoomsMessages = {
+				"message_id": messageId,
+				"room_id": data.room_id,
+				"created_at": new Date(),
+				"updated_at": new Date()
+			};
+			connection.query('INSERT INTO user_rooms_messages SET ?', userRoomsMessages, function(error, result){
+				if(error){
+					console.error("error to save message in table user_rooms_messages: " + error.stack);
+					deferred.reject(error);
+					return;
+				}else{
+					deferred.resolve(result);
+				}
 			});
 			console.log("message saved in table messages");
 			deferred.resolve(result);
