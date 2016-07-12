@@ -93,11 +93,9 @@ io.sockets.on('connection', function(socket){
 			"userIdFrom": data
 		};
 		queries.getUserRooms(data).then(function(response){
-			console.log(response);
 			response.forEach(function(value){
 				GLOBAL.rooms.push(value.room_id);
 			});
-			console.log(GLOBAL.rooms);
 			socket.emit("get user rooms", response);
 		},
 		function(error){
