@@ -127,8 +127,8 @@
 
 
 
-			    	<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-repeat="message in Model.Chat">
-				    	<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" ng-init="Model.scrollBottom()">
+			    	<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom()">
+				    	<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'">
 				    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
 				    			<div ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'">{{message.text}}</div>
 				    			<!-- <div class="to-my-msg-inner-photo">
@@ -144,7 +144,7 @@
 				    			</div> -->
 				    		</div>
 				    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
-				    			<span am-time-ago="message.created_at"></span>
+				    			<span>{{Model.getTime(message.created_at)}}</span>
 				    		</div>
 				    	</div>
 			    	</div>
