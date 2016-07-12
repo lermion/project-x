@@ -245,8 +245,8 @@
 
 			    <div class="chat-right-send-wrap">
 			    	<div class="send-wrap-top">
-				    	<!-- <a class="chat-right-send-smile" href=""></a> -->
-				    	<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes"></textarea>
+				    	<a class="chat-right-send-smile" href=""></a>
+				    	<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes" ng-keypress="Model.sendOnEnter($event, Model.chatMes, Model.opponent.room_id)"></textarea>
 				    	<div class="send-add-file" ng-click="showFileAddMenu=!showFileAddMenu">
 				    		<a href=""></a>
 				    		<div class="chat-add-file-menu" ng-show="showFileAddMenu">
