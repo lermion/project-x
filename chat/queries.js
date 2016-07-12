@@ -96,4 +96,18 @@ Queries.prototype.getUserRooms = function(data){
 	});
 	return deferred.promise;
 }
+Queries.prototype.getUserMessages = function(data){
+	console.log(data);
+	var deferred = Q.defer();
+	connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = 90", function(error, result){
+		if(error){
+			console.error("error to get user messages: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			deferred.resolve(result);
+		}
+	});
+	return deferred.promise;
+}
 module.exports = Queries;
