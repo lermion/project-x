@@ -3448,7 +3448,8 @@ span.users-today-time-time.early {
   align-items: flex-end;
   background-color: rgb(255,255,255);
   border-radius: 10px;
-  box-sizing: border-box;  
+  box-sizing: border-box;
+  border: 1px solid #e0e2e5;
 }
 .right-chat-to-my-msg-inner {
   max-width: 100%;
@@ -3542,8 +3543,10 @@ span.users-today-time-time.early {
   box-sizing: border-box;
   width: 100%;
   padding: 5px;
-  font-family: "SFUIDisplayLight";
   font-size: 14.6px;
+    font-family: "SFUIDisplayLight";
+    font-weight: 600;
+    color: #575757;
   line-height: 21px;
 }
 .chat-publication-adress {
@@ -3798,11 +3801,11 @@ span.users-today-time-time.early {
 }
 
 .user-menu-top-inner.chat-in {
-  font-size: 10.6px;
+  font-size: 12.6px;
 }
 .user-menu-top-do.chat-in {
   width: 150px;
-  font-size: 10.6px;
+  font-size: 12.6px;
 }
 
 
@@ -3833,7 +3836,7 @@ span.users-today-time-time.early {
     cursor: pointer;
     background-color: #fff;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
     z-index: 1000;
 }
@@ -3847,7 +3850,7 @@ span.users-today-time-time.early {
     cursor: pointer;
     background-color: #fff;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
     z-index: 1000;
 }
@@ -3933,4 +3936,88 @@ span.users-today-time-time.early {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+}
+.chat-left-wrap-contact-data {
+  width: 100%;
+}
+
+
+
+@media (max-width: 1024px) {
+  .chat-main-container {
+    width: 100%;
+  }
+  .chat-main-container-left {
+    width: 31%;
+  }
+  .chat-main-container-right {
+    width: 69%;
+  }
+  .chat-left-users-menu {
+    height: 50px;
+  }
+  .chat-users-today-ava a {
+    height: 40px;
+    width: 40px;
+  }
+  .chat-users-today-info p {
+    font-size: .85em;
+  }
+  .chat-users-today-data {
+    width: 80%;
+  }
+  .chat-left-users-users-today {
+    height: 50px;
+  }
+  .chat-left-users-users-today {
+    justify-content: flex-start;
+  }
+  .chat-publication-description, 
+  .chat-publication-relations,
+  .user-menu-top-inner a,
+  .chat-add-file-publ,
+  .chat-add-file-file,
+  .chat-message-date span {
+    font-size: .9em;
+  }
+  .right-chat-to-my-msg-inner,
+  .my-msg-inner-text,
+  .chat-publication-description {
+    font-size: 13.6px;
+  }
+  .chat-message-date span, 
+  .publication-adress-span, 
+  .chat-publication-adress {
+    font-size: 12.6px;
+  }
+  .right-chat-to-my-msg-date span,
+  .right-chat-my-msg-date span {
+    font-size: 10.6px;
+  }
+.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
+  width: 32%;
+  margin-right: 2px;
+  height: 70px;
+  }
+  .send-wrap-bottom .pic {
+    height: 80px;
+  }
+
+
+  .user-menu-top-do {
+    width: 130px;
+  }
+  .user-menu-top-do.chat-in {
+    width: 130px;
+  }
+ .chat-person-top-ava a {
+  width: 40px;
+  height: 40px;
+ }
+ .chat-right-top-person {
+  height: 51px;
+ }
+ .chat-add-file-menu {
+  width: 110px;
+ }
 }
