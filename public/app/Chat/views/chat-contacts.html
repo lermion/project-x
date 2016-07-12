@@ -5,8 +5,7 @@
 		    			<div class="chat-left-users-sign-inner">
 		    				Я подписан
 		    			</div>
-		    		</div>
-			    	<!-- <div class="chat-left-users-users-today active"> -->
+		    		</div>			    	
 			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
 			    			<a ui-sref="user({username: contact.login})">

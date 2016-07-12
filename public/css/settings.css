@@ -210,6 +210,56 @@
 *******************************/
 
 /*----------------------
+     Common
+----------------------*/
+.modal__content {
+    display: flex;
+    /*flex-flow: row wrap;*/
+    justify-content: space-between;
+    padding: 15px;
+}
+.modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+
+    font-size: 14.6px;
+    font-weight: 400;
+    line-height: 45px;
+    background: #f5f5f5;
+    margin: 0;
+    border-top: 1px solid #dcdee2;
+    font-family: "SFUIDisplayMedium";
+}
+.modal__buttons {
+    align-items: center;
+    display: flex;
+}
+.modal__buttons-positive {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s!important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+}
+.modal__buttons-negative {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s;
+    color: #495b79;
+}
+
+/*----------------------
      Group Delete
 ----------------------*/
 .ngdialog.popup-delete-group.ngdialog-theme-default  .ngdialog-content {
@@ -234,6 +284,96 @@
     width: 100%;
     align-items: center;
 }
+
+/*----------------------
+     Group Invite Users
+----------------------*/
+.ngdialog.popup-invite-group.ngdialog-theme-default .ngdialog-content {
+    background: #fff;
+    width: 700px;
+    margin-left: -350px;
+    margin-top: 0;
+    transition: all .3s ease-in-out .1s;
+    padding: 0;
+    top: 10%;
+    height: auto;
+    color: #333;
+    margin-bottom: 20px;
+}
+.popup-invite-group .modal__title {
+    font-size: 14.6px;
+    font-weight: 400;
+    line-height: 45px;
+    padding-left: 15px;
+    background: #f5f5f5;
+    margin: 0;
+    border-bottom: 1px solid #dcdee2;
+    font-family: "SFUIDisplayMedium";
+}
+.popup-invite-group .invite-group__items {
+    flex-grow: 1;
+}
+.popup-invite-group .invite-group__items ul,
+.popup-invite-group .invite-group__items-selected ul{
+    width: 100%;
+    height: 325px;
+    overflow-y: auto;
+    padding: 0;
+}
+.popup-invite-group .invite-group__items ul li,
+.popup-invite-group .invite-group__items-selected ul li {
+     position: relative;
+     list-style-type: none;
+     font-size: 14.6px;
+     font-family: "SFUIDisplayMedium";
+     display: flex;
+     align-items: center;
+     margin-bottom: 10px;
+ }
+.popup-invite-group .invite-group__items-selected ul li {
+    padding-left: 15px;
+}
+.popup-invite-group .invite-group__items ul li:hover {
+    cursor: pointer;
+}
+.popup-invite-group .invite-group__items ul li > img,
+.popup-invite-group .invite-group__items-selected ul li > img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.popup-invite-group .invite-group__items-selected {
+    flex-grow: 1;
+}
+.popup-invite-group .items-selected__item-delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 50px;
+    text-align: center;
+    top: 0;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+}
+.popup-invite-group .invite-group__items input[type="text"] {
+    height: 45px;
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    line-height: 20px;
+    box-sizing: border-box;
+    font-size: 14.6px;
+    color: #999;
+    padding: 10px;
+    font-family: "SFUIDisplayLight";
+}
+
 
 
 /*             download avatar                */
@@ -1487,7 +1627,40 @@ a.add_comments {
  }
 }
 
+/*******************************
+            Groups
+*******************************/
 
+/*----------------------
+     Main
+----------------------*/
+
+.groups-content {
+    font-family: "SFUIDisplayMedium";
+}
+.places-page-type-place h4 {
+    font-weight: 400;
+    font-size: 16.6px;
+}
+.groups-filter {
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 14.6px;
+    padding-left: 30px;
+    background-image: url(/images/filter.png);
+    background-position: left center;
+    background-size: 12%;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    height: 30px;
+}
 
 
 
@@ -1634,6 +1807,26 @@ a.add_comments {
   align-items: center;
   padding: 10px;
   justify-content: space-between;
+    position: relative;
+}
+.group-peoples-inner-item .peoples-item__delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 86px;
+    text-align: center;
+    top: 12px;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+}
+.group-peoples-inner-item:hover {
+    /*color: #777;;*/
+    background: #e4e4e4;
+    transition: all .3s ease-in-out .1s;
 }
 .peoples-inner-item-data {
   display: flex;
@@ -1687,11 +1880,11 @@ a.add_comments {
   color: #333;
   transition: all .3s ease-in-out .1s;
 }
-.peoples-item-name-family span:hover {
-  display: block;
-  color: #777;;
-  transition: all .3s ease-in-out .1s;
-}
+/*.peoples-item-name-family span:hover {*/
+  /*display: block;*/
+  /*color: #777;;*/
+  /*transition: all .3s ease-in-out .1s;*/
+/*}*/
 .peoples-item-name-comment {
   margin: 0;
   padding: 0;
@@ -1706,6 +1899,9 @@ a.add_comments {
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
   margin-right: 5px;
+}
+.peoples-inner-item-admin:hover {
+    cursor: pointer;
 }
 
 
@@ -2368,7 +2564,7 @@ p.top-person-status {
   border: 1px solid #e0e2e5;
   background-color: #fff;
   box-sizing: border-box;
-  margin-bottom: 19px;
+  margin-bottom: 0px;
   font-family: "SFUIDisplayMedium";
 
 }
@@ -2511,6 +2707,7 @@ p.top-person-status {
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
+  height: 60px;
 }
 .chat-left-users-users-today.active {
   background-color: rgb(245,245,245);
@@ -3095,4 +3292,516 @@ span.users-today-time-time.early {
   padding-right: 10px;
   border-radius: 3px;
   color: rgb(92,108,135);
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+/*CHAT*/
+.chat-right-chat-inner {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 10px;
+  background: url(../images/chat-bg.png) repeat;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.chat-message-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.chat-message-date span {
+  background-color: gray;
+  border-radius: 10px;
+  padding: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #fff;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.my-msg-wrap {
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.my-msg-wrap:after{
+  bottom: -2px;
+  right: -4px;
+  background-image: url(/images/my-user-tail.png);
+  background-repeat: no-repeat;
+  left: auto;
+  width: 15px;
+  content: " ";
+  height: 10px;
+  position: absolute;
+}
+.right-chat-my-msg {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  padding-right: 0px;
+  align-items: flex-end;
+  background-color: rgb(215,226,250);
+  border-radius: 10px;
+  box-sizing: border-box;  
+}
+.right-chat-my-msg-inner {
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayLight";
+  font-weight: 600;
+  color: rgb(116,120,130);
+}
+.right-chat-my-msg-date {
+  display: flex;
+  margin-right: 5px;
+  box-sizing: border-box;
+  background-image: url(/images/done.png);
+  background-position: right center;
+  background-size: 20%;
+  background-repeat: no-repeat;
+}
+.right-chat-my-msg-date span {
+  font-family: "SFUIDisplayLight";
+  font-size: 11.6px;
+  color: gray;
+  line-height: 20px;
+  box-sizing: border-box;
+  margin-left: 10px;
+  padding-right: 15px;
+  }
+.my-msg-inner-photo {
+  flex-wrap: wrap;
+  max-height: 204px;
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  margin-top: 10px;
+}
+.my-img-inner-photo-pict {
+    width: 140px;
+    height: 100px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+}
+ .my-img-inner-photo-pict img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+ }
+
+
+.to-my-msg-wrap {
+  display: flex;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+.to-my-msg-wrap:after{
+  bottom: -3px;
+  left: 4px;
+  background-image: url(/images/user-tail.png);
+  background-repeat: no-repeat;
+  right: auto;
+  width: 15px;
+  content: "";
+  height: 10px;
+  position: absolute;
+  /*padding-left: 10px;*/
+}
+.right-chat-to-my-msg {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  padding-right: 0px;
+  align-items: flex-end;
+  background-color: rgb(255,255,255);
+  border-radius: 10px;
+  box-sizing: border-box;  
+}
+.right-chat-to-my-msg-inner {
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayLight";
+  font-weight: 600;
+  color: rgb(116,120,130);
+}
+.right-chat-to-my-msg-date {
+  display: flex;
+  margin-right: 5px;
+  box-sizing: border-box;
+  background-image: url(/images/done.png);
+  background-position: right center;
+  background-size: 20%;
+  background-repeat: no-repeat;
+}
+.right-chat-to-my-msg-date span {
+  font-family: "SFUIDisplayLight";
+  font-size: 11.6px;
+  color: gray;
+  line-height: 20px;
+  box-sizing: border-box;
+  margin-left: 10px;
+  padding-right: 15px;
+  }
+.to-my-msg-inner-photo {
+  flex-wrap: wrap;
+  max-height: 204px;
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  margin-top: 10px;
+}
+.to-my-img-inner-photo-pict {
+    width: 140px;
+    height: 100px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+}
+ .to-my-img-inner-photo-pict img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+ }
+
+
+
+
+
+ .group-comments .pictures {
+    padding: 5px 10px;
+    overflow-x: auto;
+    max-height: 107px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.chat-right-inner-publication-my {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+.chat-publication-wrap {
+  width: 80%;
+  display: flex;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  background-color: rgb(215,226,250);
+}
+.chat-publication-data {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+}
+.chat-publication-description {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  font-family: "SFUIDisplayLight";
+  font-size: 14.6px;
+  line-height: 21px;
+}
+.chat-publication-adress {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  color: rgb(74,92,122);
+  font-family: "SFUIDisplayMedium";
+  padding: 5px;
+}
+.publication-adress-span {
+  padding-left: 15px;
+  background-image: url(/images/school.png);
+  background-repeat: no-repeat;
+  padding-left: 25px;
+  margin-right: 10px;
+  background-position: left center;
+}
+.chat-publication-photo {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+}
+.chat-publication-photo img {
+  width: 100%;
+  max-height: 285px;
+}
+.chat-publication-relations {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: space-between;
+  padding: 8px;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+}
+.publication-relations-left span {
+  margin-left: 5px;
+}
+.publication-relations-left-btn {
+  padding: 2px;
+  padding-left: 19px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding-right: 7px;
+  background-image: url(/images/comment-like.png);
+  background-repeat: no-repeat;
+  background-size: 19%;
+  background-position: left 5px center;
+  margin-right: 5px;
+}
+.relations-right-img {
+  background-image: url(/images/chat-tab-chat.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  padding-right: 30px;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+}
+.chat-right-top-person.my-msg {
+  background-color: rgb(215, 226, 250);
+}
+
+.chat-right-inner-publication-to-my {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+.chat-right-top-person.to-my-msg {
+  background-color: #fff;
+}
+.chat-publication-wrap.to-my-msg {
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 1px solid #e0e2e5;
+}
+.chat-right-top-person.chat-my-msg {
+  border: 0px;
+}
+
+
+.chat-right-send-wrap {
+  width: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+
+}
+.send-wrap-top {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-right-send-smile {
+    display: block;
+    width: 45px;
+    height: 40px;
+    background-image: url(../images/smil.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    box-sizing: border-box;
+}
+.chat-right-send-wrap textarea {
+    resize: none;
+    width: 75%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    font-size: 14.6px;
+    color: #999;
+    background: #fff;
+    padding: 5px 30px 5px 10px;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayLight";
+    height: 30px;
+ }
+ .send-add-file {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+ }
+.send-add-file a {
+  width: 100%;
+  height: 100%;
+  background-image: url(/images/clip.png);
+  background-repeat: no-repeat;
+  background-position: left 5px center;
+  background-size: 70%;
+}
+.chat-send-btn {
+  display: flex;
+  color: #495b79;
+  font-family: "SFUIDisplayMedium";
+  padding: 5px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.chat-send-btn:hover {
+  border: 1px solid #495b79;
+  color: #495b79;
+  background: transparent;
+  cursor: pointer;
+ }
+
+
+.send-wrap-bottom {
+    padding: 5px 10px;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-height: 107px;
+}
+.send-wrap-bottom .pic {
+    width: 24%;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+    position: relative;
+}
+.send-wrap-bottom  .pic img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+.send-wrap-bottom .pic .close {
+    z-index: 1;
+    left: 5px;
+    background-color: #333;
+    position: absolute;
+    top: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .3s ease-in-out .1s;
+    display: block;
+}
+.send-wrap-bottom .pic .close-inner {
+    position: absolute;
+    background: #fff;
+    top: 30px;
+    color: #333;
+    font-size: 10px;
+    line-height: 15px;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin: 0;
+    border: 1px solid #333;
+    display: block;
+}
+.send-wrap-bottom .pic .close-inner p {
+    margin: 0;
+}
+.send-wrap-bottom  .pic .close:before {
+    background: 0 0;
+    color: #fff;
+    content: '\00D7';
+    font-size: 26px;
+    font-weight: 400;
+    height: 25px;
+    left: 0;
+    text-align: center;
+    top: 0;
+    width: 25px;
+    width: 25px;
+    display: block;
+    line-height: 24px;
+}
+.send-wrap-bottom  .pic .close-inner:before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 4px;
+    width: 0;
+    height: 0;
+    border-bottom: 6px solid #333;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+}
+.send-wrap-bottom .pic .close-inner:after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 6px;
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid #fff;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.user-menu-top-inner.chat-in {
+  font-size: 10.6px;
+}
+.user-menu-top-do.chat-in {
+  width: 150px;
+  font-size: 10.6px;
 }

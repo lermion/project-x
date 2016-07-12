@@ -1,0 +1,36 @@
+<div class="modal__title">Пригласить пользователя в группу</div>
+
+<div class="modal__content" ng-if="vm.inviteNotSend">
+    <div class="invite-group__items">
+        <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
+        <ul>
+            <li ng-repeat="user in vm.subscribers | searchFor:searchString"
+                ng-click="vm.onItemSelected(user)">
+                <img ng-src="{{user.avatar_path}}">
+
+                <p>{{::user.first_name}} {{::user.last_name}}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="invite-group__items-selected">
+        <p class="item1-add-people-title">Список пользователей</p>
+        <ul>
+            <li ng-repeat="user in vm.invitedUsers" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
+                <img ng-src="{{user.avatar}}">
+
+                <p>{{::user.firstName}} {{::user.lastName}}</p>
+                <span class="items-selected__item-delete" ng-click="vm.removeUserFromInviteList(user)">&#10006;</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="modal__content" ng-if="!vm.inviteNotSend">
+    <p>Приглашение отправлено</p>
+</div>
+
+<div class="modal__footer">
+    <div class="modal__buttons">
+        <a href="" class="modal__buttons-negative" ng-click="vm.abortInviteUsers()">Отменить</a>
+        <a href="" class="modal__buttons-positive" ng-click="vm.submitInviteUsers()">Отправить</a>
+    </div>
+</div>
