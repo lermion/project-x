@@ -83,25 +83,18 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	// socket.on('send message', function(data){
-	// 	var message = {
-	// 		user_id: data.userId,
-	// 		text: data.message,
-	// 		created_at: new Date(),
-	// 		updated_at: new Date()
-	// 	};
-	// 	connection.query('INSERT INTO messages SET ?', message, function(error, result){
-	// 		if(error){
-	// 			console.error("error to set message in table messages: " + error.stack);
-	// 			return;
-	// 		}
-	// 		console.log("message saved in table messages");
-	// 		queries.getUserMessages().then(function(){
-
-	// 		},
-	// 		function(error){
-	// 			console.log(error);
-	// 		});
-	// 	});
-	// });
+	socket.on('send message', function(data){
+		var message = {
+			user_id: data.userId,
+			text: data.message,
+			created_at: new Date(),
+			updated_at: new Date()
+		};
+		queries.getUserDialogue(message).then(function(response){
+			console.log(response);
+		},
+		function(error){
+			console.log(error);
+		});
+	});
 });

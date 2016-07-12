@@ -109,4 +109,18 @@ Queries.prototype.getUserDialogue = function(data){
 	});
 	return deferred.promise;
 }
+Queries.prototype.getUserDialogue = function(data){
+	var deferred = Q.defer();
+	connection.query('INSERT INTO messages SET ?', message, function(error, result){
+		if(error){
+			console.error("error to send message in table messages: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			console.log("message saved in table messages");
+			deferred.resolve(result);
+		}
+	});
+	return deferred.promise;
+}
 module.exports = Queries;
