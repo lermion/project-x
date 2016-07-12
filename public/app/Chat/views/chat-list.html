@@ -22,7 +22,7 @@
 		</div>
 	</div> -->
 
-	<div class="chat-left-users-users-today" ng-repeat="listItem in Model.subscribers" ng-class="Model.opponent.id === listItem.id ? 'active' : ''">
+	<div class="chat-left-users-users-today" ng-repeat="listItem in Model.chatRooms" ng-class="Model.opponent.id === listItem.id ? 'active' : ''">
 		<div class="chat-users-today-ava">
 			<a ui-sref="user({username: listItem.login})">
 				<img ng-src="{{listItem.avatar_path}}" alt="">

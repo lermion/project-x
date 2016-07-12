@@ -73,11 +73,55 @@ Queries.prototype.addUsersInUserChat = function(dataUserFrom, dataUserTo){
 Queries.prototype.getUserRooms = function(data){
 	var deferred = Q.defer();
 	connection.query('SELECT chat_rooms.id, chat_rooms.name FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE users.id = ' + data.userIdFrom, function(error, result){
+		var response = [];
 		if(error){
 			console.error("error to get user rooms: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
+			Promise.all(result.map(function(item){
+				var promise = new Promise(function(resolve, reject){
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
+						console.log(result);
+						result[0].room_id = item.id;
+						resolve(result[0]);
+					});
+				});
+				return promise.then(function(result){
+					response.push(result);
+				});
+			})).then(function(){
+				deferred.resolve(response);
+			});
+		}
+	});
+	return deferred.promise;
+}
+Queries.prototype.getUserDialogue = function(data){
+	var deferred = Q.defer();
+	connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.roomId + "'", function(error, result){
+		if(error){
+			console.error("error to get user dialogue: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			deferred.resolve(result);
+		}
+	});
+	return deferred.promise;
+}
+Queries.prototype.sendMessage = function(message){
+	var deferred = Q.defer();
+	connection.query('INSERT INTO messages SET ?', message, function(error, result){
+		if(error){
+			console.error("error to send message in table messages: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			connection.query('INSERT INTO messages SET ?', message, function(error, result){
+				
+			});
+			console.log("message saved in table messages");
 			deferred.resolve(result);
 		}
 	});

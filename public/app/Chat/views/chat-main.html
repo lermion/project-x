@@ -55,10 +55,10 @@
 	    	</div>
 	    </div>
 
-	    <div class="chat-main-container-right">
+	    <div class="chat-main-container-right" ng-if="Model.showChatBlock && Model.displayChatBlock">
 
 <!-- Chat block -->
-		    <div ng-if="Model.showChatBlock && Model.displayChatBlock">	      
+		   <!--  <div ng-if="Model.showChatBlock && Model.displayChatBlock">	      --> 
 			    <div class="chat-right-top-person">
 				    <div class="chat-top-person-data">	
 				    	<div class="chat-person-top-ava">
@@ -81,222 +81,291 @@
 							</div>
 						</div>
 			    </div>
-		    		<div class="group-chat">
-						<div class="group-chat-inner">
-							<div class="date-messeges">
-								<p class="date">Вчера</p>
-							</div>
-							<div class="users-messege">
-							
-							<div class="user-messeges">
-							<div class="chat-user-pulication">
-								<div class="user-publication">
-									<div class="user-publication-header">
-										<div class="user-function">
-											<a ui-sref="user({username: pub.user.login})" class="user">
-												<span class="ava">
-													<img ng-src="{{pub.user.avatar_path}}"  alt="">
-												</span>
-												<span class="block-info">
-													<p class="user-name">{{pub.user.first_name + ' ' + pub.user.last_name}}</p>
-													<p class="time" am-time-ago="pub.created_at"></p>
-												</span>
-											</a>
-											<!-- <div class="topic">Тема дня</div> -->
-											<div class="user-menu" ng-click="showPubMenu=!showPubMenu">
-												<div class="menu-item" ng-show="showPubMenu">
-													<div class="inner">			
-														<a href="">Переслать</a>
-														<a href="">Получить ссылку</a>
-														<a href="">Пожаловаться</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="user-publication-content">
-										<p class="publication-text"></p>
-										<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-										<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-										<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
-										<div class="publication-ava">
-											<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
-										</div>					
-										<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
-											<div class="images-item">
-												<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
-											</div>
-											<div class="images-item">
-												<video width="150px"></video>
-											</div>
-											<div class="images-item more">
-												<p class="counter">Еще<br> 15 фото</p>
-											</div>
-										</div>
-									</div>
-									<div class="likes">
-										<div class="likes-item">
-											<a href="javascript:void(0);" class="like">Тема</a>
-											<p class="like-item">
-												В теме 
-												<span class="you"> Вы </span>
-												<span class="more"> и еще</span>
-												<span class="count-like">12</span>
-												чел.
-											</p>
-										</div>
-										<a href="javascript:void(0);" class="comments-count">123</a>
-									</div> 
-								</div>
-							</div>
-							<div class="user-messege">
-								<div class="messege">
-									<a class="user-name">Танюшка Мильцына</a>
-									<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
-										<span class="pictures">
-											<span class="pic">
-												<img src="../../../images/bc.png" alt="">
-											</span>
-										</span>
-									</p>
-								</div>
-								<p class="messege-time">10:55</p>
-							</div>
-						</div>
-					</div>
-					<div class="users-messege my-messege">
-						<div class="user-messeges">
-							<div class="chat-user-pulication">
-								<div class="user-publication">
-									<div class="user-publication-header">
-										<div class="user-function">
-											<a class="user" >
-												<span class="ava">
-													<img src="http://kingofwallpapers.com/face/face-004.jpg" alt="">
-												</span>
-												<span class="block-info">
-													<p class="user-name">Lorem Lorem</p>
-													<p class="time">Год назад</p>
-												</span>
-											</a>
-											<!-- <div class="topic">Тема дня</div> -->
-											<div href="" class="user-menu">
-												<div class="menu-item">
-													<div class="inner">			
-														<a href="">Переслать</a>
-														<a href="">Получить ссылку</a>
-														<a href="">Пожаловаться</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="user-publication-content">
-										<p class="publication-text"></p>
-										<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-										<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-										<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
-										<div class="publication-ava">
-											<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
-										</div>					
-										<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
-											<div class="images-item">
-												<img  src="http://www.iconarchive.com/download/i47477/hopstarter/face-avatars/Male-Face-H2.ico" >
-											</div>
-											<div class="images-item">
-												<video width="150px"></video>
-											</div>
-											<div class="images-item more">
-												<p class="counter">Еще<br> фото</p>
-											</div>
-										</div>
-									</div>
-									<div class="likes">
-										<div class="likes-item">
-											<a href="javascript:void(0);" class="like">Тема</a>
-											<p class="like-item">
-												В теме 
-												<span class="you"> Вы </span>
-												<span class="more">и еще</span>
-												<span class="count-like">100</span>
-												чел.
-											</p>
-										</div>
-										<a href="javascript:void(0);" class="comments-count">Lorem1</a>
-									</div> 
-								</div>
-							</div>
-							<div class="user-messege">
-								<div class="messege">
-									<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
-										<span class="pictures">
-											<span class="pic">
-												<img src="../../../images/bc.png" alt="">
-											</span>
-										</span>
-									</p>
-								</div>
-								<p class="messege-time">10:55</p>
-							</div>
-						</div>
-					</div>
-						</div>
-				<!-- <button class="rewrite">Подписаться</button> -->
-				<div class="group-comments">
-					<div class="group-comment">
-						<a href="" class="smile"></a>
-						<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes"></textarea>
-						<div class="add-objects">
 
-							<input id="addfile" type='file' style="display: none;"> 
-							<label for="addfile">
-								<span class="add">
-									<span  class="dropp">
-										<a href="" class="active">Публикация</a>
-										<a href="" class="">Файл</a>
+			    <div class="chat-right-chat-inner">
+			    	<div class="chat-message-date">
+			    		<span>Вчера</span>
+			    	</div>
+
+			    	<div class="my-msg-wrap">
+				    	<div class="right-chat-my-msg">
+				    		<div class="right-chat-my-msg-inner">
+				    			<div class="my-msg-inner-text">Сегодня думал выйти на прогулку, вобщем как всегда)</div>
+				    			<div class="my-msg-inner-photo">
+				    				<span class="my-img-inner-photo-pict">
+				    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				    				</span>
+				    				<span class="my-img-inner-photo-pict">
+				    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				    				</span>
+				    				<span class="my-img-inner-photo-pict">
+				    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				    				</span>				    				
+				    			</div>
+				    		</div>
+				    		<div class="right-chat-my-msg-date">
+				    			<span>10:55</span>
+				    		</div>
+				    	</div>
+			    	</div>
+
+			    	<div class="my-msg-wrap">
+				    	<div class="right-chat-my-msg">
+				    		<div class="right-chat-my-msg-inner">
+				    			<div class="my-msg-inner-text">Но чето влом (((((</div>
+				    		</div>
+				    		<div class="right-chat-my-msg-date">
+				    			<span>10:55</span>
+				    		</div>
+				    	</div>
+			    	</div>
+
+			    	<div class="chat-message-date">
+			    		<span>Вчера</span>
+			    	</div>
+
+			    	<div class="to-my-msg-wrap">
+				    	<div class="right-chat-to-my-msg">
+				    		<div class="right-chat-to-my-msg-inner">
+				    			<div class="to-my-msg-inner-text">Сегодня думал выйти на прогулку, вобщем как всегда)</div>
+				    			<div class="to-my-msg-inner-photo">
+				    				<span class="to-my-img-inner-photo-pict">
+				    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				    				</span>
+				    				<span class="to-my-img-inner-photo-pict">
+				    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				    				</span>
+				    				<span class="to-my-img-inner-photo-pict">
+				    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				    				</span>				    				
+				    			</div>
+				    		</div>
+				    		<div class="right-chat-to-my-msg-date">
+				    			<span>10:55</span>
+				    		</div>
+				    	</div>
+			    	</div>
+
+			    	<div class="chat-right-inner-publication-my">
+			    		<div class="chat-publication-wrap">
+			    			<div class="chat-publication-data">
+			    				<div class="chat-right-top-person my-msg">
+								    <div class="chat-top-person-data">	
+								    	<div class="chat-person-top-ava">
+								    		<a>
+								    			<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+								    		</a>
+								    	</div>
+								    	<div class="chat-person-top-info">
+								    		<p class="top-person-name">Виталий</p>
+								    		<p class="top-person-status"><span>Вчера,</span><span>17:31</span></p>
+								    	</div>
+								    </div>
+								    	<div class="user-menu-top">
+											<div class="user-menu-top-do chat-in" style="display:block">
+												<div class="user-menu-top-inner chat-in">			
+													<a>Переслать</a>
+													<a href="">Получить ссылку</a>
+													<a href="">Пожаловаться</a>
+												</div>
+											</div>
+										</div>
+							    </div>
+			    			</div>
+			    			<div class="chat-publication-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum, accusantium non accusamus, temporibus labore, obcaecati incidunt ea, facilis rem aperiam sed sapiente eius quas tenetur. Corporis et sunt velit.Lorem ipsum dolor</div>
+			    			<div class="chat-publication-adress">
+			    				<span class="publication-adress-span">Школа №209, </span>
+			    				<span> г. Санкт-Петербург</span>
+			    			</div>
+			    			<div class="chat-publication-photo">
+			    				<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+			    			</div>
+			    			<div class="chat-publication-relations">
+			    				<div class="publication-relations-left">
+			    					<span class="publication-relations-left-btn">Тема</span>
+			    					<span>В теме</span><span>1600</span><span>чел.</span>
+			    				</div>
+			    				<div class="publication-relations-right">
+			    					<span class="relations-right-img ">0</span>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</div>
+
+			    	<div class="chat-right-inner-publication-to-my">
+			    		<div class="chat-publication-wrap to-my-msg">
+			    			<div class="chat-publication-data">
+			    				<div class="chat-right-top-person chat-my-msg">
+								    <div class="chat-top-person-data">	
+								    	<div class="chat-person-top-ava">
+								    		<a>
+								    			<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+								    		</a>
+								    	</div>
+								    	<div class="chat-person-top-info">
+								    		<p class="top-person-name">Виталий</p>
+								    		<p class="top-person-status"><span>Вчера,</span><span>17:31</span></p>
+								    	</div>
+								    </div>
+								    	<div class="user-menu-top">
+											<div class="user-menu-top-do" style="display:none">
+												<div class="user-menu-top-inner">			
+													<a>Переслать</a>
+													<a href="">Получить ссылку</a>
+													<a href="">Пожаловаться</a>
+												</div>
+											</div>
+										</div>
+							    </div>
+			    			</div>
+			    			<div class="chat-publication-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum, accusantium non accusamus, temporibus labore, obcaecati incidunt ea, facilis rem aperiam sed sapiente eius quas tenetur. Corporis et sunt velit.Lorem ipsum dolor</div>
+			    			<div class="chat-publication-adress">
+			    				<span class="publication-adress-span">Школа №209, </span>
+			    				<span> г. Санкт-Петербург</span>
+			    			</div>
+			    			<div class="chat-publication-photo">
+			    				<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+			    			</div>
+			    			<div class="chat-publication-relations">
+			    				<div class="publication-relations-left">
+			    					<span class="publication-relations-left-btn">Тема</span>
+			    					<span>В теме</span><span>1600</span><span>чел.</span>
+			    				</div>
+			    				<div class="publication-relations-right">
+			    					<span class="relations-right-img ">0</span>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</div>
+
+<!-- 
+			    	<div class="group-comments">
+						<div class="group-comment">
+							<a href="" class="smile"></a>
+							<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
+							<div class="add-objects">						
+								<input id="addfile" type="file" ngf-keep="true" style="display: none;" ngf-select="" ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)" class="ng-pristine ng-untouched ng-valid ng-empty" multiple="multiple"> 
+								<label for="addfile">
+									<span class="add" ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
+										<span class="dropp ng-hide" ng-show="showChatAttachmentMenu">
+											<a href="" class="active">Публикация</a>
+											<a href="" class="">Файл</a>
+										</span>
 									</span>
-								</span>
-							</label>  
-							                                       
-						</div> 
-						<button class="send" ng-click="Model.sendMes(Model.chatMes)">Отправить</button>
+								</label>                                         
+							</div> 
+							
+						</div>
+						<div class="pictures">
+							ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>end ngRepeat: pub in [1,2,3,4,5]
+						</div>
 					</div>
-					<div class="pictures">
-						<div class="pic">
-							<div class="close">
-								<div class="close-inner">
-									<p>Удалить</p>
-								</div>
-							</div>
-							<img src="../../../images/bc.png" alt="">
-						</div>
-						<div class="pic">
-							<div class="close">
-								<div class="close-inner">
-									<p>Удалить</p>
-								</div>
-							</div>
-							<img src="../../../images/bc.png" alt="">
-						</div>
-						<div class="pic">
-							<div class="close">
-								<div class="close-inner">
-									<p>Удалить</p>
-								</div>
-							</div>
-							<img src="../../../images/bc.png" alt="">
-						</div>
+ -->
 
-					</div>
-					</div>
-				</div>
-		    </div>
+			    </div>
 
+			    <div class="chat-right-send-wrap">
+			    	<div class="send-wrap-top">
+				    	<a class="chat-right-send-smile" href=""></a>
+				    	<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes"></textarea>
+				    	<div class="send-add-file">
+				    		<a href=""></a>
+				    		<div class="chat-add-file-menu">
+				    			<a class="chat-add-file-publ" href="">Публикация</a>
+				    			<label class="chat-add-file-file"  for="">Файл</label>
+				    		</div>
+				    	</div>
+				    	<button class="chat-send-btn" ng-click="Model.sendMes(Model.chatMes, Model.opponent.room_id)">Отправить</button>
+			    	</div>
+			    	<div class="send-wrap-bottom">
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+			    	</div>
+			    </div>
+
+
+
+
+
+		    <!-- </div> -->
  <!-- Contact Block -->
 	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">
 	    		<div class="chat-contact-selected-ava">
 	    			<img ng-src="{{Model.contact.avatar_path}}" alt="">
-	    		</div>	    		
+	    		</div>
 	    		<div class="chat-contact-selected-data">
 	    			<div class="contact-selected-data-name">{{Model.contact.first_name + ' ' + Model.contact.last_name}}</div>
 	    			<div class="contact-selected-data-status">Статус</div>
@@ -309,6 +378,7 @@
 
 	    		</div>
 	    	</div>
+
 
 		  </div>
 	    </div>

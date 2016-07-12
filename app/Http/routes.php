@@ -89,7 +89,7 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
-    Route::group(['prefix' => 'moderator'], function () {        
+    Route::group(['prefix' => 'moderator'], function () {
         Route::group(['middleware' => 'moderator'], function () {
             Route::get('/', 'Moderator\IndexController@index');
             Route::get('edit', 'Moderator\IndexController@edit');
@@ -101,10 +101,10 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('topic/{id}', 'Moderator\ModerateController@topic');
                 Route::post('block/{id}', 'Moderator\ModerateController@block');
             });
-        });        
+        });
         Route::get('login', 'Moderator\AuthController@login');
         Route::post('auth', 'Moderator\AuthController@auth');
-        
+
     });
 
     Route::group(['prefix' => 'publication'], function () {
@@ -154,13 +154,13 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'chat'], function () {
-        Route::get('create/{locked_user_id}', 'ChatLockedUserController@create');
+        Route::get('locked/{locked_user_id}', 'ChatLockedUserController@create');
         Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
     });
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/locked/1095\" method=\"get\" enctype=\"multipart/form-data\">
 
             <input type='text' name='name'><br>
             <input type='text' name='description'><br>
@@ -169,7 +169,6 @@ Route::group(['middleware' => ['web']], function () {
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>
             <input type='text' name='type_place_id' value='2'><br>
-
 
             <input type=\"submit\">
         </form>";
