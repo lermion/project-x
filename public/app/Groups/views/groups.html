@@ -67,8 +67,8 @@
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!isSub(group.users)">Подписаться</button>
-                            <button class="wright" ng-if="isSub(group.users)">Вы подписаны</button>
+                            <button class="wright" ng-if="!group.is_sub">Подписаться</button>
+                            <button class="wright" ng-if="group.is_sub">Вы подписаны</button>
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,8 @@
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!isSub(group.users)">Подписаться</button>
-                            <button class="wright" ng-if="isSub(group.users)">Вы подписаны</button>
+                            <button class="wright" ng-if="!group.is_sub">Подписаться</button>
+                            <button class="wright" ng-if="group.is_sub">Вы подписаны</button>
                         </div>
                     </div>
                 </div>
