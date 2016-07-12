@@ -90,7 +90,7 @@ io.sockets.on('connection', function(socket){
 			created_at: new Date(),
 			updated_at: new Date()
 		};
-		queries.getUserDialogue(message).then(function(response){
+		queries.sendMessage(message).then(function(response){
 			console.log(response);
 		},
 		function(error){

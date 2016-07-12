@@ -81,7 +81,8 @@ Queries.prototype.getUserRooms = function(data){
 		}else{
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
-					connection.query("SELECT avatar_path, login, user_id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
+						console.log(result);
 						result[0].room_id = item.id;
 						resolve(result[0]);
 					});
@@ -109,7 +110,7 @@ Queries.prototype.getUserDialogue = function(data){
 	});
 	return deferred.promise;
 }
-Queries.prototype.getUserDialogue = function(data){
+Queries.prototype.sendMessage = function(message){
 	var deferred = Q.defer();
 	connection.query('INSERT INTO messages SET ?', message, function(error, result){
 		if(error){
@@ -117,6 +118,9 @@ Queries.prototype.getUserDialogue = function(data){
 			deferred.reject(error);
 			return;
 		}else{
+			connection.query('INSERT INTO messages SET ?', message, function(error, result){
+
+			});
 			console.log("message saved in table messages");
 			deferred.resolve(result);
 		}
