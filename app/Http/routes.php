@@ -160,8 +160,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/locked/9\" method=\"get\" enctype=\"multipart/form-data\">
-
+        echo "<form action=\"http://pp.dev/group\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='name'><br>
             <input type='text' name='description'><br>
             <input type='text' name='address'><br>

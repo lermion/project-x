@@ -6,8 +6,7 @@ var connection = mysql.createConnection({
 	host     : config.host,
 	user     : config.user,
 	password : config.password,
-	database: config.database,
-	connectTimeout: 1000000
+	database: config.database
 });
 connection.connect(function(error){
 	if(error){

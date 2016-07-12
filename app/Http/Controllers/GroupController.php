@@ -21,7 +21,18 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return Group::with(['users'])->where('is_open', true)->get();
+        $groups = Group::all();
+        foreach($groups as &$group){
+            $group->count_user = $group->users()->count();
+            $group->publications = $group->publications()->count();
+            if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
+                $group->is_sub = true;
+            } else {$group->is_sub = false;}
+            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
+                $group->is_admin = true;
+            } else {$group->is_admin = false;}
+        }
+        return $groups;
     }
 
     public function adminGroup()
@@ -88,6 +99,9 @@ class GroupController extends Controller
             if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $group->is_admin = true;
             } else {$group->is_admin = false;}
+            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true, 'is_creator' => true])->first()){
+                $group->is_creator = true;
+            } else {$group->is_creator = false;}
         }
         return $group;
     }
