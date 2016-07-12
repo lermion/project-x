@@ -3942,7 +3942,7 @@ span.users-today-time-time.early {
 }
 
 
-
+/*@media screen and (min-width:769px) and (max-width:1024px)*/
 @media (max-width: 1024px) {
   .chat-main-container {
     width: 100%;
