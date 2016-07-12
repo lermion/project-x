@@ -1,4 +1,4 @@
-<form name="groupForm">
+<form name="groupForm" novalidate>
     <div class="new_group"> Новая группа</div>
     <div class="add_newgroup">
         <div class="first_item">
@@ -14,7 +14,7 @@
 
         <div class="second_item">
             <div class="add-ava">
-                <input type="file" id="avatarImg" class="js-group-avatar">
+                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar">
                 <label for="avatarImg">
                 <span class="ava" ng-show="dataURI">
                     <img ng-src="{{dataURI}}" style="width:100%;">
@@ -29,19 +29,22 @@
         </div>
 
 
-        <input type="text"
+        <input type="text" name="name"
+               ng-class="{'has-error': groupForm.name.$touched && groupForm.name.$invalid}"
                ng-model="newGroup.name"
+               required
                placeholder="Название">
 
-        <div ng-messages="myForm.myName.$error" style="color:maroon" role="alert">
-            <div ng-message="required">You did not enter a field</div>
-            <div ng-message="minlength">Your field is too short</div>
-            <div ng-message="maxlength">Your field is too long</div>
-        </div>
+        <!--<div ng-messages="groupForm.name.$error" style="color:maroon" role="alert">-->
+            <!--<div ng-message="required">You did not enter a field</div>-->
+        <!--</div>-->
 
         <div class="text-field">
             <div emoji-form emoji-message="emojiMessage">
-                <textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+                <textarea id="messageInput" name="description"
+                          required
+                          ng-class="{'has-error': groupForm.description.$touched && groupForm.description.$invalid}"
+                          ng-model="emojiMessage.messagetext"></textarea>
                 <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>

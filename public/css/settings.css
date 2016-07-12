@@ -4063,4 +4063,13 @@ span.users-today-time-time.early {
   width: 100%;
  }
 
+}/**************************************************
+            Form validation ng-messages
+***************************************************/
+
+/*----------------------
+     Input fields
+----------------------*/
+.has-error {
+    border: 2px solid #F44336 !important;
 }
