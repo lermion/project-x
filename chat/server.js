@@ -84,7 +84,12 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('send message', function(data){
 		queries.sendMessage(data).then(function(response){
-			console.log(response);
+			queries.getUserDialogue(data).then(function(response){
+				socket.emit('send message', response);
+			},
+			function(error){
+				console.log(error);
+			});
 		},
 		function(error){
 			console.log(error);

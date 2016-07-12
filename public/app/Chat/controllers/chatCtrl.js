@@ -219,7 +219,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.Chat = [];
 			
-			$scope.Model.sendMes = function(message, roomId){				
+			$scope.Model.sendMes = function(message, roomId){
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
@@ -227,9 +227,7 @@ angular.module('placePeopleApp')
 				}
 				$scope.Model.chatMes = '';
 
-				socket.emit('send message', data, function(res){
-					// $scope.Model.Chat.push(res);
-				});
+				socket.emit('send message', data);
 
 				var mesInFormat = {
 					text: message,
@@ -240,13 +238,12 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('send message', function(response){
-				// console.log(response);
+				$scope.Model.Chat = response;
 				// if ($scope.Model.Chat.length === 0) {
-					$scope.Model.Chat = response;
+				// 	$scope.Model.Chat = response;
 				// } else if(response.length === 1){
 				// 	$scope.Model.Chat.push(response);
 				// } 
-				
 			});
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						

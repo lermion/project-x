@@ -99,7 +99,7 @@ Queries.prototype.getUserRooms = function(data){
 }
 Queries.prototype.getUserDialogue = function(data){
 	var deferred = Q.defer();
-	var sql = connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id, function(error, result){
+	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id, function(error, result){
 		if(error){
 			console.error("error to get user dialogue: " + error.stack);
 			deferred.reject(error);
