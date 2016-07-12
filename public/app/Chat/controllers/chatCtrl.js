@@ -176,20 +176,20 @@ angular.module('placePeopleApp')
 				$scope.Model.contact = contact;
 			};
 
-            $scope.Model.blockContact = function(contactId){
-            	// console.log(contactId);
-                ChatService.blockUser(contactId)
-                    .then(function(response){
-                        console.log(response);                        
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
-            $scope.Model.deleteContact = function(contact){
-                console.log('deleteContact');
-                console.log(contact);
-            };           
+			$scope.Model.blockContact = function(contactId){
+				// console.log(contactId);
+				ChatService.blockUser(contactId)
+					.then(function(response){
+						console.log(response);                        
+					},
+					function(error){
+						console.log(error);
+					});
+			};
+			$scope.Model.deleteContact = function(contact){
+				console.log('deleteContact');
+				console.log(contact);
+			};           
 
 			$scope.Model.openChatWith = function(opponent){                
 				if ($state.current.name === 'chat.contacts') {
@@ -204,7 +204,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userIdFrom: $scope.loggedUserId,
 					userIdTo: opponent.id,
-                    room_id: opponent.room_id
+					room_id: opponent.room_id
 				};
 
 				socket.emit('create room', data);
@@ -214,7 +214,7 @@ angular.module('placePeopleApp')
 			socket.emit("get user rooms", $scope.loggedUserId);
 			socket.on("get user rooms", function(response){
 				// console.log(response);
-                $scope.Model.chatRooms = response;
+				$scope.Model.chatRooms = response;
 			});
 
 			$scope.Model.Chat = [];
@@ -227,7 +227,7 @@ angular.module('placePeopleApp')
 				}
 				$scope.Model.chatMes = '';
 
-				// socket.emit('send message', data);
+				socket.emit('send message', data);
 
 				console.log();
 
@@ -241,11 +241,16 @@ angular.module('placePeopleApp')
 			};	
 
 			$scope.Model.scrollBottom = function(){
-				var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
-				var height = chatWindow[0].scrollHeight;				
-				chatWindow.scrollTop(height);
-			};		
-
+				setTimeout(function(){
+					var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
+					var height = chatWindow[0].scrollHeight;
+					chatWindow.scrollTop(height);
+				}, 100);
+			};
+			socket.on('updatechat', function(username, data){
+				console.log(data);
+				$scope.Model.Chat = data;
+			});
 			socket.on('send message', function(response){
 				// console.log(response);
 				$scope.Model.Chat = response;
@@ -262,25 +267,25 @@ angular.module('placePeopleApp')
 				}
 			};
 
-            $scope.Model.getLockedUsers = function(){
-                ChatService.getLockedUsers()
-                    .then(function(response){
-                    	console.log(response);
-                        $scope.Model.blockedUsers = response;                           
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
+			$scope.Model.getLockedUsers = function(){
+				ChatService.getLockedUsers()
+					.then(function(response){
+						console.log(response);
+						$scope.Model.blockedUsers = response;                           
+					},
+					function(error){
+						console.log(error);
+					});
+			};
 
-            $scope.Model.showBlockedContactChat = function(user){
-            	// console.log(user);
-            	$scope.Model.opponent = user;
-            	$scope.Model.displayBlockedBlock = true;
-            }
+			$scope.Model.showBlockedContactChat = function(user){
+				// console.log(user);
+				$scope.Model.opponent = user;
+				$scope.Model.displayBlockedBlock = true;
+			}
 
-            // $scope.Model.getLockedUsers();
+			// $scope.Model.getLockedUsers();
 
-            
+			
 
 	}]);
