@@ -248,7 +248,6 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(username, data){
-				console.log(data);
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){
