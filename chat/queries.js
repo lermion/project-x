@@ -119,7 +119,7 @@ Queries.prototype.sendMessage = function(message){
 			return;
 		}else{
 			connection.query('INSERT INTO messages SET ?', message, function(error, result){
-
+				
 			});
 			console.log("message saved in table messages");
 			deferred.resolve(result);

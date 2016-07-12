@@ -84,6 +84,7 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
+		console.log(data);
 		var message = {
 			user_id: data.userId,
 			text: data.message,

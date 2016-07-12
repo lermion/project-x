@@ -218,10 +218,11 @@ angular.module('placePeopleApp')
 				}
 				$scope.Model.chatMes = '';
 
-				// socket.emit('sendMessage', data, function(){
-					
-				// });
+				socket.emit('send message', data);
 			};
+			socket.on('send message', function(response){
+				console.log(response);
+			});
 
             $scope.Model.blockUser = function(userId){
                 ChatService.blockUser(userId)
