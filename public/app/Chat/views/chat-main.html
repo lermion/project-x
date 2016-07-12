@@ -310,7 +310,7 @@
 				    			<label class="chat-add-file-file"  for="">Файл</label>
 				    		</div>
 				    	</div>
-				    	<button class="chat-send-btn" ng-click="Model.sendMes(Model.chatMes)">Отправить</button>
+				    	<button class="chat-send-btn" ng-click="Model.sendMes(Model.chatMes, Model.opponent.room_id)">Отправить</button>
 			    	</div>
 			    	<div class="send-wrap-bottom">
 							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
@@ -361,7 +361,6 @@
 
 
 		    <!-- </div> -->
-
  <!-- Contact Block -->
 	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">
 	    		<div class="chat-contact-selected-ava">
