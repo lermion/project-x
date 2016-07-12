@@ -2389,6 +2389,9 @@ a.add_comments {
   flex-wrap: wrap;
   width: 700px;
   height: 100%;
+  border-top: 1px solid #e0e2e5;
+  border-right: 1px solid #e0e2e5;
+  box-sizing: border-box;
 }
 .group-menu .user-menu {
     position: relative;
@@ -2836,6 +2839,7 @@ span.users-today-time-time.early {
   padding-top: 15px;
   background-color: white;
   width: 700px;
+  padding-bottom: 15px;
 }
 
 .chat-contact-selected-ava {
@@ -4020,4 +4024,8 @@ span.users-today-time-time.early {
  .chat-add-file-menu {
   width: 110px;
  }
+ .chat-contact-right-selected {
+  width: 100%;
+ }
+
 }
