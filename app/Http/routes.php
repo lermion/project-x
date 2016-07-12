@@ -70,6 +70,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'group', 'middleware' => 'auth'], function () {
 
         Route::get('/', 'GroupController@index');
+        Route::get('admin_group', 'GroupController@adminGroup');
         Route::post('store', 'GroupController@store')->middleware(['auth']);;
         Route::get('show/{name}', 'GroupController@show');
         Route::post('update/{id}', 'GroupController@update');
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscription/{id}', 'GroupController@subscription');
         Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
+        Route::get('set_admin_creator/{group_id}/{admin_id}', 'GroupController@setUserCreator');
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
             Route::post('store', 'GroupPublicationController@store');
@@ -125,9 +127,15 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
+        Route::get('/', 'PlaceController@index');
+        Route::get('admin_place', 'PlaceController@adminPlace');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
+        Route::post('update/{id}', 'PlaceController@update');
+        Route::get('destroy/{id}', 'PlaceController@destroy');
         Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
+        Route::get('set_admin_creator/{place_id}/{admin_id}', 'PlaceController@setUserCreator');
+        Route::get('subscription/{id}', 'PlaceController@subscription');
         Route::post('invite/{place_id}', 'PlaceController@invite');
         Route::group(['prefix' => '{placeId}/publication'], function () {
             Route::get('/', 'PlacePublicationController@index');
@@ -152,11 +160,15 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/create/1069\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
 
-            <input type='text' name='text'><br>
-            <input type='text' name='is_anonym'><br>
-            <input type='text' name='is_main'><br>
+            <input type='text' name='name'><br>
+            <input type='text' name='description'><br>
+            <input type='text' name='address'><br>
+            <input type='text' name='city_id' value='5'><br>
+            <input type='text' name='coordinates_x'><br>
+            <input type='text' name='coordinates_y'><br>
+            <input type='text' name='type_place_id' value='2'><br>
 
 
             <input type=\"submit\">
