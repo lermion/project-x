@@ -257,16 +257,6 @@ angular.module('app.groups')
                 modalNewGroup.close();
             };
 
-            $scope.isSub = function (users) {
-                var isSub = users.filter(function (item) {
-                    if (myId === item.id) {
-                        return true;
-                    }
-                });
-
-                return isSub ? true : false;
-            };
-
             $scope.toogleGroupsView = function (filter) {
                 switch (filter) {
                     case 'my':
