@@ -40,12 +40,12 @@
                     <div class="group-likes">
                         <div class="group-info">
                             <a href="" class="publication-place">{{::vm.group.name}}</a>
+                            <a href="" class="publication-place">{{::vm.group.description}}</a>
+
 
                             <p class="like-item">
                                 В теме
-                                <span ng-if="singlePublication.user_like" class="you"> Вы </span>
-                                <span ng-if="singlePublication.user_like" class="more">и еще</span>
-                                <span class="count-like">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}}</span>
+                                <span class="count-like">{{::vm.group.count_users}}</span>
                                 чел.
                             </p>
                         </div>
