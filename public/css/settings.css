@@ -3676,7 +3676,7 @@ span.users-today-time-time.early {
   height: 40px;
   margin-left: 5px;
  }
-.send-add-file a {
+.send-add-file {
   width: 100%;
   height: 100%;
   background-image: url(/images/clip.png);
@@ -3804,4 +3804,59 @@ span.users-today-time-time.early {
 .user-menu-top-do.chat-in {
   width: 150px;
   font-size: 10.6px;
+}
+
+
+.send-add-file {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    position: relative;
+}
+.chat-add-file-menu {
+  position: absolute;
+  top: 40px;
+  left: -55px;
+  z-index: 10;
+  width: 130px;
+  background-color: red;
+  font-size: 14.6px;
+  box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+}
+.chat-add-file-publ {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    line-height: 35px;
+    color: #333;
+    cursor: pointer;
+    background-color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: "SFUIDisplayMedium";
+    z-index: 1000;
+}
+.chat-add-file-file {
+  display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    line-height: 35px;
+    color: #333;
+    cursor: pointer;
+    background-color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: "SFUIDisplayMedium";
+    z-index: 1000;
+}
+.chat-add-file-publ:hover {
+    color: rgb(70, 120, 177);
+    background-color: rgb(245, 245, 245);
+}
+.chat-add-file-file:hover {
+    color: rgb(70, 120, 177);
+    background-color: rgb(245, 245, 245);
 }
