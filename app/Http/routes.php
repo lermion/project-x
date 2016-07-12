@@ -15,7 +15,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::post('test', 'FfmpegControllerr@put');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'Admin\HomeController@index');
@@ -71,6 +70,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'group', 'middleware' => 'auth'], function () {
 
         Route::get('/', 'GroupController@index');
+        Route::get('admin_group', 'GroupController@adminGroup');
         Route::post('store', 'GroupController@store')->middleware(['auth']);;
         Route::get('show/{name}', 'GroupController@show');
         Route::post('update/{id}', 'GroupController@update');
@@ -78,6 +78,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscription/{id}', 'GroupController@subscription');
         Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
+        Route::get('set_admin_creator/{group_id}/{admin_id}', 'GroupController@setUserCreator');
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
             Route::post('store', 'GroupPublicationController@store');
@@ -88,7 +89,7 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
-    Route::group(['prefix' => 'moderator'], function () {        
+    Route::group(['prefix' => 'moderator'], function () {
         Route::group(['middleware' => 'moderator'], function () {
             Route::get('/', 'Moderator\IndexController@index');
             Route::get('edit', 'Moderator\IndexController@edit');
@@ -100,10 +101,10 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('topic/{id}', 'Moderator\ModerateController@topic');
                 Route::post('block/{id}', 'Moderator\ModerateController@block');
             });
-        });        
+        });
         Route::get('login', 'Moderator\AuthController@login');
         Route::post('auth', 'Moderator\AuthController@auth');
-        
+
     });
 
     Route::group(['prefix' => 'publication'], function () {
@@ -126,9 +127,15 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
+        Route::get('/', 'PlaceController@index');
+        Route::get('admin_place', 'PlaceController@adminPlace');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
+        Route::post('update/{id}', 'PlaceController@update');
+        Route::get('destroy/{id}', 'PlaceController@destroy');
         Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
+        Route::get('set_admin_creator/{place_id}/{admin_id}', 'PlaceController@setUserCreator');
+        Route::get('subscription/{id}', 'PlaceController@subscription');
         Route::post('invite/{place_id}', 'PlaceController@invite');
         Route::group(['prefix' => '{placeId}/publication'], function () {
             Route::get('/', 'PlacePublicationController@index');
@@ -147,15 +154,21 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'chat'], function () {
-        Route::get('create/{locked_user_id}', 'ChatLockedUserController@create');
+        Route::get('locked/{locked_user_id}', 'ChatLockedUserController@locked');
         Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
     });
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/test\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='file' name='video'><br>
-            <input type='text' name='text'><br>
+        echo "<form action=\"http://pp.dev/group\" method=\"get\" enctype=\"multipart/form-data\">
+            <input type='text' name='name'><br>
+            <input type='text' name='description'><br>
+            <input type='text' name='address'><br>
+            <input type='text' name='city_id' value='5'><br>
+            <input type='text' name='coordinates_x'><br>
+            <input type='text' name='coordinates_y'><br>
+            <input type='text' name='type_place_id' value='2'><br>
+
             <input type=\"submit\">
         </form>";
     });

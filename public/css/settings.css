@@ -1627,7 +1627,40 @@ a.add_comments {
  }
 }
 
+/*******************************
+            Groups
+*******************************/
 
+/*----------------------
+     Main
+----------------------*/
+
+.groups-content {
+    font-family: "SFUIDisplayMedium";
+}
+.places-page-type-place h4 {
+    font-weight: 400;
+    font-size: 16.6px;
+}
+.groups-filter {
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 14.6px;
+    padding-left: 30px;
+    background-image: url(/images/filter.png);
+    background-position: left center;
+    background-size: 12%;
+    background-repeat: no-repeat;
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    height: 30px;
+}
 
 
 
@@ -1774,6 +1807,26 @@ a.add_comments {
   align-items: center;
   padding: 10px;
   justify-content: space-between;
+    position: relative;
+}
+.group-peoples-inner-item .peoples-item__delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 86px;
+    text-align: center;
+    top: 12px;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+}
+.group-peoples-inner-item:hover {
+    /*color: #777;;*/
+    background: #e4e4e4;
+    transition: all .3s ease-in-out .1s;
 }
 .peoples-inner-item-data {
   display: flex;
@@ -1827,11 +1880,11 @@ a.add_comments {
   color: #333;
   transition: all .3s ease-in-out .1s;
 }
-.peoples-item-name-family span:hover {
-  display: block;
-  color: #777;;
-  transition: all .3s ease-in-out .1s;
-}
+/*.peoples-item-name-family span:hover {*/
+  /*display: block;*/
+  /*color: #777;;*/
+  /*transition: all .3s ease-in-out .1s;*/
+/*}*/
 .peoples-item-name-comment {
   margin: 0;
   padding: 0;
@@ -1846,6 +1899,9 @@ a.add_comments {
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
   margin-right: 5px;
+}
+.peoples-inner-item-admin:hover {
+    cursor: pointer;
 }
 
 
@@ -2508,7 +2564,7 @@ p.top-person-status {
   border: 1px solid #e0e2e5;
   background-color: #fff;
   box-sizing: border-box;
-  margin-bottom: 19px;
+  margin-bottom: 0px;
   font-family: "SFUIDisplayMedium";
 
 }
@@ -2651,6 +2707,7 @@ p.top-person-status {
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
+  height: 60px;
 }
 .chat-left-users-users-today.active {
   background-color: rgb(245,245,245);
@@ -2965,7 +3022,7 @@ span.users-today-time-time.early {
   align-items: center;
   padding: 15px;
   color: #495b79;
-  background-color: #e0e2e5;
+  border-bottom: 1px solid #e0e2e5;
 }
 .chat-left-users-my-sign {
   display: flex;
@@ -2974,7 +3031,6 @@ span.users-today-time-time.early {
   align-items: center;
   padding: 15px;
   color: #495b79;
-  background-color: #e0e2e5;
   border-bottom: 1px solid #e0e2e5;
 }
 
@@ -3235,6 +3291,7 @@ span.users-today-time-time.early {
   padding-right: 10px;
   border-radius: 3px;
   color: rgb(92,108,135);
+    cursor: pointer;
 }
 
 
@@ -3254,6 +3311,9 @@ span.users-today-time-time.early {
   flex-wrap: wrap;
   box-sizing: border-box;
   padding: 10px;
+  background: url(../images/chat-bg.png) repeat;
+  max-height: 600px;
+  overflow-y: auto;
 }
 .chat-message-date {
   display: flex;
@@ -3388,7 +3448,8 @@ span.users-today-time-time.early {
   align-items: flex-end;
   background-color: rgb(255,255,255);
   border-radius: 10px;
-  box-sizing: border-box;  
+  box-sizing: border-box;
+  border: 1px solid #e0e2e5;
 }
 .right-chat-to-my-msg-inner {
   max-width: 100%;
@@ -3456,8 +3517,507 @@ span.users-today-time-time.early {
     align-items: center;
     flex-wrap: wrap;
 }
-.group-comments .pictures .pic:nth-child(4n) {
-    margin-right: 0;
+
+
+.chat-right-inner-publication-my {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+.chat-publication-wrap {
+  width: 80%;
+  display: flex;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  background-color: rgb(215,226,250);
+}
+.chat-publication-data {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+}
+.chat-publication-description {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  font-size: 14.6px;
+    font-family: "SFUIDisplayLight";
+    font-weight: 600;
+    color: #575757;
+  line-height: 21px;
+}
+.chat-publication-adress {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  color: rgb(74,92,122);
+  font-family: "SFUIDisplayMedium";
+  padding: 5px;
+}
+.publication-adress-span {
+  padding-left: 15px;
+  background-image: url(/images/school.png);
+  background-repeat: no-repeat;
+  padding-left: 25px;
+  margin-right: 10px;
+  background-position: left center;
+}
+.chat-publication-photo {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+}
+.chat-publication-photo img {
+  width: 100%;
+  max-height: 285px;
+}
+.chat-publication-relations {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: space-between;
+  padding: 8px;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+}
+.publication-relations-left span {
+  margin-left: 5px;
+}
+.publication-relations-left-btn {
+  padding: 2px;
+  padding-left: 19px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding-right: 7px;
+  background-image: url(/images/comment-like.png);
+  background-repeat: no-repeat;
+  background-size: 19%;
+  background-position: left 5px center;
+  margin-right: 5px;
+}
+.relations-right-img {
+  background-image: url(/images/chat-tab-chat.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  padding-right: 30px;
+  font-family: "SFUIDisplayLight";
+  font-size: 13.6px;
+}
+.chat-right-top-person.my-msg {
+  background-color: rgb(215, 226, 250);
 }
 
-    
+.chat-right-inner-publication-to-my {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+.chat-right-top-person.to-my-msg {
+  background-color: #fff;
+}
+.chat-publication-wrap.to-my-msg {
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 1px solid #e0e2e5;
+}
+.chat-right-top-person.chat-my-msg {
+  border: 0px;
+}
+
+
+.chat-right-send-wrap {
+  width: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+
+}
+.send-wrap-top {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-right-send-smile {
+    display: block;
+    width: 45px;
+    height: 40px;
+    background-image: url(../images/smil.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    box-sizing: border-box;
+}
+.chat-right-send-wrap textarea {
+    resize: none;
+    width: 75%;
+    border-radius: 2px;
+    border: 1px solid #e5e7e9;
+    font-size: 14.6px;
+    color: #999;
+    background: #fff;
+    padding: 5px 30px 5px 10px;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayLight";
+    height: 30px;
+ }
+ .send-add-file {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+ }
+.send-add-file {
+  width: 100%;
+  height: 100%;
+  background-image: url(/images/clip.png);
+  background-repeat: no-repeat;
+  background-position: left 5px center;
+  background-size: 70%;
+}
+.chat-send-btn {
+  display: flex;
+  color: #495b79;
+  font-family: "SFUIDisplayMedium";
+  padding: 5px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.chat-send-btn:hover {
+  border: 1px solid #495b79;
+  color: #495b79;
+  background: transparent;
+  cursor: pointer;
+ }
+
+
+.send-wrap-bottom {
+    padding: 5px 10px;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-height: 107px;
+}
+.send-wrap-bottom .pic {
+    width: 24%;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    cursor: pointer;
+    position: relative;
+}
+.send-wrap-bottom  .pic img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+.send-wrap-bottom .pic .close {
+    z-index: 1;
+    left: 5px;
+    background-color: #333;
+    position: absolute;
+    top: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .3s ease-in-out .1s;
+    display: block;
+}
+.send-wrap-bottom .pic .close-inner {
+    position: absolute;
+    background: #fff;
+    top: 30px;
+    color: #333;
+    font-size: 10px;
+    line-height: 15px;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin: 0;
+    border: 1px solid #333;
+    display: block;
+}
+.send-wrap-bottom .pic .close-inner p {
+    margin: 0;
+}
+.send-wrap-bottom  .pic .close:before {
+    background: 0 0;
+    color: #fff;
+    content: '\00D7';
+    font-size: 26px;
+    font-weight: 400;
+    height: 25px;
+    left: 0;
+    text-align: center;
+    top: 0;
+    width: 25px;
+    width: 25px;
+    display: block;
+    line-height: 24px;
+}
+.send-wrap-bottom  .pic .close-inner:before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 4px;
+    width: 0;
+    height: 0;
+    border-bottom: 6px solid #333;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+}
+.send-wrap-bottom .pic .close-inner:after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 6px;
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid #fff;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.user-menu-top-inner.chat-in {
+  font-size: 12.6px;
+}
+.user-menu-top-do.chat-in {
+  width: 150px;
+  font-size: 12.6px;
+}
+
+
+.send-add-file {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    position: relative;
+}
+.chat-add-file-menu {
+  position: absolute;
+  top: 40px;
+  left: -55px;
+  z-index: 10;
+  width: 130px;
+  background-color: red;
+  font-size: 14.6px;
+  box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+}
+.chat-add-file-publ {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    line-height: 35px;
+    color: #333;
+    cursor: pointer;
+    background-color: #fff;
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    z-index: 1000;
+}
+.chat-add-file-file {
+  display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    line-height: 35px;
+    color: #333;
+    cursor: pointer;
+    background-color: #fff;
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    z-index: 1000;
+}
+.chat-add-file-publ:hover {
+    color: rgb(70, 120, 177);
+    background-color: rgb(245, 245, 245);
+}
+.chat-add-file-file:hover {
+    color: rgb(70, 120, 177);
+    background-color: rgb(245, 245, 245);
+}
+
+
+.users-menu-tab-menu-do {
+  position: relative;
+}
+.users-menu-tab-menu-do-inner {
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px;
+  position: absolute;
+  top: 65px;
+  left: -70px;
+  box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+  background-color: #fff;
+}
+.chat-do-inner-link-create {
+  width: 100%;
+  line-height: 35px;
+  text-decoration: none;
+  padding-left: 15px;
+  font-size: 14.6px;
+}
+.chat-do-inner-link-create:hover {
+  color: rgb(70, 120, 177);
+  background-color: rgb(245, 245, 245);
+}
+.chat-do-inner-link-alert {
+  width: 100%;
+  line-height: 35px;
+  text-decoration: none;
+  padding-left: 15px;
+  font-size: 14.6px;
+}
+.chat-do-inner-link-alert:hover {
+  color: rgb(70, 120, 177);
+  background-color: rgb(245, 245, 245);
+}
+
+.chat-blocked-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+.chat-left-users-all.blocked-users {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.chat-menu-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+.chat-menu-wrap-inner {
+  width: 100%;
+  border-bottom: 1px solid #e0e2e5;
+  padding: 15px;
+  color: #495b79;
+  transition: all .3s ease-in-out .1s;
+}
+.chat-menu-wrap-inner:hover {
+  padding: 15px;
+  color: #9b645a;
+  cursor: pointer;
+}
+
+
+.chat-right-main-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+.chat-left-wrap-contact-data {
+  width: 100%;
+}
+
+
+/*@media screen and (min-width:769px) and (max-width:1024px)*/
+@media (max-width: 1024px) {
+  .chat-main-container {
+    width: 100%;
+  }
+  .chat-main-container-left {
+    width: 31%;
+  }
+  .chat-main-container-right {
+    width: 69%;
+  }
+  .chat-left-users-menu {
+    height: 50px;
+  }
+  .chat-users-today-ava a {
+    height: 40px;
+    width: 40px;
+  }
+  .chat-users-today-info p {
+    font-size: .85em;
+  }
+  .chat-users-today-data {
+    width: 80%;
+  }
+  .chat-left-users-users-today {
+    height: 50px;
+  }
+  .chat-left-users-users-today {
+    justify-content: flex-start;
+  }
+  .chat-publication-description, 
+  .chat-publication-relations,
+  .user-menu-top-inner a,
+  .chat-add-file-publ,
+  .chat-add-file-file,
+  .chat-message-date span {
+    font-size: .9em;
+  }
+  .right-chat-to-my-msg-inner,
+  .my-msg-inner-text,
+  .chat-publication-description {
+    font-size: 13.6px;
+  }
+  .chat-message-date span, 
+  .publication-adress-span, 
+  .chat-publication-adress {
+    font-size: 12.6px;
+  }
+  .right-chat-to-my-msg-date span,
+  .right-chat-my-msg-date span {
+    font-size: 10.6px;
+  }
+.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
+  width: 32%;
+  margin-right: 2px;
+  height: 70px;
+  }
+  .send-wrap-bottom .pic {
+    height: 80px;
+  }
+
+
+  .user-menu-top-do {
+    width: 130px;
+  }
+  .user-menu-top-do.chat-in {
+    width: 130px;
+  }
+ .chat-person-top-ava a {
+  width: 40px;
+  height: 40px;
+ }
+ .chat-right-top-person {
+  height: 51px;
+ }
+ .chat-add-file-menu {
+  width: 110px;
+ }
+}

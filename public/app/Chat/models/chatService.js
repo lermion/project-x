@@ -4,24 +4,13 @@ angular.module('placePeopleApp')
 		var path = $location.protocol() + '://' + $location.host() + '/';
 
 		return	{
-			getUserPublications: getUserPublications,						
-			createPublication: createPublication,
-			updatePublication: updatePublication,
-			deletePublication: deletePublication,
-			addCommentPublication: addCommentPublication,
-			getAllCommentsPublication: getAllCommentsPublication,
-			deleteCommentPublication: deleteCommentPublication,
-			addCommentLike: addCommentLike,
-			addPublicationLike: addPublicationLike,
-			getSinglePublication: getSinglePublication,
-			getSubscribers: getSubscribers,
-			getSubscription: getSubscription
-
+			blockUser: blockUser,						
+			getLockedUsers: getLockedUsers
 		}
 
-		function getSubscribers(userId){
+		function blockUser(userId){			
 			var defer = $q.defer();
-			$http.get("user/" + userId + "/subscribers")
+			$http.get('chat/locked/' + userId)
 				.success(function (response){
 					defer.resolve(response);
 				})
@@ -31,9 +20,9 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		}
 
-		function getSubscription(userId){
+		function getLockedUsers(){
 			var defer = $q.defer();
-			$http.get("user/" + userId + "/subscription")
+			$http.get('chat/get_locked_users')
 				.success(function (response){
 					defer.resolve(response);
 				})
@@ -42,6 +31,14 @@ angular.module('placePeopleApp')
 				});
 			return defer.promise;
 		}
+
+
+
+
+
+
+
+
 
 		function addCommentPublication(pubId, pubText, images, videos){
 			var formData = new FormData();

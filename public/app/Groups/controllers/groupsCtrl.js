@@ -1,6 +1,11 @@
 angular.module('app.groups')
-    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', 'StaticService', 'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
-        function ($rootScope, $scope, $state, $stateParams, $filter, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
+    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', 'StaticService',
+        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
+        function ($rootScope, $scope, $state, $stateParams, $filter, StaticService,
+                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
+
+            var LIMIT_MY_GROUPS = 3,
+                LIMIT_ALL_PUBLIC_GROUPS = 3;
 
             var storage = storageService.getStorage();
             var myId = storage.userId;
@@ -32,6 +37,14 @@ angular.module('app.groups')
             $scope.blobImg = null;
             $scope.subscribers = [];
             $scope.strSearch = '';
+            $scope.showAllGroups = true;
+            $scope.showMyGroups = true;
+            $scope.showAllButtons = false;
+            $scope.limitMyGroups = LIMIT_MY_GROUPS;
+            $scope.limitAllPublicGroups = LIMIT_ALL_PUBLIC_GROUPS;
+            $scope.filterGroups = {
+                value: '-users.length'
+            };
             $scope.onItemSelected = function (user) {
 
                 var isExist = $filter('getById')($scope.newGroup.users, user.id);
@@ -227,6 +240,9 @@ angular.module('app.groups')
                 groupsService.addGroup($scope.newGroup)
                     .then(function (data) {
                         if (data.status) {
+                            data.group.users = [{id: myId}];
+                            $scope.groupList.push(data.group);
+
                             if ($scope.newGroup.users.length > 0) {
                                 inviteUsers(data.group.id);
                             } else {
@@ -249,6 +265,33 @@ angular.module('app.groups')
                 });
 
                 return isSub ? true : false;
+            };
+
+            $scope.toogleGroupsView = function (filter) {
+                switch (filter) {
+                    case 'my':
+                        $scope.showMyGroups = true;
+                        $scope.showAllGroups = false;
+                        $scope.showAllButtons = true;
+                        $scope.limitMyGroups = 'Infinity';
+                        break;
+                    case 'public':
+                        $scope.showMyGroups = false;
+                        $scope.showAllGroups = true;
+                        $scope.showAllButtons = true;
+                        $scope.limitAllPublicGroups = 'Infinity';
+                        break;
+                    case 'all':
+                        $scope.showMyGroups = true;
+                        $scope.showAllGroups = true;
+                        $scope.showAllButtons = false;
+                        $scope.limitMyGroups = LIMIT_MY_GROUPS;
+                        $scope.limitAllPublicGroups = LIMIT_ALL_PUBLIC_GROUPS;
+                }
+            };
+
+            $scope.getGroupType = function() {
+                return $scope.filterGroups;
             };
 
             function getGroupList() {

@@ -129,9 +129,6 @@ angular.module('placePeopleApp')
 				updated_at:"2016-07-08 09:55:09"
 			}
 
-			// $scope.contactBlock = {};
-			// $scope.chatBlock = {};
-
 			$scope.refTo = function(stateName){    
 				$state.go(stateName);
 			};
@@ -169,6 +166,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.showContactData = function(contact){
+				console.log(contact);
 				if ($state.current.name === 'chat.list') {
 					$scope.Model.showChatBlock = false;
 					$state.go('chat.contacts');
@@ -177,9 +175,16 @@ angular.module('placePeopleApp')
 				$scope.Model.displayContactBlock = true;
 				$scope.Model.contact = contact;
 			};
-            $scope.Model.blockContact = function(contact){
-                console.log('blockContact');
-                console.log(contact);
+
+            $scope.Model.blockContact = function(contactId){
+            	// console.log(contactId);
+                ChatService.blockUser(contactId)
+                    .then(function(response){
+                        console.log(response);                        
+                    },
+                    function(error){
+                        console.log(error);
+                    });
             };
             $scope.Model.deleteContact = function(contact){
                 console.log('deleteContact');
@@ -194,32 +199,87 @@ angular.module('placePeopleApp')
 				$scope.Model.opponent = opponent; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
+				$scope.Model.displayBlockedBlock = false;
 
 				var data = {
 					userIdFrom: $scope.loggedUserId,
-					userIdTo: opponent.id
+					userIdTo: opponent.id,
+                    room_id: opponent.room_id
 				};
 
 				socket.emit('create room', data);
+
+
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			socket.on("get user rooms", function(response){
-				console.log(response);
+				// console.log(response);
+                $scope.Model.chatRooms = response;
 			});
+
+			$scope.Model.Chat = [];
 			
-			$scope.Model.sendMes = function(message){
-				console.log(message);
+			$scope.Model.sendMes = function(message, roomId){
 				var data = {
 					userId: $scope.loggedUserId,
+					room_id: roomId,
 					message: message
 				}
 				$scope.Model.chatMes = '';
 
-				// socket.emit('sendMessage', data, function(){
-					
-				// });
+				// socket.emit('send message', data);
 
+				console.log();
+
+				var mesInFormat = {
+					text: message,
+					login: $scope.loggedUser
+				}
+
+				$scope.Model.Chat.push(mesInFormat);			
+
+			};	
+
+			$scope.Model.scrollBottom = function(){
+				var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
+				var height = chatWindow[0].scrollHeight;				
+				chatWindow.scrollTop(height);
+			};		
+
+			socket.on('send message', function(response){
+				// console.log(response);
+				$scope.Model.Chat = response;
+				// if ($scope.Model.Chat.length === 0) {
+				// 	$scope.Model.Chat = response;
+				// } else if(response.length === 1){
+				// 	$scope.Model.Chat.push(response);
+				// } 
+			});
+
+			$scope.Model.sendOnEnter = function(event, message, room_id){						
+				if (event.keyCode == 10 && event.ctrlKey == true) {
+					$scope.Model.sendMes(message, room_id);
+				}
 			};
+
+            $scope.Model.getLockedUsers = function(){
+                ChatService.getLockedUsers()
+                    .then(function(response){
+                    	console.log(response);
+                        $scope.Model.blockedUsers = response;                           
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+            };
+
+            $scope.Model.showBlockedContactChat = function(user){
+            	// console.log(user);
+            	$scope.Model.opponent = user;
+            	$scope.Model.displayBlockedBlock = true;
+            }
+
+            // $scope.Model.getLockedUsers();
 
             
 

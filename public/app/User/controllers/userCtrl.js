@@ -691,13 +691,14 @@ angular.module('placePeopleApp')
 		var	pubEditDeletedPhotos = [];
 		var pubEditDeletedVideos = [];
 
-		$scope.editedPubDeletePhoto = function(index, photoId){			
+		
+		$scope.editedPubDeleteFile = function(index, fileId, pivot){ 
 			$scope.editedPubFilesArray.splice(index, 1);
-			pubEditDeletedPhotos.push(photoId);
-			$scope.$broadcast('rebuild:me');			
-		};
-		$scope.editedPubDeleteVideo = function(videoId){
-			pubEditDeletedVideos.push(videoId);
+			if (pivot.image_id) {				
+				pubEditDeletedPhotos.push(fileId);
+			} else if(pivot.video_id) {				
+				pubEditDeletedVideos.push(fileId);
+			}			
 			$scope.$broadcast('rebuild:me');
 		};
 

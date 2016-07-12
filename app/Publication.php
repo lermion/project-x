@@ -71,7 +71,7 @@ class Publication extends Model
                     });
             })->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
-            $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->get();
+            $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'asc')->take(3)->get();
             $publication->like_count = $publication->likes()->count();
             if(Auth::check())
                 $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;

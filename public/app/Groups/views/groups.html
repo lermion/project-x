@@ -32,32 +32,85 @@
             <!-- Content -->
             <div class="groups-content">
                 <div class="groups-header">
-                    <!-- <a href="" ng-click="viewGroupPublication(1, 12)">view pub popup</a> -->
                     <a class="public-groups" href="">Публичные группы</a>
-                    <select name="" id="">
-                        <option value="">Популярные</option>
-                        <option value="">Новые</option>
-                    </select>
                     <a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную
                         группу</a>
                 </div>
-                <div class="groups">
-                    <div class="group" ng-repeat="group in groupList">
-                        <div class="group-cover">
-                            <a ui-sref="group({groupName: group.url_name})" class="group-ava">
-                                <img ng-src="{{group.avatar}}">
-                            </a>
-                            <div class="group-likes">
-                                <a href="" class="group-like">149</a>
-                                <a href="" class="group-comments">1052</a>
+
+                <div ng-if="showMyGroups">
+                    <div class="places-page-type-place">
+                        <div>
+                            <h4>Мои группы</h4>
+                        </div>
+                        <div class="places-type-place-btn" ng-if="!showAllButtons" ng-click="toogleGroupsView('my')">
+                            Ещё
+                        </div>
+                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
+                            Все
+                        </div>
+                    </div>
+                    <div class="groups">
+                        <div class="group"
+                             ng-repeat="group in groupList | limitTo: limitMyGroups">
+                            <div class="group-cover">
+                                <a ui-sref="group({groupName: group.url_name})" class="group-ava">
+                                    <img ng-src="{{group.avatar}}">
+                                </a>
+
+                                <div class="group-likes">
+                                    <a href="" class="group-like">149</a>
+                                    <a href="" class="group-comments">1052</a>
+                                </div>
                             </div>
+                            <div class="titles">
+                                <a href="" class="title">{{::group.name}}</a>
+
+                                <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+                            </div>
+                            <button class="wright" ng-if="!isSub(group.users)">Подписаться</button>
+                            <button class="wright" ng-if="isSub(group.users)">Вы подписаны</button>
                         </div>
-                        <div class="titles">
-                            <a href="" class="title">{{::group.name}}</a>
-                            <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+                    </div>
+                </div>
+
+                <div ng-if="showAllGroups">
+                    <div class="places-page-type-place">
+                        <div>
+                            <h4>Все публичные группы</h4>
                         </div>
-                        <button class="wright" ng-if="!isSub(group.users)">Подписаться</button>
-                        <button class="wright" ng-if="isSub(group.users)">Вы подписаны</button>
+                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value" ng-if="showAllButtons">
+                            <option value="-users.length">Популярные</option>
+                            <option value="-created_at">Новые</option>
+                        </select>
+
+                        <div class="places-type-place-btn" ng-if="!showAllButtons"
+                             ng-click="toogleGroupsView('public')">Ещё
+                        </div>
+                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
+                            Все
+                        </div>
+                    </div>
+                    <div class="groups">
+                        <div class="group"
+                             ng-repeat="group in groupList | limitTo: limitAllPublicGroups | orderBy:filterGroups.value">
+                            <div class="group-cover">
+                                <a ui-sref="group({groupName: group.url_name})" class="group-ava">
+                                    <img ng-src="{{group.avatar}}">
+                                </a>
+
+                                <div class="group-likes">
+                                    <a href="" class="group-like">149</a>
+                                    <a href="" class="group-comments">1052</a>
+                                </div>
+                            </div>
+                            <div class="titles">
+                                <a href="" class="title">{{::group.name}}</a>
+
+                                <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+                            </div>
+                            <button class="wright" ng-if="!isSub(group.users)">Подписаться</button>
+                            <button class="wright" ng-if="isSub(group.users)">Вы подписаны</button>
+                        </div>
                     </div>
                 </div>
             </div>
