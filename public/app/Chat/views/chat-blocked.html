@@ -2,7 +2,7 @@
 	    	<div class="chat-left-users-container" ng-init="Model.getLockedUsers()">
 		    	<div class="chat-left-users-all blocked-users">	
 
-			    	<div class="chat-left-users-users-today" ng-repeat="blockedUser in Model.subscribers">
+			    	<div class="chat-left-users-users-today" ng-repeat="blockedUser in Model.blockedUsers">
 			    		<div class="chat-users-today-ava">
 			    			<a >
 			    				<img ng-src="{{blockedUser.avatar_path}}" alt="">

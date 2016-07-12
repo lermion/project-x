@@ -217,7 +217,7 @@ angular.module('placePeopleApp')
 				$scope.Model.chatRooms = response;
 			});
 
-			$scope.Model.Chat = [];
+			// $scope.Model.Chat = [];
 			
 			$scope.Model.sendMes = function(message, roomId){
 				var data = {
@@ -229,14 +229,12 @@ angular.module('placePeopleApp')
 
 				socket.emit('send message', data);
 
-				console.log();
-
 				var mesInFormat = {
 					text: message,
 					login: $scope.loggedUser
 				}
 
-				$scope.Model.Chat.push(mesInFormat);			
+				// $scope.Model.Chat.push(mesInFormat);			
 
 			};	
 
@@ -248,11 +246,11 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(username, data){
-				console.log(data);
 				$scope.Model.Chat = data;
+
 			});
 			socket.on('send message', function(response){
-				// console.log(response);
+				console.log(response);
 				$scope.Model.Chat = response;
 				// if ($scope.Model.Chat.length === 0) {
 				// 	$scope.Model.Chat = response;
@@ -267,6 +265,10 @@ angular.module('placePeopleApp')
 				}
 			};
 
+			$scope.Model.getTime = function(time){
+				return time.substr(11, 5);
+			}
+
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
 					.then(function(response){
@@ -278,10 +280,10 @@ angular.module('placePeopleApp')
 					});
 			};
 
-			$scope.Model.showBlockedContactChat = function(user){
-				// console.log(user);
+			$scope.Model.showBlockedContactChat = function(user){				
 				$scope.Model.opponent = user;
 				$scope.Model.displayBlockedBlock = true;
+				$scope.Model.showBlockedBlock = true;
 			}
 
 			// $scope.Model.getLockedUsers();
