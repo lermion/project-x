@@ -55,10 +55,11 @@
 	    	</div>
 	    </div>
 
-	    <div class="chat-main-container-right" ng-if="Model.showChatBlock && Model.displayChatBlock">
+	    
 
-<!-- Chat block -->
-		   <!--  <div ng-if="Model.showChatBlock && Model.displayChatBlock">	      --> 
+	    <div class="chat-main-container-right">
+	    	<!-- Chat block -->
+		    <div class="chat-right-main-wrap"  ng-if="Model.showChatBlock && Model.displayChatBlock || Model.showBlockedBlock && Model.displayBlockedBlock">	      
 			    <div class="chat-right-top-person">
 				    <div class="chat-top-person-data">	
 				    	<div class="chat-person-top-ava">
@@ -162,11 +163,11 @@
 								    	</div>
 								    </div>
 								    	<div class="user-menu-top">
-											<div class="user-menu-top-do" style="display:none">
-												<div class="user-menu-top-inner">			
-													<a>Текст 1</a>
-													<a href="">Текст 2</a>
-													<a href="">Текст 3</a>
+											<div class="user-menu-top-do chat-in" style="display:block">
+												<div class="user-menu-top-inner chat-in">			
+													<a>Переслать</a>
+													<a href="">Получить ссылку</a>
+													<a href="">Пожаловаться</a>
 												</div>
 											</div>
 										</div>
@@ -210,9 +211,9 @@
 								    	<div class="user-menu-top">
 											<div class="user-menu-top-do" style="display:none">
 												<div class="user-menu-top-inner">			
-													<a>Текст 1</a>
-													<a href="">Текст 2</a>
-													<a href="">Текст 3</a>
+													<a>Переслать</a>
+													<a href="">Получить ссылку</a>
+													<a href="">Пожаловаться</a>
 												</div>
 											</div>
 										</div>
@@ -238,89 +239,68 @@
 			    		</div>
 			    	</div>
 
-<!-- 
-			    	<div class="group-comments">
-						<div class="group-comment">
-							<a href="" class="smile"></a>
-							<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
-							<div class="add-objects">						
-								<input id="addfile" type="file" ngf-keep="true" style="display: none;" ngf-select="" ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)" class="ng-pristine ng-untouched ng-valid ng-empty" multiple="multiple"> 
-								<label for="addfile">
-									<span class="add" ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
-										<span class="dropp ng-hide" ng-show="showChatAttachmentMenu">
-											<a href="" class="active">Публикация</a>
-											<a href="" class="">Файл</a>
-										</span>
-									</span>
-								</label>                                         
-							</div> 
-							
-						</div>
-						<div class="pictures">
-							ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
-									<div class="close-inner">
-										<p>Удалить</p>
-									</div>
-								</div>
-								<img src="../../../images/bc.png" alt="">
-							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
-									<div class="close-inner">
-										<p>Удалить</p>
-									</div>
-								</div>
-								<img src="../../../images/bc.png" alt="">
-							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
-									<div class="close-inner">
-										<p>Удалить</p>
-									</div>
-								</div>
-								<img src="../../../images/bc.png" alt="">
-							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
-									<div class="close-inner">
-										<p>Удалить</p>
-									</div>
-								</div>
-								<img src="../../../images/bc.png" alt="">
-							</div>end ngRepeat: pub in [1,2,3,4,5]<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
-									<div class="close-inner">
-										<p>Удалить</p>
-									</div>
-								</div>
-								<img src="../../../images/bc.png" alt="">
-							</div>end ngRepeat: pub in [1,2,3,4,5]
-						</div>
-					</div>
- -->
 
 			    </div>
 
 			    <div class="chat-right-send-wrap">
 			    	<div class="send-wrap-top">
 				    	<a class="chat-right-send-smile" href=""></a>
-				    	<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
+				    	<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes"></textarea>
 				    	<div class="send-add-file">
 				    		<a href=""></a>
+				    		<div class="chat-add-file-menu">
+				    			<a class="chat-add-file-publ" href="">Публикация</a>
+				    			<label class="chat-add-file-file"  for="">Файл</label>
+				    		</div>
 				    	</div>
-				    	<span class="chat-send-btn">Отправить</span>
+				    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent.id) : Model.sendMes(Model.chatMes, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 			    	</div>
 			    	<div class="send-wrap-bottom">
-			    		
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
+							<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
+								<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+									<div class="close-inner">
+										<p>Удалить</p>
+									</div>
+								</div>
+								<img src="../../../images/bc.png" alt="">
+							</div>
 			    	</div>
-			    </div>
-
-
-
-
-
-		    <!-- </div> -->
-
- <!-- Contact Block -->
-	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">
+			    </div>		    
+ 			</div>
+		 <!-- Contact Block -->		 
+	    	<div class="chat-contact-right-selected" ng-if="Model.showContactBlock && Model.displayContactBlock">	    	
 	    		<div class="chat-contact-selected-ava">
 	    			<img ng-src="{{Model.contact.avatar_path}}" alt="">
 	    		</div>
@@ -331,15 +311,13 @@
 	    			<div class="contact-selected-data-phone">Телефон</div>
 	    			<div class="contact-selected-data-tel-number">{{Model.contact.phone}}</div>
 	    			<div class="contact-selected-data-message" ng-click="Model.openChatWith(Model.contact)" style="cursor:pointer;"><span><img src="/images/chat-icon.png" alt=""></span><span class="contact-selected-message-span">Написать сообщение</span></div>
-	    			<div class="contact-selected-data-block" style="cursor:pointer;" ng-click="Model.blockContact(Model.contact)"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
+	    			<div class="contact-selected-data-block" style="cursor:pointer;" ng-click="Model.blockContact(Model.contact.id)"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">Заблокировать контакт</span></div>
 	    			<div class="contact-selected-data-delete" style="cursor:pointer;" ng-click="Model.deleteContact(Model.contact)"><span><img src="/images/chat-delete-contact.png" alt=""></span><span class="contact-selected-delete-span">Удалить контакт</span></div>
 
 	    		</div>
 	    	</div>
-
-
-		  </div>
-	    </div>
+		</div>
+	</div>
 
 
 

@@ -16,8 +16,12 @@ io.sockets.on('connection', function(socket){
 		data.updated_at = new Date();
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
-				console.log("these users already have the room");
-				return;
+				queries.getUserDialogue(data).then(function(response){
+					socket.emit('send message', response);
+				},
+				function(error){
+					console.log(error);
+				});
 			}else{
 				queries.getUsers(data).then(function(response){
 					users.userNameFrom = response[0].first_name;
@@ -48,7 +52,6 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
-							console.log("response!!!!", response);
 							socket.emit("get user rooms", response);
 						},
 						function(error){
@@ -69,34 +72,22 @@ io.sockets.on('connection', function(socket){
 		});
 });
 	socket.on('get user rooms', function(data){
-		connection.query('SELECT chat_rooms.id, chat_rooms.name FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE users.id = ' + data, function(error, result){
-			if(error){
-				console.error("error to get user rooms: " + error.stack);
-				return;
-			}
-			socket.emit("get user rooms", result);
+		var data = {
+			"userIdFrom": data
+		};
+		queries.getUserRooms(data).then(function(response){
+			socket.emit("get user rooms", response);
+		},
+		function(error){
+			console.log(error);
 		});
 	});
 	socket.on('send message', function(data){
-		var message = {
-			user_id: data.userId,
-			text: data.message,
-			created_at: new Date(),
-			updated_at: new Date()
-		};
-		connection.query('INSERT INTO messages SET ?', message, function(error, result){
-			if(error){
-				console.error("error to set message in table messages: " + error.stack);
-				return;
-			}
-			console.log("message saved in table messages");
-			connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = 90", function(error, result){
-				if(error){
-					console.error("error to get user rooms: " + error.stack);
-					return;
-				}
-				//socket.emit("get user rooms", result);
-			});
+		queries.sendMessage(data).then(function(response){
+			console.log(response);
+		},
+		function(error){
+			console.log(error);
 		});
 	});
 });

@@ -24,6 +24,10 @@ class GroupController extends Controller
         return Group::with(['users'])->where('is_open', true)->get();
     }
 
+    public function adminGroup()
+    {
+        return Group::join('group_users','group_users.group_id','=','groups.id')->where(['group_users.user_id'=>Auth::id(),'is_admin'=>true])->get();
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -57,7 +61,7 @@ class GroupController extends Controller
             $publicationData['avatar'] = $path;
         }
         $group = Group::create($publicationData);
-        GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true]);
+        GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'group' => $group]);
     }
 
@@ -144,7 +148,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
+        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true, 'is_creator' => true])->first()) {
             $responseData = [
                 "status" => false,
                 "error" => [
@@ -279,6 +283,37 @@ class GroupController extends Controller
                 ]
             ];
             return response()->json($result);
+        }
+    }
+
+    public function setUserCreator($groupId,$userId)
+    {
+        if ($group = Group::find($groupId)) {
+            if (!$creatorUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true, 'is_creator' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            if ($user = GroupUser::where(['group_id' => $group->id, 'user_id' => $userId, 'is_admin' => true])->first()) {
+                $user->is_creator = !$user->is_creator;
+                $creatorUser->delete();
+                $user->save();
+                return response()->json(['status' => true, 'is_creator' => $user->is_creator]);
+            } else {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Incorrect group id",
+                        'code' => '6'
+                    ]
+                ];
+                return response()->json($result);
+            }
         }
     }
 
