@@ -48,7 +48,6 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
-							console.log("response!!!!", response);
 							socket.emit("get user rooms", response);
 						},
 						function(error){
@@ -69,12 +68,14 @@ io.sockets.on('connection', function(socket){
 		});
 });
 	socket.on('get user rooms', function(data){
-		connection.query('SELECT chat_rooms.id, chat_rooms.name FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE users.id = ' + data, function(error, result){
-			if(error){
-				console.error("error to get user rooms: " + error.stack);
-				return;
-			}
-			socket.emit("get user rooms", result);
+		var data = {
+			"userIdFrom": data
+		};
+		queries.getUserRooms(data).then(function(response){
+			socket.emit("get user rooms", response);
+		},
+		function(error){
+			console.log(error);
 		});
 	});
 	socket.on('send message', function(data){
