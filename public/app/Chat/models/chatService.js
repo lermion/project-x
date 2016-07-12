@@ -8,8 +8,7 @@ angular.module('placePeopleApp')
 			getLockedUsers: getLockedUsers
 		}
 
-		function blockUser(userId){
-			console.log(userId);
+		function blockUser(userId){			
 			var defer = $q.defer();
 			$http.get('chat/locked/' + userId)
 				.success(function (response){

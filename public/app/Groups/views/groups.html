@@ -50,7 +50,8 @@
                         </div>
                     </div>
                     <div class="groups">
-                        <div class="group" ng-repeat="group in groupList">
+                        <div class="group"
+                             ng-repeat="group in groupList | limitTo: limitMyGroups">
                             <div class="group-cover">
                                 <a ui-sref="group({groupName: group.url_name})" class="group-ava">
                                     <img ng-src="{{group.avatar}}">
@@ -77,9 +78,9 @@
                         <div>
                             <h4>Все публичные группы</h4>
                         </div>
-                        <select class="groups-filter" name="" id="" ng-if="showAllButtons">
-                            <option value="">Популярные</option>
-                            <option value="">Новые</option>
+                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value" ng-if="showAllButtons">
+                            <option value="-users.length">Популярные</option>
+                            <option value="-created_at">Новые</option>
                         </select>
 
                         <div class="places-type-place-btn" ng-if="!showAllButtons"
@@ -90,7 +91,8 @@
                         </div>
                     </div>
                     <div class="groups">
-                        <div class="group" ng-repeat="group in groupList">
+                        <div class="group"
+                             ng-repeat="group in groupList | limitTo: limitAllPublicGroups | orderBy:filterGroups.value">
                             <div class="group-cover">
                                 <a ui-sref="group({groupName: group.url_name})" class="group-ava">
                                     <img ng-src="{{group.avatar}}">
