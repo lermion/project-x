@@ -3897,3 +3897,15 @@ span.users-today-time-time.early {
   color: rgb(70, 120, 177);
   background-color: rgb(245, 245, 245);
 }
+
+.chat-blocked-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+.chat-left-users-all.blocked-users{
+  max-height: 600px;
+  overflow-y: auto;
+}
