@@ -3022,7 +3022,7 @@ span.users-today-time-time.early {
   align-items: center;
   padding: 15px;
   color: #495b79;
-  background-color: #e0e2e5;
+  border-bottom: 1px solid #e0e2e5;
 }
 .chat-left-users-my-sign {
   display: flex;
@@ -3031,7 +3031,6 @@ span.users-today-time-time.early {
   align-items: center;
   padding: 15px;
   color: #495b79;
-  background-color: #e0e2e5;
   border-bottom: 1px solid #e0e2e5;
 }
 
@@ -3905,7 +3904,26 @@ span.users-today-time-time.early {
 
 }
 
-.chat-left-users-all.blocked-users{
+.chat-left-users-all.blocked-users {
   max-height: 600px;
   overflow-y: auto;
+}
+
+.chat-menu-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+.chat-menu-wrap-inner {
+  width: 100%;
+  border-bottom: 1px solid #e0e2e5;
+  padding: 15px;
+  color: #495b79;
+  transition: all .3s ease-in-out .1s;
+}
+.chat-menu-wrap-inner:hover {
+  padding: 15px;
+  color: #9b645a;
+  cursor: pointer;
 }
