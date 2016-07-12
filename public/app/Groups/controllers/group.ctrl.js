@@ -15,6 +15,9 @@
         var storage = storageService.getStorage();
 
         var myId = storage.userId;
+        var myAvatar = storage.loggedUserAva;
+        var firstName = storage.firstName;
+        var lastName = storage.lastName;
 
         var modalEditGroup, modalDeleteGroup, modalInviteUsers;
         var groupName = $stateParams.groupName;
@@ -174,6 +177,19 @@
                 .then(function (data) {
                     if (data.status) {
                         vm.group.is_sub = data.is_sub;
+                        if (data.is_sub) {
+                            vm.group.users.push({
+                                avatar_path: myAvatar,
+                                first_name: firstName,
+                                last_name: lastName,
+                                id: myId
+                            });
+                            vm.group.count_users += 1;
+                        } else {
+                            removeUser({userId: myId});
+                            vm.group.count_users -= 1;
+                        }
+
                     }
                 });
         };
@@ -202,8 +218,11 @@
             }
         };
 
-        vm.removeUser = function() {
-          console.log('User removed!')
+        vm.removeUser = function (user) {
+            removeUser({
+                userId: user.id,
+                isAdmin: user.is_admin
+            });
         };
 
         vm.submitInviteUsers = function () {
@@ -228,8 +247,11 @@
         };
 
         vm.setAdmin = function (user) {
+            if (!vm.group.is_creator) {
+                return false;
+            }
             groupsService.setAdmin(group.id, user.id)
-                .then(function(data) {
+                .then(function (data) {
                     if (data.status) {
                         user.is_admin = data.is_admin;
                     }
@@ -248,6 +270,17 @@
             vm.invitedUsers = [];
             vm.subscribers = [];
             vm.inviteNotSend = true;
+        }
+
+        function removeUser(user) {
+            for (var i = vm.group.users.length - 1; i >= 0; i--) {
+                if (vm.group.users[i].id == user.userId) {
+                    if (user.isAdmin && vm.group.is_creator || !user.isAdmin && vm.group.is_admin || user.userId === myId) {
+                        vm.group.users.splice(i, 1);
+                    }
+
+                }
+            }
         }
 
         //function getGroup() {
