@@ -9,6 +9,7 @@ var Queries = require('./queries');
 var connection = new DatabaseConnection();
 var queries = new Queries();
 var users = {};
+GLOBAL.rooms = [];
 var usernames = {
 	username: null
 };
@@ -17,15 +18,14 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		socket.username = username;
+		var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 		var username = "vlad";
-		// store the room name in the socket session for this client
-		socket.room = 'room1';
-		// add the client's username to the global list
+		socket.room = "room: " + GLOBAL.rooms[indexRooms];
 		usernames[username] = username;
 		// send client to room 1
-		socket.join('room1');
+		socket.join("room: " + GLOBAL.rooms[indexRooms]);
 		// echo to client they've connected
-		socket.emit('updatechat', 'SERVER', 'you have connected to room1');
+		socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
 		// echo to room 1 that a person has connected to their room
 		socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
 		socket.emit('updaterooms', rooms, 'room1');
@@ -93,6 +93,9 @@ io.sockets.on('connection', function(socket){
 			"userIdFrom": data
 		};
 		queries.getUserRooms(data).then(function(response){
+			response.forEach(function(value){
+				GLOBAL.rooms.push(value.room_id);
+			});
 			socket.emit("get user rooms", response);
 		},
 		function(error){
@@ -102,6 +105,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('send message', function(data){
 		queries.sendMessage(data).then(function(response){
 			queries.getUserDialogue(data).then(function(response){
+				console.log(socket.room);
 				io.sockets.in(socket.room).emit('updatechat', socket.username, response);
 				//socket.emit('send message', response);
 			},
