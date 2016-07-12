@@ -81,7 +81,8 @@ Queries.prototype.getUserRooms = function(data){
 		}else{
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
-					connection.query("SELECT avatar_path, login, user_id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
+						console.log(result);
 						result[0].room_id = item.id;
 						resolve(result[0]);
 					});
@@ -92,6 +93,36 @@ Queries.prototype.getUserRooms = function(data){
 			})).then(function(){
 				deferred.resolve(response);
 			});
+		}
+	});
+	return deferred.promise;
+}
+Queries.prototype.getUserDialogue = function(data){
+	var deferred = Q.defer();
+	connection.query("SELECT messages.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.roomId + "'", function(error, result){
+		if(error){
+			console.error("error to get user dialogue: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			deferred.resolve(result);
+		}
+	});
+	return deferred.promise;
+}
+Queries.prototype.sendMessage = function(message){
+	var deferred = Q.defer();
+	connection.query('INSERT INTO messages SET ?', message, function(error, result){
+		if(error){
+			console.error("error to send message in table messages: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			connection.query('INSERT INTO messages SET ?', message, function(error, result){
+				
+			});
+			console.log("message saved in table messages");
+			deferred.resolve(result);
 		}
 	});
 	return deferred.promise;

@@ -129,14 +129,12 @@ angular.module('placePeopleApp')
 				updated_at:"2016-07-08 09:55:09"
 			}
 
-			// $scope.contactBlock = {};
-			// $scope.chatBlock = {};
-
 			$scope.refTo = function(stateName){    
 				$state.go(stateName);
 			};
 			$scope.currTabName = $state.current.name;
 			$scope.showContactData = function(contactId){
+
 				console.log(contactId);
 			};
 			$scope.clearChat = function(userId, chatId){
@@ -197,7 +195,7 @@ angular.module('placePeopleApp')
 
 				var data = {
 					userIdFrom: $scope.loggedUserId,
-					userIdTo: opponent.user_id,
+					userIdTo: opponent.id,
                     room_id: opponent.room_id
 				};
 
@@ -211,18 +209,20 @@ angular.module('placePeopleApp')
                 $scope.Model.chatRooms = response;
 			});
 			
-			$scope.Model.sendMes = function(message){
+			$scope.Model.sendMes = function(message, roomId){
 				console.log(message);
 				var data = {
 					userId: $scope.loggedUserId,
+					room_id: roomId,
 					message: message
 				}
 				$scope.Model.chatMes = '';
 
-				// socket.emit('sendMessage', data, function(){
-					
-				// });
+				socket.emit('send message', data);
 			};
+			socket.on('send message', function(response){
+				console.log(response);
+			});
 
             $scope.Model.blockUser = function(userId){
                 ChatService.blockUser(userId)
