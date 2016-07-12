@@ -213,7 +213,7 @@ angular.module('placePeopleApp')
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			socket.on("get user rooms", function(response){
-				// console.log(response);
+				console.log(response);
                 $scope.Model.chatRooms = response;
 			});
 			

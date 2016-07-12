@@ -11,7 +11,7 @@ angular.module('placePeopleApp')
 		function blockUser(userId){
 			console.log(userId);
 			var defer = $q.defer();
-			$http.get('create/' + userId)
+			$http.get('chat/locked/' + userId)
 				.success(function (response){
 					defer.resolve(response);
 				})
@@ -23,7 +23,7 @@ angular.module('placePeopleApp')
 
 		function getLockedUsers(){
 			var defer = $q.defer();
-			$http.get('get_locked_users')
+			$http.get('chat/get_locked_users')
 				.success(function (response){
 					defer.resolve(response);
 				})
