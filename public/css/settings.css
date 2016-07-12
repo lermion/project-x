@@ -2592,9 +2592,14 @@ p.top-person-status {
   justify-content: center;
   margin: 0;
   padding: 0;
+  background-image: url(/images/chat-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgb(245,245,245);
 }
 .users-menu-tab-chats.active {
-  background-color: rgb(245,245,245);
+  background-color: #fff;
+  background-image: url(/images/chat-tab-chat.png);
 }
 .users-menu-tab-chats span {
   width: 21px;
@@ -2616,6 +2621,14 @@ p.top-person-status {
   justify-content: center;
   margin: 0;
   padding: 0;
+  background-color: rgb(245,245,245);
+  background-image: url(/images/chat-tab-people.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.users-menu-tab-users.active {
+  background-color: #fff;
+
 }
 .users-menu-tab-users span {
   width: 21px;
@@ -2637,6 +2650,14 @@ p.top-person-status {
   justify-content: center;
   margin: 0;
   padding: 0;
+  background-color: rgb(245,245,245);
+  background-image: url(/images/chat-tab-block.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(/images/chat-tab-block.png);
+}
+.users-menu-tab-block.active {
+  background-color: #fff;
 }
 .users-menu-tab-block span {
   width: 21px;
@@ -2657,6 +2678,13 @@ p.top-person-status {
   justify-content: center;
   margin: 0;
   padding: 0;
+  background-color: rgb(245,245,245);
+  background-image: url(/images/chat-tab-more.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.users-menu-tab-menu-do.active {
+  background-color: #fff;
 }
 .users-menu-tab-menu-do span {
   width: 21px;
@@ -3383,7 +3411,7 @@ span.users-today-time-time.early {
   box-sizing: border-box;
   background-image: url(/images/done.png);
   background-position: right center;
-  background-size: 20%;
+  background-size: 15%;
   background-repeat: no-repeat;
 }
 .right-chat-my-msg-date span {
@@ -3393,7 +3421,7 @@ span.users-today-time-time.early {
   line-height: 20px;
   box-sizing: border-box;
   margin-left: 10px;
-  padding-right: 15px;
+  padding-right: 20px;
   }
 .my-msg-inner-photo {
   flex-wrap: wrap;
