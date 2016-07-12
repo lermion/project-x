@@ -11,7 +11,7 @@ class ChatLockedUserTest extends TestCase
      *
      * @return void
      */
-    public function testCreateChatLockedUser()
+    public function testLockedChatUser()
     {
         $user = \App\User::where('phone', '380731059230')->first();
         if (!$user) {
@@ -22,7 +22,7 @@ class ChatLockedUserTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $this->json('GET', 'chat/create/' . $user2->id )->seeJson([
+        $this->json('GET', 'chat/locked/' . $user2->id )->seeJson([
             'status' => true,
         ]);
     }

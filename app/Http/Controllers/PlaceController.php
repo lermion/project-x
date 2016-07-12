@@ -16,7 +16,18 @@ class PlaceController extends Controller
 {
     public function index()
     {
-        return Place::with(['users'])->get();
+        $places = Place::all();
+        foreach($places as &$place){
+            $place->count_user = $place->users()->count();
+            $place->publications = $place->publications()->count();
+            if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
+                $place->is_sub = true;
+            } else {$place->is_sub = false;}
+            if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
+                $place->is_admin = true;
+            } else {$place->is_admin = false;}
+        }
+        return $places;
     }
 
     public function adminPlace()
@@ -102,6 +113,9 @@ class PlaceController extends Controller
             if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $place->is_admin = true;
             } else {$place->is_admin = false;}
+            if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true, 'is_creator' => true])->first()){
+                $place->is_creator = true;
+            } else {$place->is_creator = false;}
         }
         return $place;
     }
