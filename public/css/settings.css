@@ -3542,8 +3542,10 @@ span.users-today-time-time.early {
   box-sizing: border-box;
   width: 100%;
   padding: 5px;
-  font-family: "SFUIDisplayLight";
   font-size: 14.6px;
+    font-family: "SFUIDisplayLight";
+    font-weight: 600;
+    color: #575757;
   line-height: 21px;
 }
 .chat-publication-adress {
@@ -3798,7 +3800,7 @@ span.users-today-time-time.early {
 }
 
 .user-menu-top-inner.chat-in {
-  font-size: 10.6px;
+  font-size: 12.6px;
 }
 .user-menu-top-do.chat-in {
   width: 150px;
@@ -3935,7 +3937,7 @@ span.users-today-time-time.early {
   height: 100%;
 }
 .chat-left-wrap-contact-data {
-  
+  width: 100%;
 }
 
 
@@ -3954,15 +3956,46 @@ span.users-today-time-time.early {
     height: 50px;
   }
   .chat-users-today-ava a {
-    height: 50px;
+    height: 40px;
+    width: 40px;
   }
   .chat-users-today-info p {
-    font-size: .9em;
+    font-size: .85em;
   }
   .chat-users-today-data {
     width: 80%;
   }
   .chat-left-users-users-today {
+    height: 50px;
+  }
+  .chat-left-users-users-today {
     justify-content: flex-start;
   }
+  .my-msg-inner-text, 
+  .right-chat-to-my-msg-inner, 
+  .chat-publication-description, 
+  .chat-publication-adress, 
+  .chat-publication-relations,
+  .user-menu-top-inner a {
+    font-size: .9em;
+  }
+.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
+  width: 32%;
+  margin-right: 2px;
+  height: 70px;
+  }
+  .send-wrap-bottom .pic {
+    height: 80px;
+  }
+ 
+
+
+
+
+
+ .chat-right-top-person {
+  height: 51px;
+ }
+
+ }
 }
