@@ -197,14 +197,18 @@ angular.module('placePeopleApp')
 
 				var data = {
 					userIdFrom: $scope.loggedUserId,
-					userIdTo: opponent.id
+					userIdTo: opponent.user_id,
+                    room_id: opponent.room_id
 				};
 
-				socket.emit('create room', data);
+				socket.emit('create room', data, function(res){
+                    console.log(res);
+                });
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			socket.on("get user rooms", function(response){
-				console.log(response);
+				// console.log(response);
+                $scope.Model.chatRooms = response;
 			});
 			
 			$scope.Model.sendMes = function(message){
@@ -218,8 +222,28 @@ angular.module('placePeopleApp')
 				// socket.emit('sendMessage', data, function(){
 					
 				// });
-
 			};
+
+            $scope.Model.blockUser = function(userId){
+                ChatService.blockUser(userId)
+                    .then(function(response){
+                        console.log(response);                        
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+            };
+            $scope.Model.getLockedUsers = function(){
+                ChatService.getLockedUsers()
+                    .then(function(response){
+                        console.log(response);                           
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+            };
+
+            // $scope.Model.getLockedUsers();
 
             
 
