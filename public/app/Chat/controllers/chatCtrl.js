@@ -227,17 +227,27 @@ angular.module('placePeopleApp')
 				}
 				$scope.Model.chatMes = '';
 
-				socket.emit('send message', data);
+				// socket.emit('send message', data);
+
+				console.log();
 
 				var mesInFormat = {
 					text: message,
 					login: $scope.loggedUser
 				}
 
-				$scope.Model.Chat.push(mesInFormat);
+				$scope.Model.Chat.push(mesInFormat);			
 
-			};
+			};	
+
+			$scope.Model.scrollBottom = function(){
+				var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
+				var height = chatWindow[0].scrollHeight;				
+				chatWindow.scrollTop(height);
+			};		
+
 			socket.on('send message', function(response){
+				// console.log(response);
 				$scope.Model.Chat = response;
 				// if ($scope.Model.Chat.length === 0) {
 				// 	$scope.Model.Chat = response;
