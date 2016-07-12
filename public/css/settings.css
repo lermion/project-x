@@ -3927,3 +3927,10 @@ span.users-today-time-time.early {
   color: #9b645a;
   cursor: pointer;
 }
+
+
+.chat-right-main-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
