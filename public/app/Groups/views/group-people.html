@@ -2,7 +2,7 @@
     <div class="group-peoples-inner">
         <div class="group-peoples-inner-item"
              ng-repeat="user in vm.group.users"
-             ng-mouseenter="showAdmin=true"
+             ng-mouseenter="showAdmin=vm.group.is_admin"
              ng-mouseleave="showAdmin=false">
             <div class="peoples-inner-item-data">
                 <div class="peoples-item-photo">
@@ -18,10 +18,12 @@
             </div>
             <div class="peoples-inner-item-admin"
                  ng-if="user.is_admin || showAdmin"
+                 ng-class="vm.group.is_admin ? '' : 'no-click'"
                  ng-click="vm.setAdmin(user)"
             >Администратор
             </div>
-            <span class="peoples-item__delete" ng-click="vm.removeUser(user)">✖</span>
+
+            <span class="peoples-item__delete" ng-if="vm.group.is_admin" ng-click="vm.removeUser(user)">✖</span>
         </div>
     </div>
 </div>
