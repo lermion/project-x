@@ -1,4 +1,4 @@
-<form name="groupForm" novalidate>
+<form name="forms.newGroup" novalidate>
     <div class="new_group"> Новая группа</div>
     <div class="add_newgroup">
         <div class="first_item">
@@ -13,8 +13,8 @@
         </div>
 
         <div class="second_item">
-            <div class="add-ava">
-                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar">
+            <div class="add-ava" ng-class="(forms.newGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
+                <input type="file" name="avatar" valid-file id="avatarImg" class="js-group-avatar" ng-model="avatarFile" required>
                 <label for="avatarImg">
                 <span class="ava" ng-show="dataURI">
                     <img ng-src="{{dataURI}}" style="width:100%;">
@@ -30,20 +30,18 @@
 
 
         <input type="text" name="name"
-               ng-class="{'has-error': groupForm.name.$touched && groupForm.name.$invalid}"
+               ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}"
                ng-model="newGroup.name"
                required
                placeholder="Название">
 
-        <!--<div ng-messages="groupForm.name.$error" style="color:maroon" role="alert">-->
+        <!--<div ng-messages="forms.newGroup.name.$error" style="color:maroon" role="alert">-->
             <!--<div ng-message="required">You did not enter a field</div>-->
         <!--</div>-->
 
         <div class="text-field">
             <div emoji-form emoji-message="emojiMessage">
                 <textarea id="messageInput" name="description"
-                          required
-                          ng-class="{'has-error': groupForm.description.$touched && groupForm.description.$invalid}"
                           ng-model="emojiMessage.messagetext"></textarea>
                 <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
