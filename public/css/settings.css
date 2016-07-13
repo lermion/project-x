@@ -2519,6 +2519,7 @@ p.top-person-status {
   width: 140px;
   top: 30px;
   right: 0;
+  z-index: 2;
 }
 .user-menu-top-inner {
   box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
