@@ -92,6 +92,16 @@ angular.module('placePeopleApp')
 		      parent: 'chat',
 		      templateUrl: '../../app/Chat/views/chat-menu.html'
 		    })
+		    .state('chat.mobile', {
+		      url: '/m/',
+		      parent: 'chat',
+		      templateUrl: '../../app/Chat/views/chat-block.html'
+		    })
+		    .state('chat.contact-mobile', {
+		      url: '/c/',
+		      parent: 'chat',
+		      templateUrl: '../../app/Chat/views/contact-block.html'
+		    })
 
 	    /*User must be in the end*/
 	    .state('user', {
