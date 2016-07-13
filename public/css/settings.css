@@ -4075,7 +4075,7 @@ span.users-today-time-time.early {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-
+  width: 100%;
     position: relative;
 }
 .chat-left-wrap-contact-data {
@@ -4261,4 +4261,16 @@ span.users-today-time-time.early {
 }
 .chat-main-container {
   height: 74vh;
+}
+
+
+@media (max-width: 1024px) {
+  .chat-right-chat-inner {
+    top: 51px;
+  }
+}
+@media (max-width: 768px) {
+  .chat-mobile-chat-inner {
+    width: 100%;
+  }
 }
