@@ -17,6 +17,11 @@ angular.module('app.groups')
 
             $scope.showGroupMenu = false;
 
+            $scope.forms = {
+                newGroup: {}
+            };
+            $scope.submFormGroup = false;
+
 
             $scope.newGroup = {
                 name: '',
@@ -31,7 +36,9 @@ angular.module('app.groups')
                 isOpen: true,
                 avatar: null
             };
-            $scope.emojiMessage = {};
+            $scope.emojiMessage = {
+                messagetext: ''
+            };
             $scope.myImage = null;
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
@@ -153,15 +160,17 @@ angular.module('app.groups')
             $scope.$on('ngDialog.opened', function (e, $dialog) {
                 if ($dialog.name === 'modal-new-group' || $dialog.name === 'modal-edit-group') {
                     angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
-
+                    //angular.element(document.querySelector('.emoji-wysiwyg-editor')).on('blur keyup paste input mousemove change', validateEmojiArea);
+                    //angular.element(document.querySelector('#messageInput')).on('DOMNodeInserted', validateEmoji);
+                    //angular.element(document.querySelector('.emoji-wysiwyg-editor')).on('blur keyup paste input mousemove change', validateEmoji);
                     // init emoji picker
-                    window.emojiPicker = new EmojiPicker({
-                        emojiable_selector: '[data-emojiable=true]',
-                        assetsPath: 'lib/img/',
-                        popupButtonClasses: 'fa fa-smile-o'
-                    });
-                    window.emojiPicker.discover();
-                    $(".emoji-button").text("");
+                    //window.emojiPicker = new EmojiPicker({
+                    //    emojiable_selector: '[data-emojiable=true]',
+                    //    assetsPath: 'lib/img/',
+                    //    popupButtonClasses: 'fa fa-smile-o'
+                    //});
+                    //window.emojiPicker.discover();
+                    //$(".emoji-button").text("");
 
                     getSubscribers(myId);
                 }
@@ -232,10 +241,17 @@ angular.module('app.groups')
 
                 $scope.newGroup.avatar = blobFile;
 
+                $scope.forms.newGroup.avatar
+
                 modalCropImage.close();
             };
 
             $scope.addGroup = function () {
+                $scope.submFormGroup = true;
+                validateEmojiArea();
+                if ($scope.forms.newGroup.$invalid) {
+                    return false;
+                }
                 $scope.newGroup.description = $scope.emojiMessage.messagetext;
                 groupsService.addGroup($scope.newGroup)
                     .then(function (data) {
@@ -280,7 +296,7 @@ angular.module('app.groups')
                 }
             };
 
-            $scope.getGroupType = function() {
+            $scope.getGroupType = function () {
                 return $scope.filterGroups;
             };
 
@@ -317,6 +333,7 @@ angular.module('app.groups')
                 $scope.dataURI = null;
                 $scope.emojiMessage = {};
                 $scope.subscribers = [];
+                $scope.submFormGroup = false;
             }
 
 
@@ -339,6 +356,32 @@ angular.module('app.groups')
                     reader.readAsDataURL(file);
                 }
 
+            }
+
+            $scope.$watch('emojiMessage.messagetext', function (newValue, oldValue) {
+                if ($scope.emojiHasError && newValue) {
+                    $('.emoji-wysiwyg-editor').removeClass('has-error');
+                    //$scope.forms.newGroup.description.$invalid = false;
+                }
+            });
+
+            function validateEmojiArea() {
+                var emojiArea = $('.emoji-wysiwyg-editor');
+
+                var checkText = emojiArea.text().trim().length;
+                var checkEmoji = emojiArea.children().length;
+
+                if (checkText === 0 && checkEmoji === 0) {
+                    //$scope.forms.newGroup.avatar.$invalid = true;
+                    $scope.emojiHasError = true;
+                    emojiArea.addClass('has-error');
+                } else {
+                    $scope.emojiHasError = false;
+                    emojiArea.removeClass('has-error');
+                }
+            }
+            function validateEmoji(e) {
+                console.log(e.type);
             }
 
             function blobToFile(dataURI) {
