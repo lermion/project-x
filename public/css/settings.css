@@ -2953,7 +2953,9 @@ span.users-today-time-time.early {
     top: 61px;
     bottom: 0px;
 }
-
+.chat-left-users-container.chat-left-users-container1 {
+    top: 43px;
+}
 
 
 
@@ -3512,7 +3514,6 @@ span.users-today-time-time.early {
   box-sizing: border-box;
   font-size: 14.6px;
   font-family: "SFUIDisplayLight";
-  font-weight: 600;
   color: rgb(116,120,130);
 }
 .right-chat-my-msg-date {
@@ -3598,7 +3599,6 @@ span.users-today-time-time.early {
   box-sizing: border-box;
   font-size: 14.6px;
   font-family: "SFUIDisplayLight";
-  font-weight: 600;
   color: rgb(116,120,130);
 }
 .right-chat-to-my-msg-date {
