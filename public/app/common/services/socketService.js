@@ -12,7 +12,7 @@
 
         var path = $location.protocol() + '://' + $location.host();
 
-        var baseUrl = path + ':8303';        
+        var baseUrl = path + ':3000';        
 
         var socket = io.connect(baseUrl);
 
