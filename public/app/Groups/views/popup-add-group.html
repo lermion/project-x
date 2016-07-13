@@ -1,20 +1,21 @@
-<div class="new_group"> Новая группа</div>
-<div class="add_newgroup">
-    <div class="first_item">
-        <div class="ava_group">
-            <img ng-src="{{myAvatar}}" alt="My Avatar" class="img_ava">
-            <a class="img_name">{{::myName}}</a>
+<form name="groupForm" novalidate>
+    <div class="new_group"> Новая группа</div>
+    <div class="add_newgroup">
+        <div class="first_item">
+            <div class="ava_group">
+                <img ng-src="{{myAvatar}}" alt="My Avatar" class="img_ava">
+                <a class="img_name">{{::myName}}</a>
+            </div>
+            <div class="checkbox_group">
+                <input type="checkbox" id="arr1" ng-model="newGroup.isOpen"/>
+                <label for="arr1">Публичная группа</label>
+            </div>
         </div>
-        <div class="checkbox_group">
-            <input type="checkbox" id="arr1" ng-model="newGroup.isOpen"/>
-            <label for="arr1">Публичная группа</label>
-        </div>
-    </div>
 
-    <div class="second_item">
-        <div class="add-ava">
-            <input type="file" id="avatarImg" class="js-group-avatar">
-            <label for="avatarImg">                                            
+        <div class="second_item">
+            <div class="add-ava">
+                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar">
+                <label for="avatarImg">
                 <span class="ava" ng-show="dataURI">
                     <img ng-src="{{dataURI}}" style="width:100%;">
                 </span>
@@ -22,55 +23,69 @@
                       ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
                     <span class="add-photo" ng-show="!dataURI || showEditAva"></span>
                 </span>
-            </label>
+                </label>
+            </div>
+            <span class="add_ava_grp"> Добавить обложку группе </span>
         </div>
-        <span class="add_ava_grp"> Добавить обложку группе </span>
-    </div>
 
 
-    <input type="text"
-           ng-model="newGroup.name"
-           placeholder="Название">
+        <input type="text" name="name"
+               ng-class="{'has-error': groupForm.name.$touched && groupForm.name.$invalid}"
+               ng-model="newGroup.name"
+               required
+               placeholder="Название">
 
-    <div class="text-field">
-        <div emoji-form emoji-message="emojiMessage">
-            <textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
-            <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
-                <i class="icon icon-emoji"></i>
-            </a>
+        <!--<div ng-messages="groupForm.name.$error" style="color:maroon" role="alert">-->
+            <!--<div ng-message="required">You did not enter a field</div>-->
+        <!--</div>-->
+
+        <div class="text-field">
+            <div emoji-form emoji-message="emojiMessage">
+                <textarea id="messageInput" name="description"
+                          required
+                          ng-class="{'has-error': groupForm.description.$touched && groupForm.description.$invalid}"
+                          ng-model="emojiMessage.messagetext"></textarea>
+                <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+                    <i class="icon icon-emoji"></i>
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div class="button">
-        <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
-        <a href="" class="create" ng-click="addGroup()"> Создать группу</a>
-    </div>
+        <div class="button">
+            <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
+            <a href="" class="create" ng-click="addGroup()"> Создать группу</a>
+        </div>
 
-    <div class="fifth_item">
-        <div class="item1-container">
-            <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
-            <ul class="item1">
-                <li ng-repeat="user in subscribers | searchFor:searchString">
-                    <img ng-src="{{user.avatar_path}}">
+        <div class="fifth_item" ng-if="subscribers.length > 0">
+            <div class="item1-container">
+                <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
+                <ul class="item1">
+                    <li ng-repeat="user in subscribers | searchFor:searchString">
+                        <img ng-src="{{user.avatar_path}}">
 
-                    <p>{{::user.first_name}} {{::user.last_name}}</p>
+                        <p>{{::user.first_name}} {{::user.last_name}}</p>
                 <span class="group-add-item1-user-plus" ng-click="onItemSelected(user)"><img src="/images/add.png"
                                                                                              alt=""></span>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="item1-add-people-container">
+                <p class="item1-add-people-title">Список пользователей</p>
+
+                <div class="item1 add-people">
+                    <ul>
+                        <li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true"
+                            ng-mouseleave="showAdmin=false">
+                            <img ng-src="{{user.avatar}}">
+
+                            <p>{{::user.firstName}} {{::user.lastName}}</p>
+                            <span class="add-people-delete" ng-click="removeUser(user)">&#10006;</span>
+                            <span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="item1-add-people-container">
-            <p class="item1-add-people-title">Список пользователей</p>
-    		<div class="item1 add-people">
-            <ul>
-    			<li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
-                    <img ng-src="{{user.avatar}}">
-                    <p>{{::user.firstName}} {{::user.lastName}}</p>
-                    <span class="add-people-delete" ng-click="removeUser(user)">&#10006;</span>
-                    <span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
-                </li>
-            </ul>
-    		</div>
-        </div>
-	</div>
-</div>
+    </div>
+</form>
+
