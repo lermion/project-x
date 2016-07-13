@@ -48,12 +48,12 @@
 	    </div>
 	    <div class="chat-main-container-right" ng-hide="Model.mobile.display">
 	    	<!-- Chat block -->
-			<div ng-include="'/app/Chat/views/chat-block.html'"></div> 			
+			<div class="chat-right-cont-ng" ng-include="'/app/Chat/views/chat-block.html'" ng-if="Model.showChatBlock && Model.displayChatBlock || Model.showBlockedBlock && Model.displayBlockedBlock"></div> 			
 			<!-- Contact Block -->
-			<div ng-include="'/app/Chat/views/contact-block.html'"></div>
+			<div ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
 		</div>
 
-		<div ng-show="Model.mobile.hideContent" ui-view></div>
+		<div class="chat-mobile-chat-inner" ng-show="Model.mobile.hideContent" ui-view></div>
 
 	</div>
 
