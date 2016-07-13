@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class Publication extends Model
 {
@@ -71,16 +72,19 @@ class Publication extends Model
                     });
             })->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
-            $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'asc')->take(3)->get();
+            //$publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->toArray();
+            $publication_coment = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->get();
+            foreach ($publication_coment as &$comment) {
+                $comment->like_count = $comment->likes()->count();
+            }
+            $publication_coment = $publication_coment->toArray();
+            $publication->comments = array_reverse($publication_coment);
             $publication->like_count = $publication->likes()->count();
             if(Auth::check())
                 $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
             $publication->comment_count = $publication->comments()->count();
             if (!$publication->is_anonym) {
                 $publication->user;
-            }
-            foreach ($publication->comments as &$comment) {
-                $comment->like_count = $comment->likes()->count();
             }
         }
         return $publications;
@@ -105,21 +109,26 @@ class Publication extends Model
 
     public static function show($id)
     {
-        $publication = Publication::with(['videos', 'group', 'images', 'comments' => function ($query) {
-            $query->take(3);
-           // $query->orderBy('id', 'desc');
-        }, 'comments.images', 'comments.videos', 'comments.user'])
+        $publication = Publication::with(['videos', 'group', 'images'])
             ->find($id);
-        $publication->like_count = $publication->likes()->count();
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
         if(!$publication->is_anonym){
             $publication->user;
         }
-        foreach ($publication->comments as &$comment) {
-            $comment->like_count = $comment->likes()->count();
-        }
 
+        $publication_comments = $publication->comments()
+            ->with(['images', 'videos', 'user'])
+            ->orderBy('id', 'desc')
+            ->take(3)
+            ->get();
+
+       foreach ($publication_comments as &$comment) {
+            $comment->like_count = $comment->likes()->count();
+       }
+
+        $publication_comments = $publication_comments->toArray();
+        $publication->comments = array_reverse($publication_comments);
         return $publication;
     }
 }
