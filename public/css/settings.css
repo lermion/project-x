@@ -2820,7 +2820,7 @@ p.top-person-status {
   background-position: 98%;
   background-size: 17px;
   outline: none;
-
+  height: 40px;
 }
 
 
@@ -4085,7 +4085,11 @@ span.users-today-time-time.early {
 }
 .chat-left-wrap-contact-data {
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
+     position: absolute;
+    left: 0;
+    top: 46px;
+    bottom: 0;
 }
 
 
