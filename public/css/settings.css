@@ -4294,8 +4294,33 @@ span.users-today-time-time.early {
     height: 50px;
 }
   .chat-right-top-person {
-      height: 60px;
-      padding-left: 50px;
-      position: relative;
+    height: 60px;
+    padding-left: 50px;
+    position: relative;
   }
+  .chat-main-container-left {
+    width: 100%;
+	}
+	.chat-left-users-menu {
+	    height: 60px;
+	}
+	.chat-users-today-ava a {
+    height: 50px;
+    width: 50px;
+	}
+	.chat-left-users-users-today {
+    height: 60px;
+	}
+	.chat-users-today-info p {
+    font-size: 1em;
+	}
+	.chat-users-today-info {
+	    margin-left: 10px;
+	}
+	.chat-left-users-users-today {
+    justify-content: space-between;
+	}
+	.chat-users-today-data {
+    width: 87%;
+	}
 }
