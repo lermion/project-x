@@ -56,7 +56,7 @@
             <a href="" class="create" ng-click="addGroup()"> Создать группу</a>
         </div>
 
-        <div class="fifth_item">
+        <div class="fifth_item" ng-if="subscribers.length > 0">
             <div class="item1-container">
                 <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
                 <ul class="item1">
