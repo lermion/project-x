@@ -3440,7 +3440,7 @@ span.users-today-time-time.early {
   /*height: 100%;*/
   max-width: 100%;
   /*min-height: 100%;*/
-  display: flex;
+  /*display: flex;*/
   flex-wrap: wrap;
   box-sizing: border-box;
   padding: 10px;
