@@ -1,5 +1,5 @@
-<div class="chat-right-main-wrap">
-
+<div class="chat-right-main-wrap" ng-init="Model.loadRoomChat(Model.opponent)">
+<a href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')">Back</a>
     <div class="chat-right-top-person">
     <a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')"></a>
 	    <div class="chat-top-person-data">	
@@ -195,7 +195,7 @@
 	    			<label class="chat-add-file-file"  for="">Файл</label>
 	    		</div>
 	    	</div>
-	    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent.id) : Model.sendMes(Model.chatMes, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+	    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(Model.chatMes, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
     	</div>
     	<!-- <div class="send-wrap-bottom">
 				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
