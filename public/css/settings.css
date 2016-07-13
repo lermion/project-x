@@ -2670,7 +2670,7 @@ p.top-person-status {
   box-sizing: border-box;
   margin-bottom: 0px;
   font-family: "SFUIDisplayMedium";
-
+      position: relative;
 }
 .chat-left-users-menu {
   display: flex;
@@ -2678,16 +2678,18 @@ p.top-person-status {
   box-sizing: border-box;
   background-color: #fff;
   border-bottom: 1px solid #e0e2e5;
-  height: 60px;
+  /*height: 60px;*/
   margin: 0;
   padding: 0;
   align-items: center;
+  position: absolute;
+  top: 0;
 }
 .users-menu-tab-chats {
   display: flex;
   box-sizing: border-box;
   border-right: 1px solid #e0e2e5;
-  height: 100%;
+  height: 60px;
   align-items: center;
   width: 25%;
   justify-content: center;
@@ -2716,7 +2718,7 @@ p.top-person-status {
   display: flex;
   box-sizing: border-box;
   border-right: 1px solid #e0e2e5;
-  height: 100%;
+  height: 60px;
   align-items: center;
   width: 25%;
   justify-content: center;
@@ -2745,7 +2747,7 @@ p.top-person-status {
   display: flex;
   box-sizing: border-box;
   border-right: 1px solid #e0e2e5;
-  height: 100%;
+  height: 60px;
   align-items: center;
   width: 25%;
   justify-content: center;
@@ -2773,7 +2775,7 @@ p.top-person-status {
 .users-menu-tab-menu-do {
   display: flex;
   box-sizing: border-box;
-  height: 100%;
+  height: 60px;
   align-items: center;
   width: 25%;
   justify-content: center;
@@ -2947,6 +2949,9 @@ span.users-today-time-time.early {
   background-color: #fff;
   box-sizing: border-box;
   font-family: "SFUIDisplayMedium";
+  position: absolute;
+    top: 61px;
+    bottom: 0px;
 }
 
 
@@ -4080,6 +4085,7 @@ span.users-today-time-time.early {
 }
 .chat-left-wrap-contact-data {
   width: 100%;
+  height: 100%;
 }
 
 
