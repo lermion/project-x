@@ -320,6 +320,58 @@ class PlaceController extends Controller
         }
     }
 
+    public function admin_subscription_delete(Request $request, $placeId){
+        try {
+            $this->validate($request, [
+                'user_id' => 'array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        if ($place = Place::find($placeId)) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true, 'is_creator' => true])->first()) {
+                foreach($request->input('user_id') as $userId) {
+                    if ($invite = PlaceUser::where(['place_id' => $place->id, 'user_id' => $userId])->first()) {
+                        $invite->delete();
+                    }
+                }
+                return response()->json(['status' => true]);
+            } elseif (!$placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            foreach($request->input('user_id') as $userId) {
+                if ($invite = PlaceUser::where(['place_id' => $place->id, 'user_id' => $userId, 'is_admin' => false])->first()) {
+                    $invite->delete();
+                }
+            }
+            return response()->json(['status' => true]);
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
     public function setUserCreator($placeId,$userId)
     {
         if ($place = Place::find($placeId)) {

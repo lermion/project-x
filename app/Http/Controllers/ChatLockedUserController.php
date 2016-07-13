@@ -24,10 +24,10 @@ class ChatLockedUserController extends Controller
     {
         if ($chat_locked_user = ChatLockedUser::where(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()])->first()) {
             $chat_locked_user->delete();
-            $islock = 'Unlocking';
+            $islock = false;
         } else {
             ChatLockedUser::create(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()]);
-            $islock = 'Blocking';
+            $islock = true;
         }
         return response()->json(['status' => true, 'is_lock' => $islock]);
     }
