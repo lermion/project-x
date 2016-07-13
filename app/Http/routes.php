@@ -54,6 +54,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
         Route::get('{id}/subscription', 'SubscriberController@subscription');
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
+        Route::get('subscribers', 'SubscriberController@my_subscribers');
+        Route::get('subscription', 'SubscriberController@my_subscription');
     });
     Route::get('country', 'CountryController@index');
     Route::get('city/{country_id}', 'CityController@index');
@@ -162,7 +164,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/delete_subscription/12\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/1069/subscription\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='description'><br>
