@@ -3344,16 +3344,19 @@ span.users-today-time-time.early {
 /*CHAT*/
 .chat-right-chat-inner {
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
   max-width: 100%;
-  min-height: 100%;
+  /*min-height: 100%;*/
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
   padding: 10px;
   background: url(../images/chat-bg.png) repeat;
-  max-height: 600px;
   overflow-y: auto;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  bottom: 41px;
 }
 .chat-message-date {
   display: flex;
@@ -3383,6 +3386,7 @@ span.users-today-time-time.early {
   position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
+  align-items: flex-end;
 }
 .my-msg-wrap:after{
   bottom: -2px;
@@ -3680,7 +3684,9 @@ span.users-today-time-time.early {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-
+  position: absolute;
+    bottom: 0;
+    left: 0;
 }
 .send-wrap-top {
   display: flex;
@@ -3976,6 +3982,8 @@ span.users-today-time-time.early {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+
+    position: relative;
 }
 .chat-left-wrap-contact-data {
   width: 100%;
@@ -4147,4 +4155,17 @@ span.users-today-time-time.early {
   height: 55px;
   background-color: green;
   width: 100%;
+}
+
+
+
+
+
+/*CHAT pravki*/
+.chat-right-cont-ng {
+  width: 100%;
+  height: 100%;
+}
+.chat-main-container {
+  height: 74vh;
 }
