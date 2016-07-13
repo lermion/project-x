@@ -14,21 +14,25 @@
         var vm = this;
         var storage = storageService.getStorage();
 
-        var myId = storage.userId;
+        var myId = +storage.userId;
         var myAvatar = storage.loggedUserAva;
         var firstName = storage.firstName;
         var lastName = storage.lastName;
 
-        var modalEditGroup, modalDeleteGroup, modalInviteUsers;
+        var modalEditGroup, modalDeleteGroup, modalInviteUsers, modalSetCreator;
         var groupName = $stateParams.groupName;
+
 
         vm.group = group;
         vm.groupEdited = {};
         vm.showGroupMenu = false;
         vm.subscribers = [];
         vm.invitedUsers = [];
+        vm.adminsList = [];
+        vm.creator = {id: null};
 
         vm.inviteNotSend = true;
+        vm.isSend = false;
         $scope.emoji = {};
 
         activate();
@@ -173,25 +177,30 @@
         };
 
         vm.subscribe = function () {
-            groupsService.subscribeGroup(vm.group.id)
-                .then(function (data) {
-                    if (data.status) {
-                        vm.group.is_sub = data.is_sub;
-                        if (data.is_sub) {
-                            vm.group.users.push({
-                                avatar_path: myAvatar,
-                                first_name: firstName,
-                                last_name: lastName,
-                                id: myId
-                            });
-                            vm.group.count_users += 1;
-                        } else {
-                            removeUser({userId: myId});
-                            vm.group.count_users -= 1;
-                        }
+            if (group.is_creator) {
+                openModalSetCreator();
+            } else {
+                groupsService.subscribeGroup(vm.group.id)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.group.is_sub = data.is_sub;
+                            if (data.is_sub) {
+                                vm.group.users.push({
+                                    avatar_path: myAvatar,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    id: myId
+                                });
+                                vm.group.count_users += 1;
+                            } else {
+                                removeUser({userId: myId});
+                                vm.group.count_users -= 1;
+                            }
 
-                    }
-                });
+                        }
+                    });
+            }
+
         };
 
         vm.onItemSelected = function (user) {
@@ -258,6 +267,28 @@
                 });
         };
 
+        vm.setCreator = function () {
+            if (vm.isSend) {
+                return false;
+            }
+            groupsService.setCreator(group.id, vm.creator.id)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.isSend = true;
+                        $timeout(function () {
+                            resetFormSetCreator();
+                            modalSetCreator.close();
+                            $state.go('groups');
+                        }, 2000);
+                    }
+                });
+        };
+
+        vm.abortSetCreator = function () {
+            resetFormSetCreator();
+            modalSetCreator.close();
+        };
+
 
         function getSubscribers() {
             return UserService.getSubscribers(myId)
@@ -272,6 +303,11 @@
             vm.inviteNotSend = true;
         }
 
+        function resetFormSetCreator() {
+            vm.adminsList = [];
+            vm.creator.id = null;
+        }
+
         function removeUser(user) {
             for (var i = vm.group.users.length - 1; i >= 0; i--) {
                 if (vm.group.users[i].id == user.userId) {
@@ -281,6 +317,22 @@
 
                 }
             }
+        }
+
+        function openModalSetCreator() {
+            vm.adminsList = getAdminsList();
+            modalSetCreator = ngDialog.open({
+                template: '../app/Groups/views/popup-setcreator-group.html',
+                name: 'modal-setcreator-group',
+                className: 'popup-setcreator-group ngdialog-theme-default',
+                scope: $scope
+            });
+        }
+
+        function getAdminsList() {
+            return group.users.filter(function (item) {
+                return (!!item.is_admin === true && item.id !== myId);
+            });
         }
 
         //function getGroup() {
