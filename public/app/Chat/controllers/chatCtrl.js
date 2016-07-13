@@ -28,6 +28,19 @@ angular.module('placePeopleApp')
 					});
 			};
 
+			$scope.Model.mobile = {};
+
+			if ($window.innerWidth <= 768) {
+				$scope.Model.mobile.display = true;								
+			} else {
+				$scope.Model.mobile.display = false;
+			}
+
+			if($state.current.name === 'chat.mobile' && $window.innerWidth > 768){				
+				$scope.Model.showChatBlock = true;				
+				$state.go('chat.list');
+			}
+
 			$scope.openMenu = function () {
 				if ($window.innerWidth <= 800) {
 					$scope.showMenu = !$scope.showMenu;
@@ -129,7 +142,10 @@ angular.module('placePeopleApp')
 				updated_at:"2016-07-08 09:55:09"
 			}
 
-			$scope.refTo = function(stateName){    
+			$scope.refTo = function(stateName){
+				if ($window.innerWidth <= 768) {
+					$scope.Model.mobile.hideContent = false;
+				}    
 				$state.go(stateName);
 			};
 			$scope.currTabName = $state.current.name;
@@ -166,7 +182,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.showContactData = function(contact){
-				console.log(contact);
+				// console.log(contact);
 				if ($state.current.name === 'chat.list') {
 					$scope.Model.showChatBlock = false;
 					$state.go('chat.contacts');
@@ -174,28 +190,39 @@ angular.module('placePeopleApp')
 				$scope.Model.showContactBlock = true;
 				$scope.Model.displayContactBlock = true;
 				$scope.Model.contact = contact;
+				if ($window.innerWidth <= 768) {							
+						$scope.Model.mobile.hideContent	= true;							
+						$state.go('chat.contact-mobile');
+				}
 			};
 
-            $scope.Model.blockContact = function(contactId){
-            	// console.log(contactId);
-                ChatService.blockUser(contactId)
-                    .then(function(response){
-                        console.log(response);                        
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
-            $scope.Model.deleteContact = function(contact){
-                console.log('deleteContact');
-                console.log(contact);
-            };           
+			$scope.Model.blockContact = function(contactId){
+				// console.log(contactId);
+				ChatService.blockUser(contactId)
+					.then(function(response){
+						console.log(response);                        
+					},
+					function(error){
+						console.log(error);
+					});
+			};
+			$scope.Model.deleteContact = function(contact){
+				console.log('deleteContact');
+				console.log(contact);
+			};
 
 			$scope.Model.openChatWith = function(opponent){                
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
-					$state.go('chat.list');
+					if ($window.innerWidth <= 768) {
+						$scope.Model.mobile = true;	
+						$scope.Model.mobile.hideContent	= true;							
+						$state.go('chat.mobile');
+					} else {
+						$state.go('chat.list');
+					}
 				}
+
 				$scope.Model.opponent = opponent; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
@@ -204,20 +231,26 @@ angular.module('placePeopleApp')
 				var data = {
 					userIdFrom: $scope.loggedUserId,
 					userIdTo: opponent.id,
-                    room_id: opponent.room_id
+					room_id: opponent.room_id
 				};
 
 				socket.emit('create room', data);
+
+				if ($window.innerWidth <= 768) {
+					// console.log($window.innerWidth);					
+					$scope.Model.mobile.hideContent	= true;								
+					$state.go('chat.mobile');
+				}
 
 
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			socket.on("get user rooms", function(response){
 				// console.log(response);
-                $scope.Model.chatRooms = response;
+				$scope.Model.chatRooms = response;
 			});
 
-			$scope.Model.Chat = [];
+			// $scope.Model.Chat = [];
 			
 			$scope.Model.sendMes = function(message, roomId){
 				var data = {
@@ -234,10 +267,24 @@ angular.module('placePeopleApp')
 					login: $scope.loggedUser
 				}
 
-				$scope.Model.Chat.push(mesInFormat);
+				// $scope.Model.Chat.push(mesInFormat);			
+
+			};	
+
+			$scope.Model.scrollBottom = function(){
+				setTimeout(function(){
+					var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
+					var height = chatWindow[0].scrollHeight;
+					// $scope.$broadcast('rebuildScroll');
+					chatWindow.scrollTop(height);
+				}, 100);
 
 			};
+			socket.on('updatechat', function(username, data){
+				$scope.Model.Chat = data;
+			});
 			socket.on('send message', function(response){
+				console.log(response);
 				$scope.Model.Chat = response;
 				// if ($scope.Model.Chat.length === 0) {
 				// 	$scope.Model.Chat = response;
@@ -252,25 +299,33 @@ angular.module('placePeopleApp')
 				}
 			};
 
-            $scope.Model.getLockedUsers = function(){
-                ChatService.getLockedUsers()
-                    .then(function(response){
-                    	console.log(response);
-                        $scope.Model.blockedUsers = response;                           
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
+			$scope.Model.getTime = function(time){
+				return time.substr(11, 5);
+			}
 
-            $scope.Model.showBlockedContactChat = function(user){
-            	// console.log(user);
-            	$scope.Model.opponent = user;
-            	$scope.Model.displayBlockedBlock = true;
-            }
+			$scope.Model.getLockedUsers = function(){
+				ChatService.getLockedUsers()
+					.then(function(response){
+						console.log(response);
+						$scope.Model.blockedUsers = response;                           
+					},
+					function(error){
+						console.log(error);
+					});
+			};
 
-            // $scope.Model.getLockedUsers();
+			$scope.Model.showBlockedContactChat = function(user){				
+				$scope.Model.opponent = user;
+				$scope.Model.displayBlockedBlock = true;
+				$scope.Model.showBlockedBlock = true;				
+				if ($window.innerWidth <= 768) {							
+						$scope.Model.mobile.hideContent	= true;							
+						$state.go('chat.mobile');
+				}
+			}
 
-            
+			// $scope.Model.getLockedUsers();
+
+			
 
 	}]);

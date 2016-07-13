@@ -14,18 +14,25 @@
         var vm = this;
         var storage = storageService.getStorage();
 
-        var myId = storage.userId;
+        var myId = +storage.userId;
+        var myAvatar = storage.loggedUserAva;
+        var firstName = storage.firstName;
+        var lastName = storage.lastName;
 
-        var modalEditGroup, modalDeleteGroup, modalInviteUsers;
+        var modalEditGroup, modalDeleteGroup, modalInviteUsers, modalSetCreator;
         var groupName = $stateParams.groupName;
+
 
         vm.group = group;
         vm.groupEdited = {};
         vm.showGroupMenu = false;
         vm.subscribers = [];
         vm.invitedUsers = [];
+        vm.adminsList = [];
+        vm.creator = {id: null};
 
         vm.inviteNotSend = true;
+        vm.isSend = false;
         $scope.emoji = {};
 
         activate();
@@ -170,12 +177,30 @@
         };
 
         vm.subscribe = function () {
-            groupsService.subscribeGroup(vm.group.id)
-                .then(function (data) {
-                    if (data.status) {
-                        vm.group.is_sub = data.is_sub;
-                    }
-                });
+            if (group.is_creator) {
+                openModalSetCreator();
+            } else {
+                groupsService.subscribeGroup(vm.group.id)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.group.is_sub = data.is_sub;
+                            if (data.is_sub) {
+                                vm.group.users.push({
+                                    avatar_path: myAvatar,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    id: myId
+                                });
+                                vm.group.count_users += 1;
+                            } else {
+                                removeUser({userId: myId});
+                                vm.group.count_users -= 1;
+                            }
+
+                        }
+                    });
+            }
+
         };
 
         vm.onItemSelected = function (user) {
@@ -202,8 +227,11 @@
             }
         };
 
-        vm.removeUser = function() {
-          console.log('User removed!')
+        vm.removeUser = function (user) {
+            removeUser({
+                userId: user.id,
+                isAdmin: user.is_admin
+            });
         };
 
         vm.submitInviteUsers = function () {
@@ -228,12 +256,37 @@
         };
 
         vm.setAdmin = function (user) {
+            if (!vm.group.is_creator) {
+                return false;
+            }
             groupsService.setAdmin(group.id, user.id)
-                .then(function(data) {
+                .then(function (data) {
                     if (data.status) {
                         user.is_admin = data.is_admin;
                     }
                 });
+        };
+
+        vm.setCreator = function () {
+            if (vm.isSend) {
+                return false;
+            }
+            groupsService.setCreator(group.id, vm.creator.id)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.isSend = true;
+                        $timeout(function () {
+                            resetFormSetCreator();
+                            modalSetCreator.close();
+                            $state.go('groups');
+                        }, 2000);
+                    }
+                });
+        };
+
+        vm.abortSetCreator = function () {
+            resetFormSetCreator();
+            modalSetCreator.close();
         };
 
 
@@ -248,6 +301,38 @@
             vm.invitedUsers = [];
             vm.subscribers = [];
             vm.inviteNotSend = true;
+        }
+
+        function resetFormSetCreator() {
+            vm.adminsList = [];
+            vm.creator.id = null;
+        }
+
+        function removeUser(user) {
+            for (var i = vm.group.users.length - 1; i >= 0; i--) {
+                if (vm.group.users[i].id == user.userId) {
+                    if (user.isAdmin && vm.group.is_creator || !user.isAdmin && vm.group.is_admin || user.userId === myId) {
+                        vm.group.users.splice(i, 1);
+                    }
+
+                }
+            }
+        }
+
+        function openModalSetCreator() {
+            vm.adminsList = getAdminsList();
+            modalSetCreator = ngDialog.open({
+                template: '../app/Groups/views/popup-setcreator-group.html',
+                name: 'modal-setcreator-group',
+                className: 'popup-setcreator-group ngdialog-theme-default',
+                scope: $scope
+            });
+        }
+
+        function getAdminsList() {
+            return group.users.filter(function (item) {
+                return (!!item.is_admin === true && item.id !== myId);
+            });
         }
 
         //function getGroup() {

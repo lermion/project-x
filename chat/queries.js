@@ -82,7 +82,6 @@ Queries.prototype.getUserRooms = function(data){
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
-						console.log(result);
 						result[0].room_id = item.id;
 						resolve(result[0]);
 					});
@@ -99,7 +98,6 @@ Queries.prototype.getUserRooms = function(data){
 }
 Queries.prototype.getUserDialogue = function(data){
 	var deferred = Q.defer();
-	console.log("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id);
 	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id", function(error, result){
 		if(error){
 			console.error("error to get user dialogue: " + error.stack);

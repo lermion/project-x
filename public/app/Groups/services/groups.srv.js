@@ -18,7 +18,8 @@
             deleteGroup: deleteGroup,
             inviteUsers: inviteUsers,
             subscribeGroup: subscribeGroup,
-            setAdmin: setAdmin
+            setAdmin: setAdmin,
+            setCreator: setCreator
         };
 
         ////////////
@@ -206,6 +207,27 @@
 
             function setAdminFailed(error) {
                 console.error('XHR Failed for setAdmin. ' + error.data);
+            }
+        }
+
+        function setCreator(groupId, adminId) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/set_admin_creator/' + groupId + '/' + adminId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(setCreatorComplete)
+                .catch(setCreatorFailed);
+
+            function setCreatorComplete(response) {
+                return response.data;
+            }
+
+            function setCreatorFailed(error) {
+                console.error('XHR Failed for setCreator. ' + error.data);
             }
         }
 

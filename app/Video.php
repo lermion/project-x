@@ -14,7 +14,16 @@ class Video extends Model
     protected $fillable = ['url','img_url','is_coded'];
 
     public static function makeFrame($f_name, $f_path, $new_fname){
-        $ffmpeg = FFMpeg::create();
+        if (substr(php_uname(), 0, 7) == "Windows"){
+            $ffmpeg = FFMpeg::create([
+                'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
+                'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
+            ]);
+        }
+        else {
+            $ffmpeg = FFMpeg::create();
+        }
+
         $file = $ffmpeg->open($f_path . $f_name);
 
         $file
@@ -34,8 +43,16 @@ class Video extends Model
 
         // Avatar
         $video->move($fullPath, $fileName);*/
-            
-            $ffmpeg = FFMpeg::create();
+
+            if (substr(php_uname(), 0, 7) == "Windows"){
+                $ffmpeg = FFMpeg::create([
+                    'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
+                    'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
+                ]);
+            }
+            else {
+                $ffmpeg = FFMpeg::create();
+            }
             $file = $ffmpeg->open($f_path . $f_name);
 
             $file
