@@ -76,6 +76,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update/{id}', 'GroupController@update');
         Route::get('destroy/{id}', 'GroupController@destroy');
         Route::get('subscription/{id}', 'GroupController@subscription');
+        Route::post('delete_subscription/{id}', 'GroupController@admin_subscription_delete');
         Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
         Route::get('set_admin_creator/{group_id}/{admin_id}', 'GroupController@setUserCreator');
@@ -136,6 +137,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
         Route::get('set_admin_creator/{place_id}/{admin_id}', 'PlaceController@setUserCreator');
         Route::get('subscription/{id}', 'PlaceController@subscription');
+        Route::post('delete_subscription/{id}', 'PlaceController@admin_subscription_delete');
         Route::post('invite/{place_id}', 'PlaceController@invite');
         Route::group(['prefix' => '{placeId}/publication'], function () {
             Route::get('/', 'PlacePublicationController@index');
@@ -160,8 +162,9 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='name'><br>
+        echo "<form action=\"http://pp.dev/place/delete_subscription/12\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='user_id[]' value='1095'><br>
+            <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='description'><br>
             <input type='text' name='address'><br>
             <input type='text' name='city_id' value='5'><br>

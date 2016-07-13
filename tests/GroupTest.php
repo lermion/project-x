@@ -181,4 +181,26 @@ class GroupTest extends TestCase
             'status' => true,
         ]);
     }
+
+    public function testAdmin_subscription_delete()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $group = \App\Group::first();
+        if (!$group) {
+            $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
+        }
+        \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1, 'is_creator' => 1]);
+        \App\GroupUser::create(['user_id' => $user2->id, 'group_id' => $group->id, 'is_admin' => 1, 'is_creator' => 0]);
+        $this->be($user);
+        $this->json('POST', 'group/delete_subscription/' . $group->id, ['user_id'=>array($user2->id)])->seeJson([
+            'status' => true,
+        ]);
+    }
 }
