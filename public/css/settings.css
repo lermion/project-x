@@ -4054,7 +4054,7 @@ span.users-today-time-time.early {
 }
 
 .chat-left-users-all.blocked-users {
-  max-height: 600px;
+  /*max-height: 600px;*/
   overflow-y: auto;
 }
 
@@ -4090,7 +4090,7 @@ span.users-today-time-time.early {
   /*height: 100%;*/
      position: absolute;
     left: 0;
-    top: 46px;
+    top: 50px;
     bottom: 0;
 }
 
@@ -4107,13 +4107,15 @@ span.users-today-time-time.early {
     width: 69%;
   }
   .chat-left-users-menu {
-    height: 50px;
+    height: 51px;
   }
   .chat-users-today-ava a {
     height: 40px;
     width: 40px;
   }
-  .chat-users-today-info p {
+  .chat-users-today-info p,
+  .chat-left-users-sign-inner,
+  .chat-menu-wrap {
     font-size: .85em;
   }
   .chat-users-today-data {
@@ -4280,6 +4282,18 @@ span.users-today-time-time.early {
   .chat-right-chat-inner {
     top: 51px;
   }
+  .users-menu-tab-chats,
+  .users-menu-tab-users,
+  .users-menu-tab-block,
+  .users-menu-tab-menu-do {
+  	height: 50px;
+  }
+  .chat-left-users-container {
+  	top: 51px;
+  }
+  .chat-left-users-container.chat-left-users-container1 {
+  	top: -1px;
+  }
 }
 @media (max-width: 768px) {
   .chat-mobile-chat-inner {
@@ -4335,4 +4349,30 @@ span.users-today-time-time.early {
 	.chat-users-today-data {
     width: 87%;
 	}
+	.chat-left-users-container {
+		top: 61px;
+	}
+	.users-menu-tab-chats, .users-menu-tab-users, .users-menu-tab-block, .users-menu-tab-menu-do {
+    height: 60px;
+	}
+	.chat-users-today-info p, .chat-left-users-sign-inner, .chat-menu-wrap {
+    font-size: 1em;
+}
+}
+
+
+
+.chat-left-users-container-blocked {
+	    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-content: flex-start;
+    border-left: 0px solid #e0e2e5;
+    background-color: #fff;
+    box-sizing: border-box;
+    font-family: "SFUIDisplayMedium";
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+}
 }
