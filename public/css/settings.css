@@ -4273,4 +4273,29 @@ span.users-today-time-time.early {
   .chat-mobile-chat-inner {
     width: 100%;
   }
+  .chat-main-container {
+    margin-top: 0px;
+    height: 79vh;
+  }
+  .chat-link-back {
+    position: absolute;
+    background-image: url(/images/public-groups.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    height: 58px;
+    width: 30px;
+    left: 10px;
+  }
+  .chat-right-chat-inner {
+    top: 60px;
+  }
+  .chat-person-top-ava a {
+    width: 50px;
+    height: 50px;
+}
+  .chat-right-top-person {
+      height: 60px;
+      padding-left: 50px;
+      position: relative;
+  }
 }

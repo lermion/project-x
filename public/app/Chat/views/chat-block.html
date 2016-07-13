@@ -1,6 +1,7 @@
 <div class="chat-right-main-wrap">
-<a href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')">Back</a>
+
     <div class="chat-right-top-person">
+    <a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')"></a>
 	    <div class="chat-top-person-data">	
 	    	<div class="chat-person-top-ava">
 	    		<a ui-sref="user({username: Model.opponent.login})">
