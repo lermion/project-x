@@ -2800,6 +2800,7 @@ p.top-person-status {
 }
 
 .chat-left-users-search {
+	position: absolute;
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -2954,7 +2955,7 @@ span.users-today-time-time.early {
     bottom: 0px;
 }
 .chat-left-users-container.chat-left-users-container1 {
-    top: 43px;
+    top: 2px;
 }
 
 
@@ -3959,6 +3960,7 @@ span.users-today-time-time.early {
     height: 40px;
     margin-left: 5px;
     position: relative;
+    cursor: pointer;
 }
 .chat-add-file-menu {
   position: absolute;
@@ -4285,7 +4287,7 @@ span.users-today-time-time.early {
   }
   .chat-main-container {
     margin-top: 0px;
-    height: 79vh;
+    height: 78vh;
   }
   .chat-link-back {
     position: absolute;
@@ -4312,7 +4314,7 @@ span.users-today-time-time.early {
     width: 100%;
 	}
 	.chat-left-users-menu {
-	    height: 60px;
+	    height: 61px;
 	}
 	.chat-users-today-ava a {
     height: 50px;
