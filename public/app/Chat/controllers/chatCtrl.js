@@ -246,8 +246,11 @@ angular.module('placePeopleApp')
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			socket.on("get user rooms", function(response){
-				// console.log(response);
 				$scope.Model.chatRooms = response;
+			});
+
+			socket.on('switchRoom', function(newroom){
+				socket.emit("switchRoom", newroom);
 			});
 
 			// $scope.Model.Chat = [];
@@ -280,7 +283,7 @@ angular.module('placePeopleApp')
 				}, 100);
 
 			};
-			socket.on('updatechat', function(username, data){
+			socket.on('updatechat', function(data){
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){
