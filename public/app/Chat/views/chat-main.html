@@ -32,11 +32,8 @@
 	    		<div class="users-menu-tab-users" ng-class="Model.showContactBlock ? 'active' : ''" ng-click="refTo('chat.contacts'); Model.showContactBlock=true; Model.showChatBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false;" style="cursor:pointer;">
 	    			
 	    		</div>
-	    		<div class="users-menu-tab-block" ng-class="Model.showBlockedBlock ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;" style="cursor:pointer;">
-	    			
-	    		</div>
-	    		<!-- refTo('chat.menu'); -->
-	    		<!-- Model.showMenuBlock=true; -->
+	    		<div class="users-menu-tab-block" ng-class="Model.showBlockedBlock ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;" style="cursor:pointer;">	    			
+	    		</div>	    		
 	    		<div class="users-menu-tab-menu-do" ng-class="Model.showMenuBlock ? 'active' : ''" ng-click=" Model.showMenuBlock=!Model.showMenuBlock;" style="cursor:pointer;">	    				    		
 			    		<div class="chat-add-file-menu" ng-show="Model.showMenuBlock" style="min-width:140px;left:-59px">			    			
 			    			<div class="chat-add-file-publ" ng-click="Model.openGroupChatPopup()">Создать группу</div>
@@ -55,9 +52,10 @@
 	    	<!-- Chat block -->
 			<div class="chat-right-cont-ng" ng-include="'/app/Chat/views/chat-block.html'" ng-if="Model.showChatBlock && Model.displayChatBlock || Model.showBlockedBlock && Model.displayBlockedBlock"></div> 			
 			<!-- Contact Block -->
-			<div ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
+			<div class="chat-contact-block-ng" ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
 			<!-- Notification settings -->
-			<div ng-include="'/app/Chat/views/chat-notification-settings.html'" ng-if="Model.showNotificationBlock"></div>
+			<div  class="chat-notification-wrap"  ng-include="'/app/Chat/views/chat-notification-settings.html'" ng-if="Model.showNotificationBlock && Model.displayNotificationBlock"></div>
+
 		</div>
 
 		<div class="chat-mobile-chat-inner" ng-show="Model.mobile.hideContent" ui-view></div>
