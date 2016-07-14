@@ -45,6 +45,10 @@ angular.module('placePeopleApp')
 				$state.go('chat.contacts');
 			}
 
+			$scope.Model.checkCurrUrl = function(){
+				$scope.Model.currRoute = $state.current.name;				
+			};		
+
 			$scope.openMenu = function () {
 				if ($window.innerWidth <= 800) {
 					$scope.showMenu = !$scope.showMenu;
@@ -152,7 +156,10 @@ angular.module('placePeopleApp')
 				}    
 				$state.go(stateName);
 			};
-			$scope.currTabName = $state.current.name;
+			
+			$scope.Model.reloadRooms = function(){
+				socket.emit("get user rooms", $scope.loggedUserId);
+			};
 			$scope.showContactData = function(contactId){
 				console.log(contactId);
 			};
@@ -267,8 +274,7 @@ angular.module('placePeopleApp')
 				}
 
 
-			};
-			socket.emit("get user rooms", $scope.loggedUserId);
+			};			
 			socket.on("get user rooms", function(response){
 				$scope.Model.chatRooms = response;
 			});
@@ -307,16 +313,12 @@ angular.module('placePeopleApp')
 				}, 100);
 
 			};
-			socket.on('updatechat', function(data){
-				console.log(data);
+			socket.on('updatechat', function(data){				
 				$scope.Model.Chat = data;
 			});
-			socket.on('send message', function(response){
-				console.log(response);
-				$scope.Model.Chat = response;
-				
-				// 	$scope.Model.Chat.push(response);
-				
+			socket.on('send message', function(response){				
+				$scope.Model.Chat = response;				
+				// 	$scope.Model.Chat.push(response);				
 			});
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						
@@ -357,21 +359,79 @@ angular.module('placePeopleApp')
 				socket.emit('create room', data);
 			}
 
+			$scope.emojiMessage = {};
+			$scope.$on('ngDialog.opened', function(e, $dialog){
+				if($dialog.name === "group-chat"){
+					window.emojiPicker = new EmojiPicker({
+						emojiable_selector: '.create-group-chat-text',
+						assetsPath: 'lib/img/',
+						popupButtonClasses: 'fa fa-smile-o'
+					});
+					window.emojiPicker.discover();
+					$(".emoji-button").text("");
+				}
+			});
+
+			var newGroupChatPopup;
+
 			$scope.Model.openGroupChatPopup = function(){
-				ngDialog.open({
+				$scope.Model.newGroupChat = {};
+				$scope.Model.newGroupChat.users = [];
+				$scope.Model.newGroupChat.name = '';
+				$scope.Model.newGroupChat.status = '';
+				newGroupChatPopup = ngDialog.open({
 					template: '../app/Chat/views/popup-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
 					scope: $scope,
+					name: 'group-chat',
 					// preCloseCallback: function(value){
 					// 	$state.go("user", {username: $stateParams.username});
 					// }
 				});
 			}
 
-			$scope.Model.openSettings = function(chat){
+			$scope.Model.openSettings = function(user){
 				$scope.Model.showNotificationBlock = true;
 				$scope.Model.displayNotificationBlock = true;
-				console.log(chat);
+				$scope.Model.opponent = user;
+				console.log(user);
+			};
+
+			$scope.Model.cancelNewChat = function(){				
+				newGroupChatPopup.close();
+			};
+			$scope.Model.createChat = function(name, status){
+				// var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				// $scope.Model
+				var users = [];
+				users.push(parseInt($scope.loggedUserId));				
+				$scope.Model.newGroupChat.users.forEach(function(user){
+					users.push(user.id);
+				});
+				console.log(name, status, users);
+
+			};
+			$scope.Model.onItemSelected = function(user){				
+				var repeated = undefined;
+				for (var i = 0; i < $scope.Model.newGroupChat.users.length; i++) {
+					if ($scope.Model.newGroupChat.users[i].id === user.id) {
+						repeated = i;
+						break;
+					}					
+				}
+				if (repeated === undefined) {
+					$scope.Model.newGroupChat.users.push(user);
+				} else if(repeated!=0){
+					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
+					$scope.Model.newGroupChat.users.unshift(usr);
+				}								
+			};			
+			$scope.Model.removeUser = function(index){
+				$scope.Model.newGroupChat.users.splice(index, 1);
+			};
+
+			$scope.saveNotificationSettings = function(user){
+				console.log(user);
 			};
 
 			
