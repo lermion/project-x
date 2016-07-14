@@ -97,7 +97,9 @@
         function updateGroup(group) {
             var fd = new FormData();
 
-            fd.append('name', group.name);
+            //if (group.name) {
+            //    fd.append('name', group.name);
+            //}
             fd.append('description', group.description);
             fd.append('is_open', +group.is_open);
             //fd.append('avatar', group.avatar, group.avatar.name);
@@ -145,7 +147,7 @@
         function inviteUsers(groupId, users) {
             var fd = new FormData();
 
-            angular.forEach(users, function(user) {
+            angular.forEach(users, function (user) {
                 fd.append('user_id[]', user.userId);
             });
 
@@ -172,7 +174,7 @@
         function removeUsers(groupId, users) {
             var fd = new FormData();
 
-            angular.forEach(users, function(id) {
+            angular.forEach(users, function (id) {
                 fd.append('user_id[]', id);
             });
 
