@@ -117,7 +117,7 @@ class GroupController extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:groups',
+                'name' => 'unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'file'
