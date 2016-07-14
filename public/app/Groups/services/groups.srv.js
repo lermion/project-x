@@ -17,6 +17,7 @@
             updateGroup: updateGroup,
             deleteGroup: deleteGroup,
             inviteUsers: inviteUsers,
+            removeUsers: removeUsers,
             subscribeGroup: subscribeGroup,
             setAdmin: setAdmin,
             setCreator: setCreator
@@ -165,6 +166,33 @@
 
             function inviteUserFailed(error) {
                 console.error('XHR Failed for inviteUser. ' + error.data);
+            }
+        }
+
+        function removeUsers(groupId, users) {
+            var fd = new FormData();
+
+            angular.forEach(users, function(id) {
+                fd.append('user_id[]', id);
+            });
+
+
+            return $http({
+                method: 'POST',
+                url: 'group/delete_subscription/' + groupId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(removeUsersComplete)
+                .catch(removeUsersFailed);
+
+            function removeUsersComplete(response) {
+                return response.data;
+            }
+
+            function removeUsersFailed(error) {
+                console.error('XHR Failed for removeUsers. ' + error.data);
             }
         }
 
