@@ -5110,6 +5110,8 @@ input.cmn-toggle-round:checked + label:after {
   .chat-contact-selected-data {
     margin-left: 15px;
   }
+  .chat-notification-title {
+    height: 50px;
 }
 
 
@@ -5144,6 +5146,7 @@ input.cmn-toggle-round:checked + label:after {
   .contact-selected-data-block,
   .contact-selected-data-delete {
     font-size: 1em;
+    text-align: center;
   }
   .contact-selected-data-message {
     margin-top: 15px;
@@ -5152,6 +5155,8 @@ input.cmn-toggle-round:checked + label:after {
   .contact-selected-data-delete,
   .contact-selected-data-message {
     height: 40px;
+    display: flex;
+    justify-content: center;
   }
   .contact-selected-data-name {
     height: 50px;
