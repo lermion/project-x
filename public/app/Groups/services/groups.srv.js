@@ -97,12 +97,14 @@
         function updateGroup(group) {
             var fd = new FormData();
 
-            //if (group.name) {
-            //    fd.append('name', group.name);
-            //}
+            if (group.name) {
+                fd.append('name', group.name);
+            }
+            if (group.avatar) {
+                fd.append('avatar', group.avatar, group.avatar.name);
+            }
             fd.append('description', group.description);
             fd.append('is_open', +group.is_open);
-            //fd.append('avatar', group.avatar, group.avatar.name);
 
             return $http({
                 method: 'POST',

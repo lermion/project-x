@@ -2,10 +2,6 @@
     <div class="new_group">Редактирование группы</div>
     <div class="add_newgroup add_newgroup--edit">
         <div class="first_item">
-            <!--<div class="ava_group">-->
-            <!--<img ng-src="" alt="My Avatar" class="img_ava">-->
-            <!--<a class="img_name">{{::myName}}</a>-->
-            <!--</div>-->
             <div class="checkbox_group">
                 <input type="checkbox" id="arr1" ng-model="vm.groupEdited.is_open"/>
                 <label for="arr1">Публичная группа</label>
@@ -22,16 +18,9 @@
                        ngf-min-height="240"
                        ngf-min-width="700"
                        ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
-                       ngf-before-model-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                       required>
+                       ngf-before-model-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
                 <label for="avatarImg">
-                    <!--<span class="ava">-->
                     <img ngf-src="vm.groupCoverFile || vm.groupEdited.avatar" ngf-no-object-url="true">
-                    <!--</span>-->
-                    <!--<span class="add" ng-class="dataURI ? 'edit-ava' : ''" ng-mouseenter="showEditAva=true;"-->
-                    <!--ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">-->
-                    <!--<span class="add-photo" ng-show="!dataURI || showEditAva"></span>-->
-                    <!--</span>-->
                 </label>
             </div>
             <span class="add_ava_grp"> Добавить обложку группе </span>

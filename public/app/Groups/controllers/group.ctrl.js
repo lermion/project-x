@@ -189,7 +189,10 @@
             if (groupName === vm.groupEdited.name) {
                 vm.groupEdited.name = null;
             }
-            $scope.groupEdited.description = vm.emoji.emojiMessage.messagetext;
+            if (!vm.forms.editGroup.avatar.$dirty) {
+                vm.groupEdited.avatar = null;
+            }
+            vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
             groupsService.updateGroup(vm.groupEdited)
                 .then(function (data) {
 
