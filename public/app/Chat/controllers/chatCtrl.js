@@ -161,14 +161,11 @@ angular.module('placePeopleApp')
 				socket.emit("get user rooms", $scope.loggedUserId);
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
-			$scope.showContactData = function(contactId){
-				console.log(contactId);
-			};
+			//TODO
 			$scope.Model.clearChat = function(user){
 				console.log(user);
 			};
-			$scope.Model.deleteChat = function(user){
-				console.log(user)				
+			$scope.Model.deleteChat = function(user){				
 				ChatService.deleteChat(user.room_id)
 					.then(function(res){
 						if (res.status) {
