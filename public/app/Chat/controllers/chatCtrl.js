@@ -252,7 +252,6 @@ angular.module('placePeopleApp')
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-
 				var data = {
 					userIdFrom: $scope.loggedUserId,
 					userIdTo: opponent.id,
@@ -287,8 +286,6 @@ angular.module('placePeopleApp')
 					message: message
 				}
 				$scope.Model.chatMes = '';
-
-				console.log(data);
 
 				socket.emit('send message', data);
 
@@ -354,7 +351,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userIdFrom: $scope.loggedUserId,
 					userIdTo: user.id,
-					room_id: user.room_id
+					room_id: user.room_id[0].room_id
 				};
 
 				socket.emit('create room', data);
@@ -372,7 +369,8 @@ angular.module('placePeopleApp')
 			}
 
 			$scope.Model.openSettings = function(chat){
-				$scope.Model.showNotificationBlock=true;
+				$scope.Model.showNotificationBlock = true;
+				$scope.Model.displayNotificationBlock = true;
 				console.log(chat);
 			};
 
