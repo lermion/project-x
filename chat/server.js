@@ -9,6 +9,7 @@ var Queries = require('./queries');
 var connection = new DatabaseConnection();
 var queries = new Queries();
 var users = {};
+var usersId = {};
 GLOBAL.rooms = [];
 var usernames = {
 	username: null
@@ -64,6 +65,8 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
+							var socketId = usersId[response[0].id];
+							io.sockets.connected[socketId].emit("get user rooms", response);
 							socket.emit("get user rooms", response);
 						},
 						function(error){
@@ -84,6 +87,10 @@ io.sockets.on('connection', function(socket){
 		});
 });
 	socket.on('get user rooms', function(data){
+		userId = {};
+		userId.socketId = socket.id;
+		usersId[data] = userId.socketId;
+		console.log(usersId);
 		var data = {
 			"userIdFrom": data
 		};
