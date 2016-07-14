@@ -371,6 +371,11 @@ angular.module('placePeopleApp')
 				});
 			}
 
+			$scope.Model.openSettings = function(chat){
+				$scope.Model.showNotificationBlock=true;
+				console.log(chat);
+			};
+
 			
 
 	}]);
