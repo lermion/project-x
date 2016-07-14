@@ -117,7 +117,7 @@ class GroupController extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:groups',
+                'name' => 'unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'file'
@@ -143,7 +143,9 @@ class GroupController extends Controller
             return response()->json($responseData);
         }
         $groupData = $request->all();
-        $groupData['url_name'] = $this->transliterate($request->input('name'));
+        if($request->input('name')){
+            $groupData['url_name'] = $this->transliterate($request->input('name'));
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);

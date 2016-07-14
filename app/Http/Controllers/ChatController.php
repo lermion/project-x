@@ -67,23 +67,30 @@ class ChatController extends Controller
 
     public function locked($locked_user_id)
     {
-        if ($chat_locked_user = ChatLockedUser::where(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()])->first()) {
-            $room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked_user_id]);
-            $room_id = $room[0]->room_id;
-            $user_chat = UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first();
-            $user_chat->is_lock = !$user_chat->is_lock;
-            $user_chat->save();
-            $chat_locked_user->delete();
+        if (ChatLockedUser::where(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()])->delete()) {
+            if ($room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked_user_id])) {
+                $room_id = $room[0]->room_id;
+                $user_chat = UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first();
+                $user_chat->is_lock = !$user_chat->is_lock;
+                $user_chat->save();
+                $roomId = true;
+            } else {
+                $roomId = false;
+            }
             $islock = false;
         } else {
             ChatLockedUser::create(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()]);
-            $room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked_user_id]);
-            $room_id = $room[0]->room_id;
-            $user_chat = UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first();
-            $user_chat->is_lock = !$user_chat->is_lock;
-            $user_chat->save();
+            if ($room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked_user_id])) {
+                $room_id = $room[0]->room_id;
+                $user_chat = UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first();
+                $user_chat->is_lock = !$user_chat->is_lock;
+                $user_chat->save();
+                $roomId = true;
+            } else {
+                $roomId = false;
+            }
             $islock = true;
         }
-        return response()->json(['status' => true, 'is_lock' => $islock]);
+        return response()->json(['status' => true, 'is_lock' => $islock, 'room_id'=>$roomId]);
     }
 }

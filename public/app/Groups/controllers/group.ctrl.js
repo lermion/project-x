@@ -25,6 +25,11 @@
 
         vm.group = group;
         vm.groupEdited = {};
+
+        vm.forms = {
+            editGroup: {}
+        };
+
         vm.showGroupMenu = false;
         vm.subscribers = [];
         vm.invitedUsers = [];
@@ -33,7 +38,15 @@
 
         vm.inviteNotSend = true;
         vm.isSend = false;
-        $scope.emoji = {};
+
+        vm.emoji = {
+            emojiMessage: {
+                messagetext: '',
+                rawhtml: ''
+            }
+        };
+
+        vm.userName = storage.username;
 
         activate();
 
@@ -123,10 +136,17 @@
                 $state.go('group.publications');
             }
         });
+        $scope.$on('ngDialog.opened', function(e, $dialog){
+            var string = $filter('colonToSmiley')(vm.groupEdited.description);
+            if($dialog.name === "modal-edit-group"){
+                $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = string;
+            }
+        });
 
         vm.openModalEditGroup = function () {
             vm.groupEdited = angular.copy(vm.group);
-
+            vm.groupEdited.is_open = !!vm.groupEdited.is_open;
+            vm.emoji.emojiMessage.messagetext = vm.groupEdited.description;
             modalEditGroup = ngDialog.open({
                 template: '../app/Groups/views/popup-edit-group.html',
                 name: 'modal-edit-group',
@@ -166,6 +186,13 @@
         };
 
         vm.updateGroup = function () {
+            if (groupName === vm.groupEdited.name) {
+                vm.groupEdited.name = null;
+            }
+            if (!vm.forms.editGroup.avatar.$dirty) {
+                vm.groupEdited.avatar = null;
+            }
+            vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
             groupsService.updateGroup(vm.groupEdited)
                 .then(function (data) {
 
@@ -287,6 +314,13 @@
         vm.abortSetCreator = function () {
             resetFormSetCreator();
             modalSetCreator.close();
+        };
+
+        vm.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+            Upload.resize(file, 700, 240, 1, null, null, true).then(function(resizedFile) {
+                console.log(resizedFile);
+                vm.groupEdited.avatar = resizedFile;
+            });
         };
 
 
