@@ -5111,15 +5111,28 @@ input.cmn-toggle-round:checked + label:after {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.places-page-one-category {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+.places-page-one-category:last-child {
+  margin-bottom: 30px;
 }
 .places-category-item {
   display: flex;
   flex-wrap: wrap;
   width: 220px;
-  background-color: red;
   margin-right: 20px;
   margin-top: 20px;
   font-family: "SFUIDisplayMedium";
+  border: 1px solid rgb(224,226,229);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px 0px #c0c0c0;
+  background-color: #fff;
 }
 .places-category-item:nth-child(3n) {
   margin-right: 0px;
@@ -5129,6 +5142,9 @@ input.cmn-toggle-round:checked + label:after {
   height: 220px;
   width: 100%;
   position: relative;
+  border-bottom: 1px solid rgb(224,226,229);
+  box-sizing: border-box;
+  background-color: #e3e3e3;
 }
 .places-item-photo-link {
     width: 100%;
@@ -5137,7 +5153,6 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.1);
 }
 .places-item-photo-img {
   max-width: 100%;
@@ -5150,29 +5165,65 @@ input.cmn-toggle-round:checked + label:after {
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: green;
   height: 45px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  box-sizing: border-box;
+  text-shadow: 1px 1px 2px black;
 }
 .places-item-photo-place span {
   margin-left: 10px;
   font-size: 14.6px;
   font-family: "SFUIDisplayMedium";
-  color: rgb(226,227,227);
+  color: rgb(247,247,247);
 }
 .places-item-description {
   display: flex;
   height: 100px;
-  background-color: gray;
+  background-color: #fff;
+  border-bottom: 1px solid rgb(224,226,229);
   width: 100%;
+  font-family: "SFUIDisplayLight";
+  font-size: 14.6px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.places-item-description-p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  margin: 0;
+  line-height: 22px;
+  padding: 10px;
+  color: rgb(83,83,83);
+  padding: 10px;
 }
 
 .places-item-rating {
   display: flex;
   height: 55px;
-  background-color: green;
   width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(68,68,68);
+}
+.places-item-rating-like {
+  padding-left: 35px;
+  background-image: url(/images/like.png);
+  background-repeat: no-repeat;
+  background-position: left 15px center;
+  -webkit-background-size: 22%;
+  background-size: 22%;
+
+}
+.places-item-rating-link {
+  padding-right: 35px;
+  background-image: url(/images/chat-icon.png);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  -webkit-background-size: 22%;
+  background-size: 40%;
 }
 
