@@ -90,7 +90,6 @@ io.sockets.on('connection', function(socket){
 		userId = {};
 		userId.socketId = socket.id;
 		usersId[data] = userId.socketId;
-		console.log(usersId);
 		var data = {
 			"userIdFrom": data
 		};
@@ -107,7 +106,6 @@ io.sockets.on('connection', function(socket){
 	socket.on('send message', function(data){
 		queries.sendMessage(data).then(function(response){
 			queries.getUserDialogue(data).then(function(response){
-				console.log(socket.room);
 				io.sockets.in(socket.room).emit('updatechat', response);
 			},
 			function(error){

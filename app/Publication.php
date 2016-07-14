@@ -96,13 +96,16 @@ class Publication extends Model
             ->where('user_id', $userId)
             ->where('is_anonym', false)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
-            $publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->take(3)->get();
+            $publication->comments = $publication->comments()
+                ->with(['images', 'videos', 'user'])
+                ->orderBy('id', 'desc')
+                ->take(3)
+                ->get();
             $publication->like_count = $publication->likes()->count();
+            $publication_comments = $publication->comments->toArray();
+            $publication->comments = array_reverse($publication_comments);
             $publication->user_like = $publication->likes()->where('user_id', Auth::id())->first() != null;
             $publication->comment_count = $publication->comments()->count();
-            foreach ($publication->comments as &$comment) {
-                $comment->like_count = $comment->likes()->count();
-            }
         }
         return $publications;
     }
