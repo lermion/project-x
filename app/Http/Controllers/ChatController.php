@@ -58,7 +58,8 @@ class ChatController extends Controller
             ->where(['chat_locked_users.user_id'=>Auth::id()])->get();
         if ($locked_users){
             foreach ($locked_users as &$locked){
-                $locked->room_id = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked->id]);
+                $room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked->id]);
+                $locked->room_id = $room[0]->room_id;
             }
         }
         return $locked_users;
