@@ -160,6 +160,7 @@ angular.module('placePeopleApp')
 			$scope.Model.reloadRooms = function(){
 				socket.emit("get user rooms", $scope.loggedUserId);
 			};
+			socket.emit("get user rooms", $scope.loggedUserId);
 			$scope.showContactData = function(contactId){
 				console.log(contactId);
 			};
