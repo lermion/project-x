@@ -5046,3 +5046,7 @@ input.cmn-toggle-round:checked + label:before {
 input.cmn-toggle-round:checked + label:after {
   margin-left: 25px;
 }
+
+.chat-contact-block-ng {
+  background-color: #fff;
+}

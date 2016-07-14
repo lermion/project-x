@@ -52,7 +52,7 @@
 	    	<!-- Chat block -->
 			<div class="chat-right-cont-ng" ng-include="'/app/Chat/views/chat-block.html'" ng-if="Model.showChatBlock && Model.displayChatBlock || Model.showBlockedBlock && Model.displayBlockedBlock"></div> 			
 			<!-- Contact Block -->
-			<div ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
+			<div class="chat-contact-block-ng" ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
 			<!-- Notification settings -->
 			<div  class="chat-notification-wrap"  ng-include="'/app/Chat/views/chat-notification-settings.html'" ng-if="Model.showNotificationBlock && Model.displayNotificationBlock"></div>
 
