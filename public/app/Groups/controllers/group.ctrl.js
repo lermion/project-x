@@ -19,15 +19,21 @@
         var firstName = storage.firstName;
         var lastName = storage.lastName;
 
-        var modalEditGroup, modalDeleteGroup, modalInviteUsers, modalSetCreator;
+        var modalEditGroup, modalDeleteGroup, modalInviteUsers, modalSetCreator, modalNewPublication;
         var groupName = $stateParams.groupName;
+
+
+        vm.firstName = firstName;
+        vm.lastName = lastName;
+        vm.myAvatar = myAvatar;
 
 
         vm.group = group;
         vm.groupEdited = {};
 
         vm.forms = {
-            editGroup: {}
+            editGroup: {},
+            newPublication: {}
         };
 
         vm.showGroupMenu = false;
@@ -136,13 +142,15 @@
                 $state.go('group.publications');
             }
         });
-        $scope.$on('ngDialog.opened', function(e, $dialog){
+        $scope.$on('ngDialog.opened', function (e, $dialog) {
             var string = $filter('colonToSmiley')(vm.groupEdited.description);
-            if($dialog.name === "modal-edit-group"){
+            if ($dialog.name === "modal-edit-group") {
                 $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = string;
             }
         });
 
+
+        // Modal windows
         vm.openModalEditGroup = function () {
             vm.groupEdited = angular.copy(vm.group);
             vm.groupEdited.is_open = !!vm.groupEdited.is_open;
@@ -174,6 +182,17 @@
                 });
             });
         };
+
+        vm.openModalNewPublication = function () {
+            modalNewPublication = ngDialog.open({
+                template: '../app/Groups/views/popup-add-publication.html',
+                name: 'modal-publication-group',
+                className: 'user-publication ngdialog-theme-default',
+                scope: $scope,
+                preCloseCallback: resetFormNewPublication
+            });
+        };
+
 
         vm.deleteGroup = function () {
             groupsService.deleteGroup(vm.group.id)
@@ -317,7 +336,7 @@
         };
 
         vm.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-            Upload.resize(file, 700, 240, 1, null, null, true).then(function(resizedFile) {
+            Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
                 console.log(resizedFile);
                 vm.groupEdited.avatar = resizedFile;
             });
@@ -340,6 +359,10 @@
         function resetFormSetCreator() {
             vm.adminsList = [];
             vm.creator.id = null;
+        }
+
+        function resetFormNewPublication() {
+            console.log('Reset group new publication form');
         }
 
         function removeUser(user) {

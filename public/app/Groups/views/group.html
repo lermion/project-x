@@ -75,6 +75,7 @@
                                  ng-click="vm.showGroupMenu=!vm.showGroupMenu">
                                 <div class="menu-item" ng-if="vm.showGroupMenu">
                                     <div class="inner">
+                                        <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
                                         <a href="" ng-click="vm.openModalEditGroup()">Редактировать</a>
                                         <a href="" ng-click="vm.openModalInviteUsers()">Пригласить</a>
                                         <a href="" ng-if="vm.group.is_creator" ng-click="vm.openModalDeleteGroup()">Удалить</a>
