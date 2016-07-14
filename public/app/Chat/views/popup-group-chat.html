@@ -55,16 +55,16 @@
         <div class="fifth_item" ng-if="Model.subscribers.length + Model.subscriptions.length > 0">
             <div class="item1-container">
                 <input type="text" id="" ng-model="searchString" placeholder="Пригласить в чат...">
-                <ul class="item1">
-                    <p>Подписчики</p>
-                    <li ng-repeat="user in Model.subscribers | searchFor:searchString">
+                <ul class="item1">                    
+                    <p>Подписки</p>
+                    <li ng-repeat="user in Model.subscriptions | searchFor:searchString">
                         <img ng-src="{{user.avatar_path}}">
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
                         <span class="group-add-item1-user-plus" ng-click="Model.onItemSelected(user)">
                         <img src="/images/add.png" alt=""></span>
                     </li>
-                    <p>Подписки</p>
-                    <li ng-repeat="user in Model.subscriptions | searchFor:searchString">
+                    <p>Подписчики</p>
+                    <li ng-repeat="user in Model.subscribers | searchFor:searchString">
                         <img ng-src="{{user.avatar_path}}">
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
                         <span class="group-add-item1-user-plus" ng-click="Model.onItemSelected(user)">
