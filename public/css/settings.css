@@ -5110,6 +5110,8 @@ input.cmn-toggle-round:checked + label:after {
   .chat-contact-selected-data {
     margin-left: 15px;
   }
+  .chat-notification-title {
+    height: 50px;
 }
 
 
