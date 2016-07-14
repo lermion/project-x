@@ -360,7 +360,16 @@ angular.module('placePeopleApp')
 				socket.emit('create room', data);
 			}
 
-			// $scope.Model.getLockedUsers();
+			$scope.Model.openGroupChatPopup = function(){
+				ngDialog.open({
+					template: '../app/Chat/views/popup-group-chat.html',
+					className: 'popup-group-chat ngdialog-theme-default',
+					scope: $scope,
+					// preCloseCallback: function(value){
+					// 	$state.go("user", {username: $stateParams.username});
+					// }
+				});
+			}
 
 			
 
