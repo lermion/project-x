@@ -163,12 +163,12 @@ angular.module('placePeopleApp')
 
 				console.log(userId, chatId);
 
-				UserService.sign(userId)
-					.then(function(res){
-						console.log(res);
-					  }, function(err){
-						console.log(err);
-					  });
+				// UserService.sign(userId)
+				// 	.then(function(res){
+				// 		console.log(res);
+				// 	  }, function(err){
+				// 		console.log(err);
+				// 	  });
 			};
 
 			function loadUserContacts(){
@@ -208,11 +208,24 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.Model.blockContact = function(contactId){
+			$scope.Model.blockContact = function(contact){
 				// console.log(contactId);
-				ChatService.blockUser(contactId)
+				ChatService.blockUser(contact.id)
 					.then(function(response){
-						console.log(response);                        
+						console.log(response);
+						if (response.status) {
+							contact.is_lock = response.is_lock 
+							if (!response.is_lock) {													
+								var index;
+								for(var i = 0; i < $scope.Model.blockedUsers.length; i++){
+									if ($scope.Model.blockedUsers[i].id === contact.id) {
+										index = i;
+									}
+								}
+								$scope.Model.blockedUsers.splice(index ,1);								
+								$scope.Model.displayBlockedBlock = false;								
+							} 						
+						}                       
 					},
 					function(error){
 						console.log(error);
@@ -239,7 +252,6 @@ angular.module('placePeopleApp')
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-
 				var data = {
 					userIdFrom: $scope.loggedUserId,
 					userIdTo: opponent.id,
@@ -275,8 +287,6 @@ angular.module('placePeopleApp')
 				}
 				$scope.Model.chatMes = '';
 
-				console.log(data);
-
 				socket.emit('send message', data);
 
 				var mesInFormat = {
@@ -298,6 +308,7 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
+				console.log(data);
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){
@@ -337,9 +348,31 @@ angular.module('placePeopleApp')
 						$scope.Model.mobile.hideContent	= true;							
 						$state.go('chat.mobile');
 				}
+				var data = {
+					userIdFrom: $scope.loggedUserId,
+					userIdTo: user.id,
+					room_id: user.room_id[0].room_id
+				};
+
+				socket.emit('create room', data);
 			}
 
-			// $scope.Model.getLockedUsers();
+			$scope.Model.openGroupChatPopup = function(){
+				ngDialog.open({
+					template: '../app/Chat/views/popup-group-chat.html',
+					className: 'popup-group-chat ngdialog-theme-default',
+					scope: $scope,
+					// preCloseCallback: function(value){
+					// 	$state.go("user", {username: $stateParams.username});
+					// }
+				});
+			}
+
+			$scope.Model.openSettings = function(chat){
+				$scope.Model.showNotificationBlock = true;
+				$scope.Model.displayNotificationBlock = true;
+				console.log(chat);
+			};
 
 			
 
