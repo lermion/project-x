@@ -4188,7 +4188,26 @@ span.users-today-time-time.early {
      Input fields
 ----------------------*/
 .has-error {
-    border: 2px solid #F44336 !important;
+    border: 2px solid #f44336 !important;
+}
+.error-messages.ng-active {
+    display: inline-flex;
+    background: #f44336;
+    color: #FFFFFF;
+    padding: 5px;
+    margin: 10px 0 15px;
+    position: relative;
+    font-size: 12px;
+    line-height: normal;
+}
+.error-messages.ng-active:after {
+    position: absolute;
+    top: -11px;
+    content: "";
+    left: 20px;
+    border-style: solid;
+    border-color: transparent transparent #f44336;
+    border-width: 6px;
 }
 
 
@@ -5125,6 +5144,7 @@ input.cmn-toggle-round:checked + label:after {
   .contact-selected-data-block,
   .contact-selected-data-delete {
     font-size: 1em;
+    text-align: center;
   }
   .contact-selected-data-message {
     margin-top: 15px;
@@ -5133,6 +5153,8 @@ input.cmn-toggle-round:checked + label:after {
   .contact-selected-data-delete,
   .contact-selected-data-message {
     height: 40px;
+    display: flex;
+    justify-content: center;
   }
   .contact-selected-data-name {
     height: 50px;

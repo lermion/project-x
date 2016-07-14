@@ -14,18 +14,33 @@
 
         <div class="second_item">
             <div class="add-ava" ng-class="(forms.newGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
-                <input type="file" name="avatar" valid-file id="avatarImg" class="js-group-avatar" ng-model="avatarFile" required>
+                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar"
+                       ng-model="groupCoverFile"
+                       ngf-select
+                       ngf-accept="'image/*'"
+                       ngf-pattern="'image/*'"
+                       ngf-min-height="240"
+                       ngf-min-width="700"
+                       ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
+                       ngf-before-model-change="changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       required>
                 <label for="avatarImg">
-                <span class="ava" ng-show="dataURI">
-                    <img ng-src="{{dataURI}}" style="width:100%;">
-                </span>
-                <span class="add" ng-class="dataURI ? 'edit-ava' : ''" ng-mouseenter="showEditAva=true;"
-                      ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-                    <span class="add-photo" ng-show="!dataURI || showEditAva"></span>
-                </span>
+                <!--<span class="ava">-->
+                    <img ngf-thumbnail="groupCoverFile" ngf-no-object-url="true">
+                <!--</span>-->
+                <!--<span class="add" ng-class="dataURI ? 'edit-ava' : ''" ng-mouseenter="showEditAva=true;"-->
+                      <!--ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">-->
+                    <!--<span class="add-photo" ng-show="!dataURI || showEditAva"></span>-->
+                <!--</span>-->
                 </label>
             </div>
             <span class="add_ava_grp"> Добавить обложку группе </span>
+        </div>
+        <div class="error-messages" ng-messages="forms.newGroup.avatar.$error" ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted || forms.newGroup.$dirty">
+            <div ng-message="pattern">Выбранный файл не является изображением</div>
+            <div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
+            <div ng-message="required">Вы не выбрали обложку для группы</div>
+            <div ng-message="minHeight">Минимальная высота 240 пикселей</div>
         </div>
 
 
@@ -35,18 +50,21 @@
                required
                placeholder="Название">
 
-        <!--<div ng-messages="forms.newGroup.name.$error" style="color:maroon" role="alert">-->
-            <!--<div ng-message="required">You did not enter a field</div>-->
-        <!--</div>-->
+        <div class="error-messages" ng-messages="forms.newGroup.name.$error" ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
+            <div ng-message="required">Вы не указали название группы</div>
+        </div>
 
         <div class="text-field">
             <div emoji-form emoji-message="emojiMessage">
                 <textarea id="messageInput" name="description"
-                          ng-model="emojiMessage.messagetext"></textarea>
+                          ng-model="emojiMessage.messagetext" required></textarea>
                 <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>
             </div>
+        </div>
+        <div class="error-messages" ng-messages="forms.newGroup.description.$error" ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
+            <div ng-message="required">Вы не указали название группы</div>
         </div>
 
         <div class="button">
