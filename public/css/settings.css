@@ -4302,7 +4302,7 @@ span.users-today-time-time.early {
   }
   .chat-main-container {
     margin-top: 0px;
-    height: 78vh;
+    height: 76vh;
   }
   .chat-link-back {
     position: absolute;
@@ -5049,4 +5049,107 @@ input.cmn-toggle-round:checked + label:after {
 
 .chat-contact-block-ng {
   background-color: #fff;
+  width: 100%;
+  height: 100%;
+}
+
+
+@media (max-width: 1024px) {
+  .chat-contact-selected-ava {
+    width: 230px;
+    height: 230px;
+  }
+  .contact-selected-data-name,
+  .contact-selected-data-status,
+  .contact-selected-data-title,
+  .contact-selected-data-phone,
+  .contact-selected-data-tel-number,
+  .contact-selected-data-message,
+  .contact-selected-data-block,
+  .contact-selected-data-delete {
+    font-size: .9em;
+  }
+  .contact-selected-data-message {
+    margin-top: 10px;
+  }
+  .contact-selected-data-block,
+  .contact-selected-data-delete,
+  .contact-selected-data-message {
+    height: 30px;
+  }
+  .contact-selected-data-name {
+    height: 40px;
+  }
+  .contact-selected-data-tel-number,
+  .contact-selected-data-status,
+  .contact-selected-data-phone {
+    margin-top: 5px;
+  }
+  .chat-contact-selected-data {
+    height: 230px;
+  }
+  .chat-contact-selected-data {
+    margin-left: 15px;
+  }
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .chat-contact-right-selected {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    justify-content: center;
+  }
+  .chat-contact-selected-ava {
+    width: 290px;
+    height: 290px;
+  }
+  .chat-mobile-chat-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .contact-selected-data-name,
+  .contact-selected-data-status,
+  .contact-selected-data-title,
+  .contact-selected-data-phone,
+  .contact-selected-data-tel-number,
+  .contact-selected-data-message,
+  .contact-selected-data-block,
+  .contact-selected-data-delete {
+    font-size: 1em;
+  }
+  .contact-selected-data-message {
+    margin-top: 15px;
+  }
+  .contact-selected-data-block,
+  .contact-selected-data-delete,
+  .contact-selected-data-message {
+    height: 40px;
+  }
+  .contact-selected-data-name {
+    height: 50px;
+  }
+  .contact-selected-data-tel-number,
+  .contact-selected-data-status,
+  .contact-selected-data-phone {
+    margin-top: 10px;
+  }
+  .chat-contact-right-selected {
+    padding-left: 0px;
+    padding-top: 0px;
+  }
+  .chat-contact-selected-data {
+    width: 100%;
+    height: auto;
+    margin-left: 0px;
+  }
+
 }
