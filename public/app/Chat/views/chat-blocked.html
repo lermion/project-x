@@ -1,5 +1,5 @@
 
-<div class="chat-left-users-container-blocked" ng-init="Model.getLockedUsers()">
+<div class="chat-left-users-container-blocked" ng-init="Model.getLockedUsers(); Model.checkCurrUrl()">
 	<div class="chat-left-users-all blocked-users">	
 
     	<div class="chat-left-users-users-today" ng-repeat="blockedUser in Model.blockedUsers">

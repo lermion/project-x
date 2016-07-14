@@ -1,4 +1,4 @@
-<form name="forms.newGroup" novalidate>
+<form name="forms.newGroup" novalidate ng-init="Model.loadUserContactList()">
     <div class="new_group"> Новый чат</div>
     <div class="add_newgroup">
         <!-- <div class="first_item">
@@ -11,7 +11,6 @@
                 <label for="arr1">Публичная группа</label>
             </div>
         </div> -->
-
         <div class="second_item">
             <div class="add-ava" ng-class="(forms.newGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
                 <input type="file" name="avatar" valid-file id="avatarImg" class="js-group-avatar" ng-model="avatarFile" required>
@@ -28,10 +27,9 @@
             <span class="add_ava_grp"> Загрузить аватар </span>
         </div>
 
-
-        <input type="text" name="name"
-               ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}"
-               ng-model="newGroup.name"
+        <!-- ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}" -->
+        <input type="text" name="name"               
+               ng-model="Model.newChat.name"
                required
                placeholder="Название">
 
@@ -50,35 +48,38 @@
         </div>
 
         <div class="button">
-            <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
-            <a href="" class="create" ng-click="addGroup()"> Создать чат</a>
+            <a href="" class="cansel" ng-click="Model.cancelNewChat()"> Отменить </a>
+            <a href="" class="create" ng-click="Model.createChat(Model.newChat.name, emojiMessage)"> Создать чат</a>
         </div>
 
-        <div class="fifth_item" ng-if="subscribers.length > 0">
+        <div class="fifth_item" ng-if="Model.subscribers.length + Model.subscriptions.length > 0">
             <div class="item1-container">
                 <input type="text" id="" ng-model="searchString" placeholder="Пригласить в чат...">
                 <ul class="item1">
-                    <li ng-repeat="user in subscribers | searchFor:searchString">
+                    <p>Подписчики</p>
+                    <li ng-repeat="user in Model.subscribers | searchFor:searchString">
                         <img ng-src="{{user.avatar_path}}">
-
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
-                <span class="group-add-item1-user-plus" ng-click="onItemSelected(user)"><img src="/images/add.png"
-                                                                                             alt=""></span>
+                        <span class="group-add-item1-user-plus" ng-click="Model.onItemSelected(user)">
+                        <img src="/images/add.png" alt=""></span>
+                    </li>
+                    <p>Подписки</p>
+                    <li ng-repeat="user in Model.subscriptions | searchFor:searchString">
+                        <img ng-src="{{user.avatar_path}}">
+                        <p>{{::user.first_name}} {{::user.last_name}}</p>
+                        <span class="group-add-item1-user-plus" ng-click="Model.onItemSelected(user)">
+                        <img src="/images/add.png" alt=""></span>
                     </li>
                 </ul>
             </div>
             <div class="item1-add-people-container">
                 <p class="item1-add-people-title">Список пользователей</p>
-
                 <div class="item1 add-people">
                     <ul>
-                        <li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true"
-                            ng-mouseleave="showAdmin=false">
-                            <img ng-src="{{user.avatar}}">
-
-                            <p>{{::user.firstName}} {{::user.lastName}}</p>
-                            <span class="add-people-delete" ng-click="removeUser(user)">&#10006;</span>
-                            <span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
+                        <li ng-repeat="user in Model.newGroupChat.users">
+                            <img ng-src="{{user.avatar_path}}">
+                            <p>{{::user.first_name}} {{::user.last_name}}</p>
+                            <span class="add-people-delete" ng-click="Model.removeUser($index)">&#10006;</span>         
                         </li>
                     </ul>
                 </div>
