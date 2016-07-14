@@ -87,10 +87,10 @@ angular.module('placePeopleApp')
 		      parent: 'chat',
 		      templateUrl: '../../app/Chat/views/chat-blocked.html'
 		    })
-		    .state('chat.menu', {
-		      url: '/menu',
+		    .state('chat.notification', {
+		      url: '/settings',
 		      parent: 'chat',
-		      templateUrl: '../../app/Chat/views/chat-menu.html'
+		      templateUrl: '../../app/Chat/views/chat-notification.html'
 		    })
 		    .state('chat.mobile', {
 		      url: '/m/',

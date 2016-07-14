@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\UserChat;
 use App\ChatLockedUser;
 use App\Subscriber;
 use App\User;
@@ -97,6 +99,7 @@ class SubscriberController extends Controller
                     } else {
                         $sub->is_lock = false;
                     }
+                    $sub->room_id = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [$sub->id, $id]);
                 }
             }
             return $subscription;
@@ -118,6 +121,7 @@ class SubscriberController extends Controller
         if ($user) {
             $subscribers = $user->subscribers;
             if (Auth::check()) {
+
                 foreach ($subscribers as &$sub) {
                     $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
                     if (ChatLockedUser::where(['user_id'=>$id, 'locked_user_id'=>$sub->id])->first()) {
@@ -125,6 +129,7 @@ class SubscriberController extends Controller
                     } else {
                         $sub->is_lock = false;
                     }
+                    $sub->room_id = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [$sub->id, $id]);
                 }
             }
             return $subscribers;
