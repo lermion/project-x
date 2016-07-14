@@ -1,8 +1,8 @@
 angular.module('app.groups')
     .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', 'StaticService',
-        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService',
+        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService', 'Upload',
         function ($rootScope, $scope, $state, $stateParams, $filter, StaticService,
-                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService) {
+                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService, Upload) {
 
             var LIMIT_MY_GROUPS = 3,
                 LIMIT_ALL_PUBLIC_GROUPS = 3;
@@ -10,6 +10,7 @@ angular.module('app.groups')
             var storage = storageService.getStorage();
             var myId = storage.userId;
             var modalNewGroup, modalEditGroup, modalCropImage;
+
 
             $scope.myName = storage.firstName + ' ' + storage.lastName;
             $scope.myAvatar = storage.loggedUserAva;
@@ -39,6 +40,7 @@ angular.module('app.groups')
             $scope.emojiMessage = {
                 messagetext: ''
             };
+            $scope.avatarFile = null;
             $scope.myImage = null;
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
@@ -159,7 +161,7 @@ angular.module('app.groups')
 
             $scope.$on('ngDialog.opened', function (e, $dialog) {
                 if ($dialog.name === 'modal-new-group' || $dialog.name === 'modal-edit-group') {
-                    angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
+                    //angular.element(document.querySelector('.js-group-avatar')).on('change', onFileSelected);
                     //angular.element(document.querySelector('.emoji-wysiwyg-editor')).on('blur keyup paste input mousemove change', validateEmojiArea);
                     //angular.element(document.querySelector('#messageInput')).on('DOMNodeInserted', validateEmoji);
                     //angular.element(document.querySelector('.emoji-wysiwyg-editor')).on('blur keyup paste input mousemove change', validateEmoji);
@@ -249,6 +251,7 @@ angular.module('app.groups')
             $scope.addGroup = function () {
                 $scope.submFormGroup = true;
                 validateEmojiArea();
+                $scope.forms.newGroup.$setSubmitted();
                 if ($scope.forms.newGroup.$invalid) {
                     return false;
                 }
@@ -263,6 +266,7 @@ angular.module('app.groups')
                                 inviteUsers(data.group.id);
                             } else {
                                 resetFormNewGroup();
+                                getGroupList();
                                 modalNewGroup.close();
                             }
                         }
@@ -298,6 +302,13 @@ angular.module('app.groups')
 
             $scope.getGroupType = function () {
                 return $scope.filterGroups;
+            };
+
+            $scope.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+                Upload.resize(file, 700, 240, 1, null, null, true).then(function(resizedFile) {
+                    console.log(resizedFile);
+                    $scope.newGroup.avatar = resizedFile;
+                });
             };
 
             function getGroupList() {
