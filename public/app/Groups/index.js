@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.groups', [])
+        .module('app.groups', ['ngFileUpload'])
         .config(routes);
 
 

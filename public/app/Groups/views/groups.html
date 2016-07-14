@@ -54,7 +54,8 @@
                              ng-repeat="group in groupList | filter: {'is_admin': true}:true | limitTo: limitMyGroups">
                             <div class="group-cover">
                                 <a ui-sref="group({groupName: group.url_name})" class="group-ava">
-                                    <img ng-src="{{group.avatar}}">
+                                    <!--<img ng-src="{{group.avatar}}">-->
+                                    <img ngf-src="group.avatar" ngf-as-background="true">
                                 </a>
 
                                 <div class="group-likes">
