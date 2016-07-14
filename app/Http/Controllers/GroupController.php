@@ -143,7 +143,9 @@ class GroupController extends Controller
             return response()->json($responseData);
         }
         $groupData = $request->all();
-        $groupData['url_name'] = $this->transliterate($request->input('name'));
+        if($request->input('name')){
+            $groupData['url_name'] = $this->transliterate($request->input('name'));
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
