@@ -132,7 +132,7 @@ class PlaceController extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:places',
+                'name' => 'unique:places',
                 'description' => 'required',
                 'city_id' =>'required',
                 'address' => 'required',
