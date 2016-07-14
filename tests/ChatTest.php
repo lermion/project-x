@@ -22,6 +22,12 @@ class ChatTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
+        $room = \App\ChatRooms::where('name', 'test')->first();
+        if (!$room) {
+            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+        }
+        $user_chat = \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
+        $user_chat2 = \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
         $this->json('GET', 'chat/locked/' . $user2->id )->seeJson([
             'status' => true,
         ]);
@@ -40,5 +46,51 @@ class ChatTest extends TestCase
         $this->be($user);
         \App\ChatLockedUser::create(['user_id' => $user->id, 'locked_user_id' => $user2->id]);
         $this->json('GET', 'chat/get_locked_users')->AssertResponseOk();
+    }
+
+    public function testDeleteChat()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $room = \App\ChatRooms::where('name', 'test')->first();
+        if (!$room) {
+            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+        }
+        \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
+        \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
+        $this->json('GET', 'chat/delete_chat/' . $room->id )->seeJson([
+            'status' => true,
+        ]);
+    }
+
+    public function testDeleteUser()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $room = \App\ChatRooms::where('name', 'test')->first();
+        if (!$room) {
+            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+        }
+        \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
+        \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
+        $sub = \App\Subscriber::create(['user_id' => $user->id, 'user_id_sub' => $user2->id, 'is_confirmed' => false]);
+        \App\Subscriber::create(['user_id' => $user2->id, 'user_id_sub' => $user->id, 'is_confirmed' => false]);
+        $this->json('GET', 'chat/delete_user/' . $room->id . '/' . $sub->user_id_sub )->seeJson([
+            'status' => true,
+        ]);
     }
 }
