@@ -57,7 +57,7 @@
 			<!-- Contact Block -->
 			<div ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
 			<!-- Notification settings -->
-			<div ng-include="'/app/Chat/views/chat-notification-settings.html'" ng-if="Model.showNotificationBlock"></div>
+			<div class="chat-notification-wrap" ng-include="'/app/Chat/views/chat-notification-settings.html'" ng-if="Model.showNotificationBlock"></div>
 		</div>
 
 		<div class="chat-mobile-chat-inner" ng-show="Model.mobile.hideContent" ui-view></div>
