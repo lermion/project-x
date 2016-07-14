@@ -4212,82 +4212,6 @@ span.users-today-time-time.early {
 
 
 
-
-
-/*PLACES - category place*/
-.places-page-category-wrap {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-.places-category-item {
-  display: flex;
-  flex-wrap: wrap;
-  width: 220px;
-  background-color: red;
-  margin-right: 20px;
-  margin-top: 20px;
-  font-family: "SFUIDisplayMedium";
-}
-.places-category-item:nth-child(3n) {
-  margin-right: 0px;
-}
-.places-item-photo {
-  display: flex;
-  height: 220px;
-  width: 100%;
-  position: relative;
-}
-.places-item-photo-link {
-    width: 100%;
-    height: 100%;
-    display: block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.1);
-}
-.places-item-photo-img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-}
-.places-item-photo-place {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: green;
-  height: 45px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.places-item-photo-place span {
-  margin-left: 10px;
-  font-size: 14.6px;
-  font-family: "SFUIDisplayMedium";
-  color: rgb(226,227,227);
-}
-.places-item-description {
-  display: flex;
-  height: 100px;
-  background-color: gray;
-  width: 100%;
-}
-
-.places-item-rating {
-  display: flex;
-  height: 55px;
-  background-color: green;
-  width: 100%;
-}
-
-
-
-
-
 /*CHAT pravki*/
 .chat-right-cont-ng {
   width: 100%;
@@ -5113,6 +5037,7 @@ input.cmn-toggle-round:checked + label:after {
   .chat-notification-title {
     height: 50px;
 }
+}
 
 
 
@@ -5177,3 +5102,77 @@ input.cmn-toggle-round:checked + label:after {
   }
 
 }
+
+
+
+
+/*PLACES - category place*/
+.places-page-category-wrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.places-category-item {
+  display: flex;
+  flex-wrap: wrap;
+  width: 220px;
+  background-color: red;
+  margin-right: 20px;
+  margin-top: 20px;
+  font-family: "SFUIDisplayMedium";
+}
+.places-category-item:nth-child(3n) {
+  margin-right: 0px;
+}
+.places-item-photo {
+  display: flex;
+  height: 220px;
+  width: 100%;
+  position: relative;
+}
+.places-item-photo-link {
+    width: 100%;
+    height: 100%;
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1);
+}
+.places-item-photo-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+.places-item-photo-place {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: green;
+  height: 45px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.places-item-photo-place span {
+  margin-left: 10px;
+  font-size: 14.6px;
+  font-family: "SFUIDisplayMedium";
+  color: rgb(226,227,227);
+}
+.places-item-description {
+  display: flex;
+  height: 100px;
+  background-color: gray;
+  width: 100%;
+}
+
+.places-item-rating {
+  display: flex;
+  height: 55px;
+  background-color: green;
+  width: 100%;
+}
+

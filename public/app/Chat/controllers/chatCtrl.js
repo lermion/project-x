@@ -354,7 +354,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userIdFrom: $scope.loggedUserId,
 					userIdTo: user.id,
-					room_id: user.room_id[0].room_id
+					room_id: user.room_id
 				};
 
 				socket.emit('create room', data);
@@ -432,7 +432,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.saveNotificationSettings = function(user){
-				console.log(user);
+				console.log(user)
 			};
 
 			
