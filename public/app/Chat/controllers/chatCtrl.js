@@ -250,8 +250,6 @@ angular.module('placePeopleApp')
 			};
 			$scope.Model.openChatWith = function(chat, roomId){ 
 
-				console.log(chat);
-
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -270,16 +268,7 @@ angular.module('placePeopleApp')
 				var members = [];
 				members.push($scope.loggedUserId);
 				members.push(chat.id);
-				// if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
-				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-				// 			if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-				// 				roomId = $scope.Model.chatRooms[i].room_id;
-				// 			}
-				// 		}
-				// 	}
 
-				// }
 				var data = {					
 					members: members, 
 					room_id: roomId,
@@ -432,16 +421,22 @@ angular.module('placePeopleApp')
 				newGroupChatPopup.close();
 			};
 			$scope.Model.createChat = function(name, status, avatar){
-				// var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];				
 				users.push(parseInt($scope.loggedUserId));				
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
-				});
-
-				//is_group: true
+				});				
+				var data = {
+					is_group: true,
+					name: name,
+					status: statusToSave,
+					avatar: avatar,
+					members: users
+				};					
+				console.log(data);	
+				socket.emit('create room', data);
 				
-				console.log(name, status, users, avatar);
 			};
 			$scope.Model.onItemSelected = function(user){				
 				var repeated = undefined;
