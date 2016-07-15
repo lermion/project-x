@@ -278,8 +278,10 @@ angular.module('placePeopleApp')
 					members.push(chat.id);
 					var ri = roomId;
 					// console.log(chat);
-					if (chat && ri === undefined) {
+					if (chat.room_id && ri === undefined) {
 						ri = chat.room_id[0].room_id
+					} else {
+						ri = undefined;
 					}
 					console.log(ri);
 					data = {					
