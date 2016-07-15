@@ -249,7 +249,7 @@ angular.module('placePeopleApp')
 					  });
 			};
 			$scope.Model.openChatWith = function(chat, roomId){
-				// console.log(chat, roomId);
+				console.log(chat, roomId);
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -268,7 +268,7 @@ angular.module('placePeopleApp')
 				if (chat.is_group) {
 					chat.members.forEach(function(member){
 						members.push(member.id);
-					});
+					});					
 					data = {					
 						members: members, 
 						room_id: chat.room_id,
@@ -276,18 +276,26 @@ angular.module('placePeopleApp')
 					};
 				} else {
 					members.push(chat.id);
+					var ri = roomId;
+					// console.log(chat);
+					if (ri === undefined) {
+						ri = chat.room_id[0].room_id
+					}
+					console.log(ri);
 					data = {					
 						members: members, 
-						room_id: roomId,
+						room_id: ri,
 						is_group: false
 					};
 				}
+
+				// console.log(chat.room_id);
 
 				$scope.Model.opponent = chat; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-								
+
 				console.log(data);
 				socket.emit('create room', data);
 
@@ -316,16 +324,14 @@ angular.module('placePeopleApp')
 							}
 						}
 					}
-
 				}				
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
 					message: message
-				}
-				
+				}				
 				$scope.Model.chatMes = '';
-				console.log(data);
+				// console.log(data);
 				socket.emit('send message', data);				
 			};	
 
@@ -342,7 +348,8 @@ angular.module('placePeopleApp')
 				console.log(data);				
 				$scope.Model.Chat = data;
 			});
-			socket.on('send message', function(response){				
+			socket.on('send message', function(response){
+				console.log(response);				
 				$scope.Model.Chat = response;				
 				// 	$scope.Model.Chat.push(response);				
 			});
