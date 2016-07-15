@@ -30,8 +30,6 @@
 
 
     <div ui-view>
-        <h3>Places view</h3>
-        <a ui-sref="places.add">Add new place</a>
     </div>
 
     <div class="places-page">
@@ -40,7 +38,7 @@
                 Все места
             </div>
             <div class="places-page-header-category">
-                <select name="" id="">
+                <select ng-model="vm.placesDropdown">
                     <option value="">Выберите категорию</option>
                     <option value="">Популярные</option>
                     <option value="">Новые</option>
@@ -49,7 +47,7 @@
                     <option value="">Адреса</option>
                     <option value="">Университеты</option>
                     <option value="">Школы</option>
-                    <option value="">Создать место</option>
+                    <option value="places.add" ng-click="alert(1)">Создать место</option>
                 </select>
             </div>
         </div>
