@@ -40,7 +40,7 @@ io.sockets.on('connection', function(socket){
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
 					var setUsers  = {
-						name: "" + users.userNameFrom + ", " + users.userNameTo,
+						name: users.userNameTo, // second user
 						created_at: new Date(),
 						updated_at: new Date()
 					};

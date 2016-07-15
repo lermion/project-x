@@ -9,7 +9,7 @@ angular.module('placePeopleApp')
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
-			$scope.loggedUserId = storage.userId;
+			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name')
 				.success(function (response) {
@@ -248,7 +248,8 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.openChatWith = function(opponent){                
+			$scope.Model.openChatWith = function(opponent){ 
+
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -281,7 +282,7 @@ angular.module('placePeopleApp')
 
 			};			
 			socket.on("get user rooms", function(response){
-				console.log(response)
+				console.log(response);
 				$scope.Model.chatRooms = response;
 			});
 
@@ -292,12 +293,25 @@ angular.module('placePeopleApp')
 			// $scope.Model.Chat = [];
 			
 			$scope.Model.sendMes = function(message, roomId){
+
+				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+								roomId = $scope.Model.chatRooms[i].room_id;
+							}
+						}
+					}
+
+				}				
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
 					message: message
 				}
+				
 				$scope.Model.chatMes = '';
+				console.log(data);
 				socket.emit('send message', data);				
 			};	
 
@@ -435,9 +449,9 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){				
+			$scope.Model.saveNotificationSettings = function(chat){							
 				ChatService.setNotification(chat.room_id)
-					.then(function(response){
+					.then(function(response){						
 						console.log(response);						                     
 					},
 					function(error){

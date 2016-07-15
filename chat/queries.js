@@ -72,7 +72,7 @@ Queries.prototype.addUsersInUserChat = function(dataUserFrom, dataUserTo){
 }
 Queries.prototype.getUserRooms = function(data){
 	var deferred = Q.defer();
-	connection.query('SELECT chat_rooms.id, chat_rooms.name FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.userIdFrom, function(error, result){
+	connection.query('SELECT chat_rooms.id, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.userIdFrom, function(error, result){
 		var response = [];
 		if(error){
 			console.error("error to get user rooms: " + error.stack);
@@ -84,7 +84,12 @@ Queries.prototype.getUserRooms = function(data){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
 						result = {
 							members: result,
-							room_id: item.id 
+							room_id: item.id,
+							is_group: item.is_group,
+							name: item.name,
+							status: item.status,
+							avatar: item.avatar,
+							last_message: "last message"
 						};
 						resolve(result);
 					});
