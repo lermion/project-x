@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService',
+		'PublicationService', 'Upload',
 		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService) {
+			PublicationService, Upload) {
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
@@ -281,6 +281,7 @@ angular.module('placePeopleApp')
 
 			};			
 			socket.on("get user rooms", function(response){
+				console.log(response)
 				$scope.Model.chatRooms = response;
 			});
 
@@ -297,16 +298,7 @@ angular.module('placePeopleApp')
 					message: message
 				}
 				$scope.Model.chatMes = '';
-
-				socket.emit('send message', data);
-
-				var mesInFormat = {
-					text: message,
-					login: $scope.loggedUser
-				}
-
-				// $scope.Model.Chat.push(mesInFormat);			
-
+				socket.emit('send message', data);				
 			};	
 
 			$scope.Model.scrollBottom = function(){
@@ -318,7 +310,8 @@ angular.module('placePeopleApp')
 				}, 100);
 
 			};
-			socket.on('updatechat', function(data){				
+			socket.on('updatechat', function(data){
+				console.log(data);				
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){				
@@ -327,8 +320,9 @@ angular.module('placePeopleApp')
 			});
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						
-				if (event.keyCode == 10 && event.ctrlKey == true) {
-					$scope.Model.sendMes(message, room_id);
+				if (event.keyCode == 13) {
+					event.preventDefault();
+					$scope.Model.sendMes(message, room_id);					
 				}
 			};
 
@@ -384,6 +378,7 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users = [];
 				$scope.Model.newGroupChat.name = '';
 				$scope.Model.newGroupChat.status = '';
+				$scope.Model.newGroupChat.avatar = '';
 				newGroupChatPopup = ngDialog.open({
 					template: '../app/Chat/views/popup-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
@@ -405,16 +400,15 @@ angular.module('placePeopleApp')
 			$scope.Model.cancelNewChat = function(){				
 				newGroupChatPopup.close();
 			};
-			$scope.Model.createChat = function(name, status){
+			$scope.Model.createChat = function(name, status, avatar){
 				// var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
-				// $scope.Model
-				var users = [];
+				var users = [];				
 				users.push(parseInt($scope.loggedUserId));				
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
 				});
-				console.log(name, status, users);
-
+				
+				console.log(name, status, users, avatar);
 			};
 			$scope.Model.onItemSelected = function(user){				
 				var repeated = undefined;
@@ -430,7 +424,14 @@ angular.module('placePeopleApp')
 					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
 					$scope.Model.newGroupChat.users.unshift(usr);
 				}								
-			};			
+			};
+
+			$scope.Model.changeChatCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+	            Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+	                $scope.Model.newGroupChat.avatar = resizedFile;	                
+	            });
+	        };
+			
 			$scope.Model.removeUser = function(index){
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};

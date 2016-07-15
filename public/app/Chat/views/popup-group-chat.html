@@ -1,4 +1,4 @@
-<form name="forms.newGroup" novalidate ng-init="Model.loadUserContactList()">
+<form name="" novalidate ng-init="Model.loadUserContactList()">
     <div class="new_group"> Новый чат</div>
     <div class="add_newgroup">
         <!-- <div class="first_item">
@@ -12,27 +12,28 @@
             </div>
         </div> -->
         <div class="second_item">
-            <div class="add-ava" ng-class="(forms.newGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
-                <input type="file" name="avatar" valid-file id="avatarImg" class="js-group-avatar" ng-model="avatarFile" required>
-                <label for="avatarImg">
-                <span class="ava" ng-show="dataURI">
-                    <img ng-src="{{dataURI}}" style="width:100%;">
-                </span>
-                <span class="add" ng-class="dataURI ? 'edit-ava' : ''" ng-mouseenter="showEditAva=true;"
-                      ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-                    <span class="add-photo" ng-show="!dataURI || showEditAva"></span>
-                </span>
+            <div class="add-ava">
+                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar"                       
+                       ngf-select
+                       ngf-accept="'image/*'"
+                       ngf-pattern="'image/*'"
+                       ngf-min-height="240"
+                       ngf-min-width="700"
+                       ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
+                       ngf-before-model-change="Model.changeChatCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       required>
+                <label for="avatarImg" style="cursor:pointer;">               
+                    <img ngf-thumbnail="Model.newGroupChat.avatar" ngf-no-object-url="true">                
                 </label>
             </div>
-            <span class="add_ava_grp"> Загрузить аватар </span>
-        </div>
+            <span class="add_ava_grp" ng-hide="Model.newGroupChat.avatar"> Загрузить аватар </span>
+        </div>        
 
         <!-- ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}" -->
         <input type="text" name="name"               
-               ng-model="Model.newChat.name"
+               ng-model="Model.newGroupChat.name"
                required
                placeholder="Название">
-
         <!--<div ng-messages="forms.newGroup.name.$error" style="color:maroon" role="alert">-->
             <!--<div ng-message="required">You did not enter a field</div>-->
         <!--</div>-->
@@ -49,7 +50,7 @@
 
         <div class="button">
             <a href="" class="cansel" ng-click="Model.cancelNewChat()"> Отменить </a>
-            <a href="" class="create" ng-click="Model.createChat(Model.newChat.name, emojiMessage)"> Создать чат</a>
+            <a href="" class="create" ng-click="Model.createChat(Model.newGroupChat.name, emojiMessage, Model.newGroupChat.avatar)"> Создать чат</a>
         </div>
 
         <div class="fifth_item" ng-if="Model.subscribers.length + Model.subscriptions.length > 0">
