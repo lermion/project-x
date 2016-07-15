@@ -93,4 +93,24 @@ class ChatController extends Controller
         }
         return response()->json(['status' => true, 'is_lock' => $islock, 'room_id'=>$roomId]);
     }
+
+    public function notification_chat($room_id)
+    {
+        if ($user_chat = UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first()) {
+            $user_chat->show_notif = !$user_chat->show_notif;
+            $user_chat->save();
+            return response()->json(['status' => true]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect room id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+
+        }
+    }
+
 }
