@@ -9,6 +9,7 @@
 				<div class="menu-item" ng-show="showMenu">
 					<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 					<a class="places" ui-sref="places">Места</a>
+					<a class="main-header-group">Группы</a>
 					<a class="chat" ui-sref="chat"> Чаты</a>
 					<a class="settings" ui-sref="settings">Настройки</a>
 					<div class="search">
@@ -27,7 +28,6 @@
 	
 	<div class="main-content" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 		<div class="groups">
-			<a ui-sref="groups" class="pub-groups">Публичные группы</a>
 			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
 		</div>
 		<div class="content-item" ng-init="$last ? ngRepeatHasRendered() : null" ng-repeat="pub in publications">
