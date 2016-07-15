@@ -249,6 +249,7 @@ angular.module('placePeopleApp')
 					  });
 			};
 			$scope.Model.openChatWith = function(chat, roomId){
+				// console.log(chat, roomId);
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -260,22 +261,34 @@ angular.module('placePeopleApp')
 					}
 				}
 
+				var data = {};
+				var members = [];
+				members.push($scope.loggedUserId);
+
+				if (chat.is_group) {
+					chat.members.forEach(function(member){
+						members.push(member.id);
+					});
+					data = {					
+						members: members, 
+						room_id: chat.room_id,
+						is_group: true
+					};
+				} else {
+					members.push(chat.id);
+					data = {					
+						members: members, 
+						room_id: roomId,
+						is_group: false
+					};
+				}
+
 				$scope.Model.opponent = chat; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-				var members = [];
-				members.push($scope.loggedUserId);
-				members.push(chat.id);
-
-				var data = {					
-					members: members, 
-					room_id: roomId,
-					is_group: false
-				};
-
-				// console.log(data);
-
+								
+				console.log(data);
 				socket.emit('create room', data);
 
 				if ($window.innerWidth <= 768) {					
@@ -432,7 +445,8 @@ angular.module('placePeopleApp')
 					members: users
 				};					
 				console.log(data);	
-				socket.emit('create room', data);				
+				socket.emit('create room', data);
+				newGroupChatPopup.close();				
 			};
 
 			$scope.Model.onItemSelected = function(user){				
