@@ -17,7 +17,7 @@ var usernames = {
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
-		console.log("data", data);
+		console.log(data);
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
 				if(data.room_id === socket.room){
@@ -41,25 +41,22 @@ io.sockets.on('connection', function(socket){
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
 					var setUsers  = {
-						name: users.userNameTo, // second user
+						name: data.name,
+						is_group: data.is_group,
 						created_at: new Date(),
-						updated_at: new Date()
+						updated_at: new Date(),
+						status: data.status,
+						avatar: data.avatar
 					};
 					queries.addUsersInChatRoom(setUsers).then(function(response){
 						var roomId = response.insertId;
-						var dataUserFrom = {
+						var roomInfo = {
 							room_id: roomId,
-							user_id: data.members[0],
 							created_at: new Date(),
-							updated_at: new Date()
+							updated_at: new Date(),
+							members: data.members
 						};
-						var dataUserTo = {
-							room_id: roomId,
-							user_id: data.members[1],
-							created_at: new Date(),
-							updated_at: new Date()
-						};
-						queries.addUsersInUserChat(dataUserFrom, dataUserTo).then(function(response){
+						queries.addUsersInUserChat(roomInfo).then(function(response){
 							
 						},
 						function(error){
@@ -105,6 +102,8 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
+		console.log(data);
+		console.log(socket.room);
 		queries.sendMessage(data).then(function(response){
 			queries.getUserDialogue(data).then(function(response){
 				io.sockets.in(socket.room).emit('updatechat', response);
