@@ -84,7 +84,8 @@ Queries.prototype.getUserRooms = function(data){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
 						result = {
 							members: result,
-							room_id: item.id 
+							room_id: item.id,
+							is_group: false
 						};
 						resolve(result);
 					});
