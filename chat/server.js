@@ -17,7 +17,6 @@ var usernames = {
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
-		console.log(data);
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
 				if(data.room_id === socket.room){
@@ -102,8 +101,6 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
-		console.log(data);
-		console.log(socket.room);
 		queries.sendMessage(data).then(function(response){
 			queries.getUserDialogue(data).then(function(response){
 				io.sockets.in(socket.room).emit('updatechat', response);
