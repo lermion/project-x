@@ -2266,7 +2266,7 @@ a.add_comments {
     display: flex;
     position: absolute;
     line-height: 55px;
-    right: 15px;
+    right: 5px;
     cursor: pointer;
 }
 .item1-add-people-title {
@@ -2340,13 +2340,15 @@ a.add_comments {
     font-size: .8em;
   }
   .item1.add-people li span.add-people-admin {
-    line-height: 50px;
-    font-size: .8em;
-    width: 50px;
+    line-height: 48px;
+    font-size: .7em;
+    width: 40%;
     right: 0px;
   }
   .popup-add-group .fifth_item .item1.add-people li p {
     max-width: 41%;
+    white-space: normal;
+    margin: 0;
   }
   .add_newgroup .button .create {
     font-size: .8em;
@@ -3187,7 +3189,7 @@ span.users-today-time-time.early {
   flex-wrap: wrap;
   display: flex;
   box-sizing: border-box;
-  margin: 20px auto 0px auto;
+  margin: 0px auto 20px auto;
   /*background-color: red;*/
   font-family: "SFUIDisplayMedium";
 }
@@ -4869,7 +4871,7 @@ span.users-today-time-time.early {
   .item1.add-people li span.add-people-admin {
     line-height: 50px;
     font-size: .7em;
-    width: 40px;
+    width: 30%;
   }
   .popup-group-chat .fifth_item .item1.add-people li p {
     max-width: 40%;
@@ -5241,18 +5243,6 @@ input.cmn-toggle-round:checked + label:after {
     margin: 0;
     padding: 0;
 }
-.item1-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 50%;
-    box-sizing: border-box;
-}
-.fifth_item .item1-container input {
-    height: 45px;
-    display: flex;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
 .create-places-common-inner .fourth_item input[type="text"], .create-places-common-inner input[type="text"] {
     width: 100%;
     display: flex;
@@ -5265,7 +5255,6 @@ input.cmn-toggle-round:checked + label:after {
     color: #999;
     padding: 10px;
     font-family: "SFUIDisplayLight";
-    margin-bottom: 10px;
 }
 .create-places-common-inner .fifth_item .item1 {
     padding: 0;
@@ -5312,27 +5301,11 @@ input.cmn-toggle-round:checked + label:after {
     cursor: pointer;
 }
 
-
-.item1-add-people-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 50%;
-    box-sizing: border-box;
-}
-.item1-add-people-title {
-    line-height: 45px;
-    padding-left: 15px;
-    margin-top: 0px;
-    height: 45px;
-}
 .create-places-common-inner .fifth_item .item1 {
     padding: 0;
     margin: 10px 0 10px 0;
 }
-.item1.add-people ul {
-    margin: 0;
-    padding: 0;
-}
+
 .create-places-common-inner .fifth_item .item1 {
     padding: 0;
     margin: 10px 0 10px 0;
@@ -5343,4 +5316,122 @@ input.cmn-toggle-round:checked + label:after {
     height: 295px;
     overflow-y: auto;
     margin: 0px;
+}
+.create-places-common-inner .fifth_item .item1 {
+    padding: 0;
+    margin: 10px 0 10px 0;
+}
+
+
+
+
+@media (max-width: 720px) {
+  .create-places-common {
+    width: 500px;
+  }
+
+  .place-type-title,
+  .place-type-name,
+  .place-type-name {
+    font-size: .9em;
+  }
+  .create-places-common-inner .item1.add-people li span.add-people-admin {
+      line-height: 40px;
+      font-size: .7em;
+      width: 40%;
+      right: 0px;
+  }
+
+    .create-places-common-inner .fifth_item .item1 li img {
+      margin-right: 8px;
+    }
+    .create-places-common-inner .fifth_item .item1 li p {
+      max-width: 56%;
+      font-size: .8em;
+  }
+  .create-places-common-inner .fifth_item .item1 li span.group-add-item1-user-plus {
+      top: 21px;
+  }
+  .create-places-common-inner .item1-add-people-title {
+      margin: 0;
+      line-height: 45px;
+      padding: 0;
+      font-size: .8em;
+      padding-left: 10px;
+  }
+  .create-places-common-inner .fifth_item .item1.add-people li p {
+      max-width: 41%;
+  }
+  .create-places-common-inner .item1.add-people li span.add-people-delete {
+      background: #ec6045;
+      border-radius: 50%;
+      color: #bbb;
+      height: 10px;
+      line-height: 10px;
+      left: 29px;
+      top: 5px;
+      width: 10px;
+      font-size: .5em;
+  }
+  .create-places-common-inner .fifth_item .item1 li p {
+      max-width: 56%;
+      font-size: .8em;
+  }
+  .create-places-common-inner .fifth_item .item1 li span.group-add-item1-user-plus {
+      top: 21px;
+  }
+  .create-places-common-inner .fifth_item .item1 li img {
+      width: 40px;
+      height: 40px;
+  }
+  .create-places-common-inner .fifth_item .item1 li img {
+      margin-right: 8px;
+  }
+
+
+  .create-places-common-inner .fifth_item .item1 li p {
+    max-width: 56%;
+    font-size: .8em;
+  }
+  .create-places-common-inner .item1.add-people li span.add-people-admin {
+    line-height: 48px;
+    font-size: .7em;
+    width: 40%;
+    right: 0px;
+  }
+  .create-places-common-inner .fifth_item .item1.add-people li p {
+    max-width: 35%;
+    white-space: normal;
+    margin: 0;
+  }
+  .create-places-common-inner .item1-add-people-title {
+    height: 35px;
+    line-height: 35px;
+  }
+  .create-places-common-inner .fifth_item .item1-container input {
+    height: 35px;
+  }
+
+}
+
+
+@media (max-width: 520px) {
+  .create-places-common {
+    width: 100%;
+  }
+  .create-places-common-inner .item1-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+.create-places-common-inner .fifth_item {
+  flex-wrap: wrap;
+}
+.create-places-common-inner .fifth_item .item1 {
+    padding: 0;
+    height: auto;
+    margin: 10px 0 10px 0;
+    max-height: 245px;
+}
 }
