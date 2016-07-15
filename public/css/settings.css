@@ -5529,3 +5529,15 @@ input.cmn-toggle-round:checked + label:after {
     justify-content: space-between;
     align-items: center;
 }
+
+
+
+@media (max-width: 720px) {
+  .places-page {
+    width: 100%;
+  }
+  .places-category-item {
+    width: 31%;
+    box-shadow: 2px 2px 3px 0px #e3e3e3;
+  }
+}
