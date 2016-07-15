@@ -435,9 +435,9 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){				
+			$scope.Model.saveNotificationSettings = function(chat){							
 				ChatService.setNotification(chat.room_id)
-					.then(function(response){
+					.then(function(response){						
 						console.log(response);						                     
 					},
 					function(error){
