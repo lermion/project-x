@@ -88,7 +88,8 @@ Queries.prototype.getUserRooms = function(data){
 							is_group: item.is_group,
 							name: item.name,
 							status: item.status,
-							avatar: item.avatar
+							avatar: item.avatar,
+							last_message: "last message"
 						};
 						resolve(result);
 					});
