@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService',
+		'PublicationService', 'Upload',
 		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService) {
+			PublicationService, Upload) {
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
@@ -384,6 +384,7 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users = [];
 				$scope.Model.newGroupChat.name = '';
 				$scope.Model.newGroupChat.status = '';
+				$scope.Model.newGroupChat.avatar = '';
 				newGroupChatPopup = ngDialog.open({
 					template: '../app/Chat/views/popup-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
@@ -405,16 +406,16 @@ angular.module('placePeopleApp')
 			$scope.Model.cancelNewChat = function(){				
 				newGroupChatPopup.close();
 			};
-			$scope.Model.createChat = function(name, status){
+			$scope.Model.createChat = function(name, status, avatar){
 				// var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
-				// $scope.Model
-				var users = [];
+				var users = [];				
 				users.push(parseInt($scope.loggedUserId));				
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
 				});
-				console.log(name, status, users);
-
+				// console.log(avatar);
+				// console.log($scope.Model.newGroupChat);
+				console.log(name, status, users, avatar);
 			};
 			$scope.Model.onItemSelected = function(user){				
 				var repeated = undefined;
@@ -430,7 +431,14 @@ angular.module('placePeopleApp')
 					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
 					$scope.Model.newGroupChat.users.unshift(usr);
 				}								
-			};			
+			};
+
+			$scope.Model.changeChatCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+	            Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+	                $scope.Model.newGroupChat.avatar = resizedFile;	                
+	            });
+	        };
+			
 			$scope.Model.removeUser = function(index){
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
