@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DeleteMessage;
 use App\Subscriber;
 use App\ChatLockedUser;
 use App\User;
 use App\UserChat;
+use App\Message;
 use DB;
 
 use App\Http\Requests;
@@ -80,7 +82,7 @@ class ChatController extends Controller
             $islock = false;
         } else {
             ChatLockedUser::create(['locked_user_id' => $locked_user_id, 'user_id' => Auth::id()]);
-            if ($room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked_user_id])) {
+            if ($room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [Auth::id(), $locked_user_id])){
                 $room_id = $room[0]->room_id;
                 $user_chat = UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first();
                 $user_chat->is_lock = !$user_chat->is_lock;
@@ -112,5 +114,27 @@ class ChatController extends Controller
 
         }
     }
+
+    public function correspondence_delete($room_id)
+    {
+        if(!$max_massage = Message::join('user_rooms_messages','user_rooms_messages.message_id','=','messages.id')->join('users','messages.user_id','=','users.id')->where('user_rooms_messages.room_id',$room_id)->max('messages.id')){
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "No correspondence",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+        if ($delete_massege = DeleteMessage::where(['user_id' => Auth::id(), 'room_id' => $room_id])->first()){
+            $delete_massege->message_id = $max_massage;
+            $delete_massege->save();
+        } else {
+            DeleteMessage::create(['user_id' => Auth::id(), 'room_id' => $room_id, 'message_id' => $max_massage]);
+        }
+        return response()->json(['status' => true]);
+    }
+
 
 }

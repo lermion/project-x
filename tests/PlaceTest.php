@@ -176,6 +176,11 @@ class PlaceTest extends TestCase
             'status' => true,
         ]);
     }
+
+    public function testCounterNewPlace()
+    {
+        $this->json('GET', 'place/counter_new_place')->AssertResponseOk();
+    }
 }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\NewGroup;
 use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
@@ -31,6 +32,9 @@ class GroupController extends Controller
             if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $group->is_admin = true;
             } else {$group->is_admin = false;}
+            if(NewGroup::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
+                $group->is_new_group = true;
+            } else {$group->is_new_group = false;}
         }
         return $groups;
     }
@@ -85,6 +89,7 @@ class GroupController extends Controller
     public function show($name)
     {
         $group = Group::where('url_name', $name)->first();
+        NewGroup::where(['user_id' => Auth::id(), 'group_id' => $group->id,])->delete();
         if ($group) {
             if (!$group->is_open && !GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
                 return null;
@@ -245,10 +250,14 @@ class GroupController extends Controller
                 return response()->json($responseData);
             }
             foreach($request->input('user_id') as $userId) {
-                if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
-                    $invite->delete();
-                } else {
-                    GroupInvite::create(['group_id' => $group->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+//                if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
+//                    $invite->delete();
+//                } else {
+//                    GroupInvite::create(['group_id' => $group->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+//                }
+                if (!GroupUser::where(['user_id' => $userId, 'group_id' => $groupId,])->first()){
+                    NewGroup::create(['user_id' => $userId, 'group_id' => $groupId,]);
+                    GroupUser::create(['user_id' => $userId, 'group_id' => $groupId,]);
                 }
             }
             return response()->json(['status' => true]);
@@ -383,6 +392,11 @@ class GroupController extends Controller
                 return response()->json($result);
             }
         }
+    }
+
+    public function counter_new_group ()
+    {
+        return NewGroup::where(['user_id' => Auth::id()])->count();
     }
 
     function transliterate($input)
