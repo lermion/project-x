@@ -17,6 +17,7 @@ var usernames = {
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
+		console.log("data", data);
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
 				if(data.room_id === socket.room){
@@ -48,13 +49,13 @@ io.sockets.on('connection', function(socket){
 						var roomId = response.insertId;
 						var dataUserFrom = {
 							room_id: roomId,
-							user_id: data.userIdFrom,
+							user_id: data.members[0],
 							created_at: new Date(),
 							updated_at: new Date()
 						};
 						var dataUserTo = {
 							room_id: roomId,
-							user_id: data.userIdTo,
+							user_id: data.members[1],
 							created_at: new Date(),
 							updated_at: new Date()
 						};

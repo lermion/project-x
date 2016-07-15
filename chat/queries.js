@@ -5,8 +5,9 @@ function Queries(){
 	
 }
 Queries.prototype.createRoom = function(data){
+	console
 	var deferred = Q.defer();
-	var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.userIdFrom + "') AND `user_id` = '" + data.userIdTo + "' GROUP BY room_id";
+	var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.members[0] + "') AND `user_id` = '" + data.members[1] + "' GROUP BY room_id";
 	connection.query(sql, function(error, results, fields){
 		if(error){
 			console.error("error select users from user_chats: " + error.stack);
@@ -20,7 +21,7 @@ Queries.prototype.createRoom = function(data){
 }
 Queries.prototype.getUsers = function(data){
 	var deferred = Q.defer();
-	var sql = 'SELECT `first_name` FROM `users` WHERE `id` IN (' + data.userIdTo + ', ' + data.userIdFrom + ');';
+	var sql = 'SELECT `first_name` FROM `users` WHERE `id` IN (' + data.members[1] + ', ' + data.members[0] + ');';
 	connection.query(sql, function(error, results, fields){
 		if(error){
 			console.error("error select users: " + error.stack);
