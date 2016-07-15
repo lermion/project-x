@@ -1,86 +1,91 @@
-<div class="create-places">
-	<h2>Создать место</h2>
-	<h3>Выберите тип места</h3>
-	<div class="create-places-cont">
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-dynamic.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Динамичное</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-store.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Магазин</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-cafe.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Кафе/Ресторан</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-game.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Развлечение</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-organization.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Организация</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-univer.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Университет</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-school.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Школа</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-adress.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Адрес</a>
-			</div>
-		</div>
-	</div>
+<div ui-view>
+    <div class="create-places">
+        <h2>Создать место</h2>
+
+        <h3>Выберите тип места</h3>
+
+        <div class="create-places-cont">
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.dynamic">
+                        <img src="/images/places-dynamic.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a href="">Динамичное</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-store.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Магазин</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-cafe.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Кафе/Ресторан</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-game.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Развлечение</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-organization.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Организация</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-univer.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Университет</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-school.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Школа</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-adress.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a href="">Адрес</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
