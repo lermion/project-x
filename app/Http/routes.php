@@ -162,11 +162,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('get_locked_users', 'ChatController@get_locked_users');
         Route::get('delete_chat/{room_id}', 'ChatController@delete_chat');
         Route::get('delete_user/{room_id}/{user_id_sub}', 'ChatController@delete_user');
+        Route::get('notification/{room_id}', 'ChatController@notification_chat');
     });
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/locked/1070\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/notification/2\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='description'><br>
