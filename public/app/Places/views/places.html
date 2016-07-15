@@ -10,6 +10,7 @@
                 <div class="menu-item" ng-show="vm.showMenu">
                     <a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
                     <a class="places" ui-sref="places">Места</a>
+                    <a class="main-header-group">Группы</a>
                     <a class="chat" ui-sref="chat"> Чаты</a>
                     <a class="settings" ui-sref="settings">Настройки</a>
 
@@ -19,9 +20,9 @@
                     </div>
                 </div>
             </div>
-            <div class="search">
-                <input type="text" placeholder="Поиск...">
-                <span class="button"></span>
+            <div class="search main-header-search">
+<!--                 <input type="text" placeholder="Поиск...">
+                <span class="button"></span> -->
             </div>
             <a class="exit" href="javascript:void(0);" ng-click="vm.logOut()"><span></span>Выйти</a>
         </div>

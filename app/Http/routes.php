@@ -71,6 +71,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'group', 'middleware' => 'auth'], function () {
 
+        Route::get('counter_new_group', 'GroupController@counter_new_group');
         Route::get('/', 'GroupController@index');
         Route::get('admin_group', 'GroupController@adminGroup');
         Route::post('store', 'GroupController@store')->middleware(['auth']);;
@@ -130,6 +131,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
+        Route::get('counter_new_place', 'PlaceController@counter_new_place');
         Route::get('/', 'PlaceController@index');
         Route::get('admin_place', 'PlaceController@adminPlace');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
@@ -163,14 +165,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('delete_chat/{room_id}', 'ChatController@delete_chat');
         Route::get('delete_user/{room_id}/{user_id_sub}', 'ChatController@delete_user');
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
+        Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
     });
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/notification/2\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/group/counter_new_group\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='description'><br>
+            <input type='text' name='text'><br>
             <input type='text' name='address'><br>
             <input type='text' name='city_id' value='5'><br>
             <input type='text' name='coordinates_x'><br>
