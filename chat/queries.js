@@ -81,7 +81,7 @@ Queries.prototype.getUserRooms = function(data){
 		}else{
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
-					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
 						result[0].room_id = item.id;
 						resolve(result[0]);
 					});

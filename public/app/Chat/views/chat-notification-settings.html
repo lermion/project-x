@@ -1,4 +1,4 @@
-<div class="chat-notification-title">
+<div class="chat-notification-title" ng-init="Model.opponent.show_notif=true;">
 	<span class="chat-notification-title-span">Настройки чата с</span>
 	<span class="chat-notification-title-name">{{Model.opponent.first_name + ' ' + Model.opponent.last_name}}</span>
 </div>
@@ -6,8 +6,8 @@
 	<span class="chat-notification-status-span">{{Model.opponent.show_notif ? 'Отключить':'Включить'}} уведомление</span>
 	<div class="chat-notification-status-button">
 		<div class="switch">
-		  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" ng-checked="!!Model.opponent.show_notif" ng-model="showNotif">
-		  <label for="cmn-toggle-1" ng-click="Model.opponent.show_notif=!Model.opponent.show_notif; saveNotificationSettings(Model.opponent)"></label>
+		  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" ng-checked="Model.opponent.show_notif" ng-model="Model.opponent.show_notif">
+		  <label for="cmn-toggle-1" ng-click="Model.saveNotificationSettings(Model.opponent)"></label>
 		</div>
 	</div>	
 </div>
