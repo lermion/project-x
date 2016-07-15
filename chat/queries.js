@@ -70,7 +70,6 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 	return deferred.promise;
 }
 Queries.prototype.getUserRooms = function(data){
-	console.log("data", data);
 	if(data.userIdFrom){
 		data.members = [];
 		data.members[0] = data.userIdFrom;
