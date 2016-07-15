@@ -39,6 +39,15 @@ io.sockets.on('connection', function(socket){
 				queries.getUsers(data).then(function(response){
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
+					if(data.name === undefined){
+						data.name = response[1].first_name;
+					}
+					if(data.status === undefined){
+						data.status = "";
+					}
+					if(data.avatar === undefined){
+						data.avatar = "";
+					}
 					var setUsers  = {
 						name: data.name,
 						is_group: data.is_group,
