@@ -248,7 +248,9 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.openChatWith = function(opponent){ 
+			$scope.Model.openChatWith = function(chat, roomId){ 
+
+				console.log(chat);
 
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
@@ -261,15 +263,30 @@ angular.module('placePeopleApp')
 					}
 				}
 
-				$scope.Model.opponent = opponent; 
+				$scope.Model.opponent = chat; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-				var data = {
-					userIdFrom: $scope.loggedUserId,
-					userIdTo: opponent.id,
-					room_id: opponent.room_id
+				var members = [];
+				members.push($scope.loggedUserId);
+				members.push(chat.id);
+				// if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+				// 			if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+				// 				roomId = $scope.Model.chatRooms[i].room_id;
+				// 			}
+				// 		}
+				// 	}
+
+				// }
+				var data = {					
+					members: members, 
+					room_id: roomId,
+					is_group: false
 				};
+
+				console.log(data);
 
 				socket.emit('create room', data);
 
@@ -293,7 +310,6 @@ angular.module('placePeopleApp')
 			// $scope.Model.Chat = [];
 			
 			$scope.Model.sendMes = function(message, roomId){
-
 				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
@@ -362,12 +378,14 @@ angular.module('placePeopleApp')
 						$scope.Model.mobile.hideContent	= true;							
 						$state.go('chat.mobile');
 				}
-				var data = {
-					userIdFrom: $scope.loggedUserId,
-					userIdTo: user.id,
-					room_id: user.room_id
+				var members = [];
+				members.push($scope.loggedUserId);
+				members.push(user.id);
+				var data = {					
+					members: members,
+					room_id: roomId,
+					is_group: false
 				};
-
 				socket.emit('create room', data);
 			}
 
@@ -420,6 +438,8 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
 				});
+
+				//is_group: true
 				
 				console.log(name, status, users, avatar);
 			};
