@@ -163,7 +163,9 @@ class PlaceController extends Controller
             return response()->json($responseData);
         }
         $placeData = $request->all();
-        $placeData['url_name'] = $this->transliterate($request->input('name'));
+        if ($request->input('name')){
+            $placeData['url_name'] = $this->transliterate($request->input('name'));
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);

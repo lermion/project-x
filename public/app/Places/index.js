@@ -20,9 +20,9 @@
                 url: '/add',
                 templateUrl: '../../app/Places/views/places-presets.html'
             })
-            .state('places.add.university', {
-                url: '/university',
-                templateUrl: '../../app/Places/views/places-add-university.html'
+            .state('places.add.common', {
+                url: '/common',
+                templateUrl: '../../app/Places/views/places-add-common.html'
             })
             .state('places.add.dynamic', {
                 url: '/dynamic',

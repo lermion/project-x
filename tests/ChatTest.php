@@ -93,4 +93,23 @@ class ChatTest extends TestCase
             'status' => true,
         ]);
     }
+
+    public function testNotificationChat()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $room = \App\ChatRooms::where('name', 'test')->first();
+        if (!$room) {
+            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+        }
+        $user_chat = \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id, 'show_notif' => true]);
+
+        $this->json('GET', 'chat/notification_chat/' . $room->id )->seeJson([
+            'status' => true,
+        ]);
+    }
+
 }
