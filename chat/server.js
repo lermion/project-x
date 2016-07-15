@@ -17,18 +17,19 @@ var usernames = {
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
-		if(data.room_id === socket.room){
-			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-			socket.room = GLOBAL.rooms[indexRooms];
-			socket.join(GLOBAL.rooms[indexRooms]);
-			socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
-			data.created_at = new Date();
-			data.updated_at = new Date();
-		}else{
-			socket.emit("switchRoom", data.room_id);
-		}
+		console.log("data", data);
 		queries.createRoom(data).then(function(response){
 			if(response.length >= 1){
+				if(data.room_id === socket.room){
+					var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+					socket.room = GLOBAL.rooms[indexRooms];
+					socket.join(GLOBAL.rooms[indexRooms]);
+					socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
+					data.created_at = new Date();
+					data.updated_at = new Date();
+				}else{
+					socket.emit("switchRoom", data.room_id);
+				}
 				queries.getUserDialogue(data).then(function(response){
 					socket.emit('send message', response);
 				},
@@ -40,7 +41,7 @@ io.sockets.on('connection', function(socket){
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
 					var setUsers  = {
-						name: "" + users.userNameFrom + ", " + users.userNameTo,
+						name: users.userNameTo, // second user
 						created_at: new Date(),
 						updated_at: new Date()
 					};
@@ -48,13 +49,13 @@ io.sockets.on('connection', function(socket){
 						var roomId = response.insertId;
 						var dataUserFrom = {
 							room_id: roomId,
-							user_id: data.userIdFrom,
+							user_id: data.members[0],
 							created_at: new Date(),
 							updated_at: new Date()
 						};
 						var dataUserTo = {
 							room_id: roomId,
-							user_id: data.userIdTo,
+							user_id: data.members[1],
 							created_at: new Date(),
 							updated_at: new Date()
 						};
