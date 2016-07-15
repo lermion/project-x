@@ -276,22 +276,14 @@ angular.module('placePeopleApp')
 					};
 				} else {
 					members.push(chat.id);
-					var ri = roomId;
-					// console.log(chat);
-					if (chat.room_id && ri === undefined) {
-						ri = chat.room_id[0].room_id
-					} else {
-						ri = undefined;
-					}
-					console.log(ri);
 					data = {					
 						members: members, 
-						room_id: ri,
+						room_id: roomId,
 						is_group: false
 					};
 				}
 
-				// console.log(chat.room_id);
+				console.log(chat.room_id);
 
 				$scope.Model.opponent = chat; 
 				$scope.Model.showChatBlock = true; 
