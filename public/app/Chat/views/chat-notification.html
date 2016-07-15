@@ -1,14 +1,14 @@
 <div class="chat-menu-wrap" ng-init="Model.checkCurrUrl(); Model.reloadRooms();">
-	<div class="chat-left-users-users-today" ng-repeat="listItem in Model.chatRooms" ng-class="Model.opponent.id === listItem.id ? 'active' : ''">
-		<div class="chat-users-today-ava">
-			<a ui-sref="user({username: listItem.login})">
-				<img ng-src="{{listItem.avatar_path}}" alt="">
+	<div class="chat-left-users-users-today" ng-repeat="chat in Model.chatRooms" ng-class="Model.currRoute ? '' : Model.opponent.id === chat.members[0].id ? 'active' : ''">
+		<div class="chat-users-today-ava" ng-init="!!chat.is_group ? chat.sref = '' : chat.sref = 'user({username: chat.members[0].login})'">
+			<a ui-sref="{{chat.sref}}">
+				<img ng-src="{{!!chat.is_group ? '' : chat.members[0].avatar_path}}" alt="">
 			</a>
 		</div>
-		<div class="chat-users-today-data" ng-click="Model.openSettings(listItem);" style="cursor:pointer;">
+		<div class="chat-users-today-data" ng-click="Model.openSettings(!!chat.is_group ? '' : chat.members[0], chat.room_id);" style="cursor:pointer;">
 			<div class="chat-users-today-info">
-				<p class="users-today-name">{{listItem.first_name + ' ' + listItem.last_name}}</p>
-				<p class="users-today-message">Думаю все будет гуд )))</p>
+				<p class="users-today-name">{{ !!chat.is_group ? '' : chat.members[0].first_name + ' ' + chat.members[0].last_name}}</p>
+				<p class="users-today-message">{{chat.last_message}}</p>
 			</div>
 			<!-- <div class="chat-users-today-time">
 				<span class="users-today-time-time early">13:20</span>
@@ -17,3 +17,4 @@
 		</div>
 	</div>
 </div>
+

@@ -27,13 +27,13 @@
 	<div class="chat-main-container">
 		<div class="chat-main-container-left" ng-hide="Model.mobile.hideContent">
 	    	<div class="chat-left-users-menu" ng-init="Model.checkCurrUrl()">
-	    		<div class="users-menu-tab-chats" ng-class="Model.currRoute === 'chat.list' ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">
+	    		<div class="users-menu-tab-chats" ng-class="Model.currRoute === 'chat.list' ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">
 	    			
 	    		</div>
 	    		<div class="users-menu-tab-users" ng-class="Model.currRoute === 'chat.contacts' ? 'active' : ''" ng-click="refTo('chat.contacts'); Model.showContactBlock=true; Model.showChatBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">
 	    			
 	    		</div>
-	    		<div class="users-menu-tab-block" ng-class="Model.currRoute === 'chat.blocked' ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">	    			
+	    		<div class="users-menu-tab-block" ng-class="Model.currRoute === 'chat.blocked' ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">	    			
 	    		</div>	    		
 	    		<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''" ng-click=" Model.showMenuBlock=!Model.showMenuBlock;" style="cursor:pointer;">			    		
 			    		<div class="chat-add-file-menu" ng-show="Model.showMenuBlock" style="min-width:140px;left:-59px">			    			
