@@ -161,22 +161,20 @@ angular.module('placePeopleApp')
 				socket.emit("get user rooms", $scope.loggedUserId);
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
-			$scope.showContactData = function(contactId){
-				console.log(contactId);
+			//TODO
+			$scope.Model.clearChat = function(user){
+				console.log(user);
 			};
-			$scope.clearChat = function(userId, chatId){
-				console.log(userId, chatId);
-			};
-			$scope.deleteChat = function(userId, chatId){
-
-				console.log(userId, chatId);
-
-				// UserService.sign(userId)
-				// 	.then(function(res){
-				// 		console.log(res);
-				// 	  }, function(err){
-				// 		console.log(err);
-				// 	  });
+			$scope.Model.deleteChat = function(user){				
+				ChatService.deleteChat(user.room_id)
+					.then(function(res){
+						if (res.status) {
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.reloadRooms();
+						}
+					  }, function(err){
+						console.log(err);
+					  });
 			};
 
 			function loadUserContacts(){
@@ -216,8 +214,7 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.Model.blockContact = function(contact){
-				// console.log(contactId);
+			$scope.Model.blockContact = function(contact){				
 				ChatService.blockUser(contact.id)
 					.then(function(response){
 						console.log(response);
@@ -240,10 +237,17 @@ angular.module('placePeopleApp')
 					});
 			};
 			$scope.Model.deleteContact = function(contact){
-				console.log('deleteContact');
-				console.log(contact);
+				ChatService.deleteChatContact(contact.room_id[0].room_id, contact.id)
+					.then(function(res){
+						if (res.status) {
+							$scope.Model.loadUserContactList();
+							$scope.Model.displayContactBlock = false;
+						}
+						console.log(res);
+					  }, function(err){
+						console.log(err);
+					  });
 			};
-
 			$scope.Model.openChatWith = function(opponent){                
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;

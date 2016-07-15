@@ -1,48 +1,55 @@
-<div class="new_group">Редактирование группы</div>
-<div class="add_newgroup add_newgroup--edit">
-    <div class="first_item">
-        <!--<div class="ava_group">-->
-        <!--<img ng-src="" alt="My Avatar" class="img_ava">-->
-        <!--<a class="img_name">{{::myName}}</a>-->
-        <!--</div>-->
-        <div class="checkbox_group">
-            <input type="checkbox" id="arr1" ng-model="vm.groupEdited.is_open"/>
-            <label for="arr1">Публичная группа</label>
+<form name="vm.forms.editGroup" novalidate>
+    <div class="new_group">Редактирование группы</div>
+    <div class="add_newgroup add_newgroup--edit">
+        <div class="first_item">
+            <div class="checkbox_group">
+                <input type="checkbox" id="arr1" ng-model="vm.groupEdited.is_open"/>
+                <label for="arr1">Публичная группа</label>
+            </div>
+        </div>
+
+        <div class="second_item">
+            <div class="add-ava" ng-class="(vm.forms.editGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
+                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar"
+                       ng-model="vm.groupCoverFile"
+                       ngf-select
+                       ngf-accept="'image/*'"
+                       ngf-pattern="'image/*'"
+                       ngf-min-height="240"
+                       ngf-min-width="700"
+                       ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
+                       ngf-before-model-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+                <label for="avatarImg">
+                    <img ngf-src="vm.groupCoverFile || vm.groupEdited.avatar" ngf-no-object-url="true">
+                </label>
+            </div>
+            <span class="add_ava_grp"> Добавить обложку группе </span>
+        </div>
+        <div class="error-messages" ng-messages="vm.forms.editGroup.avatar.$error"
+             ng-if="vm.forms.editGroup.$invalid && vm.forms.editGroup.$submitted || vm.forms.editGroup.$dirty">
+            <div ng-message="pattern">Выбранный файл не является изображением</div>
+            <div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
+            <div ng-message="required">Вы не выбрали обложку для группы</div>
+            <div ng-message="minHeight">Минимальная высота 240 пикселей</div>
+        </div>
+
+
+        <input type="text"
+               ng-model="vm.groupEdited.name"
+               placeholder="Название">
+
+        <div class="text-field">
+            <div emoji-form emoji-message="vm.emoji.emojiMessage">
+                <textarea id="messageInput" ng-model="vm.emoji.emojiMessage.messagetext"></textarea>
+                <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+                    <i class="icon icon-emoji"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="button">
+            <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
+            <a href="" class="create" ng-click="vm.updateGroup()"> Сохранить</a>
         </div>
     </div>
-
-    <div class="second_item">
-        <div class="add-ava">
-            <input type="file" id="avatarImg" class="js-group-avatar">
-            <label for="avatarImg">                                            
-                <span class="ava" ng-if="!vm.avatarEditMode" ng-mouseenter="vm.avatarEditMode=true;">
-                    <img ng-if="!vm.groupEdited.avatarIsChange" ng-src="{{vm.groupEdited.avatar}}" style="width:100%;">
-                    <img ng-if="vm.groupEdited.avatarIsChange" ng-src="{{dataURI}}" style="width:100%;">
-                </span>
-                <span class="add" ng-mouseleave="vm.avatarEditMode=false;" ng-if="vm.avatarEditMode">
-                    <span class="add-photo"></span>
-                </span>
-            </label>
-        </div>
-        <span class="add_ava_grp"> Изменить обложку группе </span>
-    </div>
-
-
-    <input type="text"
-           ng-model="vm.groupEdited.name"
-           placeholder="Название">
-
-    <div class="text-field">
-        <div emoji-form emoji-message="emoji">
-            <textarea id="messageInput" ng-model="emoji.messagetext"></textarea>
-            <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
-                <i class="icon icon-emoji"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="button">
-        <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
-        <a href="" class="create" ng-click="vm.updateGroup()"> Сохранить</a>
-    </div>
-</div>
+</form>

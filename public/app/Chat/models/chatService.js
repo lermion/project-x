@@ -5,7 +5,9 @@ angular.module('placePeopleApp')
 
 		return	{
 			blockUser: blockUser,						
-			getLockedUsers: getLockedUsers
+			getLockedUsers: getLockedUsers,
+			deleteChatContact: deleteChatContact,
+			deleteChat: deleteChat
 		}
 
 		function blockUser(userId){			
@@ -23,6 +25,30 @@ angular.module('placePeopleApp')
 		function getLockedUsers(){
 			var defer = $q.defer();
 			$http.get('chat/get_locked_users')
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function deleteChatContact(roomId, userIdSub){			
+			var defer = $q.defer();
+			$http.get('chat/delete_user/'+roomId+'/'+userIdSub)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function deleteChat(roomId){			
+			var defer = $q.defer();
+			$http.get('chat/delete_chat/'+roomId)
 				.success(function (response){
 					defer.resolve(response);
 				})

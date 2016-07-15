@@ -14,6 +14,7 @@ angular.module('app.groups')
 
             $scope.myName = storage.firstName + ' ' + storage.lastName;
             $scope.myAvatar = storage.loggedUserAva;
+            $scope.userName = storage.username;
             $scope.showEditAva = true;
 
             $scope.showGroupMenu = false;
