@@ -5470,14 +5470,47 @@ input.cmn-toggle-round:checked + label:after {
   transition: all .2s ease-in-out .1s;
   background-position: left center;
   background-repeat: no-repeat;
-  background-size: 24%;
-  padding-left: 25px;
+  background-size: 26%;
+  padding-left: 20px;
   cursor: pointer;
 }
-.public header .search {
-    width: 100px;
+.public header .search.main-header-search {
     position: relative;
+    background-color: transparent;
+    background-image: url(/images/search.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 55%;
+    width: 35px;
+    height: 35px;
+    transition: all .2s ease-in-out .1s;
+    width: 40px;
 }
 .main-content .groups {
   justify-content: flex-end;
+}
+
+@media (max-width: 800px) {
+.public header .main-menu .main-header-group {
+    margin-right: 10px;
+}
+.public header .main-menu .main-header-group {
+    background-image: url(/images/groups-hover.png);
+    transition: all .2s ease-in-out .1s;
+}
+.public header .main-menu a.main-header-group {
+    display: block;
+    font-size: 15px;
+    line-height: 45px;
+    padding-left: 40px;
+    background-size: 15%;
+}
+
+}
+
+.public header .main-menu {
+    width: 52%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

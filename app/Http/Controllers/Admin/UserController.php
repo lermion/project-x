@@ -53,7 +53,10 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $offset = 0;
+        $limit = 10;
         return view('admin.user.show')->with('user', $user);
+        return Publication::getMainPublication($offset,$limit,$userId = $user->id );
     }
 
     /**
