@@ -421,7 +421,7 @@ angular.module('placePeopleApp')
 				newGroupChatPopup.close();
 			};
 			$scope.Model.createChat = function(name, status, avatar){
-				// var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];				
 				users.push(parseInt($scope.loggedUserId));				
 				$scope.Model.newGroupChat.users.forEach(function(user){
@@ -430,10 +430,10 @@ angular.module('placePeopleApp')
 				var data = {
 					is_group: true,
 					name: name,
-					status: status,
+					status: statusToSave,
 					avatar: avatar,
 					members: users
-				};
+				};					
 				console.log(data);	
 				socket.emit('create room', data);
 				
