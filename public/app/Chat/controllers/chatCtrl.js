@@ -298,16 +298,7 @@ angular.module('placePeopleApp')
 					message: message
 				}
 				$scope.Model.chatMes = '';
-
-				socket.emit('send message', data);
-
-				var mesInFormat = {
-					text: message,
-					login: $scope.loggedUser
-				}
-
-				// $scope.Model.Chat.push(mesInFormat);			
-
+				socket.emit('send message', data);				
 			};	
 
 			$scope.Model.scrollBottom = function(){
@@ -330,7 +321,8 @@ angular.module('placePeopleApp')
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						
 				if (event.keyCode == 13) {
-					$scope.Model.sendMes(message, room_id);
+					event.preventDefault();
+					$scope.Model.sendMes(message, room_id);					
 				}
 			};
 
