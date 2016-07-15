@@ -332,8 +332,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
-					.then(function(response){
-						console.log(response);
+					.then(function(response){						
 						$scope.Model.blockedUsers = response;                           
 					},
 					function(error){
@@ -436,8 +435,14 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
 
-			$scope.saveNotificationSettings = function(user){
-				console.log(user)
+			$scope.Model.saveNotificationSettings = function(chat){				
+				ChatService.setNotification(chat.room_id)
+					.then(function(response){
+						console.log(response);						                     
+					},
+					function(error){
+						console.log(error);
+					});				
 			};
 
 			
