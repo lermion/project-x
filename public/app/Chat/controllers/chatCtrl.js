@@ -281,6 +281,7 @@ angular.module('placePeopleApp')
 
 			};			
 			socket.on("get user rooms", function(response){
+				console.log(response)
 				$scope.Model.chatRooms = response;
 			});
 
@@ -318,7 +319,8 @@ angular.module('placePeopleApp')
 				}, 100);
 
 			};
-			socket.on('updatechat', function(data){				
+			socket.on('updatechat', function(data){
+				console.log(data);				
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){				
@@ -327,7 +329,7 @@ angular.module('placePeopleApp')
 			});
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						
-				if (event.keyCode == 10 && event.ctrlKey == true) {
+				if (event.keyCode == 13) {
 					$scope.Model.sendMes(message, room_id);
 				}
 			};
@@ -413,8 +415,7 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
 				});
-				// console.log(avatar);
-				// console.log($scope.Model.newGroupChat);
+				
 				console.log(name, status, users, avatar);
 			};
 			$scope.Model.onItemSelected = function(user){				
