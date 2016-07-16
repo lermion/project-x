@@ -203,4 +203,9 @@ class GroupTest extends TestCase
             'status' => true,
         ]);
     }
+
+    public function testCounterNewGroup()
+    {
+        $this->json('GET', 'group/counter_new_group')->AssertResponseOk();
+    }
 }

@@ -1,15 +1,15 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService',
+		'PublicationService', 'Upload',
 		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService) {
+			PublicationService, Upload) {
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
-			$scope.loggedUserId = storage.userId;
+			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name')
 				.success(function (response) {
@@ -248,7 +248,8 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.openChatWith = function(opponent){                
+			$scope.Model.openChatWith = function(chat, roomId){
+				console.log(chat, roomId);
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -260,27 +261,45 @@ angular.module('placePeopleApp')
 					}
 				}
 
-				$scope.Model.opponent = opponent; 
+				var data = {};
+				var members = [];
+				members.push($scope.loggedUserId);
+
+				if (chat.is_group) {
+					chat.members.forEach(function(member){
+						members.push(member.id);
+					});					
+					data = {					
+						members: members, 
+						room_id: chat.room_id,
+						is_group: true
+					};
+				} else {
+					members.push(chat.id);
+					data = {					
+						members: members, 
+						room_id: roomId,
+						is_group: false
+					};
+				}
+
+				console.log(chat.room_id);
+
+				$scope.Model.opponent = chat; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-				var data = {
-					userIdFrom: $scope.loggedUserId,
-					userIdTo: opponent.id,
-					room_id: opponent.room_id
-				};
 
+				console.log(data);
 				socket.emit('create room', data);
 
-				if ($window.innerWidth <= 768) {
-					// console.log($window.innerWidth);					
+				if ($window.innerWidth <= 768) {					
 					$scope.Model.mobile.hideContent	= true;								
 					$state.go('chat.mobile');
 				}
-
-
 			};			
 			socket.on("get user rooms", function(response){
+				console.log(response);
 				$scope.Model.chatRooms = response;
 			});
 
@@ -291,22 +310,23 @@ angular.module('placePeopleApp')
 			// $scope.Model.Chat = [];
 			
 			$scope.Model.sendMes = function(message, roomId){
+				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+								roomId = $scope.Model.chatRooms[i].room_id;
+							}
+						}
+					}
+				}				
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
 					message: message
-				}
+				}				
 				$scope.Model.chatMes = '';
-
-				socket.emit('send message', data);
-
-				var mesInFormat = {
-					text: message,
-					login: $scope.loggedUser
-				}
-
-				// $scope.Model.Chat.push(mesInFormat);			
-
+				// console.log(data);
+				socket.emit('send message', data);				
 			};	
 
 			$scope.Model.scrollBottom = function(){
@@ -318,17 +338,20 @@ angular.module('placePeopleApp')
 				}, 100);
 
 			};
-			socket.on('updatechat', function(data){				
+			socket.on('updatechat', function(data){
+				console.log(data);				
 				$scope.Model.Chat = data;
 			});
-			socket.on('send message', function(response){				
+			socket.on('send message', function(response){
+				console.log(response);				
 				$scope.Model.Chat = response;				
 				// 	$scope.Model.Chat.push(response);				
 			});
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						
-				if (event.keyCode == 10 && event.ctrlKey == true) {
-					$scope.Model.sendMes(message, room_id);
+				if (event.keyCode == 13) {
+					event.preventDefault();
+					$scope.Model.sendMes(message, room_id);					
 				}
 			};
 
@@ -338,8 +361,8 @@ angular.module('placePeopleApp')
 
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
-					.then(function(response){
-						console.log(response);
+					.then(function(response){	
+						console.log(response);					
 						$scope.Model.blockedUsers = response;                           
 					},
 					function(error){
@@ -355,12 +378,14 @@ angular.module('placePeopleApp')
 						$scope.Model.mobile.hideContent	= true;							
 						$state.go('chat.mobile');
 				}
-				var data = {
-					userIdFrom: $scope.loggedUserId,
-					userIdTo: user.id,
-					room_id: user.room_id
+				var members = [];
+				members.push($scope.loggedUserId);
+				members.push(user.id);
+				var data = {					
+					members: members,
+					room_id: user.room_id,
+					is_group: false
 				};
-
 				socket.emit('create room', data);
 			}
 
@@ -384,6 +409,7 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users = [];
 				$scope.Model.newGroupChat.name = '';
 				$scope.Model.newGroupChat.status = '';
+				$scope.Model.newGroupChat.avatar = '';
 				newGroupChatPopup = ngDialog.open({
 					template: '../app/Chat/views/popup-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
@@ -405,17 +431,25 @@ angular.module('placePeopleApp')
 			$scope.Model.cancelNewChat = function(){				
 				newGroupChatPopup.close();
 			};
-			$scope.Model.createChat = function(name, status){
-				// var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
-				// $scope.Model
-				var users = [];
+			$scope.Model.createChat = function(name, status, avatar){
+				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				var users = [];				
 				users.push(parseInt($scope.loggedUserId));				
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
-				});
-				console.log(name, status, users);
-
+				});				
+				var data = {
+					is_group: true,
+					name: name,
+					status: statusToSave,
+					avatar: avatar,
+					members: users
+				};					
+				console.log(data);	
+				socket.emit('create room', data);
+				newGroupChatPopup.close();				
 			};
+
 			$scope.Model.onItemSelected = function(user){				
 				var repeated = undefined;
 				for (var i = 0; i < $scope.Model.newGroupChat.users.length; i++) {
@@ -430,13 +464,26 @@ angular.module('placePeopleApp')
 					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
 					$scope.Model.newGroupChat.users.unshift(usr);
 				}								
-			};			
+			};
+
+			$scope.Model.changeChatCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+	            Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+	                $scope.Model.newGroupChat.avatar = resizedFile;	                
+	            });
+	        };
+			
 			$scope.Model.removeUser = function(index){
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
 
-			$scope.saveNotificationSettings = function(user){
-				console.log(user)
+			$scope.Model.saveNotificationSettings = function(chat){							
+				ChatService.setNotification(chat.room_id)
+					.then(function(response){						
+						console.log(response);						                     
+					},
+					function(error){
+						console.log(error);
+					});				
 			};
 
 			

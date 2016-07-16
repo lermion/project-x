@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Place;
+use App\NewPlace;
 use App\TypePlace;
 use App\PlaceUser;
 use App\PlaceInvite;
@@ -26,6 +27,9 @@ class PlaceController extends Controller
             if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $place->is_admin = true;
             } else {$place->is_admin = false;}
+            if(NewUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
+                $place->is_new_group = true;
+            } else {$place->is_new_group = false;}
         }
         return $places;
     }
@@ -99,6 +103,7 @@ class PlaceController extends Controller
     public function show($name)
     {
         $place = Place::where('url_name', $name)->first();
+        NewPlace::where(['user_id' => Auth::id(), 'place_id' => $place->id,])->delete();
         if ($place) {
             if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
                 return null;
@@ -303,10 +308,14 @@ class PlaceController extends Controller
                 return response()->json($responseData);
             }
             foreach($request->input('user_id') as $userId) {
-                if ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => $userId])->first()) {
-                    $invite->delete();
-                } else {
-                    PlaceInvite::create(['place_id' => $place->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+//                if ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => $userId])->first()) {
+//                    $invite->delete();
+//                } else {
+//                    PlaceInvite::create(['place_id' => $place->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+//                }
+                if (!PlaceUser::where(['user_id' => $userId, 'place_id' => $placeId,])->first()){
+                    NewPlace::create(['user_id' => $userId, 'place_id' => $placeId,]);
+                    PlaceUser::create(['user_id' => $userId, 'place_id' => $placeId,]);
                 }
             }
             return response()->json(['status' => true]);
@@ -405,6 +414,10 @@ class PlaceController extends Controller
         }
     }
 
+    public function counter_new_place ()
+    {
+        return NewPlace::where(['user_id' => Auth::id()])->count();
+    }
 
     function transliterate($input)
     {

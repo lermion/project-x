@@ -6,7 +6,7 @@ function Queries(){
 }
 Queries.prototype.createRoom = function(data){
 	var deferred = Q.defer();
-	var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.userIdFrom + "') AND `user_id` = '" + data.userIdTo + "' GROUP BY room_id";
+	var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.members[0] + "') AND `user_id` = '" + data.members[1] + "' GROUP BY room_id";
 	connection.query(sql, function(error, results, fields){
 		if(error){
 			console.error("error select users from user_chats: " + error.stack);
@@ -20,7 +20,7 @@ Queries.prototype.createRoom = function(data){
 }
 Queries.prototype.getUsers = function(data){
 	var deferred = Q.defer();
-	var sql = 'SELECT `first_name` FROM `users` WHERE `id` IN (' + data.userIdTo + ', ' + data.userIdFrom + ');';
+	var sql = 'SELECT `first_name` FROM `users` WHERE `id` IN (' + data.members[1] + ', ' + data.members[0] + ');';
 	connection.query(sql, function(error, results, fields){
 		if(error){
 			console.error("error select users: " + error.stack);
@@ -46,33 +46,36 @@ Queries.prototype.addUsersInChatRoom = function(setUsers){
 	});
 	return deferred.promise;
 }
-Queries.prototype.addUsersInUserChat = function(dataUserFrom, dataUserTo){
+Queries.prototype.addUsersInUserChat = function(roomInfo){
 	var deferred = Q.defer();
-	connection.query('INSERT INTO user_chats SET ?', dataUserFrom, function(error, result){
-		if(error){
-			console.error("error to set userIdFrom in chat room: " + error.stack);
-			deferred.reject(error);
-			return;
-		}else{
-			console.log("userIdFrom saved to user_chats");
-			deferred.resolve(result);
-		}
-	});
-	connection.query('INSERT INTO user_chats SET ?', dataUserTo, function(error, result){
-		if(error){
-			console.error("error to set userIdFrom in chat room: " + error.stack);
-			deferred.reject(error);
-			return;
-		}else{
-			console.log("userIdTo saved to user_chats");
-			deferred.resolve(result);
-		}
-	});
+	for(var i = 0; i < roomInfo.members.length; i++){
+		roomInfo.user_id = roomInfo.members[i];
+		var sqlReq = {
+			user_id: roomInfo.user_id,
+			room_id: roomInfo.room_id,
+			created_at: roomInfo.created_at,
+			updated_at: roomInfo.updated_at
+		};
+		connection.query('INSERT INTO user_chats SET ?', sqlReq, function(error, result){
+			if(error){
+				console.error("error to set userIdFrom in chat room: " + error.stack);
+				deferred.reject(error);
+				return;
+			}else{
+				console.log("userIdFrom saved to user_chats");
+				deferred.resolve(result);
+			}
+		});
+	}
 	return deferred.promise;
 }
 Queries.prototype.getUserRooms = function(data){
+	if(data.userIdFrom){
+		data.members = [];
+		data.members[0] = data.userIdFrom;
+	}
 	var deferred = Q.defer();
-	connection.query('SELECT chat_rooms.id, chat_rooms.name FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.userIdFrom, function(error, result){
+	connection.query('SELECT chat_rooms.id, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
 		var response = [];
 		if(error){
 			console.error("error to get user rooms: " + error.stack);
@@ -81,9 +84,17 @@ Queries.prototype.getUserRooms = function(data){
 		}else{
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
-					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.userIdFrom + "'", function(error, result){
-						result[0].room_id = item.id;
-						resolve(result[0]);
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
+						result = {
+							members: result,
+							room_id: item.id,
+							is_group: item.is_group,
+							name: item.name,
+							status: item.status,
+							avatar: item.avatar,
+							last_message: "last message"
+						};
+						resolve(result);
 					});
 				});
 				return promise.then(function(result){

@@ -7,7 +7,8 @@ angular.module('placePeopleApp')
 			blockUser: blockUser,						
 			getLockedUsers: getLockedUsers,
 			deleteChatContact: deleteChatContact,
-			deleteChat: deleteChat
+			deleteChat: deleteChat,
+			setNotification: setNotification
 		}
 
 		function blockUser(userId){			
@@ -49,6 +50,17 @@ angular.module('placePeopleApp')
 		function deleteChat(roomId){			
 			var defer = $q.defer();
 			$http.get('chat/delete_chat/'+roomId)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+		function setNotification(roomId){			
+			var defer = $q.defer();
+			$http.get('chat/notification/'+roomId)
 				.success(function (response){
 					defer.resolve(response);
 				})
