@@ -1,78 +1,82 @@
-<div class="popup_grouppublication"></div>
-<div class="popup_grouppublication_1 popupgroup">
-	<div class="popupgroups_head">
-		<div class="popupgroup_function">
-			<a class="user" ui-sref="user({username: loggedUser})">
+<div class="user-publication-bg"></div>
+<div class="user-publication">
+
+	<div class="user-publication-header">
+		<div class="user-function">
+			<a class="user" ui-sref="user({username: userData.login})" ng-click="closePopup()">
 				<span class="ava">
-					<img src="{{userData.avatar_path}}" alt="">
+					<img ng-src="{{::vm.group.avatar}}" alt="">
 				</span>
-				<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
+				<p class="user-name">{{::vm.group.name}}</p>
 			</a>
-			<!-- <div class="topic">Тема дня</div> -->
-			<div class="user-menu" ng-click="showPubMenu=!showPubMenu">				
+			<div class="user-menu" ng-click="showPubMenu=!showPubMenu">
 				<div class="menu-item" ng-show="showPubMenu">
 					<div class="inner">
-						<a href="" ng-click="editPub(singlePublication)">Редактировать</a>
-						<a href="" ng-click="sharePub(singlePublication)">Переслать</a>
-						<a href="" ng-click="getPubLink(singlePublication)">Получить ссылку</a>
-						<a href="" ng-click="alertPub(singlePublication)">Пожаловаться</a>
-						<a href="" ng-click="deletePub(singlePublication)">Удалить</a>
+						 <a href="" ng-click="editPub(vm.activePublication)">Редактировать</a>
+						<a href="" ng-click="sharePub(vm.activePublication)">Переслать</a>
+						<a href="" ng-click="getPubLink(vm.activePublication)">Получить ссылку</a>
+						<a href="" ng-click="openPubComplainBlock(vm.activePublication.id)">Пожаловаться</a>
+						 <a href="" ng-click="deletePub(vm.activePublication)">Удалить</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 	</div>
-	<div class="popupgroup-publication-content">
+
+	<div class="user-publication-content">
 		<div class="publication-ava">
-			<img ng-if="mainImage" ng-src="{{mainImage}}">
+			<img ng-if="vm.mainImage" ng-src="{{::vm.mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 		</div>
-		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="singlePublication.images.length === 1">		
-			<div ng-click="changeMainFile(image)" ng-repeat="image in singlePublication.images | limitTo: limit as results" class="images-item">
-				<img ng-src="{{image.url}}">
+		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:175px; overflow:hidden; position:relative;" ng-hide="vm.activePublication.images.length === 1">
+
+			<div ng-click="changeMainFile(file)" ng-repeat="file in vm.activePublication.images.concat(vm.activePublication.videos) | limitTo: limit as results" class="images-item">
+				<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+				<video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>
 			</div>
-			<div ng-click="changeMainFile(video)" ng-repeat="video in singlePublication.videos" class="images-item">
-				<video width="150px" controls ngf-src="video.url"></video>
+
+			<div ng-hide="results.length === (vm.activePublication.images.length + vm.activePublication.videos.length)" class="images-item more" ng-click="loadMorePubFiles(results.length === (vm.activePublication.images.length + vm.activePublication.videos.length))">
+				<p class="counter">Еще<br> {{(vm.activePublication.images.length + vm.activePublication.videos.length)  - limit}} файлов</p>
 			</div>
-			<div ng-hide="results.length === singlePublication.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === singlePublication.images.length)">
-				<p class="counter">Еще<br> {{singlePublication.images.length - limit}} фото</p>
-			</div>
-		</div> 
-		<p class="publication-text" ng-bind-html="singlePublication.text | colonToSmiley">{{singlePublication.text}}</p>
-		<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
+
+		</div>
+		<p class="publication-text" ng-bind-html="splitText(vm.activePublication.text) | colonToSmiley"></p>
 	</div>
+
 	<div class="likes">
 		<div class="likes-item">
-			<a href="javascript:void(0);" ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)" class="like">Тема</a>
+			<a href="javascript:void(0);" ng-click="addPublicationLike(vm.activePublication, vm.activePublication.user.id == loggedUserId)" class="like">Тема</a>
 			<p class="like-item">
-				В теме 
-				<span ng-if="singlePublication.user_like" class="you"> Вы </span>
-				<span ng-if="singlePublication.user_like" class="more">и еще</span>
-				<span class="count-like">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}}</span>
-				чел.
+				В теме
+				<span ng-show="vm.activePublication.user_like" class="you"> Вы </span>
+				<span ng-show="vm.activePublication.user_like && vm.activePublication.like_count > 1" class="more">и еще</span>
+				<span class="count-like" ng-hide="vm.activePublication.user_like && vm.activePublication.like_count == 1">{{vm.activePublication.user_like ? vm.activePublication.like_count - 1 : vm.activePublication.like_count}} чел.</span>
 			</p>
 		</div>
-		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
+		<a href="javascript:void(0);" class="comments-count">{{vm.activePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments" ng-if="singlePublication.comments.length !== singlePublication.comment_count">
-		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
+
+	<div class="more-comments" ng-if="vm.activePublication.comments.length !== vm.activePublication.comment_count">
+		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('feedPage', vm.activePublication, true)" class="all-comments">Еще {{vm.activePublication.comment_count - 3}} комментариев</a>
 	</div>
-	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
-		<div ng-repeat="comment in singlePublication.comments" class="user-comment">
+
+	<div ng-hide="vm.activePublication.comments.length === 0" class="visible-comments">
+		<div ng-repeat="comment in vm.activePublication.comments" class="user-comment">
 			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: loggedUser})">
+				<a class="ava" ui-sref="user({username: comment.user.login})"  ng-click="closePopup()">
 					<img ng-src="{{comment.user.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="comment">
-				<div class="user-info">				
+				<div class="user-info">
 					<div class="info-item">
-						<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+						<a class="user-name" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 						<p class="time" am-time-ago="comment.created_at"></p>
 						<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 					</div>
-					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert"><!-- Пожаловаться{{hideSomePubText ? 'Пожаловаться':''}} --></a>
+					<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
+					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', vm.activePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
 				</div>
 				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
@@ -86,118 +90,53 @@
 			</div>
 		</div>
 	</div>
-	<div class="added_comments">
-		<a href="" class="add_comments">
-			Добавить комментарий 
-		</a>
-	</div>
-	<div class="add-comment_group">
+
+	<div class="add-comment">
 		<div class="user-ava">
-			<a class="ava" ui-sref="user({username: loggedUser})">
-				<img src="{{userData.avatar_path}}" alt="">
+			<a class="ava" ui-sref="user({username: loggedUser})" ng-click="closePopup()">
+				<img ng-src="{{userData.avatar_path}}" alt="">
 			</a>
 		</div>
 		<div flow-init style="position:relative;" class="add">
 			<div class="text-field">
-				<textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea>
-				<!-- <div class="smiles">
-					<div class="smiles-item"></div>
-					<div class="smile">
-						<div class="smile-item">
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-							<div class="inner">
-								<a href="">
-									<img src="../../../images/smil-hover.png" alt=""> 
-								</a>
-							</div>
-						</div>
-					</div>
-				</div> -->
-			</div>	
-			<div class="new-add">
-				<div class="new-img" ng-repeat="file in $flow.files">
+				<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
+				<div emoji-form emoji-message="emojiMessage">
+					<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+						<i class="icon icon-emoji"></i>
+					</a>
+				</div>
+			</div>
+			<div class="new-add" ng-show="vm.activePublication.files" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
+				<div class="new-img" ng-repeat="file in vm.activePublication.files" ng-click="showMoreImages(vm.activePublication.files)">
 					<div class="inner">
-						<div ng-click="file.cancel()" class="close">
+						<div ng-click="deletePubFile(vm.activePublication.files, $index)" class="close">
 							<div class="close-inner">
 								<p>Удалить</p>
 							</div>
 						</div>
-						<img flow-img="file">
+						<img ngf-thumbnail="file || '/thumb.jpg'">
+						<video width="200px" controls ngf-src="file"></video>
 					</div>
 					<p class="img-name">{{file.name}}</p>
 				</div>
 			</div>
-			<div class="publication-footer">
+			{{commentModel.pubText}}
+			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-popup-'+vm.activePublication.id">
 				<div class="publication-footer-button">
-					<a href="javascript:void(0);" ng-click="addNewComment('viewPage', singlePublication, commentModel.pubText, $flow)" class="publication-button">Отправить</a>    
+					<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', vm.activePublication, emojiMessage, vm.activePublication.files)" class="publication-button">Отправить</button>
 				</div>
-				<div class="add-objects"> 
-					<input type="file" id="add-object" flow-btn>  
-					<label for="add-object">
+				<div class="add-objects">
+					<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="vm.activePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)">
+					<label for="{{addFileObjId}}">
 						Прикрепить
 						<span class="add"></span>
-					</label>                                         
-				</div>   
+					</label>
+				</div>
 			</div>
+
+
 		</div>
 	</div>
+
 </div>

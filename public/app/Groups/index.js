@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.groups', ['ngFileUpload'])
+        .module('app.groups', ['ngFileUpload', 'ngScrollbar'])
         .config(routes);
 
 
@@ -20,9 +20,13 @@
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
+                params: {
+                    groupId: null
+                },
                 resolve: {
                     group: ['groupsService', '$stateParams', '$q', 'ngDialog', function (groupsService, $stateParams, $q, ngDialog) {
                         var deferred = $q.defer();
+                        var group;
                         groupsService.getGroup($stateParams.groupName)
                             .then(function (data) {
                                 if (!data) {
@@ -33,7 +37,14 @@
                                         className: 'popup-delete-group ngdialog-theme-default'
                                     });
                                 } else {
-                                    deferred.resolve(data);
+                                    groupsService.getPublications(data.id)
+                                        .then(function (publications) {
+                                            if (publications) {
+                                                data.publications = publications;
+                                            }
+                                            deferred.resolve(data);
+                                        });
+
                                 }
                             });
                         return deferred.promise;

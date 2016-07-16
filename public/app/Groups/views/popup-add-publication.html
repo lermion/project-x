@@ -1,6 +1,8 @@
-<form name="vm.forms.newPublication" novalidate>
+<form name="vm.forms.newPublication" ng-submit="vm.submitNewPublication()" novalidate>
     <h5>Новая публикация</h5>
+
     <div class="publication">
+
         <div class="publication-item">
             <a class="user" ui-sref="user({username: vm.userName})">
 			<span class="ava">
@@ -10,6 +12,7 @@
                 <p class="user-name">{{::vm.group.name}}</p>
             </a>
         </div>
+
         <div class="text-field">
 
             <div emoji-form emoji-message="vm.emoji.emojiMessage">
@@ -19,18 +22,19 @@
                 </a>
             </div>
         </div>
-        <div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me"
+
+        <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
              style="max-height: 250px; overflow:hidden; position:relative;">
 
             <div class="new-img" ng-repeat="file in vm.files" ng-click="showMoreImages(files, file)">
                 <div class="inner">
-                    <div class="close" ng-click="deletePubFile(files, $index)">
+                    <div class="close" ng-click="vm.removeAttachFile($index)">
                         <div class="close-inner">
                             <p>Удалить</p>
                         </div>
                     </div>
                     <img ngf-thumbnail="file || '/thumb.jpg'">
-                    <video width="200px" controls ngf-src="file"></video>
+                    <!--<video width="200px" controls ngf-src="file"></video>-->
                     <!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">
                         <div class="check-inner">
                             <p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
@@ -40,23 +44,34 @@
                 <p class="img-name">{{file.name}}</p>
             </div>
         </div>
+
         <div class="publication-footer">
             <div class="add-objects">
-                <input id="add-main-pub-object" style="display: none;" ngf-select ng-model="vm.files" ngf-multiple="true"
-                       ngf-before-model-change="pubFiles($files)" ngf-keep="true">
-                <label for="add-main-pub-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
+                <input id="add-main-pub-object" style="display: none;"
+                       name="files"
+                       type="file"
+                       ngf-select
+                       ng-model="vm.files"
+                       ngf-before-model-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       ngf-multiple="true"
+                       ngf-keep="true">
+
+                <label for="add-main-pub-object"
+                       ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
                     <span class="add"></span>
                     Добавить фото или видео *
                 </label>
             </div>
             <div class="publication-footer-button">
                 <a href="" class="cansel" ng-click="closeThisDialog()">Отменить</a>
-                <button class="publication-button" ng-click="publishNewPub(isAnonPub, files, emojiMessage);"
+                <button type="submit" class="publication-button"
                         ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать
                 </button>
             </div>
         </div>
+
         <p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для
             создания публикации обязательным является добавление фото или видео'}} </p>
+
     </div>
 </form>

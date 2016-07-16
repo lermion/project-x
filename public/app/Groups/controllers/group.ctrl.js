@@ -6,10 +6,10 @@
         .controller('GroupCtrl', GroupCtrl);
 
     GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
-        'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService'];
+        'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService', 'Upload'];
 
     function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
-                       AuthService, storageService, ngDialog, groupsService, UserService) {
+                       AuthService, storageService, ngDialog, groupsService, UserService, PublicationService, Upload) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -19,8 +19,14 @@
         var firstName = storage.firstName;
         var lastName = storage.lastName;
 
-        var modalEditGroup, modalDeleteGroup, modalInviteUsers, modalSetCreator, modalNewPublication;
+        var modalEditGroup, modalDeleteGroup, modalInviteUsers,
+            modalSetCreator, modalNewPublication, modalReviewPublication;
         var groupName = $stateParams.groupName;
+
+        var newPublicationObj = {
+            groupId: group.id,
+            text: ''
+        };
 
 
         vm.firstName = firstName;
@@ -30,6 +36,7 @@
 
         vm.group = group;
         vm.groupEdited = {};
+        vm.newPublication = angular.copy(newPublicationObj);
 
         vm.forms = {
             editGroup: {},
@@ -53,6 +60,8 @@
         };
 
         vm.userName = storage.username;
+
+        vm.files = [];
 
         activate();
 
@@ -191,6 +200,44 @@
                 scope: $scope,
                 preCloseCallback: resetFormNewPublication
             });
+        };
+
+        vm.openModalReviewPublication = function (id) {
+            getPublication(id).then(function () {
+                modalReviewPublication = ngDialog.open({
+                    template: '../app/Groups/views/popup-view-group-publication.html',
+                    name: 'modal-publication-group',
+                    className: 'view-publication ngdialog-theme-default',
+                    scope: $scope
+                });
+            });
+        };
+
+
+        // Submit forms
+        vm.submitNewPublication = function () {
+            vm.newPublication.text = vm.emoji.emojiMessage.messagetext;
+            vm.newPublication.files = filterAttachFilesByType();
+            groupsService.addPublication(vm.newPublication)
+                .then(function (data) {
+                    if (data.status) {
+                        console.log('Publication added!');
+                        modalNewPublication.close();
+                    }
+                })
+        };
+
+
+        //New publication
+        vm.removeAttachFile = function (index) {
+            vm.files.splice(index, 1);
+            $scope.$broadcast('rebuild:me');
+        };
+
+        vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+            if (vm.files.length > 4 || files > 4) {
+                $scope.$broadcast('rebuild:me');
+            }
         };
 
 
@@ -350,6 +397,17 @@
                 });
         }
 
+        function getPublication(id) {
+            return PublicationService.getSinglePublication(id)
+                .then(function (data) {
+                    vm.activePublication = data;
+                    if(data.images[0] !== undefined){
+                        vm.mainImage = data.images[0].url;
+                    }
+                });
+        }
+
+        // Reset Forms
         function resetFormInviteUsers() {
             vm.invitedUsers = [];
             vm.subscribers = [];
@@ -362,8 +420,11 @@
         }
 
         function resetFormNewPublication() {
-            console.log('Reset group new publication form');
+            vm.newPublication = angular.copy(newPublicationObj);
+            vm.emoji.emojiMessage.messagetext = '';
+            vm.files = [];
         }
+
 
         function removeUser(user) {
             var arr = [];
@@ -399,6 +460,24 @@
             return group.users.filter(function (item) {
                 return (!!item.is_admin === true && item.id !== myId);
             });
+        }
+
+        function filterAttachFilesByType() {
+            var filesByType = {
+                images: [],
+                videos: []
+            };
+            if (vm.files && vm.files.length > 0) {
+                angular.forEach(vm.files, function (file) {
+                    if (~file.type.indexOf('image')) {
+                        filesByType.images.push(file);
+                    } else if (~file.type.indexOf('video')) {
+                        filesByType.videos.push(file);
+                    }
+                });
+            }
+
+            return filesByType;
         }
 
         //function getGroup() {

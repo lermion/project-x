@@ -13,7 +13,9 @@
         return {
             getGroupList: getGroupList,
             getGroup: getGroup,
+            getPublications: getPublications,
             addGroup: addGroup,
+            addPublication: addPublication,
             updateGroup: updateGroup,
             deleteGroup: deleteGroup,
             inviteUsers: inviteUsers,
@@ -67,6 +69,27 @@
             }
         }
 
+        function getPublications(groupId) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/' + groupId + '/publication',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPublicationsComplete)
+                .catch(getPublicationsFailed);
+
+            function getPublicationsComplete(response) {
+                return response.data;
+            }
+
+            function getPublicationsFailed(error) {
+                console.error('XHR Failed for getPublications. ' + error.data);
+            }
+        }
+
         function addGroup(group) {
             var fd = new FormData();
 
@@ -91,6 +114,41 @@
 
             function addGroupFailed(error) {
                 console.error('XHR Failed for addGroup. ' + error.data);
+            }
+        }
+
+        function addPublication(publication) {
+            var fd = new FormData();
+
+            fd.append('text', publication.text);
+
+            if (publication.files.images) {
+                angular.forEach(publication.files.images, function(image) {
+                    fd.append('images[]', image);
+                });
+            }
+            if (publication.files.videos) {
+                angular.forEach(publication.files.videos, function(video) {
+                    fd.append('videos[]', video);
+                });
+            }
+
+            return $http({
+                method: 'POST',
+                url: 'group/' + publication.groupId + '/publication/store',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(addPublicationComplete)
+                .catch(addPublicationFailed);
+
+            function addPublicationComplete(response) {
+                return response.data;
+            }
+
+            function addPublicationFailed(error) {
+                console.error('XHR Failed for addPublication. ' + error.data);
             }
         }
 
