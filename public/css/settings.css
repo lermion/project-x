@@ -5543,4 +5543,51 @@ input.cmn-toggle-round:checked + label:after {
   .places-category-item {
   	margin-right: 10px;
   }
+  .places-item-photo {
+  	height: 200px;
+  }
+  .places-item-rating,
+  .places-item-photo-place {
+  	height: 40px;
+  }
+  .places-item-description,
+  .places-item-photo-place span {
+  	font-size: 12.6px;
+  }
+}
+@media (max-width: 520px) {
+	.places-category-item {
+    width: 31%;
+    box-shadow: 2px 2px 3px 0px #e3e3e3;
+    box-sizing: border-box;
+  }
+  .places-category-item {
+  	margin-right: 10px;
+  }
+  .places-item-photo {
+  	height: 150px;
+  }
+  .places-item-rating,
+  .places-item-photo-place {
+  	height: 35px;
+  }
+  .places-item-description,
+  .places-item-photo-place span {
+  	font-size: 11.6px;
+  }
+  .places-item-rating-like,
+  .places-item-rating-link {
+  	font-size: .8em;
+  }
+  .places-item-description-p {
+  	line-height: 17px;
+  }
+  .places-item-description {
+  	height: 80px;
+  }
+  .places-type-place-btn,
+  .places-page-type-place,
+  .places-item-new-place {
+  	font-size: .9em;
+  }
 }
