@@ -5632,6 +5632,28 @@ input.cmn-toggle-round:checked + label:after {
 	.create-places h3 {
 		font-size: 12.6px;
 	}
+
+  .create-places-header-a {
+    font-size: .9em;
+  }
+  .create-places-description,
+  .select-country-name select,
+  .street-on-map,
+  .create-places-add-cover-button-create {
+    font-size: .8em;
+  }
+  .create-places-common-inner input[type="text"] {
+    padding: 5px;
+   }
+  .create-places-add-cover-button-create {
+    line-height: 20px;
+  }
+  .create-places-add-cover-img a {
+    width: 60px;
+    height: 60px;
+  }
+
+
 }
 @media (max-width: 337px) {
 	.create-places-item-photo {
