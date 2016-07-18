@@ -5643,6 +5643,12 @@ input.cmn-toggle-round:checked + label:after {
   .create-places-header-a {
     font-size: .9em;
   }
+  .create-places-add-cover-button-create {
+    padding: 0 2px;
+  }
+  .create-places-add-cover-img span {
+    margin-left: 5px;
+  }
   .create-places-description,
   .select-country-name select,
   .street-on-map,
@@ -5656,8 +5662,8 @@ input.cmn-toggle-round:checked + label:after {
     line-height: 20px;
   }
   .create-places-add-cover-img a {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 
 
