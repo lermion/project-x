@@ -87,9 +87,10 @@
                                 </div>
                             </div>
                         </div>
+                        <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
+                        <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
                     </div>
-                    <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
-                    <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+                    
                 </div>
                 <div class="group-header"></div>
             </div>
