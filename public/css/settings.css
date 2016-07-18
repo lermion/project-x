@@ -5669,3 +5669,7 @@ input.cmn-toggle-round:checked + label:after {
 		font-size: .7em;
 	}
 }
+
+.groups-content .groups-header {
+    justify-content: flex-end;
+}
