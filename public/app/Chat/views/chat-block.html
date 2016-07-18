@@ -16,8 +16,8 @@
 				<div class="user-menu-top-do" ng-show="showTopChatMenu">
 					<div class="user-menu-top-inner">			
 						<a href="javascript:void(0);" ng-click="Model.showContactData(Model.opponent)">О контакте</a>
-						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent)">Очистить чат</a>
-						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent)">Удалить чат</a>
+						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent.room_id)">Очистить чат</a>
+						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent.room_id)">Удалить чат</a>
 					</div>
 				</div>
 			</div>

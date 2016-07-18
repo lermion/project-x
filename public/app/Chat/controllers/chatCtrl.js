@@ -161,18 +161,20 @@ angular.module('placePeopleApp')
 				socket.emit("get user rooms", $scope.loggedUserId);
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
-			//TODO
-			$scope.Model.clearChat = function(chat){
-				var roomId;				
-				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+			
+			$scope.Model.clearChat = function(roomId){							
+				if (!roomId) {									
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-								roomId = $scope.Model.chatRooms[i].room_id;
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
 							}
 						}
 					}
 				}
+
 				ChatService.clearChat(roomId)
 					.then(function(res){
 						console.log(res);
@@ -183,9 +185,23 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.deleteChat = function(user){				
-				ChatService.deleteChat(user.room_id)
+			$scope.Model.deleteChat = function(roomId){
+							
+				if (!roomId) {									
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}
+
+				ChatService.deleteChat(roomId)
 					.then(function(res){
+						console.log(res);
 						if (res.status) {
 							$scope.Model.displayChatBlock = false;
 							$scope.Model.reloadRooms();
@@ -317,8 +333,7 @@ angular.module('placePeopleApp')
 				socket.emit("switchRoom", newroom);
 			});
 			
-			$scope.Model.sendMes = function(message, roomId){
-			console.log(message, roomId);				
+			$scope.Model.sendMes = function(message, roomId){			
 				if (!roomId) {									
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
