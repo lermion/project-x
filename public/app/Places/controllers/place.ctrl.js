@@ -5,11 +5,9 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
-        'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService', 'Upload'];
+    PlaceCtrl.$inject = [];
 
-    function PlaceCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
-                       AuthService, storageService, ngDialog, groupsService, UserService, PublicationService, Upload) {
+    function PlaceCtrl() {
 
         //var vm = this;
         //var storage = storageService.getStorage();
