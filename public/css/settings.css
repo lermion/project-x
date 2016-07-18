@@ -5942,11 +5942,11 @@ input.cmn-toggle-round:checked + label:after {
 }
 
 .places-count-span {
-  background-color: red;
-  border-radius: 50%;
-  font-size: 10.6px;
+    background-color: #ec8e45;
+    border-radius: 50%;
+    font-size: 10.6px;
+    padding: 2px;
 }
-
 .item1.add-people.add-people-right {
   max-height: 716px;
 }
