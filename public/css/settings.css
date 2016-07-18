@@ -5919,3 +5919,18 @@ input.cmn-toggle-round:checked + label:after {
     background-position: right 5px center;
   }
 }
+
+
+.places-comments-sigh {
+  width: 100%;
+  background-color: rgb(73,91,121);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "SFUIDisplayLight";
+}
+.places-comments-sigh-span {
+  line-height: 35px;
+  cursor: pointer;
+}
