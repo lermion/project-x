@@ -1,6 +1,6 @@
 <div class="chat-notification-title">
-	<span class="chat-notification-title-span">Настройки чата с</span>
-	<span class="chat-notification-title-name">{{Model.opponent.first_name + ' ' + Model.opponent.last_name}}</span>
+	<span class="chat-notification-title-span">Настройки чата <span ng-hide="!!Model.opponent.is_group">с</span></span>
+	<span class="chat-notification-title-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</span>
 </div>
 <div class="chat-notification-status">
 	<span class="chat-notification-status-span"><!-- {{!!Model.opponent.show_notif ? 'Отключить':'Включить'}} -->Уведомления</span>

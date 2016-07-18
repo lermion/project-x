@@ -2,10 +2,10 @@
 	<div class="chat-left-users-users-today" ng-repeat="chat in Model.chatRooms" ng-class="Model.currRoute ? '' : Model.opponent.id === chat.members[0].id ? 'active' : ''">
 		<div class="chat-users-today-ava" ng-init="!!chat.is_group ? chat.sref = 'chat.list' : chat.sref = 'user({username: chat.members[0].login})'">
 			<a ui-sref="{{chat.sref}}">
-				<img ng-src="{{!!chat.is_group ? 'chat.avatar' : chat.members[0].avatar_path}}" alt="" ng-show="!!chat.is_group && chat.avatar">
+				<img ng-src="{{!!chat.is_group ? chat.avatar ? chat.avatar : '/images/user.png' : chat.members[0].avatar_path ? chat.members[0].avatar_path : '/images/user.png'}}" alt="">
 			</a>
 		</div>
-		<div class="chat-users-today-data" ng-click="Model.openSettings(!!chat.is_group ? '' : chat.members[0], chat.room_id);" style="cursor:pointer;">
+		<div class="chat-users-today-data" ng-click="Model.openSettings(!!chat.is_group ? chat : chat.members[0], chat.room_id);" style="cursor:pointer;">
 			<div class="chat-users-today-info">
 				<p class="users-today-name">{{ !!chat.is_group ? chat.name : chat.members[0].first_name + ' ' + chat.members[0].last_name}}</p>
 				<p class="users-today-message">{{chat.last_message}}</p>
