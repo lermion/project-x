@@ -11,14 +11,12 @@ var queries = new Queries();
 var users = {};
 var usersId = {};
 GLOBAL.rooms = [];
-var usernames = {
-	username: null
-};
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
-			if(response.length >= 1){
+			console.log(response);
+			if(response.length >= 1 && !data.is_group){
 				if(data.room_id === socket.room){
 					var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 					socket.room = GLOBAL.rooms[indexRooms];
