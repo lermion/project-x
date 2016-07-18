@@ -105,7 +105,8 @@ Queries.prototype.getUserRooms = function(data){
 							name: item.name,
 							status: item.status,
 							avatar: item.avatar,
-							last_message: "last message"
+							last_message: "last message",
+							show_notif: result[0].show_notif
 						};
 						resolve(result);
 					});
