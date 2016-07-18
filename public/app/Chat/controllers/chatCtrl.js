@@ -281,8 +281,7 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.openChatWith = function(chat, roomId){	
-			// console.log(chat);			
+			$scope.Model.openChatWith = function(chat){
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -293,10 +292,12 @@ angular.module('placePeopleApp')
 						$state.go('chat.list');
 					}
 				}
+
 				var data = {};
 				var members = [];
 				members.push($scope.loggedUserId);
 				if (chat.is_group) {
+					$scope.Model.opponent = chat;
 					chat.members.forEach(function(member){
 						members.push(member.id);
 					});					
@@ -306,18 +307,28 @@ angular.module('placePeopleApp')
 						is_group: true
 					};
 				} else {
-					members.push(chat.id);
+					if (chat.members) {
+						$scope.Model.opponent = chat.members[0];
+						members.push(chat.members[0].id);
+					} else {
+						$scope.Model.opponent = chat;
+						members.push(chat.id);
+					}					
 					data = {					
 						members: members, 
-						room_id: roomId,
+						room_id: chat.room_id,
 						is_group: false
 					};
 				}
-				$scope.Model.opponent = chat; 
+				 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
 
+				if (chat.room_id === false) {
+					$scope.Model.Chat = [];
+				}
+				
 				socket.emit('create room', data);
 
 				if ($window.innerWidth <= 768) {					
@@ -325,7 +336,7 @@ angular.module('placePeopleApp')
 					$state.go('chat.mobile');
 				}
 			};			
-			socket.on("get user rooms", function(response){				
+			socket.on("get user rooms", function(response){							
 				$scope.Model.chatRooms = response;
 			});
 
@@ -351,8 +362,7 @@ angular.module('placePeopleApp')
 					message: message
 				}				
 				$scope.Model.chatMes = '';
-				console.log('send message:');
-				console.log(data);
+				console.log(data);			
 				socket.emit('send message', data);				
 			};	
 
