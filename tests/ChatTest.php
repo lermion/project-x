@@ -94,27 +94,27 @@ class ChatTest extends TestCase
         ]);
     }
 
-//    public function testNotificationChat()
-//    {
-//        $user = \App\User::where('phone', '380731059230')->first();
-//        if (!$user) {
-//            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
-//        }
-//        $user2 = \App\User::where('phone', '380731059231')->first();
-//        if (!$user2) {
-//            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
-//        }
-//        $this->be($user);
-//        $room = \App\ChatRooms::where('name', 'test')->first();
-//        if (!$room) {
-//            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
-//        }
-//        \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id, 'show_notif' => true]);
-//        \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id, 'show_notif' => true]);
-//        $this->json('GET', 'chat/notification_chat/' . $room->id )->seeJson([
-//            'status' => true,
-//        ]);
-//    }
+    public function testNotificationChat()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $room = \App\ChatRooms::where('name', 'test')->first();
+        if (!$room) {
+            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+        }
+        \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
+        \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
+        $this->json('GET', 'chat/notification/' . $room->id )->seeJson([
+            'status' => true,
+        ]);
+    }
 
     public function testCorrespondenceDelete()
     {
@@ -136,8 +136,7 @@ class ChatTest extends TestCase
         $message = \App\Message::create(['text' => 'test', 'user_id' => $user2->id]);
         $message2 = \App\Message::create(['text' => 'test2', 'user_id' => $user->id]);
         $message3 = \App\Message::create(['text' => 'test3', 'user_id' => $user2->id]);
-        \App\UserRoomsMessage::create(['room->id' => $room->id, 'message_id' => $message2->id]);
-       // \App\DeleteMessage::create(['user_id' => $user->id, 'room_id' => $room->id, 'message_id' => ]);
+        \App\UserRoomsMessage::create(['room_id' => $room->id, 'message_id' => $message2->id]);
 
         $this->json('GET', 'chat/correspondence_delete/' . $room->id )->seeJson([
             'status' => true,
