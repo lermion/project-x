@@ -76,6 +76,9 @@
                 url: '/group/:groupId/pub/:pubId',
                 templateUrl: '../app/Groups/views/popup-view-group-publication.html',
                 controller: 'groupsCtrl'
+            })
+            .state("Modal.confirmAddToCart", {
+                templateUrl: "modals/confirm.html"
             });
     }
 

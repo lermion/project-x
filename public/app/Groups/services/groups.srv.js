@@ -14,6 +14,7 @@
             getGroupList: getGroupList,
             getGroup: getGroup,
             getPublications: getPublications,
+            getCounterNewGroups: getCounterNewGroups,
             addGroup: addGroup,
             addPublication: addPublication,
             updateGroup: updateGroup,
@@ -87,6 +88,27 @@
 
             function getPublicationsFailed(error) {
                 console.error('XHR Failed for getPublications. ' + error.data);
+            }
+        }
+
+        function getCounterNewGroups(groupId, users) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/counter_new_group',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getCounterNewGroupsComplete)
+                .catch(getCounterNewGroupsFailed);
+
+            function getCounterNewGroupsComplete(response) {
+                return response.data;
+            }
+
+            function getCounterNewGroupsFailed(error) {
+                console.error('XHR Failed for getCounterNewGroups. ' + error.data);
             }
         }
 
