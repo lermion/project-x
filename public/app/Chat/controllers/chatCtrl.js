@@ -386,11 +386,13 @@ angular.module('placePeopleApp')
 				// 	$scope.Model.Chat.push(response);				
 			});
 
-			$scope.Model.sendOnEnter = function(event, message, room_id){						
-				if (event.keyCode == 13 && !$scope.Model.displayBlockedBlock) {
+			$scope.Model.sendOnEnter = function(event, message, room_id){
+				if (event.keyCode == 13) {
 					event.preventDefault();
-					$scope.Model.sendMes(message, room_id);					
-				}
+					if (!$scope.Model.displayBlockedBlock) {					
+						$scope.Model.sendMes(message, room_id);					
+					}
+				}			
 			};
 
 			$scope.Model.getTime = function(time){
@@ -517,8 +519,7 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){	
-			console.log(chat.room_id);						
+			$scope.Model.saveNotificationSettings = function(chat){			
 				ChatService.setNotification(chat.room_id)
 					.then(function(response){						
 						console.log(response);						                     
@@ -526,6 +527,35 @@ angular.module('placePeopleApp')
 					function(error){
 						console.log(error);
 					});				
+			};
+
+			$scope.checkMessageType = function(message){						
+				var regExp = /^http:\/\/pp.dev\/#\/(\w+)\/pub(lication)?\/(\d+)$/;
+				var match = regExp.exec(message.text);
+				if (match) {
+					message.type = 'pub';
+					message.pub = {};
+					message.pub.username = match[1];					
+					message.pub.id = parseInt(match[3]);
+				}				
+				console.log(message.pub);
+			};
+
+			$scope.loadPubIntoChat = function(message, pubId){
+				// console.log(pubId);
+				PublicationService.getSinglePublication(pubId)
+					.then(function(response){						
+							console.log(response);
+							message.pub = response;
+						},
+						function(error){
+							console.log(error);
+						});
+			};
+
+			$scope.getPubText = function(text){
+				var mes = text.split(' messagetext: ');
+				return mes[1];
 			};
 
 			
