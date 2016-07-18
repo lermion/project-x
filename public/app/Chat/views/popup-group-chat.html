@@ -59,14 +59,14 @@
                 <ul class="item1">                    
                     <p>Подписки</p>
                     <li ng-repeat="user in Model.subscriptions | searchFor:searchString">
-                        <img ng-src="{{user.avatar_path}}">
+                        <img ng-src="{{user.avatar_path ? user.avatar_path  : '/images/user.png'}}">
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
                         <span class="group-add-item1-user-plus" ng-click="Model.onItemSelected(user)">
                         <img src="/images/add.png" alt=""></span>
                     </li>
                     <p>Подписчики</p>
                     <li ng-repeat="user in Model.subscribers | searchFor:searchString">
-                        <img ng-src="{{user.avatar_path}}">
+                        <img ng-src="{{user.avatar_path ? user.avatar_path : '/images/user.png'}}">
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
                         <span class="group-add-item1-user-plus" ng-click="Model.onItemSelected(user)">
                         <img src="/images/add.png" alt=""></span>
@@ -78,7 +78,7 @@
                 <div class="item1 add-people">
                     <ul>
                         <li ng-repeat="user in Model.newGroupChat.users">
-                            <img ng-src="{{user.avatar_path}}">
+                            <img ng-src="{{user.avatar_path ? user.avatar_path : '/images/user.png'}}">
                             <p>{{::user.first_name}} {{::user.last_name}}</p>
                             <span class="add-people-delete" ng-click="Model.removeUser($index)">&#10006;</span>         
                         </li>

@@ -15,17 +15,17 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
+			if(data.room_id === socket.room){
+				var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+				socket.room = GLOBAL.rooms[indexRooms];
+				socket.join(GLOBAL.rooms[indexRooms]);
+				socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
+				data.created_at = new Date();
+				data.updated_at = new Date();
+			}else{
+				socket.emit("switchRoom", data.room_id);
+			}
 			if(response.length >= 1){
-				if(data.room_id === socket.room){
-					var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-					socket.room = GLOBAL.rooms[indexRooms];
-					socket.join(GLOBAL.rooms[indexRooms]);
-					socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
-					data.created_at = new Date();
-					data.updated_at = new Date();
-				}else{
-					socket.emit("switchRoom", data.room_id);
-				}
 				queries.getUserDialogue(data).then(function(response){
 					socket.emit('send message', response);
 				},
@@ -107,6 +107,16 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
+		if(data.room_id === socket.room){
+			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+			socket.room = GLOBAL.rooms[indexRooms];
+			socket.join(GLOBAL.rooms[indexRooms]);
+			socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
+			data.created_at = new Date();
+			data.updated_at = new Date();
+		}else{
+			socket.emit("switchRoom", data.room_id);
+		}
 		queries.sendMessage(data).then(function(response){
 			queries.getUserDialogue(data).then(function(response){
 				io.sockets.in(socket.room).emit('updatechat', response);

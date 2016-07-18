@@ -56,11 +56,12 @@ class UserController extends Controller
         $user = User::find($id);
         $offset = 0;
         $limit = 10;
-        dd($user->getPublication($offset,$limit,$userId = $user->id ));
-        return $user->publications()->getMainPublication($offset,$limit,$userId = $user->id );
-        //       $publications = Publication::getMainPublication($offset,$limit,$userId = $user->id );
-//        return view('admin.user.show',['user'=> $user, 'publications' => $publications]);
-//        return view('admin.user.show')->with('user', $user);
+        $user->getSubscription($id)->toArray() ? $user->subscription = $user->getSubscription($id) : $user->subscription = false;
+        $user->getSubscribers($id)->toArray() ? $user->subscribers = $user->getSubscribers($id) : $user->subscribers = false;
+        $user->getPublication($id)->toArray() ? $user->publications = $user->getPublication($id) : $user->publications = false;
+        User::find($user->id)->groups()->where(['group_users.user_id'=>$user->id,'group_users.is_creator'=>true])->get()->toArray() ? $user->groups = User::find($user->id)->groups()->where(['group_users.user_id'=>$user->id,'group_users.is_creator'=>true])->get()->toArray() : $user->groups = false;
+        User::find($user->id)->places()->where(['place_users.user_id'=>$user->id,'place_users.is_creator'=>true])->get()->toArray() ? $user->places = User::find($user->id)->places()->where(['place_users.user_id'=>$user->id,'place_users.is_creator'=>true])->get()->toArray() : $user->places = false;
+        return view('admin.user.show')->with('user', $user);
     }
 
     /**

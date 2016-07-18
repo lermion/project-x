@@ -2,22 +2,22 @@
     <div class="chat-right-top-person">
     <a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')"></a>
 	    <div class="chat-top-person-data">	
-	    	<div class="chat-person-top-ava">
+	    	<div class="chat-person-top-ava">	    		
 	    		<a ui-sref="user({username: Model.opponent.login})">
-	    			<img ng-src="{{Model.opponent.avatar_path}}" alt="">
+	    			<img ng-src="{{!Model.opponent.is_group ? Model.opponent.avatar_path ? Model.opponent.avatar_path : '/images/user.png' : Model.opponent.avatar ? Model.opponent.avatar : '/images/user.png'}}" alt="">
 	    		</a>
-	    	</div>
+	    	</div>	    	
 	    	<div class="chat-person-top-info">
-	    		<p class="top-person-name">{{Model.opponent.first_name + ' ' + Model.opponent.last_name}}</p>
-	    		<p class="top-person-status">{{Model.opponent.is_online ? 'Подключен':'Отключен'}}</p>
+	    		<p class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</p>
+	    		<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'Подключен':'Отключен'}}</p>
 	    	</div>
 	    </div>
 	    	<div class="user-menu-top" ng-click="showTopChatMenu=!showTopChatMenu">
 				<div class="user-menu-top-do" ng-show="showTopChatMenu">
 					<div class="user-menu-top-inner">			
 						<a href="javascript:void(0);" ng-click="Model.showContactData(Model.opponent)">О контакте</a>
-						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent)">Очистить чат</a>
-						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent)">Удалить чат</a>
+						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent.room_id)">Очистить чат</a>
+						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent.room_id)">Удалить чат</a>
 					</div>
 				</div>
 			</div>
@@ -27,6 +27,8 @@
     	<div class="chat-message-date">
     		<span>Вчера</span>
     	</div>
+
+    	<!-- <p>{{Model.opponent | json}}</p> -->
 
     	<!-- <div class="my-msg-wrap">
 	    	<div class="right-chat-my-msg">
