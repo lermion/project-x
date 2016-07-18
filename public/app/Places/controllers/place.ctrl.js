@@ -5,11 +5,11 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope'];
+    PlaceCtrl.$inject = ['$scope', 'storageService', '$http', '$window'];
 
-    function PlaceCtrl($scope) {
+    function PlaceCtrl($scope, storageService, $http, $window) {
 
-        //var vm = this;
+        var vm = this;
         //var storage = storageService.getStorage();
         //
         //var myId = +storage.userId;

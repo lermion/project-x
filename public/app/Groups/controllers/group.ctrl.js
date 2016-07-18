@@ -403,6 +403,16 @@
             }
         };
 
+        vm.addPublicationLike = function(pub){
+            PublicationService.addPublicationLike(pub.id).then(function(response){
+                    pub.user_like = response.user_like;
+                    pub.like_count = response.like_count;
+                },
+                function(error){
+                    console.log(error);
+                });
+        };
+
 
         function getSubscribers() {
             return UserService.getSubscribers(myId)
