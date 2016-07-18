@@ -5809,7 +5809,6 @@ input.cmn-toggle-round:checked + label:after {
   position: absolute;
   width: 220px;
   height: 220px;
-  background-color: red;
   z-index: 2;
   left: -240px;
   top: 7px;
@@ -5817,8 +5816,25 @@ input.cmn-toggle-round:checked + label:after {
 .places-place-menu-avatar a {
   width: 100%;
   height: 100%;
+  position: relative;
 }
-
+.places-place-menu-avatar a img {
+  width: 100%;
+  height: 100%;
+}
+.places-place-menu-avatar p {
+  position: absolute;
+  bottom: 0;
+  color: rgb(233,233,233);
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  font-family: "SFUIDisplayLight";
+  cursor: pointer;
+  left: 25px;
+}
 
 #user-page .photo a img, .groups-content .group-ava img, .group-publication .photo a img {
     max-width: 100%;
