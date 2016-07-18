@@ -5935,9 +5935,6 @@ input.cmn-toggle-round:checked + label:after {
   cursor: pointer;
 }
 
-.public header .main-menu .places {
-  position: relative;
-}
 .places-count-span {
   background-color: red;
   border-radius: 50%;
