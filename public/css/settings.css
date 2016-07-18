@@ -5525,7 +5525,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 
 .public header .main-menu {
-    width: 52%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -5933,4 +5933,13 @@ input.cmn-toggle-round:checked + label:after {
 .places-comments-sigh-span {
   line-height: 35px;
   cursor: pointer;
+}
+
+.public header .main-menu .places {
+  position: relative;
+}
+.places-count-span {
+  background-color: red;
+  border-radius: 50%;
+  font-size: 10.6px;
 }
