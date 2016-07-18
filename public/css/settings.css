@@ -4072,7 +4072,10 @@ span.users-today-time-time.early {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  align-content: flex-start;
   box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%;
 }
 .chat-menu-wrap-inner {
   width: 100%;
