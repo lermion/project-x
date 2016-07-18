@@ -41,7 +41,8 @@ class GroupController extends Controller
 
     public function adminGroup()
     {
-        return Group::join('group_users','group_users.group_id','=','groups.id')->where(['group_users.user_id'=>Auth::id(),'is_admin'=>true])->get();
+        //return Group::join('group_users','group_users.group_id','=','groups.id')->where(['group_users.user_id'=>Auth::id(),'is_admin'=>true])->get();
+        return User::find(Auth::id())->groups()->where(['group_users.user_id'=>Auth::id(),'group_users.is_admin'=>true])->get();
     }
     /**
      * Store a newly created resource in storage.
