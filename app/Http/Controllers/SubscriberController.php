@@ -99,7 +99,8 @@ class SubscriberController extends Controller
                     } else {
                         $sub->is_lock = false;
                     }
-                    $sub->room_id = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [$sub->id, $id]);
+                    $room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [$sub->id, $id]);
+                    $sub->room_id = $room[0]->room_id;
                 }
             }
             return $subscription;
@@ -129,7 +130,8 @@ class SubscriberController extends Controller
                     } else {
                         $sub->is_lock = false;
                     }
-                    $sub->room_id = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [$sub->id, $id]);
+                    $room = DB::select('SELECT `room_id` FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`=?) AND `user_id` = ?', [$sub->id, $id]);
+                    $sub->room_id = $room[0]->room_id;
                 }
             }
             return $subscribers;

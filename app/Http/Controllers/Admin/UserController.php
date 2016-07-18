@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+//use App\Publication;
 use App\BlackList;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,8 +56,11 @@ class UserController extends Controller
         $user = User::find($id);
         $offset = 0;
         $limit = 10;
-        return view('admin.user.show')->with('user', $user);
-        return Publication::getMainPublication($offset,$limit,$userId = $user->id );
+        dd($user->publications());
+        return $user->publications();
+ //       $publications = Publication::getMainPublication($offset,$limit,$userId = $user->id );
+//        return view('admin.user.show',['user'=> $user, 'publications' => $publications]);
+//        return view('admin.user.show')->with('user', $user);
     }
 
     /**
