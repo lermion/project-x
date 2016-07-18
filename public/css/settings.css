@@ -5820,10 +5820,10 @@ input.cmn-toggle-round:checked + label:after {
 
 .places-place-menu-avatar {
   position: absolute;
-  width: 220px;
-  height: 220px;
+  width: 160px;
+  height: 160px;
   z-index: 2;
-  left: -240px;
+  left: -180px;
   top: 7px;
 }
 .places-place-menu-avatar a {
@@ -5839,14 +5839,15 @@ input.cmn-toggle-round:checked + label:after {
   position: absolute;
   bottom: 0;
   color: rgb(233,233,233);
-  width: 170px;
+  width: 135px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-overflow: ellipsis;
   font-family: "SFUIDisplayLight";
   cursor: pointer;
-  left: 25px;
+  left: 15px;
+  font-size: 12.6px;
 }
 
 #user-page .photo a img, .groups-content .group-ava img, .group-publication .photo a img {
