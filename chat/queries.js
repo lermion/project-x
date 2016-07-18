@@ -18,7 +18,16 @@ Queries.prototype.createRoom = function(data){
 			}
 		});
 	}else{
-		deferred.resolve([]);
+		var sql = "SELECT * FROM chat_rooms WHERE `id` = '" + data.room_id + "'";
+		connection.query(sql, function(error, results, fields){
+			if(error){
+				console.error("error select users from user_chats: " + error.stack);
+				deferred.reject(error);
+				return;
+			}else{
+				deferred.resolve(results);
+			}
+		});
 	}
 	return deferred.promise;
 }

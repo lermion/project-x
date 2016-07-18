@@ -15,8 +15,7 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
-			console.log(response);
-			if(response.length >= 1 && !data.is_group){
+			if(response.length >= 1){
 				if(data.room_id === socket.room){
 					var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 					socket.room = GLOBAL.rooms[indexRooms];
