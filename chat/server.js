@@ -68,8 +68,8 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
-							var socketId = usersId[response[0].id];
-							io.sockets.connected[socketId].emit("get user rooms", response);
+							//var socketId = usersId[response[0].id];
+							//io.sockets.connected[socketId].emit("get user rooms", response);
 							socket.emit("get user rooms", response);
 						},
 						function(error){
