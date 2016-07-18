@@ -27,9 +27,7 @@
     	<div class="chat-message-date">
     		<span>Вчера</span>
     	</div>
-
-    	<!-- <p>{{Model.opponent | json}}</p> -->
-
+    	
     	<!-- <div class="my-msg-wrap">
 	    	<div class="right-chat-my-msg">
 	    		<div class="right-chat-my-msg-inner">
@@ -67,10 +65,9 @@
     		<span>Вчера</span>
     	</div> -->
 
-
-
-    	<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom()">
-	    	<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'">
+		<div ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
+    	<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
+	    	<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
 	    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
 	    			<div ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'">{{message.text}}</div>
 	    			<!-- <div class="to-my-msg-inner-photo">
@@ -91,23 +88,24 @@
 	    	</div>
     	</div>
 
-    	<!-- <div class="chat-right-inner-publication-my">
+    	<div class="chat-right-inner-publication-my" ng-show="message.type==='pub'" ng-init="loadPubIntoChat(message, message.pub.id)">
     		<div class="chat-publication-wrap">
     			<div class="chat-publication-data">
     				<div class="chat-right-top-person my-msg">
 					    <div class="chat-top-person-data">	
 					    	<div class="chat-person-top-ava">
-					    		<a>
-					    			<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+					    		<a ui-sref="user({username: message.pub.user.login})">
+					    			<img ng-src="{{message.pub.user.avatar_path}}" alt="">
 					    		</a>
 					    	</div>
 					    	<div class="chat-person-top-info">
-					    		<p class="top-person-name">Виталий</p>
-					    		<p class="top-person-status"><span>Вчера,</span><span>17:31</span></p>
+					    		<p class="top-person-name">{{message.pub.user.first_name}}</p>
+					    		<!-- <p class="top-person-status"><span>Вчера,</span><span>17:31</span></p> -->
+					    		<p class="top-person-status"><span am-time-ago="message.pub.created_at"></span></p>
 					    	</div>
 					    </div>
-					    	<div class="user-menu-top">
-								<div class="user-menu-top-do chat-in" style="display:block">
+					    	<div class="user-menu-top" ng-click="message.showPubMenu=!message.showPubMenu">
+								<div class="user-menu-top-do chat-in" ng-show="message.showPubMenu">
 									<div class="user-menu-top-inner chat-in">			
 										<a>Переслать</a>
 										<a href="">Получить ссылку</a>
@@ -117,7 +115,7 @@
 							</div>
 				    </div>
     			</div>
-    			<div class="chat-publication-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum, accusantium non accusamus, temporibus labore, obcaecati incidunt ea, facilis rem aperiam sed sapiente eius quas tenetur. Corporis et sunt velit.Lorem ipsum dolor</div>
+    			<div class="chat-publication-description">{{getPubText(message.pub.text)}}</div>
     			<div class="chat-publication-adress">
     				<span class="publication-adress-span">Школа №209, </span>
     				<span> г. Санкт-Петербург</span>
@@ -135,7 +133,9 @@
     				</div>
     			</div>
     		</div>
-    	</div> -->
+    	</div>
+
+    	</div> <!-- Message Repeat -->
 
     	<!-- <div class="chat-right-inner-publication-to-my">
     		<div class="chat-publication-wrap to-my-msg">
