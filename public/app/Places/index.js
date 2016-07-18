@@ -16,6 +16,42 @@
                 controller: 'PlacesCtrl',
                 controllerAs: 'vm'
             })
+            .state('place', {
+                url: '/place/:placeName',
+                templateUrl: '../../app/Places/views/place.html',
+                controller: 'PlaceCtrl',
+                controllerAs: 'vm'
+                //params: {
+                //    groupId: null
+                //},
+                //resolve: {
+                //    group: ['groupsService', '$stateParams', '$q', 'ngDialog', function (groupsService, $stateParams, $q, ngDialog) {
+                //        var deferred = $q.defer();
+                //        var group;
+                //        groupsService.getGroup($stateParams.groupName)
+                //            .then(function (data) {
+                //                if (!data) {
+                //                    deferred.reject();
+                //                    ngDialog.open({
+                //                        template: '../app/Groups/views/popup-notfound-group.html',
+                //                        name: 'modal-notfound-group',
+                //                        className: 'popup-delete-group ngdialog-theme-default'
+                //                    });
+                //                } else {
+                //                    groupsService.getPublications(data.id)
+                //                        .then(function (publications) {
+                //                            if (publications) {
+                //                                data.publications = publications;
+                //                            }
+                //                            deferred.resolve(data);
+                //                        });
+                //
+                //                }
+                //            });
+                //        return deferred.promise;
+                //    }]
+                //}
+            })
             .state('places.add', {
                 url: '/add',
                 templateUrl: '../../app/Places/views/places-presets.html'

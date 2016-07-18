@@ -12,7 +12,7 @@
                         <div class="menu-item" ng-show="showMenu">
                             <a class="profile" ui-sref="user({username: userName})">Мой профиль</a>
                             <a class="places" ui-sref="places">Места</a>
-                            <a class="main-header-group">Группы</a>
+                            <a class="main-header-group" ui-sref="groups">Группы</a>
                             <a class="chat" ui-sref="chat"> Чаты</a>
                             <a class="settings" ui-sref="settings">Настройки</a>
 
@@ -33,7 +33,7 @@
             <!-- Content -->
             <div class="groups-content">
                 <div class="groups-header">
-                    <a class="public-groups" href="">Публичные группы</a>
+                    <!-- <a class="public-groups" href="">Публичные группы</a> -->
                     <a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную
                         группу</a>
                 </div>

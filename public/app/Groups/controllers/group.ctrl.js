@@ -389,6 +389,20 @@
             });
         };
 
+        vm.changeMainFile = function (file, flag, pub) {
+            if (file.pivot.video_id) {
+                vm.mainImage = "";
+                vm.mainVideo = file.url;
+            } else if (file.pivot.image_id) {
+                if (flag) {
+                    vm.mainImageInPopup = file.url;
+                } else {
+                    vm.mainVideo = "";
+                    vm.mainImage = file.url;
+                }
+            }
+        };
+
 
         function getSubscribers() {
             return UserService.getSubscribers(myId)
@@ -401,7 +415,7 @@
             return PublicationService.getSinglePublication(id)
                 .then(function (data) {
                     vm.activePublication = data;
-                    if(data.images[0] !== undefined){
+                    if (data.images[0] !== undefined) {
                         vm.mainImage = data.images[0].url;
                     }
                 });
