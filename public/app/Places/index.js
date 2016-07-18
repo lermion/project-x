@@ -52,6 +52,22 @@
                 //    }]
                 //}
             })
+            .state('place.publications', {
+                url: '/publications',
+                templateUrl: '../../app/Places/views/place-publications.html'
+            })
+            .state('place.chat', {
+                url: '/chat',
+                templateUrl: '../../app/Places/views/place-chat.html'
+            })
+            .state('place.people', {
+                url: '/people',
+                templateUrl: '../../app/Places/views/place-people.html'
+            })
+            .state('place.files', {
+                url: '/files',
+                templateUrl: '../../app/Places/views/place-files.html'
+            })
             .state('places.add', {
                 url: '/add',
                 templateUrl: '../../app/Places/views/places-presets.html'
