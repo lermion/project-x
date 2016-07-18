@@ -26,7 +26,7 @@
 
 	<div class="user-publication-content">
 		<div class="publication-ava">
-			<img ng-if="vm.mainImage" ng-src="{{::vm.mainImage}}">
+			<img ng-if="vm.mainImage" ng-src="{{vm.mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 		</div>
 		<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:175px; overflow:hidden; position:relative;" ng-hide="vm.activePublication.images.length === 1">
@@ -41,12 +41,12 @@
 			</div>
 
 		</div>
-		<p class="publication-text" ng-bind-html="splitText(vm.activePublication.text) | colonToSmiley"></p>
+		<p class="publication-text" ng-bind-html="vm.activePublication.text | colonToSmiley"></p>
 	</div>
 
 	<div class="likes">
 		<div class="likes-item">
-			<a href="javascript:void(0);" ng-click="addPublicationLike(vm.activePublication, vm.activePublication.user.id == loggedUserId)" class="like">Тема</a>
+			<a ng-click="vm.addPublicationLike(vm.activePublication, vm.activePublication.user.id == loggedUserId)" class="like">Тема</a>
 			<p class="like-item">
 				В теме
 				<span ng-show="vm.activePublication.user_like" class="you"> Вы </span>
@@ -61,7 +61,7 @@
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('feedPage', vm.activePublication, true)" class="all-comments">Еще {{vm.activePublication.comment_count - 3}} комментариев</a>
 	</div>
 
-	<div ng-hide="vm.activePublication.comments.length === 0" class="visible-comments">
+	<div class="visible-comments" ng-hide="vm.activePublication.comments.length === 0">
 		<div ng-repeat="comment in vm.activePublication.comments" class="user-comment">
 			<div class="user-ava">
 				<a class="ava" ui-sref="user({username: comment.user.login})"  ng-click="closePopup()">
@@ -93,15 +93,14 @@
 
 	<div class="add-comment">
 		<div class="user-ava">
-			<a class="ava" ui-sref="user({username: loggedUser})" ng-click="closePopup()">
-				<img ng-src="{{userData.avatar_path}}" alt="">
+			<a class="ava" ui-sref="user({username: vm.userName})" ng-click="closePopup()">
+				<img ng-src="{{::vm.myAvatar}}" alt="My Avatar">
 			</a>
 		</div>
 		<div flow-init style="position:relative;" class="add">
 			<div class="text-field">
-				<!-- <textarea name="" id="" placeholder="Текст комментария..." ng-model="commentModel.pubText"></textarea> -->
-				<div emoji-form emoji-message="emojiMessage">
-					<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+				<div emoji-form emoji-message="vm.emoji.emojiMessage">
+					<textarea id="messageInput" ng-model="vm.emoji.emojiMessage.messagetext"></textarea>
 					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
 						<i class="icon icon-emoji"></i>
 					</a>
@@ -121,7 +120,7 @@
 					<p class="img-name">{{file.name}}</p>
 				</div>
 			</div>
-			{{commentModel.pubText}}
+			{{vm.commentModel.pubText}}
 			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-popup-'+vm.activePublication.id">
 				<div class="publication-footer-button">
 					<button ng-disabled="disableAddComment" ng-click="addNewComment('feedPage', vm.activePublication, emojiMessage, vm.activePublication.files)" class="publication-button">Отправить</button>
