@@ -1,1 +1,120 @@
-1
+<div style="min-height: 100%;">
+    <div class="user-main-content">
+        <div class="user-main-content-item">
+            <header>
+                <div class="header header-user">
+                    <a class="logo" ui-sref="feed"></a>
+
+                    <div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''"
+                         ng-init="showMenu=true;">
+                        <a class="drop-menu" href=""></a>
+
+                        <div class="menu-item" ng-show="showMenu">
+                            <a class="profile" ui-sref="user({username: vm.userName})">Мой профиль</a>
+                            <a class="places" ui-sref="places">Места</a>
+                            <a class="main-header-group" ui-sref="groups">Группы</a>
+                            <a class="chat" ui-sref="chat"> Чаты</a>
+                            <a class="settings" ui-sref="settings">Настройки</a>
+
+                            <div class="search">
+                                <input type="text" placeholder="Поиск...">
+                                <span class="button"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search main-header-search">
+                        <!-- <input type="text" placeholder="Поиск...">
+                        <span class="button"></span> -->
+                    </div>
+                    <a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
+                </div>
+            </header>
+
+            <!-- Content -->
+
+            <div class="group-page">
+                <div class="group-ava">
+                    <a href="" class="ava">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
+                    </a>
+
+                    <div class="group-likes">
+                        <div class="group-info">
+                            <a href="" class="publication-place">Елена Новикова</a>
+                            <a href="" class="publication-place" ng-bind-html="vm.group.description | colonToSmiley"></a>
+
+
+                            <p class="like-item">
+                                В теме
+                                <span class="count-like">{{vm.group.count_users}}</span>
+                                чел.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-menu">
+                    <div class="group-menu-item">
+                        <div class="counts">
+                            <a ui-sref="group.publications" ui-sref-active="active" class="counter">
+                                <p>Публикации</p>
+                                <span>{{::vm.group.count_publications}}</span>
+                            </a>
+                            <a ui-sref="group.chat" ui-sref-active="active" class="counter">
+                                <p>Чат</p>
+                                <span>{{::vm.group.count_publications}}</span>
+                            </a>
+                            <a ui-sref="group.people" ui-sref-active="active" class="counter">
+                                <p>Люди</p>
+                                <span>{{vm.group.count_users}}</span>
+                            </a>
+                            <a ui-sref="group.files" ui-sref-active="active" class="counter">
+                                <p>Файлы</p>
+                                <span>858</span>
+                            </a>
+
+                            <div class="user-menu" ng-if="vm.group.is_admin"
+                                 ng-click="vm.showGroupMenu=!vm.showGroupMenu">
+                                <div class="menu-item" ng-if="vm.showGroupMenu">
+                                    <div class="inner">
+                                        <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
+                                        <a href="" ng-click="vm.openModalEditGroup()">Редактировать</a>
+                                        <a href="" ng-click="vm.openModalInviteUsers()">Пригласить</a>
+                                        <a href="" ng-if="vm.group.is_creator" ng-click="vm.openModalDeleteGroup()">Удалить</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
+                    <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+                </div>
+                <div class="group-header"></div>
+
+                <div ui-view></div>
+            </div>
+
+            <footer>
+                <div class="footer">
+                    <div class="footer-item">
+                        <div class="footer-place">
+                            <a href="">Place People </a>
+                            <span>© 2016</span>
+                        </div>
+                        <div class="payment">
+                            <a class="mastercard" href=""></a>
+                            <a class="visa" href=""></a>
+                        </div>
+                    </div>
+                    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''"
+                         ng-init="showBottomMenu=true;">
+                        <a class="drop-menu" href=""></a>
+
+                        <div class="menu-item" ng-show="showBottomMenu">
+                            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
