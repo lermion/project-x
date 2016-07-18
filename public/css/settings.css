@@ -5904,3 +5904,17 @@ input.cmn-toggle-round:checked + label:after {
     height: 190px;
   }
 }
+
+
+@media (max-width: 390px) {
+  .places-item-rating-like {
+    padding-left: 25px;
+    background-size: 18%;
+  }
+  .places-item-rating-link {
+    
+    background-size: 35%;
+    padding-right: 15px;
+    background-position: right 5px center;
+  }
+}
