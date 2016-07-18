@@ -265,7 +265,8 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.openChatWith = function(chat, roomId){				
+			$scope.Model.openChatWith = function(chat, roomId){	
+			// console.log(chat);			
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -316,12 +317,15 @@ angular.module('placePeopleApp')
 				socket.emit("switchRoom", newroom);
 			});
 			
-			$scope.Model.sendMes = function(message, roomId){				
+			$scope.Model.sendMes = function(message, roomId){
+			console.log(message, roomId);				
 				if (!roomId) {									
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-								roomId = $scope.Model.chatRooms[i].room_id;
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
 							}
 						}
 					}
@@ -358,7 +362,7 @@ angular.module('placePeopleApp')
 			});
 
 			$scope.Model.sendOnEnter = function(event, message, room_id){						
-				if (event.keyCode == 13) {
+				if (event.keyCode == 13 && !$scope.Model.displayBlockedBlock) {
 					event.preventDefault();
 					$scope.Model.sendMes(message, room_id);					
 				}
@@ -453,10 +457,13 @@ angular.module('placePeopleApp')
 					status: statusToSave,
 					avatar: avatar,
 					members: users
-				};					
-				console.log(data);	
+				};				
 				socket.emit('create room', data);
-				newGroupChatPopup.close();				
+				newGroupChatPopup.close();
+				$scope.Model.displayChatBlock = false;
+				$scope.Model.displayContactBlock = false;
+				$scope.Model.displayNotificationBlock = false;
+				$state.go('chat.list');				
 			};
 
 			$scope.Model.onItemSelected = function(user){				
@@ -485,7 +492,8 @@ angular.module('placePeopleApp')
 				$scope.Model.newGroupChat.users.splice(index, 1);
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){							
+			$scope.Model.saveNotificationSettings = function(chat){	
+			console.log(chat.room_id);						
 				ChatService.setNotification(chat.room_id)
 					.then(function(response){						
 						console.log(response);						                     

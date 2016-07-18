@@ -1,7 +1,7 @@
 <div class="chat-contact-right-selected">
 	<a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="refTo('chat.contacts')"></a>	    	
 	<div class="chat-contact-selected-ava">
-		<img ng-src="{{Model.contact.avatar_path}}" alt="">
+		<img ng-src="{{Model.contact.avatar_path ? Model.contact.avatar_path : '/images/user.png'}}" alt="">
 	</div>
 	<div class="chat-contact-selected-data">
 		<div class="contact-selected-data-name">{{Model.contact.first_name + ' ' + Model.contact.last_name}}</div>
