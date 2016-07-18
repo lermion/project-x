@@ -300,7 +300,7 @@ angular.module('placePeopleApp')
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
-				
+
 				socket.emit('create room', data);
 
 				if ($window.innerWidth <= 768) {					
@@ -316,8 +316,8 @@ angular.module('placePeopleApp')
 				socket.emit("switchRoom", newroom);
 			});
 			
-			$scope.Model.sendMes = function(message, roomId){
-				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+			$scope.Model.sendMes = function(message, roomId){				
+				if (!roomId) {									
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
 							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
@@ -332,7 +332,8 @@ angular.module('placePeopleApp')
 					message: message
 				}				
 				$scope.Model.chatMes = '';
-				// console.log(data);
+				console.log('send message:');
+				console.log(data);
 				socket.emit('send message', data);				
 			};	
 
@@ -346,11 +347,12 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
+				console.log('updatechat:');				
 				console.log(data);				
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){
-				console.log(response);				
+				// console.log(response);				
 				$scope.Model.Chat = response;				
 				// 	$scope.Model.Chat.push(response);				
 			});
