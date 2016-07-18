@@ -4072,7 +4072,10 @@ span.users-today-time-time.early {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  align-content: flex-start;
   box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%;
 }
 .chat-menu-wrap-inner {
   width: 100%;
@@ -5643,6 +5646,12 @@ input.cmn-toggle-round:checked + label:after {
   .create-places-header-a {
     font-size: .9em;
   }
+  .create-places-add-cover-button-create {
+    padding: 0 2px;
+  }
+  .create-places-add-cover-img span {
+    margin-left: 5px;
+  }
   .create-places-description,
   .select-country-name select,
   .street-on-map,
@@ -5656,8 +5665,8 @@ input.cmn-toggle-round:checked + label:after {
     line-height: 20px;
   }
   .create-places-add-cover-img a {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 
 
@@ -5814,10 +5823,10 @@ input.cmn-toggle-round:checked + label:after {
 
 .places-place-menu-avatar {
   position: absolute;
-  width: 220px;
-  height: 220px;
+  width: 160px;
+  height: 160px;
   z-index: 2;
-  left: -240px;
+  left: -180px;
   top: 7px;
 }
 .places-place-menu-avatar a {
@@ -5833,14 +5842,15 @@ input.cmn-toggle-round:checked + label:after {
   position: absolute;
   bottom: 0;
   color: rgb(233,233,233);
-  width: 170px;
+  width: 135px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-overflow: ellipsis;
   font-family: "SFUIDisplayLight";
   cursor: pointer;
-  left: 25px;
+  left: 15px;
+  font-size: 12.6px;
 }
 
 #user-page .photo a img, .groups-content .group-ava img, .group-publication .photo a img {
@@ -5936,11 +5946,11 @@ input.cmn-toggle-round:checked + label:after {
 }
 
 .places-count-span {
-  background-color: red;
-  border-radius: 50%;
-  font-size: 10.6px;
+    background-color: #ec8e45;
+    border-radius: 50%;
+    font-size: 10.6px;
+    padding: 2px;
 }
-
 .item1.add-people.add-people-right {
   max-height: 716px;
 }
