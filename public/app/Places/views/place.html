@@ -32,15 +32,15 @@
 
             <!-- Content -->
 
-            <div class="group-page">
+            <div class="place-top-ava-wrap">
                 <div class="group-ava">
                     <a href="" class="ava">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
+                        <img src="http://www.meh.ro/wp-content/uploads/2016/02/meh.ro12348_1.jpg" alt="">
                     </a>
 
                     <div class="group-likes">
                         <div class="group-info">
-                            <a href="" class="publication-place">Елена Новикова</a>
+                            <a href="" class="publication-place publication-place-img1">Московский государственный университет (МГУ)</a>
                             <a href="" class="publication-place" ng-bind-html="vm.group.description | colonToSmiley"></a>
 
 
@@ -52,8 +52,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="place-menu-wrap">
                 <div class="group-menu">
                     <div class="group-menu-item">
+                    <div class="places-place-menu-avatar">
+                        <a href="">
+                            <img src="http://www.meh.ro/wp-content/uploads/2016/02/meh.ro12348_1.jpg" alt="">
+                        </a>
+                        <p>Московский государственный университет (МГУ)</p>
+                    </div>
                         <div class="counts">
                             <a ui-sref="place.publications" ui-sref-active="active" class="counter">
                                 <p>Публикации</p>
@@ -84,11 +93,19 @@
                                 </div>
                             </div>
                         </div>
+                        <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
+                        <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
                     </div>
-                    <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
-                    <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+                    
                 </div>
                 <div class="group-header"></div>
+            </div>
+
+
+
+            <div class="group-page">
+                
+
 
                 <div ui-view></div>
             </div>

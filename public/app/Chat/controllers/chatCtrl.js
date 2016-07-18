@@ -162,8 +162,26 @@ angular.module('placePeopleApp')
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			//TODO
-			$scope.Model.clearChat = function(user){
-				console.log(user);
+			$scope.Model.clearChat = function(chat){
+				var roomId;				
+				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+								roomId = $scope.Model.chatRooms[i].room_id;
+							}
+						}
+					}
+				}
+				ChatService.clearChat(roomId)
+					.then(function(res){
+						console.log(res);
+						if (res.status) {
+							$scope.Model.Chat = [];
+						}						
+					  }, function(err){
+						console.log(err);
+					  });
 			};
 			$scope.Model.deleteChat = function(user){				
 				ChatService.deleteChat(user.room_id)
@@ -199,8 +217,7 @@ angular.module('placePeopleApp')
 				loadUserContacts();
 			};
 
-			$scope.Model.showContactData = function(contact){
-				// console.log(contact);
+			$scope.Model.showContactData = function(contact){				
 				if ($state.current.name === 'chat.list') {
 					$scope.Model.showChatBlock = false;
 					$state.go('chat.contacts');
@@ -248,8 +265,7 @@ angular.module('placePeopleApp')
 						console.log(err);
 					  });
 			};
-			$scope.Model.openChatWith = function(chat, roomId){
-				console.log(chat, roomId);
+			$scope.Model.openChatWith = function(chat, roomId){				
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -260,11 +276,9 @@ angular.module('placePeopleApp')
 						$state.go('chat.list');
 					}
 				}
-
 				var data = {};
 				var members = [];
 				members.push($scope.loggedUserId);
-
 				if (chat.is_group) {
 					chat.members.forEach(function(member){
 						members.push(member.id);
@@ -282,15 +296,11 @@ angular.module('placePeopleApp')
 						is_group: false
 					};
 				}
-
-				console.log(chat.room_id);
-
 				$scope.Model.opponent = chat; 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
 
-				console.log(data);
 				socket.emit('create room', data);
 
 				if ($window.innerWidth <= 768) {					
@@ -298,19 +308,16 @@ angular.module('placePeopleApp')
 					$state.go('chat.mobile');
 				}
 			};			
-			socket.on("get user rooms", function(response){
-				console.log(response);
+			socket.on("get user rooms", function(response){				
 				$scope.Model.chatRooms = response;
 			});
 
 			socket.on('switchRoom', function(newroom){
 				socket.emit("switchRoom", newroom);
 			});
-
-			// $scope.Model.Chat = [];
 			
-			$scope.Model.sendMes = function(message, roomId){
-				if (isNaN(parseInt($scope.Model.opponent.room_id))) {					
+			$scope.Model.sendMes = function(message, roomId){				
+				if (!roomId) {									
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
 							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
@@ -325,7 +332,8 @@ angular.module('placePeopleApp')
 					message: message
 				}				
 				$scope.Model.chatMes = '';
-				// console.log(data);
+				console.log('send message:');
+				console.log(data);
 				socket.emit('send message', data);				
 			};	
 
@@ -339,11 +347,12 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
+				console.log('updatechat:');				
 				console.log(data);				
 				$scope.Model.Chat = data;
 			});
 			socket.on('send message', function(response){
-				console.log(response);				
+				// console.log(response);				
 				$scope.Model.Chat = response;				
 				// 	$scope.Model.Chat.push(response);				
 			});

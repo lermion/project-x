@@ -6,16 +6,29 @@ function Queries(){
 }
 Queries.prototype.createRoom = function(data){
 	var deferred = Q.defer();
-	var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` WHERE `user_id`='" + data.members[0] + "') AND `user_id` = '" + data.members[1] + "' GROUP BY room_id";
-	connection.query(sql, function(error, results, fields){
-		if(error){
-			console.error("error select users from user_chats: " + error.stack);
-			deferred.reject(error);
-			return;
-		}else{
-			deferred.resolve(results);
-		}
-	});
+	if(!data.is_group){
+		var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` INNER JOIN chat_rooms ON user_chats.room_id = chat_rooms.id AND chat_rooms.is_group = 0 WHERE `user_id`='" + data.members[0] + "') AND `user_id` = '" + data.members[1] + "' GROUP BY room_id";
+		connection.query(sql, function(error, results, fields){
+			if(error){
+				console.error("error select users from user_chats: " + error.stack);
+				deferred.reject(error);
+				return;
+			}else{
+				deferred.resolve(results);
+			}
+		});
+	}else{
+		var sql = "SELECT * FROM chat_rooms WHERE `id` = '" + data.room_id + "'";
+		connection.query(sql, function(error, results, fields){
+			if(error){
+				console.error("error select users from user_chats: " + error.stack);
+				deferred.reject(error);
+				return;
+			}else{
+				deferred.resolve(results);
+			}
+		});
+	}
 	return deferred.promise;
 }
 Queries.prototype.getUsers = function(data){

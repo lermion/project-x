@@ -5196,8 +5196,8 @@ input.cmn-toggle-round:checked + label:after {
 .places-item-photo-img {
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 .places-item-photo-place {
   width: 100%;
@@ -5209,12 +5209,13 @@ input.cmn-toggle-round:checked + label:after {
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-  text-shadow: 1px 1px 2px black;
+/*  text-shadow: 1px 1px 2px gray;*/
+  background: linear-gradient(transparent, rgba(0,0,0,1));
 }
 .places-item-photo-place span {
   margin-left: 10px;
   font-size: 14.6px;
-  font-family: "SFUIDisplayMedium";
+  font-family: "SFUIDisplayLight";
   color: rgb(247,247,247);
 }
 .places-item-description {
@@ -5672,4 +5673,172 @@ input.cmn-toggle-round:checked + label:after {
 
 .groups-content .groups-header {
     justify-content: flex-end;
+}
+
+
+
+
+
+.place-top-ava-wrap .group-ava {
+    height: 280px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+.place-top-ava-wrap .group-ava .ava {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.place-top-ava-wrap .group-ava .ava img {
+  width: 100%;
+  height: 100%;
+}
+.group-ava .group-likes {
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,.8));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px 10px 0;
+    /* opacity: 0; */
+    transition: all .3s ease-in-out .1s;
+}
+.group-ava .group-likes .group-info {
+    width: 700px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.group-ava .group-likes .group-info .publication-place.publication-place-img1 {
+    background-image: none;
+    padding-left: 30px;
+    background-image: url(/images/university.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+.group-ava .group-likes .group-info .publication-place {
+    background-image: none;
+    padding-left: 0;
+}
+.group-ava .group-likes .group-info .like-item {
+    display: block;
+    text-decoration: none;
+    margin: 5px 15px 10px 15px;
+    box-sizing: border-box;
+    padding-left: 25px;
+    color: #fff;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayLight";
+    line-height: 15px;
+    background-image: url(../images/like-hover.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: all .3s ease-in-out .1s;
+}
+
+
+
+.place-menu-wrap .group-menu {
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+}
+.group-menu .group-menu-item {
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.group-menu .group-menu-item .counts {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    align-items: stretch;
+}
+.place-menu-wrap button {
+    position: absolute;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    padding: 0 10px;
+    margin: 0;
+    line-height: 27px;
+    transition: all .3s ease-in-out .1s;
+    text-decoration: none;
+    color: #fff;
+    background: #495b79;
+    cursor: pointer;
+    top: 50%;
+    margin-top: -14px;
+    right: -130px;
+}
+.group-menu-item .counts .counter {
+    margin: 0 0;
+    border-bottom: 2px solid transparent;
+    transition: all .3s ease-in-out .1s;
+    font-size: 14px;
+    width: 25%;
+}
+.group-menu-item .counts .counter:hover,
+.group-menu-item .counts .counter.active {
+    border-bottom: 2px solid #495b79;
+}
+.place-menu-wrap {
+  border-bottom: 2px solid rgb(224,225,228)
+}
+
+
+.places-place-menu-avatar {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  z-index: 2;
+  left: -240px;
+  top: 7px;
+}
+.places-place-menu-avatar a {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.places-place-menu-avatar a img {
+  width: 100%;
+  height: 100%;
+}
+.places-place-menu-avatar p {
+  position: absolute;
+  bottom: 0;
+  color: rgb(233,233,233);
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  font-family: "SFUIDisplayLight";
+  cursor: pointer;
+  left: 25px;
+}
+
+#user-page .photo a img, .groups-content .group-ava img, .group-publication .photo a img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
 }
