@@ -56,9 +56,9 @@ class UserController extends Controller
         $user = User::find($id);
         $offset = 0;
         $limit = 10;
-        dd($user->publications());
-        return $user->publications();
- //       $publications = Publication::getMainPublication($offset,$limit,$userId = $user->id );
+        dd($user->getPublication($offset,$limit,$userId = $user->id ));
+        return $user->publications()->getMainPublication($offset,$limit,$userId = $user->id );
+        //       $publications = Publication::getMainPublication($offset,$limit,$userId = $user->id );
 //        return view('admin.user.show',['user'=> $user, 'publications' => $publications]);
 //        return view('admin.user.show')->with('user', $user);
     }
