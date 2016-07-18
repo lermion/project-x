@@ -12,7 +12,7 @@
                         <div class="menu-item" ng-show="showMenu">
                             <a class="profile" ui-sref="user({username: userName})">Мой профиль</a>
                             <a class="places" ui-sref="places">Места <span class="places-count-span">10</span></a>
-                            <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span">10</span></a>
+                            <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span">{{counters.groupsNew}}</span></a>
                             <a class="chat" ui-sref="chat"> Чаты <span class="places-count-span">10</span></a>
                             <a class="settings" ui-sref="settings">Настройки</a>
 
@@ -52,8 +52,9 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | filter: {'is_admin': true}:true | limitTo: limitMyGroups">
+                             ng-repeat="group in groupList | filter: showMyGroups | orderBy: '-created_at'| limitTo: limitMyGroups">
                             <div class="group-cover">
+                                <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
                                 <a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">
                                     <!--<img ng-src="{{group.avatar}}">-->
                                     <img ngf-src="group.avatar" ngf-as-background="true">
@@ -94,8 +95,9 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | limitTo: limitAllPublicGroups | orderBy:filterGroups.value">
+                             ng-repeat="group in groupList | orderBy:filterGroups.value | limitTo: limitAllPublicGroups">
                             <div class="group-cover">
+                                <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
                                 <a ui-sref="group({groupName: group.url_name})" class="group-ava">
                                     <img ng-src="{{group.avatar}}">
                                 </a>
@@ -110,7 +112,7 @@
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub">Подписаться</button>
+                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
                             <button class="wright" ng-if="group.is_sub">Вы подписаны</button>
                         </div>
                     </div>

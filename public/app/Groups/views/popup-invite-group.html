@@ -4,7 +4,7 @@
     <div class="invite-group__items">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul>
-            <li ng-repeat="user in vm.subscribers | searchFor:searchString"
+            <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
                 ng-click="vm.onItemSelected(user)">
                 <img ng-src="{{user.avatar_path}}">
 

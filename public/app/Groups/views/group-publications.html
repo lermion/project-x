@@ -1,8 +1,8 @@
 <div class="group-publication">
 	<div class="my-photos" ng-show="true">
 		<div class="photo" ng-repeat="item in vm.group.publications | orderBy: '-created_at'" style="{{resizeSizes}}">
-			<a href="" ng-click="vm.openModalReviewPublication(item.id)">
-				 <img ng-src="{{::item.images[0].url}}" alt="">
+			<a href="" ng-click="vm.openModalReviewPublication(item.id	)">
+				 <img ng-src="{{item.images[0].url}}" alt="">
 				<!-- <span class="video" ng-show="$index==0"></span> -->
 			</a>
 		</div>

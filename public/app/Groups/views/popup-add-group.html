@@ -67,6 +67,10 @@
             <div ng-message="required">Вы не указали название группы</div>
         </div>
 
+
+        <div ng-if="isGroupNameExist">
+            <p>Группа с таким названием уже существует!</p>
+        </div>
         <div class="button">
             <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
             <a href="" class="create" ng-click="addGroup()"> Создать группу</a>

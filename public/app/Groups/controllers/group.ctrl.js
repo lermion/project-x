@@ -230,7 +230,7 @@
             groupsService.addPublication(vm.newPublication)
                 .then(function (data) {
                     if (data.status) {
-                        console.log('Publication added!');
+                        vm.group.publications.push(data.publication);
                         modalNewPublication.close();
                     }
                 })
@@ -448,20 +448,20 @@
         vm.sharePub = function (pubId) {
             getSubscribers()
                 .then(function (data) {
-                        ngDialog.open({
-                            template: '../app/Groups/views/popup-sharepub-group.html',
-                            className: 'popup-invite-group ngdialog-theme-default',
-                            scope: $scope,
-                            preCloseCallback: resetFormInviteUsers
-                        });
+                    ngDialog.open({
+                        template: '../app/Groups/views/popup-sharepub-group.html',
+                        className: 'popup-invite-group ngdialog-theme-default',
+                        scope: $scope,
+                        preCloseCallback: resetFormInviteUsers
+                    });
                 });
 
         };
 
         var editPubPopup;
-        var	pubEditDeletedPhotos = [];
+        var pubEditDeletedPhotos = [];
         var pubEditDeletedVideos = [];
-        vm.editPub = function(pub){
+        vm.editPub = function (pub) {
             vm.pubEdited = angular.copy(vm.activePublication);
             vm.emoji.emojiMessage.messagetext = vm.pubEdited.text;
 
@@ -474,34 +474,34 @@
             });
         };
 
-        vm.editedPubFiles = function(pub){
+        vm.editedPubFiles = function (pub) {
             var files = [];
-            pub.images.forEach(function(img){
-                var filename = img.url.split('/')[(img.url.split('/')).length-1];
+            pub.images.forEach(function (img) {
+                var filename = img.url.split('/')[(img.url.split('/')).length - 1];
                 img.name = filename.substring(8, filename.length);
                 files.push(img);
             });
-            pub.videos.forEach(function(video){
+            pub.videos.forEach(function (video) {
                 files.push(video);
             });
             vm.editedPubFilesArray = files;
         };
 
-        vm.editedPubDeleteFile = function(index, fileId, pivot){
+        vm.editedPubDeleteFile = function (index, fileId, pivot) {
             vm.editedPubFilesArray.splice(index, 1);
             if (pivot.image_id) {
                 pubEditDeletedPhotos.push(fileId);
-            } else if(pivot.video_id) {
+            } else if (pivot.video_id) {
                 pubEditDeletedVideos.push(fileId);
             }
             $scope.$broadcast('rebuild:me');
         };
 
-        vm.rebuildScroll = function(){
+        vm.rebuildScroll = function () {
             $scope.$broadcast('loadPubFiles');
         };
 
-        vm.saveEditedPub = function(pubId, pubText, files){
+        vm.saveEditedPub = function (pubId, pubText, files) {
             vm.pubEdited.description = vm.emoji.emojiMessage.messagetext;
             vm.updatePubLoader = true;
             var images = [];
@@ -509,22 +509,22 @@
             var isMain;
             if ($state.current.name === 'feed') {
                 isMain = 1;
-            } else{
+            } else {
                 isMain = 0;
             }
             if (files) {
-                files.forEach(function(file){
+                files.forEach(function (file) {
                     var type = file.type.split('/')[0];
                     if (type === 'image') {
                         images.push(file);
-                    } else if (type === 'video'){
+                    } else if (type === 'video') {
                         videos.push(file);
                     }
                 });
             }
             PublicationService.updatePublication(pubId, vm.pubEdited.description, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
                 .then(
-                    function(res){
+                    function (res) {
                         if (res.status) {
                             ngDialog.closeAll();
                         } else {
@@ -532,12 +532,10 @@
                         }
                         vm.updatePubLoader = false;
                     },
-                    function(err){
+                    function (err) {
                         console.log(err);
                     });
         };
-
-
 
 
         vm.deleteGroup = function () {
@@ -634,6 +632,17 @@
                 .then(function (data) {
                     if (data.status) {
                         vm.inviteNotSend = false;
+
+                        angular.forEach(vm.invitedUsers, function (item, i, arr) {
+                            vm.group.users.push({
+                                avatar_path: item.avatar,
+                                first_name: item.firstName,
+                                id: item.userId,
+                                is_admin: item.isAdmin,
+                                last_name: item.lastName
+                            });
+                        });
+                        vm.group.count_users += vm.invitedUsers.length;
                         $timeout(function () {
                             resetFormInviteUsers();
                             modalInviteUsers.close();
@@ -710,6 +719,20 @@
                 function (error) {
                     console.log(error);
                 });
+        };
+
+
+        vm.showUsersForInvite = function (user) {
+            var result = true;
+
+            for (var i = 0; i < vm.group.users.length; i++) {
+                if (user.id === vm.group.users[i].id) {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
         };
 
 
