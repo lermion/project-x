@@ -38,6 +38,7 @@
         vm.group = group;
         vm.groupEdited = {};
         vm.newPublication = angular.copy(newPublicationObj);
+        vm.pubEdited = {};
 
         vm.newComment = {};
 
@@ -157,9 +158,12 @@
             }
         });
         $scope.$on('ngDialog.opened', function (e, $dialog) {
-            var string = $filter('colonToSmiley')(vm.groupEdited.description);
             if ($dialog.name === "modal-edit-group") {
-                $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = string;
+                $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.groupEdited.description);
+            }
+
+            if ($dialog.name === "modal-edit-publication") {
+                $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
             }
         });
 
@@ -444,16 +448,96 @@
         vm.sharePub = function (pubId) {
             getSubscribers()
                 .then(function (data) {
-                    if (data.status) {
                         ngDialog.open({
                             template: '../app/Groups/views/popup-sharepub-group.html',
                             className: 'popup-invite-group ngdialog-theme-default',
-                            scope: $scope
+                            scope: $scope,
+                            preCloseCallback: resetFormInviteUsers
                         });
-                    }
                 });
 
         };
+
+        var editPubPopup;
+        var	pubEditDeletedPhotos = [];
+        var pubEditDeletedVideos = [];
+        vm.editPub = function(pub){
+            vm.pubEdited = angular.copy(vm.activePublication);
+            vm.emoji.emojiMessage.messagetext = vm.pubEdited.text;
+
+            editPubPopup = ngDialog.open({
+                template: '../app/Groups/views/popup-edit-publication.html',
+                className: 'user-publication user-publication-edit ngdialog-theme-default',
+                scope: $scope,
+                name: "modal-edit-publication",
+                preCloseCallback: resetFormNewPublication
+            });
+        };
+
+        vm.editedPubFiles = function(pub){
+            var files = [];
+            pub.images.forEach(function(img){
+                var filename = img.url.split('/')[(img.url.split('/')).length-1];
+                img.name = filename.substring(8, filename.length);
+                files.push(img);
+            });
+            pub.videos.forEach(function(video){
+                files.push(video);
+            });
+            vm.editedPubFilesArray = files;
+        };
+
+        vm.editedPubDeleteFile = function(index, fileId, pivot){
+            vm.editedPubFilesArray.splice(index, 1);
+            if (pivot.image_id) {
+                pubEditDeletedPhotos.push(fileId);
+            } else if(pivot.video_id) {
+                pubEditDeletedVideos.push(fileId);
+            }
+            $scope.$broadcast('rebuild:me');
+        };
+
+        vm.rebuildScroll = function(){
+            $scope.$broadcast('loadPubFiles');
+        };
+
+        vm.saveEditedPub = function(pubId, pubText, files){
+            vm.pubEdited.description = vm.emoji.emojiMessage.messagetext;
+            vm.updatePubLoader = true;
+            var images = [];
+            var videos = [];
+            var isMain;
+            if ($state.current.name === 'feed') {
+                isMain = 1;
+            } else{
+                isMain = 0;
+            }
+            if (files) {
+                files.forEach(function(file){
+                    var type = file.type.split('/')[0];
+                    if (type === 'image') {
+                        images.push(file);
+                    } else if (type === 'video'){
+                        videos.push(file);
+                    }
+                });
+            }
+            PublicationService.updatePublication(pubId, vm.pubEdited.description, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+                .then(
+                    function(res){
+                        if (res.status) {
+                            ngDialog.closeAll();
+                        } else {
+                            console.log('Error');
+                        }
+                        vm.updatePubLoader = false;
+                    },
+                    function(err){
+                        console.log(err);
+                    });
+        };
+
+
 
 
         vm.deleteGroup = function () {
@@ -660,6 +744,12 @@
 
         function resetFormNewPublication() {
             vm.newPublication = angular.copy(newPublicationObj);
+            vm.emoji.emojiMessage.messagetext = '';
+            vm.files = [];
+        }
+
+        function resetFormEditPublication() {
+            vm.pubEdited = {};
             vm.emoji.emojiMessage.messagetext = '';
             vm.files = [];
         }
