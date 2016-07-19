@@ -3654,7 +3654,7 @@ body.ngdialog-open {
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: 11%;
 	transition: all .3s ease-in-out .1s;
 }
 .group-page .group-menu {
