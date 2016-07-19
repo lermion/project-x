@@ -552,6 +552,9 @@
         };
 
         vm.updateGroup = function () {
+            if (vm.forms.editGroup.$pristine) {
+                return false;
+            }
             if (groupName === vm.groupEdited.name) {
                 vm.groupEdited.name = null;
             }
@@ -561,7 +564,9 @@
             vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
             groupsService.updateGroup(vm.groupEdited)
                 .then(function (data) {
-
+                    if (data.status) {
+                        modalEditGroup.close();
+                    }
                 });
         };
 
