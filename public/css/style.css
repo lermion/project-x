@@ -3716,6 +3716,7 @@ body.ngdialog-open {
 .group-menu-item .counts .counter p {
 	padding-left: 0;
 	margin-bottom: 0;
+	order: 1;
 }
 .group-page .group-publication {
 	background: #fff;
