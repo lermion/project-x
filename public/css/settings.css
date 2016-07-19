@@ -6452,3 +6452,16 @@ input.cmn-toggle-round:checked + label:after {
     order: 2;
     margin-left: 10px;
 }
+
+.popup-add-group .add-ava {
+    width: 90px;
+    height: 90px;
+    background-color: #d7dade;
+    border-radius: 3px;
+    position: relative;
+    margin-bottom: 0;
+    background-image: url(/images/plus_group.png);
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
