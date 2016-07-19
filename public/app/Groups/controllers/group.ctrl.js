@@ -192,12 +192,15 @@
 
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
-                modalInviteUsers = ngDialog.open({
-                    template: '../app/Groups/views/popup-invite-group.html',
-                    name: 'modal-invite-group',
-                    className: 'popup-invite-group ngdialog-theme-default',
-                    scope: $scope
+                getSubscription().then(function () {
+                    modalInviteUsers = ngDialog.open({
+                        template: '../app/Groups/views/popup-invite-group.html',
+                        name: 'modal-invite-group',
+                        className: 'popup-invite-group ngdialog-theme-default',
+                        scope: $scope
+                    });
                 });
+
             });
         };
 
@@ -740,6 +743,13 @@
             return UserService.getSubscribers(myId)
                 .then(function (subscribers) {
                     vm.subscribers = subscribers;
+                });
+        }
+
+        function getSubscription() {
+            return PublicationService.getSubscription(myId)
+                .then(function (data) {
+                    vm.subscription = data;
                 });
         }
 

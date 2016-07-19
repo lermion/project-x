@@ -4,6 +4,14 @@
     <div class="invite-group__items">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul>
+            <p>Подписки</p>
+            <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString"
+                ng-click="vm.onItemSelected(user)">
+                <img ng-src="{{user.avatar_path}}">
+
+                <p>{{::user.first_name}} {{::user.last_name}}</p>
+            </li>
+            <p>Подписчики</p>
             <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
                 ng-click="vm.onItemSelected(user)">
                 <img ng-src="{{user.avatar_path}}">
