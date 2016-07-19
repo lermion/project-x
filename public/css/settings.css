@@ -3774,8 +3774,8 @@ span.users-today-time-time.early {
 }
 
 .right-chat-my-msg-date span {
-    font-family: "SFUIDisplayLight";
-    font-size: 11.6px;
+    font-family: "SFUIDisplayMedium";
+    font-size: 11px;
     color: gray;
     line-height: 20px;
     box-sizing: border-box;
@@ -3866,8 +3866,8 @@ span.users-today-time-time.early {
 }
 
 .right-chat-to-my-msg-date span {
-    font-family: "SFUIDisplayLight";
-    font-size: 11.6px;
+    font-family: "SFUIDisplayMedium";
+    font-size: 11px;
     color: gray;
     line-height: 20px;
     box-sizing: border-box;
