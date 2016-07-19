@@ -381,6 +381,7 @@ body.main-page {
 	justify-content: center;
     	align-items: center;
     	position: relative;
+    	cursor: pointer;
 }
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
@@ -3654,7 +3655,7 @@ body.ngdialog-open {
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: 11%;
 	transition: all .3s ease-in-out .1s;
 }
 .group-page .group-menu {
@@ -3715,6 +3716,7 @@ body.ngdialog-open {
 .group-menu-item .counts .counter p {
 	padding-left: 0;
 	margin-bottom: 0;
+	order: 1;
 }
 .group-page .group-publication {
 	background: #fff;

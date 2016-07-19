@@ -9,8 +9,10 @@
 
                 <div class="menu-item" ng-show="vm.showMenu">
                     <a class="profile" ui-sref="user({username: vm.userName})">Мой профиль</a>
-                    <a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">{{counters.placesNew}}</span></a>
-                    <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span" ng-if="counters.groupsNew > 0">{{counters.groupsNew}}</span></a>
+                    <a class="places" ui-sref="places">Места <span class="places-count-span"
+                                                                   ng-if="counters.placesNew > 0">{{counters.placesNew}}</span></a>
+                    <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span"
+                                                                               ng-if="counters.groupsNew > 0">{{counters.groupsNew}}</span></a>
                     <a class="chat" ui-sref="chat"> Чаты <span class="places-count-span">10</span></a>
                     <a class="settings" ui-sref="settings">Настройки</a>
 
@@ -21,37 +23,34 @@
                 </div>
             </div>
             <div class="search main-header-search">
-<!--                 <input type="text" placeholder="Поиск...">
-                <span class="button"></span> -->
+                <!--                 <input type="text" placeholder="Поиск...">
+                                <span class="button"></span> -->
             </div>
             <a class="exit" href="javascript:void(0);" ng-click="vm.logOut()"><span></span>Выйти</a>
         </div>
     </header>
 
 
-
     <div ui-view>
-    </div>
-
-    <div class="places-page">
-        <div class="places-page-header">
-            <div class="places-page-header-title">
-                Все места
+        <div class="places-page">
+            <div class="places-page-header">
+                <div class="places-page-header-title">
+                    Все места
+                </div>
+                <div class="places-page-header-category">
+                    <select ng-model="vm.placesDropdown">
+                        <option value="">Выберите категорию</option>
+                        <option value="">Популярные</option>
+                        <option value="">Новые</option>
+                        <option value="">Динамичные</option>
+                        <option value="">Рядом с вами</option>
+                        <option value="">Адреса</option>
+                        <option value="">Университеты</option>
+                        <option value="">Школы</option>
+                        <option value="places.add" ng-click="alert(1)">Создать место</option>
+                    </select>
+                </div>
             </div>
-            <div class="places-page-header-category">
-                <select ng-model="vm.placesDropdown">
-                    <option value="">Выберите категорию</option>
-                    <option value="">Популярные</option>
-                    <option value="">Новые</option>
-                    <option value="">Динамичные</option>
-                    <option value="">Рядом с вами</option>
-                    <option value="">Адреса</option>
-                    <option value="">Университеты</option>
-                    <option value="">Школы</option>
-                    <option value="places.add" ng-click="alert(1)">Создать место</option>
-                </select>
-            </div>
-        </div>
 
 
             <div class="places-page-one-category">
@@ -84,111 +83,133 @@
                         </div>
                     </div>
 
-                <div class="places-category-item">
-                    <div class="places-item-photo">
-                        <a class="places-item-photo-link" href="">
-                            <img class="places-item-photo-img" src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg" alt="">
-                        </a>
-                        <div class="places-item-photo-place">
-                            <span>г. Санкт-Петербург</span>
-                        </div>
-                    </div>
-                    <div class="places-item-description">
-                        <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, ullam?</p>
-                    </div>
-                    <div class="places-item-rating">
-                        <span class="places-item-rating-like">176</span>
-                        <span class="places-item-rating-link">4</span>
-                    </div>
-                </div>
+                    <div class="places-category-item">
+                        <div class="places-item-photo">
+                            <a class="places-item-photo-link" href="">
+                                <img class="places-item-photo-img"
+                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
+                                     alt="">
+                            </a>
 
-                <div class="places-category-item">
-                    <div class="places-item-photo">
-                        <a class="places-item-photo-link" href="">
-                            <img class="places-item-photo-img" src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg" alt="">
-                        </a>
-                        <div class="places-item-photo-place">
-                            <span>г. Санкт-Петербург</span>
+                            <div class="places-item-photo-place">
+                                <span>г. Санкт-Петербург</span>
+                            </div>
+                        </div>
+                        <div class="places-item-description">
+                            <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на
+                                поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Facilis, ullam?</p>
+                        </div>
+                        <div class="places-item-rating">
+                            <span class="places-item-rating-like">176</span>
+                            <span class="places-item-rating-link">4</span>
                         </div>
                     </div>
-                    <div class="places-item-description">
-                        <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, ullam?</p>
-                    </div>
-                    <div class="places-item-rating">
-                        <span class="places-item-rating-like">176</span>
-                        <span class="places-item-rating-link">4</span>
+
+                    <div class="places-category-item">
+                        <div class="places-item-photo">
+                            <a class="places-item-photo-link" href="">
+                                <img class="places-item-photo-img"
+                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
+                                     alt="">
+                            </a>
+
+                            <div class="places-item-photo-place">
+                                <span>г. Санкт-Петербург</span>
+                            </div>
+                        </div>
+                        <div class="places-item-description">
+                            <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на
+                                поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Facilis, ullam?</p>
+                        </div>
+                        <div class="places-item-rating">
+                            <span class="places-item-rating-like">176</span>
+                            <span class="places-item-rating-link">4</span>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="places-page-one-category">
+                <div class="places-page-type-place">
+                    <div>Университеты</div>
+                    <div class="places-type-place-btn">Ещё</div>
+                </div>
+                <div class="places-page-category-wrap">
+                    <div class="places-category-item">
+                        <div class="places-item-photo">
+                            <a class="places-item-photo-link" href="">
+                                <img class="places-item-photo-img"
+                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
+                                     alt="">
+                            </a>
+
+                            <div class="places-item-photo-place">
+                                <span>г. Санкт-Петербург</span>
+                            </div>
+                        </div>
+                        <div class="places-item-description">
+                            <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на
+                                поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Facilis, ullam?</p>
+                        </div>
+                        <div class="places-item-rating">
+                            <span class="places-item-rating-like">176</span>
+                            <span class="places-item-rating-link">4</span>
+                        </div>
+                    </div>
+
+                    <div class="places-category-item">
+                        <div class="places-item-photo">
+                            <a class="places-item-photo-link" href="">
+                                <img class="places-item-photo-img"
+                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
+                                     alt="">
+                            </a>
+
+                            <div class="places-item-photo-place">
+                                <span>г. Санкт-Петербург</span>
+                            </div>
+                        </div>
+                        <div class="places-item-description">
+                            <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на
+                                поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Facilis, ullam?</p>
+                        </div>
+                        <div class="places-item-rating">
+                            <span class="places-item-rating-like">176</span>
+                            <span class="places-item-rating-link">4</span>
+                        </div>
+                    </div>
+
+                    <div class="places-category-item">
+                        <div class="places-item-photo">
+                            <a class="places-item-photo-link" href="">
+                                <img class="places-item-photo-img"
+                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
+                                     alt="">
+                            </a>
+
+                            <div class="places-item-photo-place">
+                                <span>г. Санкт-Петербург</span>
+                            </div>
+                        </div>
+                        <div class="places-item-description">
+                            <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на
+                                поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Facilis, ullam?</p>
+                        </div>
+                        <div class="places-item-rating">
+                            <span class="places-item-rating-like">176</span>
+                            <span class="places-item-rating-link">4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="places-page-one-category">
-            <div class="places-page-type-place">
-                <div>Университеты</div>
-                <div class="places-type-place-btn">Ещё</div>
-            </div>
-            <div class="places-page-category-wrap">
-                <div class="places-category-item">
-                    <div class="places-item-photo">
-                        <a class="places-item-photo-link" href="">
-                            <img class="places-item-photo-img" src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg" alt="">
-                        </a>
-                        <div class="places-item-photo-place">
-                            <span>г. Санкт-Петербург</span>
-                        </div>
-                    </div>
-                    <div class="places-item-description">
-                        <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, ullam?</p>
-                    </div>
-                    <div class="places-item-rating">
-                        <span class="places-item-rating-like">176</span>
-                        <span class="places-item-rating-link">4</span>
-                    </div>
-                </div>
-
-                <div class="places-category-item">
-                    <div class="places-item-photo">
-                        <a class="places-item-photo-link" href="">
-                            <img class="places-item-photo-img" src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg" alt="">
-                        </a>
-                        <div class="places-item-photo-place">
-                            <span>г. Санкт-Петербург</span>
-                        </div>
-                    </div>
-                    <div class="places-item-description">
-                        <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, ullam?</p>
-                    </div>
-                    <div class="places-item-rating">
-                        <span class="places-item-rating-like">176</span>
-                        <span class="places-item-rating-link">4</span>
-                    </div>
-                </div>
-
-                <div class="places-category-item">
-                    <div class="places-item-photo">
-                        <a class="places-item-photo-link" href="">
-                            <img class="places-item-photo-img" src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg" alt="">
-                        </a>
-                        <div class="places-item-photo-place">
-                            <span>г. Санкт-Петербург</span>
-                        </div>
-                    </div>
-                    <div class="places-item-description">
-                        <p class="places-item-description-p">Расположен на северо-западе Российской Федерации, на поборежье Финского залива и в устье Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, ullam?</p>
-                    </div>
-                    <div class="places-item-rating">
-                        <span class="places-item-rating-like">176</span>
-                        <span class="places-item-rating-link">4</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
-
-
-
-
 
 
     <footer>

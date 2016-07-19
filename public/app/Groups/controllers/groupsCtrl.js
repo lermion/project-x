@@ -9,7 +9,7 @@ angular.module('app.groups')
 
             var storage = storageService.getStorage();
             var myId = storage.userId;
-            var modalNewGroup, modalEditGroup, modalCropImage;
+            var modalNewGroup, modalEditGroup, modalCropImage, modalUnsubscribeCreator;
 
 
             $scope.myName = storage.firstName + ' ' + storage.lastName;
@@ -45,6 +45,7 @@ angular.module('app.groups')
             $scope.myImage = null;
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
+            //$scope.groupCoverFile = null;
             $scope.subscribers = [];
             $scope.strSearch = '';
             $scope.showAllGroups = true;
@@ -243,9 +244,7 @@ angular.module('app.groups')
                 blobFile.name = 'image';
                 blobFile.lastModifiedDate = new Date();
 
-                $scope.newGroup.avatar = blobFile;
-
-                $scope.forms.newGroup.avatar
+                $scope.newGroup.avatar_small = blobFile;
 
                 modalCropImage.close();
             };
@@ -336,6 +335,18 @@ angular.module('app.groups')
                 Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
                     console.log(resizedFile);
                     $scope.newGroup.avatar = resizedFile;
+                });
+                onFileSelected(event);
+            };
+
+
+            // Modal windows
+            $scope.openModalUnsubscribeCreator = function() {
+                modalUnsubscribeCreator = ngDialog.open({
+                    template: '../app/Groups/views/popup-unsubscribe-creator-group.html',
+                    name: 'modal-notfound-group',
+                    className: 'popup-delete-group ngdialog-theme-default',
+                    scope: $scope
                 });
             };
 

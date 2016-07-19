@@ -145,12 +145,12 @@
             fd.append('text', publication.text);
 
             if (publication.files.images) {
-                angular.forEach(publication.files.images, function(image) {
+                angular.forEach(publication.files.images, function (image) {
                     fd.append('images[]', image);
                 });
             }
             if (publication.files.videos) {
-                angular.forEach(publication.files.videos, function(video) {
+                angular.forEach(publication.files.videos, function (video) {
                     fd.append('videos[]', video);
                 });
             }
@@ -183,8 +183,11 @@
             if (group.avatar) {
                 fd.append('avatar', group.avatar, group.avatar.name);
             }
-            fd.append('description', group.description);
+
+            // required fields
             fd.append('is_open', +group.is_open);
+            fd.append('description', group.description);
+
 
             return $http({
                 method: 'POST',
