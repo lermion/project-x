@@ -552,6 +552,13 @@
         };
 
         vm.updateGroup = function () {
+            if (vm.groupEdited.description !== vm.emoji.emojiMessage.messagetext) {
+                vm.forms.editGroup.$setDirty();
+            }
+            if (vm.forms.editGroup.$pristine) {
+                return false;
+            }
+
             if (groupName === vm.groupEdited.name) {
                 vm.groupEdited.name = null;
             }
@@ -561,7 +568,18 @@
             vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
             groupsService.updateGroup(vm.groupEdited)
                 .then(function (data) {
+                    if (data.status) {
+                        vm.group.name = data.groupData.name || vm.group.name;
+                        vm.group.description = data.groupData.description || vm.group.description;
+                        vm.group.is_open = data.groupData.is_open == true;
+                        vm.group.avatar = data.groupData.avatar || vm.group.avatar;
 
+                        if (data.groupData.url_name) {
+                            changeGroupUrlName(data.groupData.url_name);
+                        }
+
+                        modalEditGroup.close();
+                    }
                 });
         };
 
@@ -695,7 +713,6 @@
 
         vm.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
-                console.log(resizedFile);
                 vm.groupEdited.avatar = resizedFile;
             });
         };
@@ -785,6 +802,22 @@
             vm.pubEdited = {};
             vm.emoji.emojiMessage.messagetext = '';
             vm.files = [];
+        }
+
+
+        function changeGroupUrlName(str) {
+            var url = window.location.toString();
+            var pathArray = window.location.href.split('/');
+            var urlNamePos = pathArray.indexOf('group');
+            pathArray[urlNamePos+1] = str;
+
+            var newPathname = '';
+            for (var i = 0; i < pathArray.length; i++) {
+
+                newPathname += pathArray[i];
+                newPathname += "/";
+            }
+            window.location = newPathname.substring(0, newPathname.length-1);
         }
 
 

@@ -6154,7 +6154,7 @@ input.cmn-toggle-round:checked + label:after {
     height: 100%;
 }
 
-.group-ava .group-likes {
+/*.group-ava .group-likes {
     position: absolute;
     height: 60px;
     width: 100%;
@@ -6167,7 +6167,6 @@ input.cmn-toggle-round:checked + label:after {
     align-items: center;
     box-sizing: border-box;
     padding: 30px 10px 0;
-    /* opacity: 0; */
     transition: all .3s ease-in-out .1s;
 }
 
@@ -6207,7 +6206,7 @@ input.cmn-toggle-round:checked + label:after {
     background-repeat: no-repeat;
     background-size: contain;
     transition: all .3s ease-in-out .1s;
-}
+}*/
 
 .place-menu-wrap .group-menu {
     width: 100%;
@@ -6220,14 +6219,14 @@ input.cmn-toggle-round:checked + label:after {
     position: relative;
 }
 
-.group-menu .group-menu-item {
+.place-menu-wrap .group-menu .group-menu-item {
     width: 700px;
     display: flex;
     justify-content: center;
     position: relative;
 }
 
-.group-menu .group-menu-item .counts {
+.place-menu-wrap .group-menu .group-menu-item .counts {
     display: flex;
     justify-content: space-between;
     width: 400px;
@@ -6254,7 +6253,7 @@ input.cmn-toggle-round:checked + label:after {
     z-index: 0;
 }
 
-.group-menu-item .counts .counter {
+.place-menu-wrap .group-menu-item .counts .counter {
     margin: 0 0;
     border-bottom: 2px solid transparent;
     transition: all .3s ease-in-out .1s;
@@ -6262,8 +6261,8 @@ input.cmn-toggle-round:checked + label:after {
     width: 25%;
 }
 
-.group-menu-item .counts .counter:hover,
-.group-menu-item .counts .counter.active {
+.place-menu-wrap .group-menu-item .counts .counter:hover,
+.place-menu-wrap .group-menu-item .counts .counter.active {
     border-bottom: 2px solid #495b79;
 }
 
@@ -6407,6 +6406,7 @@ input.cmn-toggle-round:checked + label:after {
 .places-comments-sigh-span {
     line-height: 35px;
     cursor: pointer;
+    font-family: "SFUIDisplayMedium";
 }
 
 .places-count-span {
@@ -6468,4 +6468,12 @@ input.cmn-toggle-round:checked + label:after {
     background-size: 30%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+
+@media (max-width: 520px){
+	.group-publication .photo.place-photo1 {
+    width: 32%;
+    height: 120px;
+    margin: 0 1px 1px 0;
 }
