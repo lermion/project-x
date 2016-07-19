@@ -45,6 +45,7 @@ angular.module('app.groups')
             $scope.myImage = null;
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
+            //$scope.groupCoverFile = null;
             $scope.subscribers = [];
             $scope.strSearch = '';
             $scope.showAllGroups = true;
@@ -243,9 +244,7 @@ angular.module('app.groups')
                 blobFile.name = 'image';
                 blobFile.lastModifiedDate = new Date();
 
-                $scope.newGroup.avatar = blobFile;
-
-                $scope.forms.newGroup.avatar
+                $scope.newGroup.avatar_small = blobFile;
 
                 modalCropImage.close();
             };
@@ -337,6 +336,7 @@ angular.module('app.groups')
                     console.log(resizedFile);
                     $scope.newGroup.avatar = resizedFile;
                 });
+                onFileSelected(event);
             };
 
 

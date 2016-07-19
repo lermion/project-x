@@ -3764,6 +3764,7 @@ span.users-today-time-time.early {
     font-size: 14.6px;
     font-family: "SFUIDisplayLight";
     color: rgb(116, 120, 130);
+    word-break: break-all;
 }
 
 .right-chat-my-msg-date {
@@ -3857,6 +3858,7 @@ span.users-today-time-time.early {
     font-size: 14.6px;
     font-family: "SFUIDisplayLight";
     color: rgb(116, 120, 130);
+    word-break: break-all;
 }
 
 .right-chat-to-my-msg-date {
