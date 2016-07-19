@@ -471,7 +471,7 @@ angular.module('placePeopleApp')
 			$scope.Model.cancelNewChat = function(){				
 				newGroupChatPopup.close();
 			};
-			$scope.Model.createChat = function(name, status, avatar){
+			$scope.Model.createGroupChat = function(name, status, avatar){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];				
 				users.push(parseInt($scope.loggedUserId));				
@@ -537,12 +537,10 @@ angular.module('placePeopleApp')
 					message.pub = {};
 					message.pub.username = match[1];					
 					message.pub.id = parseInt(match[3]);
-				}				
-				console.log(message.pub);
+				}			
 			};
 
-			$scope.loadPubIntoChat = function(message, pubId){
-				// console.log(pubId);
+			$scope.loadPubIntoChat = function(message, pubId){				
 				PublicationService.getSinglePublication(pubId)
 					.then(function(response){						
 							console.log(response);
@@ -553,9 +551,22 @@ angular.module('placePeopleApp')
 						});
 			};
 
-			$scope.getPubText = function(text){
-				var mes = text.split(' messagetext: ');
-				return mes[1];
+			$scope.getPubText = function(text){				
+				if (text != undefined) {
+					var mes = text.split(' messagetext: ');
+					return mes[1];
+				}			
+			};
+
+			$scope.Model.addPublicationLike = function(pub){
+				PublicationService.addPublicationLike(pub.id)
+					.then(function(response){
+						pub.user_like = response.user_like;
+						pub.like_count = response.like_count;
+					},
+					function(error){
+						console.log(error);
+					});
 			};
 
 			
