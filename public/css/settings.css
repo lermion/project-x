@@ -3753,6 +3753,7 @@ span.users-today-time-time.early {
     background-color: rgb(215, 226, 250);
     border-radius: 10px;
     box-sizing: border-box;
+    max-width: 90%;
 }
 
 .right-chat-my-msg-inner {
@@ -3845,6 +3846,7 @@ span.users-today-time-time.early {
     border-radius: 10px;
     box-sizing: border-box;
     border: 1px solid #e0e2e5;
+    max-width: 90%;
 }
 
 .right-chat-to-my-msg-inner {
