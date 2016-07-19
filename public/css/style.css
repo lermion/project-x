@@ -381,6 +381,7 @@ body.main-page {
 	justify-content: center;
     	align-items: center;
     	position: relative;
+    	cursor: pointer;
 }
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
