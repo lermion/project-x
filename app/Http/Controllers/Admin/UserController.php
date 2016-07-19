@@ -94,6 +94,63 @@ class UserController extends Controller
      * @param  int  $month
      * @return \Illuminate\Http\Response
      */
+    public function confirm($id)
+    {
+        $user = User::where(['id' => $id])->first();
+        if ($user->status != 'confirm' or $user->status = '') {
+            $user->status = 'confirm';
+            $user->save();
+            return response()->json(['status' => true]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "The user has this status",
+                    'code' => '7'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function review($id)
+    {
+        $user = User::where(['id' => $id])->first();
+        if ($user->status != 'review' or $user->status = '') {
+            $user->status = 'review';
+            $user->save();
+            return response()->json(['status' => true]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "The user has this status",
+                    'code' => '7'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function suspicious($id)
+    {
+        $user = User::where(['id' => $id])->first();
+        if ($user->status != 'suspicious' or $user->status = '') {
+            $user->status = 'suspicious';
+            $user->save();
+            return response()->json(['status' => true]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "The user has this status",
+                    'code' => '7'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
     public function destroy($id,$month)
     {
         $user = User::find($id);

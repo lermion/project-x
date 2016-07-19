@@ -2585,7 +2585,9 @@ div.my_profilll.photo-list div:last-child {
     .popup-add-group .fifth_item .item1 li img {
         margin-right: 15px;
     }
-
+    .popup-add-group .fifth_item .item1 p {
+        font-size: .9em;
+    }
     .popup-add-group .fifth_item .item1 li p {
         max-width: 50%;
         font-size: .8em;
@@ -6453,4 +6455,17 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     order: 2;
     margin-left: 10px;
+}
+
+.popup-add-group .add-ava {
+    width: 90px;
+    height: 90px;
+    background-color: #d7dade;
+    border-radius: 3px;
+    position: relative;
+    margin-bottom: 0;
+    background-image: url(/images/plus_group.png);
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center;
 }

@@ -35,4 +35,31 @@ class AdminUserTest extends TestCase
         $this->json('GET', 'admin/user/delete/'.$user->id.'/1')->assertRedirectedTo('/admin/user');
         $this->seeInDatabase('black_lists', ['phone'=>$user->phone]);
     }
+
+    public function testConfirm()
+    {
+        $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345','status'=>'confirm']);
+        }
+        $this->json('GET', 'admin/user/confirm/'.$user->id)->AssertResponseOk();
+    }
+
+    public function testReview()
+    {
+        $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345','status'=>'review']);
+        }
+        $this->json('GET', 'admin/user/review/'.$user->id)->AssertResponseOk();
+    }
+
+    public function testSuspicious()
+    {
+        $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345','status'=>'suspicious']);
+        }
+        $this->json('GET', 'admin/user/suspicious/'.$user->id)->AssertResponseOk();
+    }
 }
