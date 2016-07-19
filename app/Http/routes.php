@@ -20,6 +20,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/', 'Admin\HomeController@index');
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', 'Admin\UserController@index');
+            Route::get('confirm/{id}', 'Admin\UserController@confirm');
+            Route::get('review/{id}', 'Admin\UserController@review');
+            Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
         });
@@ -54,8 +57,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
         Route::get('{id}/subscription', 'SubscriberController@subscription');
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
-        Route::get('subscribers', 'SubscriberController@my_subscribers');
-        Route::get('subscription', 'SubscriberController@my_subscription');
     });
     Route::get('country', 'CountryController@index');
     Route::get('city/{country_id}', 'CityController@index');
@@ -170,11 +171,11 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/user/show/1095\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/group/update/11\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='text'><br>
-            <input type='text' name='address'><br>
+            <input type='text' name='is_open' value='1'><br>
+            <input type='text' name='description' value='1094'><br>
             <input type='text' name='city_id' value='5'><br>
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>

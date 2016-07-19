@@ -9,8 +9,8 @@
 
                 <div class="menu-item" ng-show="vm.showMenu">
                     <a class="profile" ui-sref="user({username: vm.userName})">Мой профиль</a>
-                    <a class="places" ui-sref="places">Места <span class="places-count-span">10</span></a>
-                    <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span">10</span></a>
+                    <a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">{{counters.placesNew}}</span></a>
+                    <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span" ng-if="counters.groupsNew > 0">{{counters.groupsNew}}</span></a>
                     <a class="chat" ui-sref="chat"> Чаты <span class="places-count-span">10</span></a>
                     <a class="settings" ui-sref="settings">Настройки</a>
 
