@@ -3734,7 +3734,7 @@ span.users-today-time-time.early {
 
 .my-msg-wrap:after {
     bottom: -2px;
-    right: -4px;
+    right: 56px;
     background-image: url(/images/my-user-tail.png);
     background-repeat: no-repeat;
     left: auto;
@@ -6424,6 +6424,7 @@ input.cmn-toggle-round:checked + label:after {
 
 
 .chat-main-user-sender-ava {
+    display: flex;
     width: 40px;
     height: 40px;
     margin-right: 10px;
@@ -6445,4 +6446,9 @@ input.cmn-toggle-round:checked + label:after {
     width: 100%;
     color: rgb(81,98,127);
     font-family: "SFUIDisplayMedium";
+}
+.my-msg-wrap .chat-main-user-sender-ava {
+    display: flex;
+    order: 2;
+    margin-left: 10px;
 }
