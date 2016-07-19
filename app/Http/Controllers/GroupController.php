@@ -32,6 +32,9 @@ class GroupController extends Controller
             if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $group->is_admin = true;
             } else {$group->is_admin = false;}
+            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_creator' => true])->first()){
+                $group->is_creator = true;
+            } else {$group->is_creator = false;}
             if(NewGroup::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
                 $group->is_new_group = true;
             } else {$group->is_new_group = false;}
