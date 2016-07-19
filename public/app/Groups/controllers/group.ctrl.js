@@ -559,7 +559,7 @@
                 return false;
             }
 
-            if (groupName === vm.groupEdited.name) {
+            if (vm.group.name === vm.groupEdited.name) {
                 vm.groupEdited.name = null;
             }
             if (!vm.forms.editGroup.avatar.$dirty) {
