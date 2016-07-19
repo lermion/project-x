@@ -2585,7 +2585,9 @@ div.my_profilll.photo-list div:last-child {
     .popup-add-group .fifth_item .item1 li img {
         margin-right: 15px;
     }
-
+    .popup-add-group .fifth_item .item1 p {
+        font-size: .9em;
+    }
     .popup-add-group .fifth_item .item1 li p {
         max-width: 50%;
         font-size: .8em;
