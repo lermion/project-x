@@ -25,6 +25,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
+            Route::get('get_confirm', 'Admin\UserController@getConfirm');
+            Route::get('get_review', 'Admin\UserController@getReview');
+            Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
+            Route::post('main_picture', 'Admin\UserController@mainPicture');
         });
         Route::group(['prefix' => 'moderator'], function () {
             Route::get('/', 'Admin\ModeratorController@index');
@@ -171,15 +175,15 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/update/11\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/user/main_picture\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='is_open' value='1'><br>
-            <input type='text' name='description' value='1094'><br>
+            <input type='text' name='text'><br>
+            <input type='text' name='address'><br>
             <input type='text' name='city_id' value='5'><br>
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>
-            <input type='text' name='type_place_id' value='2'><br>
+            <input type='file' name='picture'><br>
 
             <input type=\"submit\">
         </form>";
