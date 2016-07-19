@@ -9,7 +9,7 @@
 			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
 			    			<a ui-sref="user({username: contact.login})">
-			    				<img ng-src="{{contact.avatar_path}}" alt="">
+			    				<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
 			    			</a>
 			    		</div>
 
@@ -30,7 +30,7 @@
 			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscribers" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
 			    			<a ui-sref="user({username: contact.login})">
-			    				<img ng-src="{{contact.avatar_path}}" alt="">
+			    				<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
 			    			</a>
 			    		</div>
 			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">

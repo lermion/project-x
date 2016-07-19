@@ -1,0 +1,54 @@
+<div>
+	<form action="">
+		<div class="spam-item">
+			<input type="checkbox" id="spam" ng-model="alertPub1">
+			<label for="spam">
+				<span></span>
+				Спам
+			</label>
+		</div>
+		<div class="spam-item">
+			<input type="checkbox" id="anon" ng-model="alertPub2">
+			<label for="anon">
+				<span></span>
+				Оскорбление
+			</label>
+		</div>
+		<div class="spam-item">
+			<input type="checkbox" id="adult" ng-model="alertPub3">
+			<label for="adult">
+				<span></span>
+				Материал для взрослых
+			</label>
+			</div>
+		<div class="spam-item">
+			<input type="checkbox" id="narcotic" ng-model="alertPub4">
+			<label for="narcotic">
+				<span></span>
+				Пропаганда наркотиков
+			</label>
+		</div>
+		<div class="spam-item">
+			<input type="checkbox" id="child" ng-model="alertPub5">
+			<label for="child">
+				<span></span>
+				Детская порнография
+			</label>
+		</div>
+		<div class="spam-item">
+			<input type="checkbox" id="extremism" ng-model="alertPub6">
+			<label for="extremism">
+				<span></span>
+				Экстремизм
+			</label>
+		</div>
+		<div class="spam-item">
+			<input type="checkbox" id="wiolense" ng-model="alertPub7">
+			<label for="wiolense">
+				<span></span> 
+				Насилие
+			</label>
+		</div>
+	</form>
+	<button ng-click="vm.sendComplain(ngDialogData.id, ngDialogData.flag, alertPub1, alertPub2, alertPub3, alertPub4, alertPub5, alertPub6, alertPub7)">Отправить</button>
+</div>

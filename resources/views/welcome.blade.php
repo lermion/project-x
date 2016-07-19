@@ -77,5 +77,7 @@
     <script src="../../app/Places/index.js"></script>
     <script src="../../app/Places/controllers/places.ctrl.js"></script>
     <script src="../../app/Places/controllers/place.ctrl.js"></script>
+    <script src="../../app/Places/services/places.srv.js"></script>
+
 </body>
 </html>

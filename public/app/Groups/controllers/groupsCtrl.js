@@ -1,8 +1,8 @@
 angular.module('app.groups')
-    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', 'StaticService',
-        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService', 'Upload',
-        function ($rootScope, $scope, $state, $stateParams, $filter, StaticService,
-                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService, Upload) {
+    .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', '$q', 'StaticService',
+        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService', 'PublicationService', 'Upload',
+        function ($rootScope, $scope, $state, $stateParams, $filter, $q, StaticService,
+                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService, PublicationService, Upload) {
 
             var LIMIT_MY_GROUPS = 3,
                 LIMIT_ALL_PUBLIC_GROUPS = 3;
@@ -53,7 +53,7 @@ angular.module('app.groups')
             $scope.limitMyGroups = LIMIT_MY_GROUPS;
             $scope.limitAllPublicGroups = LIMIT_ALL_PUBLIC_GROUPS;
             $scope.filterGroups = {
-                value: '-count_user'
+                value: '-created_at'
             };
             $scope.onItemSelected = function (user) {
 
@@ -176,6 +176,7 @@ angular.module('app.groups')
                     //$(".emoji-button").text("");
 
                     getSubscribers(myId);
+                    getSubscription(myId);
                 }
             });
 
@@ -250,6 +251,7 @@ angular.module('app.groups')
             };
 
             $scope.addGroup = function () {
+                $scope.isGroupNameExist = false;
                 $scope.submFormGroup = true;
                 validateEmojiArea();
                 $scope.forms.newGroup.$setSubmitted();
@@ -264,11 +266,23 @@ angular.module('app.groups')
                             $scope.groupList.push(data.group);
 
                             if ($scope.newGroup.users.length > 0) {
-                                inviteUsers(data.group.id);
+                                //TODO: push new group object instead getting all groups
+                                inviteUsers(data.group.id)
+                                    .then(getGroupList)
+                                    .then(function () {
+                                        var users = $scope.newGroup.users.filter(function (item, i, arr) {
+                                            return item.isAdmin === true;
+                                        });
+                                        setAdmins(users, data.group.id);
+                                    });
                             } else {
                                 resetFormNewGroup();
                                 getGroupList();
                                 modalNewGroup.close();
+                            }
+                        } else {
+                            if (+data.error.code === 1) {
+                                $scope.isGroupNameExist = true;
                             }
                         }
                     });
@@ -305,15 +319,28 @@ angular.module('app.groups')
                 return $scope.filterGroups;
             };
 
+            $scope.subscribe = function (group) {
+                groupsService.subscribeGroup(group.id)
+                    .then(function (data) {
+                        if (data.status) {
+                            group.is_sub = data.is_sub;
+                        }
+                    });
+            };
+
+            $scope.showMyGroups = function (group) {
+                return group.is_admin === true || group.is_sub === true;
+            };
+
             $scope.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-                Upload.resize(file, 700, 240, 1, null, null, true).then(function(resizedFile) {
+                Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
                     console.log(resizedFile);
                     $scope.newGroup.avatar = resizedFile;
                 });
             };
 
             function getGroupList() {
-                groupsService.getGroupList()
+                return groupsService.getGroupList()
                     .then(function (groupList) {
                         $scope.groupList = groupList;
                     });
@@ -326,12 +353,15 @@ angular.module('app.groups')
                     });
             }
 
-            function inviteUsers(groupId) {
-                groupsService.inviteUsers(groupId, $scope.newGroup.users)
+            function getSubscription(userId) {
+                PublicationService.getSubscription(userId)
                     .then(function (data) {
-                        resetFormNewGroup();
-                        modalNewGroup.close();
+                        $scope.subscription = data;
                     });
+            }
+
+            function inviteUsers(groupId) {
+                return groupsService.inviteUsers(groupId, $scope.newGroup.users);
             }
 
             function resetFormNewGroup() {
@@ -346,6 +376,26 @@ angular.module('app.groups')
                 $scope.emojiMessage = {};
                 $scope.subscribers = [];
                 $scope.submFormGroup = false;
+            }
+
+            function setAdmin(groupId, userId) {
+                return groupsService.setAdmin(groupId, userId);
+            }
+
+            function setAdmins(users, groupId) {
+
+                var defer = $q.defer();
+
+
+                var prom = [];
+
+                angular.forEach(users, function (user) {
+                    prom.push(setAdmin(groupId, user.userId));
+                });
+
+                $q.all(prom).then(function () {
+                    modalNewGroup.close();
+                });
             }
 
 
@@ -392,6 +442,7 @@ angular.module('app.groups')
                     emojiArea.removeClass('has-error');
                 }
             }
+
             function validateEmoji(e) {
                 console.log(e.type);
             }
