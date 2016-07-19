@@ -1,8 +1,8 @@
 angular.module('app.groups')
     .controller('groupsCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$filter', '$q', 'StaticService',
-        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService', 'Upload',
+        'AuthService', 'UserService', '$window', '$http', 'storageService', 'ngDialog', 'groupsService', 'PublicationService', 'Upload',
         function ($rootScope, $scope, $state, $stateParams, $filter, $q, StaticService,
-                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService, Upload) {
+                  AuthService, UserService, $window, $http, storageService, ngDialog, groupsService, PublicationService, Upload) {
 
             var LIMIT_MY_GROUPS = 3,
                 LIMIT_ALL_PUBLIC_GROUPS = 3;
@@ -176,6 +176,7 @@ angular.module('app.groups')
                     //$(".emoji-button").text("");
 
                     getSubscribers(myId);
+                    getSubscription(myId);
                 }
             });
 
@@ -353,7 +354,7 @@ angular.module('app.groups')
             }
 
             function getSubscription(userId) {
-                UserService.getSubscription(userId)
+                PublicationService.getSubscription(userId)
                     .then(function (data) {
                         $scope.subscription = data;
                     });
@@ -392,7 +393,7 @@ angular.module('app.groups')
                     prom.push(setAdmin(groupId, user.userId));
                 });
 
-                $q.all(prom).then(function() {
+                $q.all(prom).then(function () {
                     modalNewGroup.close();
                 });
             }
