@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\NewGroup;
 use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
@@ -31,13 +32,20 @@ class GroupController extends Controller
             if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $group->is_admin = true;
             } else {$group->is_admin = false;}
+            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_creator' => true])->first()){
+                $group->is_creator = true;
+            } else {$group->is_creator = false;}
+            if(NewGroup::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
+                $group->is_new_group = true;
+            } else {$group->is_new_group = false;}
         }
         return $groups;
     }
 
     public function adminGroup()
     {
-        return Group::join('group_users','group_users.group_id','=','groups.id')->where(['group_users.user_id'=>Auth::id(),'is_admin'=>true])->get();
+        //return Group::join('group_users','group_users.group_id','=','groups.id')->where(['group_users.user_id'=>Auth::id(),'is_admin'=>true])->get();
+        return User::find(Auth::id())->groups()->where(['group_users.user_id'=>Auth::id(),'group_users.is_admin'=>true])->get();
     }
     /**
      * Store a newly created resource in storage.
@@ -85,6 +93,7 @@ class GroupController extends Controller
     public function show($name)
     {
         $group = Group::where('url_name', $name)->first();
+        NewGroup::where(['user_id' => Auth::id(), 'group_id' => $group->id,])->delete();
         if ($group) {
             if (!$group->is_open && !GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
                 return null;
@@ -117,7 +126,7 @@ class GroupController extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:groups',
+                'name' => 'unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'file'
@@ -143,7 +152,9 @@ class GroupController extends Controller
             return response()->json($responseData);
         }
         $groupData = $request->all();
-        $groupData['url_name'] = $this->transliterate($request->input('name'));
+        if($request->input('name')){
+            $groupData['url_name'] = $this->transliterate($request->input('name'));
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
@@ -151,7 +162,7 @@ class GroupController extends Controller
         }
         $group = Group::find($id);
         $group->update($groupData);
-        return response()->json(["status" => true]);
+        return response()->json(["status" => true, "groupData" => $groupData]);
     }
 
     /**
@@ -243,10 +254,66 @@ class GroupController extends Controller
                 return response()->json($responseData);
             }
             foreach($request->input('user_id') as $userId) {
-                if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
+//                if ($invite = GroupInvite::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
+//                    $invite->delete();
+//                } else {
+//                    GroupInvite::create(['group_id' => $group->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+//                }
+                if (!GroupUser::where(['user_id' => $userId, 'group_id' => $groupId,])->first()){
+                    NewGroup::create(['user_id' => $userId, 'group_id' => $groupId,]);
+                    GroupUser::create(['user_id' => $userId, 'group_id' => $groupId,]);
+                }
+            }
+            return response()->json(['status' => true]);
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function admin_subscription_delete(Request $request, $groupId){
+        try {
+            $this->validate($request, [
+                'user_id' => 'array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        if ($group = Group::find($groupId)) {
+            if ($groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true, 'is_creator' => true])->first()) {
+                foreach($request->input('user_id') as $userId) {
+                    if ($invite = GroupUser::where(['group_id' => $group->id, 'user_id' => $userId])->first()) {
+                        $invite->delete();
+                    }
+                }
+                return response()->json(['status' => true]);
+            } elseif (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            foreach($request->input('user_id') as $userId) {
+                if ($invite = GroupUser::where(['group_id' => $group->id, 'user_id' => $userId, 'is_admin' => false])->first()) {
                     $invite->delete();
-                } else {
-                    GroupInvite::create(['group_id' => $group->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
                 }
             }
             return response()->json(['status' => true]);
@@ -329,6 +396,11 @@ class GroupController extends Controller
                 return response()->json($result);
             }
         }
+    }
+
+    public function counter_new_group ()
+    {
+        return NewGroup::where(['user_id' => Auth::id()])->count();
     }
 
     function transliterate($input)

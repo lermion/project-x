@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Place;
+use App\NewPlace;
 use App\TypePlace;
 use App\PlaceUser;
 use App\PlaceInvite;
@@ -26,6 +27,9 @@ class PlaceController extends Controller
             if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $place->is_admin = true;
             } else {$place->is_admin = false;}
+            if(NewUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
+                $place->is_new_group = true;
+            } else {$place->is_new_group = false;}
         }
         return $places;
     }
@@ -99,6 +103,7 @@ class PlaceController extends Controller
     public function show($name)
     {
         $place = Place::where('url_name', $name)->first();
+        NewPlace::where(['user_id' => Auth::id(), 'place_id' => $place->id,])->delete();
         if ($place) {
             if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
                 return null;
@@ -132,7 +137,7 @@ class PlaceController extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:places',
+                'name' => 'unique:places',
                 'description' => 'required',
                 'city_id' =>'required',
                 'address' => 'required',
@@ -163,7 +168,9 @@ class PlaceController extends Controller
             return response()->json($responseData);
         }
         $placeData = $request->all();
-        $placeData['url_name'] = $this->transliterate($request->input('name'));
+        if ($request->input('name')){
+            $placeData['url_name'] = $this->transliterate($request->input('name'));
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
@@ -301,10 +308,66 @@ class PlaceController extends Controller
                 return response()->json($responseData);
             }
             foreach($request->input('user_id') as $userId) {
-                if ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => $userId])->first()) {
+//                if ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => $userId])->first()) {
+//                    $invite->delete();
+//                } else {
+//                    PlaceInvite::create(['place_id' => $place->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
+//                }
+                if (!PlaceUser::where(['user_id' => $userId, 'place_id' => $placeId,])->first()){
+                    NewPlace::create(['user_id' => $userId, 'place_id' => $placeId,]);
+                    PlaceUser::create(['user_id' => $userId, 'place_id' => $placeId,]);
+                }
+            }
+            return response()->json(['status' => true]);
+        }else{
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function admin_subscription_delete(Request $request, $placeId){
+        try {
+            $this->validate($request, [
+                'user_id' => 'array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        if ($place = Place::find($placeId)) {
+            if ($placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true, 'is_creator' => true])->first()) {
+                foreach($request->input('user_id') as $userId) {
+                    if ($invite = PlaceUser::where(['place_id' => $place->id, 'user_id' => $userId])->first()) {
+                        $invite->delete();
+                    }
+                }
+                return response()->json(['status' => true]);
+            } elseif (!$placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $placeId, 'is_admin' => true])->first()) {
+                $responseData = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($responseData);
+            }
+            foreach($request->input('user_id') as $userId) {
+                if ($invite = PlaceUser::where(['place_id' => $place->id, 'user_id' => $userId, 'is_admin' => false])->first()) {
                     $invite->delete();
-                } else {
-                    PlaceInvite::create(['place_id' => $place->id, 'inviter_user_id' => Auth::id(), 'user_id' => $userId]);
                 }
             }
             return response()->json(['status' => true]);
@@ -351,6 +414,10 @@ class PlaceController extends Controller
         }
     }
 
+    public function counter_new_place ()
+    {
+        return NewPlace::where(['user_id' => Auth::id()])->count();
+    }
 
     function transliterate($input)
     {

@@ -16,13 +16,65 @@
                 controller: 'PlacesCtrl',
                 controllerAs: 'vm'
             })
+            .state('place', {
+                url: '/place/:placeName',
+                templateUrl: '../../app/Places/views/place.html',
+                controller: 'PlaceCtrl',
+                controllerAs: 'vm'
+                //params: {
+                //    groupId: null
+                //},
+                //resolve: {
+                //    group: ['groupsService', '$stateParams', '$q', 'ngDialog', function (groupsService, $stateParams, $q, ngDialog) {
+                //        var deferred = $q.defer();
+                //        var group;
+                //        groupsService.getGroup($stateParams.groupName)
+                //            .then(function (data) {
+                //                if (!data) {
+                //                    deferred.reject();
+                //                    ngDialog.open({
+                //                        template: '../app/Groups/views/popup-notfound-group.html',
+                //                        name: 'modal-notfound-group',
+                //                        className: 'popup-delete-group ngdialog-theme-default'
+                //                    });
+                //                } else {
+                //                    groupsService.getPublications(data.id)
+                //                        .then(function (publications) {
+                //                            if (publications) {
+                //                                data.publications = publications;
+                //                            }
+                //                            deferred.resolve(data);
+                //                        });
+                //
+                //                }
+                //            });
+                //        return deferred.promise;
+                //    }]
+                //}
+            })
+            .state('place.publications', {
+                url: '/publications',
+                templateUrl: '../../app/Places/views/place-publications.html'
+            })
+            .state('place.chat', {
+                url: '/chat',
+                templateUrl: '../../app/Places/views/place-chat.html'
+            })
+            .state('place.people', {
+                url: '/people',
+                templateUrl: '../../app/Places/views/place-people.html'
+            })
+            .state('place.files', {
+                url: '/files',
+                templateUrl: '../../app/Places/views/place-files.html'
+            })
             .state('places.add', {
                 url: '/add',
                 templateUrl: '../../app/Places/views/places-presets.html'
             })
-            .state('places.add.university', {
-                url: '/university',
-                templateUrl: '../../app/Places/views/places-add-university.html'
+            .state('places.add.common', {
+                url: '/common',
+                templateUrl: '../../app/Places/views/places-add-common.html'
             })
             .state('places.add.dynamic', {
                 url: '/dynamic',

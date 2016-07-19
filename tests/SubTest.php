@@ -29,8 +29,7 @@ class SubTest extends TestCase
     {
         $user1 = \App\User::create(['phone' => '88888888888', 'password' => bcrypt('123'), 'country_id' => 1]);
         $user2 = \App\User::create(['phone' => '99999999999', 'password' => bcrypt('123'), 'country_id' => 1]);
-        $sub = \App\Subscriber::create(['user_id' => $user1->id, 'user_id_sub' => $user2->id,
-            'is_confirmed' => false]);
+        $sub = \App\Subscriber::create(['user_id' => $user1->id, 'user_id_sub' => $user2->id, 'is_confirmed' => false]);
         $this->be($user1);
         $this->json('get', 'user/subscribe/confirm/'.$sub->id)
             ->seeJson([

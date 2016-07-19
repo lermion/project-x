@@ -5,15 +5,16 @@
         .module('placePeopleApp')
         .factory('socket', socket);
 
-    socket.$inject = ['$rootScope'];
+    socket.$inject = ['$rootScope', '$location'];
 
     /* @ngInject */
-    function socket($rootScope) {
+    function socket($rootScope, $location) {
 
-        var baseUrl = 'http://pp.hqsale.com:8303';
-        var localUrl = 'localhost:8303';
+        var path = $location.protocol() + '://' + $location.host();
 
-        var socket = io.connect(localUrl);
+        var baseUrl = path + ':3000';        
+
+        var socket = io.connect(baseUrl);
 
         var service = {
             on: on,

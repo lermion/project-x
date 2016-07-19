@@ -20,8 +20,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/', 'Admin\HomeController@index');
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', 'Admin\UserController@index');
+            Route::get('confirm/{id}', 'Admin\UserController@confirm');
+            Route::get('review/{id}', 'Admin\UserController@review');
+            Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
+            Route::get('get_confirm', 'Admin\UserController@getConfirm');
+            Route::get('get_review', 'Admin\UserController@getReview');
+            Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
+            Route::post('main_picture', 'Admin\UserController@mainPicture');
         });
         Route::group(['prefix' => 'moderator'], function () {
             Route::get('/', 'Admin\ModeratorController@index');
@@ -69,6 +76,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'group', 'middleware' => 'auth'], function () {
 
+        Route::get('counter_new_group', 'GroupController@counter_new_group');
         Route::get('/', 'GroupController@index');
         Route::get('admin_group', 'GroupController@adminGroup');
         Route::post('store', 'GroupController@store')->middleware(['auth']);;
@@ -76,6 +84,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update/{id}', 'GroupController@update');
         Route::get('destroy/{id}', 'GroupController@destroy');
         Route::get('subscription/{id}', 'GroupController@subscription');
+        Route::post('delete_subscription/{id}', 'GroupController@admin_subscription_delete');
         Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
         Route::get('set_admin_creator/{group_id}/{admin_id}', 'GroupController@setUserCreator');
@@ -127,6 +136,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
 
+        Route::get('counter_new_place', 'PlaceController@counter_new_place');
         Route::get('/', 'PlaceController@index');
         Route::get('admin_place', 'PlaceController@adminPlace');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
@@ -136,6 +146,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
         Route::get('set_admin_creator/{place_id}/{admin_id}', 'PlaceController@setUserCreator');
         Route::get('subscription/{id}', 'PlaceController@subscription');
+        Route::post('delete_subscription/{id}', 'PlaceController@admin_subscription_delete');
         Route::post('invite/{place_id}', 'PlaceController@invite');
         Route::group(['prefix' => '{placeId}/publication'], function () {
             Route::get('/', 'PlacePublicationController@index');
@@ -154,9 +165,14 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'chat'], function () {
-        Route::get('locked/{locked_user_id}', 'ChatLockedUserController@locked');
-        Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
+        Route::get('locked/{locked_user_id}', 'ChatController@locked');
+        Route::get('get_locked_users', 'ChatController@get_locked_users');
+        Route::get('delete_chat/{room_id}', 'ChatController@delete_chat');
+        Route::get('delete_user/{room_id}/{user_id_sub}', 'ChatController@delete_user');
+        Route::get('notification/{room_id}', 'ChatController@notification_chat');
+        Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
     });
+
 
     Route::post('search','SphinxSearchController@search');
     Route::get('search', function () {
@@ -167,13 +183,19 @@ Route::group(['middleware' => ['web']], function () {
             <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
             <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
             <input type=\"submit\">
-            
-        </form>
-       
-        ";
-        
-       
-
-
+            </form>";
+    });
+    Route::get('test', function () {
+        echo "<form action=\"http://pp.dev/admin/user/main_picture\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='user_id[]' value='1095'><br>
+            <input type='text' name='user_id[]' value='1094'><br>
+            <input type='text' name='text'><br>
+            <input type='text' name='address'><br>
+            <input type='text' name='city_id' value='5'><br>
+            <input type='text' name='coordinates_x'><br>
+            <input type='text' name='coordinates_y'><br>
+            <input type='file' name='picture'><br>
+            <input type=\"submit\">
+            </form>";
     });
 });

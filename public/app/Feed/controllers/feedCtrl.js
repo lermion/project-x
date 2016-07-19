@@ -414,7 +414,7 @@ angular.module('placePeopleApp')
 					if(!flag && $state.current.name === 'feed'){
 						ngDialog.open({
 							template: '../app/Feed/views/view-publication.html',
-							className: 'view-publication ngdialog-theme-default',
+								className: 'view-publication ngdialog-theme-default',
 							scope: $scope
 						});									
 					}

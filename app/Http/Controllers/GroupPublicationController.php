@@ -112,7 +112,7 @@ class GroupPublicationController extends Controller
         }
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
-        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
+//        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $group = Group::find($id);
         $publication = $group->publications()->create($publicationData);
         if ($request->hasFile('images')) {

@@ -5,11 +5,17 @@
         .module('app.places')
         .controller('PlacesCtrl', PlacesCtrl);
 
-    PlacesCtrl.$inject = ['$scope', '$http', '$window', 'AuthService', 'storageService'];
+    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService'];
 
-    function PlacesCtrl($scope, $http, $window, AuthService, storageService) {
+    function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService) {
 
         var vm = this;
+
+        var storage = storageService.getStorage();
+
+        vm.userName = storage.username;
+
+        vm.placesDropdown = null;
 
         activate();
 
@@ -92,7 +98,16 @@
 
         }
 
-        vm.placeAdd = function() {
+
+        $scope.$watch(angular.bind(vm, function () {
+            return vm.placesDropdown;
+        }), function (newVal) {
+            if (newVal === 'places.add') {
+                $state.go('places.add');
+            }
+        });
+
+        vm.placeAdd = function () {
 
         }
     }

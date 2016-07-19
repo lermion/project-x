@@ -1,10 +1,18 @@
 <div class="modal__title">Пригласить пользователя в группу</div>
 
-<div class="modal__content" ng-if="vm.inviteNotSend">
+<div class="modal__content" ng-if="vm.inviteNotSend && vm.subscribers.length > 0">
     <div class="invite-group__items">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul>
-            <li ng-repeat="user in vm.subscribers | searchFor:searchString"
+            <p>Подписки</p>
+            <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString"
+                ng-click="vm.onItemSelected(user)">
+                <img ng-src="{{user.avatar_path}}">
+
+                <p>{{::user.first_name}} {{::user.last_name}}</p>
+            </li>
+            <p>Подписчики</p>
+            <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
                 ng-click="vm.onItemSelected(user)">
                 <img ng-src="{{user.avatar_path}}">
 
@@ -24,13 +32,17 @@
         </ul>
     </div>
 </div>
+<div class="modal__content" ng-if="vm.subscribers.length === 0">
+    <p>Список контактов пуст</p>
+</div>
 <div class="modal__content" ng-if="!vm.inviteNotSend">
     <p>Приглашение отправлено</p>
 </div>
 
 <div class="modal__footer">
     <div class="modal__buttons">
-        <a href="" class="modal__buttons-negative" ng-click="vm.abortInviteUsers()">Отменить</a>
-        <a href="" class="modal__buttons-positive" ng-click="vm.submitInviteUsers()">Отправить</a>
+        <a href="" class="modal__buttons-negative" ng-if="vm.subscribers.length > 0" ng-click="vm.abortInviteUsers()">Отменить</a>
+        <a href="" class="modal__buttons-positive" ng-if="vm.subscribers.length > 0" ng-click="vm.submitInviteUsers()">Отправить</a>
+        <a href="" class="modal__buttons-positive" ng-if="vm.subscribers.length === 0" ng-click="closeThisDialog()">Закрыть</a>
     </div>
 </div>

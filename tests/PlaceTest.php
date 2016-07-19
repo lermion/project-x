@@ -153,6 +153,34 @@ class PlaceTest extends TestCase
             'status' => true,
         ]);
     }
+
+
+    public function testAdmin_subscription_delete()
+    {
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $user2 = \App\User::where('phone', '380731059231')->first();
+        if (!$user2) {
+            $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $place = \App\Place::first();
+        if (!$place) {
+            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'avatar' => 'test', 'city_id' => 11, 'address' => 'test', 'coordinates_x' => 1, 'coordinates_y' => 1, 'cover' => 'test', 'type_place_id' => 3]);
+        }
+        \App\PlaceUser::create(['user_id' => $user->id, 'place_id' => $place->id, 'is_admin' => 1, 'is_creator' => 1]);
+        \App\PlaceUser::create(['user_id' => $user2->id, 'place_id' => $place->id, 'is_admin' => 0]);
+        $this->json('POST', 'place/delete_subscription/' . $place->id, ['user_id'=>array($user2->id)])->seeJson([
+            'status' => true,
+        ]);
+    }
+
+    public function testCounterNewPlace()
+    {
+        $this->json('GET', 'place/counter_new_place')->AssertResponseOk();
+    }
 }
 
 

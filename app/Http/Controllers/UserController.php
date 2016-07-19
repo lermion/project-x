@@ -83,9 +83,9 @@ class UserController extends Controller
             if ($request->input('is_visible') == false)
                 Online::logOut(Auth::id());
             if ($request->hasFile('avatar')) {
-                $avatar = $request->file('avatar');
-                $path = $this->getAvatarPath($avatar);
-                $user->avatar_path = $path;
+                    $avatar = $request->file('avatar');
+                    $path = $this->getAvatarPath($avatar);
+                    $user->avatar_path = $path;
                 if ($request->hasFile('original_avatar')) {
                     $originalAvatar = $request->file('original_avatar');
                     $path = $this->getAvatarPath($originalAvatar);

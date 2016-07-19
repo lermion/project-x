@@ -5,7 +5,11 @@ angular.module('placePeopleApp')
 
 		return	{
 			blockUser: blockUser,						
-			getLockedUsers: getLockedUsers
+			getLockedUsers: getLockedUsers,
+			deleteChatContact: deleteChatContact,
+			deleteChat: deleteChat,
+			setNotification: setNotification,
+			clearChat: clearChat
 		}
 
 		function blockUser(userId){			
@@ -23,6 +27,52 @@ angular.module('placePeopleApp')
 		function getLockedUsers(){
 			var defer = $q.defer();
 			$http.get('chat/get_locked_users')
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function deleteChatContact(roomId, userIdSub){			
+			var defer = $q.defer();
+			$http.get('chat/delete_user/'+roomId+'/'+userIdSub)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function deleteChat(roomId){			
+			var defer = $q.defer();
+			$http.get('chat/delete_chat/'+roomId)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+		function setNotification(roomId){			
+			var defer = $q.defer();
+			$http.get('chat/notification/'+roomId)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+		function clearChat(roomId){			
+			var defer = $q.defer();
+			$http.get('chat/correspondence_delete/'+roomId)
 				.success(function (response){
 					defer.resolve(response);
 				})

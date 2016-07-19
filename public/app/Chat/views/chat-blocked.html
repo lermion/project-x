@@ -1,24 +1,24 @@
 
-	    	<div class="chat-left-users-container" ng-init="Model.getLockedUsers()">
-		    	<div class="chat-left-users-all blocked-users">	
+<div class="chat-left-users-container-blocked" ng-init="Model.getLockedUsers(); Model.checkCurrUrl()">
+	<div class="chat-left-users-all blocked-users">	
 
-			    	<div class="chat-left-users-users-today" ng-repeat="blockedUser in Model.subscribers">
-			    		<div class="chat-users-today-ava">
-			    			<a >
-			    				<img ng-src="{{blockedUser.avatar_path}}" alt="">
-			    			</a>
-			    		</div>
+    	<div class="chat-left-users-users-today" ng-repeat="blockedUser in Model.blockedUsers">
+    		<div class="chat-users-today-ava">
+    			<a >
+    				<img ng-src="{{blockedUser.avatar_path}}" alt="">
+    			</a>
+    		</div>
 
-			    		<div class="chat-users-today-data" ng-click="Model.showBlockedContactChat(blockedUser)" style="cursor:pointer;">
-			    			<div class="chat-users-today-info tab-contact-title">
-			    				<p class="users-today-name">{{blockedUser.first_name + ' ' +  blockedUser.last_name}}</p>
-			    				<p class="users-today-message">{{blockedUser.status}}</p>
-			    			</div>
-			    			
-			    		</div>
-			    	</div>	
+    		<div class="chat-users-today-data" ng-click="Model.showBlockedContactChat(blockedUser)" style="cursor:pointer;">
+    			<div class="chat-users-today-info tab-contact-title">
+    				<p class="users-today-name">{{blockedUser.first_name + ' ' +  blockedUser.last_name}}</p>
+    				<p class="users-today-message">{{blockedUser.status}}</p>
+    			</div>
+    			
+    		</div>
+    	</div>	
 
 
-			    </div>
+    </div>
 
-	    	</div>
+</div>

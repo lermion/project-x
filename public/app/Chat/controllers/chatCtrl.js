@@ -1,15 +1,15 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService',
+		'PublicationService', 'Upload',
 		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService) {
+			PublicationService, Upload) {
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
-			$scope.loggedUserId = storage.userId;
+			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name')
 				.success(function (response) {
@@ -27,6 +27,27 @@ angular.module('placePeopleApp')
 						console.log(err);
 					});
 			};
+
+			$scope.Model.mobile = {};
+
+			if ($window.innerWidth <= 768) {
+				$scope.Model.mobile.display = true;								
+			} else {
+				$scope.Model.mobile.display = false;
+			}
+
+			if($state.current.name === 'chat.mobile' && $window.innerWidth > 768){				
+				$scope.Model.showChatBlock = true;				
+				$state.go('chat.list');
+			}
+			if($state.current.name === 'chat.contact-mobile' && $window.innerWidth > 768){				
+				$scope.Model.showChatBlock = true;				
+				$state.go('chat.contacts');
+			}
+
+			$scope.Model.checkCurrUrl = function(){
+				$scope.Model.currRoute = $state.current.name;				
+			};		
 
 			$scope.openMenu = function () {
 				if ($window.innerWidth <= 800) {
@@ -129,18 +150,65 @@ angular.module('placePeopleApp')
 				updated_at:"2016-07-08 09:55:09"
 			}
 
-			$scope.refTo = function(stateName){    
+			$scope.refTo = function(stateName){
+				if ($window.innerWidth <= 768) {
+					$scope.Model.mobile.hideContent = false;
+				}    
 				$state.go(stateName);
 			};
-			$scope.currTabName = $state.current.name;
-			$scope.showContactData = function(contactId){
-				console.log(contactId);
+			
+			$scope.Model.reloadRooms = function(){
+				socket.emit("get user rooms", $scope.loggedUserId);
 			};
-			$scope.clearChat = function(userId, chatId){
-				console.log(userId, chatId);
+			socket.emit("get user rooms", $scope.loggedUserId);
+			
+			$scope.Model.clearChat = function(roomId){							
+				if (!roomId) {									
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}
+
+				ChatService.clearChat(roomId)
+					.then(function(res){
+						console.log(res);
+						if (res.status) {
+							$scope.Model.Chat = [];
+						}						
+					  }, function(err){
+						console.log(err);
+					  });
 			};
-			$scope.deleteChat = function(userId, chatId){
-				console.log(userId, chatId);
+			$scope.Model.deleteChat = function(roomId){
+							
+				if (!roomId) {									
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}
+
+				ChatService.deleteChat(roomId)
+					.then(function(res){
+						console.log(res);
+						if (res.status) {
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.reloadRooms();
+						}
+					  }, function(err){
+						console.log(err);
+					  });
 			};
 
 			function loadUserContacts(){
@@ -165,8 +233,7 @@ angular.module('placePeopleApp')
 				loadUserContacts();
 			};
 
-			$scope.Model.showContactData = function(contact){
-				console.log(contact);
+			$scope.Model.showContactData = function(contact){				
 				if ($state.current.name === 'chat.list') {
 					$scope.Model.showChatBlock = false;
 					$state.go('chat.contacts');
@@ -174,113 +241,323 @@ angular.module('placePeopleApp')
 				$scope.Model.showContactBlock = true;
 				$scope.Model.displayContactBlock = true;
 				$scope.Model.contact = contact;
+				if ($window.innerWidth <= 768) {							
+						$scope.Model.mobile.hideContent	= true;							
+						$state.go('chat.contact-mobile');
+				}
 			};
 
-            $scope.Model.blockContact = function(contactId){
-            	// console.log(contactId);
-                ChatService.blockUser(contactId)
-                    .then(function(response){
-                        console.log(response);                        
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
-            $scope.Model.deleteContact = function(contact){
-                console.log('deleteContact');
-                console.log(contact);
-            };           
-
-			$scope.Model.openChatWith = function(opponent){                
+			$scope.Model.blockContact = function(contact){				
+				ChatService.blockUser(contact.id)
+					.then(function(response){
+						console.log(response);
+						if (response.status) {
+							contact.is_lock = response.is_lock 
+							if (!response.is_lock) {													
+								var index;
+								for(var i = 0; i < $scope.Model.blockedUsers.length; i++){
+									if ($scope.Model.blockedUsers[i].id === contact.id) {
+										index = i;
+									}
+								}
+								$scope.Model.blockedUsers.splice(index ,1);								
+								$scope.Model.displayBlockedBlock = false;								
+							} 						
+						}                       
+					},
+					function(error){
+						console.log(error);
+					});
+			};
+			$scope.Model.deleteContact = function(contact){
+				ChatService.deleteChatContact(contact.room_id[0].room_id, contact.id)
+					.then(function(res){
+						if (res.status) {
+							$scope.Model.loadUserContactList();
+							$scope.Model.displayContactBlock = false;
+						}
+						console.log(res);
+					  }, function(err){
+						console.log(err);
+					  });
+			};
+			$scope.Model.openChatWith = function(chat){
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
-					$state.go('chat.list');
+					if ($window.innerWidth <= 768) {
+						$scope.Model.mobile = true;	
+						$scope.Model.mobile.hideContent	= true;							
+						$state.go('chat.mobile');
+					} else {
+						$state.go('chat.list');
+					}
 				}
-				$scope.Model.opponent = opponent; 
+
+				var data = {};
+				var members = [];
+				members.push($scope.loggedUserId);
+				if (chat.is_group) {
+					$scope.Model.opponent = chat;
+					chat.members.forEach(function(member){
+						members.push(member.id);
+					});					
+					data = {					
+						members: members, 
+						room_id: chat.room_id,
+						is_group: true
+					};
+				} else {
+					if (chat.members) {
+						$scope.Model.opponent = chat.members[0];
+						members.push(chat.members[0].id);
+					} else {
+						$scope.Model.opponent = chat;
+						members.push(chat.id);
+					}					
+					data = {					
+						members: members, 
+						room_id: chat.room_id,
+						is_group: false
+					};
+				}
+				 
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
 
-				var data = {
-					userIdFrom: $scope.loggedUserId,
-					userIdTo: opponent.id,
-                    room_id: opponent.room_id
-				};
-
+				if (chat.room_id === false) {
+					$scope.Model.Chat = [];
+				}
+				
 				socket.emit('create room', data);
 
-
-			};
-			socket.emit("get user rooms", $scope.loggedUserId);
-			socket.on("get user rooms", function(response){
-				// console.log(response);
-                $scope.Model.chatRooms = response;
+				if ($window.innerWidth <= 768) {					
+					$scope.Model.mobile.hideContent	= true;								
+					$state.go('chat.mobile');
+				}
+			};			
+			socket.on("get user rooms", function(response){							
+				$scope.Model.chatRooms = response;
 			});
 
-			$scope.Model.Chat = [];
+			socket.on('switchRoom', function(newroom){
+				socket.emit("switchRoom", newroom);
+			});
 			
-			$scope.Model.sendMes = function(message, roomId){
+			$scope.Model.sendMes = function(message, roomId){			
+				if (!roomId) {									
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}				
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
 					message: message
-				}
+				}				
 				$scope.Model.chatMes = '';
-
-				// socket.emit('send message', data);
-
-				console.log();
-
-				var mesInFormat = {
-					text: message,
-					login: $scope.loggedUser
-				}
-
-				$scope.Model.Chat.push(mesInFormat);			
-
+				console.log(data);			
+				socket.emit('send message', data);				
 			};	
 
 			$scope.Model.scrollBottom = function(){
-				var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
-				var height = chatWindow[0].scrollHeight;				
-				chatWindow.scrollTop(height);
-			};		
+				setTimeout(function(){
+					var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
+					var height = chatWindow[0].scrollHeight;
+					// $scope.$broadcast('rebuildScroll');
+					chatWindow.scrollTop(height);
+				}, 100);
 
+			};
+			socket.on('updatechat', function(data){
+				console.log('updatechat:');				
+				console.log(data);				
+				$scope.Model.Chat = data;
+			});
 			socket.on('send message', function(response){
-				// console.log(response);
-				$scope.Model.Chat = response;
-				// if ($scope.Model.Chat.length === 0) {
-				// 	$scope.Model.Chat = response;
-				// } else if(response.length === 1){
-				// 	$scope.Model.Chat.push(response);
-				// } 
+				// console.log(response);				
+				$scope.Model.Chat = response;				
+				// 	$scope.Model.Chat.push(response);				
 			});
 
-			$scope.Model.sendOnEnter = function(event, message, room_id){						
-				if (event.keyCode == 10 && event.ctrlKey == true) {
-					$scope.Model.sendMes(message, room_id);
-				}
+			$scope.Model.sendOnEnter = function(event, message, room_id){
+				if (event.keyCode == 13) {
+					event.preventDefault();
+					if (!$scope.Model.displayBlockedBlock) {					
+						$scope.Model.sendMes(message, room_id);					
+					}
+				}			
 			};
 
-            $scope.Model.getLockedUsers = function(){
-                ChatService.getLockedUsers()
-                    .then(function(response){
-                    	console.log(response);
-                        $scope.Model.blockedUsers = response;                           
-                    },
-                    function(error){
-                        console.log(error);
-                    });
-            };
+			$scope.Model.getTime = function(time){
+				return time.substr(11, 5);
+			}
 
-            $scope.Model.showBlockedContactChat = function(user){
-            	// console.log(user);
-            	$scope.Model.opponent = user;
-            	$scope.Model.displayBlockedBlock = true;
-            }
+			$scope.Model.getLockedUsers = function(){
+				ChatService.getLockedUsers()
+					.then(function(response){	
+						console.log(response);					
+						$scope.Model.blockedUsers = response;                           
+					},
+					function(error){
+						console.log(error);
+					});
+			};
 
-            // $scope.Model.getLockedUsers();
+			$scope.Model.showBlockedContactChat = function(user){				
+				$scope.Model.opponent = user;
+				$scope.Model.displayBlockedBlock = true;
+				$scope.Model.showBlockedBlock = true;				
+				if ($window.innerWidth <= 768) {							
+						$scope.Model.mobile.hideContent	= true;							
+						$state.go('chat.mobile');
+				}
+				var members = [];
+				members.push($scope.loggedUserId);
+				members.push(user.id);
+				var data = {					
+					members: members,
+					room_id: user.room_id,
+					is_group: false
+				};
+				socket.emit('create room', data);
+			}
 
-            
+			$scope.emojiMessage = {};
+			$scope.$on('ngDialog.opened', function(e, $dialog){
+				if($dialog.name === "group-chat"){
+					window.emojiPicker = new EmojiPicker({
+						emojiable_selector: '.create-group-chat-text',
+						assetsPath: 'lib/img/',
+						popupButtonClasses: 'fa fa-smile-o'
+					});
+					window.emojiPicker.discover();
+					$(".emoji-button").text("");
+				}
+			});
+
+			var newGroupChatPopup;
+
+			$scope.Model.openGroupChatPopup = function(){
+				$scope.Model.newGroupChat = {};
+				$scope.Model.newGroupChat.users = [];
+				$scope.Model.newGroupChat.name = '';
+				$scope.Model.newGroupChat.status = '';
+				$scope.Model.newGroupChat.avatar = '';
+				newGroupChatPopup = ngDialog.open({
+					template: '../app/Chat/views/popup-group-chat.html',
+					className: 'popup-group-chat ngdialog-theme-default',
+					scope: $scope,
+					name: 'group-chat',
+					// preCloseCallback: function(value){
+					// 	$state.go("user", {username: $stateParams.username});
+					// }
+				});
+			}
+
+			$scope.Model.openSettings = function(user){
+				$scope.Model.showNotificationBlock = true;
+				$scope.Model.displayNotificationBlock = true;
+				$scope.Model.opponent = user;
+				console.log(user);
+			};
+
+			$scope.Model.cancelNewChat = function(){				
+				newGroupChatPopup.close();
+			};
+			$scope.Model.createChat = function(name, status, avatar){
+				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				var users = [];				
+				users.push(parseInt($scope.loggedUserId));				
+				$scope.Model.newGroupChat.users.forEach(function(user){
+					users.push(user.id);
+				});				
+				var data = {
+					is_group: true,
+					name: name,
+					status: statusToSave,
+					avatar: avatar,
+					members: users
+				};				
+				socket.emit('create room', data);
+				newGroupChatPopup.close();
+				$scope.Model.displayChatBlock = false;
+				$scope.Model.displayContactBlock = false;
+				$scope.Model.displayNotificationBlock = false;
+				$state.go('chat.list');				
+			};
+
+			$scope.Model.onItemSelected = function(user){				
+				var repeated = undefined;
+				for (var i = 0; i < $scope.Model.newGroupChat.users.length; i++) {
+					if ($scope.Model.newGroupChat.users[i].id === user.id) {
+						repeated = i;
+						break;
+					}					
+				}
+				if (repeated === undefined) {
+					$scope.Model.newGroupChat.users.push(user);
+				} else if(repeated!=0){
+					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
+					$scope.Model.newGroupChat.users.unshift(usr);
+				}								
+			};
+
+			$scope.Model.changeChatCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+	            Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+	                $scope.Model.newGroupChat.avatar = resizedFile;	                
+	            });
+	        };
+			
+			$scope.Model.removeUser = function(index){
+				$scope.Model.newGroupChat.users.splice(index, 1);
+			};
+
+			$scope.Model.saveNotificationSettings = function(chat){			
+				ChatService.setNotification(chat.room_id)
+					.then(function(response){						
+						console.log(response);						                     
+					},
+					function(error){
+						console.log(error);
+					});				
+			};
+
+			$scope.checkMessageType = function(message){						
+				var regExp = /^http:\/\/pp.dev\/#\/(\w+)\/pub(lication)?\/(\d+)$/;
+				var match = regExp.exec(message.text);
+				if (match) {
+					message.type = 'pub';
+					message.pub = {};
+					message.pub.username = match[1];					
+					message.pub.id = parseInt(match[3]);
+				}				
+				console.log(message.pub);
+			};
+
+			$scope.loadPubIntoChat = function(message, pubId){
+				// console.log(pubId);
+				PublicationService.getSinglePublication(pubId)
+					.then(function(response){						
+							console.log(response);
+							message.pub = response;
+						},
+						function(error){
+							console.log(error);
+						});
+			};
+
+			$scope.getPubText = function(text){
+				var mes = text.split(' messagetext: ');
+				return mes[1];
+			};
+
+			
 
 	}]);

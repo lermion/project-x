@@ -1,259 +1,91 @@
-<!-- <div ui-view>
-    <h3>Создать место</h3>
+<div ui-view>
+    <div class="create-places">
+        <h2>Создать место</h2>
 
-    <h4>Выберите тип места</h4>
+        <h3>Выберите тип места</h3>
 
-
-    <a ui-sref="places.add.dynamic">Динамичное</a> <a href="#">Магазин</a> <a href="#">Кафе/Ресторан</a> <a href="#">Развлечение</a>
-    <br>
-    <a href="#">Организация</a> <a ui-sref="places.add.university">Университет</a> <a href="#">Школа</a> <a href="#">Адрес</a>
-</div> -->
-<div class="create-places">
-	<h2>Создать место</h2>
-	<h3>Выберите тип места</h3>
-	<div class="create-places-cont">
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-dynamic.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Динамичное</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-store.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Магазин</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-cafe.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Кафе/Ресторан</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-game.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Развлечение</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-organization.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Организация</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-univer.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Университет</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-school.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Школа</a>
-			</div>
-		</div>
-		<div class="create-places-item">
-			<div class="create-places-item-photo">
-				<a href="">
-					<img src="/images/places-adress.png" alt="">
-				</a>
-			</div>
-			<div class="create-places-item-name">
-				<a href="">Адрес</a>
-			</div>
-		</div>
-	</div>
+        <div class="create-places-cont">
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.dynamic">
+                        <img src="/images/places-dynamic.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a href="">Динамичное</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-store.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Магазин</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-cafe.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Кафе/Ресторан</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-game.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Развлечение</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-organization.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Организация</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-univer.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Университет</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-school.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a ui-sref="places.add.common">Школа</a>
+                </div>
+            </div>
+            <div class="create-places-item">
+                <div class="create-places-item-photo">
+                    <a ui-sref="places.add.common">
+                        <img src="/images/places-adress.png" alt="">
+                    </a>
+                </div>
+                <div class="create-places-item-name">
+                    <a href="">Адрес</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-
-<div class="create-places-common">
-	<div class="create-places-header">
-		<a class="create-places-header-a" href="">Создать место</a>
-	</div>
-	<div class="create-places-common-inner">
-		<div class="create-places-type">
-			<span class="place-type-title">Тип места:</span>
-			<span class="place-type-name">Университет</span>
-		</div>
-		<div class="create-places-description">
-			Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
-			наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные 
-			университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
-			своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
-			составляющих основы научного знания.
-		</div>
-		<div class="create-places-select-country">
-			<div class="select-country-country">Выберите страну</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Россия</option>
-				  <option value="">Украина</option>
-				  <option value="">Исландия</option>
-				  <option value="">Ирландия</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="create-places-select-country">
-			<div class="select-country-country">Выберите город</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Москва</option>
-				  <option value="">Киев</option>
-				  <option value="">Днепропетровск</option>
-				  <option value="">Мюнхен</option>
-				</select>
-			</div>
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Адрес места</div>
-			<div class="select-street-input">
-				<input type="text" placeholder="улица, номер дома">
-				<span class="street-on-map">или укажите на карте</span>
-			</div>
-
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Введите название университета</div>
-			<div class="select-street-input">
-				<input type="text" placeholder="Университет...">
-			</div>
-
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Описание</div>
-			<div class="select-street-input">
-				<textarea type="text" placeholder="Введите описание:"></textarea>
-			</div>
-
-		</div>
-
-		<div class="create-places-add-cover">
-			<div class="create-places-add-cover-img">
-				<a href=""></a>
-				<span>Добавить обложку месту</span>
-			</div>
-			<!-- <div class="create-places-add-cover-ava">аватар</div> -->
-			<div class="create-places-add-cover-button-create">Создать место</div>
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-<div class="create-places-common">
-	<div class="create-places-header">
-		<a class="create-places-header-a" href="">Создать место</a>
-	</div>
-	<div class="create-places-common-inner">
-		<div class="create-places-type">
-			<span class="place-type-title">Тип места:</span>
-			<span class="place-type-name">Динамичное</span>
-		</div>
-		<div class="create-places-description">
-			Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
-			наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные 
-			университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
-			своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
-			составляющих основы научного знания.
-		</div>
-		<div class="create-places-select-country">
-			<div class="select-country-country">Категория динамического места</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Выберите категорию</option>
-				  <option value="">Выберите категорию</option>
-				  <option value="">Выберите категорию</option>
-				  <option value="">Выберите категорию</option>
-				</select>
-			</div>
-		</div>
-		<div class="create-places-select-country">
-			<div class="select-country-country">Выберите страну</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Россия</option>
-				  <option value="">Украина</option>
-				  <option value="">Исландия</option>
-				  <option value="">Ирландия</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="create-places-select-country">
-			<div class="select-country-country">Выберите город</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Москва</option>
-				  <option value="">Киев</option>
-				  <option value="">Днепропетровск</option>
-				  <option value="">Мюнхен</option>
-				</select>
-			</div>
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Адрес места</div>
-			<div class="select-street-input">
-				<input type="text" placeholder="улица, номер дома">
-				<span class="street-on-map">или укажите на карте</span>
-			</div>
-
-		</div>
-		<div class="create-places-select-country days">
-			<div class="select-country-country">Сколько дней актуально это место</div>
-			<div class="select-country-name">
-				<input type="date" placeholder="Выберите дни">
-			</div>
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Описание</div>
-			<div class="select-street-input">
-				<textarea type="text" placeholder="Введите описание:"></textarea>
-			</div>
-
-		</div>
-
-		<div class="create-places-add-cover">
-			<div class="create-places-add-cover-img">
-				<a href=""></a>
-				<span>Добавить обложку месту</span>
-			</div>
-			<!-- <div class="create-places-add-cover-ava">аватар</div> -->
-			<div class="create-places-add-cover-button-create">Создать место</div>
-		</div>
-	</div>
-</div>
