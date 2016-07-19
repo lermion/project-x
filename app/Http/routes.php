@@ -158,18 +158,22 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('get_locked_users', 'ChatLockedUserController@get_locked_users');
     });
 
-
-    Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group\" method=\"get\" enctype=\"multipart/form-data\">
+    Route::post('search','SphinxSearchController@search');
+    Route::get('search', function () {
+        echo "<form action=\"http://pp.dev/search\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='text' name='name'><br>
-            <input type='text' name='description'><br>
-            <input type='text' name='address'><br>
-            <input type='text' name='city_id' value='5'><br>
-            <input type='text' name='coordinates_x'><br>
-            <input type='text' name='coordinates_y'><br>
-            <input type='text' name='type_place_id' value='2'><br>
-
+            <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
+            <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
+            <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
+            <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
             <input type=\"submit\">
-        </form>";
+            
+        </form>
+       
+        ";
+        
+       
+
+
     });
 });
