@@ -6469,3 +6469,11 @@ input.cmn-toggle-round:checked + label:after {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+
+@media (max-width: 520px){
+	.group-publication .photo.place-photo1 {
+    width: 32%;
+    height: 120px;
+    margin: 0 1px 1px 0;
+}
