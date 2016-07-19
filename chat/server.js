@@ -97,9 +97,14 @@ io.sockets.on('connection', function(socket){
 			"userIdFrom": data
 		};
 		queries.getUserRooms(data).then(function(response){
+			var roomsArray = [];
 			response.forEach(function(value){
-				GLOBAL.rooms.push(value.room_id);
+				roomsArray.push(value.room_id);
+				GLOBAL.rooms = roomsArray;
+				socket.room = GLOBAL.rooms;
+				socket.join(value.room_id);
 			});
+			console.log("socket.room", socket.room);
 			socket.emit("get user rooms", response);
 		},
 		function(error){

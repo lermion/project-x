@@ -70,8 +70,9 @@
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub">Подписаться</button>
-                            <button class="wright" ng-if="group.is_sub">Вы подписаны</button>
+                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
+                            <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
+                            <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>
                         </div>
                     </div>
                 </div>
@@ -113,7 +114,8 @@
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
                             <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-                            <button class="wright" ng-if="group.is_sub">Вы подписаны</button>
+                            <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
+                            <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>
                         </div>
                     </div>
                 </div>
