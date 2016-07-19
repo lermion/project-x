@@ -5897,13 +5897,17 @@ input.cmn-toggle-round:checked + label:after {
 }
 
 .public header .main-menu a.main-header-group {
-    background-image: url(/images/groups-hover.png);
+    background-image: url(/images/groups-hover1.png);
     transition: all .2s ease-in-out .1s;
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 26%;
     padding-left: 20px;
     cursor: pointer;
+}
+.public header .main-menu a.main-header-group:hover {
+    background-image: url(/images/groups-hover.png);
+    transition: all .2s ease-in-out .1s;
 }
 
 .public header .search.main-header-search {
