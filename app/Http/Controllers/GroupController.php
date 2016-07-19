@@ -159,7 +159,7 @@ class GroupController extends Controller
         }
         $group = Group::find($id);
         $group->update($groupData);
-        return response()->json(["status" => true]);
+        return response()->json(["status" => true, "groupData" => $groupData]);
     }
 
     /**

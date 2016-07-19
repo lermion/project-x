@@ -14,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'phone', 'password', 'country_id', 'first_name', 'last_name', 'gender', 'status', 'is_avatar',
+        'login', 'phone', 'password', 'country_id', 'first_name', 'last_name', 'gender', 'is_avatar',
         'is_visible', 'is_private'
     ];
 
@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token', 'status'
     ];
 
     public function groups()
