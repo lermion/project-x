@@ -6487,3 +6487,32 @@ input.cmn-toggle-round:checked + label:after {
     height: 120px;
     margin: 0 1px 1px 0;
 }
+}
+
+
+
+/*Popup delete chat*/
+.confirmation-popup123 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -225px;
+    margin-top: -205px;
+    width: 450px;
+    height: 410px;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,.9);
+    color: #fff;
+    border-radius: 2px;
+}
+.confirmation-popup123 {
+    -webkit-animation: ngdialog-flyin .5s;
+    animation: ngdialog-flyin .5s;
+    font-family: Helvetica,sans-serif;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    padding: 30px 25px;
+}
+.confirmation-popup123 {
+    height: auto;
+}
