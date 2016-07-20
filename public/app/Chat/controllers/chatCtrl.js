@@ -224,6 +224,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.loadMoreMessages = function(roomId){
+				console.log("hgergewge");
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
@@ -252,11 +253,13 @@ angular.module('placePeopleApp')
 			socket.on("load more messages", function(response){
 				if(response.length === 0){
 					$scope.status.loading = true;
+					$scope.counter = 0;
 				}else{
 					response.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
 					$scope.counter += 10;
+					console.log($scope.counter);
 				}
 			});
 
@@ -331,6 +334,7 @@ angular.module('placePeopleApp')
 					  });
 			};
 			$scope.Model.openChatWith = function(chat){
+				$scope.status.loading = false;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
