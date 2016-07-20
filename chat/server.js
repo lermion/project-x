@@ -25,7 +25,7 @@ io.sockets.on('connection', function(socket){
 			}
 			if(response.length >= 1){
 				queries.getUserDialogue(data).then(function(response){
-					socket.emit('send message', response);
+					socket.emit('updatechat', response);
 				},
 				function(error){
 					console.log(error);
