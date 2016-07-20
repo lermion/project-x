@@ -1,14 +1,19 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload',
+		'PublicationService', 'Upload', '$q', '$timeout',
 		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload) {
+			PublicationService, Upload, $q, $timeout) {
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
+			$scope.status = {
+				loading: false,
+				loaded: false
+			};
+			$scope.counter = 0;
 			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name')
@@ -161,62 +166,119 @@ angular.module('placePeopleApp')
 				socket.emit("get user rooms", $scope.loggedUserId);
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
-			
+			$scope.abortConfirmation = function(){
+				ngDialog.closeAll();
+			}
 			$scope.Model.clearChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
 					className: 'confirmation-popup ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					data: {
+						text: "Вы уверены, что хотите очистить чат?",
+						type: "clearChat",
+						roomId: roomId
+					}
 				});
-				// if(!roomId){
-				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-				// 			if (!$scope.Model.chatRooms[i].is_group) {
-				// 				if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-				// 					roomId = $scope.Model.chatRooms[i].room_id;
-				// 				}
-				// 			}
-				// 		}
-				// 	}
-				// }
-				// ChatService.clearChat(roomId).then(function(res){
-				// 	console.log(res);
-				// 	if(res.status){
-				// 		$scope.Model.Chat = [];
-				// 	}						
-				// },
-				// function(err){
-				// 	console.log(err);
-				// });
 			};
+			$scope.acceptConfirmation = function(type, roomId){
+				if(type === "clearChat"){
+					if(!roomId){
+						for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+							for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+								if (!$scope.Model.chatRooms[i].is_group) {
+									if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+										roomId = $scope.Model.chatRooms[i].room_id;
+									}
+								}
+							}
+						}
+					}
+					ChatService.clearChat(roomId).then(function(res){
+						console.log(res);
+						if(res.status){
+							ngDialog.closeAll();
+							$scope.Model.Chat = [];
+						}						
+					},
+					function(err){
+						console.log(err);
+					});
+				}else{
+					if(!roomId){
+						for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+							for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+								if (!$scope.Model.chatRooms[i].is_group) {
+									if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+										roomId = $scope.Model.chatRooms[i].room_id;
+									}
+								}
+							}
+						}
+					}
+					ChatService.deleteChat(roomId).then(function(res){
+						console.log(res);
+						if(res.status){
+							ngDialog.closeAll();
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.reloadRooms();
+						}
+					},
+					function(err){
+						console.log(err);
+					});
+				}
+			}
 			$scope.Model.deleteChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
 					className: 'confirmation-popup ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					data: {
+						text: "Вы уверены, что хотите удалить чат?",
+						type: "deleteChat",
+						roomId: roomId
+					}
 				});
-				// if(!roomId){
-				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-				// 			if (!$scope.Model.chatRooms[i].is_group) {
-				// 				if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-				// 					roomId = $scope.Model.chatRooms[i].room_id;
-				// 				}
-				// 			}
-				// 		}
-				// 	}
-				// }
-				// ChatService.deleteChat(roomId).then(function(res){
-				// 	console.log(res);
-				// 	if(res.status){
-				// 		$scope.Model.displayChatBlock = false;
-				// 		$scope.Model.reloadRooms();
-				// 	}
-				// },
-				// function(err){
-				// 	console.log(err);
-				// });
 			};
+
+			$scope.loadMoreMessages = function(roomId){
+				if(!roomId){
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}
+				var data = {
+					room_id: roomId,
+					offset: $scope.counter,
+					limit: 10
+				};
+				var deferred = $q.defer();
+				if(!$scope.status.loading){
+					socket.emit("load more messages", data);
+				}else{
+					deferred.reject();
+				}
+				return deferred.promise;
+			};
+
+			socket.on("load more messages", function(response){
+				if(response.length === 0){
+					$scope.status.loading = true;
+					$scope.counter = 0;
+				}else{
+					response.messages.forEach(function(value){
+						$scope.Model.Chat.unshift(value);
+					});
+					$scope.counter += 10;
+				}
+			});
 
 			function loadUserContacts(){
 				PublicationService.getSubscribers($scope.loggedUserId)
@@ -257,7 +319,6 @@ angular.module('placePeopleApp')
 			$scope.Model.blockContact = function(contact){				
 				ChatService.blockUser(contact.id)
 					.then(function(response){
-						console.log(response);
 						if (response.status) {
 							contact.is_lock = response.is_lock 
 							if (!response.is_lock) {													
@@ -283,12 +344,13 @@ angular.module('placePeopleApp')
 							$scope.Model.loadUserContactList();
 							$scope.Model.displayContactBlock = false;
 						}
-						console.log(res);
-					  }, function(err){
+						}, function(err){
 						console.log(err);
 					  });
 			};
 			$scope.Model.openChatWith = function(chat){
+				$scope.status.loading = false;
+				$scope.counter = 0;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -311,7 +373,9 @@ angular.module('placePeopleApp')
 					data = {					
 						members: members, 
 						room_id: chat.room_id,
-						is_group: true
+						is_group: true,
+						offset: 0,
+						limit: 10
 					};
 				} else {
 					if (chat.members) {
@@ -324,7 +388,9 @@ angular.module('placePeopleApp')
 					data = {					
 						members: members, 
 						room_id: chat.room_id,
-						is_group: false
+						is_group: false,
+						offset: 0,
+						limit: 10
 					};
 				}
 				 
@@ -352,7 +418,7 @@ angular.module('placePeopleApp')
 			});
 			
 			$scope.Model.sendMes = function(message, roomId){			
-				if (!roomId) {									
+				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
 							if (!$scope.Model.chatRooms[i].is_group) {
@@ -362,14 +428,13 @@ angular.module('placePeopleApp')
 							}
 						}
 					}
-				}				
+				}
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
 					message: message
 				}				
 				$scope.Model.chatMes = '';
-				console.log(data);			
 				socket.emit('send message', data);				
 			};	
 
@@ -383,9 +448,7 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
-				console.log('updatechat:');				
-				console.log(data);				
-				$scope.Model.Chat = data;
+				$scope.Model.Chat = data.messages;
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
 				if (event.keyCode == 13) {
@@ -396,14 +459,9 @@ angular.module('placePeopleApp')
 				}			
 			};
 
-			$scope.Model.getTime = function(time){
-				return time.substr(11, 5);
-			}
-
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
 					.then(function(response){	
-						console.log(response);					
 						$scope.Model.blockedUsers = response;                           
 					},
 					function(error){
@@ -425,7 +483,9 @@ angular.module('placePeopleApp')
 				var data = {					
 					members: members,
 					room_id: user.room_id,
-					is_group: false
+					is_group: false,
+					offset: 0,
+					limit: 10
 				};
 				socket.emit('create room', data);
 			}
@@ -466,7 +526,6 @@ angular.module('placePeopleApp')
 				$scope.Model.showNotificationBlock = true;
 				$scope.Model.displayNotificationBlock = true;
 				$scope.Model.opponent = user;
-				console.log(user);
 			};
 
 			$scope.Model.cancelNewChat = function(){				
@@ -484,7 +543,9 @@ angular.module('placePeopleApp')
 					name: name,
 					status: statusToSave,
 					avatar: avatar,
-					members: users
+					members: users,
+					offset: 0,
+					limit: 10
 				};				
 				socket.emit('create room', data);
 				newGroupChatPopup.close();
@@ -511,10 +572,10 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.changeChatCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-	            Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
-	                $scope.Model.newGroupChat.avatar = resizedFile;	                
-	            });
-	        };
+				Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+					$scope.Model.newGroupChat.avatar = resizedFile;	                
+				});
+			};
 			
 			$scope.Model.removeUser = function(index){
 				$scope.Model.newGroupChat.users.splice(index, 1);
@@ -523,7 +584,7 @@ angular.module('placePeopleApp')
 			$scope.Model.saveNotificationSettings = function(chat){			
 				ChatService.setNotification(chat.room_id)
 					.then(function(response){						
-						console.log(response);						                     
+						
 					},
 					function(error){
 						console.log(error);
@@ -545,7 +606,6 @@ angular.module('placePeopleApp')
 				if (pubId != undefined) {
 					PublicationService.getSinglePublication(pubId)
 					.then(function(response){						
-							console.log(response);
 							message.pub = response;
 						},
 						function(error){

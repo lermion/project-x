@@ -23,7 +23,8 @@
 			</div>
     </div>
 <!--  ng-scrollbar rebuild-on="rebuildScroll" -->
-    <div class="chat-right-chat-inner">
+	<p ng-show="status.loading">loading...</p>
+    <div when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
     	<div class="chat-message-date">
     		<span>Вчера</span>
     	</div>
@@ -90,7 +91,7 @@
 	    			</div> -->
 	    		</div>
 	    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
-	    			<span>{{Model.getTime(message.created_at)}}</span>
+	    			<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 	    		</div>
 	    	</div>
     	</div>
