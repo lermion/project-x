@@ -202,7 +202,7 @@ class UserController extends Controller
     {
         try {
             $this->validate($request, [
-                'picture' => 'image'
+                'picture' => 'required|image|mimes:png|max:5000'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -216,16 +216,14 @@ class UserController extends Controller
         }
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
-            //dd($contents = Storage::get($picture));
-
-            Storage::put('file.jpg', file_get_contents($picture->getRealPath()));
-            $size = Storage::size('file.jpg');
-            //Storage::delete('bc.png');
-
-            //$path = '/images/bc.png';
-
-            //$avatar->move($fullPath, $fileName);
+            $path = '/images/';
+            $fullPath = public_path() . $path;
+            Storage::put('bc.png', file_get_contents($picture->getRealPath()));
+            $picture->move($fullPath, 'bc.png');
+            Storage::delete('bc.png');
+            $result = 'true';
         }
-        return $size;
+        return response()->json($result);
+
     }
 }
