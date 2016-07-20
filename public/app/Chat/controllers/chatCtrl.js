@@ -429,8 +429,6 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
-				console.log('updatechat:');				
-				console.log(data);
 				$scope.Model.Chat = data;
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
