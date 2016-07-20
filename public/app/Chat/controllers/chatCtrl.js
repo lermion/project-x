@@ -166,61 +166,80 @@ angular.module('placePeopleApp')
 				socket.emit("get user rooms", $scope.loggedUserId);
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
-			
+			$scope.abortConfirmation = function(){
+				ngDialog.closeAll();
+			}
 			$scope.Model.clearChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
 					className: 'confirmation-popup ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					data: {
+						text: "Вы уверены, что хотите очистить чат?",
+						type: "clearChat",
+						roomId: roomId
+					}
 				});
-				// if(!roomId){
-				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-				// 			if (!$scope.Model.chatRooms[i].is_group) {
-				// 				if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-				// 					roomId = $scope.Model.chatRooms[i].room_id;
-				// 				}
-				// 			}
-				// 		}
-				// 	}
-				// }
-				// ChatService.clearChat(roomId).then(function(res){
-				// 	console.log(res);
-				// 	if(res.status){
-				// 		$scope.Model.Chat = [];
-				// 	}						
-				// },
-				// function(err){
-				// 	console.log(err);
-				// });
 			};
+			$scope.acceptConfirmation = function(type, roomId){
+				if(type === "clearChat"){
+					if(!roomId){
+						for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+							for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+								if (!$scope.Model.chatRooms[i].is_group) {
+									if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+										roomId = $scope.Model.chatRooms[i].room_id;
+									}
+								}
+							}
+						}
+					}
+					ChatService.clearChat(roomId).then(function(res){
+						console.log(res);
+						if(res.status){
+							ngDialog.closeAll();
+							$scope.Model.Chat = [];
+						}						
+					},
+					function(err){
+						console.log(err);
+					});
+				}else{
+					if(!roomId){
+						for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+							for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+								if (!$scope.Model.chatRooms[i].is_group) {
+									if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+										roomId = $scope.Model.chatRooms[i].room_id;
+									}
+								}
+							}
+						}
+					}
+					ChatService.deleteChat(roomId).then(function(res){
+						console.log(res);
+						if(res.status){
+							ngDialog.closeAll();
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.reloadRooms();
+						}
+					},
+					function(err){
+						console.log(err);
+					});
+				}
+			}
 			$scope.Model.deleteChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
 					className: 'confirmation-popup ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					data: {
+						text: "Вы уверены, что хотите удалить чат?",
+						type: "deleteChat",
+						roomId: roomId
+					}
 				});
-				// if(!roomId){
-				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-				// 			if (!$scope.Model.chatRooms[i].is_group) {
-				// 				if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-				// 					roomId = $scope.Model.chatRooms[i].room_id;
-				// 				}
-				// 			}
-				// 		}
-				// 	}
-				// }
-				// ChatService.deleteChat(roomId).then(function(res){
-				// 	console.log(res);
-				// 	if(res.status){
-				// 		$scope.Model.displayChatBlock = false;
-				// 		$scope.Model.reloadRooms();
-				// 	}
-				// },
-				// function(err){
-				// 	console.log(err);
-				// });
 			};
 
 			$scope.loadMoreMessages = function(roomId){
