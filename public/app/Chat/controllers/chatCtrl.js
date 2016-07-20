@@ -224,7 +224,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.loadMoreMessages = function(roomId){
-				console.log("hgergewge");
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
@@ -259,7 +258,6 @@ angular.module('placePeopleApp')
 						$scope.Model.Chat.unshift(value);
 					});
 					$scope.counter += 10;
-					console.log($scope.counter);
 				}
 			});
 
