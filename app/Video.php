@@ -21,11 +21,14 @@ class Video extends Model
             ]);
         }
         else {
-            $ffmpeg = FFMpeg::create();
+		
+            $ffmpeg = \FFMpeg\FFMpeg::create([
+   		 'ffmpeg.binaries'  => exec('which ffmpeg'),
+    		 'ffprobe.binaries' => exec('which ffprobe') 
+	    ]);
         }
-
+dd($ffmpeg);	
         $file = $ffmpeg->open($f_path . $f_name);
-
         $file
             ->filters()
             ->resize(new Dimension(640, 480))
@@ -33,6 +36,7 @@ class Video extends Model
         $file
             ->frame(TimeCode::fromSeconds(10))
             ->save($new_fname . '.jpg');
+dd('test');
     }
     
     public static function makeVideo($f_name, $f_path, $new_fname)

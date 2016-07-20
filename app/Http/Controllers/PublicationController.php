@@ -195,7 +195,7 @@ class PublicationController extends Controller
                     continue;
                 }
 
-                try {
+               // try {
                     $f_name = $video->getClientOriginalName();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
@@ -208,7 +208,7 @@ class PublicationController extends Controller
                     else {
                         exec($cmd . " > /dev/null &");
                     }
-                }
+               /* }
                 catch (\Exception $e) {
                     $result = [
                         "status" => false,
@@ -218,7 +218,7 @@ class PublicationController extends Controller
                         ]
                     ];
                     return response()->json($result);
-                }
+                }*/
 
                 $publication->videos()->create([
                     'url' => $new_fname . '.webm',
