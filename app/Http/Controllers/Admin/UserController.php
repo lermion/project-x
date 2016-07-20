@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 //use App\Publication;
 use App\BlackList;
 use App\User;
+use App\Comment;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -57,12 +58,26 @@ class UserController extends Controller
         $user = User::find($id);
         $offset = 0;
         $limit = 10;
-        $user->getSubscription($id)->toArray() ? $user->subscription = $user->getSubscription($id) : $user->subscription = false;
-        $user->getSubscribers($id)->toArray() ? $user->subscribers = $user->getSubscribers($id) : $user->subscribers = false;
-        $user->getPublication($id)->toArray() ? $user->publications = $user->getPublication($id) : $user->publications = false;
-        User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray() ? $user->groups = User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray() : $user->groups = false;
-        User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray() ? $user->places = User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray() : $user->places = false;
-        return view('admin.user.show')->with('user', $user);
+        Comment::with(['videos', 'images', 'user'])->where('user_id', $id)->get()->toArray()
+            ? $user->comments = Comment::with(['videos', 'images', 'user'])->where('user_id', $id)->get()->toArray()
+            : $user->comments = false;
+        $user->getSubscription($id)->toArray()
+            ? $user->subscription = $user->getSubscription($id)
+            : $user->subscription = false;
+        $user->getSubscribers($id)->toArray()
+            ? $user->subscribers = $user->getSubscribers($id)
+            : $user->subscribers = false;
+        $user->getPublication($id)->toArray()
+            ? $user->publications = $user->getPublication($id)
+            : $user->publications = false;
+        User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray()
+            ? $user->groups = User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray()
+            : $user->groups = false;
+        User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray()
+            ? $user->places = User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray()
+            : $user->places = false;
+        //return view('admin.user.show')->with('user', $user);
+        return $user;
     }
 
     /**
