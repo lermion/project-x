@@ -449,7 +449,11 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
-				$scope.Model.Chat = data.messages;
+				if(data.messages){
+					$scope.Model.Chat = data.messages;
+				}else{
+					$scope.Model.Chat.push(data);
+				}
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
 				if (event.keyCode == 13) {

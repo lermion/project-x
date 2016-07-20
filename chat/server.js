@@ -17,7 +17,6 @@ io.sockets.on('connection', function(socket){
 				var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 				socket.room = GLOBAL.rooms[indexRooms];
 				socket.join(GLOBAL.rooms[indexRooms]);
-				socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
 				data.created_at = new Date();
 				data.updated_at = new Date();
 			}else{
@@ -113,14 +112,13 @@ io.sockets.on('connection', function(socket){
 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 			socket.room = GLOBAL.rooms[indexRooms];
 			socket.join(GLOBAL.rooms[indexRooms]);
-			socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
 			data.created_at = new Date();
 			data.updated_at = new Date();
 		}else{
 			socket.emit("switchRoom", data.room_id);
 		}
 		queries.sendMessage(data).then(function(response){
-			queries.getUserDialogue(data).then(function(response){
+			queries.getLastMessage(data).then(function(response){
 				io.sockets.in(socket.room).emit('updatechat', response);
 			},
 			function(error){
