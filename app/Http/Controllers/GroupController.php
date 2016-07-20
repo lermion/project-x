@@ -23,7 +23,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar')
+        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar', 'groups.created_at')
             ->where('groups.is_open',true)
             ->orWhere(function($query){
                 $query->where('groups.is_open',false);
