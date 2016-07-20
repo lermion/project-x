@@ -174,6 +174,17 @@ Route::group(['middleware' => ['web']], function () {
     });
 
 
+    Route::post('search','SphinxSearchController@search');
+    Route::get('search', function () {
+        echo "<form action=\"http://pp.dev/search\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='name'><br>
+            <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
+            <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
+            <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
+            <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
+            <input type=\"submit\">
+            </form>";
+    });
     Route::get('test', function () {
         echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
@@ -184,8 +195,7 @@ Route::group(['middleware' => ['web']], function () {
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>
             <input type='file' name='picture'><br>
-
             <input type=\"submit\">
-        </form>";
+            </form>";
     });
 });
