@@ -4,9 +4,7 @@ var io = require('socket.io')(server);
 var fs = require('fs');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
-var DatabaseConnection = require('./databaseConnection');
 var Queries = require('./queries');
-var connection = new DatabaseConnection();
 var queries = new Queries();
 var users = {};
 var usersId = {};
@@ -88,7 +86,7 @@ io.sockets.on('connection', function(socket){
 		function(error){
 			console.log(error);
 		});
-});
+	});
 	socket.on('get user rooms', function(data){
 		userId = {};
 		userId.socketId = socket.id;
@@ -134,9 +132,9 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	socket.on('switchRoom', function(newroom){
+	socket.on('switchRoom', function(newRoom){
 		socket.leave(socket.room);
-		socket.join(newroom);
-		socket.room = newroom;
+		socket.join(newRoom);
+		socket.room = newRoom;
 	});
 });
