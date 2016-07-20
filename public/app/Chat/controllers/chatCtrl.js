@@ -165,7 +165,7 @@ angular.module('placePeopleApp')
 			$scope.Model.clearChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
-					className: 'ngdialog-theme-default',
+					className: 'confirmation-popup ngdialog-theme-default',
 					scope: $scope
 				});
 				// if(!roomId){
@@ -192,7 +192,7 @@ angular.module('placePeopleApp')
 			$scope.Model.deleteChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
-					className: 'ngdialog-theme-default',
+					className: 'confirmation-popup ngdialog-theme-default',
 					scope: $scope
 				});
 				// if(!roomId){
