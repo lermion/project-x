@@ -459,10 +459,6 @@ angular.module('placePeopleApp')
 				}			
 			};
 
-			// $scope.Model.getTime = function(time){
-			// 	return time.substr(11, 5);
-			// }
-
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
 					.then(function(response){	

@@ -91,7 +91,7 @@
 	    			</div> -->
 	    		</div>
 	    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
-	    			<span>{{Model.getTime(message.created_at)}}</span>
+	    			<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 	    		</div>
 	    	</div>
     	</div>
