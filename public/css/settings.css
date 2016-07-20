@@ -6487,3 +6487,15 @@ input.cmn-toggle-round:checked + label:after {
     height: 120px;
     margin: 0 1px 1px 0;
 }
+}
+
+
+
+/*Popup delete chat*/
+
+.ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content {
+    height: auto;
+}
+.ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content .del .del-text {
+    text-align: center;
+}

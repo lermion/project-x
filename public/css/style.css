@@ -2433,7 +2433,7 @@ spam-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 5px;
+	/*margin-bottom: 5px;*/
 	overflow: hidden;
 }
 
@@ -2449,6 +2449,7 @@ spam-item {
 .user-publication-content .publication-images  {
 	display: flex;
     	flex-wrap: wrap;
+    	margin-top: 5px;
 }
 .publication-images .images-item {
 	width: 97px;
@@ -3633,7 +3634,7 @@ body.ngdialog-open {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 70%;
+	max-width: 34%;
 }
 .group-ava .group-likes .group-info .publication-place {
 	background-image: none;
@@ -3655,7 +3656,7 @@ body.ngdialog-open {
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 13%;
+	background-size: 12%;
 	transition: all .3s ease-in-out .1s;
 }
 .group-page .group-menu {
@@ -3780,6 +3781,7 @@ body.ngdialog-open {
 	}
 	.group-ava .group-likes .group-info {
 		flex-direction: column-reverse;
+		margin-bottom: 17px;
 	}
 	.group-ava .group-likes .group-info .like-item {
 		margin: 10px 0;
