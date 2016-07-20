@@ -6499,3 +6499,40 @@ input.cmn-toggle-round:checked + label:after {
 .ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content .del .del-text {
     text-align: center;
 }
+
+
+/*Search*/
+.header-search-container {
+    position: absolute;
+    background-color: #495b79;
+    top: 55px;
+    width: 100%;
+}
+.header-search-input-wrap {
+    width: 700px;
+    margin: 5px auto;
+}
+.header-search-input-wrap input {
+    width: 100%;
+    background-color: #7988a3;
+    border-radius: 3px;
+    padding: 5px 35px 5px 10px;
+    color: #fff;
+    transition: all .4s ease-in-out .1s;
+    border: none;
+    box-sizing: border-box;
+    height: 35px;
+    background-image: url(/images/search.png);
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 3%;
+}
+.header-search-input-wrap input:hover {
+    background-color: #fff;
+    color: #495b79;
+}
+@media (max-width: 800px) {
+    .header-search-container {
+        display: none;
+    }
+}
