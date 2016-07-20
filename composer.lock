@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "db6aea5b25518a48ee848b37cd8de9f3",
-    "content-hash": "48c5dbe6e97a5884a561a1ee6dfbee47",
+    "hash": "21bbbc18cf131288f12ff8b85bc1d7fa",
+    "content-hash": "8e801db2b86ebd7e77998df865f3f52c",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -289,6 +289,51 @@
             "time": "2015-11-06 14:35:42"
         },
         {
+            "name": "euclid1990/php-sphinx-search",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/euclid1990/php-sphinx-search.git",
+                "reference": "ab1b918d92e307c29330c71102aabfc69ceb8508"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/euclid1990/php-sphinx-search/zipball/ab1b918d92e307c29330c71102aabfc69ceb8508",
+                "reference": "ab1b918d92e307c29330c71102aabfc69ceb8508",
+                "shasum": ""
+            },
+            "require": {
+                "foolz/sphinxql-query-builder": "~1.0",
+                "illuminate/config": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "euclid1990\\PhpSphinxSearch\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nguyen Van Vuong",
+                    "email": "euclid1990@gmail.com"
+                }
+            ],
+            "description": "PHP Sphinx search tool.",
+            "time": "2016-03-29 15:54:45"
+        },
+        {
             "name": "evenement/evenement",
             "version": "v2.0.0",
             "source": {
@@ -333,6 +378,57 @@
                 "event-emitter"
             ],
             "time": "2012-11-02 14:49:47"
+        },
+        {
+            "name": "foolz/sphinxql-query-builder",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FoolCode/SphinxQL-Query-Builder.git",
+                "reference": "feb8b6245d9ad7312576e98caac2a62a7835782a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FoolCode/SphinxQL-Query-Builder/zipball/feb8b6245d9ad7312576e98caac2a62a7835782a",
+                "reference": "feb8b6245d9ad7312576e98caac2a62a7835782a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "replace": {
+                "foolz/sphinxql": "self.version"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Foolz\\SphinxQL\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "foolz",
+                    "email": "support@foolz.us"
+                }
+            ],
+            "description": "A PHP query builder for SphinxQL. Uses MySQLi to connect to the Sphinx server.",
+            "homepage": "http://www.foolz.us",
+            "keywords": [
+                "database",
+                "query builder",
+                "search",
+                "sphinx",
+                "sphinxql",
+                "sql"
+            ],
+            "time": "2016-06-17 02:09:12"
         },
         {
             "name": "jakub-onderka/php-console-color",
