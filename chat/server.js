@@ -4,9 +4,7 @@ var io = require('socket.io')(server);
 var fs = require('fs');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
-var DatabaseConnection = require('./databaseConnection');
 var Queries = require('./queries');
-var connection = new DatabaseConnection();
 var queries = new Queries();
 var users = {};
 var usersId = {};
@@ -19,7 +17,6 @@ io.sockets.on('connection', function(socket){
 				var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 				socket.room = GLOBAL.rooms[indexRooms];
 				socket.join(GLOBAL.rooms[indexRooms]);
-				socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
 				data.created_at = new Date();
 				data.updated_at = new Date();
 			}else{
@@ -27,7 +24,7 @@ io.sockets.on('connection', function(socket){
 			}
 			if(response.length >= 1){
 				queries.getUserDialogue(data).then(function(response){
-					socket.emit('send message', response);
+					socket.emit('updatechat', response);
 				},
 				function(error){
 					console.log(error);
@@ -88,7 +85,7 @@ io.sockets.on('connection', function(socket){
 		function(error){
 			console.log(error);
 		});
-});
+	});
 	socket.on('get user rooms', function(data){
 		userId = {};
 		userId.socketId = socket.id;
@@ -104,7 +101,6 @@ io.sockets.on('connection', function(socket){
 				socket.room = GLOBAL.rooms;
 				socket.join(value.room_id);
 			});
-			console.log("socket.room", socket.room);
 			socket.emit("get user rooms", response);
 		},
 		function(error){
@@ -116,14 +112,13 @@ io.sockets.on('connection', function(socket){
 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 			socket.room = GLOBAL.rooms[indexRooms];
 			socket.join(GLOBAL.rooms[indexRooms]);
-			socket.emit('updatechat', 'SERVER', 'you have connected to room: ' + GLOBAL.rooms[indexRooms]);
 			data.created_at = new Date();
 			data.updated_at = new Date();
 		}else{
 			socket.emit("switchRoom", data.room_id);
 		}
 		queries.sendMessage(data).then(function(response){
-			queries.getUserDialogue(data).then(function(response){
+			queries.getLastMessage(data).then(function(response){
 				io.sockets.in(socket.room).emit('updatechat', response);
 			},
 			function(error){
@@ -134,9 +129,17 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	socket.on('switchRoom', function(newroom){
+	socket.on("load more messages", function(data){
+		queries.getUserDialogue(data).then(function(response){
+			socket.emit("load more messages", response);
+		},
+		function(error){
+			console.log(error);
+		});
+	});
+	socket.on('switchRoom', function(newRoom){
 		socket.leave(socket.room);
-		socket.join(newroom);
-		socket.room = newroom;
+		socket.join(newRoom);
+		socket.room = newRoom;
 	});
 });

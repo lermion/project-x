@@ -122,16 +122,35 @@ Queries.prototype.getUserRooms = function(data){
 	return deferred.promise;
 }
 Queries.prototype.getUserDialogue = function(data){
-	var offset = 0;
-	var limit = 1000;
 	var deferred = Q.defer();
-	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id LIMIT " + limit + " OFFSET " + offset + "", function(error, result){
+	if(data.offset === undefined && data.limit === undefined){
+		data.offset = 0;
+		data.limit = 1000;
+	}
+	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
 		if(error){
 			console.error("error to get user dialogue: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
+			result = {
+				room_id: data.room_id,
+				messages: result
+			};
 			deferred.resolve(result);
+		}
+	});
+	return deferred.promise;
+}
+Queries.prototype.getLastMessage = function(data){
+	var deferred = Q.defer();
+	var sql = connection.query("SELECT messages.id, users.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
+		if(error){
+			console.error("error to get last message: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			deferred.resolve(result[0]);
 		}
 	});
 	return deferred.promise;

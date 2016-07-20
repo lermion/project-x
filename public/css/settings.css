@@ -2891,7 +2891,7 @@ p.top-person-status {
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-image: url(/images/chat-icon.png);
+    background-image: url(/images/chat-icon1.png);
     background-repeat: no-repeat;
     background-position: center;
     background-color: rgb(245, 245, 245);
@@ -2931,7 +2931,7 @@ p.top-person-status {
 
 .users-menu-tab-users.active {
     background-color: #fff;
-
+    background-image: url(/images/chat-tab-people-hover.png);
 }
 
 .users-menu-tab-users span {
@@ -2964,6 +2964,7 @@ p.top-person-status {
 
 .users-menu-tab-block.active {
     background-color: #fff;
+    background-image: url(/images/chat-tab-block-hover.png);
 }
 
 .users-menu-tab-block span {
@@ -5651,8 +5652,11 @@ input.cmn-toggle-round:checked + label:after {
     background-position: left 15px center;
     -webkit-background-size: 22%;
     background-size: 22%;
-
 }
+/*.places-item-rating-like.places-item-rating-lock {
+    background-image: url(/images/lock-icon.png);
+    background-size: 27%;
+}*/
 
 .places-item-rating-link {
     padding-right: 35px;
@@ -5897,13 +5901,17 @@ input.cmn-toggle-round:checked + label:after {
 }
 
 .public header .main-menu a.main-header-group {
-    background-image: url(/images/groups-hover.png);
+    background-image: url(/images/groups-hover1.png);
     transition: all .2s ease-in-out .1s;
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 26%;
     padding-left: 20px;
     cursor: pointer;
+}
+.public header .main-menu a.main-header-group:hover {
+    background-image: url(/images/groups-hover.png);
+    transition: all .2s ease-in-out .1s;
 }
 
 .public header .search.main-header-search {
@@ -6478,4 +6486,53 @@ input.cmn-toggle-round:checked + label:after {
     width: 32%;
     height: 120px;
     margin: 0 1px 1px 0;
+}
+}
+
+
+
+/*Popup delete chat*/
+
+.ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content {
+    height: auto;
+}
+.ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content .del .del-text {
+    text-align: center;
+}
+
+
+/*Search*/
+.header-search-container {
+    position: absolute;
+    background-color: #495b79;
+    top: 55px;
+    width: 100%;
+}
+.header-search-input-wrap {
+    width: 700px;
+    margin: 5px auto;
+}
+.header-search-input-wrap input {
+    width: 100%;
+    background-color: #7988a3;
+    border-radius: 3px;
+    padding: 5px 35px 5px 10px;
+    color: #fff;
+    transition: all .4s ease-in-out .1s;
+    border: none;
+    box-sizing: border-box;
+    height: 35px;
+    background-image: url(/images/search.png);
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 3%;
+}
+.header-search-input-wrap input:hover {
+    background-color: #fff;
+    color: #495b79;
+}
+@media (max-width: 800px) {
+    .header-search-container {
+        display: none;
+    }
 }

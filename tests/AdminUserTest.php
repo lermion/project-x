@@ -62,4 +62,36 @@ class AdminUserTest extends TestCase
         }
         $this->json('GET', 'admin/user/suspicious/'.$user->id)->AssertResponseOk();
     }
+
+    public function testGetConfirm()
+    {
+        $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345','status'=>'confirm']);
+        }
+        $this->json('GET', 'admin/user/get_confirm')->AssertResponseOk();
+    }
+
+    public function testGetReview()
+    {
+        $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345','status'=>'review']);
+        }
+        $this->json('GET', 'admin/user/get_review')->AssertResponseOk();
+    }
+
+    public function testGetSuspicious()
+    {
+        $user = \App\User::first();
+        if(!$user){
+            $user = \App\User::create(['country_id'=>1,'phone'=>'12345','status'=>'suspicious']);
+        }
+        $this->json('GET', 'admin/user/get_suspicious')->AssertResponseOk();
+    }
+
+    public function testMainPicture()
+    {
+        $this->json('POST', 'admin/user/main_picture')->AssertResponseOk();
+    }
 }

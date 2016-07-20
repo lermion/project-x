@@ -25,6 +25,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
             Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
             Route::get('show/{id}', 'Admin\UserController@show');
+            Route::get('get_confirm', 'Admin\UserController@getConfirm');
+            Route::get('get_review', 'Admin\UserController@getReview');
+            Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
+            Route::post('main_picture', 'Admin\UserController@mainPicture');
         });
         Route::group(['prefix' => 'moderator'], function () {
             Route::get('/', 'Admin\ModeratorController@index');
@@ -51,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
-        Route::get('show/{id}', 'UserController@show');
+        Route::get('show/{login}', 'UserController@show');
         Route::post('{id}/publication', 'PublicationController@userPublication')->middleware(['auth']);
         Route::post('subscribe/store', 'SubscriberController@store')->middleware(['auth']);
         Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
@@ -170,18 +174,28 @@ Route::group(['middleware' => ['web']], function () {
     });
 
 
+    Route::post('search','SphinxSearchController@search');
+    Route::get('search', function () {
+        echo "<form action=\"http://pp.dev/search\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='name'><br>
+            <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
+            <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
+            <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
+            <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
+            <input type=\"submit\">
+            </form>";
+    });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/update/11\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/user/show/1094\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='is_open' value='1'><br>
-            <input type='text' name='description' value='1094'><br>
+            <input type='text' name='offset' value='0'><br>
+            <input type='text' name='limit' value='10'><br>
             <input type='text' name='city_id' value='5'><br>
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>
-            <input type='text' name='type_place_id' value='2'><br>
-
+            <input type='file' name='picture'><br>
             <input type=\"submit\">
-        </form>";
+            </form>";
     });
 });
