@@ -6,6 +6,7 @@ use App\Online;
 use App\Subscriber;
 use App\User;
 use Illuminate\Http\Request;
+use App\ChatLockedUser;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ class UserController extends Controller
     public function show($login)
     {
         $user = User::where('login', $login)->first();
+        ChatLockedUser::where(['user_id' => $user->id, 'locked_user_id' => Auth::id()])->first() ? $user->is_lock = true : $user->is_lock = false;
         $user->is_online = Online::isOnline($user->id);
         $user->is_sub = Subscriber::isSub($user->id, Auth::id());
         $user->subscription_count = $user->subscription()->count();
