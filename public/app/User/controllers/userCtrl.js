@@ -426,9 +426,11 @@ angular.module('placePeopleApp')
 			});
 		};
 
-		$scope.splitText = function(text){
-			var mes = text.split(' messagetext: ');
-			return mes[1];
+		$scope.splitText = function(text){			
+			if (text != undefined) {
+					var mes = text.split(' messagetext: ');
+					return mes[1];
+				}
 		};
 		if($state.current.name === "mobile-pub-view" && $stateParams.id){
 			getSinglePublication($stateParams.id);

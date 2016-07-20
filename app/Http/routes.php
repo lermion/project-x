@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
-        Route::get('show/{id}', 'UserController@show');
+        Route::get('show/{login}', 'UserController@show');
         Route::post('{id}/publication', 'PublicationController@userPublication')->middleware(['auth']);
         Route::post('subscribe/store', 'SubscriberController@store')->middleware(['auth']);
         Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
@@ -186,11 +186,11 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/user/main_picture\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='text'><br>
-            <input type='text' name='address'><br>
+            <input type='text' name='offset' value='0'><br>
+            <input type='text' name='limit' value='10'><br>
             <input type='text' name='city_id' value='5'><br>
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>

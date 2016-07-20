@@ -1,24 +1,24 @@
 /* font-family: "SFUIDisplayMedium"; */
 @font-face {
-       font-family: "SFUIDisplayMedium";
-       src: url("../fonts/SFUIDisplay-Medium.otf");
-       font-style: normal;
-       font-weight: normal;
+	   font-family: "SFUIDisplayMedium";
+	   src: url("../fonts/SFUIDisplay-Medium.otf");
+	   font-style: normal;
+	   font-weight: normal;
 }
    /* font-family: "SFUIDisplayMedium"; */
 @font-face {
-       font-family: "SFUIDisplayLight";
-       src: url("../fonts/SFUIDisplay-Light.otf");
-       font-style: normal;
-       font-weight: normal;
+	   font-family: "SFUIDisplayLight";
+	   src: url("../fonts/SFUIDisplay-Light.otf");
+	   font-style: normal;
+	   font-weight: normal;
 }
 html{
 	width: 100%;
 	height: auto;
 }
 html.ngdialog-open, body.ngdialog-open {
-    overflow: initial !important;
-    width: 100%;
+	overflow: initial !important;
+	width: 100%;
 }
 *:focus {
 	outline: none;
@@ -245,8 +245,8 @@ body.main-page {
 	text-align: right;
 	color: #999;
 	font-size: 15px;
-    	font-family: Tahoma;
-    	display: flex;
+		font-family: Tahoma;
+		display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	padding-left: 27px;
@@ -371,7 +371,7 @@ body.main-page {
 }
 .publication-footer #add-object {
 	width: 215px;
-    	height: 100px;
+		height: 100px;
 }
 .add-ava label {
 	display: flex;
@@ -379,9 +379,9 @@ body.main-page {
 	height: 100%;
 	overflow: hidden;
 	justify-content: center;
-    	align-items: center;
-    	position: relative;
-    	cursor: pointer;
+		align-items: center;
+		position: relative;
+		cursor: pointer;
 }
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
@@ -527,8 +527,8 @@ footer {
 .registration .form-item form input, 
 .registration .form-item form select {
 	line-height: 35px;
-    	height: 35px;
-    	margin-bottom: 4px;
+		height: 35px;
+		margin-bottom: 4px;
 }
 .registration .city-field span,
 .registration  .phone-field span,
@@ -544,14 +544,14 @@ footer {
 }
 .registration .form-item form p {
 	margin-bottom: 5px;
-    	line-height: 15px;
+		line-height: 15px;
 }
 .registration .city-field span.city-inner, 
 .registration .sex-field span.sex-inner {
 	background-size: 70%;
-    	top: 6px; 
-    	width: 15px;
-    	height: 15px;
+		top: 6px; 
+		width: 15px;
+		height: 15px;
 }
 .registration .check-in-button {
 	line-height: 28px;
@@ -630,7 +630,7 @@ footer {
 @media (max-width: 1025px) {
 	.registration .form .logo {
 		width: 11vw;
-    		height: 11vh;
+			height: 11vh;
 	}
 	.footer  {
 		width: 100%;
@@ -640,7 +640,7 @@ footer {
 	}
 	.form .logo {
 		width: 160px;
-    		height: 108px;
+			height: 108px;
 	}
 }
 @media (max-width: 800px) {
@@ -697,7 +697,7 @@ footer {
 		right: 0;
 		background: #5c5c5c;
 		padding: 20px;
-    		box-sizing: border-box;
+			box-sizing: border-box;
 	}
 	.footer .menu-item {
 		display: none;
@@ -715,7 +715,7 @@ footer {
 }
 @media (max-width: 501px) {
 	.footer .menu-item {
-    		 width: 270px;
+			 width: 270px;
 	}
 }
 @media (max-width: 450px) {
@@ -762,7 +762,7 @@ body.public.user {
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 5px;
-    	box-sizing: border-box;
+		box-sizing: border-box;
 }
 .public header .logo {
 	background-image: url(../images/logotip.png);
@@ -784,7 +784,7 @@ body.public.user {
 .public header .main-menu.common .menu-item {
 	width: 100%;
 	display: flex;
-    	justify-content: space-between;
+		justify-content: space-between;
 }
 .public header .main-menu a,
 .public header  .exit,
@@ -1091,8 +1091,8 @@ body.public.user {
 		margin-bottom: 20px;
 		padding-left: 50px;
 		background-size: 13%;
-    		background-position: left 10px center;
-    		margin-right: 0;
+			background-position: left 10px center;
+			margin-right: 0;
 	}
 	.public header .main-menu.show-menu {
 		width: 200px;
@@ -1108,7 +1108,7 @@ body.public.user {
 		border-left: 1px solid #495b79;
 		top: 0;
 		border-top: none;
-    		border-bottom: none;
+			border-bottom: none;
 	}
 	.public header .main-menu.show-menu .menu-item  {
 		display: block;
@@ -1120,7 +1120,7 @@ body.public.user {
 	.public header .main-menu.common a {
 		line-height: 46px;
 		display: block;
-    		font-size: 18px;
+			font-size: 18px;
 	}
 	// .public header .main-menu {
 	// 	width: auto;
@@ -1141,7 +1141,7 @@ body.public.user {
 // }
 @media (max-width: 720px) {
 	body.public.user {
-	    background: #fff;
+		background: #fff;
 	}
 }
 @media (max-width: 550px)  {
@@ -1194,7 +1194,7 @@ body.public.user {
 	display: block;
 	overflow: hidden;
 	width: 140px;
-    	height: 140px;
+		height: 140px;
 }
 .my-profile .ava a img {
 	width: 100%;
@@ -1271,8 +1271,8 @@ body.public.user {
 .my-profile-item .counts,
 .my-profile-item .comunications {
 	display: flex;
-    	justify-content: space-between;
-    	align-items:center;
+		justify-content: space-between;
+		align-items:center;
 }
 .my-profile-item .counts.another-user {
 	justify-content: flex-start;
@@ -1383,8 +1383,8 @@ body.public.user {
 .comunications .view {
 	width: 16%;
 	display: flex;
-    	justify-content: space-between;
-    	align-items:center;
+		justify-content: space-between;
+		align-items:center;
 }
 .comunications .view a {
 	width: 23px;
@@ -1416,7 +1416,7 @@ body.public.user {
 #user-page .my-photos,
 .group-publication .my-photos {
 	display: flex;
-    	flex-wrap: wrap;
+		flex-wrap: wrap;
 }
 #user-page .photo,
 .group-publication .photo {
@@ -1466,10 +1466,10 @@ body.public.user {
 }
 .photo-list  a .video  {
 	width: 150px;
-    	height: 150px;
-    	margin-top: -75px;
-    	margin-left: -75px;
-    	background-size: 44%;
+		height: 150px;
+		margin-top: -75px;
+		margin-left: -75px;
+		background-size: 44%;
 }
 #user-page .photo a:hover .video,
 .photo-list  a:hover .video,
@@ -1560,12 +1560,12 @@ body.public.user {
 	}
 	.my-profile .ava a {
 		width: 120px;
-    		height: 120px;
+			height: 120px;
 	}
 	.counts .counter{
 		display: flex;
-    		flex-direction: column-reverse;
-    		margin: 10px 0 10px;
+			flex-direction: column-reverse;
+			margin: 10px 0 10px;
 	}
 	.counts .counter p,
 	.counts .counter p.notes,
@@ -1593,7 +1593,7 @@ body.public.user {
 	}
 	#user-page .photo:nth-child(3n),
 	.group-publication .photo:nth-child(3n) {
-		    margin: 0 0 1px 0;
+			margin: 0 0 1px 0;
 	}
 	/*header user*/
 	.public header .exit span {
@@ -1623,8 +1623,8 @@ body.public.user {
 	#user-page .status-user.adaptiv {
 		padding: 0 20px 15px;
 		max-width: 100vw;
-    		box-sizing: border-box;
-    		display: block;
+			box-sizing: border-box;
+			display: block;
 
 	}
 	#user-page textarea {
@@ -1682,7 +1682,7 @@ body.public.user {
 	}
 	#user-page .status-correct.adaptiv {
 		margin: 20px;
-    		width: 92%;
+			width: 92%;
 	}
 }
 @media (max-width: 450px) {
@@ -1711,11 +1711,11 @@ body.public.user {
 	}
 	#user-page .status-user.adaptiv {
 		padding: 0 5px 15px;
-    		
+			
 	}
 	#user-page .status-correct.adaptiv {
 		margin: 5px;
-    		width: 97%;
+			width: 97%;
 	}
 }
 
@@ -1748,7 +1748,7 @@ body.public.user {
 	box-sizing: border-box; 
 	background-color: rgba(0,0,0,.9);
 	color: #fff;
-    	border-radius: 2px;
+		border-radius: 2px;
 }
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 	background-color: #fff;
@@ -1759,7 +1759,7 @@ body.public.user {
 	transition: all .3s ease-in-out .1s;
 	padding: 0;
 	top: 40%;
-    	height: auto;
+		height: auto;
 }
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content h5 {
 	font-size: 14.6px;
@@ -1967,9 +1967,39 @@ spam-item {
 	right: 0;
 	width: 200px;
 	height: 200px;
-    	z-index: 9;
-    	padding-bottom: 15px;
-    	transition: all .3s ease-in-out .1s;
+		z-index: 9;
+		padding-bottom: 15px;
+		transition: all .3s ease-in-out .1s;
+}
+.emoji-chat-block a.emoji-button{
+	width: 45px;
+	height: 40px;
+	display: block;
+	background-image: url(../images/smil.png);
+	transition: all .3s ease-in-out .1s;
+	background-position: left bottom 6px;
+	background-repeat: no-repeat;
+	background-size: 50%;
+	position: absolute;
+	top: -2px;
+	left: 16px;
+}
+.emoji-chat-block .emoji-wysiwyg-editor{
+	resize: none;
+	width: 75%;
+	border-radius: 2px;
+	border: 1px solid #e5e7e9;
+	font-size: 14.6px;
+	color: #999;
+	background: #fff;
+	padding: 5px 30px 5px 10px;
+	box-sizing: border-box;
+	font-family: "SFUIDisplayLight";
+	height: 30px;
+	min-height: 0;
+	margin-left: 50px;
+	overflow: hidden;
+	width: 510px;
 }
 .text-field a.emoji-button{
 	position: absolute;
@@ -2053,8 +2083,8 @@ spam-item {
 	font-family: "SFUIDisplayMedium";
 	margin: 0;
 	display: flex;
-    	align-items: center;
-    	cursor: pointer;
+		align-items: center;
+		cursor: pointer;
 }
 .publication-footer .add-objects label span {
 	display: block;
@@ -2122,13 +2152,13 @@ spam-item {
 }
 .add-comment .new-add {
 	display: flex;
-    	flex-wrap: wrap;
+		flex-wrap: wrap;
 	margin-top: 10px;
 }
 .add-comment .new-add .new-img,
 .publication .new-add .new-img {
 	width: 155px;
-    	margin-bottom: 5px;
+		margin-bottom: 5px;
 }
 .publication .new-add .inner,
 .add-comment .new-add .inner{
@@ -2291,8 +2321,8 @@ spam-item {
 	border-right: 7px solid transparent; 
 }
  .publication .new-add .inner .check-inner:before {
- 	left: auto;
- 	right: 6px;
+	left: auto;
+	right: 6px;
  }
 .publication .new-add .inner .close-inner p,
 .publication .new-add .inner .check-inner p,
@@ -2308,12 +2338,12 @@ spam-item {
 	margin-left: 8.5px;
 	height: auto;
 	top: 0;
-    	margin-top: 0;
-    	left: 0;
-    	right: 0;
-    	bottom: 0;
-    	box-sizing: border-box;
-    	// animation: ngdialog-flyin .2s;
+		margin-top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		box-sizing: border-box;
+		// animation: ngdialog-flyin .2s;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2324,21 +2354,21 @@ spam-item {
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:before {
 	content: 'Закрыть'; 
 	color: #4678b1;
-    	font-size: 14.6px;
-    	font-family: "SFUIDisplayMedium"; 
-    	width: 60px;
-    	height: 30px;
-    	right: 0;
-    	top: 0;
-    	line-height: 30px;
-    	transition: all .3s ease-in-out .1s;
+		font-size: 14.6px;
+		font-family: "SFUIDisplayMedium"; 
+		width: 60px;
+		height: 30px;
+		right: 0;
+		top: 0;
+		line-height: 30px;
+		transition: all .3s ease-in-out .1s;
 }
 .ngdialog.view-publication.ngdialog-theme-default .user-publication-header,
 #wrapper .user-publication-header {
 	background: #f5f5f5;
-    	border-bottom: 1px solid #e0e2e5;
-    	box-sizing: border-box;
-    	padding: 10px;
+		border-bottom: 1px solid #e0e2e5;
+		box-sizing: border-box;
+		padding: 10px;
 }
 #wrapper .user-publication {
 	background: #fff;
@@ -2419,8 +2449,8 @@ spam-item {
 	cursor: pointer;
 	background-color: #fff;
 	text-decoration: none;
-    	font-size: 15px;
-    	font-family: "SFUIDisplayMedium";
+		font-size: 15px;
+		font-family: "SFUIDisplayMedium";
 }
 .user-publication-header .menu-item a:hover {
 	color: #4678b1;
@@ -2433,7 +2463,7 @@ spam-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 5px;
+	/*margin-bottom: 5px;*/
 	overflow: hidden;
 }
 
@@ -2448,7 +2478,8 @@ spam-item {
 }
 .user-publication-content .publication-images  {
 	display: flex;
-    	flex-wrap: wrap;
+		flex-wrap: wrap;
+		margin-top: 5px;
 }
 .publication-images .images-item {
 	width: 97px;
@@ -2546,7 +2577,7 @@ spam-item {
 }
 .user-publication .likes-item {
 	display: flex;
-    	align-items: center;
+		align-items: center;
 }
 .user-publication .likes-item .like {
 	line-height: 26px;
@@ -2637,7 +2668,7 @@ spam-item {
 .visible-comments .comment {
 	width: 100%;
 	padding-left: 15px;
-    	box-sizing: border-box;
+		box-sizing: border-box;
 }
 .visible-comments .comment .user-info{
 	display: flex;
@@ -2653,8 +2684,8 @@ spam-item {
 }
 .visible-comments .comment .user-name {
 	margin-left: 0;
-    	margin-right: 20px;
-    	line-height: 20px;
+		margin-right: 20px;
+		line-height: 20px;
 }
 .visible-comments .comment .time {
 	margin: 0 15px 0 0;
@@ -2748,7 +2779,7 @@ spam-item {
 }
 .user-publication .add-comment .add  .text-field .smiles {
 	top: 0px;
-    	right: 0px;
+		right: 0px;
 }
 .user-publication .add-comment .add  .text-field .smiles  .smiles-item {
 	background-position: left 5px bottom 6px;
@@ -2786,7 +2817,7 @@ spam-item {
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
 	background-color: #fff;
-    	color: #495b79;
+		color: #495b79;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button .ladda-label {
 	transition: all .2s ease-in-out !important;
@@ -2796,7 +2827,7 @@ spam-item {
 	padding-left: 0;
 	background-image: url(../images/clip.png);
 	background-position: right center;
-    	background-size: 60%;
+		background-size: 60%;
 }
 .user-publication .add-comment .publication-footer .add-objects label:hover span.add {
 	background-image: url(../images/clip-hover.png);
@@ -2810,7 +2841,7 @@ spam-item {
 }
 .user-publication .add-comment .publication-footer #add-object {
 	width: 120px;
-    	height: 40px;
+		height: 40px;
 }
 .ngdialog.delete-publication.ngdialog-theme-default  .ngdialog-content,
 .ngdialog.alert-publication.ngdialog-theme-default .ngdialog-content,
@@ -2840,7 +2871,7 @@ spam-item {
 }
 .comment .comment-pic{
 	display: flex;
-    	flex-wrap: wrap;
+		flex-wrap: wrap;
 }
 .comment .comment-pic .comment-pic-item {
 	width: 24%;
@@ -2950,7 +2981,7 @@ spam-item {
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default {
 	background-color: transparent;
-	position: absolute;
+	/*position: absolute;*/
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
 	background-color: transparent;
@@ -2969,13 +3000,13 @@ spam-item {
 	margin-bottom: 5px;
 }
  .comment-img img {
- 	max-width: 100%;
-    	max-height: 100%;
-    	width: auto;
-    	height: auto;
+	max-width: 100%;
+		max-height: 100%;
+		width: auto;
+		height: auto;
  }
 .comment-imges-list {
- 	width: 100%;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -2995,7 +3026,7 @@ spam-item {
 }
 .comment-imges .comment-list img {
 	max-width: 300%;
-    	max-height: 300%;
+		max-height: 300%;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div.del-item .del-item {
 	background: #DA5036;
@@ -3040,7 +3071,7 @@ spam-item {
 	.add-comment .new-add .new-img,
 	.publication .new-add .new-img {
 		width: 24.5%;
-    		margin-right: 2.5px;
+			margin-right: 2.5px;
 	}
 	.add-comment .new-add .new-img:nth-child(4n),
 	.publication .new-add .new-img:nth-child(4n){
@@ -3052,7 +3083,7 @@ spam-item {
 	}
 	.ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
 		margin-left: -48%;
-    		width: 96%;
+			width: 96%;
 	}
 	.contacts-off-container {
 		position: relative;
@@ -3110,7 +3141,7 @@ spam-item {
 	.publication-footer-button {
 		width: 100%;
 		justify-content: space-between;
-    		margin-top: 20px;
+			margin-top: 20px;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
 		margin-top: 8px;
@@ -3187,18 +3218,18 @@ spam-item {
 	}
 	.contacts-off-container .subscriber-item .user-ava .ava {
 		width: 40px;
-    		height: 40px;
+			height: 40px;
 	}
 	.contacts-off-container .user-info .user-name {
 		max-width: 140px;
-    		font-size: 14.6px;
+			font-size: 14.6px;
 	}
 	.contacts-off-container .user-info .status-user {
 		display: none;
 	}
 	.contacts-off-container  .subscriber .read {
 		font-size: 13px;
-    		padding: 0 5px;
+			padding: 0 5px;
 	}
 	.comment-imges .comment-list {
 		height: 45px;
@@ -3259,14 +3290,14 @@ spam-item {
 }
 .content-item .user-function .user .ava {
 	width: 40px;
-    	height: 40px
+		height: 40px
 }
 .content-item .user-function .user .block-info {
 	margin-left: 10px;
 }
 .content-item .user-function .user .user-name {
 	margin: 0px;
-    	line-height: 20px;
+		line-height: 20px;
 }
 .content-item .user-function .user .time{
 	margin: 0 15px 0 0;
@@ -3366,12 +3397,12 @@ body.ngdialog-open {
 
 .groups-content .groups-header .public-groups {
 	font-size: 20.8px;
-    text-decoration: none;
-    color: #333;
-    padding-left: 30px;
-    font-family: "SFUIDisplayMedium";
-    transition: all .3s ease-in-out .1s;
-    background-image: url(../images/public-groups.png);
+	text-decoration: none;
+	color: #333;
+	padding-left: 30px;
+	font-family: "SFUIDisplayMedium";
+	transition: all .3s ease-in-out .1s;
+	background-image: url(../images/public-groups.png);
 	background-position: left center;
 	background-size: 7%;
 	background-repeat: no-repeat;
@@ -3384,21 +3415,21 @@ body.ngdialog-open {
 }
 .groups-content .groups-header select {
 	color: #495b79;
-    border: none;
-    background-color: transparent;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    font-size: 14.6px;
-    padding-left: 35px;
-    background-image: url(../images/filter.png);
+	border: none;
+	background-color: transparent;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-size: 14.6px;
+	padding-left: 35px;
+	background-image: url(../images/filter.png);
 	background-position: left center;
 	background-size: 16%;
 	background-repeat: no-repeat;
 	font-family: "SFUIDisplayMedium";
-    transition: all .3s ease-in-out .1s;
-    cursor: pointer;
-    height: 30px;
+	transition: all .3s ease-in-out .1s;
+	cursor: pointer;
+	height: 30px;
 }
 .groups-content .groups-header select:hover {
 	background-image: url(../images/filter-hover.png);
@@ -3452,8 +3483,8 @@ body.ngdialog-open {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	transition: all .3s ease-in-out .1s;
-    cursor: pointer;
-    line-height: 30px;
+	cursor: pointer;
+	line-height: 30px;
 }
 .group-likes a:hover {
 	color: #495b79;
@@ -3491,20 +3522,23 @@ body.ngdialog-open {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	transition: all .3s ease-in-out .1s;
-    cursor: pointer;
-    line-height: 30px;
-    padding-left: 25px;
+	cursor: pointer;
+	line-height: 30px;
+	padding-left: 25px;
 	background-image: url(../images/groups-hover.png);
 	background-position: left center;
 	background-size: 20px;
 	background-repeat: no-repeat;
 	overflow: hidden;
 	width: 100%;
-    box-sizing: border-box;
-    display: block;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-bottom: 5px;
+	box-sizing: border-box;
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-bottom: 5px;
+}
+.titles .title.groups-locked-icon {
+	background-image: url(../images/lock-icon.png);
 }
 .titles .title:hover {
 	color: #666;
@@ -3513,10 +3547,10 @@ body.ngdialog-open {
 	color: #333;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayLight";
-    line-height: 16px;
-    overflow: hidden;
-    margin: 0;
-    max-height: 34px;
+	line-height: 16px;
+	overflow: hidden;
+	margin: 0;
+	max-height: 34px;
 }
 .group button {
 	width: 100%;
@@ -3582,14 +3616,14 @@ body.ngdialog-open {
 
 .group-page {
 	width: 700px;
-    	margin: 0 auto;
+		margin: 0 auto;
 	position: relative;
 }
 .group-page .group-ava {
 	height: 240px;
-    	overflow: hidden;
-    	width: 100%;	
-    	position: relative;
+		overflow: hidden;
+		width: 100%;	
+		position: relative;
 }
 .group-page .group-ava .ava {
 	display: flex;
@@ -3600,7 +3634,7 @@ body.ngdialog-open {
 }
 .group-page .group-ava .ava img {
 	max-width: 200%;
-    	max-height: 200%;
+		max-height: 200%;
 }
 .group-ava .group-likes {
 	position: absolute;
@@ -3620,8 +3654,8 @@ body.ngdialog-open {
 }
 .group-ava .group-likes .group-info {
 	width: 700px;
-    	margin: 0 auto;
-    	display: flex;
+		margin: 0 auto;
+		display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -3633,7 +3667,7 @@ body.ngdialog-open {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 70%;
+	max-width: 34%;
 }
 .group-ava .group-likes .group-info .publication-place {
 	background-image: none;
@@ -3651,11 +3685,11 @@ body.ngdialog-open {
 	color: #fff;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayLight";
-	line-height: 15px;
+	line-height: 21px;
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 11%;
+	background-size: 12%;
 	transition: all .3s ease-in-out .1s;
 }
 .group-page .group-menu {
@@ -3694,7 +3728,7 @@ body.ngdialog-open {
 .group-menu .group-menu-item {
 	width: 700px;
 	display: flex;
-    	justify-content: center;
+		justify-content: center;
 }
 .group-menu .group-menu-item .counts {
 	display: flex;
@@ -3753,10 +3787,10 @@ body.ngdialog-open {
 	}
 	.group-page button {
 		position: static;
-    		display: block;
-    		margin-right: 0;
-    		margin-top: 10px;
-    		margin-bottom: 10px; 
+			display: block;
+			margin-right: 0;
+			margin-top: 10px;
+			margin-bottom: 10px; 
 	}
 	.group-menu .group-menu-item {
 		margin: 0 0 10px 0;
@@ -3771,7 +3805,7 @@ body.ngdialog-open {
 		margin: 0 1px 1px 0;
 	}
 	.group-publication .photo:nth-child(3n) {
-		    margin: 0 0 1px 0;
+			margin: 0 0 1px 0;
 	}
 }
 @media (max-width: 520px)  {
@@ -3780,6 +3814,7 @@ body.ngdialog-open {
 	}
 	.group-ava .group-likes .group-info {
 		flex-direction: column-reverse;
+		margin-bottom: 17px;
 	}
 	.group-ava .group-likes .group-info .like-item {
 		margin: 10px 0;
@@ -3796,7 +3831,7 @@ body.ngdialog-open {
 	}
 	.group-menu .group-menu-item .counts {
 		box-sizing: border-box;
-    		padding: 0 10px;
+			padding: 0 10px;
 	}
 }
 .publication .emoji-wysiwyg-editor  {
@@ -3834,7 +3869,7 @@ body.ngdialog-open {
 }
 .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor {
 	box-sizing: border-box;
-    	height: 75px;
+		height: 75px;
 }
 // .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after {
 // 	content: 'Текст комментария...';
@@ -3851,7 +3886,7 @@ body.ngdialog-open {
 	position: fixed !important;
 }
 body.ngdialog-open {
-    overflow: hidden;
+	overflow: hidden;
 }
 .ngdialog.view-publication.ngdialog-theme-default {
 	position: fixed;
@@ -3895,14 +3930,14 @@ body.ngdialog-open {
 }
 .group-chat .users-messege {
 	display: flex;
-    	align-items: flex-end;
-    	padding-right: 10px;
-    	box-sizing: border-box;
-    	padding-bottom: 15px;
+		align-items: flex-end;
+		padding-right: 10px;
+		box-sizing: border-box;
+		padding-bottom: 15px;
 }
 .group-chat .users-messege.my-messege {
 	padding-right: 0;
-    	padding-left: 10px;
+		padding-left: 10px;
 }
 .group-chat .users-messege .ava {
 	width: 40px;
@@ -3939,7 +3974,7 @@ body.ngdialog-open {
 	background-image: url(../images/user-tail.png);
 	background-repeat: no-repeat;
 	width: 15px;
-    	height: 10px;
+		height: 10px;
 }
 .group-chat .my-messege  .user-messege:before {
 	bottom: -2px;
@@ -3994,8 +4029,8 @@ body.ngdialog-open {
 	height: 100px;
 	overflow: hidden;
 	margin-bottom: 2px;
-    	margin-right: 2px;
-    	display: flex;
+		margin-right: 2px;
+		display: flex;
 	align-items: center;
 	justify-content: center;
 	background: rgba(0,0,0,.2);
@@ -4030,7 +4065,7 @@ body.ngdialog-open {
 	background: #d7e2fa;
 }
 .chat-user-pulication .user-publication-header .user-function {
- 	width: 100%;
+	width: 100%;
  }
 .chat-user-pulication  .user-publication-content {
 	border-bottom: none;
@@ -4118,8 +4153,8 @@ body.ngdialog-open {
 	margin-left: -65px;
 	transition: all .3s ease-in-out .1s;
 	background: #fff;
-    	z-index: 3;
-    	box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
+		z-index: 3;
+		box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
 }
 .group-comment  .add-objects label span.add .dropp a {
 	display: block;
@@ -4199,7 +4234,7 @@ body.ngdialog-open {
 	}
 	.group-comments .pictures .pic {
 		width: 32%;
-    		height: 80px;
+			height: 80px;
 	}
 	.group-comments .pictures {
 		height: 91px;
@@ -4208,18 +4243,18 @@ body.ngdialog-open {
 @media (max-width: 520px)  {
 	.group-comment {
 		flex-wrap: wrap;
-    		justify-content: flex-end;
-    		padding: 5px;
+			justify-content: flex-end;
+			padding: 5px;
 	}
 	.group-chat {
 		padding: 0px 5px;
 	}
 	.group-chat-inner {
-		    padding: 0 0;
+			padding: 0 0;
 	}
 	.chat-user-pulication {
-	    	width: 96%;
-	    	box-sizing: border-box;
+			width: 96%;
+			box-sizing: border-box;
 	}
 	.group-chat-inner .user-ava {
 		display: none;
@@ -4241,7 +4276,7 @@ body.ngdialog-open {
 	}
 	.group-comments .pictures .pic {
 		width: 32%;
-    		height: 60px;
+			height: 60px;
 	}
 	.group-comments .pictures {
 		height: 91px;
@@ -4338,8 +4373,8 @@ body.ngdialog-open {
 }
 .group-chat .user-publication-header  .menu-item {
 	right: 0;
-    	margin-left: 0;
-    	left: auto; 
+		margin-left: 0;
+		left: auto; 
 }
 body.public.ngdialog-open #wrapper,
 body.public.ngdialog-open .user-main-content {

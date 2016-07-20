@@ -200,17 +200,32 @@ class UserController extends Controller
 
     public function mainPicture(Request $request)
     {
+        try {
+            $this->validate($request, [
+                'picture' => 'image'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
-            dd($contents = Storage::get($picture));
-            Storage::put('/images/file.jpg', $contents);
-            //$size = Storage::size($picture);
+            //dd($contents = Storage::get($picture));
+
+            Storage::put('file.jpg', file_get_contents($picture->getRealPath()));
+            $size = Storage::size('file.jpg');
             //Storage::delete('bc.png');
 
             //$path = '/images/bc.png';
 
             //$avatar->move($fullPath, $fileName);
         }
-        //return $size;
+        return $size;
     }
 }
