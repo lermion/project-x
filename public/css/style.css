@@ -2433,7 +2433,7 @@ spam-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 5px;
+	/*margin-bottom: 5px;*/
 	overflow: hidden;
 }
 
@@ -2449,6 +2449,7 @@ spam-item {
 .user-publication-content .publication-images  {
 	display: flex;
     	flex-wrap: wrap;
+    	margin-top: 5px;
 }
 .publication-images .images-item {
 	width: 97px;
