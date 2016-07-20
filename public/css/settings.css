@@ -2891,7 +2891,7 @@ p.top-person-status {
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-image: url(/images/chat-icon.png);
+    background-image: url(/images/chat-icon1.png);
     background-repeat: no-repeat;
     background-position: center;
     background-color: rgb(245, 245, 245);
@@ -2931,7 +2931,7 @@ p.top-person-status {
 
 .users-menu-tab-users.active {
     background-color: #fff;
-
+    background-image: url(/images/chat-tab-people-hover.png);
 }
 
 .users-menu-tab-users span {
@@ -2964,6 +2964,7 @@ p.top-person-status {
 
 .users-menu-tab-block.active {
     background-color: #fff;
+    background-image: url(/images/chat-tab-block-hover.png);
 }
 
 .users-menu-tab-block span {
@@ -5651,7 +5652,10 @@ input.cmn-toggle-round:checked + label:after {
     background-position: left 15px center;
     -webkit-background-size: 22%;
     background-size: 22%;
-
+}
+.places-item-rating-like.places-item-rating-lock {
+    background-image: url(/images/lock-icon.png);
+    background-size: 27%;
 }
 
 .places-item-rating-link {
