@@ -131,6 +131,14 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
+	socket.on("load more messages", function(data){
+		queries.getUserDialogue(data).then(function(response){
+			socket.emit("load more messages", response);
+		},
+		function(error){
+			console.log(error);
+		});
+	});
 	socket.on('switchRoom', function(newRoom){
 		socket.leave(socket.room);
 		socket.join(newRoom);

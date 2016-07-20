@@ -1,14 +1,19 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload',
+		'PublicationService', 'Upload', '$q', '$timeout',
 		function ($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload) {
+			PublicationService, Upload, $q, $timeout) {
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
+			$scope.status = {
+				loading: false,
+				loaded: false
+			};
+			$scope.counter = 0;
 			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name')
@@ -218,6 +223,43 @@ angular.module('placePeopleApp')
 				// });
 			};
 
+			$scope.loadMoreMessages = function(roomId){
+				if(!roomId){
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}
+				var data = {
+					room_id: roomId,
+					offset: $scope.counter,
+					limit: 10
+				};
+				var deferred = $q.defer();
+				if(!$scope.status.loading){
+					socket.emit("load more messages", data);
+				}else{
+					deferred.reject();
+				}
+				return deferred.promise;
+			};
+
+			socket.on("load more messages", function(response){
+				if(response.length === 0){
+					$scope.status.loading = true;
+				}else{
+					response.forEach(function(value){
+						$scope.Model.Chat.unshift(value);
+					});
+					$scope.counter += 10;
+				}
+			});
+
 			function loadUserContacts(){
 				PublicationService.getSubscribers($scope.loggedUserId)
 					.then(function(response){
@@ -356,7 +398,7 @@ angular.module('placePeopleApp')
 			});
 			
 			$scope.Model.sendMes = function(message, roomId){			
-				if (!roomId) {									
+				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
 							if (!$scope.Model.chatRooms[i].is_group) {
@@ -366,7 +408,7 @@ angular.module('placePeopleApp')
 							}
 						}
 					}
-				}				
+				}
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
@@ -388,7 +430,7 @@ angular.module('placePeopleApp')
 			};
 			socket.on('updatechat', function(data){
 				console.log('updatechat:');				
-				console.log(data);				
+				console.log(data);
 				$scope.Model.Chat = data;
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
@@ -400,9 +442,9 @@ angular.module('placePeopleApp')
 				}			
 			};
 
-			$scope.Model.getTime = function(time){
-				return time.substr(11, 5);
-			}
+			// $scope.Model.getTime = function(time){
+			// 	return time.substr(11, 5);
+			// }
 
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
@@ -519,10 +561,10 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.changeChatCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-	            Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
-	                $scope.Model.newGroupChat.avatar = resizedFile;	                
-	            });
-	        };
+				Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+					$scope.Model.newGroupChat.avatar = resizedFile;	                
+				});
+			};
 			
 			$scope.Model.removeUser = function(index){
 				$scope.Model.newGroupChat.users.splice(index, 1);
