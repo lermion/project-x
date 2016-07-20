@@ -350,6 +350,7 @@ angular.module('placePeopleApp')
 			};
 			$scope.Model.openChatWith = function(chat){
 				$scope.status.loading = false;
+				$scope.counter = 0;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
