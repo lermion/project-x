@@ -89,4 +89,9 @@ class AdminUserTest extends TestCase
         }
         $this->json('GET', 'admin/user/get_suspicious')->AssertResponseOk();
     }
+
+    public function testMainPicture()
+    {
+        $this->json('POST', 'admin/user/main_picture')->AssertResponseOk();
+    }
 }
