@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 //use App\Publication;
 use App\BlackList;
 use App\User;
+use App\Comment;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -57,12 +58,26 @@ class UserController extends Controller
         $user = User::find($id);
         $offset = 0;
         $limit = 10;
-        $user->getSubscription($id)->toArray() ? $user->subscription = $user->getSubscription($id) : $user->subscription = false;
-        $user->getSubscribers($id)->toArray() ? $user->subscribers = $user->getSubscribers($id) : $user->subscribers = false;
-        $user->getPublication($id)->toArray() ? $user->publications = $user->getPublication($id) : $user->publications = false;
-        User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray() ? $user->groups = User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray() : $user->groups = false;
-        User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray() ? $user->places = User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray() : $user->places = false;
-        return view('admin.user.show')->with('user', $user);
+        Comment::with(['videos', 'images', 'user'])->where('user_id', $id)->get()->toArray()
+            ? $user->comments = Comment::with(['videos', 'images', 'user'])->where('user_id', $id)->get()->toArray()
+            : $user->comments = false;
+        $user->getSubscription($id)->toArray()
+            ? $user->subscription = $user->getSubscription($id)
+            : $user->subscription = false;
+        $user->getSubscribers($id)->toArray()
+            ? $user->subscribers = $user->getSubscribers($id)
+            : $user->subscribers = false;
+        $user->getPublication($id)->toArray()
+            ? $user->publications = $user->getPublication($id)
+            : $user->publications = false;
+        User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray()
+            ? $user->groups = User::find($user->id)->groups()->where(['group_users.user_id' => $user->id, 'group_users.is_creator' => true])->get()->toArray()
+            : $user->groups = false;
+        User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray()
+            ? $user->places = User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray()
+            : $user->places = false;
+        //return view('admin.user.show')->with('user', $user);
+        return $user;
     }
 
     /**
@@ -202,7 +217,7 @@ class UserController extends Controller
     {
         try {
             $this->validate($request, [
-                'picture' => 'image'
+                'picture' => 'required|image|mimes:png|max:5000'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -216,16 +231,14 @@ class UserController extends Controller
         }
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
-            //dd($contents = Storage::get($picture));
-
-            Storage::put('file.jpg', file_get_contents($picture->getRealPath()));
-            $size = Storage::size('file.jpg');
-            //Storage::delete('bc.png');
-
-            //$path = '/images/bc.png';
-
-            //$avatar->move($fullPath, $fileName);
+            $path = '/images/';
+            $fullPath = public_path() . $path;
+            Storage::put('bc.png', file_get_contents($picture->getRealPath()));
+            $picture->move($fullPath, 'bc.png');
+            Storage::delete('bc.png');
+            $result = 'true';
         }
-        return $size;
+        return response()->json($result);
+
     }
 }

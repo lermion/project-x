@@ -186,7 +186,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/user/show/1094\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='offset' value='0'><br>
