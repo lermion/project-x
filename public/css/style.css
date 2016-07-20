@@ -3651,11 +3651,11 @@ body.ngdialog-open {
 	color: #fff;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayLight";
-	line-height: 15px;
+	line-height: 21px;
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 11%;
+	background-size: 13%;
 	transition: all .3s ease-in-out .1s;
 }
 .group-page .group-menu {
