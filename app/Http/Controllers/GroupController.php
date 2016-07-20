@@ -60,7 +60,8 @@ class GroupController extends Controller
                 'name' => 'required|unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
-                'avatar' => 'image'
+                'avatar' => 'image',
+                'card_avatar' => 'image'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -78,6 +79,11 @@ class GroupController extends Controller
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
             $publicationData['avatar'] = $path;
+        }
+        if ($request->hasFile('card_avatar')) {
+            $card_avatar = $request->file('card_avatar');
+            $path = Image::getAvatarPath($card_avatar);
+            $publicationData['card_avatar'] = $path;
         }
         $group = Group::create($publicationData);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
@@ -129,7 +135,8 @@ class GroupController extends Controller
                 'name' => 'unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
-                'avatar' => 'file'
+                'avatar' => 'file',
+                'card_avatar' => 'image'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -159,6 +166,11 @@ class GroupController extends Controller
             $avatar = $request->file('avatar');
             $path = Image::getAvatarPath($avatar);
             $groupData['avatar'] = $path;
+        }
+        if ($request->hasFile('card_avatar')) {
+            $card_avatar = $request->file('card_avatar');
+            $path = Image::getAvatarPath($card_avatar);
+            $publicationData['card_avatar'] = $path;
         }
         $group = Group::find($id);
         $group->update($groupData);
