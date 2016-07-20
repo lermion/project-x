@@ -254,6 +254,7 @@ angular.module('app.groups')
                 $scope.submFormGroup = true;
                 validateEmojiArea();
                 $scope.forms.newGroup.$setSubmitted();
+
                 if ($scope.forms.newGroup.$invalid) {
                     return false;
                 }

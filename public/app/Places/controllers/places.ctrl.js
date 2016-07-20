@@ -17,6 +17,18 @@
 
         vm.placesDropdown = null;
 
+        vm.placeNew = {
+            category: null,
+            country: null,
+            city: null,
+            address: null,
+            days: null,
+            description: null,
+            cover: null,
+            logo: null,
+            isCreate: null
+        };
+
         activate();
 
         /////////////////////////////////////////////////

@@ -54,13 +54,18 @@
                        ng-model="vm.files"
                        ngf-before-model-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        ngf-multiple="true"
-                       ngf-keep="true">
+                       ngf-keep="true"
+                       required>
+
 
                 <label for="add-main-pub-object"
                        ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
                     <span class="add"></span>
                     Добавить фото или видео *
                 </label>
+                <div class="error-messages" ng-messages="vm.forms.newPublication.files.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted || vm.forms.newPublication.$dirty">
+                    <div ng-message="required">Вы не выбрали медиафайл</div>
+                </div>
             </div>
             <div class="publication-footer-button">
                 <a href="" class="cansel" ng-click="closeThisDialog()">Отменить</a>

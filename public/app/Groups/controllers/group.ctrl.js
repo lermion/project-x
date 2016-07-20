@@ -228,6 +228,10 @@
 
         // Submit forms
         vm.submitNewPublication = function () {
+            vm.forms.newPublication.$setSubmitted();
+            if (vm.forms.newPublication.$invalid) {
+                return false;
+            }
             vm.newPublication.text = vm.emoji.emojiMessage.messagetext;
             vm.newPublication.files = filterAttachFilesByType();
             groupsService.addPublication(vm.newPublication)
