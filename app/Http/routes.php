@@ -176,7 +176,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('search','SphinxSearchController@search');
     Route::get('search', function () {
-        echo "<form action=\"http://pp.dev/search\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='text' name='name'><br>
             <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
             <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
@@ -186,7 +186,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.hqsale.com/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='offset' value='0'><br>
