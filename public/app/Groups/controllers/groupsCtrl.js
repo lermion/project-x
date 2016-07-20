@@ -263,7 +263,7 @@ angular.module('app.groups')
                     .then(function (data) {
                         if (data.status) {
                             data.group.users = [{id: myId}];
-                            $scope.groupList.push(data.group);
+                            $scope.groupList.unshift(data.group);
 
                             if ($scope.newGroup.users.length > 0) {
                                 //TODO: push new group object instead getting all groups
