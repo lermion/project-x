@@ -311,7 +311,9 @@ angular.module('placePeopleApp')
 					data = {					
 						members: members, 
 						room_id: chat.room_id,
-						is_group: true
+						is_group: true,
+						offset: 0,
+						limit: 10
 					};
 				} else {
 					if (chat.members) {
@@ -324,7 +326,9 @@ angular.module('placePeopleApp')
 					data = {					
 						members: members, 
 						room_id: chat.room_id,
-						is_group: false
+						is_group: false,
+						offset: 0,
+						limit: 10
 					};
 				}
 				 
@@ -425,7 +429,9 @@ angular.module('placePeopleApp')
 				var data = {					
 					members: members,
 					room_id: user.room_id,
-					is_group: false
+					is_group: false,
+					offset: 0,
+					limit: 10
 				};
 				socket.emit('create room', data);
 			}
@@ -484,7 +490,9 @@ angular.module('placePeopleApp')
 					name: name,
 					status: statusToSave,
 					avatar: avatar,
-					members: users
+					members: users,
+					offset: 0,
+					limit: 10
 				};				
 				socket.emit('create room', data);
 				newGroupChatPopup.close();

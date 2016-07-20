@@ -102,7 +102,6 @@ io.sockets.on('connection', function(socket){
 				socket.room = GLOBAL.rooms;
 				socket.join(value.room_id);
 			});
-			console.log("socket.room", socket.room);
 			socket.emit("get user rooms", response);
 		},
 		function(error){
