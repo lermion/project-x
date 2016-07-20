@@ -6496,3 +6496,6 @@ input.cmn-toggle-round:checked + label:after {
 .ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content {
     height: auto;
 }
+.ngdialog.confirmation-popup.ngdialog-theme-default.ng-scope .ngdialog-content .del .del-text {
+    text-align: center;
+}
