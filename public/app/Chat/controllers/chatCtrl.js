@@ -260,7 +260,7 @@ angular.module('placePeopleApp')
 					limit: 10
 				};
 				var deferred = $q.defer();
-				if(!$scope.status.loading){
+				if(!$scope.status.loading && $scope.Model.Chat !== undefined && $scope.Model.Chat.length >= 10){
 					socket.emit("load more messages", data);
 				}else{
 					deferred.reject();
@@ -417,7 +417,7 @@ angular.module('placePeopleApp')
 				socket.emit("switchRoom", newroom);
 			});
 			
-			$scope.Model.sendMes = function(message, roomId){			
+			$scope.Model.sendMes = function(message, roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
@@ -435,8 +435,9 @@ angular.module('placePeopleApp')
 					message: message
 				}				
 				$scope.Model.chatMes = '';
-				socket.emit('send message', data);				
-			};	
+				socket.emit('send message', data);
+				$scope.emojiMessage = {};
+			};
 
 			$scope.Model.scrollBottom = function(){
 				setTimeout(function(){

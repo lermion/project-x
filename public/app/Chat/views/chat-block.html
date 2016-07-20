@@ -77,7 +77,7 @@
 
 	    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
 	    			<div class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
-	    			<div ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'">{{message.text}}</div>
+	    			<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 	    			<!-- <div class="to-my-msg-inner-photo">
 	    				<span class="to-my-img-inner-photo-pict">
 	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
@@ -197,8 +197,14 @@
 
     <div class="chat-right-send-wrap">
     	<div class="send-wrap-top">
-	    	<a class="chat-right-send-smile" href=""></a>
-	    	<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10" ng-model="Model.chatMes" ng-keypress="Model.sendOnEnter($event, Model.chatMes, Model.opponent.room_id)"></textarea>
+	    	<div class="emoji-chat-block">
+	    		<div emoji-form emoji-message="emojiMessage">
+					<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+						<i class="icon icon-emoji"></i>
+					</a>
+				</div>	
+	    	</div>
 	    	<div class="send-add-file" ng-click="showFileAddMenu=!showFileAddMenu">
 	    		<a href=""></a>
 	    		<div class="chat-add-file-menu" ng-show="showFileAddMenu">
@@ -206,7 +212,7 @@
 	    			<label class="chat-add-file-file"  for="">Файл</label>
 	    		</div>
 	    	</div>
-	    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(Model.chatMes, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+	    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
     	</div>
     	<!-- <div class="send-wrap-bottom">
 				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
