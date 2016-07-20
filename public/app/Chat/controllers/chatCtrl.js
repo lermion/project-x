@@ -415,7 +415,6 @@ angular.module('placePeopleApp')
 					message: message
 				}				
 				$scope.Model.chatMes = '';
-				console.log(data);			
 				socket.emit('send message', data);				
 			};	
 
