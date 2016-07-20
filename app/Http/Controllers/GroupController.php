@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -22,7 +23,19 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
+        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar')
+            ->where('groups.is_open',true)
+            ->orWhere(function($query){
+                $query->where('groups.is_open',false);
+                $query->whereExists(function($query)
+                {
+                    $query->select(DB::raw('id'))
+                        ->from('group_users')
+                        ->where('group_users.user_id',Auth::id())
+                        ->whereRaw('group_users.group_id = groups.id');
+                });
+            })
+            ->get();
         foreach($groups as &$group){
             $group->count_user = $group->users()->count();
             $group->publications = $group->publications()->count();

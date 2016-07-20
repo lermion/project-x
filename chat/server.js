@@ -102,7 +102,6 @@ io.sockets.on('connection', function(socket){
 				socket.room = GLOBAL.rooms;
 				socket.join(value.room_id);
 			});
-			console.log("socket.room", socket.room);
 			socket.emit("get user rooms", response);
 		},
 		function(error){
@@ -127,6 +126,14 @@ io.sockets.on('connection', function(socket){
 			function(error){
 				console.log(error);
 			});
+		},
+		function(error){
+			console.log(error);
+		});
+	});
+	socket.on("load more messages", function(data){
+		queries.getUserDialogue(data).then(function(response){
+			socket.emit("load more messages", response);
 		},
 		function(error){
 			console.log(error);
