@@ -133,6 +133,10 @@ Queries.prototype.getUserDialogue = function(data){
 			deferred.reject(error);
 			return;
 		}else{
+			result = {
+				room_id: data.room_id,
+				messages: result
+			};
 			deferred.resolve(result);
 		}
 	});

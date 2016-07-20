@@ -273,7 +273,7 @@ angular.module('placePeopleApp')
 					$scope.status.loading = true;
 					$scope.counter = 0;
 				}else{
-					response.forEach(function(value){
+					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
 					$scope.counter += 10;
@@ -319,7 +319,6 @@ angular.module('placePeopleApp')
 			$scope.Model.blockContact = function(contact){				
 				ChatService.blockUser(contact.id)
 					.then(function(response){
-						console.log(response);
 						if (response.status) {
 							contact.is_lock = response.is_lock 
 							if (!response.is_lock) {													
@@ -345,8 +344,7 @@ angular.module('placePeopleApp')
 							$scope.Model.loadUserContactList();
 							$scope.Model.displayContactBlock = false;
 						}
-						console.log(res);
-					  }, function(err){
+						}, function(err){
 						console.log(err);
 					  });
 			};
@@ -449,7 +447,7 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
-				$scope.Model.Chat = data;
+				$scope.Model.Chat = data.messages;
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
 				if (event.keyCode == 13) {
@@ -467,7 +465,6 @@ angular.module('placePeopleApp')
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers()
 					.then(function(response){	
-						console.log(response);					
 						$scope.Model.blockedUsers = response;                           
 					},
 					function(error){
@@ -532,7 +529,6 @@ angular.module('placePeopleApp')
 				$scope.Model.showNotificationBlock = true;
 				$scope.Model.displayNotificationBlock = true;
 				$scope.Model.opponent = user;
-				console.log(user);
 			};
 
 			$scope.Model.cancelNewChat = function(){				
@@ -591,7 +587,7 @@ angular.module('placePeopleApp')
 			$scope.Model.saveNotificationSettings = function(chat){			
 				ChatService.setNotification(chat.room_id)
 					.then(function(response){						
-						console.log(response);						                     
+						
 					},
 					function(error){
 						console.log(error);
@@ -613,7 +609,6 @@ angular.module('placePeopleApp')
 				if (pubId != undefined) {
 					PublicationService.getSinglePublication(pubId)
 					.then(function(response){						
-							console.log(response);
 							message.pub = response;
 						},
 						function(error){
