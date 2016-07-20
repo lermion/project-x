@@ -3507,6 +3507,9 @@ body.ngdialog-open {
     text-overflow: ellipsis;
     margin-bottom: 5px;
 }
+.titles .title.groups-locked-icon {
+	background-image: url(../images/lock-icon.png);
+}
 .titles .title:hover {
 	color: #666;
 }
