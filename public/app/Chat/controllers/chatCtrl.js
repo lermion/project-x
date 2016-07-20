@@ -162,53 +162,60 @@ angular.module('placePeopleApp')
 			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			
-			$scope.Model.clearChat = function(roomId){							
-				if (!roomId) {									
-					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-							if (!$scope.Model.chatRooms[i].is_group) {
-								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-									roomId = $scope.Model.chatRooms[i].room_id;
-								}
-							}
-						}
-					}
-				}
-
-				ChatService.clearChat(roomId)
-					.then(function(res){
-						console.log(res);
-						if (res.status) {
-							$scope.Model.Chat = [];
-						}						
-					  }, function(err){
-						console.log(err);
-					  });
+			$scope.Model.clearChat = function(roomId){
+				ngDialog.open({
+					template: '../app/Chat/views/confirmation-popup.html',
+					className: 'ngdialog-theme-default',
+					scope: $scope
+				});
+				// if(!roomId){
+				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+				// 			if (!$scope.Model.chatRooms[i].is_group) {
+				// 				if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+				// 					roomId = $scope.Model.chatRooms[i].room_id;
+				// 				}
+				// 			}
+				// 		}
+				// 	}
+				// }
+				// ChatService.clearChat(roomId).then(function(res){
+				// 	console.log(res);
+				// 	if(res.status){
+				// 		$scope.Model.Chat = [];
+				// 	}						
+				// },
+				// function(err){
+				// 	console.log(err);
+				// });
 			};
 			$scope.Model.deleteChat = function(roomId){
-							
-				if (!roomId) {									
-					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-							if (!$scope.Model.chatRooms[i].is_group) {
-								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-									roomId = $scope.Model.chatRooms[i].room_id;
-								}
-							}
-						}
-					}
-				}
-
-				ChatService.deleteChat(roomId)
-					.then(function(res){
-						console.log(res);
-						if (res.status) {
-							$scope.Model.displayChatBlock = false;
-							$scope.Model.reloadRooms();
-						}
-					  }, function(err){
-						console.log(err);
-					  });
+				ngDialog.open({
+					template: '../app/Chat/views/confirmation-popup.html',
+					className: 'ngdialog-theme-default',
+					scope: $scope
+				});
+				// if(!roomId){
+				// 	for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+				// 		for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+				// 			if (!$scope.Model.chatRooms[i].is_group) {
+				// 				if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+				// 					roomId = $scope.Model.chatRooms[i].room_id;
+				// 				}
+				// 			}
+				// 		}
+				// 	}
+				// }
+				// ChatService.deleteChat(roomId).then(function(res){
+				// 	console.log(res);
+				// 	if(res.status){
+				// 		$scope.Model.displayChatBlock = false;
+				// 		$scope.Model.reloadRooms();
+				// 	}
+				// },
+				// function(err){
+				// 	console.log(err);
+				// });
 			};
 
 			function loadUserContacts(){
