@@ -380,12 +380,6 @@ angular.module('placePeopleApp')
 				console.log(data);				
 				$scope.Model.Chat = data;
 			});
-			socket.on('send message', function(response){
-				// console.log(response);				
-				$scope.Model.Chat = response;				
-				// 	$scope.Model.Chat.push(response);				
-			});
-
 			$scope.Model.sendOnEnter = function(event, message, room_id){
 				if (event.keyCode == 13) {
 					event.preventDefault();
