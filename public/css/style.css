@@ -2951,7 +2951,7 @@ spam-item {
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default {
 	background-color: transparent;
-	position: absolute;
+	/*position: absolute;*/
 }
 .ngdialog.popup-comment-images.ngdialog-theme-default  .ngdialog-content {
 	background-color: transparent;
