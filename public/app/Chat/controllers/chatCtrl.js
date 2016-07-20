@@ -541,7 +541,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.loadPubIntoChat = function(message, pubId){				
-				PublicationService.getSinglePublication(pubId)
+				if (pubId != undefined) {
+					PublicationService.getSinglePublication(pubId)
 					.then(function(response){						
 							console.log(response);
 							message.pub = response;
@@ -549,6 +550,7 @@ angular.module('placePeopleApp')
 						function(error){
 							console.log(error);
 						});
+				}
 			};
 
 			$scope.getPubText = function(text){				
