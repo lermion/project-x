@@ -6562,18 +6562,6 @@ input.cmn-toggle-round:checked + label:after {
     }
 }
 
-/*SEARCH PAGE*/
-.search-page {
-    width: 700px;
-    flex-wrap: wrap;
-    display: flex;
-    box-sizing: border-box;
-    margin: 60px auto 20px auto;
-    font-family: "SFUIDisplayMedium";
-    background-color: red;
-}
-
-
 
 .send-wrap-bottom .pic .close {
     display: none;
@@ -6663,4 +6651,17 @@ input.cmn-toggle-round:checked + label:after {
     border-bottom: 5px solid #fff;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
+}
+
+
+
+/*SEARCH PAGE*/
+.search-page {
+    width: 700px;
+    flex-wrap: wrap;
+    display: flex;
+    box-sizing: border-box;
+    margin: 60px auto 20px auto;
+    font-family: "SFUIDisplayMedium";
+    background-color: red;
 }
