@@ -1475,6 +1475,10 @@ label span.add {
     content: 'Описание группы ...';
 }
 
+.group-pub.ngdialog-theme-default .emoji-wysiwyg-editor:empty:after {
+    content: 'Текст публикации ...';
+}
+
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
 }
@@ -1888,6 +1892,11 @@ div.my_profilll.photo-list div:last-child {
     transition: all .3s ease-in-out .1s;
     cursor: pointer;
     height: 30px;
+}
+
+.avatar__card {
+    max-width: 100%;
+    height: auto;
 }
 
 /*----------------------

@@ -244,7 +244,12 @@ angular.module('app.groups')
                 blobFile.name = 'image';
                 blobFile.lastModifiedDate = new Date();
 
-                $scope.newGroup.avatar_small = blobFile;
+                Upload.resize(blobFile, 200, 220, 1, null, null, true).then(function (resizedFile) {
+                    console.log(resizedFile);
+                    $scope.newGroup.avatarCard = resizedFile;
+                });
+
+                //$scope.newGroup.avatarCard = blobFile;
 
                 modalCropImage.close();
             };
