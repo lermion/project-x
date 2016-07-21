@@ -6665,3 +6665,16 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     background-color: red;
 }
+
+
+@media (max-width: 720px) {
+    .search-page {
+        width: 100%;
+    }
+    .search-page .place-menu-wrap {
+        width: 100%;
+    }
+    .search-page .place-menu-wrap .group-menu .group-menu-item {
+        width: 100%;
+    }
+}
