@@ -136,6 +136,14 @@ Queries.prototype.getUserDialogue = function(data){
 			deferred.reject(error);
 			return;
 		}else{
+			var oldMessageArray = [];
+			result.forEach(function(value){
+				connection.query("UPDATE `messages` SET `is_new`= 0 WHERE `id` = ?", [value.id], function(err, results) {
+					if(error){
+						console.log("error to set old message: " + error.stack);
+					}
+				});
+			});
 			result = {
 				room_id: data.room_id,
 				messages: result
