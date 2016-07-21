@@ -1475,6 +1475,10 @@ label span.add {
     content: 'Описание группы ...';
 }
 
+.group-pub.ngdialog-theme-default .emoji-wysiwyg-editor:empty:after {
+    content: 'Текст публикации ...';
+}
+
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
 }

@@ -212,7 +212,7 @@
             modalNewPublication = ngDialog.open({
                 template: '../app/Groups/views/popup-add-publication.html',
                 name: 'modal-publication-group',
-                className: 'user-publication ngdialog-theme-default',
+                className: 'user-publication group-pub ngdialog-theme-default',
                 scope: $scope,
                 preCloseCallback: resetFormNewPublication
             });
@@ -233,7 +233,7 @@
         // Submit forms
         vm.submitNewPublication = function () {
             vm.forms.newPublication.$setSubmitted();
-            if (vm.forms.newPublication.$invalid) {
+            if (vm.forms.newPublication.$invalid || vm.files.length === 0) {
                 return false;
             }
             vm.newPublication.text = vm.emoji.emojiMessage.messagetext;
