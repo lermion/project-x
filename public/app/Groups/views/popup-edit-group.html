@@ -20,7 +20,7 @@
                        ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
                        ngf-before-model-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
                 <label for="avatarImg">
-                    <img ngf-src="vm.groupCoverFile || vm.groupEdited.avatar" ngf-no-object-url="true">
+                    <img class="avatar__card" ngf-src="vm.groupEdited.card_avatar" ngf-no-object-url="true">
                 </label>
             </div>
             <span class="add_ava_grp"> Добавить обложку группе </span>

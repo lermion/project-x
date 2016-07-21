@@ -23,7 +23,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar')
+        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar', 'groups.created_at')
             ->where('groups.is_open',true)
             ->orWhere(function($query){
                 $query->where('groups.is_open',false);
@@ -112,11 +112,20 @@ class GroupController extends Controller
     public function show($name)
     {
         $group = Group::where('url_name', $name)->first();
-        NewGroup::where(['user_id' => Auth::id(), 'group_id' => $group->id,])->delete();
+
         if ($group) {
             if (!$group->is_open && !GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
-                return null;
+                //return null;
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "Permission denied",
+                        'code' => '8'
+                    ]
+                ];
+                return response()->json($result);
             }
+            NewGroup::where(['user_id' => Auth::id(), 'group_id' => $group->id,])->delete();
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
             $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'group_users.is_admin')
@@ -130,6 +139,15 @@ class GroupController extends Controller
             if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true, 'is_creator' => true])->first()){
                 $group->is_creator = true;
             } else {$group->is_creator = false;}
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect group id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
         }
         return $group;
     }
@@ -183,7 +201,7 @@ class GroupController extends Controller
         if ($request->hasFile('card_avatar')) {
             $card_avatar = $request->file('card_avatar');
             $path = Image::getAvatarPath($card_avatar);
-            $publicationData['card_avatar'] = $path;
+            $groupData['card_avatar'] = $path;
         }
         $group = Group::find($id);
         $group->update($groupData);

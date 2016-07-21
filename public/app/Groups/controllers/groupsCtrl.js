@@ -54,7 +54,7 @@ angular.module('app.groups')
             $scope.limitMyGroups = LIMIT_MY_GROUPS;
             $scope.limitAllPublicGroups = LIMIT_ALL_PUBLIC_GROUPS;
             $scope.filterGroups = {
-                value: '-created_at'
+                value: ['-is_new_group', '-created_at']
             };
             $scope.onItemSelected = function (user) {
 
@@ -244,7 +244,12 @@ angular.module('app.groups')
                 blobFile.name = 'image';
                 blobFile.lastModifiedDate = new Date();
 
-                $scope.newGroup.avatar_small = blobFile;
+                Upload.resize(blobFile, 200, 220, 1, null, null, true).then(function (resizedFile) {
+                    console.log(resizedFile);
+                    $scope.newGroup.avatarCard = resizedFile;
+                });
+
+                //$scope.newGroup.avatarCard = blobFile;
 
                 modalCropImage.close();
             };
@@ -254,6 +259,7 @@ angular.module('app.groups')
                 $scope.submFormGroup = true;
                 validateEmojiArea();
                 $scope.forms.newGroup.$setSubmitted();
+
                 if ($scope.forms.newGroup.$invalid) {
                     return false;
                 }
@@ -262,7 +268,7 @@ angular.module('app.groups')
                     .then(function (data) {
                         if (data.status) {
                             data.group.users = [{id: myId}];
-                            $scope.groupList.push(data.group);
+                            $scope.groupList.unshift(data.group);
 
                             if ($scope.newGroup.users.length > 0) {
                                 //TODO: push new group object instead getting all groups

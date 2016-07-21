@@ -1,111 +1,115 @@
 <div class="create-places-common">
-	<div class="create-places-header">
-		<a class="create-places-header-a" ui-sref="places.add">Создать место</a>
-	</div>
-	<div class="create-places-common-inner">
-		<div class="create-places-type">
-			<span class="place-type-title">Тип места:</span>
-			<span class="place-type-name">Динамичное</span>
-		</div>
-		<div class="create-places-description">
-			Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
-			наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные 
-			университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
-			своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
-			составляющих основы научного знания.
-		</div>
-		<div class="create-places-select-country">
-			<div class="select-country-country">Категория динамического места</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Выберите категорию</option>
-				  <option value="">Выберите категорию</option>
-				  <option value="">Выберите категорию</option>
-				  <option value="">Выберите категорию</option>
-				</select>
-			</div>
-		</div>
-		<div class="create-places-select-country">
-			<div class="select-country-country">Выберите страну</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Россия</option>
-				  <option value="">Украина</option>
-				  <option value="">Исландия</option>
-				  <option value="">Ирландия</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="create-places-select-country">
-			<div class="select-country-country">Выберите город</div>
-			<div class="select-country-name">
-				<select>
-				  <option value="">Москва</option>
-				  <option value="">Киев</option>
-				  <option value="">Днепропетровск</option>
-				  <option value="">Мюнхен</option>
-				</select>
-			</div>
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Адрес места</div>
-			<div class="select-street-input">
-				<input type="text" placeholder="улица, номер дома">
-				<span class="street-on-map">или укажите на карте</span>
-			</div>
+    <div class="create-places-header">
+        <a class="create-places-header-a" ui-sref="places.add">Создать место</a>
+    </div>
+    <div class="create-places-common-inner">
+        <div class="create-places-type">
+            <span class="place-type-title">Тип места:</span>
+            <span class="place-type-name">Динамичное</span>
+        </div>
+        <div class="create-places-description">
+            Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
+            наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные
+            университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
+            своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
+            составляющих основы научного знания.
+        </div>
+        <div class="create-places-select-country">
+            <div class="select-country-country">Категория динамического места</div>
+            <div class="select-country-name">
+                <select>
+                    <option value="1">Магазин</option>
+                    <option value="2">Кафе/Ресторан</option>
+                    <option value="3">Развлечение</option>
+                    <option value="4">Организация</option>
+                    <option value="5">Университет</option>
+                    <option value="6">Школа</option>
+                    <option value="7">Адрес</option>
+                </select>
+            </div>
+        </div>
+        <div class="create-places-select-country">
+            <div class="select-country-country">Выберите страну</div>
+            <div class="select-country-name">
+                <select>
+                    <option value="">Россия</option>
+                    <option value="">Украина</option>
+                    <option value="">Исландия</option>
+                    <option value="">Ирландия</option>
+                </select>
+            </div>
+        </div>
 
-		</div>
-		<div class="create-places-select-country days">
-			<div class="select-country-country">Сколько дней актуально это место</div>
-			<div class="select-country-name">
-				<input type="date" placeholder="Выберите дни">
-			</div>
-		</div>
-		<div class="create-places-select-street">
-			<div class="select-country-country">Описание</div>
-			<div class="select-street-input">
-				<textarea type="text" placeholder="Введите описание:"></textarea>
-			</div>
+        <div class="create-places-select-country">
+            <div class="select-country-country">Выберите город</div>
+            <div class="select-country-name">
+                <select>
+                    <option value="">Москва</option>
+                    <option value="">Киев</option>
+                    <option value="">Днепропетровск</option>
+                    <option value="">Мюнхен</option>
+                </select>
+            </div>
+        </div>
+        <div class="create-places-select-street">
+            <div class="select-country-country">Адрес места</div>
+            <div class="select-street-input">
+                <input type="text" placeholder="улица, номер дома">
+                <span class="street-on-map">или укажите на карте</span>
+            </div>
 
-		</div>
+        </div>
+        <div class="create-places-select-country days">
+            <div class="select-country-country">Сколько дней актуально это место</div>
+            <div class="select-country-name">
+                <input type="date" placeholder="Выберите дни">
+            </div>
+        </div>
+        <div class="create-places-select-street">
+            <div class="select-country-country">Описание</div>
+            <div class="select-street-input">
+                <textarea type="text" placeholder="Введите описание:"></textarea>
+            </div>
 
-		<div class="create-places-add-cover">
-			<div class="create-places-add-cover-img">
-				<a href=""></a>
-				<span>Добавить обложку месту</span>
-			</div>
-			<!-- <div class="create-places-add-cover-ava">аватар</div> -->
-			<!-- <div class="create-places-add-cover-button-create">Создать место</div> -->
-		</div>
-		<div class="create-places-add-cover">
-			<div class="create-places-add-cover-img">
-				<a href=""></a>
-				<span>Добавить логотип месту</span>
-			</div>
-			<!-- <div class="create-places-add-cover-ava">аватар</div> -->
-			<div class="create-places-add-cover-button-create">Создать место</div>
-		</div>
-	</div>
+        </div>
+
+        <div class="create-places-add-cover">
+            <div class="create-places-add-cover-img">
+                <a href=""></a>
+                <span>Добавить обложку месту</span>
+            </div>
+            <!-- <div class="create-places-add-cover-ava">аватар</div> -->
+            <!-- <div class="create-places-add-cover-button-create">Создать место</div> -->
+        </div>
+        <div class="create-places-add-cover">
+            <div class="create-places-add-cover-img">
+                <a href=""></a>
+                <span>Добавить логотип месту</span>
+            </div>
+            <!-- <div class="create-places-add-cover-ava">аватар</div> -->
+            <div class="create-places-add-cover-button-create">Создать место</div>
+        </div>
+    </div>
 </div>
 
 <div class="create-places-common">
-	<div class="create-places-header">
-		<a class="create-places-header-a" ui-sref="places.add">Место создано</a>
-	</div>
-	<div class="create-places-common-inner">
-		<div class="create-places-type">
-			<span class="place-type-title">Тип места:</span>
-			<span class="place-type-name">Динамичное</span>
-		</div>
-		<div class="create-places-type">
-			<span class="place-type-title">Название:</span>
-			<span class="place-type-name">МГУТУ им. Баумана</span>
-		</div>
+    <div class="create-places-header">
+        <a class="create-places-header-a" ui-sref="places.add">Место создано</a>
+    </div>
+    <div class="create-places-common-inner">
+        <div class="create-places-type">
+            <span class="place-type-title">Тип места:</span>
+            <span class="place-type-name">Динамичное</span>
+        </div>
+        <div class="create-places-type">
+            <span class="place-type-title">Название:</span>
+            <span class="place-type-name">МГУТУ им. Баумана</span>
+        </div>
 
-		<div class="fifth_item">
+        <div class="fifth_item">
             <div class="item1-container">
                 <input type="text" id="" placeholder="Пригласить в группу...">
+
                 <p>Я подписан</p>
                 <ul class="item1">
                     <!-- <li ng-repeat="user in subscribers | searchFor:searchString">
@@ -114,19 +118,25 @@
                 		<span class="group-add-item1-user-plus" ng-click="onItemSelected(user)"><img src="/images/add.png" alt=""></span>
                     </li> -->
                     <li>
-                    	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                    	<p>Елена Новикова</p>
-                    	<span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                             alt="">
+
+                        <p>Елена Новикова</p>
+                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
                     <li>
-                    	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                    	<p>Елена Новикова</p>
-                    	<span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                             alt="">
+
+                        <p>Елена Новикова</p>
+                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
                     <li>
-                    	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                    	<p>Елена Новикова</p>
-                    	<span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                             alt="">
+
+                        <p>Елена Новикова</p>
+                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
 
                 </ul>
@@ -138,19 +148,25 @@
                 		<span class="group-add-item1-user-plus" ng-click="onItemSelected(user)"><img src="/images/add.png" alt=""></span>
                     </li> -->
                     <li>
-                    	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                    	<p>Елена Новикова</p>
-                    	<span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                             alt="">
+
+                        <p>Елена Новикова</p>
+                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
                     <li>
-                    	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                    	<p>Елена Новикова</p>
-                    	<span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                             alt="">
+
+                        <p>Елена Новикова</p>
+                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
                     <li>
-                    	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                    	<p>Елена Новикова</p>
-                    	<span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                             alt="">
+
+                        <p>Елена Новикова</p>
+                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
 
                 </ul>
@@ -169,15 +185,19 @@
                             <span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
                         </li> -->
                         <li>
-                        	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                        	<p> Елена Новикова</p>
-                        	<span class="add-people-delete">&#10006;</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                                 alt="">
+
+                            <p> Елена Новикова</p>
+                            <span class="add-people-delete">&#10006;</span>
                             <span class="add-people-admin">Администратор</span>
                         </li>
                         <li>
-                        	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg" alt="">
-                        	<p> Елена Новикова</p>
-                        	<span class="add-people-delete">&#10006;</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
+                                 alt="">
+
+                            <p> Елена Новикова</p>
+                            <span class="add-people-delete">&#10006;</span>
                             <span class="add-people-admin">Администратор</span>
                         </li>
 
@@ -185,5 +205,5 @@
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>

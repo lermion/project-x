@@ -52,12 +52,12 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | filter: showMyGroups | orderBy: '-created_at'| limitTo: limitMyGroups">
+                             ng-repeat="group in groupList | filter: showMyGroups | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups">
                             <div class="group-cover">
                                 <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
                                 <a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">
                                     <!--<img ng-src="{{group.avatar}}">-->
-                                    <img ngf-src="group.avatar" ngf-as-background="true">
+                                    <img ngf-src="group.card_avatar" ngf-as-background="true">
                                 </a>
 
                                 <div class="group-likes">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="titles">
-                                <a href="" class="title groups-locked-icon">{{::group.name}}</a>
+                                <a href ng-class="{'groups-locked-icon': !group.is_open}" class="title">{{::group.name}}</a>
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>

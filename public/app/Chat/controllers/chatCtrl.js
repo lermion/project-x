@@ -28,8 +28,8 @@ angular.module('placePeopleApp')
 					.then(function (res) {
 						storageService.deleteStorage();
 						$state.go('login');
-					}, function (err) {
-						console.log(err);
+					}, function (error) {
+						console.log(error);
 					});
 			};
 
@@ -169,6 +169,7 @@ angular.module('placePeopleApp')
 			$scope.abortConfirmation = function(){
 				ngDialog.closeAll();
 			}
+
 			$scope.Model.clearChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
@@ -177,57 +178,77 @@ angular.module('placePeopleApp')
 					data: {
 						text: "Вы уверены, что хотите очистить чат?",
 						type: "clearChat",
-						roomId: roomId
+						data: roomId
 					}
 				});
 			};
-			$scope.acceptConfirmation = function(type, roomId){
-				if(type === "clearChat"){
-					if(!roomId){
-						for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-							for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-								if (!$scope.Model.chatRooms[i].is_group) {
-									if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-										roomId = $scope.Model.chatRooms[i].room_id;
-									}
+			function clearChat(roomId){
+				if(!roomId){
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
 								}
 							}
 						}
 					}
-					ChatService.clearChat(roomId).then(function(res){
-						console.log(res);
-						if(res.status){
-							ngDialog.closeAll();
-							$scope.Model.Chat = [];
-						}						
-					},
-					function(err){
-						console.log(err);
-					});
-				}else{
-					if(!roomId){
-						for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
-							for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-								if (!$scope.Model.chatRooms[i].is_group) {
-									if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
-										roomId = $scope.Model.chatRooms[i].room_id;
-									}
-								}
-							}
-						}
-					}
-					ChatService.deleteChat(roomId).then(function(res){
-						console.log(res);
-						if(res.status){
-							ngDialog.closeAll();
-							$scope.Model.displayChatBlock = false;
-							$scope.Model.reloadRooms();
-						}
-					},
-					function(err){
-						console.log(err);
-					});
 				}
+				ChatService.clearChat(roomId).then(function(res){
+					if(res.status){
+						ngDialog.closeAll();
+						$scope.Model.Chat = [];
+					}						
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+			function deleteChat(roomId){
+				if(!roomId){
+					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
+						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
+							if (!$scope.Model.chatRooms[i].is_group) {
+								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
+									roomId = $scope.Model.chatRooms[i].room_id;
+								}
+							}
+						}
+					}
+				}
+				ChatService.deleteChat(roomId).then(function(res){
+					if(res.status){
+						ngDialog.closeAll();
+						$scope.Model.displayChatBlock = false;
+						$scope.Model.reloadRooms();
+					}
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+			$scope.acceptConfirmation = function(type, data){
+				if(type === "clearChat"){
+					clearChat(data);
+				}else if(type === "deleteChat"){
+					deleteChat(data);
+				}else if(type === "blockContact"){
+					blockContact(data);
+				}else if(type === "deleteContact"){
+					deleteContact(data);
+				}
+			};
+			function deleteContact(contact){
+				ChatService.deleteChatContact(contact.room_id, contact.id).then(function(res){
+					if(res.status){
+						ngDialog.closeAll();
+						$scope.Model.loadUserContactList();
+						$scope.Model.displayContactBlock = false;
+					}
+				},
+				function(error){
+					console.log(error);
+				});
 			}
 			$scope.Model.deleteChat = function(roomId){
 				ngDialog.open({
@@ -237,7 +258,7 @@ angular.module('placePeopleApp')
 					data: {
 						text: "Вы уверены, что хотите удалить чат?",
 						type: "deleteChat",
-						roomId: roomId
+						data: roomId
 					}
 				});
 			};
@@ -315,38 +336,50 @@ angular.module('placePeopleApp')
 						$state.go('chat.contact-mobile');
 				}
 			};
-
-			$scope.Model.blockContact = function(contact){				
-				ChatService.blockUser(contact.id)
-					.then(function(response){
-						if (response.status) {
-							contact.is_lock = response.is_lock 
-							if (!response.is_lock) {													
-								var index;
-								for(var i = 0; i < $scope.Model.blockedUsers.length; i++){
-									if ($scope.Model.blockedUsers[i].id === contact.id) {
-										index = i;
-									}
+			function blockContact(contact){
+				ChatService.blockUser(contact.id).then(function(response){
+					if(response.status){
+						ngDialog.closeAll();
+						contact.is_lock = response.is_lock 
+						if (!response.is_lock) {													
+							var index;
+							for(var i = 0; i < $scope.Model.blockedUsers.length; i++){
+								if ($scope.Model.blockedUsers[i].id === contact.id) {
+									index = i;
 								}
-								$scope.Model.blockedUsers.splice(index ,1);								
-								$scope.Model.displayBlockedBlock = false;								
-							} 						
-						}                       
-					},
-					function(error){
-						console.log(error);
-					});
+							}
+							$scope.Model.blockedUsers.splice(index ,1);								
+							$scope.Model.displayBlockedBlock = false;								
+						} 						
+					}                       
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+			$scope.Model.blockContact = function(contact, isLock){
+				ngDialog.open({
+					template: '../app/Chat/views/confirmation-popup.html',
+					className: 'confirmation-popup ngdialog-theme-default',
+					scope: $scope,
+					data: {
+						text: isLock ? "Вы уверены, что хотите разблокировать контакт?" : "Вы уверены, что хотите заблокировать контакт?",
+						type: "blockContact",
+						data: contact
+					}
+				});
 			};
 			$scope.Model.deleteContact = function(contact){
-				ChatService.deleteChatContact(contact.room_id[0].room_id, contact.id)
-					.then(function(res){
-						if (res.status) {
-							$scope.Model.loadUserContactList();
-							$scope.Model.displayContactBlock = false;
-						}
-						}, function(err){
-						console.log(err);
-					  });
+				ngDialog.open({
+					template: '../app/Chat/views/confirmation-popup.html',
+					className: 'confirmation-popup ngdialog-theme-default',
+					scope: $scope,
+					data: {
+						text: "Вы уверены, что хотите удалить контакт?",
+						type: "deleteContact",
+						data: contact
+					}
+				});
 			};
 			$scope.Model.openChatWith = function(chat){
 				$scope.status.loading = false;
@@ -409,7 +442,7 @@ angular.module('placePeopleApp')
 					$state.go('chat.mobile');
 				}
 			};			
-			socket.on("get user rooms", function(response){							
+			socket.on("get user rooms", function(response){
 				$scope.Model.chatRooms = response;
 			});
 
@@ -436,7 +469,7 @@ angular.module('placePeopleApp')
 				}				
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data);
-				$scope.emojiMessage = {};
+				$scope.emojiMessage.rawhtml = "";
 			};
 
 			$scope.Model.scrollBottom = function(){
@@ -446,9 +479,9 @@ angular.module('placePeopleApp')
 					// $scope.$broadcast('rebuildScroll');
 					chatWindow.scrollTop(height);
 				}, 100);
-
 			};
 			socket.on('updatechat', function(data){
+				socket.emit("get user rooms", $scope.loggedUserId);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
@@ -456,7 +489,7 @@ angular.module('placePeopleApp')
 				}
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
-				if (event.keyCode == 13) {
+				if(event.keyCode == 13){
 					event.preventDefault();
 					if (!$scope.Model.displayBlockedBlock) {					
 						$scope.Model.sendMes(message, room_id);					
@@ -495,7 +528,11 @@ angular.module('placePeopleApp')
 				socket.emit('create room', data);
 			}
 
-			$scope.emojiMessage = {};
+			$scope.emojiMessage = {
+				replyToUser: function(){
+					console.log("it will be added in the future");
+				}
+			};
 			$scope.$on('ngDialog.opened', function(e, $dialog){
 				if($dialog.name === "group-chat"){
 					window.emojiPicker = new EmojiPicker({

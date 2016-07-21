@@ -33,11 +33,10 @@
 				<p class="users-today-name">{{!!chat.is_group ? chat.name : chat.members[0].first_name + ' ' + chat.members[0].last_name}}</p>
 				<p class="users-today-message">{{chat.last_message}}</p>
 			</div>
-			<!-- <div class="chat-users-today-time">
+			<div class="chat-users-today-time">
 				<span class="users-today-time-time early">13:20</span>
-				<span class="users-today-time-count early">123</span>
-			</div> -->			
+				<span ng-if="chat.messagesCount > 0" class="users-today-time-count early">{{chat.messagesCount}}</span>
+			</div>
 		</div>
 	</div>
-
 </div>

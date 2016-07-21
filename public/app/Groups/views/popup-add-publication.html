@@ -6,7 +6,7 @@
         <div class="publication-item">
             <a class="user" ui-sref="user({username: vm.userName})">
 			<span class="ava">
-				<img ng-src="{{vm.group.avatar}}" alt="Avatar group">
+				<img ng-src="{{vm.group.card_avatar}}" alt="Avatar group">
 			</span>
 
                 <p class="user-name">{{::vm.group.name}}</p>
@@ -16,13 +16,16 @@
         <div class="text-field">
 
             <div emoji-form emoji-message="vm.emoji.emojiMessage">
-                <textarea id="messageInput" ng-model="vm.emoji.emojiMessage.messagetext"></textarea>
+                <textarea id="messageInput" name="text" ng-model="vm.emoji.emojiMessage.messagetext" required></textarea>
                 <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>
             </div>
         </div>
 
+        <div class="error-messages" ng-messages="vm.forms.newPublication.text.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted">
+            <div ng-message="required">Вы не заполнили текст публикации</div>
+        </div>
         <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
              style="max-height: 250px; overflow:hidden; position:relative;">
 
@@ -51,16 +54,24 @@
                        name="files"
                        type="file"
                        ngf-select
+                       ngf-accept="'image/*, video/*'"
+                       ngf-pattern="'image/*, video/*'"
                        ng-model="vm.files"
                        ngf-before-model-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        ngf-multiple="true"
-                       ngf-keep="true">
+                       ngf-keep="true"
+                       required>
+
 
                 <label for="add-main-pub-object"
                        ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
                     <span class="add"></span>
                     Добавить фото или видео *
                 </label>
+                <div class="error-messages" ng-messages="vm.forms.newPublication.files.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted || vm.forms.newPublication.$dirty">
+                    <div ng-message="required">Вы не выбрали медиафайл</div>
+                    <div ng-message="pattern">Выбранный файл не является фото или видео</div>
+                </div>
             </div>
             <div class="publication-footer-button">
                 <a href="" class="cansel" ng-click="closeThisDialog()">Отменить</a>

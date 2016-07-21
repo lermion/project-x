@@ -17,6 +17,18 @@
 
         vm.placesDropdown = null;
 
+        vm.placeNew = {
+            category: null,
+            country: null,
+            city: null,
+            address: null,
+            days: null,
+            description: null,
+            cover: null,
+            logo: null,
+            isCreate: null
+        };
+
         activate();
 
         /////////////////////////////////////////////////
@@ -103,6 +115,7 @@
             return vm.placesDropdown;
         }), function (newVal) {
             if (newVal === 'places.add') {
+                vm.placesDropdown = 'default';
                 $state.go('places.add');
             }
         });
