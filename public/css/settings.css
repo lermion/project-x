@@ -5925,6 +5925,7 @@ input.cmn-toggle-round:checked + label:after {
     height: 35px;
     transition: all .2s ease-in-out .1s;
     width: 40px;
+    cursor: pointer;
 }
 
 .main-content .groups {
