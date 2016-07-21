@@ -6822,7 +6822,10 @@ input.cmn-toggle-round:checked + label:after {
 .search-page .group-cover:hover .group-likes {
     opacity: 1;
 }
-
+.search-page .user-function .user .ava img {
+    width: 100%;
+    height: 100%;
+}
 
 @media (max-width: 720px) {
     .search-page .group {
