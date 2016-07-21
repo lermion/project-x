@@ -20,7 +20,7 @@
         var lastName = storage.lastName;
 
         var modalEditGroup, modalDeleteGroup, modalInviteUsers,
-            modalSetCreator, modalNewPublication, modalReviewPublication;
+            modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage;
         var groupName = $stateParams.groupName;
 
         var newPublicationObj = {
@@ -66,6 +66,10 @@
         vm.userName = storage.username;
 
         vm.files = [];
+
+        $scope.myImage = null;
+        $scope.myCroppedImage = null;
+        $scope.blobImg = null;
 
         amMoment.changeLocale('ru');
 
@@ -208,7 +212,7 @@
             modalNewPublication = ngDialog.open({
                 template: '../app/Groups/views/popup-add-publication.html',
                 name: 'modal-publication-group',
-                className: 'user-publication ngdialog-theme-default',
+                className: 'user-publication group-pub ngdialog-theme-default',
                 scope: $scope,
                 preCloseCallback: resetFormNewPublication
             });
@@ -229,7 +233,7 @@
         // Submit forms
         vm.submitNewPublication = function () {
             vm.forms.newPublication.$setSubmitted();
-            if (vm.forms.newPublication.$invalid) {
+            if (vm.forms.newPublication.$invalid || vm.files.length === 0) {
                 return false;
             }
             vm.newPublication.text = vm.emoji.emojiMessage.messagetext;
@@ -577,6 +581,7 @@
                         vm.group.description = data.groupData.description || vm.group.description;
                         vm.group.is_open = data.groupData.is_open == true;
                         vm.group.avatar = data.groupData.avatar || vm.group.avatar;
+                        vm.group.card_avatar = data.groupData.card_avatar || vm.group.card_avatar;
 
                         if (data.groupData.url_name) {
                             changeGroupUrlName(data.groupData.url_name);
@@ -719,6 +724,7 @@
             Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
                 vm.groupEdited.avatar = resizedFile;
             });
+            onFileSelected(event);
         };
 
         vm.changeMainFile = function (file, flag, pub) {
@@ -757,6 +763,23 @@
             }
 
             return result;
+        };
+
+        $scope.saveCropp = function (img, cropped) {
+
+            var blobFile = blobToFile(cropped);
+
+            blobFile.name = 'image';
+            blobFile.lastModifiedDate = new Date();
+
+            Upload.resize(blobFile, 200, 220, 1, null, null, true).then(function (resizedFile) {
+                console.log(resizedFile);
+                vm.groupEdited.card_avatar = resizedFile;
+            });
+
+            //$scope.newGroup.avatarCard = blobFile;
+
+            modalCropImage.close();
         };
 
 
@@ -877,6 +900,37 @@
             }
 
             return filesByType;
+        }
+
+        function onFileSelected(e) {
+            var file = e.currentTarget.files[0];
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $scope.$apply(function ($scope) {
+                        $scope.myImage = e.target.result;
+                        modalCropImage = ngDialog.open({
+                            template: '../app/Groups/views/popup-crop-image.html',
+                            className: 'settings-add-ava ngdialog-theme-default',
+                            scope: $scope
+                        });
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+        }
+
+        function blobToFile(dataURI) {
+            var byteString = atob(dataURI.split(',')[1]);
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], {type: 'image/jpeg'});
         }
 
         //function getGroup() {

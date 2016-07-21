@@ -119,6 +119,7 @@
             fd.append('description', group.description);
             fd.append('is_open', +group.isOpen);
             fd.append('avatar', group.avatar, group.avatar.name);
+            fd.append('card_avatar', group.avatarCard, group.avatarCard.name);
 
             return $http({
                 method: 'POST',
@@ -182,6 +183,7 @@
             }
             if (group.avatar) {
                 fd.append('avatar', group.avatar, group.avatar.name);
+                fd.append('card_avatar', group.card_avatar, group.card_avatar.name);
             }
 
             // required fields

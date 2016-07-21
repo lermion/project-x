@@ -40,7 +40,33 @@
 
 
     <div ui-view>
-        <h1>Search results</h1>
+        <div class="search-page">
+        	<div class="place-menu-wrap">
+                <div class="group-menu">
+                    <div class="group-menu-item">
+                        <div class="counts">
+                            <a ui-sref="" ui-sref-active="active" class="counter">
+                                <p>Публикации</p>
+                                <span>{{::vm.place.count_publications}}</span>
+                            </a>
+                            <a ui-sref="" ui-sref-active="active" class="counter">
+                                <p>Чат</p>
+                                <span>{{::vm.place.count_publications}}</span>
+                            </a>
+                            <a ui-sref="" ui-sref-active="active" class="counter">
+                                <p>Люди</p>
+                                <span>{{vm.place.count_users}}</span>
+                            </a>
+                            <a ui-sref="" ui-sref-active="active" class="counter">
+                                <p>Файлы</p>
+                                <span>858</span>
+                            </a>
+        
+                        </div>
+                    </div>         
+                </div>
+            </div>
+        </div>
         
     </div>
 

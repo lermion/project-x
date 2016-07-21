@@ -169,6 +169,7 @@ angular.module('placePeopleApp')
 			$scope.abortConfirmation = function(){
 				ngDialog.closeAll();
 			}
+
 			$scope.Model.clearChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
@@ -453,7 +454,7 @@ angular.module('placePeopleApp')
 				}				
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data);
-				$scope.emojiMessage = {};
+				$scope.emojiMessage.rawhtml = "";
 			};
 
 			$scope.Model.scrollBottom = function(){
@@ -473,6 +474,7 @@ angular.module('placePeopleApp')
 				}
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
+				console.log("geogepoge");
 				if (event.keyCode == 13) {
 					event.preventDefault();
 					if (!$scope.Model.displayBlockedBlock) {					
@@ -512,7 +514,11 @@ angular.module('placePeopleApp')
 				socket.emit('create room', data);
 			}
 
-			$scope.emojiMessage = {};
+			$scope.emojiMessage = {
+				replyToUser: function(){
+					console.log("it will be added in the future");
+				}
+			};
 			$scope.$on('ngDialog.opened', function(e, $dialog){
 				if($dialog.name === "group-chat"){
 					window.emojiPicker = new EmojiPicker({
