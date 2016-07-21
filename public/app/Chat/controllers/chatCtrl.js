@@ -464,10 +464,9 @@ angular.module('placePeopleApp')
 					// $scope.$broadcast('rebuildScroll');
 					chatWindow.scrollTop(height);
 				}, 100);
-
 			};
 			socket.on('updatechat', function(data){
-				socket.emit("get user rooms", $scope.loggedUserId);
+				//socket.emit("get user rooms", $scope.loggedUserId);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
