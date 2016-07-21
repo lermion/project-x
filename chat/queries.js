@@ -98,17 +98,20 @@ Queries.prototype.getUserRooms = function(data){
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
-						result = {
-							members: result,
-							room_id: item.id,
-							is_group: item.is_group,
-							name: item.name,
-							status: item.status,
-							avatar: item.avatar,
-							last_message: "last message",
-							show_notif: result[0].show_notif
-						};
-						resolve(result);
+						connection.query("SELECT COUNT(messages.id) FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id WHERE messages.is_new = 1 AND user_rooms_messages.room_id = '" + item.id + "'", function(error, messagesCount){
+							result = {
+								members: result,
+								room_id: item.id,
+								is_group: item.is_group,
+								name: item.name,
+								status: item.status,
+								avatar: item.avatar,
+								last_message: "last message",
+								messagesCount: messagesCount[0]['COUNT(messages.id)'],
+								show_notif: result[0].show_notif
+							};
+							resolve(result);
+						});
 					});
 				});
 				return promise.then(function(result){
