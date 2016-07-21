@@ -5920,13 +5920,16 @@ input.cmn-toggle-round:checked + label:after {
     background-image: url(/images/search.png);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 55%;
+    background-size: 52%;
     width: 35px;
     height: 35px;
     transition: all .2s ease-in-out .1s;
     width: 40px;
+    cursor: pointer;
 }
-
+.public header .search.main-header-search:hover {
+    background-image: url(/images/search-hover.png);
+}
 .main-content .groups {
     justify-content: flex-end;
 }
@@ -6505,7 +6508,7 @@ input.cmn-toggle-round:checked + label:after {
 .header-search-container {
     position: absolute;
     background-color: #495b79;
-    top: 55px;
+    top: 45px;
     width: 100%;
 }
 .header-search-input-wrap {
