@@ -6552,3 +6552,14 @@ input.cmn-toggle-round:checked + label:after {
         display: none;
     }
 }
+
+/*SEARCH PAGE*/
+.search-page {
+    width: 700px;
+    flex-wrap: wrap;
+    display: flex;
+    box-sizing: border-box;
+    margin: 60px auto 20px auto;
+    font-family: "SFUIDisplayMedium";
+    background-color: red;
+}
