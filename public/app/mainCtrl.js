@@ -1,5 +1,5 @@
 angular.module('placePeopleApp')
-    .controller('mainCtrl', ['$rootScope', '$scope', 'groupsService', 'placesService', function ($rootScope, $scope, groupsService, placesService) {
+    .controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', function ($rootScope, $scope, $state, groupsService, placesService) {
 
         $scope.$on('publicPoint', function (event, data) {
             $scope.bodyClass = 'public';
@@ -21,5 +21,9 @@ angular.module('placePeopleApp')
                 placesService.getCounterNewPlaces().then(function (data) {
                     $rootScope.counters.placessNew = data;
                 });
-            })
+            });
+        $scope.strSearch = '';
+        $scope.submitSearch = function () {
+            $state.go('search');
+        };
     }]);

@@ -22,17 +22,19 @@
                     </div>
                 </div>
             </div>
-            <div class="search main-header-search">
+            <div class="search main-header-search" ng-click="showSearch = !showSearch">
                 <!--                 <input type="text" placeholder="Поиск...">
                                 <span class="button"></span> -->
             </div>
             <a class="exit" href="javascript:void(0);" ng-click="vm.logOut()"><span></span>Выйти</a>
         </div>
-        <!-- <div class="header-search-container">
+        <div class="header-search-container" ng-show="showSearch" ng-init="showSearch = false">
             <div class="header-search-input-wrap">
-                <input type="text" placeholder="Поиск...">
+                <form name="form.search" ng-submit="submitSearch(strSearch)" novalidate>
+                    <input type="text" ng-model="strSearch" placeholder="Поиск...">
+                </form>
             </div>
-        </div> -->
+        </div>
     </header>
 
 
