@@ -234,8 +234,22 @@ angular.module('placePeopleApp')
 					deleteChat(data);
 				}else if(type === "blockContact"){
 					blockContact(data);
+				}else if(type === "deleteContact"){
+					deleteContact(data);
 				}
 			};
+			function deleteContact(contact){
+				ChatService.deleteChatContact(contact.room_id, contact.id).then(function(res){
+					if(res.status){
+						ngDialog.closeAll();
+						$scope.Model.loadUserContactList();
+						$scope.Model.displayContactBlock = false;
+					}
+				},
+				function(error){
+					console.log(error);
+				});
+			}
 			$scope.Model.deleteChat = function(roomId){
 				ngDialog.open({
 					template: '../app/Chat/views/confirmation-popup.html',
@@ -356,15 +370,16 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.deleteContact = function(contact){
-				ChatService.deleteChatContact(contact.room_id[0].room_id, contact.id)
-					.then(function(res){
-						if (res.status) {
-							$scope.Model.loadUserContactList();
-							$scope.Model.displayContactBlock = false;
-						}
-						}, function(err){
-						console.log(err);
-					  });
+				ngDialog.open({
+					template: '../app/Chat/views/confirmation-popup.html',
+					className: 'confirmation-popup ngdialog-theme-default',
+					scope: $scope,
+					data: {
+						text: "Вы уверены, что хотите удалить контакт?",
+						type: "deleteContact",
+						data: contact
+					}
+				});
 			};
 			$scope.Model.openChatWith = function(chat){
 				$scope.status.loading = false;
@@ -466,7 +481,7 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
-				//socket.emit("get user rooms", $scope.loggedUserId);
+				socket.emit("get user rooms", $scope.loggedUserId);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
