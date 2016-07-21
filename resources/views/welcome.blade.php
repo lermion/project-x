@@ -79,5 +79,9 @@
     <script src="../../app/Places/controllers/place.ctrl.js"></script>
     <script src="../../app/Places/services/places.srv.js"></script>
 
+    <script src="../../app/Search/index.js"></script>
+    <script src="../../app/Search/controllers/search.ctrl.js"></script>
+    <script src="../../app/Search/services/search.srv.js"></script>
+
 </body>
 </html>
