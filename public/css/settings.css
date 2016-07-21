@@ -6687,3 +6687,169 @@ input.cmn-toggle-round:checked + label:after {
         margin: 10px;
     }
 }
+
+
+
+/*SEARCH GROUPS*/
+.search-page .groups {
+    display: flex;
+    flex-wrap: wrap;
+}
+.search-page .group {
+    width: 220px;
+    box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.search-page .group-cover {
+    height: 220px;
+    display: block;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+#user-page .photo a, .search-page .group-ava, .group-publication .photo a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1);
+}
+#user-page .photo a img, .search-page .group-ava img, .group-publication .photo a img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+}
+.search-page .group-cover .group-likes {
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,.15));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 15px 10px 0;
+    opacity: 0;
+    transition: all .3s ease-in-out .1s;
+}
+.search-page .group-likes .group-like {
+    padding-left: 25px;
+    background-image: url(../images/like-hover.png);
+    background-position: left center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+.search-page .group-likes a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    line-height: 30px;
+}
+.search-page .group-likes .group-comments {
+    padding-right: 25px;
+    background-image: url(../images/chat.png);
+    background-position: right center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+.search-page .group .titles {
+    background-color: #fff;
+    height: 90px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.search-page .titles .title {
+    text-decoration: none;
+    color: #495b79;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    transition: all .3s ease-in-out .1s;
+    cursor: pointer;
+    line-height: 30px;
+    padding-left: 25px;
+    background-image: url(../images/groups-hover.png);
+    background-position: left center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+.search-page .titles .about {
+    color: #333;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayLight";
+    line-height: 16px;
+    overflow: hidden;
+    margin: 0;
+    max-height: 34px;
+}
+.search-page .group button.wright {
+    color: #fff;
+    background: #495b79;
+}
+.search-page .group button {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    border: none;
+    height: 40px;
+    text-align: center;
+    color: #333;
+    font-family: "SFUIDisplayMedium";
+    background: #d7dade;
+    transition: all .3s ease-in-out .1s;
+}
+.search-page .group:nth-child(3n) {
+    margin-right: 0;
+}
+.search-page .group-cover:hover .group-likes {
+    opacity: 1;
+}
+
+
+@media (max-width: 720px) {
+    .search-page .group {
+        width: 32%;
+        margin-right: 10px;
+    }
+    .search-page .group:nth-child(3n) {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .search-page .groups {
+        justify-content: space-between;
+    }
+    .search-page .group {
+        width: 49%;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 420px) {
+    .search-page .groups {
+        flex-direction: column;
+    }
+    .search-page .group {
+        width: 100%;
+        margin-right: 0;
+    }
+}
