@@ -6514,6 +6514,7 @@ input.cmn-toggle-round:checked + label:after {
 .header-search-input-wrap {
     width: 700px;
     margin: 5px auto;
+    position: relative;
 }
 .header-search-input-wrap input {
     width: 100%;
@@ -6525,15 +6526,27 @@ input.cmn-toggle-round:checked + label:after {
     border: none;
     box-sizing: border-box;
     height: 35px;
-    background-image: url(/images/search.png);
-    background-repeat: no-repeat;
-    background-position: right 5px center;
-    background-size: 3%;
 }
 .header-search-input-wrap input:hover {
     background-color: #fff;
     color: #495b79;
 }
+.header-search-input-wrap-span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 35px;
+    width: 35px;
+    background-image: url(/images/search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all .2s ease-in-out .1s;
+    cursor: pointer;
+}
+.header-search-input-wrap-span:hover {
+    background-image: url(/images/search-hover.png);
+}
+
 @media (max-width: 800px) {
     .header-search-container {
         display: none;
