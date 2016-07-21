@@ -4386,3 +4386,6 @@ body.public.ngdialog-open .user-main-content {
 	box-sizing: border-box;
 	min-height: 100vh;
 }
+input#chat-add-file-file{
+	display: none;
+}
