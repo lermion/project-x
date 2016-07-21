@@ -115,6 +115,7 @@
             return vm.placesDropdown;
         }), function (newVal) {
             if (newVal === 'places.add') {
+                vm.placesDropdown = 'default';
                 $state.go('places.add');
             }
         });
