@@ -54,7 +54,7 @@ angular.module('app.groups')
             $scope.limitMyGroups = LIMIT_MY_GROUPS;
             $scope.limitAllPublicGroups = LIMIT_ALL_PUBLIC_GROUPS;
             $scope.filterGroups = {
-                value: '-created_at'
+                value: ['-is_new_group', '-created_at']
             };
             $scope.onItemSelected = function (user) {
 
@@ -254,6 +254,7 @@ angular.module('app.groups')
                 $scope.submFormGroup = true;
                 validateEmojiArea();
                 $scope.forms.newGroup.$setSubmitted();
+
                 if ($scope.forms.newGroup.$invalid) {
                     return false;
                 }
@@ -262,7 +263,7 @@ angular.module('app.groups')
                     .then(function (data) {
                         if (data.status) {
                             data.group.users = [{id: myId}];
-                            $scope.groupList.push(data.group);
+                            $scope.groupList.unshift(data.group);
 
                             if ($scope.newGroup.users.length > 0) {
                                 //TODO: push new group object instead getting all groups
