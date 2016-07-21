@@ -39,35 +39,35 @@
     </header>
 
 
-    <div ui-view>
+
         <div class="search-page">
         	<div class="place-menu-wrap">
                 <div class="group-menu">
                     <div class="group-menu-item">
                         <div class="counts">
-                            <a ui-sref="" ui-sref-active="active" class="counter">
+                            <a ui-sref="search.people" ui-sref-active="active" class="counter">
                                 <p>Люди</p>
                                 <span>{{::vm.place.count_publications}}</span>
                             </a>
-                            <a ui-sref="" ui-sref-active="active" class="counter">
+                            <a ui-sref="search.publications" ui-sref-active="active" class="counter">
                                 <p>Публикации</p>
                                 <span>{{::vm.place.count_publications}}</span>
                             </a>
-                            <a ui-sref="" ui-sref-active="active" class="counter">
+                            <a ui-sref="search.places" ui-sref-active="active" class="counter">
                                 <p>Места</p>
                                 <span>{{vm.place.count_users}}</span>
                             </a>
-                            <a ui-sref="" ui-sref-active="active" class="counter">
+                            <a ui-sref="search.groups" ui-sref-active="active" class="counter">
                                 <p>Группы</p>
                                 <span>858</span>
                             </a>
-        
+
                         </div>
-                    </div>         
+                    </div>
                 </div>
             </div>
+            <div class="search-tab-container" ui-view></div>
         </div>
-        
     </div>
 
     <footer>

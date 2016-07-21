@@ -6663,8 +6663,14 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     margin: 60px auto 20px auto;
     font-family: "SFUIDisplayMedium";
-    background-color: red;
 }
+.search-tab-container {
+    width: 100%;
+}
+
+
+
+
 
 
 @media (max-width: 720px) {
@@ -6676,5 +6682,8 @@ input.cmn-toggle-round:checked + label:after {
     }
     .search-page .place-menu-wrap .group-menu .group-menu-item {
         width: 100%;
+    }
+    .search-tab-container .group-peoples-inner {
+        margin: 10px;
     }
 }

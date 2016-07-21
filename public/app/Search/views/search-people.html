@@ -1,0 +1,52 @@
+<div class="group-peoples">
+    <div class="group-peoples-inner">
+    	<div class="group-peoples-inner-item">
+            <div class="peoples-inner-item-data">
+                <div class="peoples-item-photo">
+                    <a href="javascript:void(0);">
+                        <img src="http://www.pageresource.com/wallpapers/wallpaper/cool-beautiful-nature-road.jpg" alt="User avatar">
+                    </a>
+                </div>
+                <div class="peoples-item-name-content">
+                    <a class="peoples-item-name-family" href=""><span>Елена Новикова</span></a>
+
+                    <p class="peoples-item-name-comment">Солнце, море и вода</p>
+                </div>
+            </div>
+<!--             <div class="peoples-inner-item-admin"
+                 ng-if="user.is_admin || showAdmin"
+                 ng-class="vm.group.is_creator ? '' : 'no-click'"
+                 ng-click="vm.setAdmin(user)"
+            >Администратор
+            </div> -->
+
+            <span class="peoples-item__delete" ng-if="vm.group.is_admin" ng-click="vm.removeUser(user)">✖</span>
+        </div>
+
+        <div class="group-peoples-inner-item"
+             ng-repeat="user in vm.group.users"
+             ng-mouseenter="showAdmin=vm.group.is_creator"
+             ng-mouseleave="showAdmin=false">
+            <div class="peoples-inner-item-data">
+                <div class="peoples-item-photo">
+                    <a href="javascript:void(0);">
+                        <img ng-src="{{::user.avatar_path}}" alt="User avatar">
+                    </a>
+                </div>
+                <div class="peoples-item-name-content">
+                    <a class="peoples-item-name-family" href=""><span>{{::user.first_name}} {{::user.last_name}}</span></a>
+
+                    <p class="peoples-item-name-comment">{{::user.status}}</p>
+                </div>
+            </div>
+            <div class="peoples-inner-item-admin"
+                 ng-if="user.is_admin || showAdmin"
+                 ng-class="vm.group.is_creator ? '' : 'no-click'"
+                 ng-click="vm.setAdmin(user)"
+            >Администратор
+            </div>
+
+            <span class="peoples-item__delete" ng-if="vm.group.is_admin" ng-click="vm.removeUser(user)">✖</span>
+        </div>
+    </div>
+</div>

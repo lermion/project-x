@@ -162,9 +162,9 @@ angular.module('placePeopleApp')
 				$state.go(stateName);
 			};
 			
-			// $scope.Model.reloadRooms = function(){
-			// 	socket.emit("get user rooms", $scope.loggedUserId);
-			// };
+			$scope.Model.reloadRooms = function(){
+				socket.emit("get user rooms", $scope.loggedUserId);
+			};
 			socket.emit("get user rooms", $scope.loggedUserId);
 			$scope.abortConfirmation = function(){
 				ngDialog.closeAll();
@@ -467,6 +467,7 @@ angular.module('placePeopleApp')
 
 			};
 			socket.on('updatechat', function(data){
+				socket.emit("get user rooms", $scope.loggedUserId);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
