@@ -30,7 +30,7 @@
                         groupsService.getGroup($stateParams.groupName)
                             .then(function (data) {
 
-                                if (data.status) {
+                                if (data) {
                                     groupsService.getPublications(data.id)
                                         .then(function (publications) {
                                             if (publications) {

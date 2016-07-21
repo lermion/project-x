@@ -1890,6 +1890,11 @@ div.my_profilll.photo-list div:last-child {
     height: 30px;
 }
 
+.avatar__card {
+    max-width: 100%;
+    height: auto;
+}
+
 /*----------------------
      People
 ----------------------*/
