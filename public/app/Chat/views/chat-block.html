@@ -209,53 +209,21 @@
 	    		<a href=""></a>
 	    		<div class="chat-add-file-menu" ng-show="showFileAddMenu">
 	    			<a class="chat-add-file-publ" href="">Публикация</a>
-	    			<label class="chat-add-file-file"  for="">Файл</label>
+	    			<label class="chat-add-file-file" for="chat-add-file-file">Файл</label>
+	    			<input type="file" ngf-select ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
 	    		</div>
 	    	</div>
 	    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
     	</div>
-    	<!-- <div class="send-wrap-bottom">
-				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-					<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
+    	<div class="send-wrap-bottom">
+			<div class="pic" ng-repeat="file in files">
+				<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
+					<div class="close-inner">
+						<p>Удалить</p>
 					</div>
-					<img src="../../../images/bc.png" alt="">
 				</div>
-				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-					<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>
-					<img src="../../../images/bc.png" alt="">
-				</div>
-				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-					<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>
-					<img src="../../../images/bc.png" alt="">
-				</div>
-				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-					<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>
-					<img src="../../../images/bc.png" alt="">
-				</div>
-				<div class="pic ng-scope" ng-repeat="pub in [1,2,3,4,5]">
-					<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>
-					<img src="../../../images/bc.png" alt="">
-				</div>
-    	</div> -->
+				<img ngf-thumbnail="file || '/thumb.jpg'">
+			</div>
+		</div>
     </div>
-			    	<!-- end of  -->
 </div>
