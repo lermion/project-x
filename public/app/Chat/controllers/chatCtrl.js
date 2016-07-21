@@ -162,9 +162,9 @@ angular.module('placePeopleApp')
 				$state.go(stateName);
 			};
 			
-			$scope.Model.reloadRooms = function(){
-				socket.emit("get user rooms", $scope.loggedUserId);
-			};
+			// $scope.Model.reloadRooms = function(){
+			// 	socket.emit("get user rooms", $scope.loggedUserId);
+			// };
 			socket.emit("get user rooms", $scope.loggedUserId);
 			$scope.abortConfirmation = function(){
 				ngDialog.closeAll();
@@ -427,7 +427,7 @@ angular.module('placePeopleApp')
 					$state.go('chat.mobile');
 				}
 			};			
-			socket.on("get user rooms", function(response){							
+			socket.on("get user rooms", function(response){
 				$scope.Model.chatRooms = response;
 			});
 
@@ -474,8 +474,7 @@ angular.module('placePeopleApp')
 				}
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
-				console.log("geogepoge");
-				if (event.keyCode == 13) {
+				if(event.keyCode == 13){
 					event.preventDefault();
 					if (!$scope.Model.displayBlockedBlock) {					
 						$scope.Model.sendMes(message, room_id);					
