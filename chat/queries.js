@@ -166,6 +166,26 @@ Queries.prototype.getLastMessage = function(data){
 	});
 	return deferred.promise;
 }
+Queries.prototype.saveFiles = function(data){
+	var deferred = Q.defer();
+	for(var i = 0; i < data.length; i++){
+		var imagesObj = {
+			"url": data[i],
+			"created_at": new Date(),
+			"updated_at": new Date()
+		};
+		connection.query("INSERT INTO images SET ?", imagesObj, function(error, result){
+			if(error){
+				console.error("error to save files: " + error.stack);
+				deferred.reject(error);
+				return;
+			}else{
+				deferred.resolve(result);
+			}
+		});
+	}
+	return deferred.promise;
+}
 Queries.prototype.sendMessage = function(data){
 	var message = {
 		"user_id": data.userId,
