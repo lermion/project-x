@@ -131,11 +131,31 @@ Queries.prototype.getUserDialogue = function(data){
 		data.limit = 1000;
 	}
 	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
+		var response = [];
 		if(error){
 			console.error("error to get user dialogue: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
+			Promise.all(result.map(function(item){
+				var promise = new Promise(function(resolve, reject){
+					connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + item.id + "'", function(error, images){
+						resolve(images);
+					});
+				});
+				return promise.then(function(result){
+					response.push(result);
+				});
+			})).then(function(){
+				for(var i = 0; i < result.length; i++){
+					result[i].images = response[i];
+				}
+				var res = {
+					room_id: data.room_id,
+					messages: result
+				};
+				deferred.resolve(res);
+			});
 			var oldMessageArray = [];
 			result.forEach(function(value){
 				connection.query("UPDATE `messages` SET `is_new`= 0 WHERE `id` = ?", [value.id], function(err, results) {
@@ -144,11 +164,6 @@ Queries.prototype.getUserDialogue = function(data){
 					}
 				});
 			});
-			result = {
-				room_id: data.room_id,
-				messages: result
-			};
-			deferred.resolve(result);
 		}
 	});
 	return deferred.promise;
