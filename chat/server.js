@@ -9,6 +9,7 @@ var queries = new Queries();
 var users = {};
 var usersId = {};
 GLOBAL.rooms = [];
+GLOBAL.ABSPATH = __dirname;
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
@@ -108,6 +109,18 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
+		for(var i = 0; i < data.imagesObj.images.length; i++){
+			var imagesPath = GLOBAL.ABSPATH + "/../public/upload/" + data.imagesObj.imageName[i];
+			console.log(imagesPath);
+			fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.imagesObj.imageName[i], data.imagesObj.images[i], function(error){
+				if(error){
+					console.log(error);
+					return;
+				}else{
+					console.log('Files saved in folder upload');
+				}
+			});
+		}
 		if(data.room_id === socket.room){
 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 			socket.room = GLOBAL.rooms[indexRooms];
