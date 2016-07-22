@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MailController extends Controller
 {
-    public function index(Request $request)
+    public function create(Request $request)
     {
         try {
             $this->validate($request, [
@@ -45,6 +45,19 @@ class MailController extends Controller
         $result = [
             "status" => true];
         return response()->json($result);
+    }
+
+    public function index()
+    {
+        $mails = UserMail::all();
+//        foreach($mails as &$mail){
+//           if (UserMail::where('user_id', 'null')->first()) {
+//               $mail->user_reg = false;
+//           } else {
+//               $mail->user_reg = true;
+//           }
+//        }
+        return $mails;
     }
 }
 
