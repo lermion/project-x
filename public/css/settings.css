@@ -6823,6 +6823,10 @@ input.cmn-toggle-round:checked + label:after {
     background: #d7dade;
     transition: all .3s ease-in-out .1s;
 }
+.search-page .group button.wright:hover {
+    color: #333;
+    background: #d7dade;
+}
 .search-page .group:nth-child(3n) {
     margin-right: 0;
 }
