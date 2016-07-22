@@ -496,7 +496,6 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
-				socket.emit("get user rooms", $scope.loggedUserId);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
