@@ -6872,3 +6872,16 @@ input.cmn-toggle-round:checked + label:after {
         margin-right: 0;
     }
 }
+
+.create-places-type-invite {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+.create-places-type-btn-open {
+
+}
+.create-places-type-btn-invite {
+    
+}
