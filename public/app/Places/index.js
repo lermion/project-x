@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.places', [])
+        .module('app.places', ['ymaps'])
         .config(routes);
 
 
@@ -14,7 +14,21 @@
                 url: '/places',
                 templateUrl: '../../app/Places/views/places.html',
                 controller: 'PlacesCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                resolve: {
+                    countries: ['placesService', '$stateParams', '$state', '$q', 'ngDialog', function (placesService, $stateParams, $state, $q, ngDialog) {
+                        var deferred = $q.defer();
+
+                        placesService.getCountries()
+                            .then(function (data) {
+
+                                deferred.resolve(data);
+                            });
+
+                        return deferred.promise;
+
+                    }]
+                }
             })
             .state('place', {
                 url: '/place/:placeName',
@@ -79,6 +93,7 @@
             .state('places.add.dynamic', {
                 url: '/dynamic',
                 templateUrl: '../../app/Places/views/places-add-dynamic.html'
+
             });
     }
 
