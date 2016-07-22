@@ -155,13 +155,16 @@ Queries.prototype.getUserDialogue = function(data){
 }
 Queries.prototype.getLastMessage = function(data){
 	var deferred = Q.defer();
-	var sql = connection.query("SELECT users.id, users.first_name, users.last_name, users.login, users.avatar_path, messages.id, messages.text, messages.created_at, messages.updated_at, images.url FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id LEFT JOIN message_images ON messages.id = message_images.message_id LEFT JOIN images ON images.id = message_images.image_id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
+	connection.query("SELECT users.id, users.first_name, users.last_name, users.login, users.avatar_path, messages.id, messages.text, messages.created_at, messages.updated_at FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
 		if(error){
 			console.error("error to get last message: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
-			deferred.resolve(result[0]);
+			connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + result[0].id + "'", function(error, images){
+				result[0].images = images;
+				deferred.resolve(result[0]);
+			});
 		}
 	});
 	return deferred.promise;
