@@ -454,15 +454,17 @@ angular.module('placePeopleApp')
 			});
 			
 			$scope.Model.sendMes = function(message, roomId, files){
-				var imagesObj = {
-					imageName: [],
-					imageType: [],
-					images: files
-				};
-				files.forEach(function(value){
-					imagesObj.imageName.push(value.name);
-					imagesObj.imageType.push(value.type);
-				});
+				if(files !== undefined){
+					var imagesObj = {
+						imageName: [],
+						imageType: [],
+						images: files
+					};
+					files.forEach(function(value){
+						imagesObj.imageName.push(value.name);
+						imagesObj.imageType.push(value.type);
+					});
+				}
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
