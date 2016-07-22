@@ -172,7 +172,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
     });
-    Route::post('mail/', 'MailController@index');
+
+    Route::group(['prefix' => 'mail'], function () {
+        Route::get('/', 'MailController@index');
+        Route::post('create', 'MailController@create');
+    });
 
     Route::post('search','SphinxSearchController@search');
     Route::get('search', function () {
