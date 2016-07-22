@@ -111,13 +111,13 @@ io.sockets.on('connection', function(socket){
 	socket.on('send message', function(data){
 		if(data.imagesObj !== undefined){
 			for(var i = 0; i < data.imagesObj.images.length; i++){
-				var imagesPath = GLOBAL.ABSPATH + "/../public/upload/" + data.imagesObj.imageName[i];
-				console.log(imagesPath);
 				fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.imagesObj.imageName[i], data.imagesObj.images[i], function(error){
 					if(error){
 						console.log(error);
 						return;
 					}else{
+						var imagesPath = "/upload/" + data.imagesObj.imageName[i];
+						console.log(imagesPath);
 						console.log('Files saved in folder upload');
 					}
 				});
