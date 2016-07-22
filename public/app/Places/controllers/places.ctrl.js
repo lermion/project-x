@@ -6,10 +6,10 @@
         .controller('PlacesCtrl', PlacesCtrl);
 
     PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService',
-        'placesService', 'countries', 'ngDialog', 'PublicationService', 'UserService'];
+        'placesService', 'countries', 'places', 'ngDialog', 'PublicationService', 'UserService'];
 
     function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService,
-                        placesService, countries, ngDialog, PublicationService, UserService) {
+                        placesService, countries, places, ngDialog, PublicationService, UserService) {
 
         var vm = this;
 
@@ -26,7 +26,7 @@
         vm.placeNew = {
             category: null,
             country: 'default',
-            city: null,
+            city: {},
             address: null,
             days: null,
             description: null,

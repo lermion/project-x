@@ -73,7 +73,7 @@
                 <div class="select-country-country">Выберите город</div>
                 <div class="select-country-name">
                     <select name="city"
-                            ng-options="option.name for option in vm.cities track by option.id"
+                            ng-options="option.name for option in vm.cities"
                             ng-model="vm.placeNew.city"
                             required>
                         <option value="">---</option>
@@ -159,7 +159,7 @@
         </div>
         <div class="create-places-type">
             <span class="place-type-title">Название:</span>
-            <span class="place-type-name">{{::vm.placeNew.name}}</span>
+            <span class="place-type-name">{{vm.placeNew.name}}</span>
         </div>
         <div class="button">
             <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>

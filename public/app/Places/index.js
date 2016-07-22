@@ -16,6 +16,18 @@
                 controller: 'PlacesCtrl',
                 controllerAs: 'vm',
                 resolve: {
+                    places: ['placesService', '$stateParams', '$state', '$q', 'ngDialog', function (placesService, $stateParams, $state, $q, ngDialog) {
+                        var deferred = $q.defer();
+
+                        placesService.getPlaces()
+                            .then(function (data) {
+
+                                deferred.resolve(data);
+                            });
+
+                        return deferred.promise;
+
+                    }],
                     countries: ['placesService', '$stateParams', '$state', '$q', 'ngDialog', function (placesService, $stateParams, $state, $q, ngDialog) {
                         var deferred = $q.defer();
 
