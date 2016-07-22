@@ -1,94 +1,152 @@
-<div class="create-places-common">
-    <div class="create-places-header">
-        <a class="create-places-header-a" ui-sref="places.add">Создать место</a>
-    </div>
-    <div class="create-places-common-inner">
-        <div class="create-places-type">
-            <span class="place-type-title">Тип места:</span>
-            <span class="place-type-name">Динамичное</span>
+<form name="vm.form.placeNew" novalidate ng-if="!vm.isPlaceAdded">
+    <div class="create-places-common">
+        <div class="create-places-header">
+            <a class="create-places-header-a" ui-sref="places.add">Создать место</a>
         </div>
-        <div class="create-places-description">
-            Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
-            наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные
-            университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
-            своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
-            составляющих основы научного знания.
-        </div>
-        <div class="create-places-select-country">
-            <div class="select-country-country">Категория динамического места</div>
-            <div class="select-country-name">
-                <select>
-                    <option value="1">Магазин</option>
-                    <option value="2">Кафе/Ресторан</option>
-                    <option value="3">Развлечение</option>
-                    <option value="4">Организация</option>
-                    <option value="5">Университет</option>
-                    <option value="6">Школа</option>
-                    <option value="7">Адрес</option>
-                </select>
+        <div class="create-places-common-inner">
+            <div class="create-places-type">
+                <span class="place-type-title">Тип места:</span>
+                <span class="place-type-name">Динамичное</span>
             </div>
-        </div>
-        <div class="create-places-select-country">
-            <div class="select-country-country">Выберите страну</div>
-            <div class="select-country-name">
-                <select name="country"
-                        ng-options="option.name for option in vm.countries track by option.id"
-                ng-model="vm.placeNew.country">
-                    <option value="">---</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="create-places-select-country">
-            <div class="select-country-country">Выберите город</div>
-            <div class="select-country-name">
-                <select name="country"
-                        ng-options="option.name for option in vm.cities track by option.id"
-                        ng-model="vm.placeNew.city">
-                    <option value="">---</option>
-                </select>
-            </div>
-        </div>
-        <div class="create-places-select-street">
-            <div class="select-country-country">Адрес места</div>
-            <div class="select-street-input">
-                <input type="text" placeholder="улица, номер дома">
-                <span class="street-on-map" ng-click="vm.openModalMap()">или укажите на карте</span>
+            <div class="create-places-description">
+                Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
+                наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные
+                университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
+                своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
+                составляющих основы научного знания.
             </div>
 
-        </div>
-        <div class="create-places-select-country days">
-            <div class="select-country-country">Сколько дней актуально это место</div>
-            <div class="select-country-name">
-                <input type="date" placeholder="Выберите дни">
+            <div class="create-places-select-country">
+                <div class="select-country-country">Категория динамического места</div>
+                <div class="select-country-name">
+                    <select ng-model="vm.placeNew.type_place_id" name="typePlaceId" required>
+                        <option value="">---</option>
+                        <option value="1">Магазин</option>
+                        <option value="2">Кафе/Ресторан</option>
+                        <option value="3">Развлечение</option>
+                        <option value="4">Организация</option>
+                        <option value="5">Университет</option>
+                        <option value="6">Школа</option>
+                        <option value="7">Адрес</option>
+                    </select>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.typePlaceId.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не выбрали категорию места</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="create-places-select-street">
-            <div class="select-country-country">Описание</div>
-            <div class="select-street-input">
-                <textarea type="text" placeholder="Введите описание:"></textarea>
+            <div class="create-places-select-street">
+                <div class="select-country-country">Название</div>
+                <div class="select-street-input">
+                    <input type="text"
+                           name="name"
+                           ng-model="vm.placeNew.name"
+                           placeholder="Введите название места..."
+                           required>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.name.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не указали название</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="create-places-select-country">
+                <div class="select-country-country">Выберите страну</div>
+                <div class="select-country-name">
+                    <select name="country"
+                            ng-options="option.name for option in vm.countries track by option.id"
+                            ng-model="vm.placeNew.country"
+                            required>
+                        <option value="">---</option>
+                    </select>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.country.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не выбрали страну</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-places-select-country">
+                <div class="select-country-country">Выберите город</div>
+                <div class="select-country-name">
+                    <select name="city"
+                            ng-options="option.name for option in vm.cities"
+                            ng-model="vm.placeNew.city"
+                            required>
+                        <option value="">---</option>
+                    </select>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.city.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не выбрали город</div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-places-select-street">
+                <div class="select-country-country">Адрес места</div>
+                <div class="select-street-input">
+                    <input type="text" name="address" placeholder="улица, номер дома" ng-model="vm.placeNew.address"
+                           required>
+                    <span class="street-on-map" ng-click="vm.openModalMap()">или укажите на карте</span>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.address.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не указали адрес</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="create-places-select-country days">
+                <div class="select-country-country">Сколько дней актуально это место</div>
+                <div class="select-country-name">
+                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.days" required>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.date.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не указали дату актуальности</div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-places-select-street">
+                <div class="select-country-country">Описание</div>
+                <div class="select-street-input">
+                    <textarea type="text"
+                              name="description"
+                              placeholder="Введите описание..."
+                              ng-model="vm.placeNew.description"
+                              required></textarea>
+
+                    <div class="error-messages" ng-messages="vm.form.placeNew.description.$error"
+                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                        <div ng-message="required">Вы не заполнили описание</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="create-places-add-cover">
+                <div class="create-places-add-cover-img">
+                    <a href=""></a>
+                    <span>Добавить обложку месту</span>
+                </div>
+                <!-- <div class="create-places-add-cover-ava">аватар</div> -->
+                <!-- <div class="create-places-add-cover-button-create">Создать место</div> -->
+            </div>
+            <div class="create-places-add-cover">
+                <div class="create-places-add-cover-img">
+                    <a href=""></a>
+                    <span>Добавить логотип месту</span>
+                </div>
+                <!-- <div class="create-places-add-cover-ava">аватар</div> -->
+                <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
             </div>
 
         </div>
 
-        <div class="create-places-add-cover">
-            <div class="create-places-add-cover-img">
-                <a href=""></a>
-                <span>Добавить обложку месту</span>
-            </div>
-            <!-- <div class="create-places-add-cover-ava">аватар</div> -->
-            <!-- <div class="create-places-add-cover-button-create">Создать место</div> -->
-        </div>
-        <div class="create-places-add-cover">
-            <div class="create-places-add-cover-img">
-                <a href=""></a>
-                <span>Добавить логотип месту</span>
-            </div>
-            <!-- <div class="create-places-add-cover-ava">аватар</div> -->
-            <div class="create-places-add-cover-button-create">Создать место</div>
-        </div>
-    </div>
-</div>
+</form>
 
 <div class="create-places-common">
     <div class="create-places-header">
@@ -101,72 +159,36 @@
         </div>
         <div class="create-places-type">
             <span class="place-type-title">Название:</span>
-            <span class="place-type-name">МГУТУ им. Баумана</span>
+            <span class="place-type-name">{{vm.placeNew.name}}</span>
         </div>
-
+        <div class="create-places-type-invite">
+            <a href="" class="create-places-type-btn-open" ng-click="cancelNewGroup()"> Открыть место </a>
+            <a href="" class="create-places-type-btn-invite" ng-click="addGroup()"> Пригласить</a>
+        </div>
         <div class="fifth_item">
             <div class="item1-container">
-                <input type="text" id="" placeholder="Пригласить в группу...">
+                <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
 
                 <p>Я подписан</p>
                 <ul class="item1">
-                    <!-- <li ng-repeat="user in subscribers | searchFor:searchString">
-                        <img ng-src="{{user.avatar_path}}">
+                    <li ng-repeat="user in vm.subscription | searchFor:searchString">
+                        <img ng-src="{{::user.avatar_path}}"
+                             alt="">
+
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
-                		<span class="group-add-item1-user-plus" ng-click="onItemSelected(user)"><img src="/images/add.png" alt=""></span>
-                    </li> -->
-                    <li>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                             alt="">
-
-                        <p>Елена Новикова</p>
-                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
-                    </li>
-                    <li>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                             alt="">
-
-                        <p>Елена Новикова</p>
-                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
-                    </li>
-                    <li>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                             alt="">
-
-                        <p>Елена Новикова</p>
                         <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
 
                 </ul>
                 <p>Подписчики</p>
                 <ul class="item1">
-                    <!-- <li ng-repeat="user in subscribers | searchFor:searchString">
-                        <img ng-src="{{user.avatar_path}}">
+                    <li ng-repeat="user in vm.subscribers | searchFor:searchString">
+                        <img ng-src="{{::user.avatar_path}}"
+                             alt="">
+
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
-                		<span class="group-add-item1-user-plus" ng-click="onItemSelected(user)"><img src="/images/add.png" alt=""></span>
-                    </li> -->
-                    <li>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                             alt="">
-
-                        <p>Елена Новикова</p>
                         <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
                     </li>
-                    <li>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                             alt="">
-
-                        <p>Елена Новикова</p>
-                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
-                    </li>
-                    <li>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                             alt="">
-
-                        <p>Елена Новикова</p>
-                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
-                    </li>
-
                 </ul>
             </div>
             <div class="item1-add-people-container">
@@ -174,31 +196,15 @@
 
                 <div class="item1 add-people add-people-right">
                     <ul>
-                        <!-- <li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true"
+                        <li ng-repeat="user in vm.placeNew.users" ng-mouseenter="showAdmin=true"
                             ng-mouseleave="showAdmin=false">
                             <img ng-src="{{user.avatar}}">
 
                             <p>{{::user.firstName}} {{::user.lastName}}</p>
                             <span class="add-people-delete" ng-click="removeUser(user)">&#10006;</span>
-                            <span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
-                        </li> -->
-                        <li>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                                 alt="">
-
-                            <p> Елена Новикова</p>
-                            <span class="add-people-delete">&#10006;</span>
-                            <span class="add-people-admin">Администратор</span>
+                            <span class="add-people-admin" ng-if="user.isAdmin || showAdmin"
+                                  ng-click="vm.setAdmin(user)">Администратор</span>
                         </li>
-                        <li>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Rossville_Boardwalk_Wolf_River.jpg"
-                                 alt="">
-
-                            <p> Елена Новикова</p>
-                            <span class="add-people-delete">&#10006;</span>
-                            <span class="add-people-admin">Администратор</span>
-                        </li>
-
                     </ul>
                 </div>
             </div>

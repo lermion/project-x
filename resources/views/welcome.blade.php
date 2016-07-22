@@ -41,8 +41,7 @@
     <script src="../../app/libs/util.js"></script>
     <script src="../../app/libs/jquery.emojiarea.js"></script>
     <script src="../../app/libs/emoji-picker.js"></script>
-    <script src="../../app/libs/angular-ymaps.js"></script>
-    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="../../app/libs/ya-map-2.1.min.js"></script>
     <script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
     <script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>
     <link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />
