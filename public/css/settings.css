@@ -5711,7 +5711,7 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     font-size: 14.6px;
     color: #999;
-    padding: 10px;
+    padding: 5px;
     font-family: "SFUIDisplayLight";
 }
 
@@ -6827,6 +6827,10 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     background: #d7dade;
     transition: all .3s ease-in-out .1s;
+}
+.search-page .group button.wright:hover {
+    color: #333;
+    background: #d7dade;
 }
 .search-page .group:nth-child(3n) {
     margin-right: 0;

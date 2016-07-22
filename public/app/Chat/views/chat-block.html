@@ -1,18 +1,18 @@
 <div class="chat-right-main-wrap">
-    <div class="chat-right-top-person">
-    <a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')"></a>
-	    <div class="chat-top-person-data">	
-	    	<div class="chat-person-top-ava">	    		
-	    		<a ui-sref="user({username: Model.opponent.login})">
-	    			<img ng-src="{{!Model.opponent.is_group ? Model.opponent.avatar_path ? Model.opponent.avatar_path : '/images/user.png' : Model.opponent.avatar ? Model.opponent.avatar : '/images/user.png'}}" alt="">
-	    		</a>
-	    	</div>	    	
-	    	<div class="chat-person-top-info">
-	    		<p class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</p>
-	    		<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'Подключен':'Отключен'}}</p>
-	    	</div>
-	    </div>
-	    	<div class="user-menu-top" ng-click="showTopChatMenu=!showTopChatMenu">
+	<div class="chat-right-top-person">
+	<a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="Model.displayBlockedBlock ? refTo('chat.blocked') : refTo('chat.list')"></a>
+		<div class="chat-top-person-data">	
+			<div class="chat-person-top-ava">	    		
+				<a ui-sref="user({username: Model.opponent.login})">
+					<img ng-src="{{!Model.opponent.is_group ? Model.opponent.avatar_path ? Model.opponent.avatar_path : '/images/user.png' : Model.opponent.avatar ? Model.opponent.avatar : '/images/user.png'}}" alt="">
+				</a>
+			</div>	    	
+			<div class="chat-person-top-info">
+				<p class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</p>
+				<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'Подключен':'Отключен'}}</p>
+			</div>
+		</div>
+			<div class="user-menu-top" ng-click="showTopChatMenu=!showTopChatMenu">
 				<div class="user-menu-top-do" ng-show="showTopChatMenu">
 					<div class="user-menu-top-inner">			
 						<a href="javascript:void(0);" ng-click="Model.showContactData(Model.opponent)">О контакте</a>
@@ -21,97 +21,91 @@
 					</div>
 				</div>
 			</div>
-    </div>
+	</div>
 <!--  ng-scrollbar rebuild-on="rebuildScroll" -->
 	<p ng-show="status.loading">loading...</p>
-    <div when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
-    	<div class="chat-message-date">
-    		<span>Вчера</span>
-    	</div>
-    	
-    	<!-- <div class="my-msg-wrap">
-	    	<div class="right-chat-my-msg">
-	    		<div class="right-chat-my-msg-inner">
-	    			<div class="my-msg-inner-text">Сегодня думал выйти на прогулку, вобщем как всегда)</div>
-	    			<div class="my-msg-inner-photo">
-	    				<span class="my-img-inner-photo-pict">
-	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-	    				</span>
-	    				<span class="my-img-inner-photo-pict">
-	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-	    				</span>
-	    				<span class="my-img-inner-photo-pict">
-	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-	    				</span>				    				
-	    			</div>
-	    		</div>
-	    		<div class="right-chat-my-msg-date">
-	    			<span>10:55</span>
-	    		</div>
-	    	</div>
-    	</div> -->
+	<div when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
+		<div class="chat-message-date">
+			<span>Вчера</span>
+		</div>
+		
+		<!-- <div class="my-msg-wrap">
+			<div class="right-chat-my-msg">
+				<div class="right-chat-my-msg-inner">
+					<div class="my-msg-inner-text">Сегодня думал выйти на прогулку, вобщем как всегда)</div>
+					<div class="my-msg-inner-photo">
+						<span class="my-img-inner-photo-pict">
+							<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+						</span>
+						<span class="my-img-inner-photo-pict">
+							<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+						</span>
+						<span class="my-img-inner-photo-pict">
+							<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+						</span>				    				
+					</div>
+				</div>
+				<div class="right-chat-my-msg-date">
+					<span>10:55</span>
+				</div>
+			</div>
+		</div> -->
 
-    	<!-- <div class="my-msg-wrap">
-	    	<div class="right-chat-my-msg">
-	    		<div class="right-chat-my-msg-inner">
-	    			<div class="my-msg-inner-text">Но чето влом (((((</div>
-	    		</div>
-	    		<div class="right-chat-my-msg-date">
-	    			<span>10:55</span>
-	    		</div>
-	    	</div>
-    	</div> -->
+		<!-- <div class="my-msg-wrap">
+			<div class="right-chat-my-msg">
+				<div class="right-chat-my-msg-inner">
+					<div class="my-msg-inner-text">Но чето влом (((((</div>
+				</div>
+				<div class="right-chat-my-msg-date">
+					<span>10:55</span>
+				</div>
+			</div>
+		</div> -->
 
-    	<!-- <div class="chat-message-date">
-    		<span>Вчера</span>
-    	</div> -->
+		<!-- <div class="chat-message-date">
+			<span>Вчера</span>
+		</div> -->
 
 		<div ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
-    	<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
-    		<div class="chat-main-user-sender-ava">
-    			<a href="">
-    				<img ng-src="{{message.avatar_path}}" alt="">
-    			</a>
-    		</div>
-	    	<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
+		<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
+			<div class="chat-main-user-sender-ava">
+				<a href="">
+					<img ng-src="{{message.avatar_path}}" alt="">
+				</a>
+			</div>
+			<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
 
-	    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
-	    			<div class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
-	    			<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
-	    			<!-- <div class="to-my-msg-inner-photo">
-	    				<span class="to-my-img-inner-photo-pict">
-	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-	    				</span>
-	    				<span class="to-my-img-inner-photo-pict">
-	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-	    				</span>
-	    				<span class="to-my-img-inner-photo-pict">
-	    					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-	    				</span>				    				
-	    			</div> -->
-	    		</div>
-	    		<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
-	    			<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
-	    		</div>
-	    	</div>
-    	</div>
+				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
+					<div class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
+					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
+					<div ng-if="message.url" class="to-my-msg-inner-photo">
+						<span class="to-my-img-inner-photo-pict">
+							<img ng-src="{{message.url}}" alt="">
+						</span>
+					</div>
+				</div>
+				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
+					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
+				</div>
+			</div>
+		</div>
 
-    	<div ng-class="message.login === loggedUser ? 'chat-right-inner-publication-my' : 'chat-right-inner-publication-to-my'" ng-show="message.type==='pub'" ng-init="loadPubIntoChat(message, message.pub.id)">
-    		<div class="chat-publication-wrap" ng-class="message.login === loggedUser ? '' : 'to-my-msg'">
-    			<div class="chat-publication-data">
-    				<div class="chat-right-top-person" ng-class="message.login === loggedUser ? 'my-msg' : 'chat-my-msg'">
-					    <div class="chat-top-person-data">	
-					    	<div class="chat-person-top-ava">
-					    		<a ui-sref="user({username: message.pub.user.login})">
-					    			<img ng-src="{{message.pub.user.avatar_path}}" alt="">
-					    		</a>
-					    	</div>
-					    	<div class="chat-person-top-info">
-					    		<p class="top-person-name">{{message.pub.user.first_name}}</p>
-					    		<p class="top-person-status"><span am-time-ago="message.pub.created_at"></span></p>
-					    	</div>
-					    </div>
-					    	<div class="user-menu-top" ng-click="message.showPubMenu=!message.showPubMenu">
+		<div ng-class="message.login === loggedUser ? 'chat-right-inner-publication-my' : 'chat-right-inner-publication-to-my'" ng-show="message.type==='pub'" ng-init="loadPubIntoChat(message, message.pub.id)">
+			<div class="chat-publication-wrap" ng-class="message.login === loggedUser ? '' : 'to-my-msg'">
+				<div class="chat-publication-data">
+					<div class="chat-right-top-person" ng-class="message.login === loggedUser ? 'my-msg' : 'chat-my-msg'">
+						<div class="chat-top-person-data">	
+							<div class="chat-person-top-ava">
+								<a ui-sref="user({username: message.pub.user.login})">
+									<img ng-src="{{message.pub.user.avatar_path}}" alt="">
+								</a>
+							</div>
+							<div class="chat-person-top-info">
+								<p class="top-person-name">{{message.pub.user.first_name}}</p>
+								<p class="top-person-status"><span am-time-ago="message.pub.created_at"></span></p>
+							</div>
+						</div>
+							<div class="user-menu-top" ng-click="message.showPubMenu=!message.showPubMenu">
 								<div class="user-menu-top-do chat-in" ng-show="message.showPubMenu">
 									<div class="user-menu-top-inner chat-in">			
 										<a href="javascript:void(0);">Переслать</a>
@@ -120,49 +114,49 @@
 									</div>
 								</div>
 							</div>
-				    </div>
-    			</div>
-    			<div class="chat-publication-description" ng-bind-html="getPubText(message.pub.text) | colonToSmiley"></div>
-    			<div class="chat-publication-adress">
-    				<!-- <span class="publication-adress-span">Школа №209, </span>
-    				<span> г. Санкт-Петербург</span> -->
-    			</div>
-    			<div class="chat-publication-photo">    				
-    				<img ng-src="{{message.pub.cover ? message.pub.cover : message.pub.images[0].url}}" alt="">
-    			</div>
-    			<div class="chat-publication-relations">
-    				<div class="publication-relations-left">
-    					<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)">Тема</span>    					
-    					<span>В теме</span>
-    					<span ng-show="message.pub.user_like">Вы</span>
-    					<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
-    					<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>    					
-    				</div>
-    				<div class="publication-relations-right">
-    					<span class="relations-right-img ">{{message.pub.comment_count}}</span>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+					</div>
+				</div>
+				<div class="chat-publication-description" ng-bind-html="getPubText(message.pub.text) | colonToSmiley"></div>
+				<div class="chat-publication-adress">
+					<!-- <span class="publication-adress-span">Школа №209, </span>
+					<span> г. Санкт-Петербург</span> -->
+				</div>
+				<div class="chat-publication-photo">    				
+					<img ng-src="{{message.pub.cover ? message.pub.cover : message.pub.images[0].url}}" alt="">
+				</div>
+				<div class="chat-publication-relations">
+					<div class="publication-relations-left">
+						<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)">Тема</span>    					
+						<span>В теме</span>
+						<span ng-show="message.pub.user_like">Вы</span>
+						<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
+						<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>    					
+					</div>
+					<div class="publication-relations-right">
+						<span class="relations-right-img ">{{message.pub.comment_count}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    	</div> <!-- Message Repeat -->
+		</div> <!-- Message Repeat -->
 
-    	<!-- <div class="chat-right-inner-publication-to-my">
-    		<div class="chat-publication-wrap to-my-msg">
-    			<div class="chat-publication-data">
-    				<div class="chat-right-top-person chat-my-msg">
-					    <div class="chat-top-person-data">	
-					    	<div class="chat-person-top-ava">
-					    		<a>
-					    			<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-					    		</a>
-					    	</div>
-					    	<div class="chat-person-top-info">
-					    		<p class="top-person-name">Виталий</p>
-					    		<p class="top-person-status"><span>Вчера,</span><span>17:31</span></p>
-					    	</div>
-					    </div>
-					    	<div class="user-menu-top">
+		<!-- <div class="chat-right-inner-publication-to-my">
+			<div class="chat-publication-wrap to-my-msg">
+				<div class="chat-publication-data">
+					<div class="chat-right-top-person chat-my-msg">
+						<div class="chat-top-person-data">	
+							<div class="chat-person-top-ava">
+								<a>
+									<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+								</a>
+							</div>
+							<div class="chat-person-top-info">
+								<p class="top-person-name">Виталий</p>
+								<p class="top-person-status"><span>Вчера,</span><span>17:31</span></p>
+							</div>
+						</div>
+							<div class="user-menu-top">
 								<div class="user-menu-top-do" style="display:none">
 									<div class="user-menu-top-inner">			
 										<a>Переслать</a>
@@ -171,53 +165,53 @@
 									</div>
 								</div>
 							</div>
-				    </div>
-    			</div>
-    			<div class="chat-publication-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum, accusantium non accusamus, temporibus labore, obcaecati incidunt ea, facilis rem aperiam sed sapiente eius quas tenetur. Corporis et sunt velit.Lorem ipsum dolor</div>
-    			<div class="chat-publication-adress">
-    				<span class="publication-adress-span">Школа №209, </span>
-    				<span> г. Санкт-Петербург</span>
-    			</div>
-    			<div class="chat-publication-photo">
-    				<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
-    			</div>
-    			<div class="chat-publication-relations">
-    				<div class="publication-relations-left">
-    					<span class="publication-relations-left-btn">Тема</span>
-    					<span>В теме</span><span>1600</span><span>чел.</span>
-    				</div>
-    				<div class="publication-relations-right">
-    					<span class="relations-right-img ">0</span>
-    				</div>
-    			</div>
-    		</div>
-    	</div> --> 
-    	<!-- End of send publication -->
-    </div>
+					</div>
+				</div>
+				<div class="chat-publication-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum, accusantium non accusamus, temporibus labore, obcaecati incidunt ea, facilis rem aperiam sed sapiente eius quas tenetur. Corporis et sunt velit.Lorem ipsum dolor</div>
+				<div class="chat-publication-adress">
+					<span class="publication-adress-span">Школа №209, </span>
+					<span> г. Санкт-Петербург</span>
+				</div>
+				<div class="chat-publication-photo">
+					<img src="http://www.planwallpaper.com/static/images/4-Nature-Wallpapers-2014-1_ukaavUI.jpg" alt="">
+				</div>
+				<div class="chat-publication-relations">
+					<div class="publication-relations-left">
+						<span class="publication-relations-left-btn">Тема</span>
+						<span>В теме</span><span>1600</span><span>чел.</span>
+					</div>
+					<div class="publication-relations-right">
+						<span class="relations-right-img ">0</span>
+					</div>
+				</div>
+			</div>
+		</div> --> 
+		<!-- End of send publication -->
+	</div>
 
-    <div class="chat-right-send-wrap">
-    	<div class="send-wrap-top">
-	    	<div class="emoji-chat-block">
-	    		<div emoji-form emoji-message="emojiMessage">
+	<div class="chat-right-send-wrap">
+		<div class="send-wrap-top">
+			<div class="emoji-chat-block">
+				<div emoji-form emoji-message="emojiMessage">
 					<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
 					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
 						<i class="icon icon-emoji"></i>
 					</a>
 				</div>	
-	    	</div>
-	    	<div class="send-add-file" ng-click="showFileAddMenu=!showFileAddMenu">
-	    		<a href=""></a>
-	    		<div class="chat-add-file-menu" ng-show="showFileAddMenu">
-	    			<!-- <a class="chat-add-file-publ" href="">Публикация</a> -->
-	    			<label class="chat-add-file-file" for="chat-add-file-file">Файл</label>
-	    			<input type="file" ngf-select ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
-	    		</div>
-	    	</div>
-	    	<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
-    	</div>
-    	<div class="send-wrap-bottom">
+			</div>
+			<div class="send-add-file" ng-click="showFileAddMenu=!showFileAddMenu">
+				<a href=""></a>
+				<div class="chat-add-file-menu" ng-show="showFileAddMenu">
+					<!-- <a class="chat-add-file-publ" href="">Публикация</a> -->
+					<label class="chat-add-file-file" for="chat-add-file-file">Файл</label>
+					<input type="file" ngf-select ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
+				</div>
+			</div>
+			<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+		</div>
+		<div class="send-wrap-bottom">
 			<div class="pic" ng-repeat="file in files">
-				<div ng-click="deletePubFile(message.pub.files, $index)" class="close">
+				<div ng-click="deleteChatFiles(files, $index)" class="close">
 					<div class="close-inner">
 						<p>Удалить</p>
 					</div>
@@ -225,5 +219,5 @@
 				<img ngf-thumbnail="file || '/thumb.jpg'">
 			</div>
 		</div>
-    </div>
+	</div>
 </div>

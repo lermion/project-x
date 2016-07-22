@@ -9,6 +9,7 @@ var queries = new Queries();
 var users = {};
 var usersId = {};
 GLOBAL.rooms = [];
+GLOBAL.ABSPATH = __dirname;
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
@@ -108,6 +109,20 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data){
+		if(data.imagesObj !== undefined){
+			var imagesPath = [];
+			for(var i = 0; i < data.imagesObj.images.length; i++){
+				imagesPath.push("/upload/" + data.imagesObj.imageName[i]);
+				fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.imagesObj.imageName[i], data.imagesObj.images[i], function(error){
+					if(error){
+						console.log(error);
+						return;
+					}else{
+						console.log('Files saved in folder upload');
+					}
+				});
+			}
+		}
 		if(data.room_id === socket.room){
 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 			socket.room = GLOBAL.rooms[indexRooms];
@@ -118,12 +133,26 @@ io.sockets.on('connection', function(socket){
 			socket.emit("switchRoom", data.room_id);
 		}
 		queries.sendMessage(data).then(function(response){
-			queries.getLastMessage(data).then(function(response){
-				io.sockets.in(socket.room).emit('updatechat', response);
-			},
-			function(error){
-				console.log(error);
-			});
+			if(imagesPath !== undefined){
+				queries.saveFiles(imagesPath, response.insertId).then(function(response){
+					queries.getLastMessage(data).then(function(response){
+						io.sockets.in(socket.room).emit('updatechat', response);
+					},
+					function(error){
+						console.log(error);
+					});
+				},
+				function(error){
+					console.log(error);
+				});
+			}else{
+				queries.getLastMessage(data).then(function(response){
+					io.sockets.in(socket.room).emit('updatechat', response);
+				},
+				function(error){
+					console.log(error);
+				});
+			}
 		},
 		function(error){
 			console.log(error);

@@ -11,14 +11,14 @@ class MailTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testMailCreate()
     {
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
             $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
         }
         $this->be($user);
-        $this->json('POST', 'mail/', ['name' => 'name','email'=>'email@email.com','text' => 'text'])
+        $this->json('POST', 'mail/create', ['name' => 'name','email'=>'email@email.com','text' => 'text'])
             ->seeJson([
                 'status' => true,
             ]);

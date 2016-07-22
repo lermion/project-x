@@ -172,7 +172,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
     });
-    Route::post('mail/', 'MailController@index');
+
+    Route::group(['prefix' => 'mail'], function () {
+        Route::get('/', 'MailController@index');
+        Route::post('create', 'MailController@create');
+    });
 
     Route::post('search','SphinxSearchController@search');
     Route::get('search', function () {
@@ -186,7 +190,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/mail\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/mail\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='email' value='email@email.com'><br>

@@ -155,7 +155,7 @@ Queries.prototype.getUserDialogue = function(data){
 }
 Queries.prototype.getLastMessage = function(data){
 	var deferred = Q.defer();
-	var sql = connection.query("SELECT messages.id, messages.created_at, messages.updated_at, users.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
+	var sql = connection.query("SELECT users.id, users.first_name, users.last_name, users.login, users.avatar_path, messages.id, messages.text, images.url FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id LEFT JOIN message_images ON messages.id = message_images.message_id LEFT JOIN images ON images.id = message_images.image_id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
 		if(error){
 			console.error("error to get last message: " + error.stack);
 			deferred.reject(error);
@@ -164,6 +164,41 @@ Queries.prototype.getLastMessage = function(data){
 			deferred.resolve(result[0]);
 		}
 	});
+	return deferred.promise;
+}
+Queries.prototype.saveFiles = function(data, messageId){
+	var deferred = Q.defer();
+	for(var i = 0; i < data.length; i++){
+		var imagesObj = {
+			"url": data[i],
+			"created_at": new Date(),
+			"updated_at": new Date()
+		};
+		connection.query("INSERT INTO images SET ?", imagesObj, function(error, result){
+			if(error){
+				console.error("error to save files: " + error.stack);
+				deferred.reject(error);
+				return;
+			}else{
+				var imageId = result.insertId;
+				var objForMessageImages = {
+					"message_id": messageId,
+					"image_id": imageId,
+					"created_at": new Date(),
+					"updated_at": new Date()
+				};
+				connection.query("INSERT INTO message_images SET ?", objForMessageImages, function(error, result){
+					if(error){
+						console.error("error to save files: " + error.stack);
+						deferred.reject(error);
+						return;
+					}else{
+						deferred.resolve(result);
+					}
+				});
+			}
+		});
+	}
 	return deferred.promise;
 }
 Queries.prototype.sendMessage = function(data){

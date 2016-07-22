@@ -263,6 +263,9 @@ angular.module('placePeopleApp')
 				});
 			};
 
+			$scope.deleteChatFiles = function(files, index){
+				files.splice(index, 1);
+			}
 			$scope.loadMoreMessages = function(roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
@@ -450,7 +453,18 @@ angular.module('placePeopleApp')
 				socket.emit("switchRoom", newroom);
 			});
 			
-			$scope.Model.sendMes = function(message, roomId){
+			$scope.Model.sendMes = function(message, roomId, files){
+				if(files !== undefined){
+					var imagesObj = {
+						imageName: [],
+						imageType: [],
+						images: files
+					};
+					files.forEach(function(value){
+						imagesObj.imageName.push(value.name);
+						imagesObj.imageType.push(value.type);
+					});
+				}
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
@@ -465,7 +479,8 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId,
-					message: message
+					message: message,
+					imagesObj: imagesObj
 				}				
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data);
@@ -481,7 +496,7 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
-				socket.emit("get user rooms", $scope.loggedUserId);
+				console.log(data);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
