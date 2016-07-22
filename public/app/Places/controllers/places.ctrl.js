@@ -5,17 +5,31 @@
         .module('app.places')
         .controller('PlacesCtrl', PlacesCtrl);
 
-    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService',
-        'placesService', 'countries', 'places', 'ngDialog', 'PublicationService', 'UserService'];
+    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$filter', '$timeout', 'AuthService', 'storageService',
+        'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService', 'UserService'];
 
-    function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService,
-                        placesService, countries, places, ngDialog, PublicationService, UserService) {
+    function PlacesCtrl($scope, $http, $window, $state, $filter, $timeout, AuthService, storageService,
+                        placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService, UserService) {
 
         var vm = this;
 
         var storage = storageService.getStorage();
 
+        var myId = storage.userId;
+
         var modalMap, map;
+
+        vm.typeStatic = typeStatic;
+        vm.typeDynamic = typeDynamic;
+
+        var staticIds = typeStatic.map(function(type) {
+            return type.id
+        });
+        var dynamicIds = typeDynamic.map(function(type) {
+            return type.id
+        });
+
+        vm.places = places;
 
         vm.countries = countries;
 
@@ -25,17 +39,24 @@
 
         vm.placeNew = {
             category: null,
+
             country: 'default',
             city: {},
             address: null,
-            days: null,
+
+            name: '',
             description: null,
+
             cover: null,
             logo: null,
+
             isCreate: null,
+            isDynamic: false,
+
             coordinates_x: null,
             coordinates_y: null,
-            expired_date: null,
+
+            expired_days: null,
 
             // invited users
             users: []
@@ -47,6 +68,8 @@
         };
 
         vm.isPlaceAdded = false;
+
+        vm.inviteNotSend = true;
 
         activate();
 
@@ -171,7 +194,9 @@
                         console.log('Place added!');
                         getSubscribers();
                         getSubscription();
+                        vm.placeName = data.place.url_name;
                         vm.isPlaceAdded = true;
+                        vm.placeId = data.place.id;
                     }
                 });
         };
@@ -205,6 +230,40 @@
             user.isAdmin = !user.isAdmin;
         };
 
+        vm.submitInviteUsers = function () {
+            if(vm.placeNew.users.length === 0) {
+                return false;
+            }
+
+            placesService.inviteUsers(vm.placeId, vm.placeNew.users)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.inviteNotSend = false;
+                        var users = vm.placeNew.users.filter(function (item, i, arr) {
+                            return item.isAdmin === true;
+                        });
+                        if (users.length > 0) {
+                            setAdmins(users, vm.placeId);
+                        }
+                        $timeout(function () {
+                            $state.go('places');
+                        }, 2000);
+                    }
+                });
+        };
+
+        vm.removeUserFromInviteList = function (user) {
+            for (var i = vm.placeNew.users.length - 1; i >= 0; i--) {
+                if (vm.placeNew.users[i].userId == user.userId) {
+                    vm.placeNew.users.splice(i, 1);
+                }
+            }
+        };
+
+        vm.filterByDynamicType = function(item) {
+            return dynamicIds.indexOf(item.type_place_id) !== -1;
+        };
+
         function getCities(country) {
             placesService.getCities(country.id).then(
                 function (data) {
@@ -225,6 +284,26 @@
                 .then(function (data) {
                     vm.subscription = data;
                 });
+        }
+
+        function setAdmin(placeId, userId) {
+            return placesService.setAdmin(placeId, userId);
+        }
+
+        function setAdmins(users, placeId) {
+
+            //var defer = $q.defer();
+            //
+            //
+            //var prom = [];
+
+            angular.forEach(users, function (user) {
+                setAdmin(placeId, user.userId);
+            });
+
+            //$q.all(prom).then(function () {
+            //    modalNewGroup.close();
+            //});
         }
 
 

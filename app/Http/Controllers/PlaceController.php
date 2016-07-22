@@ -8,6 +8,7 @@ use App\TypePlace;
 use App\PlaceUser;
 use App\PlaceInvite;
 use App\Image;
+use App\City;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -30,6 +31,8 @@ class PlaceController extends Controller
             if(NewPlace::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
                 $place->is_new_place = true;
             } else {$place->is_new_place = false;}
+            $place->city_name = City::where(['id' => $place->city_id])->pluck('name');
+
         }
         return $places;
     }
@@ -69,7 +72,7 @@ class PlaceController extends Controller
         if (TypePlace::where('id', $placeData['type_place_id'])->value('is_dynamic')) {
             try {
                 $this->validate($request, [
-                    'expired_date' => 'required'
+                    'expired_days' => 'required'
                 ]);
             } catch (\Exception $ex) {
                 $result = [
