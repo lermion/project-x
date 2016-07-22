@@ -31,11 +31,10 @@
         <div class="create-places-select-country">
             <div class="select-country-country">Выберите страну</div>
             <div class="select-country-name">
-                <select>
-                    <option value="">Россия</option>
-                    <option value="">Украина</option>
-                    <option value="">Исландия</option>
-                    <option value="">Ирландия</option>
+                <select name="country"
+                        ng-options="option.name for option in vm.countries track by option.id"
+                ng-model="vm.placeNew.country">
+                    <option value="">---</option>
                 </select>
             </div>
         </div>
@@ -43,11 +42,10 @@
         <div class="create-places-select-country">
             <div class="select-country-country">Выберите город</div>
             <div class="select-country-name">
-                <select>
-                    <option value="">Москва</option>
-                    <option value="">Киев</option>
-                    <option value="">Днепропетровск</option>
-                    <option value="">Мюнхен</option>
+                <select name="country"
+                        ng-options="option.name for option in vm.cities track by option.id"
+                        ng-model="vm.placeNew.city">
+                    <option value="">---</option>
                 </select>
             </div>
         </div>
@@ -55,7 +53,7 @@
             <div class="select-country-country">Адрес места</div>
             <div class="select-street-input">
                 <input type="text" placeholder="улица, номер дома">
-                <span class="street-on-map">или укажите на карте</span>
+                <span class="street-on-map" ng-click="vm.openModalMap()">или укажите на карте</span>
             </div>
 
         </div>

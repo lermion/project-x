@@ -5,13 +5,19 @@
         .module('app.places')
         .controller('PlacesCtrl', PlacesCtrl);
 
-    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService'];
+    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService',
+        'placesService', 'countries', 'ngDialog'];
 
-    function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService) {
+    function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService,
+                        placesService, countries, ngDialog) {
 
         var vm = this;
 
         var storage = storageService.getStorage();
+
+        var modalMap;
+
+        vm.countries = countries;
 
         vm.userName = storage.username;
 
@@ -19,7 +25,7 @@
 
         vm.placeNew = {
             category: null,
-            country: null,
+            country: 'default',
             city: null,
             address: null,
             days: null,
@@ -29,12 +35,18 @@
             isCreate: null
         };
 
+        vm.location = {
+            latitude: null,
+            longitude: null
+        };
+
         activate();
 
         /////////////////////////////////////////////////
 
         function activate() {
             init();
+            //getLocation();
         }
 
         function init() {
@@ -119,10 +131,70 @@
                 $state.go('places.add');
             }
         });
+        $scope.$watch(angular.bind(vm, function () {
+            return vm.placeNew.country;
+        }), function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                getCities(newVal);
+            }
+        });
 
         vm.placeAdd = function () {
 
+        };
+
+        vm.openModalMap = function() {
+            modalMap = ngDialog.open({
+                template: '../app/Places/views/popup-map.html',
+                name: 'modal-edit-group',
+                className: 'popup-add-group place-map ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+
+        ymaps.ready(getLocation);
+
+        function getLocation() {
+            var geolocation = ymaps.geolocation,
+                myMap = new ymaps.Map('map', {
+                    center: [55, 34],
+                    zoom: 10
+                }, {
+                    searchControlProvider: 'yandex#search'
+                });
+
+            geolocation.get({
+                provider: 'yandex',
+                mapStateAutoApply: true
+            }).then(function (result) {
+                result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+                result.geoObjects.get(0).properties.set({
+                    balloonContentBody: 'Мое местоположение'
+                });
+                myMap.geoObjects.add(result.geoObjects);
+                vm.location.latitude = result.geoObjects.position[0];
+                vm.location.longitude = result.geoObjects.position[1];
+            });
+
+            //geolocation.get({
+            //    provider: 'browser',
+            //    mapStateAutoApply: true
+            //}).then(function (result) {
+            //    result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+            //    myMap.geoObjects.add(result.geoObjects);
+            //});
         }
+
+        function getCities(country) {
+            placesService.getCities(country.id).then(
+                function (data) {
+                    vm.cities = data;
+                }
+            );
+        }
+
+
     }
 
 })(angular);

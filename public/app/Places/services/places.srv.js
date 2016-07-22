@@ -9,9 +9,12 @@
 
     function placesService($http) {
 
+        var countries = [];
 
         return {
-            getCounterNewPlaces: getCounterNewPlaces
+            getCounterNewPlaces: getCounterNewPlaces,
+            getCountries: getCountries,
+            getCities: getCities
         };
 
         ////////////
@@ -35,6 +38,54 @@
             function getCounterNewPlacesFailed(error) {
                 console.error('XHR Failed for getCounterNewPlaces. ' + error.data);
             }
+        }
+
+        function getCountries() {
+
+            return $http({
+                method: 'GET',
+                url: 'country/',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getCountriesComplete)
+                .catch(getCountriesFailed);
+
+            function getCountriesComplete(response) {
+                countries = response.data;
+                return countries;
+            }
+
+            function getCountriesFailed(error) {
+                console.error('XHR Failed for getCountries. ' + error.data);
+            }
+
+
+        }
+
+        function getCities(countryId) {
+
+            return $http({
+                method: 'GET',
+                url: 'city/' + countryId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getCitiesComplete)
+                .catch(getCitiesFailed);
+
+            function getCitiesComplete(response) {
+                countries = response.data;
+                return countries;
+            }
+
+            function getCitiesFailed(error) {
+                console.error('XHR Failed for getCities. ' + error.data);
+            }
+
+
         }
 
 
