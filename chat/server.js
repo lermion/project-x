@@ -122,12 +122,6 @@ io.sockets.on('connection', function(socket){
 					}
 				});
 			}
-			queries.saveFiles(imagesPath).then(function(response){
-				//console.log("response", response);
-			},
-			function(error){
-				console.log(error);
-			});
 		}
 		if(data.room_id === socket.room){
 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
@@ -139,12 +133,26 @@ io.sockets.on('connection', function(socket){
 			socket.emit("switchRoom", data.room_id);
 		}
 		queries.sendMessage(data).then(function(response){
-			queries.getLastMessage(data).then(function(response){
-				io.sockets.in(socket.room).emit('updatechat', response);
-			},
-			function(error){
-				console.log(error);
-			});
+			if(imagesPath !== undefined){
+				queries.saveFiles(imagesPath, response.insertId).then(function(response){
+					queries.getLastMessage(data).then(function(response){
+						io.sockets.in(socket.room).emit('updatechat', response);
+					},
+					function(error){
+						console.log(error);
+					});
+				},
+				function(error){
+					console.log(error);
+				});
+			}else{
+				queries.getLastMessage(data).then(function(response){
+					io.sockets.in(socket.room).emit('updatechat', response);
+				},
+				function(error){
+					console.log(error);
+				});
+			}
 		},
 		function(error){
 			console.log(error);
