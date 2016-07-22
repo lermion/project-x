@@ -12,6 +12,7 @@
         var countries = [];
 
         return {
+            getPlaces: getPlaces,
             addPlace: addPlace,
             getCounterNewPlaces: getCounterNewPlaces,
             getCountries: getCountries,
@@ -20,13 +21,37 @@
 
         ////////////
 
+        function getPlaces() {
+
+            return $http({
+                method: 'GET',
+                url: 'place/',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPlacesComplete)
+                .catch(getPlacesFailed);
+
+            function getPlacesComplete(response) {
+                countries = response.data;
+                return countries;
+            }
+
+            function getPlacesFailed(error) {
+                console.error('XHR Failed for getPlaces. ' + error.data);
+            }
+
+
+        }
+
         function addPlace(place) {
 
             var fd = new FormData();
 
             fd.append('name', place.name);
             fd.append('description', place.description);
-            fd.append('city_id', place.city_id);
+            fd.append('city_id', place.city.id);
             fd.append('address', place.address);
             fd.append('coordinates_x', place.coordinates_x);
             fd.append('coordinates_y', place.coordinates_y);
