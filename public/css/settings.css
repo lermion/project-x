@@ -6880,8 +6880,53 @@ input.cmn-toggle-round:checked + label:after {
     justify-content: flex-end;
 }
 .create-places-type-btn-open {
-
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s !important;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 10px;
+    color: rgb(90,106,134);
+}
+.create-places-type-btn-open:hover {
+    color: rgb(51,51,51);
 }
 .create-places-type-btn-invite {
-    
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s !important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer
 }
+.create-places-type-btn-invite:hover {
+    background-color: #fff;
+    color: #495b79;
+ }
+
+@media (max-width: 720px) {
+    .create-places-type-btn-open,
+    .create-places-type-btn-invite {
+        font-size: .9em;
+        padding: 0 5px;
+        line-height: 25px;
+    }
+ }
+ @media (max-width: 520px) {
+    .create-places-type-btn-open,
+    .create-places-type-btn-invite {
+        font-size: .8em;
+        padding: 0 5px;
+        line-height: 20px;
+    }
+ }
