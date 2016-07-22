@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.places', ['ymaps'])
+        .module('app.places', ['yaMap'])
         .config(routes);
 
 

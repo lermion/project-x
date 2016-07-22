@@ -6,16 +6,16 @@
         .controller('PlacesCtrl', PlacesCtrl);
 
     PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService',
-        'placesService', 'countries', 'ngDialog'];
+        'placesService', 'countries', 'ngDialog', 'PublicationService', 'UserService'];
 
     function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService,
-                        placesService, countries, ngDialog) {
+                        placesService, countries, ngDialog, PublicationService, UserService) {
 
         var vm = this;
 
         var storage = storageService.getStorage();
 
-        var modalMap;
+        var modalMap, map;
 
         vm.countries = countries;
 
@@ -32,7 +32,13 @@
             description: null,
             cover: null,
             logo: null,
-            isCreate: null
+            isCreate: null,
+            coordinates_x: null,
+            coordinates_y: null,
+            expired_date: null,
+
+            // invited users
+            users: []
         };
 
         vm.location = {
@@ -40,13 +46,14 @@
             longitude: null
         };
 
+        vm.isPlaceAdded = false;
+
         activate();
 
         /////////////////////////////////////////////////
 
         function activate() {
             init();
-            //getLocation();
         }
 
         function init() {
@@ -143,7 +150,7 @@
 
         };
 
-        vm.openModalMap = function() {
+        vm.openModalMap = function () {
             modalMap = ngDialog.open({
                 template: '../app/Places/views/popup-map.html',
                 name: 'modal-edit-group',
@@ -152,39 +159,51 @@
             });
         };
 
+        vm.submitPlaceNew = function () {
+            vm.form.placeNew.$setSubmitted();
 
-        ymaps.ready(getLocation);
-
-        function getLocation() {
-            var geolocation = ymaps.geolocation,
-                myMap = new ymaps.Map('map', {
-                    center: [55, 34],
-                    zoom: 10
-                }, {
-                    searchControlProvider: 'yandex#search'
+            if (vm.form.placeNew.$invalid) {
+                return false;
+            }
+            placesService.addPlace(vm.placeNew)
+                .then(function(data) {
+                    if (data.status) {
+                        console.log('Place added!');
+                        getSubscribers();
+                        getSubscription();
+                        vm.isPlaceAdded = true;
+                    }
                 });
+        };
 
-            geolocation.get({
-                provider: 'yandex',
-                mapStateAutoApply: true
-            }).then(function (result) {
-                result.geoObjects.options.set('preset', 'islands#redCircleIcon');
-                result.geoObjects.get(0).properties.set({
-                    balloonContentBody: 'Мое местоположение'
-                });
-                myMap.geoObjects.add(result.geoObjects);
-                vm.location.latitude = result.geoObjects.position[0];
-                vm.location.longitude = result.geoObjects.position[1];
-            });
+        vm.onItemSelected = function (user) {
 
-            //geolocation.get({
-            //    provider: 'browser',
-            //    mapStateAutoApply: true
-            //}).then(function (result) {
-            //    result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-            //    myMap.geoObjects.add(result.geoObjects);
-            //});
-        }
+            var isExist = $filter('getById')(vm.placeNew.users, user.id);
+
+            if (!isExist) {
+                var item = {
+                    userId: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    avatar: user.avatar_path,
+
+                    isAdmin: false
+                };
+                vm.placeNew.users.push(item);
+            }
+        };
+
+        vm.removeUser = function (user) {
+            for (var i = vm.placeNew.users.length - 1; i >= 0; i--) {
+                if (vm.placeNew.users[i].userId == user.userId) {
+                    vm.placeNew.users.splice(i, 1);
+                }
+            }
+        };
+
+        vm.setAdmin = function (user) {
+            user.isAdmin = !user.isAdmin;
+        };
 
         function getCities(country) {
             placesService.getCities(country.id).then(
@@ -193,6 +212,91 @@
                 }
             );
         }
+
+        function getSubscribers() {
+            return UserService.getSubscribers(myId)
+                .then(function (subscribers) {
+                    vm.subscribers = subscribers;
+                });
+        }
+
+        function getSubscription() {
+            return PublicationService.getSubscription(myId)
+                .then(function (data) {
+                    vm.subscription = data;
+                });
+        }
+
+
+        vm.beforeInit = function () {
+            var geolocation = ymaps.geolocation;
+            geolocation.get({
+                provider: 'yandex',
+                mapStateAutoApply: true
+            }).then(function (result) {
+                vm.geoObject.geometry.coordinates = result.geoObjects.position;
+                vm.center = result.geoObjects.position;
+                $scope.$digest();
+            });
+            geolocation.get({
+                provider: 'browser',
+                mapStateAutoApply: true
+            }).then(function (result) {
+                vm.geoObject.geometry.coordinates = result.geoObjects.position;
+                vm.center = result.geoObjects.position;
+                $scope.$digest();
+            });
+        };
+        vm.geoObject = {
+            geometry: {
+                type: 'Point',
+                coordinates: []
+            },
+            properties: {}
+        };
+        vm.afterInit = function ($map) {
+            map = $map;
+        };
+        vm.mapClick = function (e) {
+            var coords = e.get('coords');
+            console.log(coords);
+            vm.geoObject.geometry.coordinates = coords;
+
+            // Отправим запрос на геокодирование.
+            ymaps.geocode(coords).then(function (res) {
+                var names = [];
+                // Переберём все найденные результаты и
+                // запишем имена найденный объектов в массив names.
+                res.geoObjects.each(function (obj) {
+                    names.push(obj.properties.get('text'));
+                });
+                console.log(names[0]);
+                vm.placeNew.address = names[0];
+
+                // Добавим на карту метку в точку, по координатам
+                // которой запрашивали обратное геокодирование.
+                var geoObj = {
+                    geometry: {
+                        type: 'Point',
+                        coordinates: coords
+                    },
+                    properties: {
+                        // В качестве контента иконки выведем
+                        // первый найденный объект.
+                        iconContent: names[0],
+                        // А в качестве контента балуна - подробности:
+                        // имена всех остальных найденных объектов.
+                        balloonContent: names.reverse().join(', ')
+                    }
+                };
+
+                vm.placeNew.coordinates_x = geoObj.geometry.coordinates[0];
+                vm.placeNew.coordinates_y = geoObj.geometry.coordinates[1];
+                $scope.$apply(function () {
+                    vm.geoObject = geoObj;
+                });
+            });
+        };
 
 
     }

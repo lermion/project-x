@@ -1330,6 +1330,10 @@ label span.add {
     margin-bottom: 20px;
 }
 
+.ngdialog.place-map.ngdialog-theme-default .ngdialog-content {
+    top: 5%;
+}
+
 .popup-add-group .add-ava {
     width: 90px;
     height: 85px;
@@ -2298,9 +2302,10 @@ div.my_profilll.photo-list div:last-child {
     font-weight: 600;
 }
 
-.place-map yandex-map {
+.place-map ya-map {
     width: 100%;
-    height: 100%;
+    height: 400px;
+    margin: 0 auto 10px;
     display: block;
 }
 
