@@ -2298,6 +2298,13 @@ div.my_profilll.photo-list div:last-child {
     font-weight: 600;
 }
 
+.place-map yandex-map {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
 .add_newgroup .button {
     display: flex;
     justify-content: flex-end;
