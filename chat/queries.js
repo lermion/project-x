@@ -136,6 +136,14 @@ Queries.prototype.getUserDialogue = function(data){
 			deferred.reject(error);
 			return;
 		}else{
+			var oldMessageArray = [];
+			result.forEach(function(value){
+				connection.query("UPDATE `messages` SET `is_new`= 0 WHERE `id` = ?", [value.id], function(err, results) {
+					if(error){
+						console.log("error to set old message: " + error.stack);
+					}
+				});
+			});
 			result = {
 				room_id: data.room_id,
 				messages: result
@@ -147,7 +155,7 @@ Queries.prototype.getUserDialogue = function(data){
 }
 Queries.prototype.getLastMessage = function(data){
 	var deferred = Q.defer();
-	var sql = connection.query("SELECT messages.id, users.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
+	var sql = connection.query("SELECT messages.id, messages.created_at, messages.updated_at, users.id, messages.text, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
 		if(error){
 			console.error("error to get last message: " + error.stack);
 			deferred.reject(error);

@@ -172,7 +172,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
     });
-
+    Route::post('mail/', 'MailController@index');
 
     Route::post('search','SphinxSearchController@search');
     Route::get('search', function () {
@@ -186,12 +186,12 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/user/show/1094\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/mail\" method=\"post\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='offset' value='0'><br>
-            <input type='text' name='limit' value='10'><br>
-            <input type='text' name='city_id' value='5'><br>
+            <input type='text' name='email' value='email@email.com'><br>
+            <input type='text' name='text'><br>
+            <input type='text' name='name' value='name'><br>
             <input type='text' name='coordinates_x'><br>
             <input type='text' name='coordinates_y'><br>
             <input type='file' name='picture'><br>
