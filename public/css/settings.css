@@ -5706,7 +5706,7 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     font-size: 14.6px;
     color: #999;
-    padding: 10px;
+    padding: 5px;
     font-family: "SFUIDisplayLight";
 }
 
