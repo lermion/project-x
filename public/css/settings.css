@@ -7034,3 +7034,9 @@ input.cmn-toggle-round:checked + label:after {
  .share-publication-search-data {
     width: 100%;
  }
+ input.share-publication-checkbox {
+    display: inline-block;
+ }
+ .search-data-item-data {
+    display: inline-block;
+ }
