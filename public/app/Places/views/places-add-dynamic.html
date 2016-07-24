@@ -94,7 +94,8 @@
             <div class="create-places-select-country days">
                 <div class="select-country-country">Сколько дней актуально это место</div>
                 <div class="select-country-name">
-                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.expired_days" required>
+                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.expired_days"
+                           required>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.date.$error"
                          ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
@@ -120,19 +121,37 @@
             </div>
 
             <div class="create-places-add-cover">
-                <div class="create-places-add-cover-img">
-                    <a href=""></a>
+                <div class="create-places-add-cover-img"
+                     name="cover"
+                     ngf-select
+                     ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'"
+                     ngf-min-heiht="280"
+                     ngf-min-width="1200"
+                     ngf-before-model-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeNew.cover"
+
+                >
+                    <a href="">
+                        <img ngf-thumbnail="vm.placeNew.cover" ngf-no-object-url="true">
+                    </a>
+
                     <span>Добавить обложку месту</span>
                 </div>
-                <!-- <div class="create-places-add-cover-ava">аватар</div> -->
-                <!-- <div class="create-places-add-cover-button-create">Создать место</div> -->
             </div>
             <div class="create-places-add-cover">
-                <div class="create-places-add-cover-img">
-                    <a href=""></a>
+                <div class="create-places-add-cover-img"
+                     name="logo"
+                     ngf-select
+                     ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'"
+                     ngf-before-model-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeNew.logo">
+                    <a href="">
+                        <img ngf-thumbnail="vm.placeNew.logo" ngf-no-object-url="true">
+                    </a>
                     <span>Добавить логотип месту</span>
                 </div>
-                <!-- <div class="create-places-add-cover-ava">аватар</div> -->
                 <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
             </div>
 
@@ -160,7 +179,8 @@
             <p>Приглашение отправлено</p>
         </div>
         <div class="create-places-type-invite">
-            <a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open" ng-click="cancelNewGroup()"> Открыть место </a>
+            <a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open"
+               ng-click="cancelNewGroup()"> Открыть место </a>
             <a href="" class="create-places-type-btn-invite" ng-click="vm.submitInviteUsers()"> Пригласить</a>
         </div>
         <div class="fifth_item" ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.places', ['yaMap'])
+        .module('app.places', ['yaMap', 'ngFileUpload'])
         .config(routes);
 
 
@@ -124,7 +124,10 @@
             })
             .state('places.add.common', {
                 url: '/common',
-                templateUrl: '../../app/Places/views/places-add-common.html'
+                templateUrl: '../../app/Places/views/places-add-common.html',
+                params: {
+                    activeTypePlaceId: null
+                }
             })
             .state('places.add.dynamic', {
                 url: '/dynamic',

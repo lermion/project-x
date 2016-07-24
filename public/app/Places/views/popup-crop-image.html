@@ -1,0 +1,12 @@
+<div>
+    <div class="cropArea">
+        <img-crop image="vm.selectedLogoImage"
+                  result-image="vm.myCroppedImage"
+                  result-blob="vm.blobImg"
+                  area-type="square"
+                  area-min-size="80"
+                  result-image-quality="1"
+                  result-image-size="220"></img-crop>
+    </div>
+    <button ng-click="vm.saveCropp(vm.blobImg, vm.myCroppedImage);" class="check-in-button">Выбрать</button>
+</div>

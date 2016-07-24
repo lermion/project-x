@@ -3567,6 +3567,10 @@ span.users-today-time-time.early {
     display: flex;
     align-items: center;
 }
+.create-places-add-cover-img a > img {
+    max-width: 100%;
+    height: auto;
+}
 
 .create-places-add-cover-img a {
     width: 80px;
