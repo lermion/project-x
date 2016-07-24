@@ -13,14 +13,17 @@
 
         return {
             getPlaces: getPlaces,
+            getPlace: getPlace,
             addPlace: addPlace,
+            getPublications: getPublications,
             getCounterNewPlaces: getCounterNewPlaces,
             getCountries: getCountries,
             getCities: getCities,
             inviteUsers: inviteUsers,
             setAdmin: setAdmin,
             getPlaceTypeStatic: getPlaceTypeStatic,
-            getPlaceTypeDynamic: getPlaceTypeDynamic
+            getPlaceTypeDynamic: getPlaceTypeDynamic,
+            subscribePlace: subscribePlace
         };
 
         ////////////
@@ -47,6 +50,27 @@
             }
 
 
+        }
+
+        function getPlace(placeName) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/show/' + placeName,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPlaceComplete)
+                .catch(getPlaceFailed);
+
+            function getPlaceComplete(response) {
+                return response.data;
+            }
+
+            function getPlaceFailed(error) {
+                console.error('XHR Failed for getPlace. ' + error.data);
+            }
         }
 
         function addPlace(place) {
@@ -81,6 +105,27 @@
 
             function addPlaceFailed(error) {
                 console.error('XHR Failed for addPlace. ' + error.data);
+            }
+        }
+
+        function getPublications(placeId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/' + placeId + '/publication',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPublicationsComplete)
+                .catch(getPublicationsFailed);
+
+            function getPublicationsComplete(response) {
+                return response.data;
+            }
+
+            function getPublicationsFailed(error) {
+                console.error('XHR Failed for getPublications. ' + error.data);
             }
         }
 
@@ -240,6 +285,27 @@
 
             function getPlaceTypeDynamicFailed(error) {
                 console.error('XHR Failed for getPlaceTypeDynamic. ' + error.data);
+            }
+        }
+
+        function subscribePlace(placeId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/subscription/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(subscribePlaceComplete)
+                .catch(subscribePlaceFailed);
+
+            function subscribePlaceComplete(response) {
+                return response.data;
+            }
+
+            function subscribePlaceFailed(error) {
+                console.error('XHR Failed for subscribePlace. ' + error.data);
             }
         }
 

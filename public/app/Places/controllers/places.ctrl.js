@@ -5,13 +5,17 @@
         .module('app.places')
         .controller('PlacesCtrl', PlacesCtrl);
 
-    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', 'AuthService', 'storageService',
+    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
+        '$anchorScroll', 'AuthService', 'storageService',
         'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService',
         'UserService', 'Upload'];
 
-    function PlacesCtrl($scope, $http, $window, $state, $stateParams, $filter, $timeout, AuthService, storageService,
+    function PlacesCtrl($scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
+                        $anchorScroll, AuthService, storageService,
                         placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService,
                         UserService, Upload) {
+
+        var LIMIT_PLACE = 3;
 
         var vm = this;
 
@@ -78,6 +82,25 @@
         vm.selectedImage = null;
         vm.myCroppedImage = null;
         vm.blobImg = null;
+
+        vm.limitPlace = LIMIT_PLACE;
+
+        // TODO: refact!
+        vm.categories = [
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true}
+        ];
+        vm.showAllPlaces = false;
 
         activate();
 
@@ -165,8 +188,9 @@
             return vm.placesDropdown;
         }), function (newVal) {
             if (newVal === 'places.add') {
-                vm.placesDropdown = 'default';
                 $state.go('places.add');
+            } else if (newVal) {
+                vm.togglePlaceView(+newVal);
             }
         });
         $scope.$watch(angular.bind(vm, function () {
@@ -184,7 +208,6 @@
                     return p.activeTypePlaceId === item.id;
                 })[0];
                 vm.placeNew.category.id = p.activeTypePlaceId;
-                console.log(vm.activePlace);
             }
         });
 
@@ -262,6 +285,7 @@
                         }
                         $timeout(function () {
                             $state.go('places');
+                            vm.isPlaceAdded = false;
                         }, 2000);
                     }
                 });
@@ -305,6 +329,29 @@
             });
 
             modalCropLogoImage.close();
+        };
+
+        vm.togglePlaceView = function (index) {
+
+            //TODO: refact!
+            if (index === undefined) {
+                vm.limitPlace = LIMIT_PLACE;
+                for (var i = 0; i < vm.categories.length; i++) {
+                    vm.categories[i].show = true;
+                }
+                vm.showAllPlaces = false;
+                vm.placesDropdown = null;
+            } else {
+                vm.showAllPlaces = true;
+                for (var j = 0; j < vm.categories.length; j++) {
+                    vm.categories[j].show = false;
+                }
+                vm.categories[index].show = true;
+                vm.limitPlace = 'Infinity';
+                $location.hash('wrapper');
+                $anchorScroll();
+            }
+
         };
 
         function getCities(country) {
