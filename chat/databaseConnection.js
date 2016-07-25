@@ -21,4 +21,4 @@ connection.connect(function(error){
 function DatabaseConnection(){
 	return connection;
 }
-module.exports = DatabaseConnection;
+module.exports = DatabaseConnection; 
