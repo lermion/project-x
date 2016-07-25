@@ -468,7 +468,7 @@ angular.module('placePeopleApp')
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-							if (!$scope.Model.chatRooms[i].is_group) {
+							if (!$scope.Model.chatRooms[i].is_group){
 								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
 									roomId = $scope.Model.chatRooms[i].room_id;
 								}
@@ -478,10 +478,10 @@ angular.module('placePeopleApp')
 				}
 				var data = {
 					userId: $scope.loggedUserId,
-					room_id: roomId,
+					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
 					message: message,
 					imagesObj: imagesObj
-				}				
+				};
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data, function(){
 					files.length = 0;
