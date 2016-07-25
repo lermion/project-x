@@ -15,12 +15,15 @@ class CreatePlacesTable extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->increments('id');
             $table->string('avatar');
+            $table->string('cover');
             $table->text('description');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('url_name')->unique();
             $table->string('address');
             $table->string('coordinates_x');
             $table->string('coordinates_y');
-            $table->integer('expired_days');
+            $table->boolean('dynamic');
+            $table->date('expired_date');
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->integer('type_place_id')->unsigned();

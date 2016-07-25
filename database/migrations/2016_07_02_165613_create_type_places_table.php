@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDynamicTypePlacesTable extends Migration
+class CreateTypePlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,13 @@ class AddDynamicTypePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::table('type_places', function (Blueprint $table) {
+        Schema::create('type_places', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->text('description');
+            $table->string('avatar');
             $table->boolean('is_dynamic')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -24,8 +29,6 @@ class AddDynamicTypePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::table('type_places', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('type_places');
     }
 }
