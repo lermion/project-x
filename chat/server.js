@@ -141,7 +141,6 @@ io.sockets.on('connection', function(socket){
 						console.log(error);
 						return;
 					}else{
-						callback();
 						console.log('Files saved in folder upload');
 					}
 				});
@@ -161,6 +160,7 @@ io.sockets.on('connection', function(socket){
 				queries.saveFiles(imagesPath, response.insertId).then(function(response){
 					queries.getLastMessage(data).then(function(response){
 						io.sockets.in(socket.room).emit('updatechat', response);
+						callback();
 					},
 					function(error){
 						console.log(error);
@@ -172,6 +172,7 @@ io.sockets.on('connection', function(socket){
 			}else{
 				queries.getLastMessage(data).then(function(response){
 					io.sockets.in(socket.room).emit('updatechat', response);
+					callback();
 				},
 				function(error){
 					console.log(error);
