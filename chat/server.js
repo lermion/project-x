@@ -14,7 +14,7 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
-			console.log("response", response);
+			console.log("data", data);
 			if(socket.room.length !== undefined){
 				for(var i = 0; i < socket.room.length; i++){
 					if(socket.room[i] === data.room_id){
