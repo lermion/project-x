@@ -7048,7 +7048,7 @@ input.cmn-toggle-round:checked + label:after {
     padding: 5px;
         position: absolute;
     top: 40px;
-    bottom: 0px;
+    bottom: 30px;
     overflow-y: auto;
     align-content: flex-start;
  }
@@ -7063,7 +7063,7 @@ input.cmn-toggle-round:checked + label:after {
  }
  .share-publication-search-data-info {
     display: flex;
-    width: 90%;
+    width: 95%;
     align-items: center;
  }
  .share-publication-search-data-ava a {
@@ -7079,10 +7079,93 @@ input.cmn-toggle-round:checked + label:after {
     height: 100%;
  }
  .share-publication-search-data-name {
-    display: flex;
     margin-left: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+ }
 
+.share-publication-send-btn {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    align-items: center;
+}
+.share-publication-send-btn-cancel {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s;
+    color: #495b79;
+    margin-right: 5px;
+    cursor: pointer;
+ }
+ .share-publication-send-btn-cancel:hover {
+    color: #999;
+ }
+ .share-publication-send-btn-send {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s !important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+    margin-right: 20px;
+ }
+.share-publication-send-btn-send:hover {
+    background-color: #fff;
+    color: #495b79;
+}
+@media (max-width: 740px) {
+    .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+        width: 500px;
+        margin-left: -250px;
+    }
+    .share-publication-search-data-name {
+        font-size: .8em;
+    }
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        font-size: .8em;
+    }
+ }
+@media (max-width: 520px) {
+    .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+        width: 95%;
+        margin-left: -47.5%;
+    }
+    .share-publication-title {
+        font-size: .8em;
+    }
+    .share-publication-search-data-name,
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        font-size: .8em;
+    }
+    .share-publication-menu-item {
+        font-size: .5em;
+    }
+    .share-publication-search-data-ava a {
+        width: 30px;
+        height: 30px;
+    }
+    .share-publication-send-btn {
+        height: 25px;
+    }
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        line-height: 25px;
+            padding: 0 5px;
+    }
  }
