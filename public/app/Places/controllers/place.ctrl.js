@@ -5,9 +5,9 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', '$state', 'place', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
+    PlaceCtrl.$inject = ['$scope', '$state', 'place', 'countries', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
 
-    function PlaceCtrl($scope, $state, place, storageService, placesService, ngDialog, $http, $window) {
+    function PlaceCtrl($scope, $state, place, countries, storageService, placesService, ngDialog, $http, $window) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -32,9 +32,12 @@
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
 
+        vm.countries = countries;
 
         vm.place = place;
-        vm.placeEdited = {};
+        vm.placeEdited = angular.copy(vm.place);
+
+
         //vm.newPublication = angular.copy(newPublicationObj);
         //
         //vm.forms = {
@@ -235,6 +238,12 @@
                     scope: $scope
                 });
             });
+        };
+
+        vm.initCity = function() {
+            return vm.placeEdited.city = place.cities.filter(function(city) {
+                return city.id === place.city_id;
+            })[0];
         };
         //
         //

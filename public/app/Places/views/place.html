@@ -86,7 +86,7 @@
                                 <div class="menu-item" ng-if="vm.showGroupMenu">
                                     <div class="inner">
                                         <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
-                                        <a href="" ng-click="vm.openModalEditPlace()">Редактировать</a>
+                                        <a ui-sref="place.edit({isDynamicPlace: vm.place.is_dynamic})">Редактировать</a>
                                         <a href="" ng-click="vm.openModalInviteUsers()">Пригласить</a>
                                         <a href="" ng-if="vm.place.is_creator" ng-click="vm.openModalDeletePlace()">Удалить</a>
                                     </div>

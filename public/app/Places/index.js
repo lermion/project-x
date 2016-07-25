@@ -99,7 +99,31 @@
                                 }
                             });
                         return deferred.promise;
+                    }],
+
+                    countries: ['placesService', '$stateParams', '$state', '$q', function (placesService, $stateParams, $state, $q) {
+                        var deferred = $q.defer();
+
+                        placesService.getCountries()
+                            .then(function (data) {
+                                deferred.resolve(data);
+                            });
+
+                        return deferred.promise;
                     }]
+                }
+            })
+            .state('place.edit', {
+                url: '/edit',
+                params: {
+                    isDynamicPlace: null
+                },
+                templateUrl: function (stateParams) {
+                    if (stateParams.isDynamicPlace) {
+                        return '../../app/Places/views/place-edit-dynamic.html'
+                    } else {
+                        return '../../app/Places/views/place-edit-static.html'
+                    }
                 }
             })
             .state('place.publications', {
