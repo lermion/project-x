@@ -14,6 +14,19 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
+			if(socket.room.length !== undefined){
+				for(var i = 0; i < socket.room.length; i++){
+					if(socket.room[i] === data.room_id){
+						var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+						socket.room = GLOBAL.rooms[indexRooms];
+						socket.join(GLOBAL.rooms[indexRooms]);
+						data.created_at = new Date();
+						data.updated_at = new Date();
+					}else{
+						socket.emit("switchRoom", data.room_id);
+					}
+				}
+			}
 			if(data.room_id === socket.room){
 				var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
 				socket.room = GLOBAL.rooms[indexRooms];

@@ -501,7 +501,9 @@ angular.module('placePeopleApp')
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
-					$scope.Model.Chat.push(data);
+					if($scope.Model.showChatBlock && $scope.Model.displayChatBlock && !$scope.Model.displayBlockedBlock){
+						$scope.Model.Chat.push(data);
+					}
 				}
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
