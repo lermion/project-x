@@ -92,6 +92,13 @@
                 fd.append('expired_days', place.expired_days);
             }
 
+            if (place.cover) {
+                fd.append('cover', place.cover);
+            }
+            if (place.logo) {
+                fd.append('avatar', place.logo);
+            }
+
             return $http({
                 method: 'POST',
                 url: 'place/create',
