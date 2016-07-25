@@ -10,7 +10,7 @@ Queries.prototype.createRoom = function(data){
 		var sql = "SELECT * FROM user_chats WHERE `room_id` in (SELECT `room_id` FROM `user_chats` INNER JOIN chat_rooms ON user_chats.room_id = chat_rooms.id AND chat_rooms.is_group = 0 WHERE `user_id`='" + data.members[0] + "') AND `user_id` = '" + data.members[1] + "' GROUP BY room_id";
 		connection.query(sql, function(error, results, fields){
 			if(error){
-				console.error("error select users from user_chats: " + error.stack);
+				console.log("error select users from user_chats: " + error.stack);
 				deferred.reject(error);
 				return;
 			}else{
@@ -21,7 +21,7 @@ Queries.prototype.createRoom = function(data){
 		var sql = "SELECT * FROM chat_rooms WHERE `id` = '" + data.room_id + "'";
 		connection.query(sql, function(error, results, fields){
 			if(error){
-				console.error("error select users from user_chats: " + error.stack);
+				console.log("error select users from user_chats: " + error.stack);
 				deferred.reject(error);
 				return;
 			}else{
@@ -36,7 +36,7 @@ Queries.prototype.getUsers = function(data){
 	var sql = 'SELECT `first_name` FROM `users` WHERE `id` IN (' + data.members[1] + ', ' + data.members[0] + ');';
 	connection.query(sql, function(error, results, fields){
 		if(error){
-			console.error("error select users: " + error.stack);
+			console.log("error select users: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -49,7 +49,7 @@ Queries.prototype.addUsersInChatRoom = function(setUsers){
 	var deferred = Q.defer();
 	connection.query('INSERT INTO chat_rooms SET ?', setUsers, function(error, result){
 		if(error){
-			console.error("error saved to chat rooms: " + error.stack);
+			console.log("error saved to chat rooms: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -71,7 +71,7 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 		};
 		connection.query('INSERT INTO user_chats SET ?', sqlReq, function(error, result){
 			if(error){
-				console.error("error to set userIdFrom in chat room: " + error.stack);
+				console.log("error to set userIdFrom in chat room: " + error.stack);
 				deferred.reject(error);
 				return;
 			}else{
@@ -81,17 +81,17 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 		});
 	}
 	return deferred.promise;
-}
+} 
 Queries.prototype.getUserRooms = function(data){
+	var deferred = Q.defer(); 
 	if(data.userIdFrom){
 		data.members = [];
 		data.members[0] = data.userIdFrom;
 	}
-	var deferred = Q.defer();
 	connection.query('SELECT chat_rooms.id, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
 		var response = [];
 		if(error){
-			console.error("error to get user rooms: " + error.stack);
+			console.log("error to get user rooms: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -99,18 +99,20 @@ Queries.prototype.getUserRooms = function(data){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
 						connection.query("SELECT COUNT(messages.id) FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id WHERE messages.is_new = 1 AND user_rooms_messages.room_id = '" + item.id + "'", function(error, messagesCount){
-							result = {
-								members: result,
-								room_id: item.id,
-								is_group: item.is_group,
-								name: item.name,
-								status: item.status,
-								avatar: item.avatar,
-								last_message: "last message",
-								messagesCount: messagesCount[0]['COUNT(messages.id)'],
-								show_notif: result[0].show_notif
-							};
-							resolve(result);
+							connection.query("SELECT u.room_id, u.message_id, messages.id, messages.text, messages.user_id FROM user_rooms_messages as u INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = '" + item.id + "')", function(error, lastMessages){
+								result = {
+									members: result,
+									room_id: item.id,
+									is_group: item.is_group,
+									name: item.name,
+									status: item.status,
+									avatar: item.avatar,
+									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
+									messagesCount: messagesCount[0]['COUNT(messages.id)'],
+									show_notif: result[0].show_notif
+								};
+								resolve(result);
+							});
 						});
 					});
 				});
@@ -133,7 +135,7 @@ Queries.prototype.getUserDialogue = function(data){
 	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
 		var response = [];
 		if(error){
-			console.error("error to get user dialogue: " + error.stack);
+			console.log("error to get user dialogue: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -172,12 +174,13 @@ Queries.prototype.getLastMessage = function(data){
 	var deferred = Q.defer();
 	connection.query("SELECT users.id, users.first_name, users.last_name, users.login, users.avatar_path, messages.id, messages.text, messages.created_at, messages.updated_at FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
 		if(error){
-			console.error("error to get last message: " + error.stack);
+			console.log("error to get last message: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
 			connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + result[0].id + "'", function(error, images){
 				result[0].images = images;
+				result[0].roomId = data.room_id;
 				deferred.resolve(result[0]);
 			});
 		}
@@ -194,7 +197,7 @@ Queries.prototype.saveFiles = function(data, messageId){
 		};
 		connection.query("INSERT INTO images SET ?", imagesObj, function(error, result){
 			if(error){
-				console.error("error to save files: " + error.stack);
+				console.log("error to save files: " + error.stack);
 				deferred.reject(error);
 				return;
 			}else{
@@ -207,7 +210,7 @@ Queries.prototype.saveFiles = function(data, messageId){
 				};
 				connection.query("INSERT INTO message_images SET ?", objForMessageImages, function(error, result){
 					if(error){
-						console.error("error to save files: " + error.stack);
+						console.log("error to save files: " + error.stack);
 						deferred.reject(error);
 						return;
 					}else{
@@ -229,7 +232,7 @@ Queries.prototype.sendMessage = function(data){
 	var deferred = Q.defer();
 	connection.query('INSERT INTO messages SET ?', message, function(error, result){
 		if(error){
-			console.error("error to send message in table messages: " + error.stack);
+			console.log("error to send message in table messages: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -242,7 +245,7 @@ Queries.prototype.sendMessage = function(data){
 			};
 			connection.query('INSERT INTO user_rooms_messages SET ?', userRoomsMessages, function(error, result){
 				if(error){
-					console.error("error to save message in table user_rooms_messages: " + error.stack);
+					console.log("error to save message in table user_rooms_messages: " + error.stack);
 					deferred.reject(error);
 					return;
 				}else{

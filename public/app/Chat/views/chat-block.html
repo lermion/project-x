@@ -204,7 +204,7 @@
 				<div class="chat-add-file-menu" ng-show="showFileAddMenu">
 					<!-- <a class="chat-add-file-publ" href="">Публикация</a> -->
 					<label class="chat-add-file-file" for="chat-add-file-file">Файл</label>
-					<input type="file" ngf-select ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
+					<input type="file" ngf-select="beforeChange($files)" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
 				</div>
 			</div>
 			<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
