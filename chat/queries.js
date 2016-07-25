@@ -83,11 +83,11 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 	return deferred.promise;
 }
 Queries.prototype.getUserRooms = function(data){
+	var deferred = Q.defer();
 	if(data.userIdFrom){
 		data.members = [];
 		data.members[0] = data.userIdFrom;
 	}
-	var deferred = Q.defer();
 	connection.query('SELECT chat_rooms.id, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
 		var response = [];
 		if(error){
@@ -180,6 +180,7 @@ Queries.prototype.getLastMessage = function(data){
 		}else{
 			connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + result[0].id + "'", function(error, images){
 				result[0].images = images;
+				result[0].roomId = data.room_id;
 				deferred.resolve(result[0]);
 			});
 		}
