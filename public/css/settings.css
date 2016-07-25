@@ -3567,6 +3567,10 @@ span.users-today-time-time.early {
     display: flex;
     align-items: center;
 }
+.create-places-add-cover-img a > img {
+    max-width: 100%;
+    height: auto;
+}
 
 .create-places-add-cover-img a {
     width: 80px;
@@ -5550,6 +5554,7 @@ input.cmn-toggle-round:checked + label:after {
     flex-wrap: wrap;
     box-sizing: border-box;
     margin-top: 20px;
+    width: 100%;
 }
 
 .places-page-one-category:last-child {
@@ -5654,6 +5659,8 @@ input.cmn-toggle-round:checked + label:after {
     padding: 8px;
     color: rgb(83, 83, 83);
     padding: 10px;
+    width: 100%;
+    word-break: break-all;
 }
 
 .places-item-rating {
@@ -6929,4 +6936,107 @@ input.cmn-toggle-round:checked + label:after {
         padding: 0 5px;
         line-height: 20px;
     }
+ }
+
+
+
+ /*POPUP SEND PUBLICATION*/
+ .ngdialog.share-publication.ngdialog-theme-default {
+    overflow: auto;
+}
+.ngdialog.share-publication.ngdialog-theme-default {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .3);
+    box-sizing: border-box;
+    z-index: 9999999;
+}
+.ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+    background: #fff;
+    width: 700px;
+    margin-left: -350px;
+    margin-top: 0;
+    transition: all .3s ease-in-out .1s;
+    padding: 0;
+    top: 15%;
+    height: auto;
+    color: #333;
+    padding: 0 !important;
+    margin-bottom: 20px;
+    max-height: 500px;
+}
+.share-publication-title {
+    width: 100%;
+    font-size: 14.6px;
+    font-weight: 400;
+    line-height: 45px;
+    height: 45px;
+    padding-left: 15px;
+    background: #f5f5f5;
+    margin: 0;
+    border-bottom: 1px solid #dcdee2;
+    font-family: "SFUIDisplayMedium";
+    box-sizing: border-box;
+}
+.share-publication-menu-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+.share-publication-menu-wrap-inner {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    align-items: stretch;
+    box-sizing: border-box;
+ }
+ .share-publication-menu-item {
+    text-decoration: none;
+    line-height: 40px;
+    font-size: 13.5px;
+    font-family: "SFUIDisplayLight";
+    text-align: center;
+    width: 25%;
+    box-sizing: border-box;
+    border-bottom: 2px solid transparent;
+    transition: all .3s ease-in-out .1s;
+    color: #777;
+ }
+ a.share-publication-menu-item.active {
+    border-bottom: 2px solid #495b79;
+ }
+ .share-publication-search-wrap {
+    position: relative;
+
+ }
+.share-publication-search-input  {
+    width: 100%;
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+ .share-publication-search-input input {
+    width: 98%;
+    border-radius: 3px;
+    padding: 5px 35px 5px 10px;
+    transition: all .4s ease-in-out .1s;
+    border: none;
+    box-sizing: border-box;
+    border: 1px solid rgb(224, 226, 229);
+    background-image: url(/images/search.png);
+ }
+ .share-publication-search-data {
+    width: 100%;
+ }
+ input.share-publication-checkbox {
+    display: inline-block;
+ }
+ .search-data-item-data {
+    display: inline-block;
  }

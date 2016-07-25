@@ -1,4 +1,4 @@
-<form name="vm.form.placeNew" novalidate ng-if="!vm.isPlaceAdded">
+<form name="vm.form.placeNew" novalidate ng-if="!vm.isPlaceAdded" ng-init="vm.placeNew.isDynamic = true;">
     <div class="create-places-common">
         <div class="create-places-header">
             <a class="create-places-header-a" ui-sref="places.add">Создать место</a>
@@ -9,25 +9,17 @@
                 <span class="place-type-name">Динамичное</span>
             </div>
             <div class="create-places-description">
-                Высшее учебное заведение, где готовятся специалисты по фундаментальным и многим прикладным
-                наукам. Как правило, осуществляет и научно-исследовательскую работу. Многие современные
-                университеты действуют как учебно-научно-практические комплексы. Университеты объединяют в
-                своём составе несколько факультетов, на которых представлена совокупность различных дисциплин,
-                составляющих основы научного знания.
+                {{vm.placeNew.type_place_id.description}}
             </div>
 
             <div class="create-places-select-country">
                 <div class="select-country-country">Категория динамического места</div>
                 <div class="select-country-name">
-                    <select ng-model="vm.placeNew.type_place_id" name="typePlaceId" required>
+                    <select ng-model="vm.placeNew.category"
+                            name="typePlaceId"
+                            ng-options="option.name for option in vm.typeDynamic"
+                            required>
                         <option value="">---</option>
-                        <option value="1">Магазин</option>
-                        <option value="2">Кафе/Ресторан</option>
-                        <option value="3">Развлечение</option>
-                        <option value="4">Организация</option>
-                        <option value="5">Университет</option>
-                        <option value="6">Школа</option>
-                        <option value="7">Адрес</option>
                     </select>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.typePlaceId.$error"
@@ -102,7 +94,8 @@
             <div class="create-places-select-country days">
                 <div class="select-country-country">Сколько дней актуально это место</div>
                 <div class="select-country-name">
-                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.days" required>
+                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.expired_days"
+                           required>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.date.$error"
                          ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
@@ -128,27 +121,45 @@
             </div>
 
             <div class="create-places-add-cover">
-                <div class="create-places-add-cover-img">
-                    <a href=""></a>
+                <div class="create-places-add-cover-img"
+                     name="cover"
+                     ngf-select
+                     ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'"
+                     ngf-min-heiht="280"
+                     ngf-min-width="1200"
+                     ngf-before-model-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeNew.cover"
+
+                >
+                    <a href="">
+                        <img ngf-thumbnail="vm.placeNew.cover" ngf-no-object-url="true">
+                    </a>
+
                     <span>Добавить обложку месту</span>
                 </div>
-                <!-- <div class="create-places-add-cover-ava">аватар</div> -->
-                <!-- <div class="create-places-add-cover-button-create">Создать место</div> -->
             </div>
             <div class="create-places-add-cover">
-                <div class="create-places-add-cover-img">
-                    <a href=""></a>
+                <div class="create-places-add-cover-img"
+                     name="logo"
+                     ngf-select
+                     ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'"
+                     ngf-before-model-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeNew.logo">
+                    <a href="">
+                        <img ngf-thumbnail="vm.placeNew.logo" ngf-no-object-url="true">
+                    </a>
                     <span>Добавить логотип месту</span>
                 </div>
-                <!-- <div class="create-places-add-cover-ava">аватар</div> -->
                 <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
             </div>
 
         </div>
-
+    </div>
 </form>
 
-<div class="create-places-common">
+<div class="create-places-common" ng-if="vm.isPlaceAdded">
     <div class="create-places-header">
         <a class="create-places-header-a" ui-sref="places.add">Место создано</a>
     </div>
@@ -161,13 +172,20 @@
             <span class="place-type-title">Название:</span>
             <span class="place-type-name">{{vm.placeNew.name}}</span>
         </div>
-        <div class="create-places-type-invite">
-            <a href="" class="create-places-type-btn-open" ng-click="cancelNewGroup()"> Открыть место </a>
-            <a href="" class="create-places-type-btn-invite" ng-click="addGroup()"> Пригласить</a>
+        <div class="modal__content" ng-if="(vm.subscribers.length + vm.subscription.length) === 0">
+            <p>Список контактов пуст</p>
         </div>
-        <div class="fifth_item">
+        <div class="modal__content" ng-if="!vm.inviteNotSend">
+            <p>Приглашение отправлено</p>
+        </div>
+        <div class="create-places-type-invite">
+            <a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open"
+               ng-click="cancelNewGroup()"> Открыть место </a>
+            <a href="" class="create-places-type-btn-invite" ng-click="vm.submitInviteUsers()"> Пригласить</a>
+        </div>
+        <div class="fifth_item" ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
             <div class="item1-container">
-                <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
+                <input type="text" ng-model="searchString" placeholder="Быстрый поиск...">
 
                 <p>Я подписан</p>
                 <ul class="item1">
@@ -177,6 +195,8 @@
 
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
                         <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <span class="group-add-item1-user-plus" ng-click="vm.onItemSelected(user)">
+                        <img src="/images/add.png" alt=""></span>
                     </li>
 
                 </ul>
@@ -188,6 +208,8 @@
 
                         <p>{{::user.first_name}} {{::user.last_name}}</p>
                         <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
+                        <span class="group-add-item1-user-plus" ng-click="vm.onItemSelected(user)">
+                        <img src="/images/add.png" alt=""></span>
                     </li>
                 </ul>
             </div>
@@ -201,7 +223,7 @@
                             <img ng-src="{{user.avatar}}">
 
                             <p>{{::user.firstName}} {{::user.lastName}}</p>
-                            <span class="add-people-delete" ng-click="removeUser(user)">&#10006;</span>
+                            <span class="add-people-delete" ng-click="vm.removeUser(user)">&#10006;</span>
                             <span class="add-people-admin" ng-if="user.isAdmin || showAdmin"
                                   ng-click="vm.setAdmin(user)">Администратор</span>
                         </li>

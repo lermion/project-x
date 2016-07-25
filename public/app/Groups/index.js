@@ -53,7 +53,10 @@
                                     ngDialog.open({
                                         template: '../app/Groups/views/popup-notfound-group.html',
                                         name: 'modal-notfound-group',
-                                        className: 'popup-delete-group ngdialog-theme-default'
+                                        className: 'popup-delete-group ngdialog-theme-default',
+                                        preCloseCallback: function () {
+                                            $state.go('groups');
+                                        }
                                     });
                                 }
                             });

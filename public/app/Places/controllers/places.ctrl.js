@@ -5,17 +5,39 @@
         .module('app.places')
         .controller('PlacesCtrl', PlacesCtrl);
 
-    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', 'AuthService', 'storageService',
-        'placesService', 'countries', 'places', 'ngDialog', 'PublicationService', 'UserService'];
+    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
+        '$anchorScroll', 'AuthService', 'storageService',
+        'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService',
+        'UserService', 'Upload'];
 
-    function PlacesCtrl($scope, $http, $window, $state, AuthService, storageService,
-                        placesService, countries, places, ngDialog, PublicationService, UserService) {
+    function PlacesCtrl($scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
+                        $anchorScroll, AuthService, storageService,
+                        placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService,
+                        UserService, Upload) {
+
+        var LIMIT_PLACE = 3;
 
         var vm = this;
 
         var storage = storageService.getStorage();
 
-        var modalMap, map;
+        var myId = storage.userId;
+
+        var modalMap, modalCropLogoImage, map;
+
+        vm.typeStatic = typeStatic;
+        vm.typeDynamic = typeDynamic;
+
+        var staticIds = typeStatic.map(function (type) {
+            return type.id
+        });
+        var dynamicIds = typeDynamic.map(function (type) {
+            return type.id
+        });
+
+        vm.activeTypePlaceId = null;
+
+        vm.places = places;
 
         vm.countries = countries;
 
@@ -24,18 +46,25 @@
         vm.placesDropdown = null;
 
         vm.placeNew = {
-            category: null,
+            category: {},
+
             country: 'default',
             city: {},
             address: null,
-            days: null,
+
+            name: '',
             description: null,
+
             cover: null,
             logo: null,
+
             isCreate: null,
+            isDynamic: false,
+
             coordinates_x: null,
             coordinates_y: null,
-            expired_date: null,
+
+            expired_days: null,
 
             // invited users
             users: []
@@ -47,6 +76,31 @@
         };
 
         vm.isPlaceAdded = false;
+
+        vm.inviteNotSend = true;
+
+        vm.selectedImage = null;
+        vm.myCroppedImage = null;
+        vm.blobImg = null;
+
+        vm.limitPlace = LIMIT_PLACE;
+
+        // TODO: refact!
+        vm.categories = [
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true},
+            {show: true}
+        ];
+        vm.showAllPlaces = false;
 
         activate();
 
@@ -134,8 +188,9 @@
             return vm.placesDropdown;
         }), function (newVal) {
             if (newVal === 'places.add') {
-                vm.placesDropdown = 'default';
                 $state.go('places.add');
+            } else if (newVal) {
+                vm.togglePlaceView(+newVal);
             }
         });
         $scope.$watch(angular.bind(vm, function () {
@@ -145,10 +200,16 @@
                 getCities(newVal);
             }
         });
-
-        vm.placeAdd = function () {
-
-        };
+        $scope.$watch(function () {
+            return $state.params;
+        }, function (p) {
+            if (p.activeTypePlaceId) {
+                vm.activePlace = vm.typeStatic.filter(function (item) {
+                    return p.activeTypePlaceId === item.id;
+                })[0];
+                vm.placeNew.category.id = p.activeTypePlaceId;
+            }
+        });
 
         vm.openModalMap = function () {
             modalMap = ngDialog.open({
@@ -166,12 +227,14 @@
                 return false;
             }
             placesService.addPlace(vm.placeNew)
-                .then(function(data) {
+                .then(function (data) {
                     if (data.status) {
                         console.log('Place added!');
                         getSubscribers();
                         getSubscription();
+                        vm.placeName = data.place.url_name;
                         vm.isPlaceAdded = true;
+                        vm.placeId = data.place.id;
                     }
                 });
         };
@@ -205,6 +268,92 @@
             user.isAdmin = !user.isAdmin;
         };
 
+        vm.submitInviteUsers = function () {
+            if (vm.placeNew.users.length === 0) {
+                return false;
+            }
+
+            placesService.inviteUsers(vm.placeId, vm.placeNew.users)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.inviteNotSend = false;
+                        var users = vm.placeNew.users.filter(function (item, i, arr) {
+                            return item.isAdmin === true;
+                        });
+                        if (users.length > 0) {
+                            setAdmins(users, vm.placeId);
+                        }
+                        $timeout(function () {
+                            $state.go('places');
+                            vm.isPlaceAdded = false;
+                        }, 2000);
+                    }
+                });
+        };
+
+        vm.removeUserFromInviteList = function (user) {
+            for (var i = vm.placeNew.users.length - 1; i >= 0; i--) {
+                if (vm.placeNew.users[i].userId == user.userId) {
+                    vm.placeNew.users.splice(i, 1);
+                }
+            }
+        };
+
+        vm.filterByDynamicType = function (item) {
+            return dynamicIds.indexOf(item.type_place_id) !== -1;
+        };
+
+
+        // Forms
+        // Dynamic Place
+        vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+            Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
+                console.log(resizedFile);
+                vm.placeNew.cover = resizedFile;
+            });
+        };
+        vm.changePlaceLogoFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+            openModalCropLogoImage(event);
+        };
+
+        vm.saveCropp = function (img, cropped) {
+
+            var blobFile = blobToFile(cropped);
+
+            blobFile.name = 'image';
+            blobFile.lastModifiedDate = new Date();
+
+            Upload.resize(blobFile, 100, 100, 1, null, null, true).then(function (resizedFile) {
+                console.log(resizedFile);
+                vm.placeNew.logo = resizedFile;
+            });
+
+            modalCropLogoImage.close();
+        };
+
+        vm.togglePlaceView = function (index) {
+
+            //TODO: refact!
+            if (index === undefined) {
+                vm.limitPlace = LIMIT_PLACE;
+                for (var i = 0; i < vm.categories.length; i++) {
+                    vm.categories[i].show = true;
+                }
+                vm.showAllPlaces = false;
+                vm.placesDropdown = null;
+            } else {
+                vm.showAllPlaces = true;
+                for (var j = 0; j < vm.categories.length; j++) {
+                    vm.categories[j].show = false;
+                }
+                vm.categories[index].show = true;
+                vm.limitPlace = 'Infinity';
+                $location.hash('wrapper');
+                $anchorScroll();
+            }
+
+        };
+
         function getCities(country) {
             placesService.getCities(country.id).then(
                 function (data) {
@@ -225,6 +374,56 @@
                 .then(function (data) {
                     vm.subscription = data;
                 });
+        }
+
+        function setAdmin(placeId, userId) {
+            return placesService.setAdmin(placeId, userId);
+        }
+
+        function setAdmins(users, placeId) {
+
+            //var defer = $q.defer();
+            //
+            //
+            //var prom = [];
+
+            angular.forEach(users, function (user) {
+                setAdmin(placeId, user.userId);
+            });
+
+            //$q.all(prom).then(function () {
+            //    modalNewGroup.close();
+            //});
+        }
+
+        function openModalCropLogoImage(e) {
+            var file = e.currentTarget.files[0];
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $scope.$apply(function ($scope) {
+                        vm.selectedLogoImage = e.target.result;
+                        modalCropLogoImage = ngDialog.open({
+                            template: '../app/Places/views/popup-crop-image.html',
+                            className: 'settings-add-ava ngdialog-theme-default',
+                            scope: $scope
+                        });
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function blobToFile(dataURI) {
+            var byteString = atob(dataURI.split(',')[1]);
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], {type: 'image/jpeg'});
         }
 
 

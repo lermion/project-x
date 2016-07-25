@@ -13,10 +13,17 @@
 
         return {
             getPlaces: getPlaces,
+            getPlace: getPlace,
             addPlace: addPlace,
+            getPublications: getPublications,
             getCounterNewPlaces: getCounterNewPlaces,
             getCountries: getCountries,
-            getCities: getCities
+            getCities: getCities,
+            inviteUsers: inviteUsers,
+            setAdmin: setAdmin,
+            getPlaceTypeStatic: getPlaceTypeStatic,
+            getPlaceTypeDynamic: getPlaceTypeDynamic,
+            subscribePlace: subscribePlace
         };
 
         ////////////
@@ -45,6 +52,27 @@
 
         }
 
+        function getPlace(placeName) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/show/' + placeName,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPlaceComplete)
+                .catch(getPlaceFailed);
+
+            function getPlaceComplete(response) {
+                return response.data;
+            }
+
+            function getPlaceFailed(error) {
+                console.error('XHR Failed for getPlace. ' + error.data);
+            }
+        }
+
         function addPlace(place) {
 
             var fd = new FormData();
@@ -55,10 +83,10 @@
             fd.append('address', place.address);
             fd.append('coordinates_x', place.coordinates_x);
             fd.append('coordinates_y', place.coordinates_y);
-            fd.append('type_place_id', place.type_place_id);
+            fd.append('type_place_id', place.category.id);
 
             if (place.isDynamic) {
-                fd.append('expired_date', place.expired_date);
+                fd.append('expired_days', place.expired_days);
             }
 
             return $http({
@@ -77,6 +105,27 @@
 
             function addPlaceFailed(error) {
                 console.error('XHR Failed for addPlace. ' + error.data);
+            }
+        }
+
+        function getPublications(placeId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/' + placeId + '/publication',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPublicationsComplete)
+                .catch(getPublicationsFailed);
+
+            function getPublicationsComplete(response) {
+                return response.data;
+            }
+
+            function getPublicationsFailed(error) {
+                console.error('XHR Failed for getPublications. ' + error.data);
             }
         }
 
@@ -147,6 +196,117 @@
             }
 
 
+        }
+
+        function inviteUsers(placeId, users) {
+            var fd = new FormData();
+
+            angular.forEach(users, function (user) {
+                fd.append('user_id[]', user.userId);
+            });
+
+
+            return $http({
+                method: 'POST',
+                url: 'place/invite/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(inviteUsersComplete)
+                .catch(inviteUsersFailed);
+
+            function inviteUsersComplete(response) {
+                return response.data;
+            }
+
+            function inviteUsersFailed(error) {
+                console.error('XHR Failed for inviteUser. ' + error.data);
+            }
+        }
+
+        function setAdmin(placeId, userId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/set_user_admin/' + placeId + '/' + userId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(setAdminComplete)
+                .catch(setAdminFailed);
+
+            function setAdminComplete(response) {
+                return response.data;
+            }
+
+            function setAdminFailed(error) {
+                console.error('XHR Failed for setAdmin. ' + error.data);
+            }
+        }
+
+        function getPlaceTypeStatic() {
+
+            return $http({
+                method: 'GET',
+                url: 'place/type/static',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPlaceTypeStaticComplete)
+                .catch(getPlaceTypeStaticFailed);
+
+            function getPlaceTypeStaticComplete(response) {
+                return response.data;
+            }
+
+            function getPlaceTypeStaticFailed(error) {
+                console.error('XHR Failed for getPlaceTypeStatic. ' + error.data);
+            }
+        }
+
+        function getPlaceTypeDynamic() {
+
+            return $http({
+                method: 'GET',
+                url: 'place/type/dynamic',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPlaceTypeDynamicComplete)
+                .catch(getPlaceTypeDynamicFailed);
+
+            function getPlaceTypeDynamicComplete(response) {
+                return response.data;
+            }
+
+            function getPlaceTypeDynamicFailed(error) {
+                console.error('XHR Failed for getPlaceTypeDynamic. ' + error.data);
+            }
+        }
+
+        function subscribePlace(placeId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/subscription/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(subscribePlaceComplete)
+                .catch(subscribePlaceFailed);
+
+            function subscribePlaceComplete(response) {
+                return response.data;
+            }
+
+            function subscribePlaceFailed(error) {
+                console.error('XHR Failed for subscribePlace. ' + error.data);
+            }
         }
 
 
