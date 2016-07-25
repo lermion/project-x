@@ -484,9 +484,11 @@ angular.module('placePeopleApp')
 				};
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data, function(){
-					files.length = 0;
+					if(files){
+						files.length = 0;
+					}
+					$scope.emojiMessage.rawhtml = "";
 				});
-				$scope.emojiMessage.rawhtml = "";
 			};
 
 			$scope.Model.scrollBottom = function(){
@@ -554,9 +556,7 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					if($scope.emojiMessage.messagetext !== ""){
-						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
-					}
+					$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
 				}
 			};
 			$scope.beforeChange = function(files){
