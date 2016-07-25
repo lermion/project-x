@@ -747,17 +747,32 @@ angular.module('placePeopleApp')
 
 		$scope.sharePub = function(pubId){
 			ngDialog.open({
-							template: '../app/User/views/share-publication.html',
-							className: 'share-publication ngdialog-theme-default',
-							scope: $scope
-						});
+				template: '../app/User/views/share-publication.html',
+				className: 'share-publication ngdialog-theme-default',
+				scope: $scope
+			});
+			loadUserContacts();
 		};
+		function loadUserContacts(){
+			PublicationService.getSubscribers($scope.loggedUserId).then(function(response){
+				$scope.subscribers = response;                        
+			},
+			function(error){
+				console.log(error);
+			});
+			PublicationService.getSubscription($scope.loggedUserId).then(function(response){
+				$scope.subscriptions = response;                        
+			},
+			function(error){
+				console.log(error);
+			});                
+		}
 		$scope.getPubLink = function(pubId){
 			ngDialog.open({
-							template: '../app/User/views/get-link-publication.html',
-							className: 'link-publication ngdialog-theme-default',
-							scope: $scope
-						});
+				template: '../app/User/views/get-link-publication.html',
+				className: 'link-publication ngdialog-theme-default',
+				scope: $scope
+			});
 		};
 		$scope.alertPub = function(pubId){
 			ngDialog.open({
