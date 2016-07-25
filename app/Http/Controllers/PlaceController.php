@@ -190,9 +190,14 @@ class PlaceController extends Controller
             $path = Image::getAvatarPath($avatar);
             $placeData['avatar'] = $path;
         }
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $path = Image::getAvatarPath($cover);
+            $placeData['cover'] = $path;
+        }
         $place = Place::find($id);
         $place->update($placeData);
-        return response()->json(["status" => true]);
+        return response()->json(["status" => true, "placeData" => $placeData]);
     }
 
     /**
