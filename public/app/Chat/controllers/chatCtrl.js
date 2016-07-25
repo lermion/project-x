@@ -546,9 +546,14 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					console.log("it will be added in the future");
+					if($scope.emojiMessage.messagetext !== ""){
+						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					}
 				}
 			};
+			$scope.beforeChange = function(files){
+				$scope.files = files;
+			}
 			$scope.$on('ngDialog.opened', function(e, $dialog){
 				if($dialog.name === "group-chat"){
 					window.emojiPicker = new EmojiPicker({
