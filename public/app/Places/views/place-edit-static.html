@@ -126,7 +126,7 @@
                     <span>Добавить логотип месту</span>
                 </div>
                 <a href class="modal__buttons-negative" ng-click="vm.abortUpdatePlace()">Отменить</a>
-                <div class="create-places-add-cover-button-create" ng-click="vm.updatePlace()">Сохранить</div>
+                <div class="create-places-add-cover-button-create" ladda="vm.subForm" ng-disabled="vm.subForm" data-style="slide-right" ng-click="vm.updatePlace()">Сохранить</div>
             </div>
 
         </div>

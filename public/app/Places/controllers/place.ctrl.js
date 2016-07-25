@@ -5,9 +5,9 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', '$state', 'place', 'countries', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
+    PlaceCtrl.$inject = ['$scope', '$state', '$timeout', 'place', 'countries', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
 
-    function PlaceCtrl($scope, $state, place, countries, storageService, placesService, ngDialog, $http, $window) {
+    function PlaceCtrl($scope, $state, $timeout, place, countries, storageService, placesService, ngDialog, $http, $window) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -31,6 +31,8 @@
         vm.firstName = firstName;
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
+
+        vm.subForm = false;
 
         vm.countries = countries;
 
@@ -67,9 +69,9 @@
         //vm.files = [];
         //
         activate();
-        //
+
         ///////////////////////////////////////////////////
-        //
+
         function activate() {
             init();
         }
@@ -147,7 +149,24 @@
 
         }
 
-        //
+
+        $scope.$watch(angular.bind(vm, function () {
+            return vm.placeEdited.country;
+        }), function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                getCities(newVal);
+                vm.placeEdited.address = null;
+            }
+        });
+        $scope.$watch(angular.bind(vm, function () {
+            return vm.placeEdited.city;
+        }), function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                vm.placeEdited.address = null;
+            }
+        });
+
+
         // set default tab (view) for place view
         $scope.$on("$stateChangeSuccess", function () {
             var state = $state.current.name;
@@ -287,6 +306,7 @@
         //};
         //
         vm.updatePlace = function () {
+            vm.subForm = true;
             if (!vm.placeEditedForm.logo.$dirty) {
                 vm.placeEdited.avatar = null;
             }
@@ -301,16 +321,23 @@
                     if (data.status) {
                         vm.place.name = data.placeData.name || vm.place.name;
                         vm.place.description = data.placeData.description || vm.place.description;
-                        vm.place.is_open = data.placeData.is_open == true;
+                        vm.place.cover = data.placeData.card_avatar || vm.place.cover;
                         vm.place.avatar = data.placeData.avatar || vm.place.avatar;
-                        vm.place.card_avatar = data.placeData.card_avatar || vm.place.card_avatar;
+
+                        vm.placeEdited = vm.place;
 
                         if (data.placeData.url_name) {
-                            changeGroupUrlName(data.placeData.url_name);
+                            place.url_name = data.placeData.url_name;
+                            changePlaceUrlName(data.placeData.url_name);
                         }
 
-                        $state.go('place', {'placeName': place.url_name});
+                        $state.go('place', {'placeName': data.placeData.url_name});
+                        $timeout(function () {
+                            vm.subForm = false;
+                        }, 0);
+
                     }
+
                 });
         };
 
@@ -322,6 +349,14 @@
         function resetFormPlaceEdit() {
             vm.placeEdited = originalPlaceEdited;
             vm.placeEditedForm.$setPristine();
+        }
+
+        function getCities(country) {
+            placesService.getCities(country.id).then(
+                function (data) {
+                    vm.placeEdited.cities = data;
+                }
+            );
         }
 
         //
@@ -518,6 +553,29 @@
 
                 }
             }
+        }
+
+        function changePlaceUrlName(str) {
+            var url = window.location.toString();
+            var pathArray = window.location.href.split('/');
+            var urlNamePos = pathArray.indexOf('place');
+            pathArray[urlNamePos + 1] = str;
+
+            var newPathname = '';
+            for (var i = 0; i < pathArray.length; i++) {
+                newPathname += pathArray[i];
+                newPathname += "/";
+            }
+            //window.location = newPathname.substring(0, newPathname.length - 1);
+        }
+
+        function getPlace() {
+            placesService.getPlace(place.url_name)
+                .then(function (data) {
+                    if (data) {
+                        vm.place = data;
+                    }
+                });
         }
 
         //
