@@ -30,4 +30,16 @@ class Image extends Model
 
         return $path . $fileName;
     }
+
+    public static function getCoverPath($cover)
+    {
+        $path = '/upload/covers/';
+        $fileName = str_random(8) . $cover->getClientOriginalName();
+        $fullPath = public_path() . $path;
+
+        // Cover
+        $cover->move($fullPath, $fileName);
+
+        return $path . $fileName;
+    }
 }
