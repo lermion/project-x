@@ -14,7 +14,7 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
-			if(socket.room.length !== undefined){
+			if(socket.room !== undefined && socket.room.length !== undefined){
 				for(var i = 0; i < socket.room.length; i++){
 					if(socket.room[i] === data.room_id){
 						var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
@@ -35,9 +35,8 @@ io.sockets.on('connection', function(socket){
 				data.updated_at = new Date();
 			}else{
 				socket.emit("switchRoom", data.room_id);
-			} 
+			}
 			if(response.length >= 1){
-				console.log("if");
 				queries.getUserDialogue(data).then(function(response){
 					socket.emit('updatechat', response);
 				},
@@ -45,7 +44,6 @@ io.sockets.on('connection', function(socket){
 					console.log(error);
 				});
 			}else{
-				console.log("else");
 				queries.getUsers(data).then(function(response){
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
