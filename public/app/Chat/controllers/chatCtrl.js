@@ -506,9 +506,9 @@ angular.module('placePeopleApp')
 					if($scope.Model.showChatBlock && $scope.Model.displayChatBlock && !$scope.Model.displayBlockedBlock){
 						$scope.Model.Chat.push(data);
 					}else{
-						$scope.getLastMessage = function(roomId){
-							if(roomId === data.roomId){
-								return data.text;
+						$scope.getLastMessage = function(chat){
+							if(chat.room_id === data.roomId){
+								return chat.last_message = data.text;
 							}
 						}
 					}
