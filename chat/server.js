@@ -41,7 +41,7 @@ io.sockets.on('connection', function(socket){
 						data.status = "";
 					}
 					if(data.avatarObj === undefined){
-						data.avatarObj = "";
+						data.avatar = "";
 					}else{
 						fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.avatarObj.avatarName, data.avatarObj.avatar, function(error){
 							if(error){
