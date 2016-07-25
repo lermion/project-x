@@ -483,7 +483,9 @@ angular.module('placePeopleApp')
 					imagesObj: imagesObj
 				}				
 				$scope.Model.chatMes = '';
-				socket.emit('send message', data);
+				socket.emit('send message', data, function(){
+					files.length = 0;
+				});
 				$scope.emojiMessage.rawhtml = "";
 			};
 
@@ -593,16 +595,22 @@ angular.module('placePeopleApp')
 				users.push(parseInt($scope.loggedUserId));				
 				$scope.Model.newGroupChat.users.forEach(function(user){
 					users.push(user.id);
-				});				
+				});
+				var avatarObj = {
+					avatarName: avatar.name,
+					avatarType: avatar.type,
+					avatar: avatar
+				};
+				
 				var data = {
 					is_group: true,
 					name: name,
 					status: statusToSave,
-					avatar: avatar,
+					avatarObj: avatarObj,
 					members: users,
 					offset: 0,
 					limit: 10
-				};				
+				};
 				socket.emit('create room', data);
 				newGroupChatPopup.close();
 				$scope.Model.displayChatBlock = false;

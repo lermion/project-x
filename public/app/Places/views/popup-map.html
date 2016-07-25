@@ -1,10 +1,20 @@
 <form name="forms.newGroup" novalidate>
-    <div class="new_group"> Новая группа</div>
+    <div class="new_group">Местоположение</div>
     <div class="add_newgroup">
-        <yandex-map></yandex-map>
+        <ya-map ya-zoom="10"
+                ya-center="{{ vm.center }}"
+                ya-before-init="vm.beforeInit()"
+                ya-options="{balloonMaxWidth: 200}"
+                ya-after-init="vm.afterInit($target)"
+                ya-event-click="vm.mapClick($event)">
+
+            <ya-geo-object ya-source="vm.geoObject"
+                           ya-options="{preset:'islands#redStretchyIcon',balloonMaxWidth:250}"
+            "></ya-geo-object>
+        </ya-map>
         <div class="button">
-            <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
-            <a href="" class="create" ng-click="addGroup()"> Создать группу</a>
+            <a href="" class="cansel" ng-click="cancelNewGroup()">Отменить</a>
+            <a href="" class="create" ng-click="closeThisDialog()">Выбрать</a>
         </div>
     </div>
 </form>

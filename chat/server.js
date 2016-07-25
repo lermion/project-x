@@ -40,8 +40,19 @@ io.sockets.on('connection', function(socket){
 					if(data.status === undefined){
 						data.status = "";
 					}
-					if(data.avatar === undefined){
+					if(data.avatarObj === undefined){
 						data.avatar = "";
+					}else{
+						fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.avatarObj.avatarName, data.avatarObj.avatar, function(error){
+							if(error){
+								console.log(error);
+								return;
+							}else{
+								console.log('group avatar saved in folder upload');
+							}
+						});
+						data.avatar = "/upload/" + data.avatarObj.avatarName;
+						console.log("data.avatar", data.avatar);
 					}
 					var setUsers  = {
 						name: data.name,
@@ -108,7 +119,7 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	socket.on('send message', function(data){
+	socket.on('send message', function(data, callback){
 		if(data.imagesObj !== undefined){
 			var imagesPath = [];
 			for(var i = 0; i < data.imagesObj.images.length; i++){
@@ -118,16 +129,11 @@ io.sockets.on('connection', function(socket){
 						console.log(error);
 						return;
 					}else{
+						callback();
 						console.log('Files saved in folder upload');
 					}
 				});
 			}
-			queries.saveFiles(imagesPath).then(function(response){
-				//console.log("response", response);
-			},
-			function(error){
-				console.log(error);
-			});
 		}
 		if(data.room_id === socket.room){
 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
@@ -139,12 +145,26 @@ io.sockets.on('connection', function(socket){
 			socket.emit("switchRoom", data.room_id);
 		}
 		queries.sendMessage(data).then(function(response){
-			queries.getLastMessage(data).then(function(response){
-				io.sockets.in(socket.room).emit('updatechat', response);
-			},
-			function(error){
-				console.log(error);
-			});
+			if(imagesPath !== undefined){
+				queries.saveFiles(imagesPath, response.insertId).then(function(response){
+					queries.getLastMessage(data).then(function(response){
+						io.sockets.in(socket.room).emit('updatechat', response);
+					},
+					function(error){
+						console.log(error);
+					});
+				},
+				function(error){
+					console.log(error);
+				});
+			}else{
+				queries.getLastMessage(data).then(function(response){
+					io.sockets.in(socket.room).emit('updatechat', response);
+				},
+				function(error){
+					console.log(error);
+				});
+			}
 		},
 		function(error){
 			console.log(error);

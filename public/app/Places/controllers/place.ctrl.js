@@ -5,20 +5,21 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', 'storageService', '$http', '$window'];
+    PlaceCtrl.$inject = ['$scope', '$state', 'place', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
 
-    function PlaceCtrl($scope, storageService, $http, $window) {
+    function PlaceCtrl($scope, $state, place, storageService, placesService, ngDialog, $http, $window) {
 
         var vm = this;
-        //var storage = storageService.getStorage();
-        //
-        //var myId = +storage.userId;
-        //var myAvatar = storage.loggedUserAva;
-        //var firstName = storage.firstName;
-        //var lastName = storage.lastName;
-        //
-        //var modalEditGroup, modalDeleteGroup, modalInviteUsers,
-        //    modalSetCreator, modalNewPublication, modalReviewPublication;
+        var storage = storageService.getStorage();
+
+        var myId = +storage.userId;
+        var myAvatar = storage.loggedUserAva;
+        var firstName = storage.firstName;
+        var lastName = storage.lastName;
+
+        var modalEditPlace, modalDeletePlace, modalInviteUsers,
+            modalSetCreator, modalNewPublication, modalReviewPublication;
+
         //var groupName = $stateParams.groupName;
         //
         //var newPublicationObj = {
@@ -27,13 +28,13 @@
         //};
         //
         //
-        //vm.firstName = firstName;
-        //vm.lastName = lastName;
-        //vm.myAvatar = myAvatar;
-        //
-        //
-        //vm.group = group;
-        //vm.groupEdited = {};
+        vm.firstName = firstName;
+        vm.lastName = lastName;
+        vm.myAvatar = myAvatar;
+
+
+        vm.place = place;
+        vm.placeEdited = {};
         //vm.newPublication = angular.copy(newPublicationObj);
         //
         //vm.forms = {
@@ -142,74 +143,99 @@
         
         }
         //
-        //// set default tab (view) for group view
-        //$scope.$on("$stateChangeSuccess", function () {
-        //    var state = $state.current.name;
-        //    if (state === 'group') {
-        //        $state.go('group.publications');
-        //    }
-        //});
+        // set default tab (view) for place view
+        $scope.$on("$stateChangeSuccess", function () {
+            var state = $state.current.name;
+            if (state === 'place') {
+                $state.go('place.publications');
+            }
+        });
+
+        vm.subscribe = function () {
+            if (place.is_creator) {
+                openModalSetCreator();
+            } else {
+                placesService.subscribePlace(vm.place.id)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.place.is_sub = data.is_sub;
+                            if (data.is_sub) {
+                                vm.place.users.push({
+                                    avatar_path: myAvatar,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    id: myId
+                                });
+                                vm.place.count_users += 1;
+                            } else {
+                                removeUser({userId: myId});
+                                vm.place.count_users -= 1;
+                            }
+
+                        }
+                    });
+            }
+
+        };
         //$scope.$on('ngDialog.opened', function (e, $dialog) {
-        //    var string = $filter('colonToSmiley')(vm.groupEdited.description);
+        //    var string = $filter('colonToSmiley')(vm.placeEdited.description);
         //    if ($dialog.name === "modal-edit-group") {
         //        $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = string;
         //    }
         //});
         //
         //
-        //// Modal windows
-        //vm.openModalEditGroup = function () {
-        //    vm.groupEdited = angular.copy(vm.group);
-        //    vm.groupEdited.is_open = !!vm.groupEdited.is_open;
-        //    vm.emoji.emojiMessage.messagetext = vm.groupEdited.description;
-        //    modalEditGroup = ngDialog.open({
-        //        template: '../app/Groups/views/popup-edit-group.html',
-        //        name: 'modal-edit-group',
-        //        className: 'popup-add-group popup-edit-group ngdialog-theme-default',
-        //        scope: $scope
-        //    });
-        //};
-        //
-        //vm.openModalDeleteGroup = function () {
-        //    modalDeleteGroup = ngDialog.open({
-        //        template: '../app/Groups/views/popup-delete-group.html',
-        //        name: 'modal-delete-group',
-        //        className: 'popup-delete-group ngdialog-theme-default',
-        //        scope: $scope
-        //    });
-        //};
-        //
-        //vm.openModalInviteUsers = function () {
-        //    getSubscribers().then(function () {
-        //        modalInviteUsers = ngDialog.open({
-        //            template: '../app/Groups/views/popup-invite-group.html',
-        //            name: 'modal-invite-group',
-        //            className: 'popup-invite-group ngdialog-theme-default',
-        //            scope: $scope
-        //        });
-        //    });
-        //};
-        //
-        //vm.openModalNewPublication = function () {
-        //    modalNewPublication = ngDialog.open({
-        //        template: '../app/Groups/views/popup-add-publication.html',
-        //        name: 'modal-publication-group',
-        //        className: 'user-publication ngdialog-theme-default',
-        //        scope: $scope,
-        //        preCloseCallback: resetFormNewPublication
-        //    });
-        //};
-        //
-        //vm.openModalReviewPublication = function (id) {
-        //    getPublication(id).then(function () {
-        //        modalReviewPublication = ngDialog.open({
-        //            template: '../app/Groups/views/popup-view-group-publication.html',
-        //            name: 'modal-publication-group',
-        //            className: 'view-publication ngdialog-theme-default',
-        //            scope: $scope
-        //        });
-        //    });
-        //};
+        // Modal windows
+        vm.openModalEditPlace = function () {
+            vm.placeEdited = angular.copy(vm.place);
+            modalEditPlace = ngDialog.open({
+                template: '../app/Places/views/popup-edit-place.html',
+                name: 'modal-edit-group',
+                className: 'popup-add-group popup-edit-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.openModalDeletePlace = function () {
+            modalDeletePlace = ngDialog.open({
+                template: '../app/Places/views/popup-delete-place.html',
+                name: 'modal-delete-group',
+                className: 'popup-delete-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.openModalInviteUsers = function () {
+            getSubscribers().then(function () {
+                modalInviteUsers = ngDialog.open({
+                    template: '../app/Groups/views/popup-invite-group.html',
+                    name: 'modal-invite-group',
+                    className: 'popup-invite-group ngdialog-theme-default',
+                    scope: $scope
+                });
+            });
+        };
+
+        vm.openModalNewPublication = function () {
+            modalNewPublication = ngDialog.open({
+                template: '../app/Groups/views/popup-add-publication.html',
+                name: 'modal-publication-group',
+                className: 'user-publication ngdialog-theme-default',
+                scope: $scope,
+                preCloseCallback: resetFormNewPublication
+            });
+        };
+
+        vm.openModalReviewPublication = function (id) {
+            getPublication(id).then(function () {
+                modalReviewPublication = ngDialog.open({
+                    template: '../app/Groups/views/popup-view-group-publication.html',
+                    name: 'modal-publication-group',
+                    className: 'view-publication ngdialog-theme-default',
+                    scope: $scope
+                });
+            });
+        };
         //
         //
         //// Submit forms
@@ -244,27 +270,27 @@
         //        .then(function (data) {
         //            if (data.status) {
         //                $state.go('groups');
-        //                modalDeleteGroup.close();
+        //                modalDeletePlace.close();
         //            }
         //        });
         //};
         //
         //vm.updateGroup = function () {
-        //    if (groupName === vm.groupEdited.name) {
-        //        vm.groupEdited.name = null;
+        //    if (groupName === vm.placeEdited.name) {
+        //        vm.placeEdited.name = null;
         //    }
         //    if (!vm.forms.editGroup.avatar.$dirty) {
-        //        vm.groupEdited.avatar = null;
+        //        vm.placeEdited.avatar = null;
         //    }
-        //    vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
-        //    groupsService.updateGroup(vm.groupEdited)
+        //    vm.placeEdited.description = vm.emoji.emojiMessage.messagetext;
+        //    groupsService.updateGroup(vm.placeEdited)
         //        .then(function (data) {
         //
         //        });
         //};
         //
         //vm.abortDeleteGroup = function () {
-        //    modalDeleteGroup.close();
+        //    modalDeletePlace.close();
         //};
         //
         //vm.subscribe = function () {
@@ -383,7 +409,7 @@
         //vm.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
         //    Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
         //        console.log(resizedFile);
-        //        vm.groupEdited.avatar = resizedFile;
+        //        vm.placeEdited.avatar = resizedFile;
         //    });
         //};
         //
@@ -419,44 +445,43 @@
         //        });
         //}
         //
-        //// Reset Forms
-        //function resetFormInviteUsers() {
-        //    vm.invitedUsers = [];
-        //    vm.subscribers = [];
-        //    vm.inviteNotSend = true;
-        //}
+        // Reset Forms
+        function resetFormInviteUsers() {
+            vm.invitedUsers = [];
+            vm.subscribers = [];
+            vm.inviteNotSend = true;
+        }
+
+        function resetFormSetCreator() {
+            vm.adminsList = [];
+            vm.creator.id = null;
+        }
+
+        function resetFormNewPublication() {
+            vm.newPublication = angular.copy(newPublicationObj);
+            vm.files = [];
+        }
         //
-        //function resetFormSetCreator() {
-        //    vm.adminsList = [];
-        //    vm.creator.id = null;
-        //}
         //
-        //function resetFormNewPublication() {
-        //    vm.newPublication = angular.copy(newPublicationObj);
-        //    vm.emoji.emojiMessage.messagetext = '';
-        //    vm.files = [];
-        //}
-        //
-        //
-        //function removeUser(user) {
-        //    var arr = [];
-        //    var indexToRemove;
-        //    for (var i = vm.group.users.length - 1; i >= 0; i--) {
-        //        if (vm.group.users[i].id == user.userId) {
-        //            if (user.isAdmin && vm.group.is_creator || !user.isAdmin && vm.group.is_admin || user.userId === myId) {
-        //                arr.push(user.userId);
-        //                indexToRemove = i;
-        //                groupsService.removeUsers(vm.group.id, arr)
-        //                    .then(function (data) {
-        //                        if (data.status) {
-        //                            vm.group.users.splice(indexToRemove, 1);
-        //                        }
-        //                    });
-        //            }
-        //
-        //        }
-        //    }
-        //}
+        function removeUser(user) {
+            var arr = [];
+            var indexToRemove;
+            for (var i = vm.place.users.length - 1; i >= 0; i--) {
+                if (vm.place.users[i].id == user.userId) {
+                    if (user.isAdmin && vm.place.is_creator || !user.isAdmin && vm.place.is_admin || user.userId === myId) {
+                        arr.push(user.userId);
+                        indexToRemove = i;
+                        groupsService.removeUsers(vm.place.id, arr)
+                            .then(function (data) {
+                                if (data.status) {
+                                    vm.place.users.splice(indexToRemove, 1);
+                                }
+                            });
+                    }
+
+                }
+            }
+        }
         //
         //function openModalSetCreator() {
         //    vm.adminsList = getAdminsList();

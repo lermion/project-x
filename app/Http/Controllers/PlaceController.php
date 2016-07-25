@@ -8,6 +8,7 @@ use App\TypePlace;
 use App\PlaceUser;
 use App\PlaceInvite;
 use App\Image;
+use App\City;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,9 +28,11 @@ class PlaceController extends Controller
             if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
                 $place->is_admin = true;
             } else {$place->is_admin = false;}
-            if(NewUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
-                $place->is_new_group = true;
-            } else {$place->is_new_group = false;}
+            if(NewPlace::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
+                $place->is_new_place = true;
+            } else {$place->is_new_place = false;}
+            $place->city_name = City::where(['id' => $place->city_id])->pluck('name');
+
         }
         return $places;
     }
@@ -69,7 +72,7 @@ class PlaceController extends Controller
         if (TypePlace::where('id', $placeData['type_place_id'])->value('is_dynamic')) {
             try {
                 $this->validate($request, [
-                    'expired_date' => 'required'
+                    'expired_days' => 'required'
                 ]);
             } catch (\Exception $ex) {
                 $result = [
@@ -422,22 +425,22 @@ class PlaceController extends Controller
     function transliterate($input)
     {
         $translite = array(
-            "ª" => "ye", "²" => "i", "" => "g", "³" => "i", "¹" => "-", "º" => "ye", "ƒ" => "g",
-            "À" => "a", "Á" => "b", "Â" => "v", "Ã" => "g", "Ä" => "d",
-            "Å" => "e", "¨" => "yo", "Æ" => "zh",
-            "Ç" => "z", "È" => "i", "É" => "j", "Ê" => "k", "Ë" => "l",
-            "Ì" => "m", "Í" => "n", "Î" => "o", "Ï" => "p", "Ð" => "r",
-            "Ñ" => "s", "Ò" => "t", "Ó" => "u", "Ô" => "f", "Õ" => "x",
-            "Ö" => "c", "×" => "ch", "Ø" => "sh", "Ù" => "shh", "Ú" => "'",
-            "Û" => "y", "Ü" => "", "Ý" => "e", "Þ" => "yu", "ß" => "ya",
-            "à" => "a", "á" => "b", "â" => "v", "ã" => "g", "ä" => "d",
-            "å" => "e", "¸" => "yo", "æ" => "zh",
-            "ç" => "z", "è" => "i", "é" => "j", "ê" => "k", "ë" => "l",
-            "ì" => "m", "í" => "n", "î" => "o", "ï" => "p", "ð" => "r",
-            "ñ" => "s", "ò" => "t", "ó" => "u", "ô" => "f", "õ" => "x",
-            "ö" => "c", "÷" => "ch", "ø" => "sh", "ù" => "shh", "ú" => "",
-            "û" => "y", "ü" => "", "ý" => "e", "þ" => "yu", "ÿ" => "ya",
-            " " => "_", "—" => "_", "," => "_", "!" => "_", "@" => "_",
+            "ï¿½" => "ye", "ï¿½" => "i", "ï¿½" => "g", "ï¿½" => "i", "ï¿½" => "-", "ï¿½" => "ye", "ï¿½" => "g",
+            "ï¿½" => "a", "ï¿½" => "b", "ï¿½" => "v", "ï¿½" => "g", "ï¿½" => "d",
+            "ï¿½" => "e", "ï¿½" => "yo", "ï¿½" => "zh",
+            "ï¿½" => "z", "ï¿½" => "i", "ï¿½" => "j", "ï¿½" => "k", "ï¿½" => "l",
+            "ï¿½" => "m", "ï¿½" => "n", "ï¿½" => "o", "ï¿½" => "p", "ï¿½" => "r",
+            "ï¿½" => "s", "ï¿½" => "t", "ï¿½" => "u", "ï¿½" => "f", "ï¿½" => "x",
+            "ï¿½" => "c", "ï¿½" => "ch", "ï¿½" => "sh", "ï¿½" => "shh", "ï¿½" => "'",
+            "ï¿½" => "y", "ï¿½" => "", "ï¿½" => "e", "ï¿½" => "yu", "ï¿½" => "ya",
+            "ï¿½" => "a", "ï¿½" => "b", "ï¿½" => "v", "ï¿½" => "g", "ï¿½" => "d",
+            "ï¿½" => "e", "ï¿½" => "yo", "ï¿½" => "zh",
+            "ï¿½" => "z", "ï¿½" => "i", "ï¿½" => "j", "ï¿½" => "k", "ï¿½" => "l",
+            "ï¿½" => "m", "ï¿½" => "n", "ï¿½" => "o", "ï¿½" => "p", "ï¿½" => "r",
+            "ï¿½" => "s", "ï¿½" => "t", "ï¿½" => "u", "ï¿½" => "f", "ï¿½" => "x",
+            "ï¿½" => "c", "ï¿½" => "ch", "ï¿½" => "sh", "ï¿½" => "shh", "ï¿½" => "",
+            "ï¿½" => "y", "ï¿½" => "", "ï¿½" => "e", "ï¿½" => "yu", "ï¿½" => "ya",
+            " " => "_", "ï¿½" => "_", "," => "_", "!" => "_", "@" => "_",
             "#" => "-", "$" => "", "%" => "", "^" => "", "&" => "", "*" => "",
             "(" => "", ")" => "", "+" => "", "=" => "", ";" => "", ":" => "",
             "'" => "", "\"" => "", "~" => "", "`" => "", "?" => "", "/" => "",
