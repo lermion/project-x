@@ -483,7 +483,9 @@ angular.module('placePeopleApp')
 					imagesObj: imagesObj
 				}				
 				$scope.Model.chatMes = '';
-				socket.emit('send message', data);
+				socket.emit('send message', data, function(){
+					files.length = 0;
+				});
 				$scope.emojiMessage.rawhtml = "";
 			};
 

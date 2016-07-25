@@ -119,7 +119,7 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	socket.on('send message', function(data){
+	socket.on('send message', function(data, callback){
 		if(data.imagesObj !== undefined){
 			var imagesPath = [];
 			for(var i = 0; i < data.imagesObj.images.length; i++){
@@ -129,6 +129,7 @@ io.sockets.on('connection', function(socket){
 						console.log(error);
 						return;
 					}else{
+						callback();
 						console.log('Files saved in folder upload');
 					}
 				});
