@@ -7048,7 +7048,7 @@ input.cmn-toggle-round:checked + label:after {
     padding: 5px;
         position: absolute;
     top: 40px;
-    bottom: 0px;
+    bottom: 30px;
     overflow-y: auto;
     align-content: flex-start;
  }
@@ -7084,5 +7084,46 @@ input.cmn-toggle-round:checked + label:after {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+ }
 
+.share-publication-send-btn {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    align-items: center;
+}
+.share-publication-send-btn-cancel {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s;
+    color: #495b79;
+    margin-right: 5px;
+ }
+ .share-publication-send-btn-send {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s !important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+    margin-right: 20px;
+ }
+
+@media (max-width: 740px) {
+    .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+        width: 500px;
+        margin-left: -250px;
+    }
  }
