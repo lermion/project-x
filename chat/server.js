@@ -52,7 +52,6 @@ io.sockets.on('connection', function(socket){
 							}
 						});
 						data.avatar = "/upload/" + data.avatarObj.avatarName;
-						console.log("data.avatar", data.avatar);
 					}
 					var setUsers  = {
 						name: data.name,
@@ -145,7 +144,7 @@ io.sockets.on('connection', function(socket){
 			socket.emit("switchRoom", data.room_id);
 		}
 		queries.sendMessage(data).then(function(response){
-			if(imagesPath !== undefined){
+			if(imagesPath !== undefined && imagesPath.length >= 1){
 				queries.saveFiles(imagesPath, response.insertId).then(function(response){
 					queries.getLastMessage(data).then(function(response){
 						io.sockets.in(socket.room).emit('updatechat', response);
