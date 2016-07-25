@@ -7127,6 +7127,16 @@ input.cmn-toggle-round:checked + label:after {
     background-color: #fff;
     color: #495b79;
 }
+.share-publication-search-sign {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 10px;
+    color: #495b79;
+    border-bottom: 1px solid #e0e2e5;
+}
+
 @media (max-width: 740px) {
     .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
         width: 500px;
@@ -7136,7 +7146,8 @@ input.cmn-toggle-round:checked + label:after {
         font-size: .8em;
     }
     .share-publication-send-btn-cancel,
-    .share-publication-send-btn-send {
+    .share-publication-send-btn-send,
+    .share-publication-search-sign {
         font-size: .8em;
     }
  }

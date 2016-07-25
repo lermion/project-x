@@ -23,7 +23,10 @@
             setAdmin: setAdmin,
             getPlaceTypeStatic: getPlaceTypeStatic,
             getPlaceTypeDynamic: getPlaceTypeDynamic,
-            subscribePlace: subscribePlace
+            subscribePlace: subscribePlace,
+            updatePlace: updatePlace,
+            deletePlace: deletePlace
+
         };
 
         ////////////
@@ -306,6 +309,68 @@
 
             function subscribePlaceFailed(error) {
                 console.error('XHR Failed for subscribePlace. ' + error.data);
+            }
+        }
+
+        function updatePlace(place) {
+            var fd = new FormData();
+
+            fd.append('description', place.description);
+            fd.append('address', place.address);
+            fd.append('city_id', place.city_id);
+            fd.append('coordinates_x', place.coordinates_x);
+            fd.append('coordinates_y', place.coordinates_y);
+            fd.append('type_place_id', place.type_place_id);
+
+            if (place.name) {
+                fd.append('name', place.name);
+            }
+
+            if (place.cover) {
+                fd.append('cover', place.cover);
+            }
+            if (place.avatar) {
+                fd.append('avatar', place.avatar);
+            }
+
+
+            return $http({
+                method: 'POST',
+                url: 'place/update/' + place.id,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(updatePlaceComplete)
+                .catch(updatePlaceFailed);
+
+            function updatePlaceComplete(response) {
+                return response.data;
+            }
+
+            function updatePlaceFailed(error) {
+                console.error('XHR Failed for updatePlace. ' + error.data);
+            }
+        }
+
+        function deletePlace(placeId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/destroy/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(deletePlaceComplete)
+                .catch(deletePlaceFailed);
+
+            function deletePlaceComplete(response) {
+                return response.data;
+            }
+
+            function deletePlaceFailed(error) {
+                console.error('XHR Failed for deletePlace. ' + error.data);
             }
         }
 
