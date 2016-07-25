@@ -49,15 +49,62 @@ class MailController extends Controller
 
     public function index()
     {
-        $mails = UserMail::all();
-//        foreach($mails as &$mail){
-//           if (UserMail::where('user_id', 'null')->first()) {
-//               $mail->user_reg = false;
-//           } else {
-//               $mail->user_reg = true;
-//           }
-//        }
+        $mails = UserMail::where('status','New')->get();
+        foreach($mails as &$mail){
+           if (UserMail::where('user_id', 'null')->first()) {
+               $mail->user_reg = false;
+           } else {
+               $mail->user_reg = true;
+           }
+        }
         return $mails;
     }
+
+    public function change_status_closed($id)
+    {
+        $mail = UserMail::find($id);
+
+            if ($mail->status != 'Closed' ) {
+                $mail->status = 'Closed';
+                $mail->save();
+                return response()->json(['status' => true]);
+            } else {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => "The user has this status",
+                        'code' => '7'
+                    ]
+                ];
+                return response()->json($result);
+            }
+    }
+
+    public function change_status_review($id)
+    {
+        $mail = UserMail::find($id);
+
+        if ($mail->status != 'Review' ) {
+            $mail->status = 'Review';
+            $mail->save();
+            return response()->json(['status' => true]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "The user has this status",
+                    'code' => '7'
+                ]
+            ];
+            return response()->json($result);
+        }
+    }
+
+    public function destroy($id)
+    {
+        UserMail::find($id)->delete();
+        return redirect()->action('MailController@index');
+    }
+
 }
 

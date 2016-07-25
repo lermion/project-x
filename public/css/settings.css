@@ -6967,7 +6967,10 @@ input.cmn-toggle-round:checked + label:after {
     color: #333;
     padding: 0 !important;
     margin-bottom: 20px;
-    max-height: 500px;
+    height: calc(75vh - 45px);
+    /*height: 72vh;*/
+    position: relative;
+    top: 100px;
 }
 .share-publication-title {
     width: 100%;
@@ -7013,13 +7016,16 @@ input.cmn-toggle-round:checked + label:after {
  }
  .share-publication-search-wrap {
     position: relative;
+    /*height: 78%;*/
+    height: calc(100% - 90px);
 
  }
 .share-publication-search-input  {
     width: 100%;
     text-align: center;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    position: absolute;
+    top: 0px;
+    height: 40px;
 }
  .share-publication-search-input input {
     width: 98%;
@@ -7030,13 +7036,147 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     border: 1px solid rgb(224, 226, 229);
     background-image: url(/images/search.png);
+    line-height: 20px;
+    margin-top: 4px;
  }
  .share-publication-search-data {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 5px;
+        position: absolute;
+    top: 40px;
+    bottom: 30px;
+    overflow-y: auto;
+    align-content: flex-start;
+ }
+ .share-publication-search-data-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid rgb(224, 226, 229);
  }
  input.share-publication-checkbox {
     display: inline-block;
  }
- .search-data-item-data {
-    display: inline-block;
+ .share-publication-search-data-info {
+    display: flex;
+    width: 95%;
+    align-items: center;
+ }
+ .share-publication-search-data-ava a {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    margin: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+ }
+ .share-publication-search-data-ava a img {
+    width: 100%;
+    height: 100%;
+ }
+ .share-publication-search-data-name {
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+
+.share-publication-send-btn {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    align-items: center;
+}
+.share-publication-send-btn-cancel {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s;
+    color: #495b79;
+    margin-right: 5px;
+    cursor: pointer;
+ }
+ .share-publication-send-btn-cancel:hover {
+    color: #999;
+ }
+ .share-publication-send-btn-send {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s !important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+    margin-right: 20px;
+ }
+.share-publication-send-btn-send:hover {
+    background-color: #fff;
+    color: #495b79;
+}
+.share-publication-search-sign {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 10px;
+    color: #495b79;
+    border-bottom: 1px solid #e0e2e5;
+}
+
+@media (max-width: 740px) {
+    .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+        width: 500px;
+        margin-left: -250px;
+    }
+    .share-publication-search-data-name {
+        font-size: .8em;
+    }
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send,
+    .share-publication-search-sign {
+        font-size: .8em;
+    }
+ }
+@media (max-width: 520px) {
+    .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+        width: 95%;
+        margin-left: -47.5%;
+    }
+    .share-publication-title {
+        font-size: .8em;
+    }
+    .share-publication-search-data-name,
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        font-size: .8em;
+    }
+    .share-publication-menu-item {
+        font-size: .5em;
+    }
+    .share-publication-search-data-ava a {
+        width: 30px;
+        height: 30px;
+    }
+    .share-publication-send-btn {
+        height: 25px;
+    }
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        line-height: 25px;
+            padding: 0 5px;
+    }
  }

@@ -9,6 +9,8 @@ use App\PlaceUser;
 use App\PlaceInvite;
 use App\Image;
 use App\City;
+use App\Country;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -99,7 +101,7 @@ class PlaceController extends Controller
             $placeData['cover'] = $path;
         }
         $place = Place::create($placeData);
-        PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true]);
+        PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'place' => $place]);
     }
 
@@ -113,8 +115,8 @@ class PlaceController extends Controller
             }
             $place->count_users = $place->users()->count();
             $place->count_publications = $place->publications()->count();
-//            $place->users = Place::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'place_users.is_admin')
-//                ->where('place_users.place_id',$place->id)->get();
+            $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'place_users.is_admin')
+                ->where('place_users.place_id',$place->id)->get();
             if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
                 $place->is_sub = true;
             } else {$place->is_sub = false;}
@@ -124,6 +126,15 @@ class PlaceController extends Controller
             if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true, 'is_creator' => true])->first()){
                 $place->is_creator = true;
             } else {$place->is_creator = false;}
+            if(TypePlace::where(['id' => $place->type_place_id, 'is_dynamic' => true])->first()){
+                $place->is_dynamic = true;
+            } else {$place->is_dynamic = false;}
+
+            $place->type_place = TypePlace::where(['id' => $place->type_place_id])->first();
+
+            $city = City::where(['id' => $place->city_id])->first();
+            $place->country = Country::where(['id' => $city->country_id])->first();
+            $place->cities = City::where(['country_id' => $city->country_id])->get();
         }
         return $place;
     }

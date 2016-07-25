@@ -201,6 +201,7 @@ class PublicationController extends Controller
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
                     Video::makeFrame($f_name, $f_path, $new_fname);
+		    Video::makeVideo($f_name, $f_path, $new_fname);
                     $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
                     if (substr(php_uname(), 0, 7) == "Windows"){
                         pclose(popen("start /B ". $cmd, "r"));

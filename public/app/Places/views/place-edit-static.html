@@ -1,0 +1,134 @@
+<form name="vm.placeEditedForm" novalidate>
+    <div class="create-places-common">
+        <div class="create-places-header">
+            Редактирование места
+        </div>
+        <div class="create-places-common-inner">
+            <div class="create-places-type">
+                <span class="place-type-title">Тип места:</span>
+                <span class="place-type-name">{{vm.place.type_place.name}}</span>
+            </div>
+            <div class="create-places-description">
+                {{vm.place.type_place.description}}
+            </div>
+
+            <div class="create-places-select-street">
+                <div class="select-country-country">Название</div>
+                <div class="select-street-input">
+                    <input type="text"
+                           name="name"
+                           ng-model="vm.placeEdited.name"
+                           placeholder="Введите название места..."
+                           required>
+
+                    <div class="error-messages" ng-messages="vm.form.placeEdited.name.$error"
+                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                        <div ng-message="required">Вы не указали название</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="create-places-select-country">
+                <div class="select-country-country">Выберите страну</div>
+                <div class="select-country-name">
+                    <select name="country"
+                            ng-options="option.name for option in vm.countries track by option.id"
+                            ng-model="vm.placeEdited.country"
+                            required>
+                        <option value="">---</option>
+                    </select>
+
+                    <div class="error-messages" ng-messages="vm.form.placeEdited.country.$error"
+                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                        <div ng-message="required">Вы не выбрали страну</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-places-select-country">
+                <div class="select-country-country">Выберите город</div>
+                <div class="select-country-name">
+                    <select name="city"
+                            ng-options="option.name for option in vm.placeEdited.cities track by option.id"
+                            ng-init="vm.placeEdited.city = vm.initCity()"
+                            ng-model="vm.placeEdited.city"
+                            required>
+                        <option value="">---</option>
+                    </select>
+
+                    <div class="error-messages" ng-messages="vm.form.placeEdited.city.$error"
+                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                        <div ng-message="required">Вы не выбрали город</div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-places-select-street">
+                <div class="select-country-country">Адрес места</div>
+                <div class="select-street-input">
+                    <input type="text" name="address" placeholder="улица, номер дома" ng-model="vm.placeEdited.address"
+                           required>
+                    <span class="street-on-map" ng-click="vm.openModalMap()">или укажите на карте</span>
+
+                    <div class="error-messages" ng-messages="vm.form.placeEdited.address.$error"
+                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                        <div ng-message="required">Вы не указали адрес</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="create-places-select-street">
+                <div class="select-country-country">Описание</div>
+                <div class="select-street-input">
+                    <textarea type="text"
+                              name="description"
+                              placeholder="Введите описание..."
+                              ng-model="vm.placeEdited.description"
+                              required></textarea>
+
+                    <div class="error-messages" ng-messages="vm.form.placeEdited.description.$error"
+                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                        <div ng-message="required">Вы не заполнили описание</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="create-places-add-cover">
+                <div class="create-places-add-cover-img"
+                     name="cover"
+                     ngf-select
+                     ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'"
+                     ngf-min-heiht="280"
+                     ngf-min-width="1200"
+                     ngf-before-model-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeEdited.cover"
+                >
+                    <a href="">
+                        <img ngf-thumbnail="vm.placeEdited.cover" ngf-no-object-url="true">
+                    </a>
+
+                    <span>Добавить обложку месту</span>
+                </div>
+            </div>
+            <div class="create-places-add-cover">
+                <div class="create-places-add-cover-img"
+                     name="logo"
+                     ngf-select
+                     ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'"
+                     ngf-before-model-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeEdited.logo">
+                    <a href="">
+                        <img ngf-thumbnail="vm.placeEdited.logo" ngf-no-object-url="true">
+                    </a>
+                    <span>Добавить логотип месту</span>
+                </div>
+                <a href class="modal__buttons-negative" ng-click="vm.abortUpdatePlace()">Отменить</a>
+                <div class="create-places-add-cover-button-create" ng-click="vm.updatePlace()">Сохранить</div>
+            </div>
+
+        </div>
+    </div>
+</form>

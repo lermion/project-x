@@ -5,9 +5,9 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', '$state', 'place', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
+    PlaceCtrl.$inject = ['$scope', '$state', 'place', 'countries', 'storageService', 'placesService', 'ngDialog', '$http', '$window'];
 
-    function PlaceCtrl($scope, $state, place, storageService, placesService, ngDialog, $http, $window) {
+    function PlaceCtrl($scope, $state, place, countries, storageService, placesService, ngDialog, $http, $window) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -32,9 +32,13 @@
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
 
+        vm.countries = countries;
 
         vm.place = place;
-        vm.placeEdited = {};
+        vm.placeEdited = angular.copy(vm.place);
+        var originalPlaceEdited = angular.copy(vm.placeEdited);
+
+
         //vm.newPublication = angular.copy(newPublicationObj);
         //
         //vm.forms = {
@@ -67,81 +71,82 @@
         ///////////////////////////////////////////////////
         //
         function activate() {
-           init();
+            init();
         }
-        
+
         function init() {
-           $scope.$emit('userPoint', 'user');
-           var storage = storageService.getStorage();
-           vm.loggedUser = storage.username;
-        
-           $http.get('/static_page/get/name')
-               .success(function (response) {
-                   vm.staticPages = response;
-               })
-               .error(function (error) {
-                   console.log(error);
-               });
-           vm.logOut = function () {
-               AuthService.userLogOut()
-                   .then(function (res) {
-                       storageService.deleteStorage();
-                       $state.go('login');
-                   }, function (err) {
-                       console.log(err);
-                   });
-           };
-        
-           vm.openMenu = function () {
-               if ($window.innerWidth <= 800) {
-                   vm.showMenu = !vm.showMenu;
-               } else {
-                   vm.showMenu = true;
-               }
-           };
-        
-           vm.openBottomMenu = function () {
-               if ($window.innerWidth <= 650) {
-                   vm.showBottomMenu = !vm.showBottomMenu;
-               } else {
-                   vm.showBottomMenu = false;
-               }
-           };
-        
-           var w = angular.element($window);
-           $scope.$watch(
-               function () {
-                   return $window.innerWidth;
-               },
-               function (value) {
-                   if (value <= 800) {
-                       vm.showMenu = false;
-                   } else {
-                       vm.showMenu = true;
-                   }
-        
-                   if (value <= 650) {
-                       vm.showBottomMenu = false;
-                   } else {
-                       vm.showBottomMenu = true;
-                   }
-        
-                   if (value < 520) {
-                       var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
-                       vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
-                       vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
-                   } else {
-                       vm.resizeSizes = '';
-                       vm.resizeHeight = '';
-                   }
-               },
-               true
-           );
-           w.bind('resize', function () {
-               $scope.$apply();
-           });
-        
+            $scope.$emit('userPoint', 'user');
+            var storage = storageService.getStorage();
+            vm.loggedUser = storage.username;
+
+            $http.get('/static_page/get/name')
+                .success(function (response) {
+                    vm.staticPages = response;
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+            vm.logOut = function () {
+                AuthService.userLogOut()
+                    .then(function (res) {
+                        storageService.deleteStorage();
+                        $state.go('login');
+                    }, function (err) {
+                        console.log(err);
+                    });
+            };
+
+            vm.openMenu = function () {
+                if ($window.innerWidth <= 800) {
+                    vm.showMenu = !vm.showMenu;
+                } else {
+                    vm.showMenu = true;
+                }
+            };
+
+            vm.openBottomMenu = function () {
+                if ($window.innerWidth <= 650) {
+                    vm.showBottomMenu = !vm.showBottomMenu;
+                } else {
+                    vm.showBottomMenu = false;
+                }
+            };
+
+            var w = angular.element($window);
+            $scope.$watch(
+                function () {
+                    return $window.innerWidth;
+                },
+                function (value) {
+                    if (value <= 800) {
+                        vm.showMenu = false;
+                    } else {
+                        vm.showMenu = true;
+                    }
+
+                    if (value <= 650) {
+                        vm.showBottomMenu = false;
+                    } else {
+                        vm.showBottomMenu = true;
+                    }
+
+                    if (value < 520) {
+                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
+                        vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
+                        vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
+                    } else {
+                        vm.resizeSizes = '';
+                        vm.resizeHeight = '';
+                    }
+                },
+                true
+            );
+            w.bind('resize', function () {
+                $scope.$apply();
+            });
+
         }
+
         //
         // set default tab (view) for place view
         $scope.$on("$stateChangeSuccess", function () {
@@ -236,6 +241,12 @@
                 });
             });
         };
+
+        vm.initCity = function () {
+            return vm.placeEdited.city = place.cities.filter(function (city) {
+                return city.id === place.city_id;
+            })[0];
+        };
         //
         //
         //// Submit forms
@@ -275,19 +286,44 @@
         //        });
         //};
         //
-        //vm.updateGroup = function () {
-        //    if (groupName === vm.placeEdited.name) {
-        //        vm.placeEdited.name = null;
-        //    }
-        //    if (!vm.forms.editGroup.avatar.$dirty) {
-        //        vm.placeEdited.avatar = null;
-        //    }
-        //    vm.placeEdited.description = vm.emoji.emojiMessage.messagetext;
-        //    groupsService.updateGroup(vm.placeEdited)
-        //        .then(function (data) {
-        //
-        //        });
-        //};
+        vm.updatePlace = function () {
+            if (!vm.placeEditedForm.logo.$dirty) {
+                vm.placeEdited.avatar = null;
+            }
+            if (!vm.placeEditedForm.cover.$dirty) {
+                vm.placeEdited.cover = null;
+            }
+            if (!vm.placeEditedForm.name.$dirty) {
+                vm.placeEdited.name = null;
+            }
+            placesService.updatePlace(vm.placeEdited)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.place.name = data.placeData.name || vm.place.name;
+                        vm.place.description = data.placeData.description || vm.place.description;
+                        vm.place.is_open = data.placeData.is_open == true;
+                        vm.place.avatar = data.placeData.avatar || vm.place.avatar;
+                        vm.place.card_avatar = data.placeData.card_avatar || vm.place.card_avatar;
+
+                        if (data.placeData.url_name) {
+                            changeGroupUrlName(data.placeData.url_name);
+                        }
+
+                        $state.go('place', {'placeName': place.url_name});
+                    }
+                });
+        };
+
+        vm.abortUpdatePlace = function () {
+            resetFormPlaceEdit();
+            $state.go('place', {'placeName': place.url_name});
+        };
+
+        function resetFormPlaceEdit() {
+            vm.placeEdited = originalPlaceEdited;
+            vm.placeEditedForm.$setPristine();
+        }
+
         //
         //vm.abortDeleteGroup = function () {
         //    modalDeletePlace.close();
@@ -297,7 +333,7 @@
         //    if (group.is_creator) {
         //        openModalSetCreator();
         //    } else {
-        //        groupsService.subscribeGroup(vm.group.id)
+        //        groupsService.subscribeGroup(vm.place.id)
         //            .then(function (data) {
         //                if (data.status) {
         //                    vm.group.is_sub = data.is_sub;
@@ -461,6 +497,7 @@
             vm.newPublication = angular.copy(newPublicationObj);
             vm.files = [];
         }
+
         //
         //
         function removeUser(user) {
@@ -482,6 +519,7 @@
                 }
             }
         }
+
         //
         //function openModalSetCreator() {
         //    vm.adminsList = getAdminsList();
