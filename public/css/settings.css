@@ -7126,4 +7126,40 @@ input.cmn-toggle-round:checked + label:after {
         width: 500px;
         margin-left: -250px;
     }
+    .share-publication-search-data-name {
+        font-size: .8em;
+    }
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        font-size: .8em;
+    }
+ }
+@media (max-width: 520px) {
+    .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
+        width: 95%;
+        margin-left: -47.5%;
+    }
+    .share-publication-title {
+        font-size: .8em;
+    }
+    .share-publication-search-data-name,
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        font-size: .8em;
+    }
+    .share-publication-menu-item {
+        font-size: .5em;
+    }
+    .share-publication-search-data-ava a {
+        width: 30px;
+        height: 30px;
+    }
+    .share-publication-send-btn {
+        height: 25px;
+    }
+    .share-publication-send-btn-cancel,
+    .share-publication-send-btn-send {
+        line-height: 25px;
+            padding: 0 5px;
+    }
  }
