@@ -40,8 +40,19 @@ io.sockets.on('connection', function(socket){
 					if(data.status === undefined){
 						data.status = "";
 					}
-					if(data.avatar === undefined){
-						data.avatar = "";
+					if(data.avatarObj === undefined){
+						data.avatarObj = "";
+					}else{
+						fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.avatarObj.avatarName, data.avatarObj.avatar, function(error){
+							if(error){
+								console.log(error);
+								return;
+							}else{
+								console.log('group avatar saved in folder upload');
+							}
+						});
+						data.avatar = "/upload/" + data.avatarObj.avatarName;
+						console.log("data.avatar", data.avatar);
 					}
 					var setUsers  = {
 						name: data.name,
