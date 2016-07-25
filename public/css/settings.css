@@ -7181,3 +7181,10 @@ input.cmn-toggle-round:checked + label:after {
             padding: 0 5px;
     }
  }
+ .ngdialog.share-publication.ngdialog-theme-default .ngdialog-close:before {
+    color: #333;
+        transition: all .3s ease-in-out .1s;
+ }
+ .ngdialog.share-publication.ngdialog-theme-default .ngdialog-close:hover:before {
+    color: rgb(153,153,153);
+ }
