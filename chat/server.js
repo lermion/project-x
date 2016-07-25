@@ -14,7 +14,6 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
-			console.log("response", response);
 			if(socket.room.length !== undefined){
 				for(var i = 0; i < socket.room.length; i++){
 					if(socket.room[i] === data.room_id){
@@ -46,6 +45,7 @@ io.sockets.on('connection', function(socket){
 				});
 			}else{
 				queries.getUsers(data).then(function(response){
+					console.log("response", response);
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
 					if(data.name === undefined){
