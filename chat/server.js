@@ -40,8 +40,19 @@ io.sockets.on('connection', function(socket){
 					if(data.status === undefined){
 						data.status = "";
 					}
-					if(data.avatar === undefined){
+					if(data.avatarObj === undefined){
 						data.avatar = "";
+					}else{
+						fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.avatarObj.avatarName, data.avatarObj.avatar, function(error){
+							if(error){
+								console.log(error);
+								return;
+							}else{
+								console.log('group avatar saved in folder upload');
+							}
+						});
+						data.avatar = "/upload/" + data.avatarObj.avatarName;
+						console.log("data.avatar", data.avatar);
 					}
 					var setUsers  = {
 						name: data.name,
@@ -108,7 +119,7 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	socket.on('send message', function(data){
+	socket.on('send message', function(data, callback){
 		if(data.imagesObj !== undefined){
 			var imagesPath = [];
 			for(var i = 0; i < data.imagesObj.images.length; i++){
@@ -118,6 +129,7 @@ io.sockets.on('connection', function(socket){
 						console.log(error);
 						return;
 					}else{
+						callback();
 						console.log('Files saved in folder upload');
 					}
 				});
