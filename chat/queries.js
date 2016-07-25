@@ -81,9 +81,9 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 		});
 	}
 	return deferred.promise;
-}
+} 
 Queries.prototype.getUserRooms = function(data){
-	var deferred = Q.defer();
+	var deferred = Q.defer(); 
 	if(data.userIdFrom){
 		data.members = [];
 		data.members[0] = data.userIdFrom;

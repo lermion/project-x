@@ -35,7 +35,7 @@ io.sockets.on('connection', function(socket){
 				data.updated_at = new Date();
 			}else{
 				socket.emit("switchRoom", data.room_id);
-			}
+			} 
 			if(response.length >= 1){
 				queries.getUserDialogue(data).then(function(response){
 					socket.emit('updatechat', response);
