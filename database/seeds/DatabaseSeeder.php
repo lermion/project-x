@@ -7,6 +7,7 @@ use App\City;
 use App\StaticPage;
 use App\ComplaintCategory;
 use App\TypePlace;
+use App\Place;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
          $this->call(StaticPageTableSeeder::class);
          $this->call(ComplaintCategoryTableSeeder::class);
          $this->call(TypePlaceTableSeeder::class);
+         $this->call(PlaceTableSeeder::class);
     }
 }
 

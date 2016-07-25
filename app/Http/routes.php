@@ -158,6 +158,7 @@ Route::group(['middleware' => ['web']], function () {
             });
         });
         Route::group(['prefix' => 'type'], function () {
+            Route::post('create', 'TypePlaceController@create');
             Route::get('static', 'TypePlaceController@getStatic');
             Route::get('dynamic', 'TypePlaceController@getDynamic');
         });
@@ -190,15 +191,15 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/show/gcn\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/place/show/test\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='email' value='email@email.com'><br>
             <input type='text' name='text'><br>
             <input type='text' name='name' value='name'><br>
-            <input type='text' name='coordinates_x'><br>
-            <input type='text' name='coordinates_y'><br>
-            <input type='file' name='picture'><br>
+            <input type='text' name='name'><br>
+            <input type='text' name='description'><br>
+            <input type='file' name='avatar'><br>
             <input type=\"submit\">
             </form>";
     });

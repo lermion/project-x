@@ -102,13 +102,25 @@ class PlaceTest extends TestCase
             if (!$user) {
                 $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
             }
+         $this->be($user);
             $place = \App\Place::first();
             if (!$place) {
-                $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test','city_id'=>1,
-                'type_place_id'=>1]);
+                $place = \App\Place::create(
+                    [
+                        'name' => 'test',
+                        'url_name' => 'test',
+                        'coordinates_y'=> '1',
+                        'coordinates_x'=> '1',
+                        'address' => 'test',
+                        'description' => 'test',
+                        'type_place_id' => '1',
+                        'city_id' => '1',
+                        'is_open' => '1',
+                        'avatar' => 'test'
+                    ]
+                );
             }
             \App\PlaceUser::create(['user_id' => $user->id, 'place_id' => $place->id, 'is_admin' => 1]);
-            $this->be($user);
             $data = [
                 'name' => 'test',
                 'description' => 'lorem'
