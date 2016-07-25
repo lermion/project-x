@@ -16,7 +16,20 @@ class PlacePublicationCommentTest extends TestCase
         }
         $place = \App\Place::first();
         if (!$place) {
-            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test']);
+            $place = \App\Place::create(
+                [
+                    'name' => 'test',
+                    'url_name' => 'test',
+                    'coordinates_y'=> '1',
+                    'coordinates_x'=> '1',
+                    'address' => 'test',
+                    'description' => 'test',
+                    'type_place_id' => '1',
+                    'city_id' => '1',
+                    'is_open' => '1',
+                    'avatar' => 'test'
+                ]
+            );
         }
         \App\PlaceUser::create(['user_id' => $user->id, 'place_id' => $place->id, 'is_admin' => 0]);
         $this->be($user);
