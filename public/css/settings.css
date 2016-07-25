@@ -7063,7 +7063,7 @@ input.cmn-toggle-round:checked + label:after {
  }
  .share-publication-search-data-info {
     display: flex;
-    width: 90%;
+    width: 95%;
     align-items: center;
  }
  .share-publication-search-data-ava a {
@@ -7079,7 +7079,6 @@ input.cmn-toggle-round:checked + label:after {
     height: 100%;
  }
  .share-publication-search-data-name {
-    display: flex;
     margin-left: 10px;
     white-space: nowrap;
     overflow: hidden;
@@ -7104,6 +7103,10 @@ input.cmn-toggle-round:checked + label:after {
     transition: all .3s ease-in-out .1s;
     color: #495b79;
     margin-right: 5px;
+    cursor: pointer;
+ }
+ .share-publication-send-btn-cancel:hover {
+    color: #999;
  }
  .share-publication-send-btn-send {
     text-decoration: none;
@@ -7120,7 +7123,10 @@ input.cmn-toggle-round:checked + label:after {
     cursor: pointer;
     margin-right: 20px;
  }
-
+.share-publication-send-btn-send:hover {
+    background-color: #fff;
+    color: #495b79;
+}
 @media (max-width: 740px) {
     .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
         width: 500px;
