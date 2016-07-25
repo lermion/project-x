@@ -180,6 +180,7 @@ Queries.prototype.getLastMessage = function(data){
 		}else{
 			connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + result[0].id + "'", function(error, images){
 				result[0].images = images;
+				result[0].roomId = data.room_id;
 				deferred.resolve(result[0]);
 			});
 		}

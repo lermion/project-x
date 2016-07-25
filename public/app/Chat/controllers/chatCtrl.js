@@ -503,6 +503,12 @@ angular.module('placePeopleApp')
 				}else{
 					if($scope.Model.showChatBlock && $scope.Model.displayChatBlock && !$scope.Model.displayBlockedBlock){
 						$scope.Model.Chat.push(data);
+					}else{
+						$scope.getLastMessage = function(roomId){
+							if(roomId === data.roomId){
+								return data.text;
+							}
+						}
 					}
 				}
 			});
