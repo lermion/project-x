@@ -37,6 +37,7 @@ io.sockets.on('connection', function(socket){
 				socket.emit("switchRoom", data.room_id);
 			} 
 			if(response.length >= 1){
+				console.log("if");
 				queries.getUserDialogue(data).then(function(response){
 					socket.emit('updatechat', response);
 				},
@@ -44,8 +45,8 @@ io.sockets.on('connection', function(socket){
 					console.log(error);
 				});
 			}else{
+				console.log("else");
 				queries.getUsers(data).then(function(response){
-					console.log("response", response);
 					users.userNameFrom = response[0].first_name;
 					users.userNameTo = response[1].first_name;
 					if(data.name === undefined){
