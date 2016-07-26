@@ -110,9 +110,9 @@ class PlaceController extends Controller
         $place = Place::where('url_name', $name)->first();
         NewPlace::where(['user_id' => Auth::id(), 'place_id' => $place->id,])->delete();
         if ($place) {
-            if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
-                return null;
-            }
+//            if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+//                return null;
+//            }
             $place->count_users = $place->users()->count();
             $place->count_publications = $place->publications()->count();
             $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'place_users.is_admin')

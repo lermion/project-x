@@ -226,10 +226,12 @@
             if (vm.form.placeNew.$invalid) {
                 return false;
             }
+            if (vm.placeNew.expired_date) {
+                vm.placeNew.expired_date = moment(vm.placeNew.expired_date).format('YYYY-MM-DD');
+            }
             placesService.addPlace(vm.placeNew)
                 .then(function (data) {
                     if (data.status) {
-                        console.log('Place added!');
                         getSubscribers();
                         getSubscription();
                         vm.placeName = data.place.url_name;

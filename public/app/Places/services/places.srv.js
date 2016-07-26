@@ -26,7 +26,8 @@
             subscribePlace: subscribePlace,
             updatePlace: updatePlace,
             deletePlace: deletePlace,
-            removeUsers: removeUsers
+            removeUsers: removeUsers,
+            setCreator: setCreator
 
         };
 
@@ -90,7 +91,7 @@
             fd.append('type_place_id', place.category.id);
 
             if (place.isDynamic) {
-                fd.append('expired_days', place.expired_days);
+                fd.append('expired_date', place.expired_date);
             }
 
             if (place.cover) {
@@ -410,6 +411,27 @@
 
             function removeUsersFailed(error, status) {
                 console.error('XHR Failed for removeUsers. ' + status);
+            }
+        }
+
+        function setCreator(placeId, adminId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/set_admin_creator/' + placeId + '/' + adminId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(setCreatorComplete)
+                .catch(setCreatorFailed);
+
+            function setCreatorComplete(response) {
+                return response.data;
+            }
+
+            function setCreatorFailed(error) {
+                console.error('XHR Failed for setCreator. ' + error.data);
             }
         }
 
