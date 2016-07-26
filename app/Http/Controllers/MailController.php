@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Mail;
 use  App\UserMail;
@@ -51,10 +52,8 @@ class MailController extends Controller
     {
         $mails = UserMail::where('status','New')->get();
         foreach($mails as &$mail){
-           if (UserMail::where('user_id', 'null')->first()) {
-               $mail->user_reg = false;
-           } else {
-               $mail->user_reg = true;
+           if (!UserMail::where('user_id', 'null')->first()) {
+               $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
            }
         }
         return $mails;
@@ -104,6 +103,28 @@ class MailController extends Controller
     {
         UserMail::find($id)->delete();
         return redirect()->action('MailController@index');
+    }
+
+    public function get_closed()
+    {
+        $mails = UserMail::where('status','Closed')->get();
+        foreach($mails as &$mail){
+            if (!UserMail::where('user_id', 'null')->first()) {
+                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
+            }
+        }
+        return $mails;
+    }
+
+    public function get_review()
+    {
+        $mails = UserMail::where('status','Review')->get();
+        foreach($mails as &$mail){
+            if (!UserMail::where('user_id', 'null')->first()) {
+                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
+            }
+        }
+        return $mails;
     }
 
 }

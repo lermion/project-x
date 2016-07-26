@@ -24,4 +24,37 @@ class MailTest extends TestCase
             ]);
         $this->seeInDatabase('user_mails', ['name' => 'name','email' => 'email@email.com','text'=>'text']);
     }
+
+    public function testMail()
+    {
+        $this->json('GET', 'mail')->AssertResponseOk();
+    }
+
+    public function testMailReview()
+    {
+        $this->json('GET', 'mail/get_review')->AssertResponseOk();
+    }
+
+    public function testMailClosed()
+    {
+        $this->json('GET', 'mail/get_closed')->AssertResponseOk();
+    }
+
+    public function testDestroyMail()
+    {
+        $mail = \App\UserMail::create(['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
+        $this->json('GET', 'mail/destroy/'.$mail->id)->assertRedirectedTo('/mail');
+    }
+
+    public function testMailStatusReview()
+    {
+        $mail = \App\UserMail::create(['name' => 'test', 'email' => 'email@email.com', 'text' => 'test']);
+        $this->json('GET', 'mail/status_review/' . $mail->id)->seeJson(['status' => true]);
+    }
+
+    public function testMailStatusClosed()
+    {
+        $mail = \App\UserMail::create(['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
+        $this->json('GET', 'mail/status_closed/'.$mail->id)->seeJson(['status' => true]);
+    }
 }
