@@ -1,0 +1,88 @@
+<form name="vm.newPublication" ng-submit="vm.submitNewPublication()" novalidate>
+    <h5>Новая публикация</h5>
+
+    <div class="publication">
+
+        <div class="publication-item">
+            <a class="user" ui-sref="place({placeName: vm.place.url_name})" ng-click="closeThisDialog()">
+			<span class="ava">
+				<img ng-src="{{vm.place.avatar}}" alt="Avatar group">
+			</span>
+
+                <p class="user-name">{{::vm.place.name}}</p>
+            </a>
+        </div>
+
+        <div class="text-field">
+
+            <div emoji-form emoji-message="vm.emojiMessage">
+                <textarea id="messageInput" name="text" ng-model="vm.emojiMessage.messagetext" required></textarea>
+                <a href class="emoji-button" id="emojibtn">
+                    <i class="icon icon-emoji"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="error-messages" ng-messages="vm.forms.newPublication.text.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted">
+            <div ng-message="required">Вы не заполнили текст публикации</div>
+        </div>
+        <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
+             style="max-height: 250px; overflow:hidden; position:relative;">
+
+            <div class="new-img" ng-repeat="file in vm.files" ng-click="showMoreImages(files, file)">
+                <div class="inner">
+                    <div class="close" ng-click="vm.removeAttachFile($index)">
+                        <div class="close-inner">
+                            <p>Удалить</p>
+                        </div>
+                    </div>
+                    <img ngf-thumbnail="file || '/thumb.jpg'">
+                    <!--<video width="200px" controls ngf-src="file"></video>-->
+                    <!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">
+                        <div class="check-inner">
+                            <p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                        </div>
+                    </div> -->
+                </div>
+                <p class="img-name">{{file.name}}</p>
+            </div>
+        </div>
+
+        <div class="publication-footer">
+            <div class="add-objects">
+                <input id="add-main-pub-object" style="display: none;"
+                       name="files"
+                       type="file"
+                       ngf-select
+                       ngf-accept="'image/*, video/*'"
+                       ngf-pattern="'image/*, video/*'"
+                       ng-model="vm.files"
+                       ngf-before-model-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       ngf-multiple="true"
+                       ngf-keep="true"
+                       required>
+
+
+                <label for="add-main-pub-object"
+                       >
+                    <span class="add"></span>
+                    Добавить фото или видео *
+                </label>
+                <div class="error-messages" ng-messages="vm.forms.newPublication.files.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted || vm.forms.newPublication.$dirty">
+                    <div ng-message="required">Вы не выбрали медиафайл</div>
+                    <div ng-message="pattern">Выбранный файл не является фото или видео</div>
+                </div>
+            </div>
+            <div class="publication-footer-button">
+                <a href="" class="cansel" ng-click="closeThisDialog()">Отменить</a>
+                <button type="submit" class="publication-button"
+                        ladda="vm.subForm" data-style="slide-right" ng-disabled="vm.subForm">Опубликовать
+                </button>
+            </div>
+        </div>
+
+        <p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для
+            создания публикации обязательным является добавление фото или видео'}} </p>
+
+    </div>
+</form>
