@@ -100,17 +100,6 @@
                             });
 
                         return deferred.promise;
-                    }],
-
-                    countries: ['placesService', '$stateParams', '$state', '$q', function (placesService, $stateParams, $state, $q) {
-                        var deferred = $q.defer();
-
-                        placesService.getCountries()
-                            .then(function (data) {
-                                deferred.resolve(data);
-                            });
-
-                        return deferred.promise;
                     }]
                 }
             })

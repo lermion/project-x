@@ -35,7 +35,7 @@
                             ng-options="option.name for option in vm.countries track by option.id"
                             ng-model="vm.placeEdited.country"
                             required>
-                        <option value="">---</option>
+                        <option value="" disabled>---</option>
                     </select>
 
                     <div class="error-messages" ng-messages="vm.form.placeEdited.country.$error"
@@ -49,11 +49,10 @@
                 <div class="select-country-country">Выберите город</div>
                 <div class="select-country-name">
                     <select name="city"
-                            ng-options="option.name for option in vm.placeEdited.cities track by option.id"
-                            ng-init="vm.placeEdited.city = vm.initCity()"
+                            ng-options="option.name for option in vm.cities track by option.id"
                             ng-model="vm.placeEdited.city"
                             required>
-                        <option value="">---</option>
+                        <option value="" disabled>---</option>
                     </select>
 
                     <div class="error-messages" ng-messages="vm.form.placeEdited.city.$error"
@@ -118,10 +117,10 @@
                      ngf-select
                      ngf-pattern="'image/*'"
                      ngf-accept="'image/*'"
-                     ngf-before-model-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                     ng-model="vm.placeEdited.logo">
+                     ngf-before-model-change="vm.changePlaceAvatarFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeEdited.avatar">
                     <a href="">
-                        <img ngf-thumbnail="vm.placeEdited.logo" ngf-no-object-url="true">
+                        <img ngf-thumbnail="vm.placeEdited.avatar" ngf-no-object-url="true">
                     </a>
                     <span>Добавить логотип месту</span>
                 </div>
