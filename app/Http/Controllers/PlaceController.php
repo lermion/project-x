@@ -133,8 +133,9 @@ class PlaceController extends Controller
             $place->type_place = TypePlace::where(['id' => $place->type_place_id])->first();
 
             $city = City::where(['id' => $place->city_id])->first();
+            $place->city = City::where(['id' => $place->city_id])->first();
             $place->country = Country::where(['id' => $city->country_id])->first();
-            $place->cities = City::where(['country_id' => $city->country_id])->get();
+//            $place->cities = City::where(['country_id' => $city->country_id])->get();
         }
         return $place;
     }

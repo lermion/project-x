@@ -322,9 +322,10 @@
         function updatePlace(place) {
             var fd = new FormData();
 
+            // required fields
             fd.append('description', place.description);
             fd.append('address', place.address);
-            fd.append('city_id', place.city_id);
+            fd.append('city_id', place.city.id);
             fd.append('coordinates_x', place.coordinates_x);
             fd.append('coordinates_y', place.coordinates_y);
             fd.append('type_place_id', place.type_place_id);
@@ -332,7 +333,6 @@
             if (place.name) {
                 fd.append('name', place.name);
             }
-
             if (place.cover) {
                 fd.append('cover', place.cover);
             }
@@ -355,8 +355,8 @@
                 return response.data;
             }
 
-            function updatePlaceFailed(error) {
-                console.error('XHR Failed for updatePlace. ' + error.data);
+            function updatePlaceFailed(error, status) {
+                console.error('XHR Failed for updatePlace. ' + status);
             }
         }
 
