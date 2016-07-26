@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
 	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload',
+		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload', 'socket',
 		function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
-			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload){
+			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload, socket){
 		/* Service info*/
 		amMoment.changeLocale('ru');
 		$scope.$emit('userPoint', 'user');    	
@@ -753,6 +753,53 @@ angular.module('placePeopleApp')
 			});
 			loadUserContacts();
 		};
+		$scope.menuItems = [
+			{
+				menuType: "members",
+				name: "Пользователи"
+			},
+			{
+				menuType: "groups-chat",
+				name: "Групповые чаты"
+			},
+			{
+				menuType: "groups",
+				name: "Группы"
+			},
+			{
+				menuType: "places",
+				name: "Места"
+			}
+		];
+		$scope.currentIndex = 0;
+		$scope.members = function(){
+			return true;
+		}
+		$scope.isSelected = function(index){
+			return index === $scope.currentIndex;
+		}
+		$scope.changeMenu = function(value, index){
+			$scope.currentIndex = index;
+			if(value === "members"){
+				$scope.members = function(){
+					return true;
+				}
+				$scope.groupsChat = function(){
+					return false;
+				}
+			}else if(value === "groups-chat"){
+				socket.emit("get user rooms", $scope.loggedUserId);
+				socket.on("get user rooms", function(response){
+					$scope.groupsChatArr = response;
+				});
+				$scope.groupsChat = function(){
+					return true;
+				}
+				$scope.members = function(){
+					return false;
+				}
+			}
+		}
 		function loadUserContacts(){
 			PublicationService.getSubscribers($scope.loggedUserId).then(function(response){
 				$scope.subscribers = response;                        
@@ -807,21 +854,18 @@ angular.module('placePeopleApp')
 			cat5 ? complainCategory.push(5) : '';
 			cat6 ? complainCategory.push(6) : '';
 			cat7 ? complainCategory.push(7) : '';			
-			if (flag === 'comment') {
-				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
-					.then(					
-						function(res){	
-							console.log(res);					
-							if (res.status) {							
-								ngDialog.closeAll();
-							} else {
-								console.log('Error');							
-							}						
-						},
-						function(err){
-							console.log(err);
-						});
-			} else if (flag === 'pub') {				
+			if(flag === 'comment'){
+				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory).then(function(res){	
+					if(res.status){
+						ngDialog.closeAll();
+					}else{
+						onsole.log('Error');							
+					}						
+				},
+				function(err){
+					console.log(err);
+				});
+			}else if(flag === 'pub'){
 				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
 				// 	.then(					
 				// 		function(res){						
@@ -835,7 +879,6 @@ angular.module('placePeopleApp')
 				// 			console.log(err);
 				// 		});
 			}
-			
 		};
 		
 		$scope.deletePub = function(pub){
