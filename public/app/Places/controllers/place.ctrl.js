@@ -9,7 +9,7 @@
         '$http', '$window', 'Upload', 'amMoment'];
 
     function PlaceCtrl($scope, $state, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
-                       $http, $window, Upload, amMoment) {
+                       $http, $window, Upload) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -50,7 +50,7 @@
 //var groupName = $stateParams.groupName;
         //
         //var newPublicationObj = {
-        //    groupId: group.id,
+        //    groupId: place.id,
         //    text: ''
         //};
         //
@@ -64,13 +64,9 @@
         //};
         //
         //vm.showGroupMenu = false;
-        //vm.subscribers = [];
-        //vm.invitedUsers = [];
         //vm.adminsList = [];
-        //vm.creator = {id: null};
-        //
-        //vm.inviteNotSend = true;
-        //vm.isSend = false;
+        vm.creator = {id: null};
+        vm.isSend = false;
         //
         //vm.emoji = {
         //    emojiMessage: {
@@ -358,7 +354,6 @@
         };
 
 
-
         // Submit actions
         vm.updatePlace = function () {
             vm.subForm = true;
@@ -508,38 +503,38 @@
                 });
         }
 
-        //
+
         vm.abortDeletePlace = function () {
             modalDeletePlace.close();
         };
-        //
-        //vm.subscribe = function () {
-        //    if (group.is_creator) {
-        //        openModalSetCreator();
-        //    } else {
-        //        groupsService.subscribeGroup(vm.place.id)
-        //            .then(function (data) {
-        //                if (data.status) {
-        //                    vm.place.is_sub = data.is_sub;
-        //                    if (data.is_sub) {
-        //                        vm.place.users.push({
-        //                            avatar_path: myAvatar,
-        //                            first_name: firstName,
-        //                            last_name: lastName,
-        //                            id: myId
-        //                        });
-        //                        vm.place.count_users += 1;
-        //                    } else {
-        //                        removeUser({userId: myId});
-        //                        vm.place.count_users -= 1;
-        //                    }
-        //
-        //                }
-        //            });
-        //    }
-        //
-        //};
-        //
+
+        vm.subscribe = function () {
+            if (place.is_creator) {
+                openModalSetCreator();
+            } else {
+                groupsService.subscribeGroup(vm.place.id)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.place.is_sub = data.is_sub;
+                            if (data.is_sub) {
+                                vm.place.users.push({
+                                    avatar_path: myAvatar,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    id: myId
+                                });
+                                vm.place.count_users += 1;
+                            } else {
+                                removeUser({userId: myId});
+                                vm.place.count_users -= 1;
+                            }
+
+                        }
+                    });
+            }
+
+        };
+
         vm.onItemSelected = function (user) {
             var isExist = $filter('getById')(vm.invitedUsers, user.id);
 
@@ -570,7 +565,7 @@
                 isAdmin: user.is_admin
             });
         };
-        //
+
         vm.submitInviteUsers = function () {
             if (!vm.inviteNotSend) {
                 return false;
@@ -614,29 +609,29 @@
                     }
                 });
         };
+
+        vm.setCreator = function () {
+            if (vm.isSend) {
+                return false;
+            }
+            placesService.setCreator(vm.place.id, vm.creator.id)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.isSend = true;
+                        $timeout(function () {
+                            resetFormSetCreator();
+                            modalSetCreator.close();
+                            $state.go('places');
+                        }, 2000);
+                    }
+                });
+        };
         //
-        //vm.setCreator = function () {
-        //    if (vm.isSend) {
-        //        return false;
-        //    }
-        //    groupsService.setCreator(group.id, vm.creator.id)
-        //        .then(function (data) {
-        //            if (data.status) {
-        //                vm.isSend = true;
-        //                $timeout(function () {
-        //                    resetFormSetCreator();
-        //                    modalSetCreator.close();
-        //                    $state.go('groups');
-        //                }, 2000);
-        //            }
-        //        });
-        //};
-        //
-        //vm.abortSetCreator = function () {
-        //    resetFormSetCreator();
-        //    modalSetCreator.close();
-        //};
-        //
+        vm.abortSetCreator = function () {
+            resetFormSetCreator();
+            modalSetCreator.close();
+        };
+
         vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
                 vm.placeEdited.cover = resizedFile;
@@ -706,15 +701,7 @@
         //        }
         //    }
         //};
-        //
-        //
-        //function getSubscribers() {
-        //    return UserService.getSubscribers(myId)
-        //        .then(function (subscribers) {
-        //            vm.subscribers = subscribers;
-        //        });
-        //}
-        //
+
         //function getPublication(id) {
         //    return PublicationService.getSinglePublication(id)
         //        .then(function (data) {
@@ -743,8 +730,7 @@
             vm.files = [];
         }
 
-        //
-        //
+
         function removeUser(user) {
             var arr = [];
             var indexToRemove;
@@ -790,32 +776,23 @@
                 });
         }
 
-        function blobToFile(dataURI) {
-            var byteString = atob(dataURI.split(',')[1]);
-            var ab = new ArrayBuffer(byteString.length);
-            var ia = new Uint8Array(ab);
-            for (var i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-            return new Blob([ab], {type: 'image/jpeg'});
+
+        function openModalSetCreator() {
+            vm.adminsList = getAdminsList();
+            modalSetCreator = ngDialog.open({
+                template: '../app/Places/views/popup-setcreator-place.html',
+                name: 'modal-setcreator-group',
+                className: 'popup-setcreator-group ngdialog-theme-default',
+                scope: $scope
+            });
         }
 
-        //
-        //function openModalSetCreator() {
-        //    vm.adminsList = getAdminsList();
-        //    modalSetCreator = ngDialog.open({
-        //        template: '../app/Groups/views/popup-setcreator-group.html',
-        //        name: 'modal-setcreator-group',
-        //        className: 'popup-setcreator-group ngdialog-theme-default',
-        //        scope: $scope
-        //    });
-        //}
-        //
-        //function getAdminsList() {
-        //    return group.users.filter(function (item) {
-        //        return (!!item.is_admin === true && item.id !== myId);
-        //    });
-        //}
+        function getAdminsList() {
+            return vm.place.users.filter(function (item) {
+                return (!!item.is_admin === true && item.id !== myId);
+            });
+        }
+
         //
         //function filterAttachFilesByType() {
         //    var filesByType = {
@@ -833,21 +810,6 @@
         //    }
         //
         //    return filesByType;
-        //}
-
-        //function getGroup() {
-        //    return groupsService.getGroup(groupName)
-        //        .then(function (data) {
-        //            if (data) {
-        //                vm.place = data;
-        //                vm.place.is_open = !!vm.place.is_open;
-        //                vm.place.avatarIsChange = false;
-        //
-        //                $scope.emoji.messagetext = data.description;
-        //            } else {
-        //                showNoticeGroupNotFound();
-        //            }
-        //        });
         //}
 
     }

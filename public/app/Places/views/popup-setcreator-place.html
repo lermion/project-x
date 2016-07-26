@@ -1,0 +1,34 @@
+<div class="modal__title">Назначить создателя места</div>
+
+<div class="modal__content" ng-if="!vm.isSend && vm.adminsList.length > 0">
+    <div class="set-creator__admins">
+        <input type="text" id="" ng-model="searchString" placeholder="Поиск ...">
+        <ul>
+            <li ng-repeat="user in vm.adminsList | searchFor:searchString"
+                ng-click="vm.onItemSelected(user)">
+                    <img ng-src="{{user.avatar_path}}">
+
+                    <p>{{::user.first_name}} {{::user.last_name}}</p>
+                <div class="set-creator__checkbox">
+                    <input type="radio" id="admins{{::user.id}}" name="creator" ng-model="vm.creator.id" value="{{::user.id}}">
+                    <label for="admins{{::user.id}}"></label>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="modal__content" ng-if="vm.adminsList.length === 0">
+    <p>Список администраторов пуст</p>
+</div>
+<div class="modal__content" ng-if="vm.isSend">
+    <p>Назначен новый создатель места</p>
+</div>
+
+<div class="modal__footer">
+    <div class="modal__buttons">
+        <a href="" class="modal__buttons-negative" ng-if="vm.adminsList.length > 0" ng-click="vm.abortSetCreator()">Отменить</a>
+        <a href="" class="modal__buttons-positive" ng-if="vm.adminsList.length > 0" ng-click="vm.setCreator()">Назначить</a>
+        <a href="" class="modal__buttons-positive" ng-if="vm.adminsList.length === 0" ng-click="closeThisDialog()">Закрыть</a>
+    </div>
+</div>
