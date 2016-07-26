@@ -74,7 +74,7 @@ class PlaceController extends Controller
         if (TypePlace::where('id', $placeData['type_place_id'])->value('is_dynamic')) {
             try {
                 $this->validate($request, [
-                    'expired_days' => 'required'
+                    'expired_date' => 'required'
                 ]);
             } catch (\Exception $ex) {
                 $result = [
