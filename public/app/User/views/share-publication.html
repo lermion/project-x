@@ -50,6 +50,20 @@
 			</div>
 		</div>
 	</div>
+	<div ng-if="showGroups()" class="share-publication-search-data">
+		<div class="share-publication-search-sign">Группы</div>
+		<div ng-repeat="group in groups" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
+						<img ng-src="{{group.card_avatar}}" alt="">
+					</a>
+				</div>
+				<span class="share-publication-search-data-name">{{group.name}}</span>
+			</div>
+		</div>
+	</div>
 	<div class="share-publication-send-btn">
 		<div class="share-publication-send-btn-cancel">Отменить</div>
 		<div class="share-publication-send-btn-send">Отправить</div>
