@@ -5,11 +5,11 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', '$state', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
+    PlaceCtrl.$inject = ['$q', '$scope', '$state', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
         '$http', '$window', 'Upload', 'amMoment'];
 
-    function PlaceCtrl($scope, $state, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
-                       $http, $window, Upload) {
+    function PlaceCtrl($q, $scope, $state, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
+                       $http, $window, Upload, amMoment) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -30,6 +30,7 @@
         vm.firstName = firstName;
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
+        vm.myId = myId;
 
         vm.subForm = false;
 
@@ -42,9 +43,7 @@
         vm.place = place;
         vm.placeEdited = angular.copy(vm.place);
 
-        vm.newPublication = {
-
-        };
+        vm.newPublication = {};
 
         vm.selectedImage = null;
         vm.myCroppedImage = null;
@@ -71,7 +70,9 @@
             },
             properties: {}
         };
+        vm.newComment = {};
 
+        amMoment.changeLocale('ru');
 
         activate();
 
@@ -88,9 +89,8 @@
         });
 
         $scope.$on('ngDialog.opened', function (e, $dialog) {
-            //var string = $filter('colonToSmiley')(vm.placeEdited.description);
-            if ($dialog.name === "modal-edit-group") {
-                //$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = string;
+            if ($dialog.name === "modal-edit-publication") {
+                $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
             }
         });
 
@@ -211,6 +211,302 @@
             if (vm.files.length > 4 || files > 4) {
                 $scope.$broadcast('rebuild:me');
             }
+        };
+
+        vm.addNewComment = function (flag, pub, pubText, files) {
+            vm.disableAddComment = true;
+            var images = [];
+            var videos = [];
+            if (files != undefined) {
+                files.forEach(function (file) {
+                    var type = file.type.split('/')[0];
+                    if (type === 'image') {
+                        images.push(file);
+                    } else if (type === 'video') {
+                        videos.push(file);
+                    }
+                });
+            }
+
+            vm.newComment.text = vm.emojiMessage.messagetext;
+
+            PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
+                    vm.showAddComment = false;
+                    vm.disableAddComment = false;
+                    if (response.data.status) {
+                        $(".emoji-wysiwyg-editor").html("");
+                        if (flag === "feedPage") {
+                            pub.files = [];
+                            vm.newComment.text = '';
+                            pub.comments.push(response.data.comment);
+                            pub.comment_count++;
+                        }
+                    }
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.addCommentLike = function (comment) {
+            PublicationService.addCommentLike(comment.id).then(function (response) {
+                    comment.like_count = response.like_count;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.getAllCommentsPublication = function (flag, pub, showAllComments) {
+            PublicationService.getAllCommentsPublication(pub.id).then(function (response) {
+                    if (showAllComments === true) {
+                        if (flag === "feedPage") {
+                            pub.comments = response;
+                        }
+                    }
+                    pub.comment_count = response.length;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.deleteComment = function (flag, pub, comment, index) {
+            PublicationService.deleteCommentPublication(comment.id).then(function (response) {
+                    if (response.status) {
+                        pub.comments.splice(index, 1);
+                        pub.comment_count--;
+                    }
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.openCommentComplainBlock = function (commentId) {
+            ngDialog.open({
+                template: '../app/Places/views/alert-publication.html',
+                className: 'alert-publication ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    id: commentId,
+                    flag: 'comment'
+                }
+            });
+        };
+
+        vm.showMoreImages = function (images, currImg) {
+            if (currImg != null) {
+                vm.mainImageInPopup = currImg.url;
+            } else {
+                vm.mainImageInPopup = images[0].url;
+            }
+
+            ngDialog.open({
+                template: '../app/Groups/views/popup-comment-images.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    images: images
+                }
+            });
+        };
+
+        vm.deletePubFile = function (files, index) {
+            files.splice(index, 1);
+        };
+
+        vm.deletePub = function (pub) {
+            vm.pubToDelete = pub.id;
+            ngDialog.open({
+                template: '../app/Places/views/delete-publication.html',
+                className: 'delete-publication ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.confirmPubDelete = function (pubId) {
+            vm.subForm = true;
+            PublicationService.deletePublication(pubId).then(function (res) {
+                    if (res.status) {
+                        angular.forEach(vm.place.publications, function (item, index, arr) {
+                            if (item.id === pubId) {
+                                arr.splice(index, 1);
+                            }
+                        });
+                    }
+                    vm.subForm = false;
+                    ngDialog.closeAll();
+                },
+                function (err) {
+                    console.log(err);
+                });
+        };
+
+        vm.openPubComplainBlock = function (pubId) {
+            ngDialog.open({
+                template: '../app/Places/views/alert-publication.html',
+                className: 'alert-publication ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    id: pubId,
+                    flag: 'pub'
+                }
+            });
+        };
+
+        vm.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
+            var complainCategory = [];
+            cat1 ? complainCategory.push(1) : '';
+            cat2 ? complainCategory.push(2) : '';
+            cat3 ? complainCategory.push(3) : '';
+            cat4 ? complainCategory.push(4) : '';
+            cat5 ? complainCategory.push(5) : '';
+            cat6 ? complainCategory.push(6) : '';
+            cat7 ? complainCategory.push(7) : '';
+            if (flag === 'comment') {
+                PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
+                    .then(
+                        function (res) {
+                            if (res.status) {
+                                ngDialog.closeAll();
+                            } else {
+                                console.log('Error');
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        });
+            } else if (flag === 'pub') {
+                // PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
+                // 	.then(
+                // 		function(res){
+                // 			if (res.status) {
+                ngDialog.closeAll();
+                // 			} else {
+                // 				console.log('Error');
+                // 			}
+                // 		},
+                // 		function(err){
+                // 			console.log(err);
+                // 		});
+            }
+        };
+
+        vm.getPubLink = function (pub) {
+            var pathArray = window.location.href.split('/');
+            pathArray.splice(pathArray.length - 1, 1, 'pub');
+            pathArray.push(pub.id);
+
+            var newPathname = "";
+            for (var i = 0; i < pathArray.length; i++) {
+                newPathname += "/";
+                newPathname += pathArray[i];
+            }
+            vm.pubLink = newPathname.substring(1);
+            ngDialog.open({
+                template: '../app/Groups/views/get-link-publication.html',
+                className: 'link-publication ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.sharePub = function (pubId) {
+
+            var defer = $q.defer();
+
+            var prom = [];
+
+            prom.push(getSubscribers());
+            prom.push(getSubscription());
+
+            $q.all(prom).then(function() {
+                ngDialog.open({
+                    template: '../app/Places/views/popup-sharepub-place.html',
+                    className: 'popup-invite-group ngdialog-theme-default',
+                    scope: $scope,
+                    preCloseCallback: resetFormInviteUsers
+                });
+            });
+        };
+
+        var editPubPopup;
+        var pubEditDeletedPhotos = [];
+        var pubEditDeletedVideos = [];
+        vm.editPub = function (pub) {
+            vm.pubEdited = angular.copy(vm.activePublication);
+            vm.emojiMessage.messagetext = vm.pubEdited.text;
+
+            editPubPopup = ngDialog.open({
+                template: '../app/Places/views/popup-edit-publication.html',
+                className: 'user-publication user-publication-edit ngdialog-theme-default',
+                scope: $scope,
+                name: "modal-edit-publication",
+                preCloseCallback: resetFormNewPublication
+            });
+        };
+
+        vm.editedPubFiles = function (pub) {
+            var files = [];
+            pub.images.forEach(function (img) {
+                var filename = img.url.split('/')[(img.url.split('/')).length - 1];
+                img.name = filename.substring(8, filename.length);
+                files.push(img);
+            });
+            pub.videos.forEach(function (video) {
+                files.push(video);
+            });
+            vm.editedPubFilesArray = files;
+        };
+
+        vm.editedPubDeleteFile = function (index, fileId, pivot) {
+            vm.editedPubFilesArray.splice(index, 1);
+            if (pivot.image_id) {
+                pubEditDeletedPhotos.push(fileId);
+            } else if (pivot.video_id) {
+                pubEditDeletedVideos.push(fileId);
+            }
+            $scope.$broadcast('rebuild:me');
+        };
+
+        vm.rebuildScroll = function () {
+            $scope.$broadcast('loadPubFiles');
+        };
+
+        vm.saveEditedPub = function (pubId, pubText, files) {
+            vm.pubEdited.description = vm.emojiMessage.messagetext;
+            vm.updatePubLoader = true;
+            var images = [];
+            var videos = [];
+            var isMain;
+            if ($state.current.name === 'feed') {
+                isMain = 1;
+            } else {
+                isMain = 0;
+            }
+            if (files) {
+                files.forEach(function (file) {
+                    var type = file.type.split('/')[0];
+                    if (type === 'image') {
+                        images.push(file);
+                    } else if (type === 'video') {
+                        videos.push(file);
+                    }
+                });
+            }
+            PublicationService.updatePublication(pubId, vm.pubEdited.description, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+                .then(
+                    function (res) {
+                        if (res.status) {
+                            ngDialog.closeAll();
+                        } else {
+                            console.log('Error');
+                        }
+                        vm.updatePubLoader = false;
+                    },
+                    function (err) {
+                        console.log(err);
+                    });
         };
 
         vm.deletePlace = function () {
@@ -445,6 +741,17 @@
                 }
             }
         };
+
+        vm.addPublicationLike = function () {
+            PublicationService.addPublicationLike(vm.activePublication.id).then(function (response) {
+                    vm.activePublication.user_like = response.user_like;
+                    vm.activePublication.like_count = response.like_count;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
 
         vm.subscribe = function () {
             if (place.is_creator) {

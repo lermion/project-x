@@ -3,22 +3,22 @@
 
     <div class="user-publication-header">
         <div class="user-function">
-            <a href class="user" ui-sref="user({username: userData.login})" ng-click="closePopup()">
+            <a href class="user" ui-sref="place({placeName: vm.place.url_name})" ng-click="closeThisDialog()">
 				<span class="ava">
-					<img ng-src="{{::vm.group.avatar}}" alt="">
+					<img ng-src="{{::vm.place.avatar}}" alt="">
 				</span>
 
-                <p class="user-name">{{::vm.group.name}}</p>
+                <p class="user-name">{{::vm.place.name}}</p>
             </a>
 
             <div class="user-menu" ng-click="showPubMenu=!showPubMenu">
                 <div class="menu-item" ng-show="showPubMenu">
                     <div class="inner">
-                        <a href ng-click="vm.editPub(vm.activePublication)">Редактировать</a>
+                        <a href ng-if="vm.place.is_admin" ng-click="vm.editPub(vm.activePublication)">Редактировать</a>
                         <a href ng-click="vm.sharePub(vm.activePublication)">Переслать</a>
                         <a href ng-click="vm.getPubLink(vm.activePublication)">Получить ссылку</a>
                         <a href ng-click="vm.openPubComplainBlock(vm.activePublication.id)">Пожаловаться</a>
-                        <a href ng-click="vm.deletePub(vm.activePublication)">Удалить</a>
+                        <a href ng-if="vm.place.is_admin" ng-click="vm.deletePub(vm.activePublication)">Удалить</a>
                     </div>
                 </div>
             </div>
@@ -120,8 +120,8 @@
         </div>
         <div flow-init style="position:relative;" class="add">
             <div class="text-field">
-                <div emoji-form emoji-message="vm.emoji.emojiMessage">
-                    <textarea id="messageInput" ng-model="vm.emoji.emojiMessage.messagetext"></textarea>
+                <div emoji-form emoji-message="vm.emojiMessage">
+                    <textarea id="messageInput" ng-model="vm.emojiMessage.messagetext"></textarea>
                     <a href class="emoji-button" id="emojibtn">
                         <i class="icon icon-emoji"></i>
                     </a>
