@@ -108,7 +108,7 @@ Queries.prototype.getUserRooms = function(data){
 									status: item.status,
 									avatar: item.avatar,
 									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
-									last_message_created_at: lastMessages[0].created_at,
+									last_message_created_at: lastMessages[0] ? lastMessages[0].last_message_created_at : "",
 									messagesCount: messagesCount[0]['COUNT(messages.id)'],
 									show_notif: result[0].show_notif
 								};
