@@ -15,7 +15,7 @@
                 <div class="select-country-country">Категория динамического места</div>
                 <div class="select-country-name">
                     <select ng-model="vm.placeEdited.type_place"
-                            name="typePlaceId"
+                            name="category"
                             ng-options="option.name for option in vm.typeDynamic track by option.id"
                             required>
                         <option value="" disabled>---</option>
@@ -93,7 +93,7 @@
             <div class="create-places-select-country days">
                 <div class="select-country-country">Сколько дней актуально это место</div>
                 <div class="select-country-name">
-                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeEdited.expired_days"
+                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeEdited.expired_date"
                            required>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.date.$error"

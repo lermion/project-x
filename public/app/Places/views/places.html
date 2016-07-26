@@ -78,8 +78,7 @@
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
                             <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})">
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -114,8 +113,7 @@
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
                             <a class="places-item-photo-link" ui-sref="place">
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -148,10 +146,9 @@
                          ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -184,10 +181,9 @@
                          ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -220,10 +216,9 @@
                          ng-repeat="place in vm.places | filter: {type_place_id: 1} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -256,10 +251,9 @@
                          ng-repeat="place in vm.places | filter: {type_place_id: 2} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -292,10 +286,9 @@
                          ng-repeat="place in vm.places | filter: {type_place_id: 3} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -328,10 +321,9 @@
                          ng-repeat="place in vm.places | filter: {type_place_id: 4} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -364,10 +356,9 @@
                          ng-repeat="place in vm.places | filter: {type_place_id: 5} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -400,10 +391,9 @@
                          ng-repeat="place in vm.places | filter: {type_place_id: 6} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -436,10 +426,9 @@
                          ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
@@ -472,10 +461,9 @@
                          ng-repeat="place in vm.places | filter: 'is_admin === true' | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
                                 <img class="places-item-photo-img"
-                                     src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg"
-                                     alt="">
+                                     ngf-src="place.avatar">
                             </a>
 
                             <div class="places-item-photo-place">
