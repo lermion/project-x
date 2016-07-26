@@ -511,6 +511,11 @@ angular.module('placePeopleApp')
 								return chat.last_message = data.text;
 							}
 						}
+						$scope.getLastMessageCreatedAt = function(chat){
+							if(chat.room_id === data.roomId){
+								return chat.last_message_created_at = data.created_at;
+							}
+						}
 					}
 				}
 			});
