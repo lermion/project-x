@@ -77,7 +77,7 @@
                 resolve: {
                     place: ['placesService', '$stateParams', '$q', 'ngDialog', function (placesService, $stateParams, $q, ngDialog) {
                         var deferred = $q.defer();
-                        var group;
+
                         placesService.getPlace($stateParams.placeName)
                             .then(function (data) {
                                 if (!data) {
@@ -98,6 +98,7 @@
 
                                 }
                             });
+
                         return deferred.promise;
                     }],
 
