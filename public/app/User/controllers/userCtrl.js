@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
 	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload', 'socket',
+		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload', 'socket', 'groupsService',
 		function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
-			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload, socket){
+			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload, socket, groupsService){
 		/* Service info*/
 		amMoment.changeLocale('ru');
 		$scope.$emit('userPoint', 'user');    	
@@ -787,6 +787,9 @@ angular.module('placePeopleApp')
 				$scope.groupsChat = function(){
 					return false;
 				}
+				$scope.showGroups = function(){
+					return false;
+				}
 			}else if(value === "groups-chat"){
 				socket.emit("get user rooms", $scope.loggedUserId);
 				socket.on("get user rooms", function(response){
@@ -798,6 +801,27 @@ angular.module('placePeopleApp')
 				$scope.members = function(){
 					return false;
 				}
+				$scope.showGroups = function(){
+					return false;
+				}
+			}else if(value === "groups"){
+				$scope.showGroups = function(){
+					return true;
+				}
+				$scope.groupsChat = function(){
+					return false;
+				}
+				$scope.members = function(){
+					return false;
+				}
+				groupsService.getGroupList().then(function(response){
+					$scope.groups = response;
+				},
+				function(error){
+					console.log(error);
+				});
+			}else if(value === "places"){
+				console.log("places");
 			}
 		}
 		function loadUserContacts(){
