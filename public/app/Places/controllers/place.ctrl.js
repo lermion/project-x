@@ -5,10 +5,10 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', '$state', '$timeout', 'place', 'storageService', 'placesService', 'ngDialog',
+    PlaceCtrl.$inject = ['$scope', '$state', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
         '$http', '$window', 'Upload', 'amMoment'];
 
-    function PlaceCtrl($scope, $state, $timeout, place, storageService, placesService, ngDialog,
+    function PlaceCtrl($scope, $state, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
                        $http, $window, Upload, amMoment) {
 
         var vm = this;
@@ -29,6 +29,8 @@
 
         vm.subForm = false;
 
+        vm.inviteNotSend = true;
+
         vm.countries = [];
         vm.cities = [];
         var originalCities = [];
@@ -40,6 +42,7 @@
         vm.myCroppedImage = null;
         vm.blobImg = null;
 
+        vm.invitedUsers = [];
 
         // Watchers
         var watchCountry, watchCity;
@@ -196,6 +199,20 @@
             originalCities = angular.copy(vm.cities);
         }
 
+        function getSubscribers() {
+            return UserService.getSubscribers(myId)
+                .then(function (subscribers) {
+                    vm.subscribers = subscribers;
+                });
+        }
+
+        function getSubscription() {
+            return PublicationService.getSubscription(myId)
+                .then(function (data) {
+                    vm.subscription = data;
+                });
+        }
+
 
         // set default tab (view) for place view
         $scope.$on("$stateChangeSuccess", function () {
@@ -263,12 +280,15 @@
 
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
-                modalInviteUsers = ngDialog.open({
-                    template: '../app/Groups/views/popup-invite-group.html',
-                    name: 'modal-invite-group',
-                    className: 'popup-invite-group ngdialog-theme-default',
-                    scope: $scope
+                getSubscription().then(function () {
+                    modalInviteUsers = ngDialog.open({
+                        template: '../app/Places/views/popup-invite-place.html',
+                        name: 'modal-invite-group',
+                        className: 'popup-invite-group ngdialog-theme-default',
+                        scope: $scope
+                    });
                 });
+
             });
         };
 
@@ -327,16 +347,16 @@
         //};
         //
         //
-        //vm.deleteGroup = function () {
-        //    groupsService.deleteGroup(vm.group.id)
-        //        .then(function (data) {
-        //            if (data.status) {
-        //                $state.go('groups');
-        //                modalDeletePlace.close();
-        //            }
-        //        });
-        //};
-        //
+        vm.deletePlace = function () {
+            placesService.deletePlace(vm.place.id)
+                .then(function (data) {
+                    if (data.status) {
+                        $state.go('places');
+                        modalDeletePlace.close();
+                    }
+                });
+        };
+
 
 
         // Submit actions
@@ -489,9 +509,9 @@
         }
 
         //
-        //vm.abortDeleteGroup = function () {
-        //    modalDeletePlace.close();
-        //};
+        vm.abortDeletePlace = function () {
+            modalDeletePlace.close();
+        };
         //
         //vm.subscribe = function () {
         //    if (group.is_creator) {
@@ -500,18 +520,18 @@
         //        groupsService.subscribeGroup(vm.place.id)
         //            .then(function (data) {
         //                if (data.status) {
-        //                    vm.group.is_sub = data.is_sub;
+        //                    vm.place.is_sub = data.is_sub;
         //                    if (data.is_sub) {
-        //                        vm.group.users.push({
+        //                        vm.place.users.push({
         //                            avatar_path: myAvatar,
         //                            first_name: firstName,
         //                            last_name: lastName,
         //                            id: myId
         //                        });
-        //                        vm.group.count_users += 1;
+        //                        vm.place.count_users += 1;
         //                    } else {
         //                        removeUser({userId: myId});
-        //                        vm.group.count_users -= 1;
+        //                        vm.place.count_users -= 1;
         //                    }
         //
         //                }
@@ -520,69 +540,80 @@
         //
         //};
         //
-        //vm.onItemSelected = function (user) {
-        //    var isExist = $filter('getById')(vm.invitedUsers, user.id);
+        vm.onItemSelected = function (user) {
+            var isExist = $filter('getById')(vm.invitedUsers, user.id);
+
+            if (!isExist) {
+                var item = {
+                    userId: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    avatar: user.avatar_path,
+
+                    isAdmin: false
+                };
+                vm.invitedUsers.push(item);
+            }
+        };
+
+        vm.removeUserFromInviteList = function (user) {
+            for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
+                if (vm.invitedUsers[i].userId == user.userId) {
+                    vm.invitedUsers.splice(i, 1);
+                }
+            }
+        };
+
+        vm.removeUser = function (user) {
+            removeUser({
+                userId: user.id,
+                isAdmin: user.is_admin
+            });
+        };
         //
-        //    if (!isExist) {
-        //        var item = {
-        //            userId: user.id,
-        //            firstName: user.first_name,
-        //            lastName: user.last_name,
-        //            avatar: user.avatar_path,
-        //
-        //            isAdmin: false
-        //        };
-        //        vm.invitedUsers.push(item);
-        //    }
-        //};
-        //
-        //vm.removeUserFromInviteList = function (user) {
-        //    for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
-        //        if (vm.invitedUsers[i].userId == user.userId) {
-        //            vm.invitedUsers.splice(i, 1);
-        //        }
-        //    }
-        //};
-        //
-        //vm.removeUser = function (user) {
-        //    removeUser({
-        //        userId: user.id,
-        //        isAdmin: user.is_admin
-        //    });
-        //};
-        //
-        //vm.submitInviteUsers = function () {
-        //    if (!vm.inviteNotSend) {
-        //        return false;
-        //    }
-        //    groupsService.inviteUsers(group.id, vm.invitedUsers)
-        //        .then(function (data) {
-        //            if (data.status) {
-        //                vm.inviteNotSend = false;
-        //                $timeout(function () {
-        //                    resetFormInviteUsers();
-        //                    modalInviteUsers.close();
-        //                }, 2000);
-        //            }
-        //        });
-        //};
-        //
-        //vm.abortInviteUsers = function () {
-        //    resetFormInviteUsers();
-        //    modalInviteUsers.close();
-        //};
-        //
-        //vm.setAdmin = function (user) {
-        //    if (!vm.group.is_creator) {
-        //        return false;
-        //    }
-        //    groupsService.setAdmin(group.id, user.id)
-        //        .then(function (data) {
-        //            if (data.status) {
-        //                user.is_admin = data.is_admin;
-        //            }
-        //        });
-        //};
+        vm.submitInviteUsers = function () {
+            if (!vm.inviteNotSend) {
+                return false;
+            }
+            placesService.inviteUsers(vm.place.id, vm.invitedUsers)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.inviteNotSend = false;
+
+                        angular.forEach(vm.invitedUsers, function (item, i, arr) {
+                            vm.place.users.push({
+                                avatar_path: item.avatar,
+                                first_name: item.firstName,
+                                id: item.userId,
+                                is_admin: item.isAdmin,
+                                last_name: item.lastName
+                            });
+                        });
+                        vm.place.count_users += vm.invitedUsers.length;
+                        $timeout(function () {
+                            resetFormInviteUsers();
+                            modalInviteUsers.close();
+                        }, 2000);
+                    }
+                });
+        };
+
+        vm.abortInviteUsers = function () {
+            resetFormInviteUsers();
+            modalInviteUsers.close();
+        };
+
+        vm.setAdmin = function (user) {
+            if (!vm.place.is_creator) {
+                return false;
+            }
+            placesService.setAdmin(vm.place.id, user.id)
+                .then(function (data) {
+                    if (data.status) {
+                        user.is_admin = data.is_admin;
+                    }
+                });
+        };
         //
         //vm.setCreator = function () {
         //    if (vm.isSend) {
@@ -625,6 +656,19 @@
             });
 
             modalCropLogoImage.close();
+        };
+
+        vm.showUsersForInvite = function (user) {
+            var result = true;
+
+            for (var i = 0; i < vm.place.users.length; i++) {
+                if (user.id === vm.place.users[i].id) {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
         };
 
         function openModalCropAvatarImage(fileName, e) {
@@ -685,6 +729,7 @@
         function resetFormInviteUsers() {
             vm.invitedUsers = [];
             vm.subscribers = [];
+            vm.subscription = [];
             vm.inviteNotSend = true;
         }
 
@@ -708,10 +753,11 @@
                     if (user.isAdmin && vm.place.is_creator || !user.isAdmin && vm.place.is_admin || user.userId === myId) {
                         arr.push(user.userId);
                         indexToRemove = i;
-                        groupsService.removeUsers(vm.place.id, arr)
+                        placesService.removeUsers(vm.place.id, arr)
                             .then(function (data) {
                                 if (data.status) {
                                     vm.place.users.splice(indexToRemove, 1);
+                                    vm.place.count_users--;
                                 }
                             });
                     }
@@ -793,9 +839,9 @@
         //    return groupsService.getGroup(groupName)
         //        .then(function (data) {
         //            if (data) {
-        //                vm.group = data;
-        //                vm.group.is_open = !!vm.group.is_open;
-        //                vm.group.avatarIsChange = false;
+        //                vm.place = data;
+        //                vm.place.is_open = !!vm.place.is_open;
+        //                vm.place.avatarIsChange = false;
         //
         //                $scope.emoji.messagetext = data.description;
         //            } else {

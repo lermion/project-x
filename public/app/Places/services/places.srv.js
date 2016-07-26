@@ -25,7 +25,8 @@
             getPlaceTypeDynamic: getPlaceTypeDynamic,
             subscribePlace: subscribePlace,
             updatePlace: updatePlace,
-            deletePlace: deletePlace
+            deletePlace: deletePlace,
+            removeUsers: removeUsers
 
         };
 
@@ -382,6 +383,33 @@
 
             function deletePlaceFailed(error) {
                 console.error('XHR Failed for deletePlace. ' + error.data);
+            }
+        }
+
+        function removeUsers(placeId, users) {
+            var fd = new FormData();
+
+            angular.forEach(users, function (id) {
+                fd.append('user_id[]', id);
+            });
+
+
+            return $http({
+                method: 'POST',
+                url: 'place/delete_subscription/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(removeUsersComplete)
+                .catch(removeUsersFailed);
+
+            function removeUsersComplete(response) {
+                return response.data;
+            }
+
+            function removeUsersFailed(error, status) {
+                console.error('XHR Failed for removeUsers. ' + status);
             }
         }
 
