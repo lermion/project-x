@@ -328,7 +328,7 @@
             fd.append('city_id', place.city.id);
             fd.append('coordinates_x', place.coordinates_x);
             fd.append('coordinates_y', place.coordinates_y);
-            fd.append('type_place_id', place.type_place_id);
+            fd.append('type_place_id', place.type_place.id);
 
             if (place.name) {
                 fd.append('name', place.name);
@@ -338,6 +338,10 @@
             }
             if (place.avatar) {
                 fd.append('avatar', place.avatar);
+            }
+
+            if (place.is_dynamic) {
+                fd.append('expired_date', place.expired_date);
             }
 
 

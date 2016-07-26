@@ -5,9 +5,11 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$scope', '$state', '$timeout', 'place', 'storageService', 'placesService', 'ngDialog', '$http', '$window', 'Upload'];
+    PlaceCtrl.$inject = ['$scope', '$state', '$timeout', 'place', 'storageService', 'placesService', 'ngDialog',
+        '$http', '$window', 'Upload', 'amMoment'];
 
-    function PlaceCtrl($scope, $state, $timeout, place, storageService, placesService, ngDialog, $http, $window, Upload) {
+    function PlaceCtrl($scope, $state, $timeout, place, storageService, placesService, ngDialog,
+                       $http, $window, Upload, amMoment) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -87,7 +89,11 @@
             getCountries();
             getCities(vm.place.country.id).then(saveOriginalCities);
             getDynamicPlaceType();
-            //setWatchers();
+
+            //TODO: refact!
+            if (vm.placeEdited.is_dynamic) {
+                vm.placeEdited.expired_date = new Date(vm.placeEdited.expired_date);
+            }
         }
 
         function init() {
@@ -189,8 +195,6 @@
         function saveOriginalCities() {
             originalCities = angular.copy(vm.cities);
         }
-
-
 
 
         // set default tab (view) for place view
@@ -352,6 +356,10 @@
                 placeEdited.name = null;
             }
 
+            if (placeEdited.expired_date) {
+                placeEdited.expired_date = moment(placeEdited.expired_date).format('YYYY-MM-DD');
+            }
+
             placesService.updatePlace(placeEdited)
                 .then(function (data) {
                     if (data.status) {
@@ -475,7 +483,7 @@
 
         function getDynamicPlaceType() {
             placesService.getPlaceTypeDynamic()
-                .then(function(data) {
+                .then(function (data) {
                     vm.typeDynamic = data;
                 });
         }
