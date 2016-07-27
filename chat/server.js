@@ -89,6 +89,7 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
+							response[response.length - 1].isNew = true;
 							//var socketId = usersId[response[0].id];
 							//io.sockets.connected[socketId].emit("get user rooms", response);
 							socket.emit("get user rooms", response);
