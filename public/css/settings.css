@@ -7198,7 +7198,9 @@ input.cmn-toggle-round:checked + label:after {
     color: rgb(153,153,153);
  }
 
-/*.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
+
+
+.ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.ladda-button {
     text-decoration: none;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
@@ -7211,6 +7213,7 @@ input.cmn-toggle-round:checked + label:after {
     outline: none;
     cursor: pointer;
 }
-.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
+.ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
     background-color: #DA5036;
-}*/
+}
+
