@@ -237,6 +237,8 @@
                         vm.placeName = data.place.url_name;
                         vm.isPlaceAdded = true;
                         vm.placeId = data.place.id;
+                        data.place.is_new_place = true;
+                        vm.places.push(data.place);
                     }
                 });
         };
@@ -309,10 +311,12 @@
         // Forms
         // Dynamic Place
         vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-            Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
-                console.log(resizedFile);
-                vm.placeNew.cover = resizedFile;
-            });
+            if (file) {
+                Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
+                    vm.placeNew.cover = resizedFile;
+                });
+            }
+
         };
         vm.changePlaceLogoFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             openModalCropLogoImage(event);
@@ -412,16 +416,6 @@
 
                 reader.readAsDataURL(file);
             }
-        }
-
-        function blobToFile(dataURI) {
-            var byteString = atob(dataURI.split(',')[1]);
-            var ab = new ArrayBuffer(byteString.length);
-            var ia = new Uint8Array(ab);
-            for (var i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-            return new Blob([ab], {type: 'image/jpeg'});
         }
 
 
