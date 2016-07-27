@@ -14,7 +14,30 @@
                 url: '/search',
                 templateUrl: '../../app/Search/views/search.html',
                 controller: 'SearchCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    searchObj: {
+                        str: null,
+                        byUsers: true,
+                        byPublications: true,
+                        byPlaces: true,
+                        byGroups: true
+                    }
+                },
+                resolve: {
+                    results: ['searchService', '$stateParams', '$state', '$q', function (searchService, $stateParams, $state, $q) {
+                        var deferred = $q.defer();
+
+                        searchService.search($stateParams.searchObj)
+                            .then(function (data) {
+
+                                deferred.resolve(data);
+                            });
+
+                        return deferred.promise;
+
+                    }]
+                }
             })
             .state('search.people', {
                 url: '/people',

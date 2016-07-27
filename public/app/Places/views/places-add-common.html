@@ -111,7 +111,14 @@
 
                     <span>Добавить обложку места</span>
                 </div>
+                
             </div>
+            <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.$dirty">
+                    <div ng-message="pattern">Выбранный файл не является изображением</div>
+                    <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
+                    <div ng-message="required">Вы не выбрали обложку для места</div>
+                    <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
+                </div>
             <div class="create-places-add-cover">
                 <div class="create-places-add-cover-img"
                      name="logo"
@@ -125,7 +132,14 @@
                     </a>
                     <span>Добавить логотип места</span>
                 </div>
+                
                 <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
+            </div>
+            <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.$dirty">
+                    <div ng-message="pattern">Выбранный файл не является изображением</div>
+                    <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
+                    <!--<div ng-message="required">Вы не выбрали обложку для группы</div>-->
+                    <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
             </div>
 
         </div>

@@ -320,7 +320,7 @@
             vm.pubToDelete = pub.id;
             ngDialog.open({
                 template: '../app/Places/views/delete-publication.html',
-                className: 'delete-publication ngdialog-theme-default',
+                className: 'delete-publication place ngdialog-theme-default',
                 scope: $scope
             });
         };
