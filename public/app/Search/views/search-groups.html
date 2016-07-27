@@ -1,35 +1,16 @@
 <div class="groups">
-	<div class="group">
-        <div class="group-cover">
-            <span class="groups-item-new-group">NEW</span>
-                <a href="javascript:void(0);" class="group-ava">
-                    <!--<img ng-src="{{group.avatar}}">-->
-                    <img src="http://www.pageresource.com/wallpapers/wallpaper/cool-beautiful-nature-road.jpg">
-                </a>
-
-            <div class="group-likes">
-                <a href="" class="group-like">12</a>
-                <a href="" class="group-comments">10</a>
-            </div>
-        </div>
-        <div class="titles">
-            <a href class="title">Имя группы</a>
-            <p class="about">О группе</p>
-        </div>
-        <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-        <!-- <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
-        <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button> -->
-    </div>
-
-
     <div class="group"
-        ng-repeat="group in [1,2,3,4,5]">
+        ng-repeat="group in vm.results[3]">
         <div class="group-cover">
             <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
-               <a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">
-                    <!--<img ng-src="{{group.avatar}}">-->
-                    <img ngf-src="group.card_avatar" ngf-as-background="true">
-                </a>
+            <a ui-sref="group({groupName: 'Test1', groupId: 1, isOpenModal: true, modalId: 5})" class="group-ava">
+                <!--<img ng-src="{{group.avatar}}">-->
+                <img ngf-src="group.card_avatar" ngf-as-background="true">
+            </a>
+               <!--<a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">-->
+                    <!--&lt;!&ndash;<img ng-src="{{group.avatar}}">&ndash;&gt;-->
+                    <!--<img ngf-src="group.card_avatar" ngf-as-background="true">-->
+                <!--</a>-->
 
             <div class="group-likes">
                 <a href="" class="group-like">{{::group.count_user}}</a>

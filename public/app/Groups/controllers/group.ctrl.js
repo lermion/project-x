@@ -79,6 +79,7 @@
 
         function activate() {
             init();
+            checkSearch();
         }
 
         function init() {
@@ -153,6 +154,8 @@
             });
 
         }
+
+
 
         // set default tab (view) for group view
         $scope.$on("$stateChangeSuccess", function () {
@@ -931,6 +934,12 @@
                 ia[i] = byteString.charCodeAt(i);
             }
             return new Blob([ab], {type: 'image/jpeg'});
+        }
+
+        function checkSearch() {
+            if ($stateParams.isOpenModal) {
+                vm.openModalReviewPublication($stateParams.modalId);
+            }
         }
 
         //function getGroup() {
