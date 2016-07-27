@@ -32,8 +32,8 @@
         </div>
         <div class="header-search-container" ng-show="showSearch" ng-init="showSearch = false">
             <div class="header-search-input-wrap">
-                <form name="form.search" ng-submit="submitSearch(strSearch)" novalidate>
-                    <input type="text" ng-model="strSearch" placeholder="Поиск...">
+                <form name="form.search" ng-submit="submitSearch()" novalidate>
+                    <input type="text" ng-model="search.str" placeholder="Поиск...">
                 </form>
             </div>
         </div>
