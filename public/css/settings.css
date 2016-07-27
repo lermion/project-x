@@ -7209,11 +7209,14 @@ input.cmn-toggle-round:checked + label:after {
     transition: all .3s ease-in-out .1s!important;
     color: #fff;
     background-color: #ec6045;
-    border: 1px solid #495b79;
+    border: 0px solid #495b79;
     outline: none;
     cursor: pointer;
+    border-radius: 0px;
 }
 .ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
     background-color: #DA5036;
 }
-
+.ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.cansel {
+    transition: all .3s ease-in-out .1s!important;
+}
