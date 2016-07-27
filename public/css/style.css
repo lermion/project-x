@@ -2215,24 +2215,14 @@ spam-item {
 	z-index: 1;
 	left: 3px;
 	background-color: #333;
+	vertical-align: middle;
+    text-align: center;
 }
 .publication .new-add .inner .close:before,
 .add-comment .new-add .inner .close:before {
 	background: 0 0;
 	color: #fff;
 	content: '\00D7';
-	font-size: 26px;
-	font-weight: 400;
-	height: 25px;
-	// line-height: 25px;
-	// position: absolute;
-	left: 0;
-	text-align: center;
-	top: 0;
-	width: 25px;
-	width: 25px;
-	display: block;
-	line-height: 24px;
 }
 .publication .new-add .inner .close:hover,
 .add-comment .new-add .inner .close:hover {
