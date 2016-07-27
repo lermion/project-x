@@ -3,133 +3,69 @@
 </div>
 <div class="share-publication-menu-wrap">
 	<div class="share-publication-menu-wrap-inner">
-		<a href="" class="share-publication-menu-item active">Пользователи</a>
-		<a href="" class="share-publication-menu-item">Групповые чаты</a>
-		<a href="" class="share-publication-menu-item">Группы</a>
-		<a href="" class="share-publication-menu-item">Места</a>
+		<a ng-class="{active:isSelected($index)}" ng-repeat="menuItem in menuItems" href="javascript:void(0);" ng-click="changeMenu(menuItem.menuType, $index)" class="share-publication-menu-item">{{menuItem.name}}</a>
 	</div>
 </div>
 <div class="share-publication-search-wrap">
-		<div class="share-publication-search-input">
-			<input type="text" placeholder="Поиск...">
+	<div class="share-publication-search-input">
+		<input type="text" placeholder="Поиск...">
+	</div>
+	<div ng-if="members()" class="share-publication-search-data">
+		<div class="share-publication-search-sign">Я подписан</div>
+		<div ng-repeat="subscription in subscriptions" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="user({username: subscription.login})" href="javascript:void(0);">
+						<img ng-src="{{subscription.avatar_path}}" alt="">
+					</a>
+				</div>
+				<span class="share-publication-search-data-name">{{subscription.first_name}} {{subscription.last_name}}</span>
+			</div>
 		</div>
-		<div class="share-publication-search-data">
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
+		<div class="share-publication-search-sign">Подписчики</div>
+		<div ng-repeat="subscriber in subscribers" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="user({username: subscriber.login})" href="javascript:void(0);">
+						<img ng-src="{{subscriber.avatar_path}}" alt="">
+					</a>
 				</div>
+				<span class="share-publication-search-data-name">{{subscriber.first_name}} {{subscriber.last_name}}</span>
 			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
+		</div>
+	</div>
+	<div ng-if="groupsChat()" class="share-publication-search-data">
+		<div class="share-publication-search-sign">Групповые чаты</div>
+		<div ng-repeat="groupChat in groupsChatArr" ng-if="groupChat.is_group" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
+						<img ng-src="{{groupChat.avatar}}" alt="">
+					</a>
 				</div>
+				<span class="share-publication-search-data-name">{{groupChat.name}}</span>
 			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
+		</div>
+	</div>
+	<div ng-if="showGroups()" class="share-publication-search-data">
+		<div class="share-publication-search-sign">Группы</div>
+		<div ng-repeat="group in groups" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
+						<img ng-src="{{group.card_avatar}}" alt="">
+					</a>
 				</div>
+				<span class="share-publication-search-data-name">{{group.name}}</span>
 			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
-				</div>
-			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
-				</div>
-			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
-				</div>
-			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
-				</div>
-			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
-				</div>
-			</div>
-			<div class="share-publication-search-data-item">
-				<span><input class="share-publication-checkbox" type="checkbox"></span>
-				<div class="share-publication-search-data-info">
-					<div class="share-publication-search-data-ava">
-						<a href="">
-							<img src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL.jpg" alt="">
-						</a>
-					</div>
-					<span class="share-publication-search-data-name">
-						Елена Новикова
-					</span>
-				</div>
-			</div>
+		</div>
+	</div>
+	<div class="share-publication-send-btn">
+		<div class="share-publication-send-btn-cancel">Отменить</div>
+		<div class="share-publication-send-btn-send">Отправить</div>
 	</div>
 </div>

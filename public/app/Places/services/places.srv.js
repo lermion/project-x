@@ -23,7 +23,14 @@
             setAdmin: setAdmin,
             getPlaceTypeStatic: getPlaceTypeStatic,
             getPlaceTypeDynamic: getPlaceTypeDynamic,
-            subscribePlace: subscribePlace
+            subscribePlace: subscribePlace,
+            updatePlace: updatePlace,
+            deletePlace: deletePlace,
+            removeUsers: removeUsers,
+            setCreator: setCreator,
+            addPublication: addPublication
+
+
         };
 
         ////////////
@@ -86,7 +93,14 @@
             fd.append('type_place_id', place.category.id);
 
             if (place.isDynamic) {
-                fd.append('expired_days', place.expired_days);
+                fd.append('expired_date', place.expired_date);
+            }
+
+            if (place.cover) {
+                fd.append('cover', place.cover);
+            }
+            if (place.logo) {
+                fd.append('avatar', place.logo);
             }
 
             return $http({
@@ -306,6 +320,155 @@
 
             function subscribePlaceFailed(error) {
                 console.error('XHR Failed for subscribePlace. ' + error.data);
+            }
+        }
+
+        function updatePlace(place) {
+            var fd = new FormData();
+
+            // required fields
+            fd.append('description', place.description);
+            fd.append('address', place.address);
+            fd.append('city_id', place.city.id);
+            fd.append('coordinates_x', place.coordinates_x);
+            fd.append('coordinates_y', place.coordinates_y);
+            fd.append('type_place_id', place.type_place.id);
+
+            if (place.name) {
+                fd.append('name', place.name);
+            }
+            if (place.cover) {
+                fd.append('cover', place.cover);
+            }
+            if (place.avatar) {
+                fd.append('avatar', place.avatar);
+            }
+
+            if (place.is_dynamic) {
+                fd.append('expired_date', place.expired_date);
+            }
+
+
+            return $http({
+                method: 'POST',
+                url: 'place/update/' + place.id,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(updatePlaceComplete)
+                .catch(updatePlaceFailed);
+
+            function updatePlaceComplete(response) {
+                return response.data;
+            }
+
+            function updatePlaceFailed(error, status) {
+                console.error('XHR Failed for updatePlace. ' + status);
+            }
+        }
+
+        function deletePlace(placeId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/destroy/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(deletePlaceComplete)
+                .catch(deletePlaceFailed);
+
+            function deletePlaceComplete(response) {
+                return response.data;
+            }
+
+            function deletePlaceFailed(error) {
+                console.error('XHR Failed for deletePlace. ' + error.data);
+            }
+        }
+
+        function removeUsers(placeId, users) {
+            var fd = new FormData();
+
+            angular.forEach(users, function (id) {
+                fd.append('user_id[]', id);
+            });
+
+
+            return $http({
+                method: 'POST',
+                url: 'place/delete_subscription/' + placeId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(removeUsersComplete)
+                .catch(removeUsersFailed);
+
+            function removeUsersComplete(response) {
+                return response.data;
+            }
+
+            function removeUsersFailed(error, status) {
+                console.error('XHR Failed for removeUsers. ' + status);
+            }
+        }
+
+        function setCreator(placeId, adminId) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/set_admin_creator/' + placeId + '/' + adminId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(setCreatorComplete)
+                .catch(setCreatorFailed);
+
+            function setCreatorComplete(response) {
+                return response.data;
+            }
+
+            function setCreatorFailed(error) {
+                console.error('XHR Failed for setCreator. ' + error.data);
+            }
+        }
+
+        function addPublication(publication) {
+            var fd = new FormData();
+
+            fd.append('text', publication.text);
+
+            if (publication.files.images) {
+                angular.forEach(publication.files.images, function (image) {
+                    fd.append('images[]', image);
+                });
+            }
+            if (publication.files.videos) {
+                angular.forEach(publication.files.videos, function (video) {
+                    fd.append('videos[]', video);
+                });
+            }
+
+            return $http({
+                method: 'POST',
+                url: 'place/' + publication.placeId + '/publication/store',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(addPublicationComplete)
+                .catch(addPublicationFailed);
+
+            function addPublicationComplete(response) {
+                return response.data;
+            }
+
+            function addPublicationFailed(error, status) {
+                console.error('XHR Failed for addPublication. ' + status);
             }
         }
 

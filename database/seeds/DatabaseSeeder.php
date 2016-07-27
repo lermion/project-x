@@ -396,6 +396,7 @@ class TypePlaceTableSeeder extends Seeder
         TypePlace::create(array('id' => 9, 'name' => 'Пароход', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
     }
 }
+
 class PlaceTableSeeder extends Seeder
 {
 

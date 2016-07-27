@@ -158,6 +158,7 @@ Route::group(['middleware' => ['web']], function () {
             });
         });
         Route::group(['prefix' => 'type'], function () {
+            Route::post('create', 'TypePlaceController@create');
             Route::get('static', 'TypePlaceController@getStatic');
             Route::get('dynamic', 'TypePlaceController@getDynamic');
         });
@@ -175,7 +176,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'mail'], function () {
         Route::get('/', 'MailController@index');
+        Route::get('get_review', 'MailController@get_review');
+        Route::get('get_closed', 'MailController@get_closed');
         Route::post('create', 'MailController@create');
+        Route::get('destroy/{id}', 'MailController@destroy');
+        Route::get('status_closed/{id}', 'MailController@change_status_closed');
+        Route::get('status_review/{id}', 'MailController@change_status_review');
     });
 
     Route::post('search','SphinxSearchController@search');
@@ -190,15 +196,15 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/show/gcn\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/mail/status_review/5\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id[]' value='1095'><br>
             <input type='text' name='user_id[]' value='1094'><br>
             <input type='text' name='email' value='email@email.com'><br>
             <input type='text' name='text'><br>
             <input type='text' name='name' value='name'><br>
-            <input type='text' name='coordinates_x'><br>
-            <input type='text' name='coordinates_y'><br>
-            <input type='file' name='picture'><br>
+            <input type='text' name='name'><br>
+            <input type='text' name='description'><br>
+            <input type='file' name='avatar'><br>
             <input type=\"submit\">
             </form>";
     });

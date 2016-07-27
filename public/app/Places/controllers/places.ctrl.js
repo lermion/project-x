@@ -226,10 +226,12 @@
             if (vm.form.placeNew.$invalid) {
                 return false;
             }
+            if (vm.placeNew.expired_date) {
+                vm.placeNew.expired_date = moment(vm.placeNew.expired_date).format('YYYY-MM-DD');
+            }
             placesService.addPlace(vm.placeNew)
                 .then(function (data) {
                     if (data.status) {
-                        console.log('Place added!');
                         getSubscribers();
                         getSubscription();
                         vm.placeName = data.place.url_name;
@@ -316,15 +318,11 @@
             openModalCropLogoImage(event);
         };
 
-        vm.saveCropp = function (img, cropped) {
+        vm.saveCropp = function (croppedDataURL) {
 
-            var blobFile = blobToFile(cropped);
+            var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImage.name);
 
-            blobFile.name = 'image';
-            blobFile.lastModifiedDate = new Date();
-
-            Upload.resize(blobFile, 100, 100, 1, null, null, true).then(function (resizedFile) {
-                console.log(resizedFile);
+            Upload.resize(blob, 100, 100, 1, null, null, true).then(function (resizedFile) {
                 vm.placeNew.logo = resizedFile;
             });
 

@@ -468,7 +468,7 @@ angular.module('placePeopleApp')
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
-							if (!$scope.Model.chatRooms[i].is_group) {
+							if (!$scope.Model.chatRooms[i].is_group){
 								if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id) {								
 									roomId = $scope.Model.chatRooms[i].room_id;
 								}
@@ -478,15 +478,17 @@ angular.module('placePeopleApp')
 				}
 				var data = {
 					userId: $scope.loggedUserId,
-					room_id: roomId,
+					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
 					message: message,
 					imagesObj: imagesObj
-				}				
+				};
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data, function(){
-					files.length = 0;
+					if(files){
+						files.length = 0;
+					}
+					$scope.emojiMessage.rawhtml = "";
 				});
-				$scope.emojiMessage.rawhtml = "";
 			};
 
 			$scope.Model.scrollBottom = function(){
@@ -501,7 +503,20 @@ angular.module('placePeopleApp')
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
-					$scope.Model.Chat.push(data);
+					if($scope.Model.showChatBlock && $scope.Model.displayChatBlock && !$scope.Model.displayBlockedBlock){
+						$scope.Model.Chat.push(data);
+					}else{
+						$scope.getLastMessage = function(chat){
+							if(chat.room_id === data.roomId){
+								return chat.last_message = data.text;
+							}
+						}
+						$scope.getLastMessageCreatedAt = function(chat){
+							if(chat.room_id === data.roomId){
+								return chat.last_message_created_at = data.created_at;
+							}
+						}
+					}
 				}
 			});
 			$scope.Model.sendOnEnter = function(event, message, room_id){
@@ -546,9 +561,12 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					console.log("it will be added in the future");
+					$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
 				}
 			};
+			$scope.beforeChange = function(files){
+				$scope.files = files;
+			}
 			$scope.$on('ngDialog.opened', function(e, $dialog){
 				if($dialog.name === "group-chat"){
 					window.emojiPicker = new EmojiPicker({

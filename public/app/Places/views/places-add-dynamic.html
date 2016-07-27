@@ -94,7 +94,7 @@
             <div class="create-places-select-country days">
                 <div class="select-country-country">Сколько дней актуально это место</div>
                 <div class="select-country-name">
-                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.expired_days"
+                    <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeNew.expired_date"
                            required>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.date.$error"
@@ -136,7 +136,7 @@
                         <img ngf-thumbnail="vm.placeNew.cover" ngf-no-object-url="true">
                     </a>
 
-                    <span>Добавить обложку месту</span>
+                    <span>Добавить обложку места</span>
                 </div>
             </div>
             <div class="create-places-add-cover">
@@ -150,7 +150,7 @@
                     <a href="">
                         <img ngf-thumbnail="vm.placeNew.logo" ngf-no-object-url="true">
                     </a>
-                    <span>Добавить логотип месту</span>
+                    <span>Добавить логотип места</span>
                 </div>
                 <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
             </div>
