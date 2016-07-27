@@ -9,6 +9,7 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
+		var sharePublication = null;
 		if(!storage.pubView){
 			storageService.setStorageItem('pubView', 'greed');
 			storage = storageService.getStorage();
@@ -30,13 +31,21 @@ angular.module('placePeopleApp')
 			});
 
 		$scope.logOut = function(){
-			AuthService.userLogOut()
-				.then(function(res){
-					storageService.deleteStorage();
-					$state.go('login');
-				  }, function(err){
-					console.log(err);
-				  });
+			AuthService.userLogOut().then(function(response){
+				storageService.deleteStorage();
+				$state.go('login');
+			},
+			function(err){
+				console.log(err);
+			});
+		};
+
+		$scope.closeSharePopup = function(){
+			sharePublication.close();
+		}
+
+		$scope.sendSharePublication = function(){
+			
 		};
 
 		$scope.openMenu = function(){
@@ -739,9 +748,8 @@ angular.module('placePeopleApp')
 						console.log(err);
 					});
 		};
-
 		$scope.sharePub = function(pubId){
-			ngDialog.open({
+			sharePublication = ngDialog.open({
 				template: '../app/User/views/share-publication.html',
 				className: 'share-publication ngdialog-theme-default',
 				scope: $scope
