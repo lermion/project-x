@@ -7197,3 +7197,23 @@ input.cmn-toggle-round:checked + label:after {
  .ngdialog.share-publication.ngdialog-theme-default .ngdialog-close:hover:before {
     color: rgb(153,153,153);
  }
+
+
+
+.ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.ladda-button {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s!important;
+    color: #fff;
+    background-color: #ec6045;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+}
+.ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.ladda-button:hover {
+    background-color: #DA5036;
+}
+
