@@ -49,7 +49,7 @@ Queries.prototype.addUsersInChatRoom = function(setUsers){
 	var deferred = Q.defer();
 	connection.query('INSERT INTO chat_rooms SET ?', setUsers, function(error, result){
 		if(error){
-			console.log("error saved to chat rooms: " + error.stack);
+			console.log("saving error to chat rooms: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -100,7 +100,6 @@ Queries.prototype.getUserRooms = function(data){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
 						connection.query("SELECT COUNT(messages.id) FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id WHERE messages.is_new = 1 AND user_rooms_messages.room_id = '" + item.id + "'", function(error, messagesCount){
 							connection.query("SELECT u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = '" + item.id + "')", function(error, lastMessages){
-								console.log(lastMessages[0]);
 								result = {
 									members: result,
 									room_id: item.id,

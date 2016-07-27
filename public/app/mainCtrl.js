@@ -22,8 +22,15 @@ angular.module('placePeopleApp')
                     $rootScope.counters.placessNew = data;
                 });
             });
-        $scope.strSearch = '';
+        $scope.search = {
+            str: null,
+            byUsers: true,
+            byPublications: true,
+            byPlaces: true,
+            byGroups: true
+        };
         $scope.submitSearch = function () {
-            $state.go('search');
+
+            $state.go('search', {'searchObj': $scope.search});
         };
     }]);

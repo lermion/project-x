@@ -16,23 +16,21 @@ angular.module('placePeopleApp')
 			$scope.counter = 0;
 			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
-			$http.get('/static_page/get/name')
-				.success(function (response) {
+			$http.get('/static_page/get/name').success(function(response){
 					$scope.staticPages = response;
-				})
-				.error(function (error) {
+			})
+			.error(function(error){
+				console.log(error);
+			});
+			$scope.logOut = function(){
+				AuthService.userLogOut().then(function(res){
+					storageService.deleteStorage();
+					$state.go('login');
+				},
+				function(error){
 					console.log(error);
 				});
-			$scope.logOut = function () {
-				AuthService.userLogOut()
-					.then(function (res) {
-						storageService.deleteStorage();
-						$state.go('login');
-					}, function (error) {
-						console.log(error);
-					});
 			};
-
 			$scope.Model.mobile = {};
 
 			if ($window.innerWidth <= 768) {
@@ -61,7 +59,6 @@ angular.module('placePeopleApp')
 					$scope.showMenu = true;
 				}
 			};
-
 			$scope.openBottomMenu = function () {
 				if ($window.innerWidth <= 650) {
 					$scope.showBottomMenu = !$scope.showBottomMenu;
@@ -69,7 +66,6 @@ angular.module('placePeopleApp')
 					$scope.showBottomMenu = false;
 				}
 			};
-
 			var w = angular.element($window);
 			$scope.$watch(
 				function () {
@@ -446,6 +442,16 @@ angular.module('placePeopleApp')
 				}
 			};			
 			socket.on("get user rooms", function(response){
+				var lastDialogue = response[response.length - 1];
+				if(lastDialogue !== undefined){
+					if(lastDialogue.is_group && lastDialogue.isNew){
+						$scope.Model.opponent = lastDialogue;
+						$scope.Model.Chat = [];
+						$scope.Model.showChatBlock = true;
+						$scope.Model.displayChatBlock = true;
+						$scope.Model.displayBlockedBlock = false;
+					}
+				}
 				$scope.Model.chatRooms = response;
 			});
 
