@@ -29,6 +29,9 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('get_review', 'Admin\UserController@getReview');
             Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
             Route::post('main_picture', 'Admin\UserController@mainPicture');
+            Route::get('option', 'Admin\OptionController@index');
+            Route::post('create_option', 'Admin\OptionController@create');
+            Route::post('update_option/{id}', 'Admin\OptionController@update');
         });
         Route::group(['prefix' => 'moderator'], function () {
             Route::get('/', 'Admin\ModeratorController@index');
@@ -196,15 +199,15 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/mail/status_review/5\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='user_id[]' value='1095'><br>
-            <input type='text' name='user_id[]' value='1094'><br>
-            <input type='text' name='email' value='email@email.com'><br>
-            <input type='text' name='text'><br>
-            <input type='text' name='name' value='name'><br>
-            <input type='text' name='name'><br>
-            <input type='text' name='description'><br>
-            <input type='file' name='avatar'><br>
+        echo "<form action=\"http://pp.dev/admin/user/update_option/1\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='contacts' value='1095'><br>
+            <input type='text' name='terms_of_use' value='1094'><br>
+            <input type='text' name='privacy_policy' value='email@email.com'><br>
+            <input type='text' name='copyright'value='text'><br>
+            <input type='text' name='copyright_link' value='name'><br>
+            <input type='text' name='mail' value='description'><br>
+            <input type='file' name='time_chat_message'><br>
+            <input type='file' name='users_chat_message'><br>
             <input type=\"submit\">
             </form>";
     });

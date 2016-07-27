@@ -178,9 +178,13 @@ class PlaceTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
+        $room = \App\ChatRooms::first();
+        if (!$room){
+            $room = \App\ChatRooms::create(['name' => 'test', 'avatar' => 'test']);
+        }
         $place = \App\Place::first();
         if (!$place) {
-            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'avatar' => 'test', 'city_id' => 11, 'address' => 'test', 'coordinates_x' => 1, 'coordinates_y' => 1, 'cover' => 'test', 'type_place_id' => 3]);
+            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'avatar' => 'test', 'city_id' => 11, 'address' => 'test', 'coordinates_x' => 1, 'coordinates_y' => 1, 'cover' => 'test', 'type_place_id' => 3, 'room_id' => $room->id]);
         }
         \App\PlaceUser::create(['user_id' => $user->id, 'place_id' => $place->id, 'is_admin' => 1, 'is_creator' => 1]);
         \App\PlaceUser::create(['user_id' => $user2->id, 'place_id' => $place->id, 'is_admin' => 0]);

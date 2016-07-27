@@ -50,11 +50,13 @@ class MailTest extends TestCase
     {
         $mail = \App\UserMail::create(['name' => 'test', 'email' => 'email@email.com', 'text' => 'test']);
         $this->json('GET', 'mail/status_review/' . $mail->id)->seeJson(['status' => true]);
+        $this->seeInDatabase('user_mails', ['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
     }
 
     public function testMailStatusClosed()
     {
         $mail = \App\UserMail::create(['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
         $this->json('GET', 'mail/status_closed/'.$mail->id)->seeJson(['status' => true]);
+        $this->seeInDatabase('user_mails', ['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
     }
 }
