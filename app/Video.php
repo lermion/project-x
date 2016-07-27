@@ -44,10 +44,9 @@ class Video extends Model
 
             if (substr(php_uname(), 0, 7) == "Windows"){
                 $ffmpeg = FFMpeg::create([
-                'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
-                'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
-            ]);
-
+                    'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
+                       'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
+                ]);
             }
             else {
                 $ffmpeg = FFMpeg::create();
@@ -65,6 +64,7 @@ class Video extends Model
         //        ->save(new WebM(), $new_fname . '.webm');
 		->save(new X264(), 'export-x264.mp4');
             Storage::disk('video')->delete($f_name);
+        
         
     }
 

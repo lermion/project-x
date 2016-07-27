@@ -28,9 +28,9 @@ class ChatTest extends TestCase
         }
         \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
         \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
-        $this->json('GET', 'chat/locked/' . $user2->id )->seeJson([
-            'status' => true,
-        ]);
+        $this->json('GET', 'chat/locked/' . $user2->id )->seeJson(['status' => true]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
     }
 
     public function testGet_locked_users()
@@ -46,6 +46,7 @@ class ChatTest extends TestCase
         $this->be($user);
         \App\ChatLockedUser::create(['user_id' => $user->id, 'locked_user_id' => $user2->id]);
         $this->json('GET', 'chat/get_locked_users')->AssertResponseOk();
+//        $this->seeInDatabase('chat_locked_users', ['user_id' => $user->id, 'locked_user_id' => $user2->id]);
     }
 
     public function testDeleteChat()
@@ -65,9 +66,9 @@ class ChatTest extends TestCase
         }
         \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
         \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
-        $this->json('GET', 'chat/delete_chat/' . $room->id )->seeJson([
-            'status' => true,
-        ]);
+        $this->json('GET', 'chat/delete_chat/' . $room->id )->seeJson(['status' => true]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user2->id, 'room_id' => $room->id]);
     }
 
     public function testDeleteUser()
@@ -89,9 +90,11 @@ class ChatTest extends TestCase
         \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
         $sub = \App\Subscriber::create(['user_id' => $user->id, 'user_id_sub' => $user2->id, 'is_confirmed' => false]);
         \App\Subscriber::create(['user_id' => $user2->id, 'user_id_sub' => $user->id, 'is_confirmed' => false]);
-        $this->json('GET', 'chat/delete_user/' . $room->id . '/' . $sub->user_id_sub )->seeJson([
-            'status' => true,
-        ]);
+        $this->json('GET', 'chat/delete_user/' . $room->id . '/' . $sub->user_id_sub )->seeJson(['status' => true]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user2->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('subscribers', ['user_id' => $user->id, 'user_id_sub' => $user2->id, 'is_confirmed' => false]);
+//        $this->seeInDatabase('subscribers', ['user_id' => $user2->id, 'user_id_sub' => $user->id, 'is_confirmed' => false]);
     }
 
     public function testNotificationChat()
@@ -111,9 +114,9 @@ class ChatTest extends TestCase
         }
         \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
         \App\UserChat::create(['user_id' => $user2->id, 'room_id' => $room->id]);
-        $this->json('GET', 'chat/notification/' . $room->id )->seeJson([
-            'status' => true,
-        ]);
+        $this->json('GET', 'chat/notification/' . $room->id )->seeJson(['status' => true]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
     }
 
     public function testCorrespondenceDelete()
@@ -138,8 +141,12 @@ class ChatTest extends TestCase
         $message3 = \App\Message::create(['text' => 'test3', 'user_id' => $user2->id]);
         \App\UserRoomsMessage::create(['room_id' => $room->id, 'message_id' => $message2->id]);
 
-        $this->json('GET', 'chat/correspondence_delete/' . $room->id )->seeJson([
-            'status' => true,
-        ]);
+        $this->json('GET', 'chat/correspondence_delete/' . $room->id )->seeJson(['status' => true]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('user_chats', ['user_id' => $user->id, 'room_id' => $room->id]);
+//        $this->seeInDatabase('user_rooms_messages', ['room_id' => $room->id, 'message_id' => $message2->id]);
+//        $this->seeInDatabase('messages', ['text' => 'test', 'user_id' => $user2->id]);
+//        $this->seeInDatabase('messages', ['text' => 'test2', 'user_id' => $user->id]);
+//        $this->seeInDatabase('messages', ['text' => 'test3', 'user_id' => $user2->id]);
     }
 }
