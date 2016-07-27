@@ -7,6 +7,8 @@ use App\City;
 use App\StaticPage;
 use App\ComplaintCategory;
 use App\TypePlace;
+use App\Place;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +24,7 @@ class DatabaseSeeder extends Seeder
          $this->call(StaticPageTableSeeder::class);
          $this->call(ComplaintCategoryTableSeeder::class);
          $this->call(TypePlaceTableSeeder::class);
+         $this->call(PlaceTableSeeder::class);
     }
 }
 
@@ -391,5 +394,27 @@ class TypePlaceTableSeeder extends Seeder
         TypePlace::create(array('id' => 7, 'name' => 'Ярмарка', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
         TypePlace::create(array('id' => 8, 'name' => 'Самолет', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
         TypePlace::create(array('id' => 9, 'name' => 'Пароход', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
+    }
+}
+class PlaceTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        DB::table('places')->delete();
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 1', 'url_name' => 'mesto_1', 'address' => 'Днепр', 'coordinates_x' => 35.01259779434101, 'coordinates_y' => 48.444321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>1 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 2', 'url_name' => 'mesto_2', 'address' => 'Днепр', 'coordinates_x' => 35.06359779434101, 'coordinates_y' => 48.494321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>2 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 3', 'url_name' => 'mesto_3', 'address' => 'Днепр', 'coordinates_x' => 35.04259779434101, 'coordinates_y' => 48.454321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>2 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 4', 'url_name' => 'mesto_4', 'address' => 'Днепр', 'coordinates_x' => 35.02259779434101, 'coordinates_y' => 48.414321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>3 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 5', 'url_name' => 'mesto_5', 'address' => 'Днепр', 'coordinates_x' => 35.04259779434101, 'coordinates_y' => 48.434321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>3 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 6', 'url_name' => 'mesto_6', 'address' => 'Днепр', 'coordinates_x' => 35.01289079434101, 'coordinates_y' => 48.45611861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>4 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 7', 'url_name' => 'mesto_7', 'address' => 'Днепр', 'coordinates_x' => 36.01259779434101, 'coordinates_y' => 47.444321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>5 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 8', 'url_name' => 'mesto_8', 'address' => 'Днепр', 'coordinates_x' => 35.09259779434101, 'coordinates_y' => 48.014321861885015, 'dynamic' => false, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>1 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 9', 'url_name' => 'mesto_9', 'address' => 'Днепр', 'coordinates_x' => 35.12259779434101, 'coordinates_y' => 48.124321861885015, 'dynamic' => true, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>7 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 10', 'url_name' => 'mesto_10', 'address' => 'Днепр', 'coordinates_x' => 35.05259779434101, 'coordinates_y' => 48.0544321861885015, 'dynamic' => true, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>7 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 11', 'url_name' => 'mesto_11', 'address' => 'Днепр', 'coordinates_x' => 35.02259779434101, 'coordinates_y' => 48.424321861885015, 'dynamic' => true, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>8 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 12', 'url_name' => 'mesto_12', 'address' => 'Днепр', 'coordinates_x' => 35.06259779434101, 'coordinates_y' => 48.464321861885015, 'dynamic' => true, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>8 ));
+        Place::create(array('avatar'=>'пусто', 'cover'=>'пусто', 'description' => 'Здесь должно быть описание места', 'name' => 'Место 13', 'url_name' => 'mesto_13', 'address' => 'Днепр', 'coordinates_x' => 35.07259779434101, 'coordinates_y' => 48.444321861885015, 'dynamic' => true, 'expired_date' => 2016-07-27, 'city_id' => 279, 'type_place_id' =>9 ));
+        
     }
 }

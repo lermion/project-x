@@ -15,44 +15,46 @@ class SphinxSearchController extends Controller
         $name = $Data['name'];
         $sql="'$name'";
         $result=[];
+        $result[0]=[];
+        $result[1]=[];
+        $result[2]=[];
+        $result[3]=[];
         if(!empty($Data['usersearch']) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[0]=(sphinx_raw($query));
         }
 
-        elseif (!empty($Data['publicationsearch'])){
+        if (!empty($Data['publicationsearch'])){
             $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[1]=(sphinx_raw($query));
         }
-        elseif (!empty($Data['publicationsearch'])){
-            $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
-        }
-        elseif (!empty($Data['groupsearch'])){
+        if (!empty($Data['placesearch'])){
             $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[2]=(sphinx_raw($query));
+            //dd($result[2]=(sphinx_raw($query)));
         }
-        elseif (!empty($Data['placesearch'])){
+        if (!empty($Data['groupsearch'])){
             $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[3]=(sphinx_raw($query));
         }
 
-        else{
+        if((empty($Data['usersearch'])) && (empty($Data['publicationsearch'])) &&
+            (empty($Data['groupsearch'])) && (empty($Data['placesearch'])) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[0]=(sphinx_raw($query));
             $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[1]=(sphinx_raw($query));
             $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[2]=(sphinx_raw($query));
             $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql)";
-            $result[]=(sphinx_raw($query));
+            $result[3]=(sphinx_raw($query));
 
         }
-        dd($result);
-
+        //dd($result);
+        return response()->json($result);
         }
 
-    
+
         
     
 }
