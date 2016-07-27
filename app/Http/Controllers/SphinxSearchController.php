@@ -50,7 +50,6 @@ class SphinxSearchController extends Controller
             $result[3]=(sphinx_raw($query));
 
         }
-        //dd($result);
         return response()->json($result);
         }
 
