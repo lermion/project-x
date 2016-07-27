@@ -360,7 +360,7 @@ angular.module('placePeopleApp')
 						$scope.Model.opponent = chat;
 						members.push(chat.id);
 					}
-					data = {					
+					data = {
 						members: members, 
 						room_id: chat.room_id,
 						is_group: false,

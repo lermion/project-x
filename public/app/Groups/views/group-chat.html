@@ -3,14 +3,14 @@
 		<div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div>
-		<div class="users-messege">
+		<div ng-repeat="message in messages | orderBy: '-created_at':true" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
-				<a href="" class="ava">
+				<a href="javascript:void(0);" class="ava">
 					<img src="" alt="">
 				</a>
 			</div>
 			<div class="user-messeges">
-				<div class="chat-user-pulication">
+				<!-- <div class="chat-user-pulication">
 					<div class="user-publication">
 						<div class="user-publication-header">
 							<div class="user-function">
@@ -24,12 +24,12 @@
 									</span>
 								</a>
 								<div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
-								<div href="" class="user-menu" ng-click="showPubMenu=!showPubMenu">
+								<div href="javascript:void();" class="user-menu" ng-click="showPubMenu=!showPubMenu">
 									<div class="menu-item" ng-show="showPubMenu">
 										<div class="inner">			
-											<a href="" ng-click="sharePub(pub.id)">Переслать</a>
-											<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
-											<a href="" ng-click="alertPub(pub.id)">Пожаловаться</a>
+											<a href="javascript:void();" ng-click="sharePub(pub.id)">Переслать</a>
+											<a href="javascript:void();" ng-click="getPubLink(pub.id)">Получить ссылку</a>
+											<a href="javascript:void();" ng-click="alertPub(pub.id)">Пожаловаться</a>
 										</div>
 									</div>
 								</div>
@@ -37,9 +37,9 @@
 						</div>
 						<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
 							<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
-							<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-							<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-							<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
+							<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
+							<a href="javascript:void(0);" class="publication-place school">г. Лондон</a>
+							<a href="javascript:void(0);" class="publication-place university">г. Лондон</a>
 							<div class="publication-ava">
 								<img ng-src="{{pub.mainFile.url}}">
 							</div>					
@@ -69,23 +69,23 @@
 							<a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
 						</div> 
 					</div>
-				</div>
+				</div> -->
 				<div class="user-messege">
 					<div class="messege">
-						<a class="user-name">Танюшка Мильцына</a>
-						<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
-							<span class="pictures">
+						<a class="user-name">{{message.first_name}} {{message.last_name}}</a>
+						<p class="messege-text" ng-bind-html="message.text | colonToSmiley">
+							<!-- <span class="pictures">
 								<span class="pic" ng-repeat="pub in [1,2,3,4,5]">
 									<img src="../../../images/bc.png" alt="">
 								</span>
-							</span>
+							</span> -->
 						</p>
 					</div>
-					<p class="messege-time">10:55</p>
+					<p class="messege-time">{{message.created_at | amDateFormat:'HH:mm'}}</p>
 				</div>
 			</div>
 		</div>
-		<div class="users-messege my-messege">
+		<!-- <div class="users-messege my-messege">
 			<div class="user-messeges">
 				<div class="chat-user-pulication">
 					<div class="user-publication">
@@ -101,12 +101,12 @@
 									</span>
 								</a>
 								<div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
-								<div href="" class="user-menu" ng-click="showPubMenu=!showPubMenu">
+								<div href="javascript:void();" class="user-menu" ng-click="showPubMenu=!showPubMenu">
 									<div class="menu-item" ng-show="showPubMenu">
 										<div class="inner">			
-											<a href="" ng-click="sharePub(pub.id)">Переслать</a>
-											<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
-											<a href="" ng-click="alertPub(pub.id)">Пожаловаться</a>
+											<a href="javascript:void();" ng-click="sharePub(pub.id)">Переслать</a>
+											<a href="javascript:void();" ng-click="getPubLink(pub.id)">Получить ссылку</a>
+											<a href="javascript:void();" ng-click="alertPub(pub.id)">Пожаловаться</a>
 										</div>
 									</div>
 								</div>
@@ -114,9 +114,9 @@
 						</div>
 						<div class="user-publication-content" ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
 							<p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
-							<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-							<!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-							<!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
+							<a href="javascript:void(0);" class="publication-place">г. Лондон</a>
+							<a href="javascript:void(0);" class="publication-place school">г. Лондон</a>
+							<a href="javascript:void(0);" class="publication-place university">г. Лондон</a>
 							<div class="publication-ava">
 								<img ng-src="{{pub.mainFile.url}}">
 							</div>					
@@ -149,7 +149,7 @@
 				</div>
 				<div class="user-messege">
 					<div class="messege">
-						<p class="messege-text">Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность ))) Моя любимая 209 школа в Питере!!! Сколько приятных и не очень воспоминаний об этом месте ) Наверно повторил бы опыт, если бы была возможность )))
+						<p class="messege-text">привет лалалала
 							<span class="pictures">
 								<span class="pic" ng-repeat="pub in [1,2,3,4,5]">
 									<img src="../../../images/bc.png" alt="">
@@ -160,27 +160,35 @@
 					<p class="messege-time">10:55</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<!-- <button class="rewrite">Подписаться</button> -->
 	<div class="group-comments">
 		<div class="group-comment">
-			<a href="" class="smile"></a>
-			<textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea>
+			<a href="javascript:void();" class="smile"></a>
+			<div class="emoji-group-chat-block">
+				<div emoji-form emoji-message="emojiMessage">
+					<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+					<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+						<i class="icon icon-emoji"></i>
+					</a>
+				</div>	
+			</div>
+			<!-- <textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea> -->
 			<div class="add-objects">						
 				<input id="addfile" type='file' ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
 				<label for="addfile">
 					<span class="add"  ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
 						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
-							<a href="" class="active">Публикация</a>
-							<a href="" class="">Файл</a>
+							<a href="javascript:void();" class="active">Публикация</a>
+							<a href="javascript:void();" class="">Файл</a>
 						</span>
 					</span>
 				</label>                                         
 			</div> 
-			<button class="send">Отправить</button>
+			<button ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id)" class="send">Отправить</button>
 		</div>
-		<div class="pictures">
+		<!-- <div class="pictures">
 			<div class="pic" ng-repeat="pub in [1,2,3,4,5]">
 				<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
 					<div class="close-inner">
@@ -189,6 +197,6 @@
 				</div>
 				<img src="../../../images/bc.png" alt="">
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
