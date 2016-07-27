@@ -127,7 +127,7 @@
                      ngf-accept="'image/*'"
                      ngf-min-heiht="280"
                      ngf-min-width="1200"
-                     ngf-before-model-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ngf-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                      ng-model="vm.placeEdited.cover"
                 >
                     <a href="">
