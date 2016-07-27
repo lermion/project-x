@@ -171,6 +171,19 @@ Queries.prototype.getUserDialogue = function(data){
 	});
 	return deferred.promise;
 }
+Queries.prototype.getGroupChatDialogue = function(data){
+	var deferred = Q.defer();
+	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
+		if(error){
+			console.log("error to get group chat dialogue: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			deferred.resolve(result);
+		}
+	});
+	return deferred.promise;
+}
 Queries.prototype.getLastMessage = function(data){
 	var deferred = Q.defer();
 	connection.query("SELECT users.id, users.first_name, users.last_name, users.login, users.avatar_path, messages.id, messages.text, messages.created_at, messages.updated_at FROM messages INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = '" + data.room_id + "' ORDER BY messages.id DESC LIMIT 1", function(error, result){
