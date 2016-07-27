@@ -1984,9 +1984,11 @@ spam-item {
 	top: -2px;
 	left: 16px;
 }
-.emoji-chat-block .emoji-wysiwyg-editor{
+.emoji-chat-block .emoji-wysiwyg-editor, .emoji-group-chat-block .emoji-wysiwyg-editor{
 	resize: none;
 	width: 75%;
+	float: left;
+	margin-top: 5px;
 	border-radius: 2px;
 	border: 1px solid #e5e7e9;
 	font-size: 14.6px;
@@ -2000,6 +2002,18 @@ spam-item {
 	margin-left: 50px;
 	overflow: hidden;
 	width: 510px;
+}
+.emoji-group-chat-block a.emoji-button {
+	display: block;
+	width: 45px;
+	height: 40px;
+	background-image: url(../images/smil.png);
+	background-position:  center;
+	background-repeat: no-repeat;
+	background-size: 40%;
+}
+.emoji-group-chat-block a.emoji-button:hover {
+	background-image: url(../images/smil-hover.png);
 }
 .text-field a.emoji-button{
 	position: absolute;

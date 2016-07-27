@@ -132,6 +132,16 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
+	socket.on("get group chat dialogue", function(data){
+		socket.room = data.room_id;
+		socket.join(data.room_id);
+		queries.getGroupChatDialogue(data).then(function(response){
+			socket.emit("get group chat dialogue", response);
+		},
+		function(error){
+			console.log(error);
+		});
+	});
 	socket.on('send message', function(data, callback){
 		if(data.imagesObj !== undefined){
 			var imagesPath = [];
