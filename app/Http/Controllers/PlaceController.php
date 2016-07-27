@@ -74,7 +74,7 @@ class PlaceController extends Controller
         if (TypePlace::where('id', $placeData['type_place_id'])->value('is_dynamic')) {
             try {
                 $this->validate($request, [
-                    'expired_days' => 'required'
+                    'expired_date' => 'required'
                 ]);
             } catch (\Exception $ex) {
                 $result = [
@@ -110,9 +110,9 @@ class PlaceController extends Controller
         $place = Place::where('url_name', $name)->first();
         NewPlace::where(['user_id' => Auth::id(), 'place_id' => $place->id,])->delete();
         if ($place) {
-            if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
-                return null;
-            }
+//            if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+//                return null;
+//            }
             $place->count_users = $place->users()->count();
             $place->count_publications = $place->publications()->count();
             $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'place_users.is_admin')
@@ -133,8 +133,9 @@ class PlaceController extends Controller
             $place->type_place = TypePlace::where(['id' => $place->type_place_id])->first();
 
             $city = City::where(['id' => $place->city_id])->first();
+            $place->city = City::where(['id' => $place->city_id])->first();
             $place->country = Country::where(['id' => $city->country_id])->first();
-            $place->cities = City::where(['country_id' => $city->country_id])->get();
+//            $place->cities = City::where(['country_id' => $city->country_id])->get();
         }
         return $place;
     }

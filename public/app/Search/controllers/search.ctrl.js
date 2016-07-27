@@ -5,9 +5,9 @@
         .module('app.search')
         .controller('SearchCtrl', SearchCtrl);
 
-    SearchCtrl.$inject = ['$scope', 'storageService', '$http', '$window'];
+    SearchCtrl.$inject = ['$scope', 'storageService', '$http', '$window', 'results'];
 
-    function SearchCtrl($scope, storageService, $http, $window) {
+    function SearchCtrl($scope, storageService, $http, $window, results) {
 
         var vm = this;
 

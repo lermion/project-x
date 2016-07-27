@@ -3,17 +3,14 @@
 </div>
 <div class="share-publication-menu-wrap">
 	<div class="share-publication-menu-wrap-inner">
-		<a href="javascript:void(0);" class="share-publication-menu-item active">Пользователи</a>
-		<a href="javascript:void(0);" class="share-publication-menu-item">Групповые чаты</a>
-		<a href="javascript:void(0);" class="share-publication-menu-item">Группы</a>
-		<a href="javascript:void(0);" class="share-publication-menu-item">Места</a>
+		<a ng-class="{active:isSelected($index)}" ng-repeat="menuItem in menuItems" href="javascript:void(0);" ng-click="changeMenu(menuItem.menuType, $index)" class="share-publication-menu-item">{{menuItem.name}}</a>
 	</div>
 </div>
 <div class="share-publication-search-wrap">
 	<div class="share-publication-search-input">
 		<input type="text" placeholder="Поиск...">
 	</div>
-	<div class="share-publication-search-data">
+	<div ng-if="members()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Я подписан</div>
 		<div ng-repeat="subscription in subscriptions" class="share-publication-search-data-item">
 			<span><input class="share-publication-checkbox" type="checkbox"></span>
@@ -36,6 +33,34 @@
 					</a>
 				</div>
 				<span class="share-publication-search-data-name">{{subscriber.first_name}} {{subscriber.last_name}}</span>
+			</div>
+		</div>
+	</div>
+	<div ng-if="groupsChat()" class="share-publication-search-data">
+		<div class="share-publication-search-sign">Групповые чаты</div>
+		<div ng-repeat="groupChat in groupsChatArr" ng-if="groupChat.is_group" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
+						<img ng-src="{{groupChat.avatar}}" alt="">
+					</a>
+				</div>
+				<span class="share-publication-search-data-name">{{groupChat.name}}</span>
+			</div>
+		</div>
+	</div>
+	<div ng-if="showGroups()" class="share-publication-search-data">
+		<div class="share-publication-search-sign">Группы</div>
+		<div ng-repeat="group in groups" class="share-publication-search-data-item">
+			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<div class="share-publication-search-data-info">
+				<div class="share-publication-search-data-ava">
+					<a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
+						<img ng-src="{{group.card_avatar}}" alt="">
+					</a>
+				</div>
+				<span class="share-publication-search-data-name">{{group.name}}</span>
 			</div>
 		</div>
 	</div>

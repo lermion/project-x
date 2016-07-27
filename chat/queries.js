@@ -49,7 +49,7 @@ Queries.prototype.addUsersInChatRoom = function(setUsers){
 	var deferred = Q.defer();
 	connection.query('INSERT INTO chat_rooms SET ?', setUsers, function(error, result){
 		if(error){
-			console.log("error saved to chat rooms: " + error.stack);
+			console.log("saving error to chat rooms: " + error.stack);
 			deferred.reject(error);
 			return;
 		}else{
@@ -108,7 +108,7 @@ Queries.prototype.getUserRooms = function(data){
 									status: item.status,
 									avatar: item.avatar,
 									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
-									last_message_created_at: lastMessages[0].created_at,
+									last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
 									messagesCount: messagesCount[0]['COUNT(messages.id)'],
 									show_notif: result[0].show_notif
 								};
