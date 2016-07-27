@@ -89,7 +89,7 @@ class GroupController extends Controller
             return response()->json($result);
         }
         $room = ChatRooms::create(['name' => $request->name]);
-        $publicationData['room_id'] = $room->id;
+
         $publicationData = $request->all();
         $publicationData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
@@ -102,6 +102,8 @@ class GroupController extends Controller
             $path = Image::getAvatarPath($card_avatar);
             $publicationData['card_avatar'] = $path;
         }
+        $publicationData['room_id'] = $room->id;
+        dd($publicationData);
         $group = Group::create($publicationData);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'group' => $group]);
