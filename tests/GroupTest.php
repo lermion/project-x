@@ -30,13 +30,18 @@ class GroupTest extends TestCase
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
+        $room = \App\ChatRooms::first();
+        if (!$room){
+            $room = \App\ChatRooms::create(['name' => 'test', 'avatar' => 'test']);
+        }
         if($group = \App\Group::where(['name' => 'test',])->first()){
             $group->delete();
         }
         $data = [
             'name' => 'test',
             'description' => 'lorem',
-            'is_open' => true
+            'is_open' => true,
+            'room_id' => $room->id
         ];
         $this->json('POST', 'group/store', $data)->seeJson([
             'status' => true,
