@@ -39,8 +39,24 @@ class StaticPageController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:static_pages',
+                'description' => 'required',
+                'text' =>'required'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
         StaticPage::create($request->all());
-        return redirect()->action('Admin\StaticPageController@index');
+        return response()->json(["status" => true]);
     }
 
     /**
@@ -76,10 +92,26 @@ class StaticPageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'description' => 'required',
+                'text' =>'required'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
         $page = StaticPage::find($id);
         $page->update($request->all());
         $page->save();
-        return redirect()->action('Admin\StaticPageController@show',['id'=>$id]);
+        return response()->json(["status" => true]);
     }
 
     /**
