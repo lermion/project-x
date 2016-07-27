@@ -1,7 +1,7 @@
 <div class="group-peoples">
     <div class="group-peoples-inner">
         <div class="group-peoples-inner-item"
-             ng-repeat="user in vm.place.users | orderBy: '-is_admin'"
+             ng-repeat="user in vm.place.users | orderBy: ['-is_admin']"
              ng-mouseenter="showAdmin=vm.place.is_creator"
              ng-mouseleave="showAdmin=false">
             <div class="peoples-inner-item-data">
