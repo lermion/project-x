@@ -165,6 +165,13 @@
         };
 
         vm.updatePlace = function () {
+
+            vm.placeEditedForm.$setSubmitted();
+
+            if (vm.placeEditedForm.$invalid) {
+                return false;
+            }
+
             vm.subForm = true;
 
             var placeEdited = angular.copy(vm.placeEdited);
