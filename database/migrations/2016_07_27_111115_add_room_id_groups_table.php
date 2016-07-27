@@ -13,7 +13,7 @@ class AddRoomIdGroupsTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->integer('room_id')->unsigned();
+            $table->integer('room_id')->unsigned()->nullable();
             $table->foreign('room_id')->references('id')->on('chat_rooms')->onDelete('cascade');
         });
     }

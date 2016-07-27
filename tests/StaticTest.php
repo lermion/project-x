@@ -32,11 +32,11 @@ class StaticTest extends TestCase
         $this->json('GET', 'city/'.$country->id)->AssertResponseOk();
     }
 
-    public function testStaticPageStore()
-    {
-        $this->json('POST', 'admin/static_page/store', ['name' => 'name','description'=>'description','text' => 'text'])->seeJson(['status' => true]);
-        $this->seeInDatabase('static_pages', ['name' => 'name','description'=>'description','text' => 'text']);
-    }
+//    public function testStaticPageStore()
+//    {
+//        $this->json('POST', 'admin/static_page/store', ['name' => 'name','description'=>'description','text' => 'text'])->seeJson(['status' => true]);
+//        $this->seeInDatabase('static_pages', ['name' => 'name','description'=>'description','text' => 'text']);
+//    }
 
     public function testStaticPageUpdate()
     {

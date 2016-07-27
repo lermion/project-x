@@ -199,15 +199,15 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/user/update_option/1\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='text' name='contacts' value='1095'><br>
-            <input type='text' name='terms_of_use' value='1094'><br>
-            <input type='text' name='privacy_policy' value='email@email.com'><br>
-            <input type='text' name='copyright'value='text'><br>
-            <input type='text' name='copyright_link' value='name'><br>
-            <input type='text' name='mail' value='description'><br>
-            <input type='file' name='time_chat_message'><br>
-            <input type='file' name='users_chat_message'><br>
+        echo "<form action=\"http://pp.dev/place/create\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='name' value='1095'><br>
+            <input type='text' name='description' value='1094'><br>
+            <input type='text' name='city_id' value='1'><br>
+            <input type='text' name='address'value='text'><br>
+            <input type='text' name='coordinates_x' value='1'><br>
+            <input type='text' name='coordinates_y' value='1'><br>
+            <input type='text' name='type_place_id'><br>
+            <input type='text' name='room_id'><br>
             <input type=\"submit\">
             </form>";
     });
