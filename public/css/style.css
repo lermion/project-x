@@ -3860,9 +3860,12 @@ body.ngdialog-open {
 }
 .content-user #user-page.list-style {
 	box-shadow: none;
+	background-color: #e9eaed;
 }
 #user-page.list-style .my-profile {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+	margin-bottom: 20px;
+	background-color: #fff;
 }
 #user-page.list-style .my-photos {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
