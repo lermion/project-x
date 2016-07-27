@@ -56,7 +56,8 @@ class PlaceController extends Controller
                 'coordinates_y'=> 'required|numeric',
                 'avatar' => 'image',
                 'cover' => 'image',
-                'type_place_id' => 'required'
+                'type_place_id' => 'required',
+                'room_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [

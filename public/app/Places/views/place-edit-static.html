@@ -21,8 +21,8 @@
                            placeholder="Введите название места..."
                            required>
 
-                    <div class="error-messages" ng-messages="vm.form.placeEdited.name.$error"
-                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.name.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не указали название</div>
                     </div>
                 </div>
@@ -38,8 +38,8 @@
                         <option value="" disabled>---</option>
                     </select>
 
-                    <div class="error-messages" ng-messages="vm.form.placeEdited.country.$error"
-                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.country.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не выбрали страну</div>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                         <option value="" disabled>---</option>
                     </select>
 
-                    <div class="error-messages" ng-messages="vm.form.placeEdited.city.$error"
-                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.city.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не выбрали город</div>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                            required>
                     <span class="street-on-map" ng-click="vm.openModalMap()">или укажите на карте</span>
 
-                    <div class="error-messages" ng-messages="vm.form.placeEdited.address.$error"
-                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.address.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не указали адрес</div>
                     </div>
                 </div>
@@ -85,8 +85,8 @@
                               ng-model="vm.placeEdited.description"
                               required></textarea>
 
-                    <div class="error-messages" ng-messages="vm.form.placeEdited.description.$error"
-                         ng-if="vm.form.placeEdited.$invalid && vm.form.placeEdited.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.description.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не заполнили описание</div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                      ngf-accept="'image/*'"
                      ngf-min-heiht="280"
                      ngf-min-width="1200"
-                     ngf-before-model-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ngf-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                      ng-model="vm.placeEdited.cover"
                 >
                     <a href="">
@@ -110,6 +110,12 @@
 
                     <span>Добавить обложку месту</span>
                 </div>
+            </div>
+            <div class="error-messages" ng-messages="vm.placeEditedForm.cover.$error" ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted || vm.placeEditedForm.$dirty">
+                <div ng-message="pattern">Выбранный файл не является изображением</div>
+                <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
+                <div ng-message="required">Вы не выбрали обложку для места</div>
+                <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
             </div>
             <div class="create-places-add-cover">
                 <div class="create-places-add-cover-img"
@@ -123,6 +129,12 @@
                         <img ngf-thumbnail="vm.placeEdited.avatar" ngf-no-object-url="true">
                     </a>
                     <span>Добавить логотип месту</span>
+                </div>
+                <div class="error-messages" ng-messages="vm.placeEditedForm.logo.$error" ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted || vm.placeEditedForm.$dirty">
+                    <div ng-message="pattern">Выбранный файл не является изображением</div>
+                    <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
+                    <!--<div ng-message="required">Вы не выбрали обложку для группы</div>-->
+                    <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
                 </div>
                 <a href class="modal__buttons-negative" ng-click="vm.abortUpdatePlace()">Отменить</a>
                 <div class="create-places-add-cover-button-create" ladda="vm.subForm" ng-disabled="vm.subForm" data-style="slide-right" ng-click="vm.updatePlace()">Сохранить</div>

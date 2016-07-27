@@ -11,29 +11,37 @@
 
 
         return {
-            getCounterNewPlaces: getCounterNewPlaces
+            search: search
         };
 
         ////////////
 
-        function getCounterNewPlaces(groupId, users) {
+        function search(searchObj) {
+
+            var fd = new FormData();
+
+            fd.append('name', searchObj.str);
+            fd.append('usersearch', searchObj.byUsers);
+            fd.append('publicationsearch', searchObj.byPublications);
+            fd.append('placesearch', searchObj.byPlaces);
+            fd.append('groupsearch', searchObj.byGroups);
 
             return $http({
-                method: 'GET',
-                url: 'place/counter_new_place',
+                method: 'POST',
+                url: 'search',
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
-                data: null
+                data: fd
             })
-                .then(getCounterNewPlacesComplete)
-                .catch(getCounterNewPlacesFailed);
+                .then(searchComplete)
+                .catch(searchFailed);
 
-            function getCounterNewPlacesComplete(response) {
+            function searchComplete(response) {
                 return response.data;
             }
 
-            function getCounterNewPlacesFailed(error) {
-                console.error('XHR Failed for getCounterNewPlaces. ' + error.data);
+            function searchFailed(error, status) {
+                console.error('XHR Failed for search. ' + status);
             }
         }
 

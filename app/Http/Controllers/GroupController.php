@@ -74,7 +74,8 @@ class GroupController extends Controller
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
-                'card_avatar' => 'image'
+                'card_avatar' => 'image',
+                'room_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [

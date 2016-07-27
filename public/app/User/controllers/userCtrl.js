@@ -9,23 +9,18 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.loggedUserId = storage.userId;
-
-
-
-		if (!storage.pubView) {
+		if(!storage.pubView){
 			storageService.setStorageItem('pubView', 'greed');
 			storage = storageService.getStorage();
-		} else {
-			if (storage.pubView === 'greed') {
+		}else{
+			if(storage.pubView === 'greed'){
 				$scope.photosGrid = true;
-			} else if(storage.pubView === 'list'){
+			}else if(storage.pubView === 'list'){
 				$scope.photosGrid = false;
 			}
 		}
-		
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
-		var emptyPost = {pubText: ''};
 		$http.get('/static_page/get/name')
 			.success(function (response){            	
 				$scope.staticPages = response;

@@ -48,6 +48,7 @@
         vm.selectedImage = null;
         vm.myCroppedImage = null;
         vm.blobImg = null;
+        vm.selectedLogoImageName = '';
 
         vm.invitedUsers = [];
 
@@ -165,6 +166,13 @@
         };
 
         vm.updatePlace = function () {
+
+            vm.placeEditedForm.$setSubmitted();
+
+            if (vm.placeEditedForm.$invalid) {
+                return false;
+            }
+
             vm.subForm = true;
 
             var placeEdited = angular.copy(vm.placeEdited);
@@ -187,6 +195,12 @@
             placesService.updatePlace(placeEdited)
                 .then(function (data) {
                     if (data.status) {
+                        if (data.placeData.avatar) {
+                            place.avatar = data.placeData.avatar;
+                        }
+                        if (data.placeData.cover) {
+                            place.cover = data.placeData.cover;
+                        }
                         vm.place = place;
                         if (data.placeData.url_name) {
                             place.url_name = data.placeData.url_name;
@@ -320,7 +334,7 @@
             vm.pubToDelete = pub.id;
             ngDialog.open({
                 template: '../app/Places/views/delete-publication.html',
-                className: 'delete-publication ngdialog-theme-default',
+                className: 'delete-publication place ngdialog-theme-default',
                 scope: $scope
             });
         };
@@ -694,9 +708,11 @@
         };
 
         vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-            Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
-                vm.placeEdited.cover = resizedFile;
-            });
+            if (file) {
+                Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
+                    vm.placeEdited.cover = resizedFile;
+                });
+            }
         };
 
         vm.changePlaceAvatarFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
@@ -705,7 +721,7 @@
 
         vm.saveCropp = function (croppedDataURL) {
 
-            var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImage.name);
+            var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
 
             Upload.resize(blob, 100, 100, 1, null, null, true).then(function (resizedFile) {
@@ -1021,7 +1037,7 @@
                 reader.onload = function (e) {
                     $scope.$apply(function ($scope) {
                         vm.selectedLogoImage = e.target.result;
-                        vm.selectedLogoImage.name = fileName;
+                        vm.selectedLogoImageName = fileName;
                         modalCropLogoImage = ngDialog.open({
                             template: '../app/Places/views/popup-crop-image.html',
                             className: 'settings-add-ava ngdialog-theme-default',
