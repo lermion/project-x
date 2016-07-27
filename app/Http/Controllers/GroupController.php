@@ -103,7 +103,6 @@ class GroupController extends Controller
             $publicationData['card_avatar'] = $path;
         }
         $publicationData['room_id'] = $room->id;
-        dd($publicationData);
         $group = Group::create($publicationData);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'group' => $group]);
