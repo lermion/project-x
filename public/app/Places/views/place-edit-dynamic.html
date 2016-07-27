@@ -21,8 +21,8 @@
                         <option value="" disabled>---</option>
                     </select>
 
-                    <div class="error-messages" ng-messages="vm.form.placeEditedForm.typePlaceId.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.typePlaceId.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не выбрали категорию места</div>
                     </div>
                 </div>
@@ -96,8 +96,8 @@
                     <input type="date" name="date" placeholder="Выберите дни" ng-model="vm.placeEdited.expired_date"
                            required>
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.date.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+                    <div class="error-messages" ng-messages="vm.placeEditedForm.date.$error"
+                         ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted">
                         <div ng-message="required">Вы не указали дату актуальности</div>
                     </div>
                 </div>
@@ -137,6 +137,12 @@
                     <span>Добавить обложку месту</span>
                 </div>
             </div>
+            <div class="error-messages" ng-messages="vm.placeEditedForm.cover.$error" ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted || vm.placeEditedForm.$dirty">
+                <div ng-message="pattern">Выбранный файл не является изображением</div>
+                <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
+                <div ng-message="required">Вы не выбрали обложку для места</div>
+                <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
+            </div>
             <div class="create-places-add-cover">
                 <div class="create-places-add-cover-img"
                      name="logo"
@@ -149,6 +155,12 @@
                         <img ngf-thumbnail="vm.placeEdited.avatar" ngf-no-object-url="true">
                     </a>
                     <span>Добавить логотип месту</span>
+                </div>
+                <div class="error-messages" ng-messages="vm.placeEditedForm.logo.$error" ng-if="vm.placeEditedForm.$invalid && vm.placeEditedForm.$submitted || vm.placeEditedForm.$dirty">
+                    <div ng-message="pattern">Выбранный файл не является изображением</div>
+                    <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
+                    <!--<div ng-message="required">Вы не выбрали обложку для группы</div>-->
+                    <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
                 </div>
                 <a href class="modal__buttons-negative" ng-click="vm.abortUpdatePlace()">Отменить</a>
 
