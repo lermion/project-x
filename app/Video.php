@@ -47,7 +47,7 @@ class Video extends Model
             if (substr(php_uname(), 0, 7) == "Windows"){
                 $ffmpeg = FFMpeg::create([
                     'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
-                    'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
+                       'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
                 ]);
             }
             else {
@@ -62,6 +62,7 @@ class Video extends Model
             $file
                 ->save(new WebM(), $new_fname . '.webm');
             Storage::disk('video')->delete($f_name);
+        
         
     }
 
