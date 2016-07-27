@@ -245,7 +245,6 @@ angular.module('app.groups')
                 blobFile.lastModifiedDate = new Date();
 
                 Upload.resize(blobFile, 200, 220, 1, null, null, true).then(function (resizedFile) {
-                    console.log(resizedFile);
                     $scope.newGroup.avatarCard = resizedFile;
                 });
 
@@ -339,7 +338,6 @@ angular.module('app.groups')
 
             $scope.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
                 Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
-                    console.log(resizedFile);
                     $scope.newGroup.avatar = resizedFile;
                 });
                 onFileSelected(event);
