@@ -2107,8 +2107,8 @@ spam-item {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 65%;
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 }
 .publication-footer .add-objects label:hover span {
 	background-image: url(../images/camera-hover.png);
@@ -2142,6 +2142,7 @@ spam-item {
 }
 .publication-footer-button .cansel {
 	color: #495b79;
+	margin-right: 5px;
 }
 .publication-footer-button .cansel:hover  {
 	color: #999;
