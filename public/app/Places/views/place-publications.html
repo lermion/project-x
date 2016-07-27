@@ -1,16 +1,6 @@
 <div class="group-publication">
 	<div class="my-photos" ng-show="true">
-		<div class="photo place-photo1" ng-repeat="item in [1,2,3,4,5] | orderBy: '-created_at'" style="{{resizeSizes}}">
-			<a href="" ng-click="vm.openModalReviewPublication(item.id)">
-				 <img src="http://fuza.ru/uploads/posts/2011-06/1307559119_green-nature-road-1280x800.jpg" alt="">
-				<!-- <span class="video" ng-show="$index==0"></span> -->
-			</a>
-		</div>
-	</div>
-
-
-	<div class="my-photos" ng-show="true">
-		<div class="photo" ng-repeat="item in vm.group.publications | orderBy: '-created_at'" style="{{resizeSizes}}">
+		<div class="photo" ng-repeat="item in vm.place.publications | orderBy: '-created_at'" style="{{resizeSizes}}">
 			<a href="" ng-click="vm.openModalReviewPublication(item.id)">
 				 <img ng-src="{{::item.images[0].url}}" alt="">
 				<!-- <span class="video" ng-show="$index==0"></span> -->

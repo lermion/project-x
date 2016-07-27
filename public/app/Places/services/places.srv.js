@@ -27,7 +27,9 @@
             updatePlace: updatePlace,
             deletePlace: deletePlace,
             removeUsers: removeUsers,
-            setCreator: setCreator
+            setCreator: setCreator,
+            addPublication: addPublication
+
 
         };
 
@@ -432,6 +434,41 @@
 
             function setCreatorFailed(error) {
                 console.error('XHR Failed for setCreator. ' + error.data);
+            }
+        }
+
+        function addPublication(publication) {
+            var fd = new FormData();
+
+            fd.append('text', publication.text);
+
+            if (publication.files.images) {
+                angular.forEach(publication.files.images, function (image) {
+                    fd.append('images[]', image);
+                });
+            }
+            if (publication.files.videos) {
+                angular.forEach(publication.files.videos, function (video) {
+                    fd.append('videos[]', video);
+                });
+            }
+
+            return $http({
+                method: 'POST',
+                url: 'place/' + publication.placeId + '/publication/store',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(addPublicationComplete)
+                .catch(addPublicationFailed);
+
+            function addPublicationComplete(response) {
+                return response.data;
+            }
+
+            function addPublicationFailed(error, status) {
+                console.error('XHR Failed for addPublication. ' + status);
             }
         }
 

@@ -496,6 +496,14 @@
     background-color: #ec6045;
 }
 
+/*------------------------------
+     Place New Publication
+------------------------------*/
+.ngdialog.place-publication.ngdialog-theme-default .ngdialog-content {
+    /*top: 26%;*/
+}
+
+
 /*             download avatar                */
 .settingsss .add-ava label .ava img {
     height: 100%;
