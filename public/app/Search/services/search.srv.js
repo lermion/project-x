@@ -28,10 +28,10 @@
 
             return $http({
                 method: 'POST',
-                url: 'place/counter_new_place',
+                url: 'search',
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
-                data: null
+                data: fd
             })
                 .then(searchComplete)
                 .catch(searchFailed);
