@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ChatRooms;
 use App\Group;
 use App\NewGroup;
 use App\GroupInvite;
@@ -74,8 +75,8 @@ class GroupController extends Controller
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
-                'card_avatar' => 'image',
-                'room_id' => 'required'
+                'card_avatar' => 'image'
+//                'room_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -87,6 +88,8 @@ class GroupController extends Controller
             ];
             return response()->json($result);
         }
+        $room = ChatRooms::create(['name' => $request->name]);
+
         $publicationData = $request->all();
         $publicationData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
@@ -99,6 +102,7 @@ class GroupController extends Controller
             $path = Image::getAvatarPath($card_avatar);
             $publicationData['card_avatar'] = $path;
         }
+        $publicationData['room_id'] = $room->id;
         $group = Group::create($publicationData);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'group' => $group]);

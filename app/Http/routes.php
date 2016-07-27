@@ -210,7 +210,7 @@ Route::group(['middleware' => ['web']], function () {
             <input type='text' name='coordinates_x' value='1'><br>
             <input type='text' name='coordinates_y' value='1'><br>
             <input type='text' name='type_place_id'><br>
-            <input type='text' name='room_id'><br>
+
             <input type=\"submit\">
             </form>";
     });

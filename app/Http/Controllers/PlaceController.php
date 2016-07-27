@@ -57,7 +57,7 @@ class PlaceController extends Controller
                 'avatar' => 'image',
                 'cover' => 'image',
                 'type_place_id' => 'required',
-                'room_id' => 'required'
+//                'room_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [
