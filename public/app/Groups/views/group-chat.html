@@ -6,7 +6,7 @@
 		<div ng-init="scrollBottom();" ng-repeat="message in messages | orderBy: '-created_at':true" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
-					<img src="" alt="">
+					<img ng-src="{{message.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-messeges">

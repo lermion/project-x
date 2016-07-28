@@ -984,6 +984,7 @@
 		});
 		socket.on('updatechat', function(response){
 			$scope.messages.push(response);
+			vm.group.count_chat_message++;
 		});
 		$scope.emojiMessage = {
 		replyToUser: function(){
