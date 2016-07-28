@@ -6,10 +6,10 @@
 		.controller('GroupCtrl', GroupCtrl);
 
 	GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
-		'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService', 'Upload', 'amMoment', 'socket'];
+		'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService', 'Upload', 'amMoment', 'socket', '$q'];
 
 	function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
-					   AuthService, storageService, ngDialog, groupsService, UserService, PublicationService, Upload, amMoment, socket) {
+					   AuthService, storageService, ngDialog, groupsService, UserService, PublicationService, Upload, amMoment, socket, $q) {
 
 		var vm = this;
 		var storage = storageService.getStorage();
@@ -941,6 +941,38 @@
         }
 
 		//Chat
+		$scope.counter = 0;
+		$scope.scrollBottom = function(){
+			setTimeout(function(){
+				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
+				var height = chatWindow[0].scrollHeight;
+				chatWindow.scrollTop(height);
+			}, 100);
+		};
+		$scope.loadMoreMessages = function(){
+			var deferred = $q.defer();
+			var data = {
+				room_id: vm.group.room_id,
+				offset: $scope.counter,
+				limit: 10
+			};
+			if($scope.messages !== undefined && $scope.messages.length >= 10){
+				socket.emit("load more messages", data);
+			}else{
+				deferred.reject();
+			}
+			return deferred.promise;
+		};
+		socket.on("load more messages", function(response){
+			if(response.length === 0){
+				$scope.counter = 0;
+			}else{
+				response.messages.forEach(function(value){
+					$scope.messages.unshift(value);
+				});
+				$scope.counter += 10;
+			}
+		});
 		var getGroupChatDialogue = {
 			room_id: vm.group.room_id,
 			offset: 0,

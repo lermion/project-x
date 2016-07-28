@@ -3956,6 +3956,7 @@ body.ngdialog-open {
 }
 .group-chat .users-messege .ava img {
 	width: 100%;
+	height: 100%;
 }
 .group-chat .user-messege  {
 	margin-left: 10px;
@@ -3968,11 +3969,35 @@ body.ngdialog-open {
 	display: flex;
 	align-items: flex-end;
 	position: relative;
+	margin-top: 10px;
 }
 .group-chat .my-messege  .user-messege {
 	margin-left: 0;
 	margin-right: 10px;
 	background: #d7e2fa;
+	margin-top: 10px;
+}
+.group-chat-inner .my-messege {
+	display: flex;
+    align-items: flex-end;
+    padding-right: 10px;
+    box-sizing: border-box;
+    padding-bottom: 15px;
+    justify-content: flex-end;
+}
+.group-chat-inner .my-messege .user-ava {
+	display: flex;
+    order: 2;
+}
+.group-chat-inner .my-messege .user-ava a {
+	width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.group-chat-inner .my-messege .user-ava a img {
+	width: 100%;
+	height: 100%;
 }
 .group-chat .user-messege:before {
 	position: absolute;
@@ -4265,7 +4290,7 @@ body.ngdialog-open {
 			box-sizing: border-box;
 	}
 	.group-chat-inner .user-ava {
-		display: none;
+		/*display: none;*/
 	}
 	.group-chat .users-messege {
 		padding-right: 0;
