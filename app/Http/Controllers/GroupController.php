@@ -76,7 +76,6 @@ class GroupController extends Controller
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
                 'card_avatar' => 'image'
-//                'room_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -89,7 +88,6 @@ class GroupController extends Controller
             return response()->json($result);
         }
         $room = ChatRooms::create(['name' => $request->name]);
-
         $publicationData = $request->all();
         $publicationData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
@@ -133,7 +131,7 @@ class GroupController extends Controller
             NewGroup::where(['user_id' => Auth::id(), 'group_id' => $group->id,])->delete();
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
-            $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'group_users.is_admin')
+            $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'group_users.is_admin')
             ->where('group_users.group_id',$group->id)->get();
             if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
                 $group->is_sub = true;
