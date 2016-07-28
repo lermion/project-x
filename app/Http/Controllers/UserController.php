@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Online;
+use App\Publication;
 use App\Subscriber;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,10 +35,11 @@ class UserController extends Controller
         $user = User::where('login', $login)->first();
         ChatLockedUser::where(['user_id' => $user->id, 'locked_user_id' => Auth::id()])->first() ? $user->is_lock = true : $user->is_lock = false;
         $user->is_online = Online::isOnline($user->id);
+       // dd($user->id);
         $user->is_sub = Subscriber::isSub($user->id, Auth::id());
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
-        $user->publications_count = $user->publications()->where(['is_anonym' => false])->count();
+        $user->publications_count = Publication::getCountUserPublication($user->id);
         if (!$user->is_avatar)
             $user->avatar_path = '';
         return $user;
