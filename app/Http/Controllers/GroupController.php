@@ -9,6 +9,7 @@ use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
 use App\User;
+use App\UserRoomsMessage;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,7 +25,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar', 'groups.created_at')
+        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar', 'groups.created_at', 'groups.room_id')
             ->where('groups.is_open',true)
             ->orWhere(function($query){
                 $query->where('groups.is_open',false);
@@ -38,6 +39,7 @@ class GroupController extends Controller
             })
             ->get();
         foreach($groups as &$group){
+            $group->count_chat_message = UserRoomsMessage::where('room_id',$group->room_id)->count();
             $group->count_user = $group->users()->count();
             $group->publications = $group->publications()->count();
             if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
@@ -129,6 +131,7 @@ class GroupController extends Controller
                 return response()->json($result);
             }
             NewGroup::where(['user_id' => Auth::id(), 'group_id' => $group->id,])->delete();
+            $group->count_chat_message = UserRoomsMessage::where('room_id',$group->room_id)->count();
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
             $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'group_users.is_admin')
