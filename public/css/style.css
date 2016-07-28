@@ -4032,6 +4032,7 @@ body.ngdialog-open {
 .messege .messege-text p {
 	margin: 0;
 	padding: 0;
+	word-break: break-all;
 } 
 .group-chat .user-messege  .messege-time {
 	color: #999;
