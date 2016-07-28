@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ChatRooms;
 use App\Place;
 use App\NewPlace;
 use App\TypePlace;
@@ -56,8 +57,7 @@ class PlaceController extends Controller
                 'coordinates_y'=> 'required|numeric',
                 'avatar' => 'image',
                 'cover' => 'image',
-                'type_place_id' => 'required',
-//                'room_id' => 'required'
+                'type_place_id' => 'required'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -69,9 +69,9 @@ class PlaceController extends Controller
             ];
             return response()->json($result);
         }
-
+        $room = ChatRooms::create(['name' => $request->name]);
         $placeData = $request->all();
-
+        $placeData['room_id'] = $room->id;
         if (TypePlace::where('id', $placeData['type_place_id'])->value('is_dynamic')) {
             try {
                 $this->validate($request, [
@@ -116,7 +116,7 @@ class PlaceController extends Controller
 //            }
             $place->count_users = $place->users()->count();
             $place->count_publications = $place->publications()->count();
-            $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.status', 'place_users.is_admin')
+            $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'place_users.is_admin')
                 ->where('place_users.place_id',$place->id)->get();
             if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
                 $place->is_sub = true;

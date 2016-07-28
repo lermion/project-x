@@ -79,6 +79,7 @@
 
 		function activate() {
 			init();
+            checkSearch();
 		}
 
 		function init() {
@@ -932,6 +933,12 @@
 			}
 			return new Blob([ab], {type: 'image/jpeg'});
 		}
+
+        function checkSearch() {
+            if ($stateParams.isOpenModal) {
+                vm.openModalReviewPublication($stateParams.modalId);
+            }
+        }
 
 		//Chat
 		$scope.scrollBottom = function(){

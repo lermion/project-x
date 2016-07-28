@@ -24,10 +24,6 @@ class PlaceTest extends TestCase
          if (!$user) {
              $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
          }
-         $room = \App\ChatRooms::first();
-         if (!$room){
-             $room = \App\ChatRooms::create(['name' => 'test', 'avatar' => 'test']);
-         }
          $this->be($user);
          if($place = \App\Place::where(['name' => 'test'])->first()){
              $place->delete();
@@ -39,8 +35,7 @@ class PlaceTest extends TestCase
              'type_place_id' => '1',
              'address' => 'test',
              'coordinates_x'=> '1',
-             'coordinates_y'=> '1',
-             'room_id' => $room->id
+             'coordinates_y'=> '1'
          ];
          $this->json('POST', 'place/create', $data)->seeJson(['status' => true]);
          $this->seeInDatabase('places', $data);
