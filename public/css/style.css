@@ -4033,6 +4033,10 @@ body.ngdialog-open {
 	line-height: 16px;
 	    word-break: break-word;
 }
+.messege .messege-text p {
+	margin: 0;
+	padding: 0;
+} 
 .group-chat .user-messege  .messege-time {
 	color: #999;
 	font-family: "SFUIDisplayLight";

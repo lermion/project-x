@@ -7227,22 +7227,7 @@ input.cmn-toggle-round:checked + label:after {
 		top: 0;
 		z-index: 100000000;
 	}
-	.main-content {
-		margin-top: 85px;
-	}
-	.content-user {
-		margin-top: 65px;
-	}
-	.places-page {
-		margin-top: 70px;
-	}
-	.groups-content {
-		margin-top: 80px;
-	}
-	.chat-main-container {
-		margin-top: 95px;
-	}
-	.settingsss {
-		margin-top: 95px;
-	}
+    body.public.user #wrapper {
+        padding-top: 68px;
+    }
 }
