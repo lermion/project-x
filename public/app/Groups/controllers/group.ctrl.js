@@ -67,6 +67,8 @@
 
 		vm.files = [];
 
+		vm.subForm = false;
+
 		$scope.myImage = null;
 		$scope.myCroppedImage = null;
 		$scope.blobImg = null;
@@ -263,7 +265,7 @@
 		};
 
 		vm.addNewComment = function (flag, pub, pubText, files) {
-			vm.disableAddComment = true;
+			vm.subForm = true;
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -279,9 +281,14 @@
 
 			vm.newComment.text = vm.emoji.emojiMessage.messagetext;
 
+			if (!vm.newComment.text) {
+				vm.subForm = false;
+				return false;
+			}
+
 			PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
 					vm.showAddComment = false;
-					vm.disableAddComment = false;
+					vm.subForm = false;
 					if (response.data.status) {
 						$(".emoji-wysiwyg-editor").html("");
 						if (flag === "feedPage") {
