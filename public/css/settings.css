@@ -3559,7 +3559,7 @@ span.users-today-time-time.early {
     height: 100px;
     resize: none;
     font-family: "SFUIDisplayLight";
-    color: #576883;
+    color: #999;
 }
 
 .create-places-add-cover {
@@ -6568,6 +6568,10 @@ input.cmn-toggle-round:checked + label:after {
     background-color: #fff;
     color: #495b79;
 }
+.header-search-input-wrap input:focus {
+    background-color: #fff;
+    color: #000;
+}
 .header-search-input-wrap-span {
     position: absolute;
     top: 0;
@@ -7230,4 +7234,21 @@ input.cmn-toggle-round:checked + label:after {
     body.public.user #wrapper {
         padding-top: 68px;
     }
+}
+
+
+input[type="text"],
+textarea[type="text"],
+.settingsss .text p textarea,
+.settingsss .text p input[type="text"].last_name_set,
+.settingsss .text p input[type="text"] {
+    font-family: "SFUIDisplayLight";
+}
+input[type="text"]:focus,
+textarea[type="text"]:focus,
+.settingsss .text p textarea:focus,
+.settingsss .text p input[type="text"].last_name_set:focus,
+.settingsss .text p input[type="text"]:focus {
+    font-family: "SFUIDisplayLight";
+    color: #000;
 }
