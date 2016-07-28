@@ -941,6 +941,13 @@
         }
 
 		//Chat
+		$scope.scrollBottom = function(){
+			setTimeout(function(){
+				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
+				var height = chatWindow[0].scrollHeight;
+				chatWindow.scrollTop(height);
+			}, 100);
+		};
 		var getGroupChatDialogue = {
 			room_id: vm.group.room_id,
 			offset: 0,

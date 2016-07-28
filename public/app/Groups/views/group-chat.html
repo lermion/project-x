@@ -3,7 +3,7 @@
 		<div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div>
-		<div ng-repeat="message in messages | orderBy: '-created_at':true" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
+		<div ng-init="scrollBottom();" ng-repeat="message in messages | orderBy: '-created_at':true" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
 					<img src="" alt="">
