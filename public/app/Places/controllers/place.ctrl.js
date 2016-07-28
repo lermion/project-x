@@ -159,6 +159,7 @@
                 .then(function (data) {
                     if (data.status) {
                         vm.place.publications.push(data.publication);
+                        vm.place.count_publications++;
                         vm.subForm = false;
                         modalNewPublication.close();
                     }
@@ -346,6 +347,7 @@
                         angular.forEach(vm.place.publications, function (item, index, arr) {
                             if (item.id === pubId) {
                                 arr.splice(index, 1);
+                                vm.place.count_publications--;
                             }
                         });
                     }
