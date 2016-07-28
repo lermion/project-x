@@ -30,12 +30,9 @@
 
                         searchService.search($stateParams.searchObj)
                             .then(function (data) {
-
                                 deferred.resolve(data);
                             });
-
                         return deferred.promise;
-
                     }]
                 }
             })

@@ -22,13 +22,11 @@ angular.module('placePeopleApp')
 		}
 		$scope.images = {};
 		$scope.commentModel = {pubText: ''};
-		$http.get('/static_page/get/name')
-			.success(function (response){            	
-				$scope.staticPages = response;
-			})
-			.error(function (error){
-				console.log(error);
-			});
+		$http.get('/static_page/get/name').success(function (response){            	
+			$scope.staticPages = response;
+		}).error(function(error){
+			console.log(error);
+		});
 
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
@@ -42,7 +40,7 @@ angular.module('placePeopleApp')
 
 		$scope.closeSharePopup = function(){
 			sharePublication.close();
-		}
+		};
 
 		$scope.sendSharePublication = function(){
 			

@@ -21,7 +21,9 @@
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
                 params: {
-                    groupId: null
+                    groupId: null,
+                    modalId: null,
+                    isOpenModal: false
                 },
                 resolve: {
                     group: ['groupsService', '$stateParams', '$state', '$q', 'ngDialog', function (groupsService, $stateParams, $state, $q, ngDialog) {

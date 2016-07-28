@@ -1984,9 +1984,11 @@ spam-item {
 	top: -2px;
 	left: 16px;
 }
-.emoji-chat-block .emoji-wysiwyg-editor{
+.emoji-chat-block .emoji-wysiwyg-editor, .emoji-group-chat-block .emoji-wysiwyg-editor{
 	resize: none;
 	width: 75%;
+	float: left;
+	margin-top: 5px;
 	border-radius: 2px;
 	border: 1px solid #e5e7e9;
 	font-size: 14.6px;
@@ -2000,6 +2002,18 @@ spam-item {
 	margin-left: 50px;
 	overflow: hidden;
 	width: 510px;
+}
+.emoji-group-chat-block a.emoji-button {
+	display: block;
+	width: 45px;
+	height: 40px;
+	background-image: url(../images/smil.png);
+	background-position:  center;
+	background-repeat: no-repeat;
+	background-size: 40%;
+}
+.emoji-group-chat-block a.emoji-button:hover {
+	background-image: url(../images/smil-hover.png);
 }
 .text-field a.emoji-button{
 	position: absolute;
@@ -2093,8 +2107,8 @@ spam-item {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 65%;
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 }
 .publication-footer .add-objects label:hover span {
 	background-image: url(../images/camera-hover.png);
@@ -2128,6 +2142,7 @@ spam-item {
 }
 .publication-footer-button .cansel {
 	color: #495b79;
+	margin-right: 5px;
 }
 .publication-footer-button .cansel:hover  {
 	color: #999;
@@ -2215,24 +2230,14 @@ spam-item {
 	z-index: 1;
 	left: 3px;
 	background-color: #333;
+	vertical-align: middle;
+    text-align: center;
 }
 .publication .new-add .inner .close:before,
 .add-comment .new-add .inner .close:before {
 	background: 0 0;
 	color: #fff;
 	content: '\00D7';
-	font-size: 26px;
-	font-weight: 400;
-	height: 25px;
-	// line-height: 25px;
-	// position: absolute;
-	left: 0;
-	text-align: center;
-	top: 0;
-	width: 25px;
-	width: 25px;
-	display: block;
-	line-height: 24px;
 }
 .publication .new-add .inner .close:hover,
 .add-comment .new-add .inner .close:hover {
@@ -3860,9 +3865,12 @@ body.ngdialog-open {
 }
 .content-user #user-page.list-style {
 	box-shadow: none;
+	background-color: #e9eaed;
 }
 #user-page.list-style .my-profile {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
+	margin-bottom: 20px;
+	background-color: #fff;
 }
 #user-page.list-style .my-photos {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
