@@ -2555,7 +2555,6 @@ spam-item {
 	background-image: url(../images/public-place.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	transition: all .3s ease-in-out .1s;
 } 
 .user-publication-content .publication-place.school {
 	background-image: url(../images/school.png);
@@ -3487,7 +3486,6 @@ body.ngdialog-open {
 	color: #fff;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s;
 	cursor: pointer;
 	line-height: 30px;
 }
@@ -3677,9 +3675,7 @@ body.ngdialog-open {
 .group-ava .group-likes .group-info .publication-place {
 	background-image: none;
 	padding-left: 0;
-}
-.group-ava .group-likes .group-info .publication-place:hover {
-	color: #999;
+	cursor: default;
 }
 .group-ava .group-likes .group-info .like-item {
 	display: block;
