@@ -3916,7 +3916,7 @@ body.ngdialog-open {
 .group-chat-inner {
 	padding: 5px 10px;
 	overflow-x: auto;
-	max-height: 645px;
+	max-height: 385px;
 	height: auto;
 }
 .group-chat .date-messeges {
@@ -3956,6 +3956,7 @@ body.ngdialog-open {
 }
 .group-chat .users-messege .ava img {
 	width: 100%;
+	height: 100%;
 }
 .group-chat .user-messege  {
 	margin-left: 10px;
@@ -3973,6 +3974,28 @@ body.ngdialog-open {
 	margin-left: 0;
 	margin-right: 10px;
 	background: #d7e2fa;
+}
+.group-chat-inner .my-messege {
+	display: flex;
+    align-items: flex-end;
+    padding-right: 10px;
+    box-sizing: border-box;
+    padding-bottom: 15px;
+    justify-content: flex-end;
+}
+.group-chat-inner .my-messege .user-ava {
+	display: flex;
+    order: 2;
+}
+.group-chat-inner .my-messege .user-ava a {
+	width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.group-chat-inner .my-messege .user-ava a img {
+	width: 100%;
+	height: 100%;
 }
 .group-chat .user-messege:before {
 	position: absolute;
@@ -4008,6 +4031,7 @@ body.ngdialog-open {
 	font-family: "SFUIDisplayLight";
 	margin: 0;
 	line-height: 16px;
+	    word-break: break-word;
 }
 .group-chat .user-messege  .messege-time {
 	color: #999;
@@ -4135,14 +4159,34 @@ body.ngdialog-open {
 	color: #495b79;
 	font-family: "SFUIDisplayMedium";
 }
+/*.group-comment  .add-objects label,*/
 .group-comment  .add-objects,
-.group-comment  .add-objects label {
+.group-comment  div.add-objects div
+ {
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
 	display: block;
 }
-.group-comment  .add-objects label span.add {
+.group-comment  .add-objects div .add label {
+ 	display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    line-height: 35px;
+    color: #333;
+    cursor: pointer;
+    background-color: #fff;
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    z-index: 1000;
+ }
+.group-comment  .add-objects div .add label:hover {
+	color: rgb(70, 120, 177);
+    background-color: rgb(245, 245, 245);
+ }
+.group-comment  .add-objects div span.add {
 	width: 40px;
 	padding-left: 0;
 	background-image: url(../images/clip-hover.png);
@@ -4153,10 +4197,10 @@ body.ngdialog-open {
 	background-repeat: no-repeat;
 	position: relative;
 }
-.group-comment  .add-objects label span.add .dropp {
+.group-comment  .add-objects div span.add .dropp {
 	position: absolute;
 	width: 120px;
-	top: 45px;
+	top: 40px;
 	left: 50%;
 	margin-left: -65px;
 	transition: all .3s ease-in-out .1s;
@@ -4164,7 +4208,7 @@ body.ngdialog-open {
 		z-index: 3;
 		box-shadow: 0 0 10px 3px rgba(0,0,0,.3);
 }
-.group-comment  .add-objects label span.add .dropp a {
+.group-comment  .add-objects div span.add .dropp a {
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
@@ -4177,11 +4221,11 @@ body.ngdialog-open {
 	font-size: 15px;
 	font-family: "SFUIDisplayMedium";
 }
-.group-comment  .add-objects label span.add .dropp a.active {
+.group-comment  .add-objects div span.add .dropp a.active {
 	color: #4678b1;
 	background-color: #f5f5f5;
 }
-.group-comment  .add-objects label span.add:hover {
+.group-comment  .add-objects div span.add:hover {
 	background-image: url(../images/clip.png);
 }
 .group-comments .pictures {
@@ -4265,7 +4309,7 @@ body.ngdialog-open {
 			box-sizing: border-box;
 	}
 	.group-chat-inner .user-ava {
-		display: none;
+		/*display: none;*/
 	}
 	.group-chat .users-messege {
 		padding-right: 0;

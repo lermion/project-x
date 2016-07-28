@@ -1,12 +1,12 @@
 <div class="group-chat">
-	<div class="group-chat-inner">
+	<div when-scrolled="loadMoreMessages()" class="group-chat-inner">
 		<div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div>
-		<div ng-repeat="message in messages | orderBy: '-created_at':true" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
+		<div ng-init="scrollBottom();" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
-					<img src="" alt="">
+					<img ng-src="{{message.avatar_path}}" alt="">
 				</a>
 			</div>
 			<div class="user-messeges">
@@ -177,14 +177,14 @@
 			<!-- <textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea> -->
 			<div class="add-objects">						
 				<input id="addfile" type='file' ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
-				<label for="addfile">
+				<div>
 					<span class="add"  ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
 						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
-							<a href="javascript:void();" class="active">Публикация</a>
-							<a href="javascript:void();" class="">Файл</a>
+							<!-- <a href="javascript:void();" class="active">Публикация</a> -->
+							<label for="addfile">Файл</label>
 						</span>
 					</span>
-				</label>                                         
+				</div>                                         
 			</div> 
 			<button ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id)" class="send">Отправить</button>
 		</div>
