@@ -2,12 +2,10 @@
     font-family: "SFUIDisplayMedium";
     background: #fff;
     width: 700px;
-    /*border: 1px solid #808080;*/
     margin: 30px auto 0 auto;
     color: #333;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, .1);
 }
-
 .settingsss .h1 {
     font-size: 25px;
     line-height: 1.804rem;
@@ -16,21 +14,15 @@
     text-decoration: inherit;
     color: #333;
 }
-
 .settingsss .set_1 {
     display: flex;
-    /* justify-content: space-around;*/
     padding: 15px;
-    /*
-    align-items: flex-start;*/
     justify-content: space-between;
     align-items: flex-start;
 }
-
 .settingsss .set_2 {
     padding: 10px;
 }
-
 .settingsss .img {
     width: 300px;
     height: 300px;
@@ -38,11 +30,9 @@
     border-radius: 50%;
     position: relative;
 }
-
 .settingsss .set_1 .img img {
     width: 100%;
 }
-
 .settingsss .change {
     font-size: 14px;
     background-color: rgba(0, 0, 0, .7);
@@ -63,46 +53,37 @@
     transition: all .3s ease-in-out .1s;
     border-radius: 50%;
 }
-
 .settingsss .set_1 .img:hover .change {
     opacity: 1;
 }
-
 .settingsss .text p {
     margin: 0;
 }
-
 .settingsss .text {
     width: 50%;
 }
-
 .settingsss .text a:nth-child(2) {
     color: #039be5;
     font-size: 12px;
     font-family: "SFUIDisplayLight";
     margin-left: 10px;
 }
-
 .settingsss .set_2 p {
     margin-bottom: 0;
 }
-
 .settingsss .status,
 .settingsss .contact {
     font-size: 14.6px;
     padding-top: 15px;
 }
-
 .settingsss .status span:first-child,
 .settingsss .contact span:first-child {
     color: #999;
     font-size: 12px;
 }
-
 .settingsss .status span:nth-child(2) {
     padding: 0 5px 0 5px;
 }
-
 .settingsss .text p input[type="text"] {
 / / border-radius: 3 px 3 px 0 0;
 / / border: 1 px solid #999;
@@ -122,7 +103,6 @@
     color: #999;
     border-radius: 0;
 }
-
 .settingsss .text p input[type="text"].last_name_set {
 / / border-radius: 0 0 3 px 3 px;
 / / border: 1 px solid #999;
@@ -144,7 +124,6 @@
     border-top: 0;
     border-radius: 0;
 }
-
 .settingsss .text p input[type="submit"] {
     width: 30%;
     height: 30px;
@@ -156,7 +135,6 @@
     display: inline-block;
     vertical-align: top;
 }
-
 .settingsss .text p:nth-child(2) input[type="submit"] {
     border-radius: 3px;
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
@@ -167,18 +145,15 @@
     color: #fff;
     cursor: pointer;
     height: 40px;
-
     font-family: "SFUIDisplayMedium";
     box-shadow: none;
     width: auto;
     padding: 0 40px;
     margin: 0 auto;
 }
-
 .settingsss .text p:nth-child(2) input[type="submit"]:hover {
     background: #DA5036;
 }
-
 .settingsss .text p textarea {
     border: 1px solid #999;
     width: 100%;
@@ -194,17 +169,14 @@
     color: #999;
     outline: none;
 }
-
 .settingsss .text p textarea::-webkit-input-placeholder {
     color: #7e7b7b;
     padding-left: 10px;
 }
-
 .settingsss .text p input[type="text"]::-webkit-input-placeholder {
     color: #7e7b7b;
     padding-left: 10px;
 }
-
 /*******************************
             Modal dialogs
 *******************************/
@@ -214,16 +186,13 @@
 ----------------------*/
 .modal__content {
     display: flex;
-    /*flex-flow: row wrap;*/
     justify-content: space-between;
     padding: 15px;
 }
-
 .modal__footer {
     display: flex;
     justify-content: flex-end;
     padding: 10px;
-
     font-size: 14.6px;
     font-weight: 400;
     line-height: 45px;
@@ -232,12 +201,10 @@
     border-top: 1px solid #dcdee2;
     font-family: "SFUIDisplayMedium";
 }
-
 .modal__buttons {
     align-items: center;
     display: flex;
 }
-
 .modal__buttons-positive {
     text-decoration: none;
     font-size: 14.6px;
@@ -252,7 +219,6 @@
     outline: none;
     cursor: pointer;
 }
-
 .modal__buttons-negative {
     text-decoration: none;
     font-size: 14.6px;
@@ -263,37 +229,22 @@
     color: #495b79;
 }
 
-/*----------------------
-     Group Delete
-----------------------*/
 .ngdialog.popup-delete-group.ngdialog-theme-default .ngdialog-content {
     height: auto;
     padding: 30px 10px 30px 10px !important;
-    /*width: 300px;*/
-    /*margin-left: -150px;*/ /*left sidebar*/
 }
-
 .ngdialog.popup-delete-group .del-text {
     text-align: center;
 }
-
 .ngdialog.popup-delete-group .del-item button {
     margin-bottom: 10px;
 }
-
-/*----------------------
-     Group Edit
-----------------------*/
 .popup-add-group.popup-edit-group .first_item {
     display: flex;
     justify-content: flex-end;
     width: 100%;
     align-items: center;
 }
-
-/*----------------------
-     Group Invite Users
-----------------------*/
 .ngdialog.popup-invite-group.ngdialog-theme-default .ngdialog-content {
     background: #fff;
     width: 700px;
@@ -306,7 +257,6 @@
     color: #333;
     margin-bottom: 20px;
 }
-
 .popup-invite-group .modal__title {
     font-size: 14.6px;
     font-weight: 400;
@@ -317,11 +267,9 @@
     border-bottom: 1px solid #dcdee2;
     font-family: "SFUIDisplayMedium";
 }
-
 .popup-invite-group .invite-group__items {
     flex-grow: 1;
 }
-
 .popup-invite-group .invite-group__items ul,
 .popup-invite-group .invite-group__items-selected ul {
     width: 100%;
@@ -329,7 +277,6 @@
     overflow-y: auto;
     padding: 0;
 }
-
 .popup-invite-group .invite-group__items ul li,
 .popup-invite-group .invite-group__items-selected ul li {
     position: relative;
@@ -340,15 +287,12 @@
     align-items: center;
     margin-bottom: 10px;
 }
-
 .popup-invite-group .invite-group__items-selected ul li {
     padding-left: 15px;
 }
-
 .popup-invite-group .invite-group__items ul li:hover {
     cursor: pointer;
 }
-
 .popup-invite-group .invite-group__items ul li > img,
 .popup-invite-group .invite-group__items-selected ul li > img {
     border-radius: 50%;
@@ -356,11 +300,9 @@
     height: 50px;
     margin-right: 15px;
 }
-
 .popup-invite-group .invite-group__items-selected {
     flex-grow: 1;
 }
-
 .popup-invite-group .items-selected__item-delete {
     background: #ec6045;
     border-radius: 50%;
@@ -375,7 +317,6 @@
     font-size: .695em;
     cursor: pointer;
 }
-
 .popup-invite-group .invite-group__items input[type="text"] {
     height: 45px;
     width: 100%;
@@ -388,7 +329,6 @@
     padding: 10px;
     font-family: "SFUIDisplayLight";
 }
-
 /*----------------------
      Group Set Creator
 ----------------------*/
@@ -404,7 +344,6 @@
     color: #333;
     margin-bottom: 20px;
 }
-
 .popup-setcreator-group .modal__title {
     font-size: 14.6px;
     font-weight: 400;
@@ -415,18 +354,15 @@
     border-bottom: 1px solid #dcdee2;
     font-family: "SFUIDisplayMedium";
 }
-
 .popup-setcreator-group .set-creator__admins {
     flex-grow: 1;
 }
-
 .popup-setcreator-group .set-creator__admins ul {
     width: 100%;
     height: 325px;
     overflow-y: auto;
     padding: 0;
 }
-
 .popup-setcreator-group .set-creator__admins ul li {
     position: relative;
     list-style-type: none;
@@ -436,7 +372,6 @@
     align-items: center;
     margin-bottom: 10px;
 }
-
 .popup-setcreator-group .set-creator__admins input[type="text"] {
     height: 45px;
     width: 100%;
@@ -449,24 +384,20 @@
     padding: 10px;
     font-family: "SFUIDisplayLight";
 }
-
 .popup-setcreator-group .set-creator__admins ul li img {
     border-radius: 50%;
     width: 50px;
     height: 50px;
     margin-right: 15px;
 }
-
 .popup-setcreator-group .set-creator__checkbox {
     display: flex;
     justify-content: flex-end;
     flex: 1;
 }
-
 .popup-setcreator-group .set-creator__checkbox input[type="radio"] {
     display: none;
 }
-
 .popup-setcreator-group .set-creator__admins input[type="radio"] + label {
     line-height: 20px;
     vertical-align: top;
@@ -475,18 +406,15 @@
     align-items: center;
     margin-right: 30px;
 }
-
 .popup-setcreator-group .set-creator__admins input[type="radio"]:checked + label::before {
     background-image: url(/images/checkbox_group.png);
     background-size: 85% 75%;
     background-position: 70% 50%;
     background-repeat: no-repeat;
 }
-
 .popup-setcreator-group .set-creator__admins input[type="radio"] + label::before {
     border-radius: 2px;
 }
-
 .popup-setcreator-group .set-creator__admins input[type="radio"] + label::before {
     content: "";
     display: inline-block;
@@ -503,12 +431,10 @@
     /*top: 26%;*/
 }
 
-
 /*             download avatar                */
 .settingsss .add-ava label .ava img {
     height: 100%;
 }
-
 /
 /
 .settingsss .add-ava label {
@@ -550,7 +476,6 @@
 / / align-items: center;
 / /
 }
-
 .settingsss [ng\:cloak],
 .settingsss [ng-cloak],
 .settingsss [data-ng-cloak],
@@ -605,10 +530,6 @@
 / / padding: 0 0;
 / /
 }
-
-/*          download avatar   end    */
-
-/*        checkbox  ios   -      green buttons */
 .settingsss .ios-toggle,
 .settingsss .ios-toggle:active {
     position: absolute;
@@ -619,7 +540,6 @@
     border: none;
     outline: none;
 }
-
 .settingsss .checkbox-label {
     display: inline-block;
     position: relative;
@@ -636,7 +556,6 @@
     box-shadow: 0 3px 3px rgba(0, 0, 0, .2), 0 0 0 2px #dddddd;
     vertical-align: middle;
 }
-
 .settingsss .checkbox-label:before {
     content: '';
     display: block;
@@ -653,48 +572,22 @@
     left: 0px;
     right: auto;
     background: white;
-    /*box-shadow*/
     -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, .2), 0 0 0 2px #dddddd;
     -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, .2), 0 0 0 2px #dddddd;
     box-shadow: 0 3px 3px rgba(0, 0, 0, .2), 0 0 0 2px #dddddd;
 }
-
-/*.settingsss .checkbox-label:after {
-  content: attr(data-off);
-  display: block;
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  left: -300px;
-  padding: 10px;
-  height: 100%;
-  width: 300px;
-  text-align: right;
-  color: #bfbfbf;
-  white-space: nowrap;
-}
-*/
 .settingsss .ios-toggle:checked + .checkbox-label {
-    /*box-shadow*/
     -webkit-box-shadow: inset 0 0 0 20px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
     -moz-box-shadow: inset 0 0 0 20px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
     box-shadow: inset 0 0 0 20px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
 }
-
 .settingsss .ios-toggle:checked + .checkbox-label:before {
     left: calc(100% - 20px);
-    /*box-shadow*/
     -webkit-box-shadow: 0 0 0 2px transparent, 0 3px 3px rgba(0, 0, 0, .3);
     -moz-box-shadow: 0 0 0 2px transparent, 0 3px 3px rgba(0, 0, 0, .3);
     box-shadow: 0 0 0 2px transparent, 0 3px 3px rgba(0, 0, 0, .3);
 }
 
-/*.settingsss .ios-toggle:checked + .checkbox-label:after {
-  content: attr(data-on);
-  left: 60px;
-  width: 36px;
-}
-*/
 
 /*        checkbox ios      end  */
 @media only screen and (max-width: 700px) {
@@ -704,17 +597,14 @@
         padding: 20px 0 40px;
         box-shadow: none;
     }
-
     .settingsss .img {
         width: 250px;
         height: 250px;
     }
-
     .settingsss .text {
         width: 47%;
     }
 }
-
 @media only screen and (max-width: 520px) {
     .settingsss .set_2 p {
         font-size: 14px;
@@ -723,58 +613,47 @@
         align-items: center;
         line-height: 26px;
     }
-
     .settingsss .checkbox-label {
         margin-left: 10px;
     }
-
     .settingsss .img {
         width: 240px;
         height: 240px;
     }
-
     .settingsss .img {
         width: 120px;
         height: 120px;
         margin-bottom: 10px;
     }
-
     .settingsss .set_1 {
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-
     .settingsss .text {
         width: 90%;
         text-align: center;
     }
-
     .settingsss .text p {
         display: flex;
         flex-direction: column;
     }
-
     .settingsss .h1 {
         margin: 15px 0 5px 0;
         line-height: 25px;
     }
-
     .settingsss .text a:nth-child(2) {
         margin-left: 0;
     }
-
     .settingsss .status span.status-text {
         margin-top: -15px;
         line-height: 21px;
     }
-
     .settingsss .set_2 {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-
     .settingsss .set_2 h1 {
         margin: 15px 0 15px 0;
     }
@@ -823,7 +702,6 @@
 
 //
 }
-
 /*added Stasya*/
 /*              popup               group              start */
 .ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-content {
@@ -837,10 +715,7 @@
     height: auto;
     color: #333;
 }
-
 .popup_grouppublication_1.popupgroup {
-    /* position: fixed;*/
-    /* background: rgba(0,0,0,.2);*/
     background: #fff;
     top: 0;
     bottom: 0;
@@ -848,14 +723,12 @@
     right: 0;
     z-index: -1;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head .popupgroup_function {
     display: flex;
     width: 55%;
     justify-content: space-between;
     align-items: center;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head {
     background: #f5f5f5;
     border-bottom: 1px solid #e0e2e5;
@@ -863,7 +736,6 @@
     padding: 10px;
     position: relative;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup_function .user {
     display: flex;
     justify-content: space-between;
@@ -872,19 +744,16 @@
     opacity: 1;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup_function .user .ava {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     overflow: hidden;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup_function .user .ava img {
     width: 100%;
     height: 100%;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup_function .user .user-name {
     color: #495b79;
     font-size: 14.6px;
@@ -895,7 +764,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head .user-menu {
     position: relative;
     width: 30px;
@@ -907,7 +775,6 @@
     cursor: pointer;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head .menu-item {
     position: absolute;
     width: 156px;
@@ -917,11 +784,9 @@
     padding-top: 20px;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head .menu-item .inner {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head .menu-item a {
     display: block;
     width: 100%;
@@ -935,7 +800,6 @@
     font-size: 15px;
     font-family: "SFUIDisplayMedium";
 }
-
 .popup_grouppublication_1.popupgroup .popupgroups_head .return {
     cursor: pointer;
     position: absolute;
@@ -952,11 +816,9 @@
     text-decoration: none;
     display: none;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup-publication-content {
     border-bottom: 1px solid #dfe1e4;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-ava {
     width: 100%;
     background-color: rgba(0, 0, 0, .2);
@@ -967,18 +829,15 @@
     margin-bottom: 5px;
     overflow: hidden;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-images {
     display: flex;
     flex-wrap: wrap;
 }
-
 .popup_grouppublication_1.popupgroup .publication-images .images-item.more {
     background-color: #495b79;
     color: #fff;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .publication-images .images-item {
     width: 97px;
     overflow: hidden;
@@ -990,14 +849,12 @@
     background: rgba(0, 0, 0, .2);
     cursor: pointer;
 }
-
 .popup_grouppublication_1.popupgroup .images-item.more p {
     margin: 0;
     text-align: center;
     font-size: 10.4px;
     line-height: 15px;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-text {
     padding: 0 15px;
     box-sizing: border-box;
@@ -1008,7 +865,6 @@
     line-height: 20px;
     margin: 0;
 }
-
 .popup_grouppublication_1.popupgroup .popupgroup-publication-content .publication-place {
     display: block;
     text-decoration: none;
@@ -1024,7 +880,6 @@
     background-repeat: no-repeat;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .likes-item .like {
     line-height: 26px;
     display: block;
@@ -1042,7 +897,6 @@
     font-size: 14px;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .likes-item .like-item {
     color: #333;
     font-size: 14.6px;
@@ -1051,11 +905,9 @@
     line-height: 20px;
     margin: 0;
 }
-
 .popup_grouppublication_1.popupgroup .likes-item .like-item .count-like {
     font-family: "SFUIDisplayMedium";
 }
-
 .popup_grouppublication_1.popupgroup .likes {
     display: flex;
     justify-content: space-between;
@@ -1065,12 +917,10 @@
     box-sizing: border-box;
     border-bottom: 1px solid #dfe1e4;
 }
-
 .popup_grouppublication_1.popupgroup .likes-item {
     display: flex;
     align-items: center;
 }
-
 .popup_grouppublication_1.popupgroup .comments-count {
     color: #333;
     font-size: 14.6px;
@@ -1085,15 +935,12 @@
     background-size: 50%;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .visible-comments {
     border-bottom: 1px solid #dfe1e4;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group {
     border-bottom: none;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group {
     display: flex;
     align-items: flex-start;
@@ -1102,28 +949,23 @@
     color: #333;
     box-sizing: border-box;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .ava {
     display: block;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .ava {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .ava img {
     width: 100%;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .add {
     width: 100%;
     padding-left: 15px;
     box-sizing: border-box;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .add .text-field {
     padding: 0 0;
     height: 75px;
@@ -1146,7 +988,6 @@
     transition: all .3s ease-in-out .2s;
     min-width: 250px;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .add .text-field textarea {
     resize: none;
     width: 100%;
@@ -1160,24 +1001,20 @@
     font-family: "SFUIDisplayLight";
     height: 75px;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .new-add {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 10px;
 }
-
 .popup_grouppublication_1.popupgroup .publication-footer-button {
     display: flex;
 }
-
 .popup_grouppublication_1.popupgroup .publication-footer-button .publication-button {
     color: #fff;
     background-color: #495b79;
@@ -1186,7 +1023,6 @@
     border: 1px solid #495b79;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .publication-footer-button a {
     text-decoration: none;
     font-size: 14.6px;
@@ -1195,7 +1031,6 @@
     padding: 0 10px;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup_grouppublication_1.popupgroup .publication-footer #add-object {
     opacity: 0;
     overflow: hidden;
@@ -1205,7 +1040,6 @@
     width: 120px;
     height: 40px;
 }
-
 .popup_grouppublication_1.popupgroup .publication-footer .add-objects label {
     color: #495b79;
     font-size: 14px;
@@ -1215,7 +1049,6 @@
     align-items: center;
     cursor: pointer;
 }
-
 .popup_grouppublication_1.popupgroup .add-comment_group .publication-footer .add-objects
 label span.add {
     width: 40px;
@@ -1229,7 +1062,6 @@ label span.add {
     background-repeat: no-repeat;
     transition: all .3s ease-in-out .1s;
 }
-
 /
 /
 .popup-view-group-publication .ngdialog.ngdialog-theme-default .ngdialog-close {
@@ -1244,11 +1076,9 @@ label span.add {
 .ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-close:before {
     color: #333;
 }
-
 .ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-close:hover:before {
     color: #bbb;
 }
-
 @media (max-width: 700px) {
     .ngdialog.popup-view-group-publication.ngdialog-theme-default .ngdialog-content {
         width: 100%;
@@ -1257,20 +1087,16 @@ label span.add {
         margin-top: 0;
         top: 0;
     }
-
     .popup_grouppublication_1.popupgroup .add-comment_group .add .text-field {
         padding: 10px;
     }
-
 }
-
 @media (max-width: 520px) {
     .popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
         align-items: baseline;
         padding-top: 0;
     }
 }
-
 @media (max-width: 400px) {
     .popup_grouppublication_1.popupgroup .add-comment_group .publication-footer {
         justify-content: inherit;
@@ -1278,7 +1104,6 @@ label span.add {
         flex-direction: column;
     }
 }
-
 /*              popup               group            end */
 
 /*added Stasya*/
@@ -1286,11 +1111,9 @@ label span.add {
 .ngdialog.popup-add-group.ngdialog-theme-default {
     overflow: auto;
 }
-
 .popup-add-group .add_newgroup {
     padding: 15px;
 }
-
 .popup-add-group .add_newgroup .typeahead-items {
     position: absolute;
     top: 190px;
@@ -1302,7 +1125,6 @@ label span.add {
     overflow: hidden;
     box-shadow: 0 0 6px #999;
 }
-
 .popup-add-group .add_newgroup .typeahead-items__item {
     display: block;
     height: 40px;
@@ -1313,17 +1135,14 @@ label span.add {
     margin: 0px;
     position: relative;
 }
-
 .popup-add-group .add_newgroup .typeahead-items__item.active {
     background-color: #FFFFFF;
     color: #000000;
 }
-
 .popup-add-group .add_newgroup .typeahead-item__title {
     font-size: 18px;
     font-weight: bold;
 }
-
 .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
     background: #fff;
     width: 700px;
@@ -1337,11 +1156,9 @@ label span.add {
     padding: 0 !important;
     margin-bottom: 20px;
 }
-
 .ngdialog.place-map.ngdialog-theme-default .ngdialog-content {
     top: 5%;
 }
-
 .popup-add-group .add-ava {
     width: 90px;
     height: 85px;
@@ -1350,7 +1167,6 @@ label span.add {
     position: relative;
     margin-bottom: 0;
 }
-
 .popup-add-group .new_group {
     font-size: 14.6px;
     font-weight: 400;
@@ -1361,14 +1177,12 @@ label span.add {
     border-bottom: 1px solid #dcdee2;
     font-family: "SFUIDisplayMedium";
 }
-
 .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close {
     width: 20px;
     height: 20px;
     right: 15px;
     top: 15px;
 }
-
 .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close:before {
     color: #333;
     width: 20px;
@@ -1377,37 +1191,31 @@ label span.add {
     right: 0;
     line-height: 20px;
 }
-
 .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close:hover:before {
     color: #999;
 }
-
 .popup-add-group .ava_group {
     display: flex;
     align-items: center;
 }
-
 .popup-add-group .ava_group img.img_ava {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
 }
-
 .popup-add-group .ava_group .img_name {
     color: #495b79;
     font-size: 15.6px;
     font-family: "SFUIDisplayMedium";
     margin: 0 0 0 15px;
 }
-
 .popup-add-group .add-ava label .add-photo {
     background-image: url(../images/plus_group.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 35% 25%;
 }
-
 .popup-add-group .add-ava label .ava, .popup-add-group .add-ava label .add {
     overflow: hidden;
     width: 100px;
@@ -1420,19 +1228,16 @@ label span.add {
     justify-content: center;
     align-items: center;
 }
-
 .popup-add-group .add-ava label .add-photo:hover {
     border-radius: inherit;
     box-shadow: inset 10px 10px 35px 8px rgba(225, 225, 225, 1),
     inset -10px -10px 35px 8px rgba(225, 225, 225, 1);
 }
-
 .popup-add-group .second_item {
     display: inline-flex;
     width: 100%;
     align-items: center;
 }
-
 .popup-add-group .second_item span.add_ava_grp {
     color: #333;
     font-size: 12.5px;
@@ -1440,7 +1245,6 @@ label span.add {
     margin: 10px 0;
     margin-left: 15px;
 }
-
 .third_item {
     width: 100%;
     height: 90px;
@@ -1449,7 +1253,6 @@ label span.add {
     border: none;
     position: relative;
 }
-
 .popup-add-group .third_item textarea {
     resize: none;
     width: 100%;
@@ -1463,9 +1266,6 @@ label span.add {
     box-sizing: border-box;
     font-family: "SFUIDisplayLight";
 }
-
-/*         smile   for group   start    */
-
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field {
     width: 100%;
     height: 130px;
@@ -1474,27 +1274,21 @@ label span.add {
     border: none;
     position: relative;
 }
-
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field a.emoji-button {
     top: 20px;
 }
-
 .popup-add-group.ngdialog-theme-default .add_newgroup .emoji-wysiwyg-editor {
     height: 85px;
 }
-
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Описание группы ...';
 }
-
 .group-pub.ngdialog-theme-default .emoji-wysiwyg-editor:empty:after {
     content: 'Текст публикации ...';
 }
-
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
 }
-
 .popup-add-group .smiles {
     position: absolute;
     top: 16px;
@@ -1502,7 +1296,6 @@ label span.add {
     width: 30px;
     height: 30px;
 }
-
 .popup-add-group .smiles .smiles-item {
     display: block;
     background-image: url(../images/smil.png);
@@ -1513,7 +1306,6 @@ label span.add {
     width: 100%;
     height: 100%;
 }
-
 .popup-add-group .smiles .smile {
     display: none;
     position: absolute;
@@ -1525,7 +1317,6 @@ label span.add {
     padding-bottom: 15px;
     transition: all .3s ease-in-out .1s;
 }
-
 .popup-add-group .smiles .smile .smile-item {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
     background-color: #fff;
@@ -1535,14 +1326,12 @@ label span.add {
     padding: 10px 5px 10px 10px;
     box-sizing: border-box;
 }
-
 .popup-add-group .smiles .smile .inner {
     width: 25px;
     height: 25px;
     display: inline-block;
     vertical-align: top;
 }
-
 .popup-add-group .smiles .smile .inner a {
     display: block;
     text-decoration: none;
@@ -1550,36 +1339,27 @@ label span.add {
     width: 100%;
     height: 100%;
 }
-
 .popup-add-group .smiles .smile .inner a img {
     width: 90%;
 }
-
 .popup-add-group .smiles .smiles-item:hover {
     background-image: url(../images/smil-hover.png);
 }
-
 .popup-add-group .smiles:hover .smile {
     display: block;
 }
-
-/*         smile     end   */
-
-/*    Checkbox   for group  start   */
 .popup-add-group .first_item {
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
 }
-
 .popup-add-group .checkbox_group {
     width: 145px;
     height: 20px;
     font-size: 14px;
     color: #b0b1b3;
 }
-
 .popup-add-group input[type="checkbox"] + label {
     line-height: 20px;
     vertical-align: top;
@@ -1587,7 +1367,6 @@ label span.add {
     display: flex;
     align-items: center;
 }
-
 .popup-add-group input[type="checkbox"] + label::before {
     content: "";
     display: inline-block;
@@ -1596,20 +1375,15 @@ label span.add {
     margin: 0 5px 0 0;
     background-color: #ec6045;
 }
-
 .popup-add-group input[type="checkbox"]:checked + label::before {
     background-image: url(/images/checkbox_group.png);
     background-size: 85% 75%;
     background-position: 70% 50%;
     background-repeat: no-repeat;
 }
-
-/*    Checkbox    end  */
-
 .popup-add-group .fourth_item {
     width: 100%;
 }
-
 .popup-add-group .fourth_item input[type="text"],
 .popup-add-group input[type="text"] {
     width: 100%;
@@ -1623,20 +1397,14 @@ label span.add {
     padding: 10px;
     font-family: "SFUIDisplayLight";
 }
-
 .popup-add-group .fifth_item {
     display: flex;
     justify-content: space-between;
 }
-
 .popup-add-group .fifth_item .item1 {
     padding: 0;
     margin: 10px 0 0 0;
 }
-
-/*.popup-add-group .fifth_item .item1.add-people {
-  margin-top: 50px;
-}*/
 .popup-add-group .fifth_item .item1 li {
     position: relative;
     list-style-type: none;
@@ -1646,11 +1414,9 @@ label span.add {
     align-items: center;
     margin-bottom: 10px;
 }
-
 .popup-add-group .fifth_item .item1 li:last-child {
     margin-bottom: 0px;
 }
-
 .popup-add-group .fifth_item .item__remove {
     border-radius: 50%;
     cursor: pointer;
@@ -1660,38 +1426,15 @@ label span.add {
     left: 33px;
     top: 1px;
 }
-
-/*.popup-add-group .fifth_item .item__remove:before {*/
-/*background: #ec6045;*/
-/*=======*/
-
-/*.popup-add-group .fifth_item .item1 li:before {
-  background: #ec6045;
-    border-radius: 50%;
-    color: #bbb;
-    content: '\00D7';
-    font-size: 16px;
-    font-weight: 400;
-    height: 15px;
-    line-height: 13px;
-    position: absolute;
-    left: 0;
-    text-align: center;
-    top: 0;
-    width: 15px;
-}*/
-
 .popup-add-group .fifth_item .item1 li img {
     border-radius: 50%;
     width: 50px;
     height: 50px;
     margin-right: 15px;
 }
-
 .popup-add-group .fifth_item .item2 {
     margin-top: 22px;
 }
-
 .popup-add-group .fifth_item .item2 a {
     text-decoration: inherit;
     font-size: 15.6px;
@@ -1700,7 +1443,6 @@ label span.add {
     padding: 5px 10px;
     border-radius: 3px;
 }
-
 .popup-add-group .fifth_item .item2 a.active {
     text-decoration: inherit;
     font-size: 15.6px;
@@ -1708,7 +1450,6 @@ label span.add {
     background: #495b79;
     color: #fff;
 }
-
 .user-publication-content .publication-ava a {
     width: 100%;
     height: 100%;
@@ -1716,73 +1457,59 @@ label span.add {
     justify-content: center;
     align-items: center;
 }
-
 @media (max-width: 720px) {
     .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
         width: 80%;
         margin-left: -40%;
         top: 8%;
     }
-
     .popup-add-group .fifth_item .item2 {
         display: flex;
         align-items: center;
         justify-content: flex-end;
     }
 }
-
 @media (max-width: 520px) {
     .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
         width: 96%;
         margin-left: -48%;
     }
-
     .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-close {
         top: -12px;
     }
-
     .popup-add-group .first_item {
         flex-direction: column;
     }
-
     .popup-add-group .checkbox_group {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-
     .popup-add-group .fifth_item {
         flex-direction: column;
     }
-
     .popup-add-group .new_group {
         margin-top: -25px;
     }
-
     .popup-add-group .fifth_item .item2 {
         text-align: center;
     }
-
     .popup-add-group .add-ava,
     .popup-add-group .add-ava label .ava,
     .popup-add-group .add-ava label .add {
         width: 70px;
         height: 70px;
     }
-
     .popup-add-group .second_item span.add_ava_grp {
         margin-left: 5px;
     }
-
     .popup-add-group .fifth_item .item2 a {
         padding: 5px 7px;
     }
 }
-
 /*aded  */
 .user-publication .visible-comments.added_comments {
     border: none;
 }
-
 a.add_comments {
     text-decoration: inherit;
     color: #a0a0a0;
@@ -1794,32 +1521,26 @@ a.add_comments {
     width: 100%;
     box-sizing: border-box;
 }
-
 .my_profilll.photo-list {
     height: 100%;
     margin-bottom: 30px;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, .1);
 }
-
 /
 /
 div.my_profilll.photo-list div:last-child {
 / / margin-bottom: 20 px;
 / /
 }
-
-/*aded  */
 .set_1 .add-ava {
     width: 50%;
     height: auto;
     background: transparent;
 }
-
 .set_1 .add-ava label {
     width: 300px;
     height: 300px;
 }
-
 .set_1 .add-ava label .add {
     position: absolute;
     width: 100%;
@@ -1832,60 +1553,42 @@ div.my_profilll.photo-list div:last-child {
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.5);
 }
-
 .set_1 .add-ava label .ava {
     width: 100%;
     height: 100%;
 }
-
 .set_1 .add-ava label .add.edit-ava {
     margin-left: 0;
     margin-top: 0;
 }
-
 .set_1 .add-ava label .add-photo {
     width: 140px;
     height: 140px;
 }
-
 .add-ava label .add-photo:hover {
     width: 100px;
     height: 100px;
 }
-
 @media only screen and (max-width: 620px) {
     .set_1 .add-ava label {
         width: 230px;
         height: 230px;
     }
-
     .set_1 .add-ava label .add-photo:hover {
         width: 100px;
         height: 100px;
     }
-
     .set_1 .add-ava {
         width: 230px;
     }
 }
-
-/*******************************
-            Groups
-*******************************/
-
-/*----------------------
-     Main
-----------------------*/
-
 .groups-content {
     font-family: "SFUIDisplayMedium";
 }
-
 .places-page-type-place h4 {
     font-weight: 400;
     font-size: 16.6px;
 }
-
 .groups-filter {
     color: #495b79;
     font-size: 14.6px;
@@ -1905,21 +1608,16 @@ div.my_profilll.photo-list div:last-child {
     cursor: pointer;
     height: 30px;
 }
-
 .avatar__card {
     max-width: 100%;
     height: auto;
 }
-
 /*----------------------
      People
 ----------------------*/
 .peoples-inner-item-admin.no-click:hover {
     cursor: default;
 }
-
-/*05.07.16 Editing "tab-Files"*/
-
 .group-files {
     width: 700px;
     z-index: 1;
@@ -1929,11 +1627,9 @@ div.my_profilll.photo-list div:last-child {
     background-color: #ffffff;
     margin: 0 auto 0px auto;
 }
-
 .group-files:last-child {
     padding-bottom: 30px;
 }
-
 .group-files-title {
     display: flex;
     box-sizing: border-box;
@@ -1945,7 +1641,6 @@ div.my_profilll.photo-list div:last-child {
     font-family: "SFUIDisplayMedium";
     color: rgb(51, 51, 51);
 }
-
 .group-files-container {
     display: flex;
     flex-wrap: wrap;
@@ -1953,7 +1648,6 @@ div.my_profilll.photo-list div:last-child {
     margin-top: 3px;
     box-sizing: border-box;
 }
-
 .group-files-content {
     box-sizing: border-box;
     display: flex;
@@ -1963,7 +1657,6 @@ div.my_profilll.photo-list div:last-child {
     overflow: hidden;
     box-sizing: border-box;
 }
-
 .group-files a {
     width: 100%;
     height: 100%;
@@ -1975,7 +1668,6 @@ div.my_profilll.photo-list div:last-child {
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.1);
 }
-
 .group-files-content a img {
     display: flex;
     max-width: 200%;
@@ -1984,52 +1676,41 @@ div.my_profilll.photo-list div:last-child {
     height: auto;
     box-sizing: border-box;
 }
-
 @media (max-width: 720px) {
     .group-files {
         width: 500px;
     }
-
     .group-files-title {
         width: 500px;
         padding: 5px;
         padding-left: 8px;
-        /*font-size: 0.9em;*/
         font-family: "SFUIDisplayMedium";
     }
-
     .group-files-content {
         width: 97px;
         height: 97px;
         margin: 0 1px 1px 0;
     }
-
 }
-
 @media (max-width: 520px) {
     .group-files {
         width: 100%;
     }
-
     .group-files-title {
         width: 100%;
         padding: 5px;
         padding-left: 8px;
-        /*font-size: 0.9em;*/
         font-family: "SFUIDisplayMedium";
     }
-
     .group-files-content {
         width: 24.6%;
         padding: 0;
     }
-
     .group-files-container {
         width: 100%;
         margin: 0;
     }
 }
-
 /*Create tab-people*/
 .group-peoples {
     width: 700px;
@@ -2040,7 +1721,6 @@ div.my_profilll.photo-list div:last-child {
     margin: 0 auto 0px auto;
     background-color: #fff;
 }
-
 .group-peoples-inner {
     flex-wrap: wrap;
     display: flex;
@@ -2048,7 +1728,6 @@ div.my_profilll.photo-list div:last-child {
     width: 100%;
     margin: 30px 25px;
 }
-
 .group-peoples-inner-item {
     display: flex;
     border-bottom: 2px solid #eee;
@@ -2058,7 +1737,6 @@ div.my_profilll.photo-list div:last-child {
     justify-content: space-between;
     position: relative;
 }
-
 .group-peoples-inner-item .peoples-item__delete {
     background: #ec6045;
     border-radius: 50%;
@@ -2073,20 +1751,16 @@ div.my_profilll.photo-list div:last-child {
     font-size: .695em;
     cursor: pointer;
 }
-
 .group-peoples-inner-item:hover {
-    /*color: #777;;*/
     background: #e4e4e4;
     transition: all .3s ease-in-out .1s;
 }
-
 .peoples-inner-item-data {
     display: flex;
     width: 80%;
     justify-content: flex-start;
     align-items: center;
 }
-
 .peoples-item-photo a {
     margin: 0;
     padding: 0;
@@ -2101,50 +1775,37 @@ div.my_profilll.photo-list div:last-child {
     cursor: pointer;
     transition: all .3s ease-in-out .2s;
 }
-
 .peoples-item-photo a:hover {
     opacity: .8;
 }
-
 .peoples-item-photo a img {
     width: 100%;
     border: 0px;
     transition: all .3s ease-in-out .2s;
 }
-
 .peoples-item-name-content {
     margin-left: 10px;
     font-size: 16.7px;
     font-family: "SFUIDisplayMedium";
 }
-
 .peoples-item-name-content a {
     text-decoration: none;
     line-height: 25px;
 }
-
 .peoples-item-name-content p {
     font-weight: lighter;
     font-size: 13px;
     font-family: "SFUIDisplayLight";
     line-height: 25px;
 }
-
 .peoples-item-name-family {
     display: block;
 }
-
 .peoples-item-name-family span {
     display: block;
     color: #333;
     transition: all .3s ease-in-out .1s;
 }
-
-/*.peoples-item-name-family span:hover {*/
-/*display: block;*/
-/*color: #777;;*/
-/*transition: all .3s ease-in-out .1s;*/
-/*}*/
 .peoples-item-name-comment {
     margin: 0;
     padding: 0;
@@ -2153,7 +1814,6 @@ div.my_profilll.photo-list div:last-child {
     max-width: 340px;
     text-overflow: ellipsis;
 }
-
 .peoples-inner-item-admin {
     display: flex;
     color: red;
@@ -2161,62 +1821,49 @@ div.my_profilll.photo-list div:last-child {
     font-family: "SFUIDisplayMedium";
     margin-right: 5px;
 }
-
 .peoples-inner-item-admin:hover {
     cursor: pointer;
 }
-
 @media (max-width: 720px) {
     .group-peoples {
         width: 500px;
         margin: 0 auto 0px auto;
     }
-
     .peoples-inner-item-admin {
         font-size: .95em;
         margin-left: 10px;
     }
-
     .peoples-item-name-comment {
         max-width: 180px;
         text-overflow: ellipsis;
     }
 }
-
 @media (max-width: 520px) {
-
     .group-peoples {
         width: 100%;
         margin: 0 auto 0px auto;
     }
-
     .group-peoples-inner {
         width: 100%;
         margin: 5px 0px;
     }
-
     .peoples-inner-item-admin {
         font-size: .8em;
         margin-right: 0px;
     }
-
     .peoples-item-name-content {
         font-size: 14.6px;
     }
-
     .peoples-item-name-comment {
         max-width: 100px;
         text-overflow: ellipsis;
     }
-
     .peoples-item-photo a {
         width: 40px;
         height: 40px;
     }
 }
-
 /*Места*/
-
 /*Создание места*/
 .create-places {
     width: 700px;
@@ -2225,7 +1872,6 @@ div.my_profilll.photo-list div:last-child {
     box-sizing: border-box;
     margin: 20px auto 0px auto;
 }
-
 .create-places h2, h3 {
     display: flex;
     width: 100%;
@@ -2237,12 +1883,10 @@ div.my_profilll.photo-list div:last-child {
     font-size: 22.8px;
     color: rgb(51, 51, 51);
 }
-
 .create-places h3 {
     font-family: "SFUIDisplayLight";
     font-size: 16.8px;
 }
-
 .create-places-cont {
     display: flex;
     flex-wrap: wrap;
@@ -2256,7 +1900,6 @@ div.my_profilll.photo-list div:last-child {
     background-color: #fff;
     box-shadow: 0px 0px 17px 1px #c0c0c0;
 }
-
 .create-places-item {
     display: flex;
     box-sizing: border-box;
@@ -2266,7 +1909,6 @@ div.my_profilll.photo-list div:last-child {
     margin-bottom: 20px;
     border: 0;
 }
-
 .create-places-item-photo {
     display: flex;
     box-sizing: border-box;
@@ -2274,7 +1916,6 @@ div.my_profilll.photo-list div:last-child {
     height: 150px;
     border: 0;
 }
-
 .create-places-item-photo a {
     display: flex;
     box-sizing: border-box;
@@ -2284,7 +1925,6 @@ div.my_profilll.photo-list div:last-child {
     border: 0;
     background-color: rgb(215, 218, 222);
 }
-
 .create-places-item-photo a img {
     display: flex;
     box-sizing: border-box;
@@ -2292,14 +1932,12 @@ div.my_profilll.photo-list div:last-child {
     height: 100%;
     border: 0;
 }
-
 .create-places-item-name {
     display: flex;
     box-sizing: border-box;
     width: 100%;
     align-content: center;
 }
-
 .create-places-item-name a {
     display: flex;
     margin: 10px auto;
@@ -2309,21 +1947,17 @@ div.my_profilll.photo-list div:last-child {
     font-size: 14.6px;
     font-weight: 600;
 }
-
 .place-map ya-map {
     width: 100%;
     height: 400px;
     margin: 0 auto 10px;
     display: block;
 }
-
-
 .add_newgroup .button {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
-
 .add_newgroup .button .create {
     text-decoration: none;
     font-size: 14.6px;
@@ -2338,12 +1972,10 @@ div.my_profilll.photo-list div:last-child {
     outline: none;
     cursor: pointer;
 }
-
 .add_newgroup .button .create:hover {
     background-color: #fff;
     color: #495b79;
 }
-
 .add_newgroup .button .cansel {
     text-decoration: none;
     font-size: 14.6px;
@@ -2353,15 +1985,12 @@ div.my_profilll.photo-list div:last-child {
     transition: all .3s ease-in-out .1s;
     color: #495b79;
 }
-
 .add_newgroup .button .cansel:hover {
     color: #999;
 }
-
 .fifth_item .item1 {
     width: 50%;
 }
-
 .add_newgroup .item1 input {
     padding: 6px;
     margin-bottom: 5px;
@@ -2375,32 +2004,27 @@ div.my_profilll.photo-list div:last-child {
     font-size: 14.6px;
     color: #9aa2ab;
 }
-
 /*Редактирование попапа создания группы*/
 .popup-add-group input[type="checkbox"] + label::before {
     border-radius: 2px;
 }
-
 .fifth_item .item1 {
     width: 100%;
     height: 325px;
     overflow-y: auto;
     margin: 0px;
 }
-
 .fifth_item .add-people {
     width: 100%;
     height: 325px;
     margin: 0px;
 }
-
 .popup-add-group .fifth_item .item1 li {
     position: relative;
     display: flex;
     align-content: center;
     align-items: center;
 }
-
 .popup-add-group .fifth_item .item1 li p {
     display: flex;
     align-content: center;
@@ -2410,7 +2034,6 @@ div.my_profilll.photo-list div:last-child {
     max-width: 210px;
     cursor: pointer;
 }
-
 .popup-add-group .fifth_item .item1.add-people li p {
     display: flex;
     align-content: center;
@@ -2419,21 +2042,18 @@ div.my_profilll.photo-list div:last-child {
     overflow: hidden;
     max-width: 130px;
 }
-
 .popup-add-group .fifth_item .item1 li span.group-add-item1-user-plus {
     display: flex;
     position: absolute;
     right: 5px;
     top: 24px;
 }
-
 .popup-add-group .fifth_item .item1 li span img {
     display: flex;
     width: 10px;
     height: 10px;
     cursor: pointer;
 }
-
 .item1.add-people li span.add-people-delete {
     background: #ec6045;
     border-radius: 50%;
@@ -2449,7 +2069,6 @@ div.my_profilll.photo-list div:last-child {
     font-size: .695em;
     cursor: pointer;
 }
-
 .item1.add-people li span.add-people-admin {
     color: red;
     display: flex;
@@ -2458,14 +2077,12 @@ div.my_profilll.photo-list div:last-child {
     right: 5px;
     cursor: pointer;
 }
-
 .item1-add-people-title {
     margin: 0;
     line-height: 35px;
     padding: 0;
     padding-left: 15px;
 }
-
 .item1-container {
     display: flex;
     flex-wrap: wrap;
@@ -2473,7 +2090,6 @@ div.my_profilll.photo-list div:last-child {
     box-sizing: border-box;
     align-content: flex-start;
 }
-
 .popup-add-group .fourth_item input[type="text"],
 .popup-add-group input[type="text"] {
     width: 100%;
@@ -2488,12 +2104,10 @@ div.my_profilll.photo-list div:last-child {
     padding: 10px;
     font-family: "SFUIDisplayLight";
 }
-
 .popup-add-group .fifth_item .item1 {
     padding: 0;
     margin: 10px 0 10px 0;
 }
-
 .item1-add-people-container {
     display: flex;
     flex-wrap: wrap;
@@ -2501,21 +2115,18 @@ div.my_profilll.photo-list div:last-child {
     box-sizing: border-box;
     align-content: flex-start;
 }
-
 .item1-add-people-title {
     line-height: 45px;
     padding-left: 15px;
     margin-top: 0px;
     height: 45px;
 }
-
 .fifth_item .item1-container input {
     height: 45px;
     display: flex;
     margin-top: 0px;
     margin-bottom: 0px;
 }
-
 .popup-add-group .fifth_item .item1 li {
     position: relative;
     list-style-type: none;
@@ -2525,49 +2136,40 @@ div.my_profilll.photo-list div:last-child {
     align-items: center;
     margin-bottom: 10px;
 }
-
 .item1.add-people ul {
     margin: 0;
     padding: 0;
 }
-
 @media (max-width: 720px) {
     .popup-add-group .fifth_item .item1 li p {
         max-width: 56%;
         font-size: .8em;
         margin: 0;
     }
-
     .item1.add-people li span.add-people-admin {
         line-height: 40px;
         font-size: .7em;
         width: 40%;
         right: 0px;
     }
-
     .popup-add-group .fifth_item .item1.add-people li p {
         max-width: 41%;
         white-space: normal;
         margin: 0;
     }
-
     .add_newgroup .button .create {
         font-size: .8em;
     }
-
     .add_newgroup .button .cansel {
         font-size: .8em;
     }
-
     .popup-add-group .fifth_item .item1 li span.group-add-item1-user-plus {
         top: 21px;
     }
-
     .popup-add-group .fifth_item .item1 li img {
         width: 40px;
         height: 40px;
     }
-
     .item1.add-people li span.add-people-delete {
         background: #ec6045;
         border-radius: 50%;
@@ -2579,11 +2181,9 @@ div.my_profilll.photo-list div:last-child {
         width: 10px;
         font-size: .5em;
     }
-
     .popup-add-group .fifth_item .item1 li img {
         margin-right: 8px;
     }
-
     .item1-add-people-title {
         margin: 0;
         line-height: 45px;
@@ -2591,26 +2191,21 @@ div.my_profilll.photo-list div:last-child {
         font-size: .8em;
         padding-left: 10px;
     }
-
     .fifth_item .item1 {
         width: 100%;
         height: 290px;
         overflow-y: auto;
         margin: 0px;
     }
-
     .popup-add-group .fifth_item .item1 {
         height: auto;
         max-height: 245px;
     }
-
 }
-
 @media (max-width: 520px) {
     .fifth_item .item1 {
         width: 100%;
     }
-
     .popup-add-group .fifth_item .item1 li img {
         margin-right: 15px;
     }
@@ -2621,12 +2216,10 @@ div.my_profilll.photo-list div:last-child {
         max-width: 50%;
         font-size: .8em;
     }
-
     .popup-add-group .fifth_item .item1 li img {
         width: 50px;
         height: 50px;
     }
-
     .item1.add-people li span.add-people-delete {
         background: #ec6045;
         border-radius: 50%;
@@ -2642,24 +2235,20 @@ div.my_profilll.photo-list div:last-child {
         font-size: .695em;
         cursor: pointer;
     }
-
     .item1.add-people li span.add-people-admin {
         line-height: 50px;
         font-size: .7em;
         width: 40px;
     }
-
     .popup-add-group .fifth_item .item1.add-people li p {
         max-width: 40%;
     }
-
     .item1-container {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
         box-sizing: border-box;
     }
-
     .item1-add-people-container {
         display: flex;
         flex-wrap: wrap;
@@ -2667,17 +2256,12 @@ div.my_profilll.photo-list div:last-child {
         box-sizing: border-box;
     }
 }
-
 .popup-add-group .add-ava label .ava, .popup-add-group .add-ava label .add {
     height: 100px;
 }
-
-/* Pravki (made early)*/
 .user-publication-content .publication-text {
     margin-bottom: 12px;
 }
-
-/*Чаты*/
 .chat-main-container {
     width: 1025px;
     margin: 0 auto;
@@ -2689,7 +2273,6 @@ div.my_profilll.photo-list div:last-child {
     min-height: 100%;
     margin-top: 30px;
 }
-
 .chat-main-container-right {
     display: flex;
     flex-wrap: wrap;
@@ -2699,7 +2282,6 @@ div.my_profilll.photo-list div:last-child {
     border-right: 1px solid #e0e2e5;
     box-sizing: border-box;
 }
-
 .group-menu .user-menu {
     position: relative;
     width: 30px;
@@ -2711,11 +2293,9 @@ div.my_profilll.photo-list div:last-child {
     cursor: pointer;
     transition: all .3s ease-in-out .1s;
 }
-
 .group-menu .user-menu:hover {
     background-image: url(../images/user-menu-hover.png);
 }
-
 .group-menu .menu-item {
     position: absolute;
     width: 156px;
@@ -2725,15 +2305,12 @@ div.my_profilll.photo-list div:last-child {
     transition: all .3s ease-in-out .1s;
     z-index: 10;
 }
-
 .group-menu .user-menu:hover .menu-item {
     display: block;
 }
-
 .group-menu .menu-item .inner {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
 }
-
 .group-menu .menu-item a {
     display: block;
     width: 100%;
@@ -2747,12 +2324,10 @@ div.my_profilll.photo-list div:last-child {
     font-size: 15px;
     font-family: "SFUIDisplayMedium";
 }
-
 .group-menu .menu-item a:hover {
     color: #4678b1;
     background-color: #f5f5f5;
 }
-
 /*Chat*/
 .chat-right-top-person {
     display: flex;
@@ -2764,17 +2339,14 @@ div.my_profilll.photo-list div:last-child {
     justify-content: space-between;
     background-color: #fff;
     border: 1px solid #e0e2e5;
-
     height: 60px;
 }
-
 .chat-top-person-data {
     display: flex;
     width: 80%;
     align-items: center;
 
 }
-
 .chat-person-top-ava a {
     display: flex;
     width: 50px;
@@ -2782,17 +2354,14 @@ div.my_profilll.photo-list div:last-child {
     border-radius: 50%;
     margin: 5px;
 }
-
 .chat-person-top-ava a img {
     width: 100%;
 }
-
 .chat-person-top-info {
     display: flex;
     flex-wrap: wrap;
     width: 50%;
 }
-
 .chat-person-top-info p {
     display: flex;
     flex-wrap: wrap;
@@ -2803,18 +2372,15 @@ div.my_profilll.photo-list div:last-child {
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
 }
-
 p.top-person-status {
     font-size: 12.6px;
     color: #999;
 }
-
 .user-menu-top {
     display: flex;
     margin-right: 20px;
     position: relative;
 }
-
 .user-menu-top {
     position: relative;
     width: 30px;
@@ -2826,11 +2392,9 @@ p.top-person-status {
     cursor: pointer;
     transition: all .3s ease-in-out .1s;
 }
-
 .user-menu-top:hover {
     background-image: url(../images/user-menu-hover.png);
 }
-
 .user-menu-top-do {
     position: absolute;
     width: 140px;
@@ -2838,11 +2402,9 @@ p.top-person-status {
     right: 0;
     z-index: 2;
 }
-
 .user-menu-top-inner {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
 }
-
 .user-menu-top-inner a {
     display: block;
     width: 100%;
@@ -2857,23 +2419,19 @@ p.top-person-status {
     font-family: "SFUIDisplayMedium";
     z-index: 1000;
 }
-
 .user-menu-top-inner a:hover {
     color: #4678b1;
     background-color: #f5f5f5;
 }
-
 .block-info {
     margin-left: 10px;
 }
-
 .block-info p {
     width: 100%;
     margin: 0;
     padding: 0;
     margin-left: 10px;
 }
-
 .block-info .time {
     line-height: 20px;
     font-size: 12.6px;
@@ -2881,7 +2439,6 @@ p.top-person-status {
     font-size: 12.6px;
     font-family: "SFUIDisplayMedium";
 }
-
 .chat-main-container-left {
     display: flex;
     flex-wrap: wrap;
@@ -2895,21 +2452,18 @@ p.top-person-status {
     font-family: "SFUIDisplayMedium";
     position: relative;
 }
-
 .chat-left-users-menu {
     display: flex;
     width: 100%;
     box-sizing: border-box;
     background-color: #fff;
     border-bottom: 1px solid #e0e2e5;
-    /*height: 60px;*/
     margin: 0;
     padding: 0;
     align-items: center;
     position: absolute;
     top: 0;
 }
-
 .users-menu-tab-chats {
     display: flex;
     box-sizing: border-box;
@@ -2925,23 +2479,19 @@ p.top-person-status {
     background-position: center;
     background-color: rgb(245, 245, 245);
 }
-
 .users-menu-tab-chats.active {
     background-color: #fff;
     background-image: url(/images/chat-tab-chat.png);
 }
-
 .users-menu-tab-chats span {
     width: 21px;
     height: 21px;
     display: flex;
     margin: 0 auto;
 }
-
 .users-menu-tab-chats span img {
     width: 100%;
 }
-
 .users-menu-tab-users {
     display: flex;
     box-sizing: border-box;
@@ -6612,6 +6162,77 @@ input.cmn-toggle-round:checked + label:after {
     transition: all .3s ease-in-out .1s!important;
 }
 
+
+/******************************************
+            Autocomplete for Angular
+******************************************/
+.angucomplete-holder {
+    position: relative;
+}
+
+.angucomplete-dropdown {
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    width: 250px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    /*top: 32px;
+    left: 0px;
+    */
+    margin-top: -6px;
+    background-color: #ffffff;
+}
+
+.angucomplete-searching {
+    color: #acacac;
+    font-size: 14px;
+}
+
+.angucomplete-description {
+    font-size: 12px;
+}
+
+.angucomplete-row {
+    padding: 5px;
+    color: #000000;
+    margin-bottom: 4px;
+    clear: both;
+}
+
+.angucomplete-selected-row {
+    background-color: lightblue;
+    color: #ffffff;
+}
+
+.angucomplete-image-holder {
+    padding-top: 2px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.angucomplete-image {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    border-color: #ececec;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.angucomplete-image-default {
+    /* Add your own default image here
+     background-image: url('/assets/default.png');
+    */
+    background-position: center;
+    background-size: contain;
+    height: 34px;
+    width: 34px;
+}
 @media (min-width: 801px) {
 	header {
 		position: fixed;

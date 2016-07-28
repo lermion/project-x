@@ -42,6 +42,8 @@
     <script src="../../app/libs/jquery.emojiarea.js"></script>
     <script src="../../app/libs/emoji-picker.js"></script>
     <script src="../../app/libs/ya-map-2.1.min.js"></script>
+    <script src="../../app/libs/angucomplete-alt.min.js"></script>
+
     <script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
     <script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>
     <link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />

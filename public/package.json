@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angucomplete-alt": "^2.4.1",
     "angular": "^1.5.7",
     "angular-messages": "^1.5.7"
   }

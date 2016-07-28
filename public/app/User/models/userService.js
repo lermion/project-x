@@ -62,7 +62,7 @@ angular.module('placePeopleApp')
             var data = {
                 'first_name': name,
                 'last_name': lastname,
-                'status': status
+                'user_quote': status
             };
             var defer = $q.defer();
             $http.post(path + 'user/update', data)
