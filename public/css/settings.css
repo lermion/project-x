@@ -2957,23 +2957,19 @@ p.top-person-status {
     background-repeat: no-repeat;
     background-position: center;
 }
-
 .users-menu-tab-users.active {
     background-color: #fff;
     background-image: url(/images/chat-tab-people-hover.png);
 }
-
 .users-menu-tab-users span {
     width: 21px;
     height: 21px;
     display: flex;
     margin: 0 auto;
 }
-
 .users-menu-tab-users span img {
     width: 100%;
 }
-
 .users-menu-tab-block {
     display: flex;
     box-sizing: border-box;
@@ -2990,23 +2986,19 @@ p.top-person-status {
     background-position: center;
     background-image: url(/images/chat-tab-block.png);
 }
-
 .users-menu-tab-block.active {
     background-color: #fff;
     background-image: url(/images/chat-tab-block-hover.png);
 }
-
 .users-menu-tab-block span {
     width: 21px;
     height: 21px;
     display: flex;
     margin: 0 auto;
 }
-
 .users-menu-tab-block span img {
     width: 100%;
 }
-
 .users-menu-tab-menu-do {
     display: flex;
     box-sizing: border-box;
@@ -3021,22 +3013,18 @@ p.top-person-status {
     background-repeat: no-repeat;
     background-position: center;
 }
-
 .users-menu-tab-menu-do.active {
     background-color: #fff;
 }
-
 .users-menu-tab-menu-do span {
     width: 21px;
     height: 21px;
     display: flex;
     margin: 0 auto;
 }
-
 .users-menu-tab-menu-do span img {
     width: 100%;
 }
-
 .chat-left-users-search {
     position: absolute;
     display: flex;
@@ -3046,7 +3034,6 @@ p.top-person-status {
     background-color: rgb(245, 245, 245);
     border-bottom: 1px solid #e0e2e5;
 }
-
 .chat-left-users-search input {
     width: 100%;
     display: flex;
@@ -3062,7 +3049,6 @@ p.top-person-status {
     outline: none;
     height: 40px;
 }
-
 .chat-left-users-all {
     display: flex;
     flex-wrap: wrap;
@@ -3073,7 +3059,6 @@ p.top-person-status {
     margin: 0;
     overflow-y: auto;
 }
-
 .chat-left-users-users-today {
     display: flex;
     width: 100%;
@@ -3082,11 +3067,9 @@ p.top-person-status {
     justify-content: space-between;
     height: 60px;
 }
-
 .chat-left-users-users-today.active {
     background-color: rgb(245, 245, 245);
 }
-
 .chat-users-today-data {
     display: flex;
     width: 246px;
@@ -3099,11 +3082,9 @@ p.top-person-status {
     box-sizing: border-box;
     position: relative;
 }
-
 .chat-users-today-ava {
     display: flex;
 }
-
 .chat-users-today-ava a {
     display: flex;
     display: flex;
@@ -3112,11 +3093,9 @@ p.top-person-status {
     border-radius: 50%;
     margin: 5px;
 }
-
 .chat-users-today-ava a img {
     width: 100%;
 }
-
 .chat-users-today-info {
     display: flex;
     flex-wrap: wrap;
@@ -3124,7 +3103,6 @@ p.top-person-status {
     margin: 0;
     padding: 0;
 }
-
 .chat-users-today-info p {
     width: 100%;
     margin: 0;
@@ -3133,12 +3111,10 @@ p.top-person-status {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .users-today-message {
     font-size: 12.6px;
     color: #999;
 }
-
 .chat-users-today-time {
     height: 100%;
     display: flex;
@@ -3151,7 +3127,6 @@ p.top-person-status {
     width: 50px;
     text-align: center;
 }
-
 span.users-today-time-time {
     /*width: 100%;*/
     font-size: 12.6px;
@@ -3160,7 +3135,6 @@ span.users-today-time-time {
     width: 50px;
     text-align: center;
 }
-
 span.users-today-time-count {
     background-color: rgb(236, 96, 69);
     color: #fff;
@@ -3172,9 +3146,7 @@ span.users-today-time-count {
     text-align: center;
     margin-left: 14px;
 }
-
 span.users-today-time-time.early {
-    /*width: 100%;*/
     font-size: 12.6px;
     color: #999;
     display: block;
@@ -3182,15 +3154,12 @@ span.users-today-time-time.early {
     text-align: center;
     margin-top: 0px;
 }
-
 .chat-message-photo-icon {
     margin-right: 5px;
 }
-
 .users-today-message-container {
     margin-right: 10px;
 }
-
 .chat-left-users-container {
     display: flex;
     flex-wrap: wrap;
@@ -3204,18 +3173,12 @@ span.users-today-time-time.early {
     top: 61px;
     bottom: 0px;
 }
-
 .chat-left-users-container.chat-left-users-container1 {
     top: 2px;
 }
-
-/*Chat tab CONTACTS*/
 .chat-users-today-info.tab-contact-title {
     width: 94%;
 }
-
-/*Chat right selected contact*/
-
 .chat-contact-right-selected {
     display: flex;
     padding-left: 15px;
@@ -3225,21 +3188,16 @@ span.users-today-time-time.early {
     padding-bottom: 15px;
     box-sizing: border-box;
 }
-
 .chat-contact-selected-ava {
     display: flex;
     width: 290px;
     height: 290px;
     box-sizing: border-box;
 }
-
 .chat-contact-selected-ava img {
     width: 100%;
 }
-
 .chat-contact-selected-data {
-    /*  display: flex;
-  flex-wrap: wrap;*/
     width: 350px;
     box-sizing: border-box;
     margin-left: 25px;
@@ -3247,7 +3205,6 @@ span.users-today-time-time.early {
     font-family: "SFUIDisplayMedium";
 
 }
-
 .contact-selected-data-name {
     width: 100%;
     font-size: 20px;
@@ -3258,7 +3215,6 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-status {
     width: 100%;
     color: rgb(73, 91, 121);
@@ -3271,7 +3227,6 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-title {
     width: 100%;
     color: rgb(51, 51, 51);
@@ -3283,7 +3238,6 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-phone {
     width: 100%;
     color: rgb(73, 91, 121);
@@ -3296,7 +3250,6 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-tel-number {
     width: 100%;
     color: rgb(51, 51, 51);
@@ -3308,7 +3261,6 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-message {
     width: 100%;
     color: rgb(73, 91, 121);
@@ -3318,19 +3270,16 @@ span.users-today-time-time.early {
     align-items: center;
     margin-top: 30px;
 }
-
 .contact-selected-message-span {
     margin-left: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-message span img {
     width: 21px;
     height: 21px;
 }
-
 .contact-selected-data-block {
     width: 100%;
     color: rgb(73, 91, 121);
@@ -3342,19 +3291,16 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-block-span {
     margin-left: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-block span img {
     width: 21px;
     height: 21px;
 }
-
 .contact-selected-data-delete {
     width: 100%;
     color: rgb(73, 91, 121);
@@ -3366,26 +3312,22 @@ span.users-today-time-time.early {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-delete-span {
     margin-left: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .contact-selected-data-delete span img {
     width: 21px;
     height: 21px;
 }
-
 /*Edit button send*/
 .group-chat button:hover {
     border: 1px solid #495b79;
     color: #495b79;
     background: transparent;
 }
-
 .group-comment .send {
     position: static;
     height: 40px;
@@ -3395,7 +3337,6 @@ span.users-today-time-time.early {
     color: #495b79;
     font-family: "SFUIDisplayMedium";
 }
-
 .group-chat button {
     position: absolute;
     border: 1px solid transparent;
@@ -3414,7 +3355,6 @@ span.users-today-time-time.early {
     margin-top: -14px;
     right: 5px;
 }
-
 .chat-left-users-i-sign {
     display: flex;
     width: 100%;
@@ -3424,7 +3364,6 @@ span.users-today-time-time.early {
     color: #495b79;
     border-bottom: 1px solid #e0e2e5;
 }
-
 .chat-left-users-my-sign {
     display: flex;
     width: 100%;
@@ -3434,7 +3373,6 @@ span.users-today-time-time.early {
     color: #495b79;
     border-bottom: 1px solid #e0e2e5;
 }
-
 /*Create places COMMON*/
 .create-places-common {
     width: 700px;
@@ -3442,10 +3380,8 @@ span.users-today-time-time.early {
     display: flex;
     box-sizing: border-box;
     margin: 0px auto 20px auto;
-    /*background-color: red;*/
     font-family: "SFUIDisplayMedium";
 }
-
 .create-places-header {
     width: 100%;
     display: flex;
@@ -3453,7 +3389,6 @@ span.users-today-time-time.early {
     padding-left: 0px;
     box-sizing: border-box;
 }
-
 .create-places-header-a {
     font-size: 20.8px;
     text-decoration: none;
@@ -3467,7 +3402,6 @@ span.users-today-time-time.early {
     background-repeat: no-repeat;
     box-sizing: border-box;
 }
-
 .create-places-common-inner {
     width: 100%;
     display: flex;
@@ -3478,36 +3412,30 @@ span.users-today-time-time.early {
     background-color: #fff;
     box-shadow: 0px 0px 17px 1px #c0c0c0;
 }
-
 .place-type-title {
 
 }
-
 .place-type-name {
     font-family: "SFUIDisplayLight";
     padding-left: 10px;
 }
-
 .create-places-description {
     font-family: "SFUIDisplayLight";
     margin-top: 10px;
     font-size: 14.6px;
     margin-bottom: 20px;
 }
-
 .create-places-select-country {
     width: 100%;
     /*background-color: green;*/
     font-family: "SFUIDisplayLight";
     margin-top: 15px;
 }
-
 .select-country-country {
     font-size: 12.6px;
     line-height: 30px;
     color: rgb(102, 102, 102);
 }
-
 .select-country-name select {
     font-family: "SFUIDisplayMedium";
     font-size: 14.6px;
@@ -3516,19 +3444,16 @@ span.users-today-time-time.early {
     width: 100%;
     border-radius: 3px;
 }
-
 .create-places-select-street {
     width: 100%;
     font-family: "SFUIDisplayLight";
     margin-top: 15px;
     box-sizing: border-box;
 }
-
 .select-street-input {
     width: 100%;
     position: relative;
 }
-
 .create-places-select-street input {
     box-sizing: border-box;
     width: 100%;
@@ -3537,7 +3462,6 @@ span.users-today-time-time.early {
     line-height: 19px;
     border-radius: 3px;
 }
-
 .street-on-map {
     position: absolute;
     top: 7px;
@@ -3548,7 +3472,6 @@ span.users-today-time-time.early {
     cursor: pointer;
     font-weight: 500;
 }
-
 .select-street-input textarea {
     box-sizing: border-box;
     width: 100%;
@@ -3561,7 +3484,6 @@ span.users-today-time-time.early {
     font-family: "SFUIDisplayLight";
     color: #999;
 }
-
 .create-places-add-cover {
     width: 100%;
     display: flex;
@@ -3570,7 +3492,6 @@ span.users-today-time-time.early {
     justify-content: space-between;
     align-items: center;
 }
-
 .create-places-add-cover-img {
     display: flex;
     align-items: center;
@@ -3579,7 +3500,6 @@ span.users-today-time-time.early {
     max-width: 100%;
     height: auto;
 }
-
 .create-places-add-cover-img a {
     width: 80px;
     height: 80px;
@@ -3592,14 +3512,12 @@ span.users-today-time-time.early {
     display: flex;
     justify-content: space-between;
 }
-
 .create-places-add-cover-img span {
     color: rgb(51, 51, 51);
     font-family: "SFUIDisplayMedium";
     font-size: 12.5px;
     margin-left: 20px;
 }
-
 .create-places-add-cover-button-create {
     text-decoration: none;
     font-size: 14.6px;
@@ -3614,16 +3532,13 @@ span.users-today-time-time.early {
     outline: none;
     cursor: pointer;
 }
-
 .create-places-add-cover-button-create:hover {
     background-color: #fff;
     color: #495b79;
 }
-
 .create-places-select-country.days select {
     font-family: "SFUIDisplayLight";
 }
-
 .create-places-select-country.days input {
     box-sizing: border-box;
     width: 100%;
@@ -3632,18 +3547,11 @@ span.users-today-time-time.early {
     line-height: 19px;
     border-radius: 3px;
 }
-
 .create-places-select-country.days input[type="date"]:before {
     content: attr(placeholder) !important;
     color: #aaa;
     margin-right: 0.5em;
 }
-
-/*  .create-places-select-country.days input[type="date"]:focus:before,
-  input[type="date"]:valid:before {
-    content: "";
-  }*/
-
 /*Places*/
 .places-page {
     width: 700px;
@@ -3653,7 +3561,6 @@ span.users-today-time-time.early {
     margin: 20px auto 0px auto;
     font-family: "SFUIDisplayMedium";
 }
-
 .places-page-header {
     display: flex;
     justify-content: space-between;
@@ -3661,7 +3568,6 @@ span.users-today-time-time.early {
     width: 100%;
     padding: 20px 0;
 }
-
 .places-page-header-title {
     display: flex;
     font-size: 20.6px;
@@ -3675,12 +3581,10 @@ span.users-today-time-time.early {
     background-size: 10%;
     background-repeat: no-repeat;
 }
-
 .places-page-header-category {
     display: flex;
     font-size: 14.6px;
 }
-
 .places-page-header-category select {
     color: #495b79;
     font-size: 14.6px;
@@ -3700,7 +3604,6 @@ span.users-today-time-time.early {
     cursor: pointer;
     height: 30px;
 }
-
 .places-page-type-place {
     display: flex;
     font-size: 16.6px;
@@ -3708,7 +3611,6 @@ span.users-today-time-time.early {
     justify-content: space-between;
     align-items: center;
 }
-
 .places-type-place-btn {
     border: 1px solid rgb(92, 108, 135);;
     line-height: 25px;
@@ -3718,7 +3620,6 @@ span.users-today-time-time.early {
     color: rgb(92, 108, 135);
     cursor: pointer;
 }
-
 /*CHAT*/
 .chat-right-chat-inner {
     width: 100%;
@@ -3736,14 +3637,12 @@ span.users-today-time-time.early {
     left: 0;
     bottom: 41px;
 }
-
 .chat-message-date {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
-
 .chat-message-date span {
     background-color: gray;
     border-radius: 10px;
@@ -3756,7 +3655,6 @@ span.users-today-time-time.early {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 .my-msg-wrap {
     display: flex;
     justify-content: flex-end;
@@ -3767,7 +3665,6 @@ span.users-today-time-time.early {
     margin-bottom: 10px;
     align-items: flex-end;
 }
-
 .my-msg-wrap:after {
     bottom: -2px;
     right: 56px;
@@ -3779,7 +3676,6 @@ span.users-today-time-time.early {
     height: 10px;
     position: absolute;
 }
-
 .right-chat-my-msg {
     display: flex;
     justify-content: flex-end;
@@ -3791,7 +3687,6 @@ span.users-today-time-time.early {
     box-sizing: border-box;
     max-width: 90%;
 }
-
 .right-chat-my-msg-inner {
     max-width: 100%;
     box-sizing: border-box;
@@ -3800,7 +3695,6 @@ span.users-today-time-time.early {
     color: rgb(116, 120, 130);
     word-break: break-all;
 }
-
 .right-chat-my-msg-date {
     display: flex;
     margin-right: 5px;
@@ -3810,7 +3704,6 @@ span.users-today-time-time.early {
     background-size: 15%;
     background-repeat: no-repeat;
 }
-
 .right-chat-my-msg-date span {
     font-family: "SFUIDisplayMedium";
     font-size: 11px;
@@ -3820,7 +3713,6 @@ span.users-today-time-time.early {
     margin-left: 10px;
     padding-right: 20px;
 }
-
 .my-msg-inner-photo {
     flex-wrap: wrap;
     max-height: 204px;
@@ -3829,7 +3721,6 @@ span.users-today-time-time.early {
     display: flex;
     margin-top: 10px;
 }
-
 .my-img-inner-photo-pict {
     width: 140px;
     height: 100px;
@@ -3841,14 +3732,12 @@ span.users-today-time-time.early {
     background: rgba(0, 0, 0, .2);
     cursor: pointer;
 }
-
 .my-img-inner-photo-pict img {
     max-height: 100%;
     max-width: 100%;
     height: auto;
     width: auto;
 }
-
 .to-my-msg-wrap {
     display: flex;
     justify-content: flex-start;
@@ -3859,7 +3748,6 @@ span.users-today-time-time.early {
     margin-bottom: 10px;
     padding-left: 10px;
 }
-
 .to-my-msg-wrap:after {
     bottom: -2px;
     left: 55px;
@@ -3870,9 +3758,7 @@ span.users-today-time-time.early {
     content: "";
     height: 10px;
     position: absolute;
-    /*padding-left: 10px;*/
 }
-
 .right-chat-to-my-msg {
     display: flex;
     justify-content: flex-end;
@@ -3885,7 +3771,6 @@ span.users-today-time-time.early {
     border: 1px solid #e0e2e5;
     max-width: 90%;
 }
-
 .right-chat-to-my-msg-inner {
     max-width: 100%;
     box-sizing: border-box;
@@ -3894,7 +3779,6 @@ span.users-today-time-time.early {
     color: rgb(116, 120, 130);
     word-break: break-all;
 }
-
 .right-chat-to-my-msg-date {
     display: flex;
     margin-right: 5px;
@@ -3904,7 +3788,6 @@ span.users-today-time-time.early {
     background-size: 20%;
     background-repeat: no-repeat;
 }
-
 .right-chat-to-my-msg-date span {
     font-family: "SFUIDisplayMedium";
     font-size: 11px;
@@ -3914,7 +3797,6 @@ span.users-today-time-time.early {
     margin-left: 10px;
     padding-right: 15px;
 }
-
 .to-my-msg-inner-photo {
     flex-wrap: wrap;
     max-height: 204px;
@@ -3923,7 +3805,6 @@ span.users-today-time-time.early {
     display: flex;
     margin-top: 10px;
 }
-
 .to-my-img-inner-photo-pict {
     width: 140px;
     height: 100px;
@@ -3935,14 +3816,12 @@ span.users-today-time-time.early {
     background: rgba(0, 0, 0, .2);
     cursor: pointer;
 }
-
 .to-my-img-inner-photo-pict img {
     max-height: 100%;
     max-width: 100%;
     height: auto;
     width: auto;
 }
-
 .group-comments .pictures {
     padding: 5px 10px;
     overflow-x: auto;
@@ -3953,7 +3832,6 @@ span.users-today-time-time.early {
     align-items: center;
     flex-wrap: wrap;
 }
-
 .chat-right-inner-publication-my {
     display: flex;
     width: 100%;
@@ -3961,7 +3839,6 @@ span.users-today-time-time.early {
     box-sizing: border-box;
     margin-top: 30px;
 }
-
 .chat-publication-wrap {
     width: 80%;
     display: flex;
@@ -3969,13 +3846,11 @@ span.users-today-time-time.early {
     flex-wrap: wrap;
     background-color: rgb(215, 226, 250);
 }
-
 .chat-publication-data {
     width: 100%;
     display: flex;
     box-sizing: border-box;
 }
-
 .chat-publication-description {
     display: flex;
     box-sizing: border-box;
