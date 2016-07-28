@@ -694,7 +694,7 @@
 			groupsService.setAdmin(group.id, user.id)
 				.then(function (data) {
 					if (data.status) {
-						user.is_admin = data.is_admin;
+						user.is_admin = +data.is_admin;
 					}
 				});
 		};
