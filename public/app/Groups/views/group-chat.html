@@ -73,13 +73,14 @@
 				<div class="user-messege">
 					<div class="messege">
 						<a class="user-name">{{message.first_name}} {{message.last_name}}</a>
-						<p class="messege-text" ng-bind-html="message.text | colonToSmiley">
-							<!-- <span class="pictures">
-								<span class="pic" ng-repeat="pub in [1,2,3,4,5]">
-									<img src="../../../images/bc.png" alt="">
+						<div class="messege-text">
+							<p ng-bind-html="message.text | colonToSmiley"></p>
+							<span ng-if="message.images" class="pictures">
+								<span class="pic" ng-repeat="image in message.images">
+									<img ng-src="{{image.url}}" alt="">
 								</span>
-							</span> -->
-						</p>
+							</span>
+						</div>
 					</div>
 					<p class="messege-time">{{message.created_at | amDateFormat:'HH:mm'}}</p>
 				</div>
@@ -176,7 +177,7 @@
 			</div>
 			<!-- <textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea> -->
 			<div class="add-objects">						
-				<input id="addfile" type='file' ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
+				<input id="addfile" type='file' ngf-select="beforeChange($files)" ngf-keep="true" ngf-multiple="true" style="display: none;" ng-model="files"> 
 				<div>
 					<span class="add"  ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
 						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
@@ -186,17 +187,17 @@
 					</span>
 				</div>                                         
 			</div> 
-			<button ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id)" class="send">Отправить</button>
+			<button ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id, files)" class="send">Отправить</button>
 		</div>
-		<!-- <div class="pictures">
-			<div class="pic" ng-repeat="pub in [1,2,3,4,5]">
-				<div ng-click="deletePubFile(singlePublication.files, $index)" class="close">
+		<div class="pictures">
+			<div class="pic" ng-repeat="file in files">
+				<div ng-click="deleteChatFiles(files, $index)" class="close">
 					<div class="close-inner">
 						<p>Удалить</p>
 					</div>
 				</div>
-				<img src="../../../images/bc.png" alt="">
+				<img ngf-thumbnail="file || '/thumb.jpg'">
 			</div>
-		</div> -->
+		</div>
 	</div>
 </div>
