@@ -147,7 +147,7 @@
             <div class="publication-footer"
                  ng-init="addFileObjId = 'add-file-to-comment-popup-'+vm.activePublication.id">
                 <div class="publication-footer-button">
-                    <button ng-disabled="disableAddComment"
+                    <button ladda="vm.subForm" data-style="slide-right" ng-disabled="vm.subForm"
                             ng-click="vm.addNewComment('feedPage', vm.activePublication, emojiMessage, vm.activePublication.files)"
                             class="publication-button">Отправить
                     </button>

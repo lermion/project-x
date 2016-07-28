@@ -229,7 +229,7 @@
         };
 
         vm.addNewComment = function (flag, pub, pubText, files) {
-            vm.disableAddComment = true;
+            vm.subPub = true;
             var images = [];
             var videos = [];
             if (files != undefined) {
@@ -244,6 +244,11 @@
             }
 
             vm.newComment.text = vm.emojiMessage.messagetext;
+
+            if (!vm.newComment.text) {
+                vm.subForm = false;
+                return false;
+            }
 
             PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
                     vm.showAddComment = false;
