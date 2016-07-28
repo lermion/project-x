@@ -12,6 +12,7 @@ use App\Image;
 use App\City;
 use App\Country;
 use App\User;
+use App\UserRoomsMessage;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -23,6 +24,7 @@ class PlaceController extends Controller
     {
         $places = Place::all();
         foreach($places as &$place){
+            $place->count_chat_message = UserRoomsMessage::where('room_id',$place->room_id)->count();
             $place->count_user = $place->users()->count();
             $place->publications = $place->publications()->count();
             if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
@@ -114,6 +116,7 @@ class PlaceController extends Controller
 //            if (!PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
 //                return null;
 //            }
+            $place->count_chat_message = UserRoomsMessage::where('room_id',$place->room_id)->count();
             $place->count_users = $place->users()->count();
             $place->count_publications = $place->publications()->count();
             $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'place_users.is_admin')
