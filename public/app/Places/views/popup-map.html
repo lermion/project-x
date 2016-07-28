@@ -3,7 +3,7 @@
     <div class="add_newgroup">
         <ya-map ya-zoom="10"
                 ya-center="{{ vm.center }}"
-                ya-before-init="vm.beforeInit()"
+                ya-before-init="vm.beforeInitMapForNewPlace()"
                 ya-options="{balloonMaxWidth: 200}"
                 ya-after-init="vm.afterInit($target)"
                 ya-event-click="vm.mapClick($event)">

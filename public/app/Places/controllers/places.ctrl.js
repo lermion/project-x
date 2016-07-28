@@ -46,10 +46,10 @@
         vm.placesDropdown = null;
 
         vm.placeNew = {
-            category: {},
+            category: null,
 
-            country: 'default',
-            city: {},
+            country: null,
+            city: null,
             address: null,
 
             name: '',
@@ -207,7 +207,7 @@
                 vm.activePlace = vm.typeStatic.filter(function (item) {
                     return p.activeTypePlaceId === item.id;
                 })[0];
-                vm.placeNew.category.id = p.activeTypePlaceId;
+                vm.placeNew.category = {id: p.activeTypePlaceId};
             }
         });
 
@@ -314,6 +314,8 @@
             if (file) {
                 Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
                     vm.placeNew.cover = resizedFile;
+                    vm.form.placeNew.cover.$setValidity('required', true);
+                    vm.form.placeNew.cover.$valid = true;
                 });
             }
 
@@ -328,6 +330,8 @@
 
             Upload.resize(blob, 100, 100, 1, null, null, true).then(function (resizedFile) {
                 vm.placeNew.logo = resizedFile;
+                vm.form.placeNew.logo.$setValidity('required', true);
+                vm.form.placeNew.logo.$valid = true;
             });
 
             modalCropLogoImage.close();
@@ -419,24 +423,39 @@
         }
 
 
-        vm.beforeInit = function () {
-            var geolocation = ymaps.geolocation;
-            geolocation.get({
-                provider: 'yandex',
-                mapStateAutoApply: true
-            }).then(function (result) {
-                vm.geoObject.geometry.coordinates = result.geoObjects.position;
-                vm.center = result.geoObjects.position;
-                $scope.$digest();
-            });
-            geolocation.get({
-                provider: 'browser',
-                mapStateAutoApply: true
-            }).then(function (result) {
-                vm.geoObject.geometry.coordinates = result.geoObjects.position;
-                vm.center = result.geoObjects.position;
-                $scope.$digest();
-            });
+        vm.beforeInitMapForNewPlace = function () {
+            if (vm.placeNew.country && vm.placeNew.city) {
+                var addressStr = vm.placeNew.country.name + ' ' + vm.placeNew.city.name;
+                ymaps.geocode(addressStr, {format: 'json', results: 1}).then(function (res) {
+                    // Выбираем первый результат геокодирования.
+                    var firstGeoObject = res.geoObjects.get(0);
+                    // Задаем центр карты.
+                    $scope.$apply(function () {
+                        vm.center = firstGeoObject.geometry.getCoordinates();
+                    });
+                }, function (err) {
+                    // Если геокодирование не удалось, сообщаем об ошибке.
+                    alert(err.message);
+                });
+            } else {
+                var geolocation = ymaps.geolocation;
+                geolocation.get({
+                    provider: 'yandex',
+                    mapStateAutoApply: true
+                }).then(function (result) {
+                    //vm.geoObject.geometry.coordinates = result.geoObjects.position;
+                    vm.center = result.geoObjects.position;
+                    $scope.$digest();
+                });
+                geolocation.get({
+                    provider: 'browser',
+                    mapStateAutoApply: true
+                }).then(function (result) {
+                    //vm.geoObject.geometry.coordinates = result.geoObjects.position;
+                    vm.center = result.geoObjects.position;
+                    $scope.$digest();
+                });
+            }
         };
         vm.geoObject = {
             geometry: {
@@ -462,7 +481,20 @@
                     names.push(obj.properties.get('text'));
                 });
                 console.log(names[0]);
-                vm.placeNew.address = names[0];
+
+                var addressStr = '';
+                var obj = res.geoObjects.get(0);
+                var thoroughfareName = obj.getThoroughfare();
+                var premiseNumber = obj.getPremiseNumber();
+
+                if (thoroughfareName && premiseNumber) {
+                    addressStr = thoroughfareName + ' ' + premiseNumber;
+                } else {
+                    addressStr = obj.properties.get('name');
+                }
+
+                vm.placeNew.address = addressStr;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'autocomplete-address-place', addressStr);
 
                 // Добавим на карту метку в точку, по координатам
                 // которой запрашивали обратное геокодирование.
@@ -488,6 +520,38 @@
                 });
             });
         };
+
+        vm.addressSelected = function (selected) {
+            if (selected) {
+                var posStr = selected.originalObject.GeoObject.Point.pos;
+                var posArr = posStr.split(' ');
+                vm.placeNew.coordinates_x = +posArr[1];
+                vm.placeNew.coordinates_y = +posArr[0];
+                vm.placeNew.address = selected.title;
+                console.log(vm.placeNew);
+            }
+        };
+
+
+        //vm.beforeInit = function () {
+        //    var geolocation = ymaps.geolocation;
+        //    geolocation.get({
+        //        provider: 'yandex',
+        //        mapStateAutoApply: true
+        //    }).then(function (result) {
+        //        vm.geoObject.geometry.coordinates = result.geoObjects.position;
+        //        vm.center = result.geoObjects.position;
+        //        $scope.$digest();
+        //    });
+        //    geolocation.get({
+        //        provider: 'browser',
+        //        mapStateAutoApply: true
+        //    }).then(function (result) {
+        //        vm.geoObject.geometry.coordinates = result.geoObjects.position;
+        //        vm.center = result.geoObjects.position;
+        //        $scope.$digest();
+        //    });
+        //};
 
 
     }

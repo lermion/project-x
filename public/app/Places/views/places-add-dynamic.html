@@ -19,7 +19,7 @@
                             name="typePlaceId"
                             ng-options="option.name for option in vm.typeDynamic"
                             required>
-                        <option value="">---</option>
+                        <option value="" disabled selected hidden>---</option>
                     </select>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.typePlaceId.$error"
@@ -51,7 +51,7 @@
                             ng-options="option.name for option in vm.countries track by option.id"
                             ng-model="vm.placeNew.country"
                             required>
-                        <option value="">---</option>
+                        <option value="" disabled selected hidden>---</option>
                     </select>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.country.$error"
@@ -66,9 +66,9 @@
                 <div class="select-country-name">
                     <select name="city"
                             ng-options="option.name for option in vm.cities"
-                            ng-model="vm.placeNew.city"
+                            ng-model="vm.placeNew.city" ng-disabled="!vm.placeNew.country"
                             required>
-                        <option value="">---</option>
+                        <option value="" disabled selected hidden>---</option>
                     </select>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.city.$error"
@@ -80,13 +80,25 @@
             <div class="create-places-select-street">
                 <div class="select-country-country">Адрес места</div>
                 <div class="select-street-input">
-                    <input type="text" name="address" placeholder="улица, номер дома" ng-model="vm.placeNew.address"
-                           required>
-                    <span class="street-on-map" ng-click="vm.openModalMap()">или укажите на карте</span>
+
+                    <angucomplete-alt id="autocomplete-address-place"
+                                      placeholder="улица, номер дома"
+                                      pause="1000"
+                                      selected-object="vm.addressSelected"
+                                      remote-url="https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode="
+                                      remote-url-data-field="response.GeoObjectCollection.featureMember"
+                                      title-field="GeoObject.name"
+                                      description-field="GeoObject.description"
+                                      input-class="form-control form-control-small"
+                                      field-required="true"
+                                      input-name="address"
+                                      disable-input="!vm.placeNew.city"></angucomplete-alt>
+                        <span class="street-on-map" ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
+
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.address.$error"
                          ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не указали адрес</div>
+                        <div ng-message="autocomplete-required">Вы не указали адрес</div>
                     </div>
                 </div>
 
@@ -129,8 +141,8 @@
                      ngf-min-heiht="280"
                      ngf-min-width="1200"
                      ngf-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                     ng-model="vm.placeNew.cover"
-
+                     ng-model="vm.placeNew.cover1"
+                     required
                 >
                     <a href="">
                         <img ngf-thumbnail="vm.placeNew.cover" ngf-no-object-url="true">
@@ -139,12 +151,14 @@
                     <span>Добавить обложку места</span>
                 </div>
             </div>
-            <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.$dirty">
-                    <div ng-message="pattern">Выбранный файл не является изображением</div>
-                    <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
-                    <div ng-message="required">Вы не выбрали обложку для места</div>
-                    <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
-                </div>
+
+            <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error"
+                 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.cover.$dirty">
+                <div ng-message="pattern">Выбранный файл не является изображением</div>
+                <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
+                <div ng-message="required">Выберите обложку</div>
+                <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
+            </div>
             <div class="create-places-add-cover">
                 <div class="create-places-add-cover-img"
                      name="logo"
@@ -152,7 +166,8 @@
                      ngf-pattern="'image/*'"
                      ngf-accept="'image/*'"
                      ngf-before-model-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                     ng-model="vm.placeNew.logo">
+                     ng-model="vm.placeNew.logo1"
+                     required>
                     <a href="">
                         <img ngf-thumbnail="vm.placeNew.logo" ngf-no-object-url="true">
                     </a>
@@ -160,11 +175,12 @@
                 </div>
                 <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
             </div>
-            <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.$dirty">
-                    <div ng-message="pattern">Выбранный файл не является изображением</div>
-                    <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
-                    <!--<div ng-message="required">Вы не выбрали обложку для группы</div>-->
-                    <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
+            <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error"
+                 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.logo.$dirty">
+                <div ng-message="pattern">Выбранный файл не является изображением</div>
+                <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
+                <div ng-message="required">Выберите логотип</div>
+                <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
             </div>
 
         </div>
