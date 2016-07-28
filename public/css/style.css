@@ -3916,7 +3916,7 @@ body.ngdialog-open {
 .group-chat-inner {
 	padding: 5px 10px;
 	overflow-x: auto;
-	max-height: 645px;
+	max-height: 385px;
 	height: auto;
 }
 .group-chat .date-messeges {
@@ -3969,13 +3969,11 @@ body.ngdialog-open {
 	display: flex;
 	align-items: flex-end;
 	position: relative;
-	margin-top: 10px;
 }
 .group-chat .my-messege  .user-messege {
 	margin-left: 0;
 	margin-right: 10px;
 	background: #d7e2fa;
-	margin-top: 10px;
 }
 .group-chat-inner .my-messege {
 	display: flex;
@@ -4033,6 +4031,7 @@ body.ngdialog-open {
 	font-family: "SFUIDisplayLight";
 	margin: 0;
 	line-height: 16px;
+	    word-break: break-word;
 }
 .group-chat .user-messege  .messege-time {
 	color: #999;
