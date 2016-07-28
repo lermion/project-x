@@ -861,6 +861,7 @@
 							.then(function (data) {
 								if (data.status) {
 									vm.group.users.splice(indexToRemove, 1);
+									vm.group.count_users--;
 								}
 							});
 					}
