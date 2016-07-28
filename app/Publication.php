@@ -151,4 +151,25 @@ class Publication extends Model
         $publication->comments = array_reverse($publication_comments);
         return $publication;
     }
+
+    public static function getCountUserPublication($userId)
+    {
+        $publications_count = Publication::where('publications.user_id', $userId)
+            ->where('publications.is_anonym', false)
+            ->where(function ($query) {
+                $query->whereNotExists(function ($query) {
+                    $query->select(DB::raw('id'))
+                        ->from('place_publications')
+                        ->whereRaw('place_publications.publication_id = publications.id');
+                });
+            })
+            ->where(function ($query) {
+                $query->whereNotExists(function ($query) {
+                    $query->select(DB::raw('id'))
+                        ->from('group_publications')
+                        ->whereRaw('group_publications.publication_id = publications.id');
+                });
+            })->count();
+        return $publications_count;
+    }
 }
