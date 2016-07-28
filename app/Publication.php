@@ -133,6 +133,7 @@ class Publication extends Model
             ->find($id);
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
+        $publication->like_count = $publication->likes()->count();
         if(!$publication->is_anonym){
             $publication->user;
         }
