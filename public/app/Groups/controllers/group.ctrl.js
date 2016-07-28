@@ -688,7 +688,7 @@
 		};
 
 		vm.setAdmin = function (user) {
-			if (!vm.group.is_creator) {
+			if (!vm.group.is_creator || (vm.group.is_creator && user.id === myId)) {
 				return false;
 			}
 			groupsService.setAdmin(group.id, user.id)
