@@ -243,6 +243,7 @@
 				.then(function (data) {
 					if (data.status) {
 						vm.group.publications.push(data.publication);
+						vm.group.count_publications++;
 						modalNewPublication.close();
 					}
 				})
@@ -379,6 +380,7 @@
 						angular.forEach(vm.group.publications, function (item, index, arr) {
 							if (item.id === pubId) {
 								arr.splice(index, 1);
+								vm.group.count_publications--;
 							}
 						});
 					}
