@@ -998,6 +998,26 @@
 			$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id);
 			}
 		};
+		$scope.checkMessageType = function(message){
+			var regExp = /^http:\/\/pp.dev\/#\/(\w+)\/pub(lication)?\/(\d+)$/;
+			var match = regExp.exec(message.text);
+			if(match){
+				message.type = 'pub';
+				message.pub = {};
+				message.pub.username = match[1];					
+				message.pub.id = parseInt(match[3]);
+			}			
+		};
+		$scope.loadPubIntoChat = function(message, pubId){
+			if(pubId != undefined){
+				PublicationService.getSinglePublication(pubId).then(function(response){
+					message.pub = response;
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+		};
 		$scope.sendMessage = function(messageText, roomId, files){
 			if(files !== undefined){
 				var imagesObj = {
