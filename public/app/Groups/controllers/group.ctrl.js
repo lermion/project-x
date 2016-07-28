@@ -987,7 +987,6 @@
 		}
 		socket.emit("get group chat dialogue", getGroupChatDialogue);
 		socket.on("get group chat dialogue", function(response){
-			console.log(response.messages);
 			$scope.messages = response.messages.reverse();
 		});
 		socket.on('updatechat', function(response){
@@ -1018,6 +1017,9 @@
 				imagesObj: imagesObj
 			};
 			socket.emit('send message', data, function(){
+				if(files){
+					files.length = 0;
+				}
 				$scope.emojiMessage.rawhtml = "";
 			});
 		}

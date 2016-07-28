@@ -75,7 +75,7 @@
 						<a class="user-name">{{message.first_name}} {{message.last_name}}</a>
 						<div class="messege-text">
 							<p ng-bind-html="message.text | colonToSmiley"></p>
-							<span ng-if="message.images" class="pictures">
+							<span ng-show="message.images.length !== 0" class="pictures">
 								<span class="pic" ng-repeat="image in message.images">
 									<img ng-src="{{image.url}}" alt="">
 								</span>
