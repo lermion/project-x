@@ -99,18 +99,21 @@ Queries.prototype.getUserRooms = function(data){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
 						connection.query("SELECT u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = '" + item.id + "')", function(error, lastMessages){
-							result = {
-								members: result,
-								room_id: item.id,
-								is_group: item.is_group,
-								name: item.name,
-								status: item.status,
-								avatar: item.avatar,
-								last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
-								last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
-								show_notif: result[0].show_notif
-							};
-							resolve(result);
+							connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + item.id + " AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ")", function(error, countMessages){
+								result = {
+									members: result,
+									room_id: item.id,
+									is_group: item.is_group,
+									name: item.name,
+									status: item.status,
+									avatar: item.avatar,
+									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
+									last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
+									show_notif: result[0].show_notif,
+									countMessages: countMessages[0]['COUNT(message_id)']
+								};
+								resolve(result);
+							});
 						});
 					});
 				});
@@ -209,7 +212,7 @@ Queries.prototype.getLastMessage = function(data){
 			return;
 		}else{
 			connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + result[0].id + "'", function(error, images){
-				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = '" + data.room_id + "' AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = '" + data.room_id + "' AND user_id = '" + data.userId + "')", function(error, countMessages){
+				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND user_id = " + data.userId + ")", function(error, countMessages){
 					result[0].images = images;
 					result[0].roomId = data.room_id;
 					result[0].countMessages = countMessages[0]['COUNT(message_id)'];

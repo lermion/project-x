@@ -446,6 +446,7 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
+				console.log(data.countMessages);
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{

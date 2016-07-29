@@ -39,7 +39,6 @@ io.sockets.on('connection', function(socket){
 			// }
 			if(response.length >= 1){
 				queries.changeRoom(data, currentRoom).then(function(response){
-					console.log(response);
 					queries.getUserDialogue(data).then(function(response){
 						socket.emit('updatechat', response);
 					},
