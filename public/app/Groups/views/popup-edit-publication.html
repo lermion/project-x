@@ -8,10 +8,10 @@
 			</a>
 		</div>
 	</div>	
-		<div class="new-add" ng-scrollbar rebuild-on="loadPubFiles || rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;" ng-init="vm.editedPubFiles(vm.activePublication)">
-			<div class="new-img" ng-repeat="file in vm.editedPubFilesArray" ng-init="rebuildScroll()">
+		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize style="max-height: 250px; overflow:hidden; position:relative;" ng-init="vm.editedPubFiles(vm.activePublication)">
+			<div class="new-img" ng-repeat="file in vm.editedPubFilesArray">
 				<div class="inner">
-					<div class="close" ng-click="vm.editedPubDeleteFile($index, file.id, file.pivot)">
+					<div class="close" ng-click="vm.removeAttachFile($index, 'edit')">
 						<div class="close-inner">
 							<p>Удалить</p>
 						</div>
@@ -46,7 +46,7 @@
 		</div>
 	<div class="publication-footer" >
 		<div class="add-objects"> 
-			<input id="edited-pub-add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="vm.files" ngf-before-model-change="vm.pubFiles($files)" ngf-multiple="true">
+			<input id="edited-pub-add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="vm.files"  ngf-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)" ngf-multiple="true">
 			<label for="edited-pub-add-object">
 				<span class="add"></span>
 				Добавить фото или видео *
