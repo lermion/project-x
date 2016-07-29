@@ -5,10 +5,10 @@
         <div class="user-function">
             <a href class="user" ui-sref="user({username: userData.login})" ng-click="closePopup()">
 				<span class="ava">
-					<img ng-src="{{::vm.group.avatar}}" alt="">
+					<img ng-src="{{vm.group.card_avatar}}" alt="">
 				</span>
 
-                <p class="user-name">{{::vm.group.name}}</p>
+                <p class="user-name">{{vm.group.name}}</p>
             </a>
 
             <div class="user-menu" ng-click="showPubMenu=!showPubMenu">
