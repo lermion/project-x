@@ -50,7 +50,7 @@ class GroupPublicationController extends Controller
     {
         try {
             $this->validate($request, [
-                'text' => 'required|min:1',
+                'text' => 'min:1',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
                 'videos' => 'array',
