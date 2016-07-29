@@ -1005,7 +1005,7 @@
 		});
 		$scope.emojiMessage = {
 		replyToUser: function(){
-			$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id);
+				$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id, $scope.files);
 			}
 		};
 		$scope.checkMessageType = function(message){
