@@ -14,28 +14,28 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data){
 		queries.createRoom(data).then(function(response){
-			if(socket.room !== undefined && socket.room.length !== undefined){
-				for(var i = 0; i < socket.room.length; i++){
-					if(socket.room[i] === data.room_id){
-						var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-						socket.room = GLOBAL.rooms[indexRooms];
-						socket.join(GLOBAL.rooms[indexRooms]);
-						data.created_at = new Date();
-						data.updated_at = new Date();
-					}else{
-						socket.emit("switchRoom", data.room_id);
-					}
-				}
-			}
-			if(data.room_id === socket.room){
-				var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-				socket.room = GLOBAL.rooms[indexRooms];
-				socket.join(GLOBAL.rooms[indexRooms]);
+			// if(socket.room !== undefined && socket.room.length !== undefined){
+			// 	for(var i = 0; i < socket.room.length; i++){
+			// 		if(socket.room[i] === data.room_id){
+			// 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+			// 			socket.room = GLOBAL.rooms[indexRooms];
+			// 			socket.join(GLOBAL.rooms[indexRooms]);
+			// 			data.created_at = new Date();
+			// 			data.updated_at = new Date();
+			// 		}else{
+			// 			socket.emit("switchRoom", data.room_id);
+			// 		}
+			// 	}
+			// }
+			// if(data.room_id === socket.room){
+			// 	var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+			// 	socket.room = GLOBAL.rooms[indexRooms];
+			// 	socket.join(GLOBAL.rooms[indexRooms]);
 				data.created_at = new Date();
 				data.updated_at = new Date();
-			}else{
-				socket.emit("switchRoom", data.room_id);
-			}
+			// }else{
+			// 	socket.emit("switchRoom", data.room_id);
+			// }
 			if(response.length >= 1){
 				queries.getUserDialogue(data).then(function(response){
 					socket.emit('updatechat', response);
@@ -157,15 +157,15 @@ io.sockets.on('connection', function(socket){
 				});
 			}
 		}
-		if(data.room_id === socket.room){
-			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-			socket.room = GLOBAL.rooms[indexRooms];
-			socket.join(GLOBAL.rooms[indexRooms]);
-			data.created_at = new Date();
-			data.updated_at = new Date();
-		}else{
-			socket.emit("switchRoom", data.room_id);
-		}
+		// if(data.room_id === socket.room){
+		// 	var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
+		// 	socket.room = GLOBAL.rooms[indexRooms];
+		// 	socket.join(GLOBAL.rooms[indexRooms]);
+		// 	data.created_at = new Date();
+		// 	data.updated_at = new Date();
+		// }else{
+		// 	socket.emit("switchRoom", data.room_id);
+		// }
 		queries.sendMessage(data).then(function(response){
 			if(imagesPath !== undefined && imagesPath.length >= 1){
 				queries.saveFiles(imagesPath, response.insertId).then(function(response){
@@ -182,7 +182,7 @@ io.sockets.on('connection', function(socket){
 				});
 			}else{
 				queries.getLastMessage(data).then(function(response){
-					io.sockets.in(socket.room).emit('updatechat', response);
+					io.sockets.in(data.room_id).emit('updatechat', response);
 					callback();
 				},
 				function(error){
@@ -202,9 +202,9 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	socket.on('switchRoom', function(newRoom){
-		socket.leave(socket.room);
-		socket.join(newRoom);
-		socket.room = newRoom;
-	});
+	// socket.on('switchRoom', function(newRoom){
+	// 	socket.leave(socket.room);
+	// 	socket.join(newRoom);
+	// 	socket.room = newRoom;
+	// });
 });
