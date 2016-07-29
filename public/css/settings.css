@@ -3128,6 +3128,14 @@ span.users-today-time-time.early {
     font-family: "SFUIDisplayMedium";
     transition: all .3s ease-in-out .1s;
 }
+.places-page-header-title span {
+    padding-right: 20px;
+    margin-right: 10px;
+    background-image: url(/images/public-groups.png);
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+}
 .places-page-header-category {
     display: flex;
     font-size: 14.6px;
