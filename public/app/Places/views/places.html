@@ -56,11 +56,51 @@
                         <option value="10">Адреса</option>
                         <option value="8">Университеты</option>
                         <option value="9">Школы</option>
+                        <option value="4">Магазин</option>
+                        <option value="5">Кафе/Ресторан</option>
+                        <option value="6">Развлечение</option>
+                        <option value="7">Организация</option>
                         <option value="places.add">Создать место</option>
                     </select>
                 </div>
             </div>
 
+
+            <!--My places-->
+            <div class="places-page-one-category" ng-if="vm.categories[11].show || vm.showAll">
+                <div class="places-page-type-place">
+                    <div>Мои места</div>
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(11)">
+                        Ещё
+                    </div>
+                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+                        Все
+                    </div>
+                </div>
+                <div class="places-page-category-wrap">
+                    <div class="places-category-item"
+                         ng-repeat="place in vm.places | filter: {is_admin: true} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                        <div class="places-item-photo">
+                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
+                                <img class="places-item-photo-img"
+                                     ngf-src="place.avatar">
+                            </a>
+
+                            <div class="places-item-photo-place">
+                                <span>{{::place.city_name[0]}}</span>
+                            </div>
+                        </div>
+                        <div class="places-item-description">
+                            <p class="places-item-description-p">{{::place.description}}</p>
+                        </div>
+                        <div class="places-item-rating">
+                            <span class="places-item-rating-like">{{::place.count_user}}</span>
+                            <span class="places-item-rating-link">{{::place.publications}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="places-page-one-category" ng-if="vm.categories[0].show || vm.showAll">
                 <div class="places-page-type-place">
@@ -447,40 +487,7 @@
                 </div>
             </div>
 
-            <div class="places-page-one-category" ng-if="vm.categories[11].show || vm.showAll">
-                <div class="places-page-type-place">
-                    <div>Мои места</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(11)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: 'is_admin === true' | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})"    >
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
 
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
