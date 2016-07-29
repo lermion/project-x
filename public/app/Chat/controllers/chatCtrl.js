@@ -355,7 +355,6 @@ angular.module('placePeopleApp')
 				}else{
 					if(chat.members){
 						$scope.Model.opponent = chat.members[0];
-						$scope.Model.opponent.room_id = chat.room_id;
 						members.push(chat.members[0].id);
 					}else{
 						$scope.Model.opponent = chat;
@@ -369,6 +368,7 @@ angular.module('placePeopleApp')
 						limit: 10
 					};
 				}
+				$scope.Model.opponent.room_id = chat.room_id;
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;

@@ -182,7 +182,7 @@ io.sockets.on('connection', function(socket){
 				});
 			}else{
 				queries.getLastMessage(data).then(function(response){
-					io.sockets.in(socket.room).emit('updatechat', response);
+					io.sockets.in(data.room_id).emit('updatechat', response);
 					callback();
 				},
 				function(error){
