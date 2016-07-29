@@ -35,7 +35,7 @@
 			</div>
 			<div class="chat-users-today-time">
 				<span class="users-today-time-time early">{{getLastMessageCreatedAt(chat) || chat.last_message_created_at | amDateFormat:'HH:mm'}}</span>
-				<span ng-if="chat.messagesCount > 0" class="users-today-time-count early">{{chat.messagesCount}}</span>
+				<span class="users-today-time-count early">{{getMessagesCount(chat) || chat.countMessages}}</span>
 			</div>
 		</div>
 	</div>
