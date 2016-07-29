@@ -11,6 +11,10 @@
 
         var vm = this;
 
+        var storage = storageService.getStorage();
+        vm.userName = storage.username;
+
+
         vm.results = results;
 
         vm.searchObj = {
