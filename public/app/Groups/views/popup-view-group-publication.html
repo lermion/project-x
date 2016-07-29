@@ -85,7 +85,8 @@
             <div class="comment">
                 <div class="user-info">
                     <div class="info-item">
-                        <a href class="user-name" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">{{comment.user.first_name}}
+                        <a href class="user-name" ui-sref="user({username: comment.user.login})"
+                           ng-click="closePopup()">{{comment.user.first_name}}
                             {{comment.user.last_name}}</a>
 
                         <p class="time" am-time-ago="comment.created_at"></p>
@@ -127,8 +128,8 @@
                     </a>
                 </div>
             </div>
-            <div class="new-add" ng-show="vm.activePublication.files" ng-scrollbar rebuild-on="rebuild:me"
-                 style="max-height: 250px; overflow:hidden; position:relative;">
+            <div class="new-add" ng-show="vm.activePublication.files" ng-scrollbar rebuild-on="rebuild:me" bottom
+                 rebuild-on-resize style="max-height: 250px; overflow:hidden; position:relative;">
                 <div class="new-img" ng-repeat="file in vm.activePublication.files"
                      ng-click="showMoreImages(vm.activePublication.files)">
                     <div class="inner">
@@ -155,7 +156,7 @@
                 <div class="add-objects">
                     <input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select
                            ng-model="vm.activePublication.files" ngf-multiple="true"
-                           ngf-before-model-change="pubFiles($files)">
+                           ngf-change="vm.beforeAttachFileToPublicationComments($files)">
                     <label for="{{addFileObjId}}">
                         Прикрепить
                         <span class="add"></span>
