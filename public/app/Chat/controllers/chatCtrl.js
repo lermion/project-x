@@ -102,9 +102,9 @@ angular.module('placePeopleApp')
 				$state.go(stateName);
 			};
 
-			$scope.Model.reloadRooms = function(){
-				socket.emit("get user rooms", $scope.loggedUserId);
-			};
+			// $scope.Model.reloadRooms = function(){
+			// 	socket.emit("get user rooms", $scope.loggedUserId);
+			// };
 
 			socket.emit("get user rooms", $scope.loggedUserId);
 			
@@ -368,6 +368,7 @@ angular.module('placePeopleApp')
 						limit: 10
 					};
 				}
+				$scope.Model.opponent.room_id = chat.room_id;
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
@@ -394,9 +395,9 @@ angular.module('placePeopleApp')
 				$scope.Model.chatRooms = response;
 			});
 
-			socket.on('switchRoom', function(newroom){
-				socket.emit("switchRoom", newroom);
-			});
+			// socket.on('switchRoom', function(newroom){
+			// 	socket.emit("switchRoom", newroom);
+			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
 				if(files !== undefined){
@@ -448,7 +449,7 @@ angular.module('placePeopleApp')
 				if(data.messages){
 					$scope.Model.Chat = data.messages;
 				}else{
-					if($scope.Model.showChatBlock && $scope.Model.displayChatBlock && !$scope.Model.displayBlockedBlock){
+					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);
 					}else{
 						$scope.getLastMessage = function(chat){
