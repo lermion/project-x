@@ -902,7 +902,8 @@
             var indexToRemove;
             for (var i = vm.group.users.length - 1; i >= 0; i--) {
                 if (vm.group.users[i].id == user.userId) {
-                    if (user.isAdmin && vm.group.is_creator || !user.isAdmin && vm.group.is_admin || user.userId === myId) {
+                    if (user.isAdmin && vm.group.is_creator && user.userId !== myId || !user.isAdmin && vm.group.is_admin) {
+
                         arr.push(user.userId);
                         indexToRemove = i;
                         groupsService.removeUsers(vm.group.id, arr)
