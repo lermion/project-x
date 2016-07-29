@@ -16,16 +16,14 @@
         <div class="text-field">
 
             <div emoji-form emoji-message="vm.emoji.emojiMessage">
-                <textarea id="messageInput" name="text" ng-model="vm.emoji.emojiMessage.messagetext" required></textarea>
+                <textarea id="messageInput" name="text" ng-model="vm.emoji.emojiMessage.messagetext"></textarea>
                 <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>
             </div>
         </div>
 
-        <div class="error-messages" ng-messages="vm.forms.newPublication.text.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted">
-            <div ng-message="required">Вы не заполнили текст публикации</div>
-        </div>
+
         <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
              style="max-height: 250px; overflow:hidden; position:relative;">
 
