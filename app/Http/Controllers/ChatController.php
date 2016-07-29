@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
+use App\Video;
 use Illuminate\Http\Request;
 use App\DeleteMessage;
 use App\Subscriber;
@@ -110,7 +112,7 @@ class ChatController extends Controller
                     'code' => '6'
                 ]
             ];
-            return response()->json($result);
+            return response()->json(['status' => true,$result]);
 
         }
     }
@@ -136,5 +138,44 @@ class ChatController extends Controller
         return response()->json(['status' => true]);
     }
 
+    public function file_chat($room_id)
+    {
+        $image = Image::join('message_images','message_images.image_id','=', 'images.id')
+            ->join('user_rooms_messages','user_rooms_messages.message_id','=','message_images.message_id')
+            ->where('user_rooms_messages.room_id',$room_id)
+            ->pluck('images.url', 'images.created_at')
+            ->toArray();
+        if (!$image){
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "No images",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+        $video = Video::join('message_videos','message_videos.video_id','=', 'videos.id')
+            ->join('user_rooms_messages','user_rooms_messages.message_id','=','message_videos.message_id')
+            ->where('user_rooms_messages.room_id',$room_id)
+            ->pluck('videos.url', 'videos.created_at','img_url')
+            ->toArray();
+        if (!$video){
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "No videos",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+        }
+        $files = array_merge($image, $video);
+        krsort($files);
+        $collection = collect($files);
+        $result = $collection->chunk(21);
+        return response()->json(['status' => true, $result]);
+
+    }
 
 }

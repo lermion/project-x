@@ -8,7 +8,13 @@ class TypePlaceTest extends TestCase
 {
 //    public function testCreateTypePlace()
 //    {
-//        if($type_place = \App\TypePlace::where(['name' => 'test'])->first()){
+//        $user = \App\User::where('phone', '380731059230')->first();
+//        if (!$user) {
+//            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+//        }
+//        $this->be($user);
+//        $type_place = \App\TypePlace::where(['name' => 'test'])->first();
+//        if($type_place){
 //            $type_place->delete();
 //        }
 //        $data = [
@@ -31,4 +37,5 @@ class TypePlaceTest extends TestCase
     {
         $this->json('GET', 'place/type/dynamic')->AssertResponseOk();
     }
+
 }
