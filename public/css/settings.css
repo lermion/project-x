@@ -3997,7 +3997,7 @@ span.users-today-time-time.early {
         justify-content: space-between;
     }
     .chat-users-today-data {
-        width: 87%;
+        width: 81%;
     }
     .chat-left-users-container {
         top: 61px;
@@ -4007,6 +4007,19 @@ span.users-today-time-time.early {
     }
     .chat-users-today-info p, .chat-left-users-sign-inner, .chat-menu-wrap {
         font-size: 1em;
+    }
+}
+@media (max-width: 520px)  {
+    .right-chat-to-my-msg-inner, .my-msg-inner-text {
+        font-size: 12.6px;
+    }
+    .right-chat-my-msg-date span {
+        margin-left: 5px;
+        padding-right: 15px;
+    }
+    .right-chat-my-msg,
+    .right-chat-to-my-msg {
+        max-width: 80%;
     }
 }
 .chat-left-users-container-blocked {
