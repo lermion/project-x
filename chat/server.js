@@ -8,6 +8,7 @@ var Queries = require('./queries');
 var queries = new Queries();
 var users = {};
 var usersId = {};
+var currentRoom = null;
 GLOBAL.rooms = [];
 GLOBAL.ABSPATH = __dirname;
 server.listen(config.port);
@@ -37,8 +38,14 @@ io.sockets.on('connection', function(socket){
 			// 	socket.emit("switchRoom", data.room_id);
 			// }
 			if(response.length >= 1){
-				queries.getUserDialogue(data).then(function(response){
-					socket.emit('updatechat', response);
+				queries.changeRoom(data, currentRoom).then(function(response){
+					console.log(response);
+					queries.getUserDialogue(data).then(function(response){
+						socket.emit('updatechat', response);
+					},
+					function(error){
+						console.log(error);
+					});
 				},
 				function(error){
 					console.log(error);
@@ -110,6 +117,7 @@ io.sockets.on('connection', function(socket){
 		function(error){
 			console.log(error);
 		});
+		currentRoom = data.room_id;
 	});
 	socket.on('get user rooms', function(data){
 		userId = {};

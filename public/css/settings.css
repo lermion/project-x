@@ -3997,7 +3997,7 @@ span.users-today-time-time.early {
         justify-content: space-between;
     }
     .chat-users-today-data {
-        width: 81%;
+        width: 88%;
     }
     .chat-left-users-container {
         top: 61px;
@@ -4020,6 +4020,9 @@ span.users-today-time-time.early {
     .right-chat-my-msg,
     .right-chat-to-my-msg {
         max-width: 80%;
+    }
+    .chat-users-today-data {
+        width: 79%;
     }
 }
 .chat-left-users-container-blocked {
