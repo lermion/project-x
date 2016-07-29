@@ -62,6 +62,8 @@
 
         vm.userName = storage.username;
 
+        vm.newPublicationForm = {};
+
         vm.files = [];
 
         vm.geoObject = {
@@ -151,8 +153,8 @@
         };
 
         vm.submitNewPublication = function () {
-            vm.newPublication.$setSubmitted();
-            if (vm.newPublication.$invalid || vm.files && vm.files.length === 0) {
+            vm.newPublicationForm.$setSubmitted();
+            if (vm.newPublicationForm.$invalid || vm.files && vm.files.length === 0) {
                 return false;
             }
             vm.subForm = true;
