@@ -40,9 +40,8 @@
             </header>
 
             <!-- Content -->
-
             <div class="group-page">
-                <div class="group-ava">
+                <div class="group-ava" ng-if="!vm.isMobile">
                     <a href="" class="ava">
                         <img ng-src="{{vm.group.avatar}}" alt="">
                     </a>
@@ -61,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="group-menu">
+                <div class="group-menu" ng-if="!vm.isMobile">
                     <div class="group-menu-item">
                         <div class="counts">
                             <a ui-sref="group.publications" ui-sref-active="active" class="counter">

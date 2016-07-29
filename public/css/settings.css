@@ -3219,7 +3219,7 @@ span.users-today-time-time.early {
 }
 .my-msg-wrap:after {
     bottom: -2px;
-    right: 56px;
+    right: 52px;
     background-image: url(/images/my-user-tail.png);
     background-repeat: no-repeat;
     left: auto;
@@ -3293,6 +3293,7 @@ span.users-today-time-time.early {
 .to-my-msg-wrap {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-end;
     box-sizing: border-box;
     width: 100%;
     position: relative;
@@ -3302,7 +3303,7 @@ span.users-today-time-time.early {
 }
 .to-my-msg-wrap:after {
     bottom: -2px;
-    left: 55px;
+    left: 50px;
     background-image: url(/images/user-tail.png);
     background-repeat: no-repeat;
     right: auto;
@@ -3537,18 +3538,10 @@ span.users-today-time-time.early {
     height: 30px;
 }
 .send-add-file {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    margin-left: 5px;
-}
-.send-add-file {
-    width: 100%;
-    height: 100%;
     background-image: url(/images/clip.png);
     background-repeat: no-repeat;
-    background-position: left 5px center;
-    background-size: 70%;
+    background-position: center;
+    background-size: 25px;
 }
 .chat-send-btn {
     display: flex;
@@ -3670,9 +3663,8 @@ span.users-today-time-time.early {
 }
 .send-add-file {
     display: flex;
-    width: 40px;
-    height: 40px;
-    margin-left: 5px;
+    width: 30px;
+    height: 30px;
     position: relative;
     cursor: pointer;
 }
@@ -3857,7 +3849,7 @@ span.users-today-time-time.early {
         font-size: 10.6px;
     }
     .my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
-        width: 32%;
+        width: 31%;
         margin-right: 2px;
         height: 70px;
     }
@@ -3884,7 +3876,19 @@ span.users-today-time-time.early {
         width: 100%;
     }
 }
-
+@media (max-width: 720px) {
+	.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
+    width: 31%;
+    margin-right: 2px;
+    height: 50px;
+	}
+	.chat-right-chat-inner {
+		    padding: 5px;
+	}
+	.to-my-msg-inner-photo {
+	    max-height: 156px;
+	}
+}
 /**************************************************
             Form validation ng-messages
 ***************************************************/
@@ -3993,7 +3997,7 @@ span.users-today-time-time.early {
         justify-content: space-between;
     }
     .chat-users-today-data {
-        width: 87%;
+        width: 88%;
     }
     .chat-left-users-container {
         top: 61px;
@@ -4003,6 +4007,22 @@ span.users-today-time-time.early {
     }
     .chat-users-today-info p, .chat-left-users-sign-inner, .chat-menu-wrap {
         font-size: 1em;
+    }
+}
+@media (max-width: 520px)  {
+    .right-chat-to-my-msg-inner, .my-msg-inner-text {
+        font-size: 12.6px;
+    }
+    .right-chat-my-msg-date span {
+        margin-left: 5px;
+        padding-right: 15px;
+    }
+    .right-chat-my-msg,
+    .right-chat-to-my-msg {
+        max-width: 80%;
+    }
+    .chat-users-today-data {
+        width: 79%;
     }
 }
 .chat-left-users-container-blocked {
@@ -5461,9 +5481,9 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     width: 40px;
     height: 40px;
-    margin-right: 10px;
     border-radius: 50%;
     overflow: hidden;
+    margin-right: 5px;
 }
 .chat-main-user-sender-ava a {
     width: 100%;
@@ -6244,6 +6264,9 @@ input.cmn-toggle-round:checked + label:after {
     body.public.user #wrapper {
         padding-top: 68px;
     }
+    #wrapper {
+        padding-top: 68px;
+    }
 }
 input[type="text"],
 textarea[type="text"],
@@ -6259,4 +6282,86 @@ textarea[type="text"]:focus,
 .settingsss .text p input[type="text"]:focus {
     font-family: "SFUIDisplayLight";
     color: #000;
+}
+
+@media (max-width: 720px) {
+	.group-comments .group-comment {
+		border: 1px solid #e8eaeb;
+	}
+	.group-comment .emoji-group-chat-block {
+		display: flex;
+    	width: 80%;
+	}
+	.group-comment .emoji-group-chat-block > div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.group-comment .emoji-group-chat-block .emoji-wysiwyg-editor {
+	    width: 93%;
+	    margin-left: 0px;
+	    margin-top: 0px;
+	    order: 2;
+	}
+	.group-comment .emoji-group-chat-block a.emoji-button {
+		background-size: 15px;
+		width: 30px;
+		order: 1;
+	}
+}
+@media (max-width: 520px) {
+	.group-comments .group-comment {
+		padding: 0px;
+		flex-wrap: nowrap;
+    	justify-content: flex-start;
+	}
+	.group-chat .group-comments .group-comment button {
+		font-size: .8em;
+    	padding: 0 3px;
+	}
+	.group-chat .group-comment  .add-objects div span.add {
+		width: 35px;
+	}
+	.group-comment .emoji-group-chat-block {
+	    width: 75%;
+	}
+	.group-comment  div.add-objects div {
+		width: 30px;
+	}
+}
+@media (max-width: 1024px) {
+	.send-wrap-top .emoji-chat-block {
+		display: flex;
+    	width: 80%;
+	}
+	.send-wrap-top  .emoji-chat-block > div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.send-wrap-top  .emoji-chat-block .emoji-wysiwyg-editor {
+	    width: 93%;
+	    margin-left: 0px;
+	    margin-top: 0px;
+	    order: 2;
+
+	}
+	.send-wrap-top  .emoji-chat-block a.emoji-button {
+		background-size: 15px;
+		width: 30px;
+		order: 1;
+		position: relative;
+	    top: 0;
+	    left: 0px;
+	    background-position: center;
+		}
+}
+
+@media (max-width: 720px) {
+    .send-add-file {
+        width: 30px;
+        height: 30px;
+        background-size: 20px;
+        padding-left: 3px;
+    }
 }
