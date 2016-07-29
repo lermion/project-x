@@ -83,6 +83,10 @@
                 url: '/files',
                 templateUrl: '../../app/Groups/views/group-files.html'
             })
+            .state('group.mob-pub', {
+                url: '/m/:pubId',
+                templateUrl: '../app/Groups/views/popup-view-group-publication.html'
+            })
             .state('view-group-publication', {
                 url: '/group/:groupId/publication/:pubId',
                 templateUrl: '../../app/Groups/views/group.html',
