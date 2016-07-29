@@ -266,13 +266,20 @@
 
 
         //New publication
-        vm.removeAttachFile = function (index) {
-            vm.files.splice(index, 1);
+        vm.removeAttachFile = function (index, mode) {
+            if (mode === 'edit') {
+                vm.editedPubFilesArray.splice(index, 1);
+            } else {
+                vm.files.splice(index, 1);
+            }
             $scope.$broadcast('rebuild:me');
         };
+        $scope.$on('rebuild:me', function() {
+            console.log('Rebuild');
+        })
 
         vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-            if (vm.files.length > 4 || files > 4) {
+            if (vm.files.length > 4 || vm.editedPubFilesArray > 4 || files > 4) {
                 $scope.$broadcast('rebuild:me');
             }
         };
@@ -383,6 +390,7 @@
 
         vm.deletePubFile = function (files, index) {
             files.splice(index, 1);
+            $scope.$broadcast('rebuild:me');
         };
 
         vm.deletePub = function (pub) {

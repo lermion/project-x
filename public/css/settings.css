@@ -3219,7 +3219,7 @@ span.users-today-time-time.early {
 }
 .my-msg-wrap:after {
     bottom: -2px;
-    right: 56px;
+    right: 52px;
     background-image: url(/images/my-user-tail.png);
     background-repeat: no-repeat;
     left: auto;
@@ -3303,7 +3303,7 @@ span.users-today-time-time.early {
 }
 .to-my-msg-wrap:after {
     bottom: -2px;
-    left: 55px;
+    left: 50px;
     background-image: url(/images/user-tail.png);
     background-repeat: no-repeat;
     right: auto;
@@ -6313,7 +6313,7 @@ textarea[type="text"]:focus,
 		width: 30px;
 	}
 }
-/*@media (max-width: 720px) {
+@media (max-width: 1024px) {
 	.send-wrap-top .emoji-chat-block {
 		display: flex;
     	width: 80%;
@@ -6339,4 +6339,13 @@ textarea[type="text"]:focus,
 	    left: 0px;
 	    background-position: center;
 		}
-}*/
+}
+
+@media (max-width: 720px) {
+    .send-add-file {
+        width: 30px;
+        height: 30px;
+        background-size: 20px;
+        padding-left: 3px;
+    }
+}
