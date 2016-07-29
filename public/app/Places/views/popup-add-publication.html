@@ -1,4 +1,4 @@
-<form name="vm.newPublication" ng-submit="vm.submitNewPublication()" novalidate>
+<form name="vm.newPublicationForm" ng-submit="vm.submitNewPublication()" novalidate>
     <h5>Новая публикация</h5>
 
     <div class="publication">
@@ -16,7 +16,7 @@
         <div class="text-field">
 
             <div emoji-form emoji-message="vm.emojiMessage">
-                <textarea id="messageInput" name="text" ng-model="vm.emojiMessage.messagetext" required></textarea>
+                <textarea id="messageInput" name="text" ng-model="vm.emojiMessage.messagetext"></textarea>
                 <a href class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>
@@ -51,7 +51,7 @@
         <div class="publication-footer">
             <div class="add-objects">
                 <input id="add-main-pub-object" style="display: none;"
-                       name="files"
+                       name="files1"
                        type="file"
                        ngf-select
                        ngf-accept="'image/*, video/*'"
@@ -68,7 +68,7 @@
                     <span class="add"></span>
                     Добавить фото или видео *
                 </label>
-                <div class="error-messages" ng-messages="vm.forms.newPublication.files.$error" ng-if="vm.forms.newPublication.$invalid && vm.forms.newPublication.$submitted || vm.forms.newPublication.$dirty">
+                <div class="error-messages" ng-messages="vm.newPublicationForm.files1.$error" ng-if="vm.newPublicationForm.$invalid && vm.newPublicationForm.$submitted || vm.newPublicationForm.$dirty">
                     <div ng-message="required">Вы не выбрали медиафайл</div>
                     <div ng-message="pattern">Выбранный файл не является фото или видео</div>
                 </div>
