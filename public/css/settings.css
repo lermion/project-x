@@ -3127,6 +3127,7 @@ span.users-today-time-time.early {
     color: #333;
     font-family: "SFUIDisplayMedium";
     transition: all .3s ease-in-out .1s;
+    cursor: pointer;
 }
 .places-page-header-title span {
     padding-right: 20px;
