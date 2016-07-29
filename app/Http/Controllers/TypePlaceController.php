@@ -15,7 +15,8 @@ class TypePlaceController extends Controller
             $this->validate($request, [
                 'name' => 'required|unique:type_places',
                 'description' => 'required',
-                'avatar' => 'required|image'
+                'avatar' => 'required|image',
+                'is_dynamic' => 'boolean'
             ]);
         } catch (\Exception $ex) {
             $result = [

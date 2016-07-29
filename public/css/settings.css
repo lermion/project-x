@@ -2074,8 +2074,10 @@ div.my_profilll.photo-list div:last-child {
     display: flex;
     position: absolute;
     line-height: 55px;
-    right: 5px;
+    right: 2px;
     cursor: pointer;
+    font-size: .9em;
+    top: 0px;
 }
 .item1-add-people-title {
     margin: 0;

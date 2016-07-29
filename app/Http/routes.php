@@ -175,6 +175,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('delete_user/{room_id}/{user_id_sub}', 'ChatController@delete_user');
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
+        Route::get('file_chat/{room_id}', 'ChatController@file_chat');
     });
 
     Route::group(['prefix' => 'mail'], function () {
@@ -199,7 +200,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/show/art2\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/file_chat/1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='name' value='1095'><br>
             <input type='text' name='description' value='1094'><br>
             <input type='text' name='city_id' value='1'><br>
