@@ -16,7 +16,7 @@
         <div class="text-field">
 
             <div emoji-form emoji-message="vm.emojiMessage">
-                <textarea id="messageInput" name="text" ng-model="vm.emojiMessage.messagetext" required></textarea>
+                <textarea id="messageInput" name="text" ng-model="vm.emojiMessage.messagetext"></textarea>
                 <a href class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>
@@ -57,7 +57,7 @@
                        ngf-accept="'image/*, video/*'"
                        ngf-pattern="'image/*, video/*'"
                        ng-model="vm.files"
-                       ngf-before-model-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       ngf-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        ngf-multiple="true"
                        ngf-keep="true"
                        required>
