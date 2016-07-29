@@ -3293,6 +3293,7 @@ span.users-today-time-time.early {
 .to-my-msg-wrap {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-end;
     box-sizing: border-box;
     width: 100%;
     position: relative;
@@ -5466,6 +5467,7 @@ input.cmn-toggle-round:checked + label:after {
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
+    margin-right: 5px;
 }
 .chat-main-user-sender-ava a {
     width: 100%;
