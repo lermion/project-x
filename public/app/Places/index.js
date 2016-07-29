@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.places', ['yaMap', 'ngFileUpload'])
+        .module('app.places', ['yaMap', 'ngFileUpload', 'angucomplete-alt'])
         .config(routes);
 
 

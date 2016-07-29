@@ -1,19 +1,19 @@
 <div class="group-peoples">
     <div class="group-peoples-inner">
         <div class="group-peoples-inner-item"
-             ng-repeat="user in vm.group.users"
+             ng-repeat="user in vm.group.users | orderBy: ['-is_admin']"
              ng-mouseenter="showAdmin=vm.group.is_creator"
              ng-mouseleave="showAdmin=false">
             <div class="peoples-inner-item-data">
                 <div class="peoples-item-photo">
-                    <a href="javascript:void(0);">
+                    <a ui-sref="user({username: user.login})">
                         <img ng-src="{{::user.avatar_path}}" alt="User avatar">
                     </a>
                 </div>
                 <div class="peoples-item-name-content">
-                    <a class="peoples-item-name-family" href=""><span>{{::user.first_name}} {{::user.last_name}}</span></a>
+                    <a class="peoples-item-name-family" ui-sref="user({username: user.login})"><span>{{::user.first_name}} {{::user.last_name}}</span></a>
 
-                    <p class="peoples-item-name-comment">{{::user.status}}</p>
+                    <p class="peoples-item-name-comment">{{::user.user_quote}}</p>
                 </div>
             </div>
             <div class="peoples-inner-item-admin"

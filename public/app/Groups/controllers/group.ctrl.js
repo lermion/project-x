@@ -67,6 +67,8 @@
 
 		vm.files = [];
 
+		vm.subForm = false;
+
 		$scope.myImage = null;
 		$scope.myCroppedImage = null;
 		$scope.blobImg = null;
@@ -243,6 +245,7 @@
 				.then(function (data) {
 					if (data.status) {
 						vm.group.publications.push(data.publication);
+						vm.group.count_publications++;
 						modalNewPublication.close();
 					}
 				})
@@ -262,7 +265,7 @@
 		};
 
 		vm.addNewComment = function (flag, pub, pubText, files) {
-			vm.disableAddComment = true;
+			vm.subForm = true;
 			var images = [];
 			var videos = [];
 			if (files != undefined) {
@@ -278,9 +281,14 @@
 
 			vm.newComment.text = vm.emoji.emojiMessage.messagetext;
 
+			if (!vm.newComment.text) {
+				vm.subForm = false;
+				return false;
+			}
+
 			PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
 					vm.showAddComment = false;
-					vm.disableAddComment = false;
+					vm.subForm = false;
 					if (response.data.status) {
 						$(".emoji-wysiwyg-editor").html("");
 						if (flag === "feedPage") {
@@ -379,6 +387,7 @@
 						angular.forEach(vm.group.publications, function (item, index, arr) {
 							if (item.id === pubId) {
 								arr.splice(index, 1);
+								vm.group.count_publications--;
 							}
 						});
 					}
@@ -688,13 +697,13 @@
 		};
 
 		vm.setAdmin = function (user) {
-			if (!vm.group.is_creator) {
+			if (!vm.group.is_creator || (vm.group.is_creator && user.id === myId)) {
 				return false;
 			}
 			groupsService.setAdmin(group.id, user.id)
 				.then(function (data) {
 					if (data.status) {
-						user.is_admin = data.is_admin;
+						user.is_admin = +data.is_admin;
 					}
 				});
 		};
@@ -861,6 +870,7 @@
 							.then(function (data) {
 								if (data.status) {
 									vm.group.users.splice(indexToRemove, 1);
+									vm.group.count_users--;
 								}
 							});
 					}
@@ -995,7 +1005,27 @@
 		});
 		$scope.emojiMessage = {
 		replyToUser: function(){
-			$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id);
+				$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id, $scope.files);
+			}
+		};
+		$scope.checkMessageType = function(message){
+			var regExp = /^http:\/\/pp.dev\/#\/(\w+)\/pub(lication)?\/(\d+)$/;
+			var match = regExp.exec(message.text);
+			if(match){
+				message.type = 'pub';
+				message.pub = {};
+				message.pub.username = match[1];					
+				message.pub.id = parseInt(match[3]);
+			}			
+		};
+		$scope.loadPubIntoChat = function(message, pubId){
+			if(pubId != undefined){
+				PublicationService.getSinglePublication(pubId).then(function(response){
+					message.pub = response;
+				},
+				function(error){
+					console.log(error);
+				});
 			}
 		};
 		$scope.sendMessage = function(messageText, roomId, files){

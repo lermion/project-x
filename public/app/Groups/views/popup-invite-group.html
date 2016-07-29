@@ -1,6 +1,6 @@
 <div class="modal__title">Пригласить пользователя в группу</div>
 
-<div class="modal__content" ng-if="vm.inviteNotSend && vm.subscribers.length > 0">
+<div class="modal__content" ng-if="vm.inviteNotSend && (vm.subscribers.length + vm.subscription.length) > 0">
     <div class="invite-group__items">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul>
@@ -32,7 +32,7 @@
         </ul>
     </div>
 </div>
-<div class="modal__content" ng-if="vm.subscribers.length === 0">
+<div class="modal__content" ng-if="(vm.subscribers.length + vm.subscription.length) === 0">
     <p>Список контактов пуст</p>
 </div>
 <div class="modal__content" ng-if="!vm.inviteNotSend">
@@ -41,8 +41,8 @@
 
 <div class="modal__footer">
     <div class="modal__buttons">
-        <a href="" class="modal__buttons-negative" ng-if="vm.subscribers.length > 0" ng-click="vm.abortInviteUsers()">Отменить</a>
-        <a href="" class="modal__buttons-positive" ng-if="vm.subscribers.length > 0" ng-click="vm.submitInviteUsers()">Отправить</a>
-        <a href="" class="modal__buttons-positive" ng-if="vm.subscribers.length === 0" ng-click="closeThisDialog()">Закрыть</a>
+        <a href="" class="modal__buttons-negative" ng-if="(vm.subscribers.length + vm.subscription.length) > 0" ng-click="vm.abortInviteUsers()">Отменить</a>
+        <a href="" class="modal__buttons-positive" ng-if="(vm.subscribers.length + vm.subscription.length) > 0" ng-click="vm.submitInviteUsers()">Отправить</a>
+        <a href="" class="modal__buttons-positive" ng-if="(vm.subscribers.length + vm.subscription.length) === 0" ng-click="closeThisDialog()">Закрыть</a>
     </div>
 </div>
