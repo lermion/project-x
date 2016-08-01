@@ -438,6 +438,9 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
+				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
+					$scope.Model.opponent.room_id = data.roomId;
+				}
 				if(data.messages){
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
