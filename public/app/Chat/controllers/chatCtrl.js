@@ -21,15 +21,6 @@ angular.module('placePeopleApp')
 			}).error(function(error){
 				console.log(error);
 			});
-			$scope.logOut = function(){
-				AuthService.userLogOut().then(function(response){
-					storageService.deleteStorage();
-					$state.go('login');
-				},
-				function(error){
-					console.log(error);
-				});
-			};
 			$scope.Model.mobile = {};
 			if($window.innerWidth <= 768){
 				$scope.Model.mobile.display = true;								
@@ -368,6 +359,7 @@ angular.module('placePeopleApp')
 						limit: 10
 					};
 				}
+				$scope.Model.opponent.room_id = chat.room_id;
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
 				$scope.Model.displayBlockedBlock = false;
@@ -375,6 +367,7 @@ angular.module('placePeopleApp')
 					$scope.Model.Chat = [];
 				}
 				socket.emit('create room', data);
+				$rootScope.countChatMessages--;
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent	= true;								
 					$state.go('chat.mobile');
@@ -394,9 +387,9 @@ angular.module('placePeopleApp')
 				$scope.Model.chatRooms = response;
 			});
 
-			socket.on('switchRoom', function(newroom){
-				socket.emit("switchRoom", newroom);
-			});
+			// socket.on('switchRoom', function(newroom){
+			// 	socket.emit("switchRoom", newroom);
+			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
 				if(files !== undefined){
@@ -446,21 +439,32 @@ angular.module('placePeopleApp')
 			};
 			socket.on('updatechat', function(data){
 				if(data.messages){
+					$scope.getMessagesCount = function(chat){
+						if(chat.room_id === data.room_id){
+							return chat.countMessages = 0;
+						}
+					};
 					$scope.Model.Chat = data.messages;
 				}else{
-					if($scope.Model.showChatBlock && $scope.Model.displayChatBlock && !$scope.Model.displayBlockedBlock){
+					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);
 					}else{
-						$scope.getLastMessage = function(chat){
-							if(chat.room_id === data.roomId){
-								return chat.last_message = data.text;
-							}
-						}
-						$scope.getLastMessageCreatedAt = function(chat){
-							if(chat.room_id === data.roomId){
-								return chat.last_message_created_at = data.created_at;
-							}
-						}
+						socket.emit("get user rooms", $scope.loggedUserId);
+						// $scope.getLastMessage = function(chat){
+						// 	if(chat.room_id === data.roomId){
+						// 		return chat.last_message = data.text;
+						// 	}
+						// };
+						// $scope.getLastMessageCreatedAt = function(chat){
+						// 	if(chat.room_id === data.roomId){
+						// 		return chat.last_message_created_at = data.created_at;
+						// 	}
+						// };
+						// $scope.getMessagesCount = function(chat){
+						// 	if(chat.room_id === data.roomId){
+						// 		return chat.countMessages = 1;
+						// 	}
+						// };
 					}
 				}
 			});

@@ -145,26 +145,17 @@ class ChatController extends Controller
             ->where('user_rooms_messages.room_id',$room_id)
             ->pluck('images.url', 'images.created_at')
             ->toArray();
-        if (!$image){
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => "No images",
-                    'code' => '6'
-                ]
-            ];
-            return response()->json($result);
-        }
+
         $video = Video::join('message_videos','message_videos.video_id','=', 'videos.id')
             ->join('user_rooms_messages','user_rooms_messages.message_id','=','message_videos.message_id')
             ->where('user_rooms_messages.room_id',$room_id)
             ->pluck('videos.url', 'videos.created_at','img_url')
             ->toArray();
-        if (!$video){
+        if (!$video && !$image){
             $result = [
                 "status" => false,
                 "error" => [
-                    'message' => "No videos",
+                    'message' => "No videos and image",
                     'code' => '6'
                 ]
             ];
@@ -177,7 +168,7 @@ class ChatController extends Controller
             }
         $collection = collect($file);
         $result = $collection->chunk(21);
-        return response()->json(['status' => true, $result]);
+        return response()->json(['status' => true, 'data' => $result]);
 
     }
 

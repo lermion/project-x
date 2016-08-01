@@ -1,69 +1,33 @@
 	<div>
-	    <header>
-	        <div class="header header-user">
-	            <a class="logo" ui-sref="feed"></a>
-
-	            <div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''"
-	                 ng-init="showMenu=true;">
-	                <a class="drop-menu" href=""></a>
-
-	                <div class="menu-item" ng-show="showMenu">
-	                    <a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
-	                    <a class="places" ui-sref="places">Места <span class="places-count-span"
-	                                                                   ng-if="counters.placesNew > 0">{{counters.placesNew}}</span></a>
-	                    <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span"
-	                                                                               ng-if="counters.groupsNew > 0">{{counters.groupsNew}}</span></a>
-	                    <a class="chat" ui-sref="chat"> Чаты <span class="places-count-span">10</span></a>
-	                    <a class="settings" ui-sref="settings">Настройки</a>
-
-	                    <div class="search">
-	                        <input type="text" placeholder="Поиск...">
-	                        <span class="button"></span>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="search main-header-search" ng-click="showSearch = !showSearch">
-	                <!--                 <input type="text" placeholder="Поиск...">
-	                                <span class="button"></span> -->
-	            </div>
-	            <a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
-	        </div>
-	        <div class="header-search-container" ng-show="showSearch" ng-init="showSearch = false">
-	            <div class="header-search-input-wrap">
-	                <form name="form.search" ng-submit="submitSearch(strSearch)" novalidate>
-	                    <input type="text" ng-model="strSearch" placeholder="Поиск...">
-	                </form>
-	            </div>
-	        </div>
-	    </header>
-	    
+		
+		
 	<div class="chat-main-container">
 		<div class="chat-main-container-left" ng-hide="Model.mobile.hideContent">
-	    	<div class="chat-left-users-menu" ng-init="Model.checkCurrUrl()">
-	    		<div class="users-menu-tab-chats" ng-class="Model.currRoute === 'chat.list' ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">
-	    			
-	    		</div>
-	    		<div class="users-menu-tab-users" ng-class="Model.currRoute === 'chat.contacts' ? 'active' : ''" ng-click="refTo('chat.contacts'); Model.showContactBlock=true; Model.showChatBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">
-	    			
-	    		</div>
-	    		<div class="users-menu-tab-block" ng-class="Model.currRoute === 'chat.blocked' ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">	    			
-	    		</div>	    		
-	    		<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''" ng-click=" Model.showMenuBlock=!Model.showMenuBlock;" style="cursor:pointer;">			    		
-			    		<div class="chat-add-file-menu" ng-show="Model.showMenuBlock" style="min-width:140px;left:-59px">			    			
-			    			<div class="chat-add-file-publ" ng-click="Model.openGroupChatPopup()">Создать группу</div>
+			<div class="chat-left-users-menu" ng-init="Model.checkCurrUrl()">
+				<div class="users-menu-tab-chats" ng-class="Model.currRoute === 'chat.list' ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">
+					
+				</div>
+				<div class="users-menu-tab-users" ng-class="Model.currRoute === 'chat.contacts' ? 'active' : ''" ng-click="refTo('chat.contacts'); Model.showContactBlock=true; Model.showChatBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false;" style="cursor:pointer;">
+					
+				</div>
+				<div class="users-menu-tab-block" ng-class="Model.currRoute === 'chat.blocked' ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">	    			
+				</div>	    		
+				<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''" ng-click=" Model.showMenuBlock=!Model.showMenuBlock;" style="cursor:pointer;">			    		
+						<div class="chat-add-file-menu" ng-show="Model.showMenuBlock" style="min-width:140px;left:-59px">			    			
+							<div class="chat-add-file-publ" ng-click="Model.openGroupChatPopup()">Создать группу</div>
 							<div class="chat-add-file-publ" ng-click="refTo('chat.notification'); Model.showBlockedBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;">Уведомления</div>
-			    		</div>    			
-	    		</div>
-	    	</div>
-	    	<div class="chat-left-users-container">
-	    		<div class="chat-left-users-search">
+						</div>    			
+				</div>
+			</div>
+			<div class="chat-left-users-container">
+				<div class="chat-left-users-search">
 					<input type="text" placeholder="Поиск или новый чат">
 				</div>		    	
-		    	<div ui-view class="chat-left-wrap-contact-data"></div>
-	    	</div>
-	    </div>
-	    <div class="chat-main-container-right" ng-hide="Model.mobile.display" style="background:#fff;">
-	    	<!-- Chat block -->
+				<div ui-view class="chat-left-wrap-contact-data"></div>
+			</div>
+		</div>
+		<div class="chat-main-container-right" ng-hide="Model.mobile.display" style="background:#fff;">
+			<!-- Chat block -->
 			<div class="chat-right-cont-ng" ng-include="'/app/Chat/views/chat-block.html'" ng-if="Model.showChatBlock && Model.displayChatBlock || Model.showBlockedBlock && Model.displayBlockedBlock"></div> 			
 			<!-- Contact Block -->
 			<div class="chat-contact-block-ng" ng-include="'/app/Chat/views/contact-block.html'" ng-if="Model.showContactBlock && Model.displayContactBlock"></div>
@@ -79,24 +43,24 @@
 
 
 
-	    <footer>
+		<footer>
 			<div class="footer">
-			    <div class="footer-item">
-	                <div class="footer-place">
-	                    <a href="javascript:void(0)">Place People </a>
-	                    <span>© 2016</span>
-	                </div>
-	                <div class="payment">
-	                    <a class="mastercard" href="javascript:void(0)"></a>
-	                    <a class="visa" href="javascript:void(0)"></a>
-	                </div>
-			    </div>
-			    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-			        <a class="drop-menu" href="javascript:void(0)" ></a>
-			        <div class="menu-item" ng-show="showBottomMenu">		        	       
-			            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">{{staticPage.description}}</a>		            
-			        </div>
-			    </div>
+				<div class="footer-item">
+					<div class="footer-place">
+						<a href="javascript:void(0)">Place People </a>
+						<span>© 2016</span>
+					</div>
+					<div class="payment">
+						<a class="mastercard" href="javascript:void(0)"></a>
+						<a class="visa" href="javascript:void(0)"></a>
+					</div>
+				</div>
+				<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
+					<a class="drop-menu" href="javascript:void(0)" ></a>
+					<div class="menu-item" ng-show="showBottomMenu">		        	       
+						<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">{{staticPage.description}}</a>		            
+					</div>
+				</div>
 			</div>
 		</footer>
 	</div>
