@@ -3675,7 +3675,7 @@ body.ngdialog-open {
 .group-ava .group-likes .group-info .publication-place {
 	background-image: none;
 	padding-left: 0;
-	cursor: default;
+	cursor: pointer;
 }
 .group-ava .group-likes .group-info .like-item {
 	display: block;
