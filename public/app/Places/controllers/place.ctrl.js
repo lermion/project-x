@@ -5,10 +5,10 @@
         .module('app.places')
         .controller('PlaceCtrl', PlaceCtrl);
 
-    PlaceCtrl.$inject = ['$q', '$scope', '$state', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
+    PlaceCtrl.$inject = ['$q', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
         '$http', '$window', 'Upload', 'amMoment', 'socket'];
 
-    function PlaceCtrl($q, $scope, $state, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
+    function PlaceCtrl($q, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
                        $http, $window, Upload, amMoment, socket) {
 
         var vm = this;
@@ -88,6 +88,8 @@
                 $state.go('place.publications');
             } else if (state === 'place.edit') {
                 setWatchers();
+            } else if (state === 'place.files') {
+                vm.chatFiles = $state.params.chatFiles;
             }
         });
 

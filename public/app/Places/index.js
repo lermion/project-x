@@ -132,7 +132,26 @@
             })
             .state('place.files', {
                 url: '/files',
-                templateUrl: '../../app/Places/views/place-files.html'
+                templateUrl: '../../app/Places/views/place-files.html',
+                params: {
+                    chatRoomId: null,
+                    chatFiles: []
+                },
+                resolve: {
+                    chatFiles1: ['ChatService', '$q', '$stateParams', function (ChatService, $q, $stateParams) {
+                        var deferred = $q.defer();
+
+                        ChatService.getChatFiles($stateParams.chatRoomId)
+                            .then(function (resp) {
+                                if (resp.status) {
+                                    $stateParams.chatFiles = resp.data;
+                                    deferred.resolve(resp);
+                                }
+                            });
+
+                        return deferred.promise;
+                    }]
+                }
             })
             .state('places.add', {
                 url: '/add',
