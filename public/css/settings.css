@@ -6489,3 +6489,7 @@ textarea[type="text"]:focus,
         font-size: .9em;
     }
 }
+.popup-place-view-publication-form {
+    display: flex;
+    width: 100%;
+}
