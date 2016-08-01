@@ -29,16 +29,7 @@ angular.module('placePeopleApp')
 	    			$scope.staticText = res.text;	    			    			
 			      }, function(err){
 			        console.log(err);
-			      });
-		$scope.logOut = function(){
-    		AuthService.userLogOut()
-	    		.then(function(res){
-                    storageService.deleteStorage();
-	    			$state.go('login');
-			      }, function(err){
-			        console.log(err);
-			      });
-    	}; 
+			      }); 
 
         $scope.openMenu = function(){
             if ($window.innerWidth <= 800) {                
