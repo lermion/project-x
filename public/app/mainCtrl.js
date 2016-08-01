@@ -1,6 +1,7 @@
 angular.module('placePeopleApp')
-    .controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', function ($rootScope, $scope, $state, groupsService, placesService) {
-
+    .controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'storageService', function ($rootScope, $scope, $state, groupsService, placesService, storageService) {
+        var storage = storageService.getStorage();
+        $scope.loggedUser = storage.username;
         $scope.$on('publicPoint', function (event, data) {
             $scope.bodyClass = 'public';
         });
