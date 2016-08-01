@@ -2230,8 +2230,8 @@ spam-item {
 	z-index: 1;
 	left: 3px;
 	background-color: #333;
-	vertical-align: middle;
     text-align: center;
+    line-height: 25px;
 }
 .publication .new-add .inner .close:before,
 .add-comment .new-add .inner .close:before {
