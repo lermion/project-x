@@ -1,5 +1,5 @@
 angular.module('placePeopleApp')
-	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'storageService', 'AuthService', function ($rootScope, $scope, $state, groupsService, placesService, storageService, AuthService) {
+	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'storageService', 'AuthService', '$location', function ($rootScope, $scope, $state, groupsService, placesService, storageService, AuthService, $location) {
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.logOut = function(){
@@ -11,6 +11,9 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		};
+		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+			$scope.currentPath = $location.url();
+		});
 		$scope.$on('publicPoint', function (event, data) {
 			$scope.bodyClass = 'public';
 		});
