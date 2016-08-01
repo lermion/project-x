@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
 	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
-		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload', 'socket', 'groupsService',
-		function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
-			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload, socket, groupsService){
+		'$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment', '$q', '$timeout', 'Upload', 'socket',
+		'groupsService', 'placesService', function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, UserService, 
+			$window, $http, storageService, ngDialog, PublicationService, amMoment, $q, $timeout, Upload, socket, groupsService, placesService){
 		/* Service info*/
 		amMoment.changeLocale('ru');
 		$scope.$emit('userPoint', 'user');    	
@@ -781,6 +781,9 @@ angular.module('placePeopleApp')
 				$scope.showGroups = function(){
 					return false;
 				}
+				$scope.showPlaces = function(){
+					return false;
+				}
 			}else if(value === "groups-chat"){
 				socket.emit("get user rooms", $scope.loggedUserId);
 				socket.on("get user rooms", function(response){
@@ -805,6 +808,9 @@ angular.module('placePeopleApp')
 				$scope.members = function(){
 					return false;
 				}
+				$scope.showPlaces = function(){
+					return false;
+				}
 				groupsService.getGroupList().then(function(response){
 					$scope.groups = response;
 				},
@@ -812,7 +818,24 @@ angular.module('placePeopleApp')
 					console.log(error);
 				});
 			}else if(value === "places"){
-				console.log("places");
+				$scope.showPlaces = function(){
+					return true;
+				}
+				$scope.showGroups = function(){
+					return false;
+				}
+				$scope.groupsChat = function(){
+					return false;
+				}
+				$scope.members = function(){
+					return false;
+				}
+				placesService.getPlaces().then(function(response){
+					$scope.places = response;
+				},
+				function(error){
+					console.log(error);
+				});
 			}
 		}
 		function loadUserContacts(){
