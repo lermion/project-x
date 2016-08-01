@@ -46,7 +46,7 @@
                 <td>
                     <div class="daosn2" style="background-color:#f1f1f1;">Все <b>25689</b></div>
                 </td>
-                <td>
+                <!-- <td>
                     <div class="daosn2">На удалении <b>12</b></div>
                 </td>
                 <td>
@@ -54,16 +54,16 @@
                 </td>
                 <td>
                     <div class="daosn2">Удалились сами <b>3</b></div>
-                </td>
+                </td> -->
                 <td>
                     <div class="daosn2">На заметке <b>127</b></div>
                 </td>
-                <td>
+                <!-- <td>
                     <div class="daosn2">Подозрительные <b>32</b></div>
                 </td>
                 <td>
                     <div class="daosn2" style="border-right:1px #999 solid;">Срочные <b>5</b></div>
-                </td>
+                </td> -->
                 <td width="100%"></td>
             </tr>
         </table>
@@ -210,9 +210,9 @@
                 <p align="center" class="m0">
                     <button type="button" class="btn btn-primary btn-xs">На заметку</button>
                 </p>
-                <p align="center" class="m0">
+                <!-- <p align="center" class="m0">
                     <button type="button" class="btn btn-warning btn-xs">Подозрительный</button>
-                </p>
+                </p> -->
                 <p align="center" class="m0">
                     <a userId='{{$user->id}}' class="btn btn-danger btn-xs deleteBnt">Удалить</a>
             </td>
