@@ -46,6 +46,7 @@
 	<script src="../../app/libs/angular.min.js"></script>
 	<script src="../../app/libs/angular-ui-router.min.js"></script>
 	<script src="../../app/libs/angular-messages.min.js"></script>
+	<script src="../../app/libs/angular-animate.min.js"></script>
 	<script src="../../app/libs/ngDialog.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../app/libs/css/ngDialog.min.css">
 	<script src="../../app/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
@@ -63,7 +64,7 @@
 	<script src="../../app/libs/moment/min/moment-with-locales.min.js"></script>
 	<script src="../../app/libs/angular-moment/angular-moment.min.js"></script>
 	<link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>
-	<script src="../../app/libs/angular-sanitize.js"></script>
+		<script src="../../app/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="../../app/libs/ng-infinite-scroll.min.js"></script>
 	<script src="../../app/libs/nanoscroller.min.js"></script>
 	<script src="../../app/libs/tether.min.js"></script>

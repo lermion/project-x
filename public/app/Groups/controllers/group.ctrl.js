@@ -71,6 +71,8 @@
 
         vm.subForm = false;
 
+        vm.showFullDescription = false;
+
         $scope.myImage = null;
         $scope.myCroppedImage = null;
         $scope.blobImg = null;
