@@ -3514,7 +3514,7 @@ body.ngdialog-open {
 }
 .group .titles {
 	background-color: #fff;
-	height: 90px;
+	height: 100px;
 	overflow: hidden;
 	box-sizing: border-box;
 	padding: 10px;
@@ -3550,10 +3550,9 @@ body.ngdialog-open {
 	color: #333;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayLight";
-	line-height: 16px;
+	line-height: 25px;
 	overflow: hidden;
 	margin: 0;
-	max-height: 34px;
 }
 .group button {
 	width: 100%;
