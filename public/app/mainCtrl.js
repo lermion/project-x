@@ -1,5 +1,7 @@
 angular.module('placePeopleApp')
 	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'storageService', 'AuthService', '$location', 'socket', function ($rootScope, $scope, $state, groupsService, placesService, storageService, AuthService, $location, socket) {
+		var storage = storageService.getStorage();
+		$scope.currentPath = $location.url();
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
 				storageService.deleteStorage();
