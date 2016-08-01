@@ -47,6 +47,23 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('edit/{id}', 'Admin\StaticPageController@edit');
             Route::post('update/{id}', 'Admin\StaticPageController@update');
         });
+        Route::group(['prefix' => 'country'], function () {
+            Route::post('/', 'Admin\CountryController@create');
+            Route::get('destroy/{id}', 'Admin\CountryController@destroy');
+        });
+        Route::group(['prefix' => 'city'], function () {
+            Route::post('/', 'Admin\CityController@create');
+            Route::get('destroy/{id}', 'Admin\CityController@destroy');
+        });
+        Route::group(['prefix' => 'mail'], function () {
+            Route::get('/', 'Admin\MailController@index');
+            Route::get('get_review', 'Admin\MailController@get_review');
+            Route::get('get_closed', 'Admin\MailController@get_closed');
+            Route::post('create', 'Admin\MailController@create');
+            Route::get('destroy/{id}', 'Admin\MailController@destroy');
+            Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
+            Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
+        });
 
     });
     Route::group(['prefix' => 'auth'], function () {
@@ -203,12 +220,12 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/file_chat/1\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='name' value='1095'><br>
-            <input type='text' name='description' value='1094'><br>
-            <input type='text' name='city_id' value='1'><br>
+        echo "<form action=\"http://pp.dev/group/show/sdv\" method=\"get\">
+            <input type='text' name='name' value='test'><br>
+            <input type='text' name='country_id' value='1'><br>
+            <input type='text' name='code' value='00'><br>
             <input type='text' name='address'value='1'><br>
-            <input type='text' name='coordinates_x' value='1'><br>
+            <input type='text' name='id' value='282'><br>
             <input type='text' name='coordinates_y' value='1'><br>
             <input type='text' name='type_place_id'><br>
 

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\User;
 use Illuminate\Http\Request;
-use Mail;
 use  App\UserMail;
+use App\User;
+use Mail;
 
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class MailController extends Controller
@@ -52,9 +53,9 @@ class MailController extends Controller
     {
         $mails = UserMail::where('status','New')->get();
         foreach($mails as &$mail){
-           if (!UserMail::where('user_id', 'null')->first()) {
-               $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
-           }
+            if (!UserMail::where('user_id', 'null')->first()) {
+                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
+            }
         }
         return $mails;
     }
@@ -63,20 +64,20 @@ class MailController extends Controller
     {
         $mail = UserMail::find($id);
 
-            if ($mail->status != 'Closed' ) {
-                $mail->status = 'Closed';
-                $mail->save();
-                return response()->json(['status' => true]);
-            } else {
-                $result = [
-                    "status" => false,
-                    "error" => [
-                        'message' => "The user has this status",
-                        'code' => '7'
-                    ]
-                ];
-                return response()->json($result);
-            }
+        if ($mail->status != 'Closed' ) {
+            $mail->status = 'Closed';
+            $mail->save();
+            return response()->json(['status' => true]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "The user has this status",
+                    'code' => '7'
+                ]
+            ];
+            return response()->json($result);
+        }
     }
 
     public function change_status_review($id)
@@ -102,7 +103,7 @@ class MailController extends Controller
     public function destroy($id)
     {
         UserMail::find($id)->delete();
-        return redirect()->action('MailController@index');
+        return redirect()->action('Admin\MailController@index');
     }
 
     public function get_closed()
@@ -128,4 +129,3 @@ class MailController extends Controller
     }
 
 }
-
