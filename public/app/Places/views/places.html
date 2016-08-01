@@ -41,8 +41,8 @@
     <div ui-view>
         <div class="places-page">
             <div class="places-page-header">
-                <div class="places-page-header-title">
-                    <span></span>
+                <div class="places-page-header-title" ng-click="vm.togglePlaceView()">
+                    <span ng-if="vm.showAllPlaces"></span>
                     Все места
                     <div id="map"></div>
                 </div>
