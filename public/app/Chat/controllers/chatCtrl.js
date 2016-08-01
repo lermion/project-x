@@ -367,6 +367,7 @@ angular.module('placePeopleApp')
 					$scope.Model.Chat = [];
 				}
 				socket.emit('create room', data);
+				$rootScope.countChatMessages--;
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent	= true;								
 					$state.go('chat.mobile');

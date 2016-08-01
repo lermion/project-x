@@ -2,7 +2,7 @@
 
 <div class="modal__content" ng-if="vm.inviteNotSend && (vm.subscribers.length + vm.subscription.length) > 0">
     <div class="invite-group__items">
-        <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
+        <input type="text" id="" ng-model="searchString" placeholder="Пригласить в место...">
         <ul>
             <p>Подписки</p>
             <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString"
@@ -11,9 +11,9 @@
                     <img ng-src="{{user.avatar_path}}">
                     <p>{{::user.first_name}} {{::user.last_name}}</p>
                 </div>
-                <div class="popup-invite-place-people-plus">
+                <!-- <div class="popup-invite-place-people-plus">
                     <img src="/images/add.png" alt="">
-                </div>
+                </div> -->
             </li>
             <p>Подписчики</p>
             <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
@@ -22,9 +22,9 @@
                     <img ng-src="{{user.avatar_path}}">
                     <p>{{::user.first_name}} {{::user.last_name}}</p>
                 </div>
-                <div class="popup-invite-place-people-plus">
+                <!-- <div class="popup-invite-place-people-plus">
                     <img src="/images/add.png" alt="">
-                </div>
+                </div> -->
             </li>
         </ul>
     </div>
