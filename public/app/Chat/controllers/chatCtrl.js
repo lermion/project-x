@@ -102,9 +102,9 @@ angular.module('placePeopleApp')
 				$state.go(stateName);
 			};
 
-			// $scope.Model.reloadRooms = function(){
-			// 	socket.emit("get user rooms", $scope.loggedUserId);
-			// };
+			$scope.Model.reloadRooms = function(){
+				socket.emit("get user rooms", $scope.loggedUserId);
+			};
 
 			socket.emit("get user rooms", $scope.loggedUserId);
 			
@@ -446,8 +446,15 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
-				console.log(data.countMessages);
+				if($scope.Model.opponent.room_id === false){
+					$scope.Model.opponent.room_id = data.roomId;
+				}
 				if(data.messages){
+					$scope.getMessagesCount = function(chat){
+						if(chat.room_id === data.room_id){
+							return chat.countMessages = 0;
+						}
+					};
 					$scope.Model.Chat = data.messages;
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
@@ -463,11 +470,13 @@ angular.module('placePeopleApp')
 								return chat.last_message_created_at = data.created_at;
 							}
 						};
+						var i = 1;
 						$scope.getMessagesCount = function(chat){
 							if(chat.room_id === data.roomId){
-								return chat.countMessages = data.countMessages;
+								return chat.countMessages = i;
 							}
 						};
+						i++;
 					}
 				}
 			});
