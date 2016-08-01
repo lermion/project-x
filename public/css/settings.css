@@ -6469,4 +6469,7 @@ textarea[type="text"]:focus,
     .popup-invite-group .items-selected__item-delete {
             left: 40px;
     }
+    .group-peoples-inner-item .peoples-item__delete {
+    	left: 40px;
+    }
 }
