@@ -6,7 +6,7 @@
 		    				Я подписан
 		    			</div>
 		    		</div>			    	
-			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions" ng-class="Model.contact.id === contact.id ? 'active' : ''">
+			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions | filter:{$:query}" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
 			    			<a ui-sref="user({username: contact.login})">
 			    				<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
@@ -27,7 +27,7 @@
 		    			</div>
 		    		</div>
 
-			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscribers" ng-class="Model.contact.id === contact.id ? 'active' : ''">
+			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscribers | filter:{$:query}" ng-class="Model.contact.id === contact.id ? 'active' : ''">
 			    		<div class="chat-users-today-ava">
 			    			<a ui-sref="user({username: contact.login})">
 			    				<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
