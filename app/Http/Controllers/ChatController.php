@@ -172,7 +172,10 @@ class ChatController extends Controller
         }
         $files = array_merge($image, $video);
         krsort($files);
-        $collection = collect($files);
+        foreach ($files as $key => $value){
+            $file[] =['date' =>  $key, 'path' =>  $value];
+            }
+        $collection = collect($file);
         $result = $collection->chunk(21);
         return response()->json(['status' => true, $result]);
 
