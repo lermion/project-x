@@ -256,7 +256,7 @@
                         videos.push(file);
                     }
                 });
-            }   
+            }
 
             vm.newComment.text = vm.emojiMessage.messagetext;
             if (images.length === 0 && videos.length === 0) {
@@ -820,6 +820,17 @@
 
         };
 
+        vm.getMonth = function (date) {
+            var newDate = moment(date).format("MMMM");
+            newDate = newDate[0].toUpperCase() + newDate.substr(1);
+            return newDate;
+        };
+
+        vm.limitToFiles = 3;
+
+        vm.loadMoreFiles = function () {
+            vm.limitToFiles += 1;
+        };
 
         function activate() {
             init();
@@ -1185,9 +1196,9 @@
             }
         };
         $scope.sendMessage = function (messageText, roomId, files) {
-        	if(messageText === "" && files === undefined || messageText === "" && files.length === 0){
-				return;
-			}
+            if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
+                return;
+            }
             if (files !== undefined) {
                 var imagesObj = {
                     imageName: [],

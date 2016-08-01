@@ -4,6 +4,7 @@
     angular
         .module('app.places', ['yaMap', 'ngFileUpload', 'angucomplete-alt'])
         .config(routes);
+    angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
 
 
     routes.$inject = ['$stateProvider'];
@@ -138,10 +139,10 @@
                     chatFiles: []
                 },
                 resolve: {
-                    chatFiles1: ['ChatService', '$q', '$stateParams', function (ChatService, $q, $stateParams) {
+                    chatFiles1: ['ChatService', '$q', '$stateParams', 'place', function (ChatService, $q, $stateParams, place) {
                         var deferred = $q.defer();
 
-                        ChatService.getChatFiles($stateParams.chatRoomId)
+                        ChatService.getChatFiles(place.room_id)
                             .then(function (resp) {
                                 if (resp.status) {
                                     $stateParams.chatFiles = resp.data;
