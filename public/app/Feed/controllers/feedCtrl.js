@@ -1,63 +1,53 @@
 angular.module('placePeopleApp')
-    .controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService', 
-    	'AuthService', 'FeedService', '$window', '$http', 'storageService',  'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-    	function($scope, $state, $stateParams, StaticService, PublicationService, AuthService, 
-    		FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout, UserService){
-    	$scope.$emit('userPoint', 'user');    	
+	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService', 
+		'AuthService', 'FeedService', '$window', '$http', 'storageService',  'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
+		function($scope, $state, $stateParams, StaticService, PublicationService, AuthService, 
+			FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout, UserService){
+		$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
 		$scope.loggedUser = storage.username;
 		$scope.emojiMessage = {};
 		$scope.loggedUserAva = storage.loggedUserAva;
 		$http.get('/static_page/get/name')
-		            .success(function (response){            	
-		                $scope.staticPages = response;
-		            })
-		            .error(function (error){
-		                console.log(error);
-		            });
-		$scope.logOut = function(){
-		    		AuthService.userLogOut()
-			    		.then(function(res){
-			    			storageService.deleteStorage();
-			    			$state.go('login');
-					      }, function(err){
-					        console.log(err);
-					      });
-		    	};
-
-    	$scope.openMenu = function(){
-    		if ($window.innerWidth <= 800) {    			
+					.success(function (response){            	
+						$scope.staticPages = response;
+					})
+					.error(function (error){
+						console.log(error);
+					});
+		$scope.openMenu = function(){
+			if ($window.innerWidth <= 800) {    			
 				 $scope.showMenu = !$scope.showMenu;
-    		} else{
-    			$scope.showMenu = true;    			
-    		}
-    	};
+			} else{
+				$scope.showMenu = true;    			
+			}
+		};
 
-    	$scope.openBottomMenu = function(){
-            if ($window.innerWidth <= 650) {
-                $scope.showBottomMenu = !$scope.showBottomMenu;
-            } else {
-                $scope.showBottomMenu = false;
-            }
-        };
+		$scope.openBottomMenu = function(){
+			if ($window.innerWidth <= 650) {
+				$scope.showBottomMenu = !$scope.showBottomMenu;
+			} else {
+				$scope.showBottomMenu = false;
+			}
+		};
 
-        var w = angular.element($window);
+		var w = angular.element($window);
 		$scope.$watch(
 		  function () {
-		    return $window.innerWidth;
+			return $window.innerWidth;
 		  },
 		  function (value) {
 			  if (value <= 800) {
-			  	$scope.showMenu = false;
+				$scope.showMenu = false;
 			  } else {
-			  	$scope.showMenu = true;
+				$scope.showMenu = true;
 			  }
 
 			  if (value <= 650) {
-                $scope.showBottomMenu = false;
-              } else {
-                $scope.showBottomMenu = true;
-              }             			  
+				$scope.showBottomMenu = false;
+			  } else {
+				$scope.showBottomMenu = true;
+			  }             			  
 		  },
 		  true
 		);

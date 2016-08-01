@@ -256,7 +256,6 @@ Queries.prototype.saveFiles = function(data, messageId){
 	return deferred.promise;
 }
 Queries.prototype.sendMessage = function(data){
-	console.log("data", data);
 	var message = {
 		"user_id": data.userId,
 		"text": data.message,

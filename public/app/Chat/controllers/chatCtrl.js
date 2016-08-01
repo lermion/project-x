@@ -21,15 +21,6 @@ angular.module('placePeopleApp')
 			}).error(function(error){
 				console.log(error);
 			});
-			$scope.logOut = function(){
-				AuthService.userLogOut().then(function(response){
-					storageService.deleteStorage();
-					$state.go('login');
-				},
-				function(error){
-					console.log(error);
-				});
-			};
 			$scope.Model.mobile = {};
 			if($window.innerWidth <= 768){
 				$scope.Model.mobile.display = true;								
@@ -446,9 +437,6 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
-				if($scope.Model.opponent.room_id === false){
-					$scope.Model.opponent.room_id = data.roomId;
-				}
 				if(data.messages){
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
@@ -460,23 +448,22 @@ angular.module('placePeopleApp')
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);
 					}else{
-						$scope.getLastMessage = function(chat){
-							if(chat.room_id === data.roomId){
-								return chat.last_message = data.text;
-							}
-						};
-						$scope.getLastMessageCreatedAt = function(chat){
-							if(chat.room_id === data.roomId){
-								return chat.last_message_created_at = data.created_at;
-							}
-						};
-						var i = 1;
-						$scope.getMessagesCount = function(chat){
-							if(chat.room_id === data.roomId){
-								return chat.countMessages = i;
-							}
-						};
-						i++;
+						socket.emit("get user rooms", $scope.loggedUserId);
+						// $scope.getLastMessage = function(chat){
+						// 	if(chat.room_id === data.roomId){
+						// 		return chat.last_message = data.text;
+						// 	}
+						// };
+						// $scope.getLastMessageCreatedAt = function(chat){
+						// 	if(chat.room_id === data.roomId){
+						// 		return chat.last_message_created_at = data.created_at;
+						// 	}
+						// };
+						// $scope.getMessagesCount = function(chat){
+						// 	if(chat.room_id === data.roomId){
+						// 		return chat.countMessages = 1;
+						// 	}
+						// };
 					}
 				}
 			});
