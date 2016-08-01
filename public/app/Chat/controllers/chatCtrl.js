@@ -453,7 +453,7 @@ angular.module('placePeopleApp')
 							return chat.countMessages = 0;
 						}
 					};
-					$scope.Model.Chat = data.messages;
+					$scope.Model.Chat = data.messages.reverse();
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);
