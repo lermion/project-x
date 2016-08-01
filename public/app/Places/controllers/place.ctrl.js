@@ -1115,10 +1115,13 @@
         };
         $scope.loadMoreMessages = function () {
             var deferred = $q.defer();
+            var members = [];
+            members[0] = vm.myId;
             var data = {
                 room_id: vm.place.room_id,
                 offset: $scope.counter,
-                limit: 10
+                limit: 10,
+                members: members
             };
             if ($scope.messages !== undefined && $scope.messages.length >= 10) {
                 socket.emit("load more messages", data);
@@ -1182,6 +1185,9 @@
             }
         };
         $scope.sendMessage = function (messageText, roomId, files) {
+        	if(messageText === "" && files === undefined || messageText === "" && files.length === 0){
+				return;
+			}
             if (files !== undefined) {
                 var imagesObj = {
                     imageName: [],
