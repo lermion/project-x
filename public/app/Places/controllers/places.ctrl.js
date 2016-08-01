@@ -532,6 +532,29 @@
             }
         };
 
+        vm.searchAPI = function (inputStr, timeoutPromise) {
+
+            return $http({
+                method: 'GET',
+                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + vm.placeNew.country.name + ', ' +  vm.placeNew.city.name + ', ' + inputStr,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null,
+                timeout: 1000
+            })
+                .then(getPublicationsComplete)
+                .catch(getPublicationsFailed);
+
+            function getPublicationsComplete(response) {
+                return response.data;
+            }
+
+            function getPublicationsFailed(error) {
+                console.error('XHR Failed for getPublications. ' + error.data);
+            }
+
+        };
+
 
         //vm.beforeInit = function () {
         //    var geolocation = ymaps.geolocation;

@@ -85,7 +85,10 @@
                                       placeholder="улица, номер дома"
                                       pause="1000"
                                       selected-object="vm.addressSelected"
-                                      remote-url="https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode="
+                                      remote-api-handler="vm.searchAPI"
+                                      text-searching="Поиск адреса ..."
+                                      text-no-results="Не найден. Проверьте вводимый адрес."
+                                      remote-url="https://geocode-maps.yandex.ru/1.x/?format=json&results=3&geocode="
                                       remote-url-data-field="response.GeoObjectCollection.featureMember"
                                       title-field="GeoObject.name"
                                       description-field="GeoObject.description"
@@ -93,7 +96,8 @@
                                       field-required="true"
                                       input-name="address"
                                       disable-input="!vm.placeNew.city"></angucomplete-alt>
-                        <span class="street-on-map" ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
+                    <span class="street-on-map"
+                          ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
 
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.address.$error"
