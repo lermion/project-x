@@ -211,10 +211,13 @@ angular.module('placePeopleApp')
 						}
 					}
 				}
+				var members = [];
+				members[0] = $scope.loggedUserId;
 				var data = {
 					room_id: roomId,
 					offset: $scope.counter,
-					limit: 10
+					limit: 10,
+					members: members
 				};
 				var deferred = $q.defer();
 				if(!$scope.status.loading && $scope.Model.Chat !== undefined && $scope.Model.Chat.length >= 10){
@@ -392,6 +395,9 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
+				if(message === "" && files === undefined || message === "" && files.length === 0){
+					return;
+				}
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
@@ -438,13 +444,16 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
+				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
+					$scope.Model.opponent.room_id = data.roomId;
+				}
 				if(data.messages){
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
 							return chat.countMessages = 0;
 						}
 					};
-					$scope.Model.Chat = data.messages;
+					$scope.Model.Chat = data.messages.reverse();
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);

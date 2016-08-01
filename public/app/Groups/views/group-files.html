@@ -1,45 +1,11 @@
-<div class="group-files">
+<div class="group-files" ng-repeat="month in vm.chatFiles">
 	<div class="group-files-title">
-		<span>Ноябрь 2015</span>
+		<span>{{::vm.getMonth(month[0].date)}}</span>
 	</div>
-	<div class="group-files-container">
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt=""></a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
-			</a>
-		</div>
-		<div class="group-files-content" style="{{resizeSizes}}">
-			<a href="javascript:void(0);"><img src="" alt="">
+	<div class="group-files-container" infinite-scroll="vm.loadMoreFiles()" infinite-scroll-distance="1">
+		<div class="group-files-content" ng-repeat="file in month | limitTo: vm.limitToFiles" style="{{resizeSizes}}">
+			<a ng-href="{{::file.path}}">
+				<img ng-src="{{::file.path}}">
 			</a>
 		</div>
 	</div>

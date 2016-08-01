@@ -71,6 +71,8 @@
 
         vm.subForm = false;
 
+        vm.showFullDescription = false;
+
         $scope.myImage = null;
         $scope.myCroppedImage = null;
         $scope.blobImg = null;
@@ -167,6 +169,9 @@
             }
             if (state !== 'group.mob-pub') {
                 vm.isMobile = false;
+            }
+            if (state === 'group.files') {
+                vm.chatFiles = $state.params.chatFiles;
             }
         });
         $scope.$on('ngDialog.opened', function (e, $dialog) {
@@ -814,6 +819,19 @@
             return result;
         };
 
+        vm.getMonth = function (date) {
+            var newDate = moment(date).format("MMMM YYYY");
+            newDate = newDate[0].toUpperCase() + newDate.substr(1);
+            return newDate;
+        };
+
+        vm.limitToFiles = 3;
+
+        vm.loadMoreFiles = function () {
+            vm.limitToFiles += 1;
+        };
+
+
         $scope.saveCropp = function (img, cropped) {
 
             var blobFile = blobToFile(cropped);
@@ -1002,10 +1020,13 @@
         };
         $scope.loadMoreMessages = function () {
             var deferred = $q.defer();
+            var members = [];
+            members[0] = vm.myId;
             var data = {
                 room_id: vm.group.room_id,
                 offset: $scope.counter,
-                limit: 10
+                limit: 10,
+                members: members
             };
             if ($scope.messages !== undefined && $scope.messages.length >= 10) {
                 socket.emit("load more messages", data);
@@ -1069,6 +1090,9 @@
             }
         };
         $scope.sendMessage = function (messageText, roomId, files) {
+            if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
+                return;
+            }
             if (files !== undefined) {
                 var imagesObj = {
                     imageName: [],

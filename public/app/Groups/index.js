@@ -2,9 +2,9 @@
     'use strict';
 
     angular
-        .module('app.groups', ['ngFileUpload', 'ngScrollbar'])
+        .module('app.groups', ['ngFileUpload', 'ngScrollbar', 'ngAnimate'])
         .config(routes);
-
+    angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
 
     routes.$inject = ['$stateProvider'];
 
@@ -81,7 +81,26 @@
             })
             .state('group.files', {
                 url: '/files',
-                templateUrl: '../../app/Groups/views/group-files.html'
+                templateUrl: '../../app/Groups/views/group-files.html',
+                params: {
+                    chatRoomId: null,
+                    chatFiles: []
+                },
+                resolve: {
+                    chatFiles1: ['ChatService', '$q', '$stateParams', 'group', function (ChatService, $q, $stateParams, group) {
+                        var deferred = $q.defer();
+
+                        ChatService.getChatFiles(group.room_id)
+                            .then(function (resp) {
+                                if (resp.status) {
+                                    $stateParams.chatFiles = resp.data;
+                                    deferred.resolve(resp);
+                                }
+                            });
+
+                        return deferred.promise;
+                    }]
+                }
             })
             .state('group.mob-pub', {
                 url: '/m/:pubId',

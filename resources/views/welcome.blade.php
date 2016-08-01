@@ -9,7 +9,7 @@
 	<link href="../../css/settings.css" rel="stylesheet">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
-	<header ng-hide="currentPath === '/auth/login'">
+	<header ng-cloak ng-hide="currentPath === '/auth/login'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">
@@ -46,6 +46,7 @@
 	<script src="../../app/libs/angular.min.js"></script>
 	<script src="../../app/libs/angular-ui-router.min.js"></script>
 	<script src="../../app/libs/angular-messages.min.js"></script>
+	<script src="../../app/libs/angular-animate.min.js"></script>
 	<script src="../../app/libs/ngDialog.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../app/libs/css/ngDialog.min.css">
 	<script src="../../app/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
@@ -63,8 +64,7 @@
 	<script src="../../app/libs/moment/min/moment-with-locales.min.js"></script>
 	<script src="../../app/libs/angular-moment/angular-moment.min.js"></script>
 	<link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>
-	<script src="../../app/libs/angular-sanitize.js"></script>
-
+		<script src="../../app/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="../../app/libs/ng-infinite-scroll.min.js"></script>
 	<script src="../../app/libs/nanoscroller.min.js"></script>
 	<script src="../../app/libs/tether.min.js"></script>
@@ -74,7 +74,6 @@
 	<script src="../../app/libs/emoji-picker.js"></script>
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>
 	<script src="../../app/libs/angucomplete-alt.min.js"></script>
-
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>
 	<link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />
@@ -82,14 +81,12 @@
 	<script src="../../app/config.js"></script>
 	<script src="../../app/mainCtrl.js"></script>
 	<script src="../../app/libs/socket.io-1.3.4.js"></script>
-
 	<script src="../../app/common/services/storageService.js"></script>
 	<script src="../../app/common/services/socketService.js"></script>
 	<script src="../../app/common/directives/index.js"></script>
 	<script src="../../app/common/directives/typeahead/typeahead.js"></script>
 	<script src="../../app/common/filters/filters.js"></script>
 	<script src="../../app/Publication/models/publicationService.js"></script>
-
 	<script src="../../app/Auth/models/authService.js"></script>
 	<script src="../../app/Auth/controllers/authCtrl.js"></script>
 	<script src="../../app/Static/controllers/staticCtrl.js"></script>
@@ -100,22 +97,17 @@
 	<script src="../../app/Feed/controllers/feedCtrl.js"></script>
 	<script src="../../app/Chat/models/chatService.js"></script>
 	<script src="../../app/Chat/controllers/chatCtrl.js"></script>
-
 	<script src="../../app/Settings/controllers/settingsCtrl.js"></script>
-
 	<script src="../../app/Groups/index.js"></script>
 	<script src="../../app/Groups/controllers/groupsCtrl.js"></script>
 	<script src="../../app/Groups/controllers/group.ctrl.js"></script>
 	<script src="../../app/Groups/services/groups.srv.js"></script>
-
 	<script src="../../app/Places/index.js"></script>
 	<script src="../../app/Places/controllers/places.ctrl.js"></script>
 	<script src="../../app/Places/controllers/place.ctrl.js"></script>
 	<script src="../../app/Places/services/places.srv.js"></script>
-
 	<script src="../../app/Search/index.js"></script>
 	<script src="../../app/Search/controllers/search.ctrl.js"></script>
 	<script src="../../app/Search/services/search.srv.js"></script>
-
 </body>
 </html>

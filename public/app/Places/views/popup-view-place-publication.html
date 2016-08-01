@@ -85,7 +85,8 @@
             <div class="comment">
                 <div class="user-info">
                     <div class="info-item">
-                        <a href class="user-name" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">{{comment.user.first_name}}
+                        <a href class="user-name" ui-sref="user({username: comment.user.login})"
+                           ng-click="closePopup()">{{comment.user.first_name}}
                             {{comment.user.last_name}}</a>
 
                         <p class="time" am-time-ago="comment.created_at"></p>
@@ -113,58 +114,72 @@
     </div>
 
     <div class="add-comment">
-        <div class="user-ava">
-            <a href class="ava" ui-sref="user({username: vm.userName})" ng-click="closePopup()">
-                <img ng-src="{{::vm.myAvatar}}" alt="My Avatar">
-            </a>
-        </div>
-        <div flow-init style="position:relative;" class="add">
-            <div class="text-field">
-                <div emoji-form emoji-message="vm.emojiMessage">
-                    <textarea id="messageInput" ng-model="vm.emojiMessage.messagetext"></textarea>
-                    <a href class="emoji-button" id="emojibtn">
-                        <i class="icon icon-emoji"></i>
-                    </a>
-                </div>
+        <form class="popup-place-view-publication-form" name="vm.commentForm" novalidate>
+            <div class="user-ava">
+                <a href class="ava" ui-sref="user({username: vm.userName})" ng-click="closePopup()">
+                    <img ng-src="{{::vm.myAvatar}}" alt="My Avatar">
+                </a>
             </div>
-            <div class="new-add" ng-show="vm.activePublication.files" ng-scrollbar rebuild-on="rebuild:me"
-                 style="max-height: 250px; overflow:hidden; position:relative;">
-                <div class="new-img" ng-repeat="file in vm.activePublication.files"
-                     ng-click="showMoreImages(vm.activePublication.files)">
-                    <div class="inner">
-                        <div ng-click="vm.deletePubFile(vm.activePublication.files, $index)" class="close">
-                            <div class="close-inner">
-                                <p>Удалить</p>
-                            </div>
-                        </div>
-                        <img ngf-thumbnail="file || '/thumb.jpg'">
-                        <video width="200px" controls ngf-src="file"></video>
+            <div flow-init style="position:relative;" class="add">
+                <div class="text-field">
+                    <div emoji-form emoji-message="vm.emojiMessage">
+                        <textarea id="messageInput" ng-model="vm.emojiMessage.messagetext"></textarea>
+                        <a href class="emoji-button" id="emojibtn">
+                            <i class="icon icon-emoji"></i>
+                        </a>
                     </div>
-                    <p class="img-name">{{file.name}}</p>
                 </div>
-            </div>
-            {{vm.commentModel.pubText}}
-            <div class="publication-footer"
-                 ng-init="addFileObjId = 'add-file-to-comment-popup-'+vm.activePublication.id">
-                <div class="publication-footer-button">
-                    <button ladda="vm.subForm" data-style="slide-right" ng-disabled="vm.subForm"
-                            ng-click="vm.addNewComment('feedPage', vm.activePublication, emojiMessage, vm.activePublication.files)"
-                            class="publication-button">Отправить
-                    </button>
+                <div class="new-add" ng-show="vm.activePublication.files" ng-scrollbar rebuild-on="rebuild:me"
+                     style="max-height: 250px; overflow:hidden; position:relative;">
+                    <div class="new-img" ng-repeat="file in vm.activePublication.files"
+                         ng-click="showMoreImages(vm.activePublication.files)">
+                        <div class="inner">
+                            <div ng-click="vm.deletePubFile(vm.activePublication.files, $index)" class="close">
+                                <div class="close-inner">
+                                    <p>Удалить</p>
+                                </div>
+                            </div>
+                            <img ngf-thumbnail="file || '/thumb.jpg'">
+                            <video width="200px" controls ngf-src="file"></video>
+                        </div>
+                        <p class="img-name">{{file.name}}</p>
+                    </div>
                 </div>
-                <div class="add-objects">
-                    <input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select
-                           ng-model="vm.activePublication.files" ngf-multiple="true"
-                           ngf-before-model-change="pubFiles($files)">
-                    <label for="{{addFileObjId}}">
-                        Прикрепить
-                        <span class="add"></span>
-                    </label>
+                {{vm.commentModel.pubText}}
+                <div class="publication-footer"
+                     ng-init="addFileObjId = 'add-file-to-comment-popup-'+vm.activePublication.id">
+                    <div class="publication-footer-button">
+                        <button ladda="vm.subForm" data-style="slide-right" ng-disabled="vm.subForm"
+                                ng-click="vm.addNewComment('feedPage', vm.activePublication, emojiMessage, vm.activePublication.files)"
+                                class="publication-button">Отправить
+                        </button>
+                    </div>
+                    <div class="add-objects">
+                        <input id="{{addFileObjId}}" style="display: none;"
+                               name="files"
+                               ngf-keep="true"
+                               ngf-accept="'image/*, video/*'"
+                               ngf-pattern="'image/*, video/*'"
+                               ngf-select
+                               ng-model="vm.activePublication.files"
+                               ngf-multiple="true"
+                               ngf-before-model-change="pubFiles($files)"
+                               required>
+                        <label for="{{addFileObjId}}">
+                            Прикрепить
+                            <span class="add"></span>
+                        </label>
+                        <div class="error-messages" ng-messages="vm.commentForm.files.$error" ng-if="vm.commentForm.$invalid && vm.commentForm.$submitted || vm.commentForm.files.$dirty">
+                            <div ng-message="required">Вы не выбрали медиафайл</div>
+                            <div ng-message="pattern">Выбранный файл не является фото или видео</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
 
-        </div>
+            </div>
+        </form>
+
     </div>
 
 </div>

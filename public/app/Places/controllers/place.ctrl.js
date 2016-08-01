@@ -239,7 +239,12 @@
         };
 
         vm.addNewComment = function (flag, pub, pubText, files) {
-            vm.subPub = true;
+            vm.commentForm.$setSubmitted();
+            if (vm.commentForm.$invalid) {
+                return false;
+            }
+
+
             var images = [];
             var videos = [];
             if (files != undefined) {
@@ -254,11 +259,10 @@
             }
 
             vm.newComment.text = vm.emojiMessage.messagetext;
-
-            if (!vm.newComment.text) {
-                vm.subForm = false;
+            if (images.length === 0 && videos.length === 0) {
                 return false;
             }
+            vm.subForm = true;
 
             PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
                     vm.showAddComment = false;
@@ -272,9 +276,12 @@
                             pub.comment_count++;
                         }
                     }
+                    vm.commentForm.$setPristine();
+                    vm.subForm = false;
                 },
                 function (error) {
                     console.log(error);
+                    vm.subForm = false;
                 });
         };
 
@@ -813,6 +820,17 @@
 
         };
 
+        vm.getMonth = function (date) {
+            var newDate = moment(date).format("MMMM YYYY");
+            newDate = newDate[0].toUpperCase() + newDate.substr(1);
+            return newDate;
+        };
+
+        vm.limitToFiles = 3;
+
+        vm.loadMoreFiles = function () {
+            vm.limitToFiles += 1;
+        };
 
         function activate() {
             init();
@@ -1108,10 +1126,13 @@
         };
         $scope.loadMoreMessages = function () {
             var deferred = $q.defer();
+            var members = [];
+            members[0] = vm.myId;
             var data = {
                 room_id: vm.place.room_id,
                 offset: $scope.counter,
-                limit: 10
+                limit: 10,
+                members: members
             };
             if ($scope.messages !== undefined && $scope.messages.length >= 10) {
                 socket.emit("load more messages", data);
@@ -1175,6 +1196,9 @@
             }
         };
         $scope.sendMessage = function (messageText, roomId, files) {
+            if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
+                return;
+            }
             if (files !== undefined) {
                 var imagesObj = {
                     imageName: [],
