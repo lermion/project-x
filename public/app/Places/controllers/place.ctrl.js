@@ -239,7 +239,12 @@
         };
 
         vm.addNewComment = function (flag, pub, pubText, files) {
-            vm.subPub = true;
+            vm.commentForm.$setSubmitted();
+            if (vm.commentForm.$invalid) {
+                return false;
+            }
+
+
             var images = [];
             var videos = [];
             if (files != undefined) {
@@ -251,14 +256,13 @@
                         videos.push(file);
                     }
                 });
-            }
+            }   
 
             vm.newComment.text = vm.emojiMessage.messagetext;
-
-            if (!vm.newComment.text) {
-                vm.subForm = false;
+            if (images.length === 0 && videos.length === 0) {
                 return false;
             }
+            vm.subForm = true;
 
             PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
                     vm.showAddComment = false;
@@ -272,9 +276,12 @@
                             pub.comment_count++;
                         }
                     }
+                    vm.commentForm.$setPristine();
+                    vm.subForm = false;
                 },
                 function (error) {
                     console.log(error);
+                    vm.subForm = false;
                 });
         };
 
