@@ -46,7 +46,7 @@
                                 <p>Люди</p>
                                 <span>{{vm.place.count_users}}</span>
                             </a>
-                            <a ui-sref="place.files" ui-sref-active="active" class="counter">
+                            <a ui-sref="place.files({chatRoomId: vm.place.room_id})" ui-sref-active="active" class="counter">
                                 <p>Файлы</p>
                                 <span>858</span>
                             </a>
