@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.groups', ['ngFileUpload', 'ngScrollbar'])
+        .module('app.groups', ['ngFileUpload', 'ngScrollbar', 'ngAnimate'])
         .config(routes);
 
 
