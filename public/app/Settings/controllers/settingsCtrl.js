@@ -12,15 +12,6 @@ angular.module('placePeopleApp')
 					.error(function (error){
 						console.log(error);
 					});
-		$scope.logOut = function(){
-					AuthService.userLogOut()
-						.then(function(res){
-							storageService.deleteStorage();
-							$state.go('login');
-						  }, function(err){
-							console.log(err);
-						  });
-				};
 
 		$scope.openMenu = function(){
 			if ($window.innerWidth <= 800) {    			
