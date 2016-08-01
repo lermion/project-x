@@ -30,6 +30,44 @@
         TableManageButtons.init();
     </script>
 
+
+    <div style="width:100%; height:auto; margin-bottom:20px;">
+        <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
+            <tbody>
+            <tr>
+                <td><div class="daosn2 jsSet daosn4" id="setObshee" param="csetObshee">Общие настройки</div></td>
+                <!-- <td><div class="daosn2 jsSet" id="setOp" param="csetOp">Оповещения</div></td> -->
+                <td><div class="daosn2 jsSet" id="setOgr" param="csetOgr" style="border-right:1px #999 solid;">Ограничения</div></td>
+                <td width="100%"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="x_content">
+        <div class="jscSet" id="csetObshee" style="display: block;">
+        
+        <h3>Сквозные данные</h3>
+        
+        <p>Контакты:
+        <textarea style="width:400px;" rows="5">ООО "Интерфинити"
++7 (495) 120-33-78
+interfiniti.ltd@gmail.com</textarea></p>
+
+        <br>
+        <p>Copyright
+        <input type="text" value="interfiniti"></p>
+        
+        <br>
+        <p>Письмо админу
+        <input type="text" value="xmugutdin@gmail.com"></p>
+        
+        <br><br>
+        <p><button type="button" class="btn btn-primary">Сохранить</button></p>
+    </div>
+    </div>
+
+
+
     <div class="x_content">
         <h3>Финансы</h3>
         <h3 class="b">Сегодня: 3000 руб. За неделю: 27 000 руб. За месяц: 170 000 руб. За год: 1000 500 руб.</h3>

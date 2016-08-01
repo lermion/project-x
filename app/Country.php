@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     protected $fillable = [
-        'name','id','code'
+        'name','code','id'
     ];
 }

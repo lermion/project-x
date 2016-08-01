@@ -11,17 +11,19 @@ class AdminModeratorTest extends TestCase
      *
      * @return void
      */
-    public function testIndex()
-    {
-        $this->json('GET', 'admin/moderator/')->assertRedirectedTo('admin/moderator/');
-    }
+//    public function testIndex()
+//    {
+//        $this->json('GET', 'admin/moderator/')->assertRedirectedTo('admin/moderator/');
+//    }
 
-    public function testShow()
+    public function testStore()
     {
-        $user = \App\Moderator::first();
-        if(!$user){
-            $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
-        }
-        $this->json('GET', 'admin/user/show/'.$user->id)->AssertResponseOk();
+        $data = ['email'=>'email@mail.ru',
+            'first_name'=>'12345',
+            'last_name'=>'12345',
+            'password'=>'111111',
+            'photo'=>'photo'];
+
+        $this->json('POST', 'admin/moderator/store/',$data)->AssertResponseOk();
     }
 }

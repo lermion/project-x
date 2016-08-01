@@ -170,6 +170,9 @@
             if (state !== 'group.mob-pub') {
                 vm.isMobile = false;
             }
+            if (state === 'group.files') {
+                vm.chatFiles = $state.params.chatFiles;
+            }
         });
         $scope.$on('ngDialog.opened', function (e, $dialog) {
             if ($dialog.name === "modal-edit-group") {
@@ -816,6 +819,19 @@
             return result;
         };
 
+        vm.getMonth = function (date) {
+            var newDate = moment(date).format("MMMM YYYY");
+            newDate = newDate[0].toUpperCase() + newDate.substr(1);
+            return newDate;
+        };
+
+        vm.limitToFiles = 3;
+
+        vm.loadMoreFiles = function () {
+            vm.limitToFiles += 1;
+        };
+
+
         $scope.saveCropp = function (img, cropped) {
 
             var blobFile = blobToFile(cropped);
@@ -1073,10 +1089,10 @@
                     });
             }
         };
-        $scope.sendMessage = function(messageText, roomId, files){
-        	if(messageText === "" && files === undefined || messageText === "" && files.length === 0){
-				return;
-			}
+        $scope.sendMessage = function (messageText, roomId, files) {
+            if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
+                return;
+            }
             if (files !== undefined) {
                 var imagesObj = {
                     imageName: [],
