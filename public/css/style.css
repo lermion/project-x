@@ -3893,7 +3893,7 @@ body.ngdialog-open {
 }
 .ngdialog.view-publication.ngdialog-theme-default {
 	position: fixed;
-	overflow-y: auto;
+	overflow-y: scroll;
 	overflow-x: hidden;
 }
 

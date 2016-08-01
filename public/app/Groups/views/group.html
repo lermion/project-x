@@ -1,7 +1,7 @@
 <div style="min-height: 100%;">
     <div class="user-main-content">
         <div class="user-main-content-item">
-        <!-- Content -->
+            <!-- Content -->
             <div class="group-page">
                 <div class="group-ava" ng-if="!vm.isMobile">
                     <a href="" class="ava">
@@ -11,7 +11,9 @@
                     <div class="group-likes">
                         <div class="group-info">
                             <a href="" class="publication-place">{{vm.group.name}}</a>
-                            <a href="" class="publication-place" ng-bind-html="vm.group.description | colonToSmiley"></a>
+                            <a href class="publication-place"
+                               ng-click="vm.showFullDescription = !vm.showFullDescription"
+                               ng-bind-html="vm.group.description | colonToSmiley"></a>
 
 
                             <p class="like-item">
@@ -22,7 +24,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="group-description-container1">Описание группы, если оно очень длинное при клике должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут </div>
+                <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription"
+                     ng-bind-html="vm.group.description | colonToSmiley">Описание группы, если оно очень длинное при
+                    клике должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут
+                    Описание группы, если оно очень длинное при клике должно появляться тут Описание группы, если оно
+                    очень длинное при клике должно появляться тут Описание группы, если оно очень длинное при клике
+                    должно появляться тут Описание группы, если оно очень длинное при клике должно появляться тут
+                </div>
                 <div class="group-menu" ng-if="!vm.isMobile">
                     <div class="group-menu-item">
                         <div class="counts">
@@ -76,7 +84,8 @@
                             <a class="visa" href=""></a>
                         </div>
                     </div>
-                    <div class="menu" ng-click="vm.openBottomMenu()" ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
+                    <div class="menu" ng-click="vm.openBottomMenu()"
+                         ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
                          ng-init="vm.showBottomMenu=true;">
                         <a class="drop-menu" href=""></a>
 
