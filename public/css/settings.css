@@ -6415,6 +6415,12 @@ textarea[type="text"]:focus,
     background-position: right 5px center;
     background-size: 10px;
 }
+.group-description-container1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    padding: 10px;
+ }
 @media (max-width: 720px) {
     .ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .ngdialog-content {
         width: 500px;
@@ -6478,5 +6484,8 @@ textarea[type="text"]:focus,
     }
     .group-peoples-inner-item .peoples-item__delete {
     	left: 40px;
+    }
+    .group-description-container1 {
+        font-size: .9em;
     }
 }
