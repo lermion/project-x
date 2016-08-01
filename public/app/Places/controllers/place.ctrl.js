@@ -821,7 +821,7 @@
         };
 
         vm.getMonth = function (date) {
-            var newDate = moment(date).format("MMMM");
+            var newDate = moment(date).format("MMMM YYYY");
             newDate = newDate[0].toUpperCase() + newDate.substr(1);
             return newDate;
         };
