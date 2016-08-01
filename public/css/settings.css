@@ -6397,6 +6397,7 @@ textarea[type="text"]:focus,
     align-items: center;
 }
 .popup-invite-group .popup-invite-place-people-name1 p,
+.popup-invite-group .invite-group__items ul li p,
 .popup-invite-group .invite-group__items-selected ul li p {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -6407,6 +6408,12 @@ textarea[type="text"]:focus,
     position: absolute;
     top: 28%;
     right: 0;
+}
+.ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .modal__content .invite-group__items ul li {
+    background-image: url(/images/add.png);
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 10px;
 }
 @media (max-width: 720px) {
     .ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .ngdialog-content {

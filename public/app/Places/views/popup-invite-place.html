@@ -11,9 +11,9 @@
                     <img ng-src="{{user.avatar_path}}">
                     <p>{{::user.first_name}} {{::user.last_name}}</p>
                 </div>
-                <div class="popup-invite-place-people-plus">
+                <!-- <div class="popup-invite-place-people-plus">
                     <img src="/images/add.png" alt="">
-                </div>
+                </div> -->
             </li>
             <p>Подписчики</p>
             <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
@@ -22,9 +22,9 @@
                     <img ng-src="{{user.avatar_path}}">
                     <p>{{::user.first_name}} {{::user.last_name}}</p>
                 </div>
-                <div class="popup-invite-place-people-plus">
+                <!-- <div class="popup-invite-place-people-plus">
                     <img src="/images/add.png" alt="">
-                </div>
+                </div> -->
             </li>
         </ul>
     </div>
