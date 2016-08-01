@@ -1069,7 +1069,7 @@
             }
         };
         $scope.sendMessage = function(messageText, roomId, files){
-        	if(message === "" && files === undefined || message === "" && files.length === 0){
+        	if(messageText === "" && files === undefined || messageText === "" && files.length === 0){
 				return;
 			}
             if (files !== undefined) {
