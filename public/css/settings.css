@@ -187,7 +187,8 @@
 .modal__content {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 .modal__footer {
     display: flex;
@@ -268,7 +269,7 @@
     font-family: "SFUIDisplayMedium";
 }
 .popup-invite-group .invite-group__items {
-    flex-grow: 1;
+    width: 50%;
 }
 .popup-invite-group .invite-group__items ul,
 .popup-invite-group .invite-group__items-selected ul {
@@ -276,6 +277,7 @@
     max-height: 325px;
     overflow-y: auto;
     padding: 0;
+    margin: 0;
 }
 .popup-invite-group .invite-group__items ul li,
 .popup-invite-group .invite-group__items-selected ul li {
@@ -301,7 +303,7 @@
     margin-right: 15px;
 }
 .popup-invite-group .invite-group__items-selected {
-    flex-grow: 1;
+    width: 50%;
 }
 .popup-invite-group .items-selected__item-delete {
     background: #ec6045;
@@ -6382,5 +6384,67 @@ textarea[type="text"]:focus,
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    margin-right: 15px;
+    margin-right: 10px;
+}
+.ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope {
+    overflow-y: auto;
+}
+.popup-invite-group .popup-invite-place-people-name1  {
+    width: 100%;
+}
+.popup-invite-group .popup-invite-place-people-name1 p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 65%;
+}
+.popup-invite-group .popup-invite-place-people-plus {
+    position: absolute;
+    top: 28%;
+    right: 0;
+}
+@media (max-width: 720px) {
+    .ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .ngdialog-content {
+        width: 500px;
+        margin-left: -250px;
+    }
+    .popup-invite-group .modal__title,
+    .invite-group__items ul p,
+    .invite-group__items-selected ul p,
+    .popup-invite-place-people-name1,
+    .modal__buttons a {
+        font-size: .9em;
+    }
+    .popup-invite-group .popup-invite-place-people-name1 p {
+        max-width: 62%;
+    }
+    .popup-invite-group .popup-invite-place-people-plus {
+        top: 25%;
+    }
+}
+@media (max-width: 520px) {
+    .ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .ngdialog-content {
+        width: 96%;
+        margin-left: -48%;
+        padding: 0 !important;
+    }
+    .invite-group__items ul p,
+    .popup-invite-place-people-name1,
+    .modal__buttons a {
+        font-size: .9em;
+    }
+    .popup-invite-group .modal__title,
+    .item1-add-people-title {
+        font-size: .8em;
+    }
+    .popup-invite-group .invite-group__items input[type="text"] {
+        height: 35px;
+    }
+    .popup-invite-group .item1-add-people-title {
+        line-height: 35px;
+        height: 35px;
+    }
+    .popup-invite-group .popup-invite-place-people-name1 p {
+        max-width: 52%;
+    }
 }

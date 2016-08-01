@@ -28,16 +28,6 @@ angular.module('placePeopleApp')
 			console.log(error);
 		});
 
-		$scope.logOut = function(){
-			AuthService.userLogOut().then(function(response){
-				storageService.deleteStorage();
-				$state.go('login');
-			},
-			function(err){
-				console.log(err);
-			});
-		};
-
 		$scope.closeSharePopup = function(){
 			sharePublication.close();
 		};
