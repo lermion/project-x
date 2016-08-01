@@ -2230,8 +2230,8 @@ spam-item {
 	z-index: 1;
 	left: 3px;
 	background-color: #333;
-    text-align: center;
-    line-height: 25px;
+	text-align: center;
+	line-height: 25px;
 }
 .publication .new-add .inner .close:before,
 .add-comment .new-add .inner .close:before {
@@ -3972,21 +3972,21 @@ body.ngdialog-open {
 }
 .group-chat-inner .my-messege {
 	display: flex;
-    align-items: flex-end;
-    padding-right: 10px;
-    box-sizing: border-box;
-    padding-bottom: 15px;
-    justify-content: flex-end;
+	align-items: flex-end;
+	padding-right: 10px;
+	box-sizing: border-box;
+	padding-bottom: 15px;
+	justify-content: flex-end;
 }
 .group-chat-inner .my-messege .user-ava {
 	display: flex;
-    order: 2;
+	order: 2;
 }
 .group-chat-inner .my-messege .user-ava a {
 	width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
 }
 .group-chat-inner .my-messege .user-ava a img {
 	width: 100%;
@@ -4026,7 +4026,7 @@ body.ngdialog-open {
 	font-family: "SFUIDisplayLight";
 	margin: 0;
 	line-height: 16px;
-	    word-break: break-word;
+		word-break: break-word;
 }
 .messege .messege-text p {
 	margin: 0;
@@ -4169,22 +4169,22 @@ body.ngdialog-open {
 	display: block;
 }
 .group-comment  .add-objects div .add label {
- 	display: block;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 15px;
-    line-height: 35px;
-    color: #333;
-    cursor: pointer;
-    background-color: #fff;
-    text-decoration: none;
-    font-size: 14.6px;
-    font-family: "SFUIDisplayMedium";
-    z-index: 1000;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 15px;
+	line-height: 35px;
+	color: #333;
+	cursor: pointer;
+	background-color: #fff;
+	text-decoration: none;
+	font-size: 14.6px;
+	font-family: "SFUIDisplayMedium";
+	z-index: 1000;
  }
 .group-comment  .add-objects div .add label:hover {
 	color: rgb(70, 120, 177);
-    background-color: rgb(245, 245, 245);
+	background-color: rgb(245, 245, 245);
  }
 .group-comment  .add-objects div span.add {
 	width: 40px;
@@ -4440,4 +4440,8 @@ body.public.ngdialog-open .user-main-content {
 }
 input#chat-add-file-file{
 	display: none;
+}
+.stop-scrolling{
+  height: 100%;
+  overflow: hidden;
 }
