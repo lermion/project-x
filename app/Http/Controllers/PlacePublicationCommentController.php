@@ -24,7 +24,7 @@ class PlacePublicationCommentController extends Controller
             ) {
                 try {
                     $this->validate($request, [
-                        'text' => 'required|min:1',
+                        'text' => 'min:1',
                         'videos' => 'array',
                         'images' => 'array'
                     ]);
