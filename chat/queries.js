@@ -133,8 +133,10 @@ Queries.prototype.getUserDialogue = function(data){
 		data.offset = 0;
 		data.limit = 1000;
 	}
-	var sql = connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
-		var response = [];
+	connection.query("SELECT message_id FROM delete_messages WHERE user_id = " + data.members[0] + " AND room_id = " + data.room_id + "", function(err, results){
+		if(results.length > 0){
+			connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " AND user_rooms_messages.message_id > " + results[0].message_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
+				var response = [];
 		if(error){
 			console.log("error to get user dialogue: " + error.stack);
 			deferred.reject(error);
@@ -166,6 +168,45 @@ Queries.prototype.getUserDialogue = function(data){
 						console.log("error to set old message: " + error.stack);
 					}
 				});
+			});
+		}
+			});
+		}else{
+			connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
+				var response = [];
+		if(error){
+			console.log("error to get user dialogue: " + error.stack);
+			deferred.reject(error);
+			return;
+		}else{
+			Promise.all(result.map(function(item){
+				var promise = new Promise(function(resolve, reject){
+					connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + item.id + "'", function(error, images){
+						resolve(images);
+					});
+				});
+				return promise.then(function(result){
+					response.push(result);
+				});
+			})).then(function(){
+				for(var i = 0; i < result.length; i++){
+					result[i].images = response[i];
+				}
+				var res = {
+					room_id: data.room_id,
+					messages: result
+				};
+				deferred.resolve(res);
+			});
+			var oldMessageArray = [];
+			result.forEach(function(value){
+				connection.query("UPDATE `messages` SET `is_new`= 0 WHERE `id` = ?", [value.id], function(err, results) {
+					if(error){
+						console.log("error to set old message: " + error.stack);
+					}
+				});
+			});
+		}
 			});
 		}
 	});
