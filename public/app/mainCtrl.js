@@ -1,5 +1,5 @@
 angular.module('placePeopleApp')
-	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'storageService', 'AuthService', '$location', function ($rootScope, $scope, $state, groupsService, placesService, storageService, AuthService, $location) {
+	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'storageService', 'AuthService', '$location', 'socket', function ($rootScope, $scope, $state, groupsService, placesService, storageService, AuthService, $location, socket) {
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
 				storageService.deleteStorage();
@@ -9,6 +9,15 @@ angular.module('placePeopleApp')
 				console.log(error);
 			});
 		};
+		socket.on("get user rooms", function(response){
+			var chatRoomsArray = [];
+			for(var i = 0; i < response.length; i++){
+				if(response[i].countMessages > 0){
+					chatRoomsArray.push(response[i].countMessages);
+				}
+			}
+			$rootScope.countChatMessages = chatRoomsArray.length;
+		});
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
