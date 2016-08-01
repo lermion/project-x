@@ -18,7 +18,7 @@ class MailTest extends TestCase
             $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
         }
         $this->be($user);
-        $this->json('POST', 'mail/create', ['name' => 'name','email'=>'email@email.com','text' => 'text'])
+        $this->json('POST', 'admin/mail/create', ['name' => 'name','email'=>'email@email.com','text' => 'text'])
             ->seeJson([
                 'status' => true,
             ]);
@@ -27,36 +27,36 @@ class MailTest extends TestCase
 
     public function testMail()
     {
-        $this->json('GET', 'mail')->AssertResponseOk();
+        $this->json('GET', 'admin/mail')->AssertResponseOk();
     }
 
     public function testMailReview()
     {
-        $this->json('GET', 'mail/get_review')->AssertResponseOk();
+        $this->json('GET', 'admin/mail/get_review')->AssertResponseOk();
     }
 
     public function testMailClosed()
     {
-        $this->json('GET', 'mail/get_closed')->AssertResponseOk();
+        $this->json('GET', 'admin/mail/get_closed')->AssertResponseOk();
     }
 
     public function testDestroyMail()
     {
         $mail = \App\UserMail::create(['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
-        $this->json('GET', 'mail/destroy/'.$mail->id)->assertRedirectedTo('/mail');
+        $this->json('GET', 'admin/mail/destroy/'.$mail->id)->assertRedirectedTo('admin/mail/');
     }
 
     public function testMailStatusReview()
     {
         $mail = \App\UserMail::create(['name' => 'test', 'email' => 'email@email.com', 'text' => 'test']);
-        $this->json('GET', 'mail/status_review/' . $mail->id)->seeJson(['status' => true]);
+        $this->json('GET', 'admin/mail/status_review/' . $mail->id)->seeJson(['status' => true]);
         $this->seeInDatabase('user_mails', ['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
     }
 
     public function testMailStatusClosed()
     {
         $mail = \App\UserMail::create(['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
-        $this->json('GET', 'mail/status_closed/'.$mail->id)->seeJson(['status' => true]);
+        $this->json('GET', 'admin/mail/status_closed/'.$mail->id)->seeJson(['status' => true]);
         $this->seeInDatabase('user_mails', ['name'=>'test', 'email'=>'email@email.com', 'text'=>'test']);
     }
 }

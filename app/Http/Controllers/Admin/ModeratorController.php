@@ -44,7 +44,6 @@ class ModeratorController extends Controller
             return view('admin.moderator.create',['error'=>'Email уже используется другим модератором']);
         }
         $data = $request->all();
-        //dd($data);
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $path = $this->getAvatarPath($photo);
@@ -102,9 +101,9 @@ class ModeratorController extends Controller
                     'moderator_id'=>$moderator['id']
                 ]);
         }
-
-        return redirect()->action('Admin\ModeratorController@index');
-
+        $result = [
+            "status" => true];
+        return response()->json($result);
     }
 
     private function getAvatarPath($photo)
