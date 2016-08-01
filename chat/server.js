@@ -177,7 +177,7 @@ io.sockets.on('connection', function(socket){
 			if(imagesPath !== undefined && imagesPath.length >= 1){
 				queries.saveFiles(imagesPath, response.insertId).then(function(response){
 					queries.getLastMessage(data).then(function(response){
-						io.sockets.in(socket.room).emit('updatechat', response);
+						io.sockets.in(data.room_id).emit('updatechat', response);
 						callback();
 					},
 					function(error){
