@@ -446,9 +446,6 @@ angular.module('placePeopleApp')
 				}, 100);
 			};
 			socket.on('updatechat', function(data){
-				if($scope.Model.opponent.room_id === false){
-					$scope.Model.opponent.room_id = data.roomId;
-				}
 				if(data.messages){
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
@@ -470,13 +467,11 @@ angular.module('placePeopleApp')
 								return chat.last_message_created_at = data.created_at;
 							}
 						};
-						var i = 1;
 						$scope.getMessagesCount = function(chat){
 							if(chat.room_id === data.roomId){
-								return chat.countMessages = i;
+								return chat.countMessages = 1;
 							}
 						};
-						i++;
 					}
 				}
 			});
