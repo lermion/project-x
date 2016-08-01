@@ -238,6 +238,7 @@
                         vm.isPlaceAdded = true;
                         vm.placeId = data.place.id;
                         data.place.is_new_place = true;
+                        data.place.is_admin = true;
                         vm.places.push(data.place);
                     }
                 });
