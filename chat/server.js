@@ -190,18 +190,9 @@ io.sockets.on('connection', function(socket){
 			}else{
 				queries.getLastMessage(data).then(function(response){
 					if(socket.room === undefined){
-						queries.getUserRooms(data).then(function(response){
-							var roomsArray = [];
-							response.forEach(function(value){
-								roomsArray.push(value.room_id);
-								GLOBAL.rooms = roomsArray;
-								socket.room = GLOBAL.rooms;
-								socket.join(value.room_id);
-							});
-						},
-						function(error){
-							console.log(error);
-						});
+						socket.room = [];
+						socket.room[0] = data.room_id;
+						socket.join(data.room_id);
 					}
 					io.sockets.in(data.room_id).emit('updatechat', response);
 					callback();

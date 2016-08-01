@@ -211,10 +211,13 @@ angular.module('placePeopleApp')
 						}
 					}
 				}
+				var members = [];
+				members[0] = $scope.loggedUserId;
 				var data = {
 					room_id: roomId,
 					offset: $scope.counter,
-					limit: 10
+					limit: 10,
+					members: members
 				};
 				var deferred = $q.defer();
 				if(!$scope.status.loading && $scope.Model.Chat !== undefined && $scope.Model.Chat.length >= 10){
@@ -392,6 +395,9 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
+				if(message === "" && files === undefined || message === "" && files.length === 0){
+					return;
+				}
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
