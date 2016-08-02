@@ -40,7 +40,7 @@
         <h3 class="b">Сегодня: 48 чел. За неделю: 756 чел. За месяц: 7 569 чел. За год: 250 783 чел.</h3>
         <p><img src="/img/pr/grafik.png" height="240" /> <br>x:Время; y:Деньги;</p>
     </div>
-
+    <br><br><br><br><br><br>
     <div class="row">
         <h1>Страница конкретного пользователя</h1>
     </div>
@@ -67,7 +67,7 @@
                 <th>Сущность</th>
                 <th>Текст публикации, описание группы/места</th>
                 <th>Название группы/места</th>
-                <th class="admin-user-contant-table-img">Картинки</th>
+                <th class="admin-user-content-table-col-img">Картинки</th>
                 <th>Видео</th>
                 <th>Время создания</th>
                 <!-- <th>Действия</th> -->
@@ -76,10 +76,10 @@
             <tbody>
               <tr>
                 <td><a href="">1</a></td>
-                <td>Публикация1</td>
+                <td>Публикация</td>
                 <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
                 <td></td>
-                <td class="admin-user-contant-table-img">
+                <td class="admin-user-content-table-col-img">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
@@ -94,7 +94,7 @@
                 <td>Место</td>
                 <td>Описание нового места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места </td>
                 <td>Название нового места</td>
-                <td class="admin-user-contant-table-img">
+                <td class="admin-user-content-table-col-img">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
@@ -109,7 +109,7 @@
                 <td>Группа</td>
                 <td>Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы </td>
                 <td>Название новой группы</td>
-                <td class="admin-user-contant-table-img">
+                <td class="admin-user-content-table-col-img">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
@@ -123,11 +123,152 @@
         </table>
     </div>
 
+       <br><br><br><br><br>
+
+    <div class="row">
+        <h1>Контакты пользователя</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 admin-users-select">
+            <select name="" id="">
+                <option value="">Контакты</option>
+                <option value="">Подписки</option>
+                <option value="">Подписчики</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Аватар</th>
+                <th>Имя</th>
+                <th>Пол</th>
+                <th>Возраст</th>
+                <th>Дата регистрации</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td class="admin-user-contacts-ava">
+                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                </td>
+                <td>Елена Новикова</td>
+                <td>Женский</td>
+                <td>35 лет</td>
+                <td>02.08.2016</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row admin-user-contacts-pagination">
+        <ul class="pagination">
+          <li class="disabled"><a href="">&laquo;</a></li>
+          <li class="active"><a href="">1</a></li>
+          <li><a href="">2</a></li>
+          <li><a href="">3</a></li>
+          <li><a href="">4</a></li>
+          <li><a href="">5</a></li>
+          <li><a href="">&raquo;</a></li>
+        </ul>
+    </div>
 
 
 
 
-    <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br>
 
 
 
