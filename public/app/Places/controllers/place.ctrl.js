@@ -6,10 +6,10 @@
 		.controller('PlaceCtrl', PlaceCtrl);
 
 	PlaceCtrl.$inject = ['$q', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
-		'$http', '$window', 'Upload', 'amMoment', 'socket'];
+		'$http', '$window', 'Upload', 'amMoment', 'socket', '$location'];
 
 	function PlaceCtrl($q, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
-					   $http, $window, Upload, amMoment, socket) {
+					   $http, $window, Upload, amMoment, socket, $location) {
 
 		var vm = this;
 		var storage = storageService.getStorage();
