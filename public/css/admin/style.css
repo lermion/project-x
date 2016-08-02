@@ -124,3 +124,12 @@
 		min-height: 70px;
 	}
 }
+.admin-user-page-ava {
+	width: 250px;
+	height: 250px;
+}
+.admin-user-content-table img {
+	height: 70px;
+	width: 70px;
+	margin-bottom: 3px;
+}
