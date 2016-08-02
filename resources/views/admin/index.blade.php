@@ -30,44 +30,6 @@
         TableManageButtons.init();
     </script>
 
-
-    <div style="width:100%; height:auto; margin-bottom:20px;">
-        <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
-            <tbody>
-            <tr>
-                <td><div class="daosn2 jsSet daosn4" id="setObshee" param="csetObshee">Общие настройки</div></td>
-                <!-- <td><div class="daosn2 jsSet" id="setOp" param="csetOp">Оповещения</div></td> -->
-                <td><div class="daosn2 jsSet" id="setOgr" param="csetOgr" style="border-right:1px #999 solid;">Ограничения</div></td>
-                <td width="100%"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="x_content">
-        <div class="jscSet" id="csetObshee" style="display: block;">
-        
-        <h3>Сквозные данные</h3>
-        
-        <p>Контакты:
-        <textarea style="width:400px;" rows="5">ООО "Интерфинити"
-+7 (495) 120-33-78
-interfiniti.ltd@gmail.com</textarea></p>
-
-        <br>
-        <p>Copyright
-        <input type="text" value="interfiniti"></p>
-        
-        <br>
-        <p>Письмо админу
-        <input type="text" value="xmugutdin@gmail.com"></p>
-        
-        <br><br>
-        <p><button type="button" class="btn btn-primary">Сохранить</button></p>
-    </div>
-    </div>
-
-
-
     <div class="x_content">
         <h3>Финансы</h3>
         <h3 class="b">Сегодня: 3000 руб. За неделю: 27 000 руб. За месяц: 170 000 руб. За год: 1000 500 руб.</h3>
@@ -78,4 +40,97 @@ interfiniti.ltd@gmail.com</textarea></p>
         <h3 class="b">Сегодня: 48 чел. За неделю: 756 чел. За месяц: 7 569 чел. За год: 250 783 чел.</h3>
         <p><img src="/img/pr/grafik.png" height="240" /> <br>x:Время; y:Деньги;</p>
     </div>
+
+    <div class="row">
+        <h1>Страница конкретного пользователя</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <img class="admin-user-page-ava img-responsive" src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+        </div>
+        <div class="col-md-6">
+            <h2>Елена Новикова</h2>
+            <p>Пол: <span>Женский</span></p>
+            <p>Возраст: <span>20 лет</span></p>
+            <p>Дата регистрации: <span>02.08.2016</span></p>
+            <p>Статус: <span>Солнце, море и вода </span></p>
+        </div>
+    </div>
+    <div class="row">
+        <h1>Контент пользователя</h1>
+    </div>
+    <div class="row admin-user-content-table">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Сущность</th>
+                <th>Текст публикации, описание группы/места</th>
+                <th>Название группы/места</th>
+                <th class="admin-user-contant-table-img">Картинки</th>
+                <th>Видео</th>
+                <th>Время создания</th>
+                <!-- <th>Действия</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="">1</a></td>
+                <td>Публикация1</td>
+                <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
+                <td></td>
+                <td class="admin-user-contant-table-img">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                </td>
+                <td>видео</td>
+                <td>02.08.2016</td>
+                <!-- <td>USA</td> -->
+              </tr>
+              <tr>
+                <td><a href="">2</a></td>
+                <td>Место</td>
+                <td>Описание нового места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места </td>
+                <td>Название нового места</td>
+                <td class="admin-user-contant-table-img">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                </td>
+                <td>видео</td>
+                <td>02.08.2016</td>
+                <!-- <td>USA</td> -->
+              </tr>
+              <tr>
+                <td><a href="">3</a></td>
+                <td>Группа</td>
+                <td>Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы </td>
+                <td>Название новой группы</td>
+                <td class="admin-user-contant-table-img">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                </td>
+                <td>видео</td>
+                <td>02.08.2016</td>
+                <!-- <td>USA</td> -->
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+    <br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
 @stop

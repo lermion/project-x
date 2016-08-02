@@ -124,3 +124,19 @@
 		min-height: 70px;
 	}
 }
+.admin-user-page-ava {
+	width: 250px;
+	height: 250px;
+}
+.admin-user-content-table img {
+	height: 70px;
+	width: 70px;
+	margin-bottom: 3px;
+}
+.admin-user-content-table table thead th {
+	vertical-align: middle;
+}
+.admin-user-contant-table-img {
+	width: 20%;
+	text-align: center;
+}

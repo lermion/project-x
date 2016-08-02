@@ -39,7 +39,7 @@
 	<div ng-if="groupsChat()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Групповые чаты</div>
 		<div ng-repeat="groupChat in groupsChatArr" ng-if="groupChat.is_group" class="share-publication-search-data-item">
-			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
@@ -53,7 +53,7 @@
 	<div ng-if="showGroups()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Группы</div>
 		<div ng-repeat="group in groups" class="share-publication-search-data-item">
-			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(group, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
@@ -67,7 +67,7 @@
 	<div ng-if="showPlaces()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Места</div>
 		<div ng-repeat="place in places" class="share-publication-search-data-item">
-			<span><input class="share-publication-checkbox" type="checkbox"></span>
+			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(place, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="place({placeName: place.url_name, placeId: place.id})" href="javascript:void(0);">
@@ -80,6 +80,6 @@
 	</div>
 	<div class="share-publication-send-btn">
 		<div ng-click="closeSharePopup()" class="share-publication-send-btn-cancel">Отменить</div>
-		<div ng-click="sendSharePublication()" class="share-publication-send-btn-send">Отправить</div>
+		<div ng-click="sendSharePublication(ngDialogData.pubId)" class="share-publication-send-btn-send">Отправить</div>
 	</div>
 </div>

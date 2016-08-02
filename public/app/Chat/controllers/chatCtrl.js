@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload', '$q', '$timeout',
+		'PublicationService', 'Upload', '$q', '$timeout', '$location',
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload, $q, $timeout){
+			PublicationService, Upload, $q, $timeout, $location){
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
@@ -620,9 +620,9 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.checkMessageType = function(message){
-				var regExp = /^http:\/\/pp.dev\/#\/(\w+)\/pub(lication)?\/(\d+)$/;
-				var match = regExp.exec(message.text);
-				if (match) {
+				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
+				var match = (new RegExp(regExp)).exec(message.text);
+				if(match){
 					message.type = 'pub';
 					message.pub = {};
 					message.pub.username = match[1];					
