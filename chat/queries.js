@@ -252,6 +252,25 @@ Queries.prototype.getLastMessage = function(data){
 			deferred.reject(error);
 			return;
 		}else{
+			var lastMessageId = result[0].id;
+			var noticeObj = {
+				user_id: data.userId,
+				room_id: data.room_id,
+				message_id: lastMessageId,
+				created_at: new Date(),
+				updated_at: new Date()
+			};
+			connection.query("SELECT id FROM chat_notice_messages WHERE user_id = '" + data.userId + "' AND room_id = " + data.room_id + "", function(error, result){
+				if(result.length === 0){
+					connection.query("INSERT INTO chat_notice_messages SET ?", noticeObj, function(error, result){
+						
+					});
+				}else{
+					connection.query("UPDATE chat_notice_messages SET message_id = " + lastMessageId + " WHERE id = " + result[0].id + "", function(error, result){
+						
+					});
+				}
+			});
 			connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + result[0].id + "'", function(error, images){
 				result[0].images = images;
 				result[0].roomId = data.room_id;
