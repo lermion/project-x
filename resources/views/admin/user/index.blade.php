@@ -64,7 +64,7 @@
                 <td>
                     <div class="daosn2" style="border-right:1px #999 solid;">Срочные <b>5</b></div>
                 </td> -->
-                <td width="100%"></td>
+                <!-- <td width="100%"></td> -->
             </tr>
         </table>
     </div>

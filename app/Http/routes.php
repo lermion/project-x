@@ -124,6 +124,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('edit', 'Moderator\IndexController@edit');
             Route::post('update', 'Moderator\IndexController@update');
             Route::get('logout', 'Moderator\AuthController@logout');
+            Route::get('comments', 'Moderator\ModerateController@comments');
+            Route::get('delete_comment/{id}', 'Moderator\ModerateController@delete_comment');
+            Route::get('complaints', 'Moderator\ModerateController@complaints');
+            Route::get('delete_complaint/{id}', 'Moderator\ModerateController@delete_complaint');
             Route::group(['prefix' => 'moderate'], function () {
                 Route::get('/', 'Moderator\ModerateController@index');
                 Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
@@ -144,6 +148,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('show/{id}', 'PublicationController@show')->middleware(['auth']);
         Route::get('like/{id}', 'PublicationController@like')->middleware(['auth']);
         Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
+        Route::post('complaint', 'PublicationController@complaint')->middleware(['auth']);
         Route::group(['prefix' => 'comment'], function () {
             Route::get('/{id}', 'PublicationCommentController@index');
             Route::post('store/{id}', 'PublicationCommentController@store')->middleware(['auth']);
@@ -217,13 +222,13 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/show/sdv\" method=\"get\">
-            <input type='text' name='name' value='test'><br>
-            <input type='text' name='country_id' value='1'><br>
-            <input type='text' name='code' value='00'><br>
-            <input type='text' name='address'value='1'><br>
-            <input type='text' name='id' value='282'><br>
-            <input type='text' name='coordinates_y' value='1'><br>
+        echo "<form action=\"http://pp.dev/moderator/complaints\" method=\"get\">
+            <input type='text' name='publication_id' value='1'><br>
+            <input type='text' name='complaint_category_id[]' value=1><br>
+            <input type='text' name='code'><br>
+            <input type='text' name='address'><br>
+            <input type='text' name='id'><br>
+            <input type='text' name='coordinates_y'><br>
             <input type='text' name='type_place_id'><br>
 
             <input type=\"submit\">

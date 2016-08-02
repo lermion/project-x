@@ -128,8 +128,26 @@
 	width: 250px;
 	height: 250px;
 }
-.admin-user-content-table img {
+.admin-user-content-table table {
+	width: 100%;
+}
+.admin-user-content-table img,
+.admin-user-contacts-ava img {
 	height: 70px;
 	width: 70px;
 	margin-bottom: 3px;
+}
+.admin-user-content-table table thead th {
+	vertical-align: middle;
+}
+.admin-user-content-table-col-img {
+	width: 20%;
+	text-align: center;
+}
+.admin-users-select select {
+	padding: 5px;
+	margin-bottom: 10px;
+}
+.admin-user-contacts-pagination {
+	text-align: center;
 }
