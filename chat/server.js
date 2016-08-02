@@ -39,7 +39,7 @@ io.sockets.on('connection', function(socket){
 			// }
 			if(response.length >= 1){
 				if(data.share){
-					callback(response);
+					callback(response[0]);
 				}else{
 					queries.changeRoom(data, currentRoom).then(function(response){
 						queries.getUserDialogue(data).then(function(response){

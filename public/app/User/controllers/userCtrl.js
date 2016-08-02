@@ -50,18 +50,25 @@ angular.module('placePeopleApp')
 								share: true
 							};
 							socket.emit('create room', data, function(response){
-								console.log(response);
-								if(response.length === membersLength.length){
-									response.forEach(function(value){
-										if(!value.is_group){
+								if(Object.prototype.toString.call(response) === '[object Array]'){
+									console.log(response);
+    								if(response.length === membersLength.length){
+										response.forEach(function(value){
 											var data = {
 												userId: $scope.loggedUserId,
 												room_id: value.room_id,
 												message: $location.absUrl() + "/publication/" + pubId
 											};
 											socket.emit('send message', data);
-										}
-									});
+										});
+									}
+								}else{
+									var data = {
+										userId: $scope.loggedUserId,
+										room_id: response.room_id,
+										message: $location.absUrl() + "/publication/" + pubId
+									};
+									socket.emit('send message', data);
 								}
 							});
 						}else{
