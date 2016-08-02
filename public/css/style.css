@@ -3912,6 +3912,7 @@ body.ngdialog-open {
 	padding: 5px 10px;
 	overflow-x: auto;
 	max-height: 385px;
+	min-height: 150px;
 	height: auto;
 }
 .group-chat .date-messeges {
@@ -4050,7 +4051,7 @@ body.ngdialog-open {
 .group-chat .user-messege .pictures {
 	height: 100px;
 	margin: 10px 0;
-	overflow: hidden;
+	overflow: auto;
 	width: 100%;
 	display: flex;
 	align-items: center;
