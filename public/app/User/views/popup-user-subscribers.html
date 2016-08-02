@@ -1,17 +1,23 @@
 <div class="contacts-off-container">
-	<a href="javascript:void(0);" ng-click="returnToBack()" class="prev"></a>
-	<div class="subscriber" ng-repeat="subscriber in subscribers">
-		<div class="subscriber-item">
-			<div class="user-ava">
-				<a class="ava" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">
-					<img ng-if="subscriber.avatar_path" ng-src="{{subscriber.avatar_path}}" alt="">
-				</a>
-			</div>
-			<div class="user-info">
-				<a class="user-name" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">{{subscriber.first_name}} {{subscriber.last_name}}</a>
-				<p class="status-user">{{subscriber.status}}</p>
-			</div>
-		</div>
-		<a href="javascript:void(0);" class="read" ng-click="sign(subscriber)" ng-hide="loggedUserId == subscriber.id">{{subscriber.is_sub ? 'Отписаться' : 'Подписаться'}}</a> 
-	</div>
+    <a href="javascript:void(0);" ng-click="returnToBack()" class="prev"></a>
+
+    <div class="subscriber" ng-repeat="subscriber in subscribers">
+        <div class="subscriber-item">
+            <div class="user-ava">
+                <a class="ava" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">
+                    <img ng-if="subscriber.avatar_path" ng-src="{{subscriber.avatar_path}}" alt="">
+                </a>
+            </div>
+            <div class="user-info">
+                <a class="user-name" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">{{subscriber.first_name}}
+                    {{subscriber.last_name}}</a>
+
+                <p class="status-user">{{subscriber.status}}</p>
+            </div>
+        </div>
+        <a href="javascript:void(0);" class="read"
+           ng-if="!myProfile"
+           ng-click="subscribe(subscriber)"
+           ng-hide="loggedUserId == subscriber.id">{{subscriber.is_sub ? 'Отписаться' : 'Подписаться'}}</a>
+    </div>
 </div>

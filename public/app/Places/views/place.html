@@ -48,7 +48,7 @@
                             </a>
                             <a ui-sref="place.files()" ui-sref-active="active" class="counter">
                                 <p>Файлы</p>
-                                <span>858</span>
+                                <span>{{vm.place.count_chat_files}}</span>
                             </a>
 
                             <div class="user-menu" ng-if="vm.place.is_admin"
