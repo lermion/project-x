@@ -67,7 +67,7 @@
                 <th>Сущность</th>
                 <th>Текст публикации, описание группы/места</th>
                 <th>Название группы/места</th>
-                <th>Картинки</th>
+                <th class="admin-user-contant-table-img">Картинки</th>
                 <th>Видео</th>
                 <th>Время создания</th>
                 <!-- <th>Действия</th> -->
@@ -75,11 +75,11 @@
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
+                <td><a href="">1</a></td>
                 <td>Публикация1</td>
-                <td>Описание публикации Описание публикации Описание публикации Описание публикации Описание публикации Описание публикации Описание публикации Описание публикации </td>
+                <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
                 <td></td>
-                <td>
+                <td class="admin-user-contant-table-img">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
@@ -90,11 +90,11 @@
                 <!-- <td>USA</td> -->
               </tr>
               <tr>
-                <td>2</td>
+                <td><a href="">2</a></td>
                 <td>Место</td>
                 <td>Описание нового места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места </td>
                 <td>Название нового места</td>
-                <td>
+                <td class="admin-user-contant-table-img">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
@@ -105,11 +105,11 @@
                 <!-- <td>USA</td> -->
               </tr>
               <tr>
-                <td>2</td>
+                <td><a href="">3</a></td>
                 <td>Группа</td>
                 <td>Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы Описание новой группы </td>
                 <td>Название новой группы</td>
-                <td>
+                <td class="admin-user-contant-table-img">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
