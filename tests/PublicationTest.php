@@ -92,4 +92,17 @@ class PublicationTest extends TestCase
         $publication = \App\Publication::create(['user_id' => $user->id]);
         $this->json('GET', 'publication/show/' . $publication->id)->seeJson();
     }
+
+    public function testComplaint()
+    {
+        $user1 = \App\User::create(['phone' => '88888888888', 'password' => bcrypt('123'), 'country_id' => 1]);
+        $user2 = \App\User::create(['phone' => '99999999999', 'password' => bcrypt('123'), 'country_id' => 1]);
+        $this->be($user1);
+        $publication = \App\Publication::create(['user_id'=> $user2->id]);
+        $this->json('POST', 'publication/complaint', ['publication_id' =>$publication->id,
+            'complaint_category_id'=>array(1,3)])
+            ->seeJson([
+                'status' => true,
+            ]);
+    }
 }
