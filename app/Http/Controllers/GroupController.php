@@ -134,6 +134,7 @@ class GroupController extends Controller
             $group->count_chat_message = UserRoomsMessage::where('room_id',$group->room_id)->count();
             $group->count_users = $group->users()->count();
             $group->count_publications = $group->publications()->count();
+            $group->count_chat_files = $group->count_chat_files($group->room_id);
             $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'users.login', 'group_users.is_admin')
             ->where('group_users.group_id',$group->id)->get();
             if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
