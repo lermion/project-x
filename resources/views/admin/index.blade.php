@@ -45,25 +45,33 @@
     </div>
     <div class="x_content">
         <div class="jscSet" id="csetObshee" style="display: block;">
-        
-        <h3>Сквозные данные</h3>
-        
-        <p>Контакты:
-        <textarea style="width:400px;" rows="5">ООО "Интерфинити"
-+7 (495) 120-33-78
-interfiniti.ltd@gmail.com</textarea></p>
+            
+            <h3>Сквозные данные</h3>
+            
+            <p>Контакты:
+            <textarea style="width:400px;" rows="5">ООО "Интерфинити"
+    +7 (495) 120-33-78
+    interfiniti.ltd@gmail.com</textarea></p>
 
-        <br>
-        <p>Copyright
-        <input type="text" value="interfiniti"></p>
-        
-        <br>
-        <p>Письмо админу
-        <input type="text" value="xmugutdin@gmail.com"></p>
-        
-        <br><br>
-        <p><button type="button" class="btn btn-primary">Сохранить</button></p>
+            <br>
+            <p>Copyright
+            <input type="text" value="interfiniti"></p>
+            
+            <br>
+            <p>Письмо админу
+            <input type="text" value="xmugutdin@gmail.com"></p>
+            
+            <br><br>
+            <p><button type="button" class="btn btn-primary">Сохранить</button></p>
+        </div>
     </div>
+
+    <div class="x_content">
+        <div class="jscSet" id="csetOgr" style="display: block;">
+            <p>Пользователь за <input type="text" class="miniText" value="60"> мин. может написать не более <input type="text" class="miniText" value="50"> новым юзерам.</p>
+            <p>Пользователь не загрузивший свое фото не может просматривать фото других пользователей <img src="img/pr/ioscheck.png" width="40"></p>
+            <p><button type="button" class="btn btn-primary">Сохранить</button></p>
+        </div>
     </div>
 
 
