@@ -1613,8 +1613,8 @@ div.my_profilll.photo-list div:last-child {
     height: 30px;
 }
 .avatar__card {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 /*----------------------
      People
@@ -4118,11 +4118,20 @@ span.users-today-time-time.early {
 }
 .popup-group-chat .add-ava {
     width: 90px;
-    height: 85px;
+    height: 90px;
     background-color: #d7dade;
     border-radius: 3px;
     position: relative;
     margin-bottom: 0;
+    overflow: hidden;
+    background-image: url(/images/plus_group.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.popup-group-chat .add-ava img {
+    width: 100%;
+    height: 100%;
 }
 .popup-group-chat .new_group {
     font-size: 14.6px;
@@ -5573,6 +5582,7 @@ input.cmn-toggle-round:checked + label:after {
     background-size: 30%;
     background-repeat: no-repeat;
     background-position: center;
+    overflow: hidden;
 }
 @media (max-width: 520px){
 	.group-publication .photo.place-photo1 {
