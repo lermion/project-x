@@ -51,8 +51,7 @@ angular.module('placePeopleApp')
 							};
 							socket.emit('create room', data, function(response){
 								if(Object.prototype.toString.call(response) === '[object Array]'){
-									console.log(response);
-    								if(response.length === membersLength.length){
+									if(response.length === membersLength.length){
 										response.forEach(function(value){
 											var data = {
 												userId: $scope.loggedUserId,
@@ -68,7 +67,16 @@ angular.module('placePeopleApp')
 										room_id: response.room_id,
 										message: $location.absUrl() + "/publication/" + pubId
 									};
-									socket.emit('send message', data);
+									socket.emit('send message', data, function(){
+										var popupNotification = ngDialog.open({
+											template: '../app/User/views/popup-notification.html',
+											className: 'popup-delete-group ngdialog-theme-default',
+											scope: $scope
+										});
+										setTimeout(function () {
+											popupNotification.close();
+										}, 2000);
+									});
 								}
 							});
 						}else{
