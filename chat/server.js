@@ -13,7 +13,7 @@ GLOBAL.rooms = [];
 GLOBAL.ABSPATH = __dirname;
 server.listen(config.port);
 io.sockets.on('connection', function(socket){
-	socket.on('create room', function(data){
+	socket.on('create room', function(data, callback){
 		queries.createRoom(data).then(function(response){
 			// if(socket.room !== undefined && socket.room.length !== undefined){
 			// 	for(var i = 0; i < socket.room.length; i++){
@@ -38,17 +38,21 @@ io.sockets.on('connection', function(socket){
 			// 	socket.emit("switchRoom", data.room_id);
 			// }
 			if(response.length >= 1){
-				queries.changeRoom(data, currentRoom).then(function(response){
-					queries.getUserDialogue(data).then(function(response){
-						socket.emit('updatechat', response);
+				if(data.share){
+					callback(response[0]);
+				}else{
+					queries.changeRoom(data, currentRoom).then(function(response){
+						queries.getUserDialogue(data).then(function(response){
+							socket.emit('updatechat', response);
+						},
+						function(error){
+							console.log(error);
+						});
 					},
 					function(error){
 						console.log(error);
 					});
-				},
-				function(error){
-					console.log(error);
-				});
+				}
 			}else{
 				queries.getUsers(data).then(function(response){
 					users.userNameFrom = response[0].first_name;
@@ -95,6 +99,10 @@ io.sockets.on('connection', function(socket){
 							console.log(error);
 						});
 						queries.getUserRooms(data).then(function(response){
+							var shareResponse = response.filter(function( obj ) {
+    							return obj.is_group !== 1;
+							});
+							callback(shareResponse);
 							response[response.length - 1].isNew = true;
 							//var socketId = usersId[response[0].id];
 							//io.sockets.connected[socketId].emit("get user rooms", response);

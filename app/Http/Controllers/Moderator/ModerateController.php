@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Moderator;
 
+use App\Comment;
+use App\ComplaintPublication;
+use App\ComplaintComment;
 use App\Publication;
 use Illuminate\Http\Request;
 
@@ -111,5 +114,45 @@ class ModerateController extends Controller
         $publication->is_topic = true;
         $publication->save();
         return redirect()->action('Moderator\ModerateController@index');
+    }
+
+    public function comments(){
+        $comments = Comment::select('publications.text as publications_text','comments.text','users.login')
+            ->join('publication_comments','publication_comments.comment_id','=', 'comments.id')
+            ->join('users','comments.user_id','=','users.id')
+            ->join('publications','publication_comments.publication_id','=','publications.id')
+            ->get();
+        return response()->json(['status' => true, 'comments' => $comments]);
+    }
+
+    public function delete_comment($id){
+        $comment = Comment::where('id',$id)->first();
+        $comment->text = 'Comment delete';
+        $comment->save();
+        return response()->json(['status' => true]);
+    }
+
+    public function complaints(){
+        $publication = ComplaintPublication::select('users.login as user_to_login','u.login as user_which_login','publications.text as publication','complaint_categories.name as complaint')
+            ->join('publications','publications.id','=', 'complaint_publications.publication_id')
+            ->join('users','complaint_publications.user_to_id','=','users.id')
+            ->join('users as u','complaint_publications.user_which_id','=','u.id')
+            ->join('complaint_categories','complaint_publications.complaint_category_id','=','complaint_categories.id')
+            ->get()
+            ->toArray();
+        $comment = ComplaintComment::select('users.login as user_to_login','u.login as user_which_login','comments.text as comment','complaint_categories.name as complaint')
+            ->join('comments','comments.id','=', 'complaint_comments.comment_id')
+            ->join('users','complaint_comments.user_to_id','=','users.id')
+            ->join('users as u','complaint_comments.user_which_id','=','u.id')
+            ->join('complaint_categories','complaint_comments.complaint_category_id','=','complaint_categories.id')
+            ->get()
+            ->toArray();
+        $complaints = array_merge($publication, $comment);
+        return response()->json(['status' => true, 'complaints' => $complaints]);
+    }
+
+    public function delete_complaint($id){
+        ComplaintPublication::first($id)->delete();
+        return response()->json(['status' => true]);
     }
 }

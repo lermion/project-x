@@ -128,8 +128,112 @@
 	width: 250px;
 	height: 250px;
 }
-.admin-user-content-table img {
+.admin-user-content-table table {
+	width: 100%;
+}
+.admin-user-content-table img,
+.admin-user-contacts-ava img {
 	height: 70px;
 	width: 70px;
 	margin-bottom: 3px;
+}
+.admin-user-content-table table thead th {
+	vertical-align: middle;
+}
+.admin-user-content-table-col-img {
+	width: 20%;
+	text-align: center;
+}
+.admin-users-select select {
+	padding: 5px;
+	margin-bottom: 10px;
+}
+.admin-user-contacts-pagination {
+	text-align: center;
+}
+.admin-settings-menu {
+	margin: 0;
+}
+.admin-settings-menu div {
+	border: 1px solid black;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+	font-weight: bold;
+}
+.admin-settings-menu div:first-child {
+	border-right: 0px;
+}
+.admin-settings-menu div.active {
+	background-color: #f1f1f1;
+}
+.admin-settings-data h2 {
+	margin: 30px 0 30px 0px;
+}
+.admin-settings-data textarea {
+	width: 100%;
+}
+.admin-settings-data .row {
+	margin-bottom: 20px;
+}
+.admin-settings-restrictions {
+	margin: 0;
+}
+.admin-settings-restrictions .cmn-toggle {
+	display: inline-block;
+}
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+input.cmn-toggle-round + label {
+  padding: 2px;
+  width: 50px;
+  height: 30px;
+  background-color: #dddddd;
+  border-radius: 30px;
+}
+input.cmn-toggle-round + label:before,
+input.cmn-toggle-round + label:after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: #f1f1f1;
+  border-radius: 30px;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round + label:after {
+  width: 28px;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: margin 0.4s;
+}
+input.cmn-toggle-round:checked + label:before {
+  background-color: #8ce196;
+}
+input.cmn-toggle-round:checked + label:after {
+  margin-left: 20px;
+}
+.admin-settings-restrictions-toggle-btn {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+.admin-settings-restrictions .switch {
+	margin-left: 10px;
 }
