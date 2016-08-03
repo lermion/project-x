@@ -546,7 +546,6 @@ angular.module('placePeopleApp')
 				});
 			}
 			$scope.$on('ngDialog.opened', function (e, $dialog) {
-				console.log();
 				if($dialog.name === "edit-group-chat"){
 					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
 				}
