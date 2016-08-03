@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ChatRoom;
 use App\Image;
 use App\Video;
 use Illuminate\Http\Request;
@@ -140,16 +141,18 @@ class ChatController extends Controller
 
     public function file_chat($room_id)
     {
-        $image = Image::join('message_images','message_images.image_id','=', 'images.id')
+        $image = Image::select('images.url', 'images.created_at')
+            ->join('message_images','message_images.image_id','=', 'images.id')
             ->join('user_rooms_messages','user_rooms_messages.message_id','=','message_images.message_id')
             ->where('user_rooms_messages.room_id',$room_id)
-            ->pluck('images.url', 'images.created_at')
+            ->get()
             ->toArray();
 
-        $video = Video::join('message_videos','message_videos.video_id','=', 'videos.id')
+        $video = Video::select('videos.url', 'videos.created_at','img_url')
+            ->join('message_videos','message_videos.video_id','=', 'videos.id')
             ->join('user_rooms_messages','user_rooms_messages.message_id','=','message_videos.message_id')
             ->where('user_rooms_messages.room_id',$room_id)
-            ->pluck('videos.url', 'videos.created_at','img_url')
+            ->get()
             ->toArray();
         if (!$video && !$image){
             $result = [
@@ -163,13 +166,123 @@ class ChatController extends Controller
         }
         $files = array_merge($image, $video);
         krsort($files);
-        foreach ($files as $key => $value){
-            $file[] =['date' =>  $key, 'path' =>  $value];
-            }
-        $collection = collect($file);
+//        foreach ($files as $key => $value){
+//            $file[] =['date' =>  $key, 'path' =>  $value];
+//            }
+        $collection = collect($files);
         $result = $collection->chunk(21);
         return response()->json(['status' => true, 'data' => $result]);
 
     }
 
+    public function update(Request $request, $room_id)
+    {
+        try {
+            $this->validate($request, [
+                'avatar' => 'image',
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        if (!$chat = ChatRoom::find($room_id)) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "This chat does not exist",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $Data = $request->all();
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $path = '/upload/';
+            $fileName = str_random(8) . $avatar->getClientOriginalName();
+            $fullPath = public_path() . $path;
+            $avatar->move($fullPath, $fileName);
+            $Data['avatar'] = $path . $fileName;
+        }
+        $chat = ChatRoom::find($room_id);
+        $chat->update($Data);
+        return response()->json(["status" => true]);
+    }
+
+    public function add_users(Request $request, $room_id)
+    {
+        if (!$chat = ChatRoom::find($room_id)) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "This chat does not exist",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $users = $request->input('id');
+        foreach ($users as $user) {
+            UserChat::firstOrCreate(['user_id' => $user, 'room_id' => $room_id]);
+        }
+        return response()->json(["status" => true]);
+    }
+
+    public function delete_users(Request $request, $room_id)
+    {
+        if (!$chat = ChatRoom::find($room_id)) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "This chat does not exist",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $users = $request->input('id');
+        UserChat::whereNotIn('user_id',$users)->where('room_id',$room_id)->delete();
+        return response()->json(["status" => true]);
+    }
+
+    public function exit_user($room_id)
+    {
+        if (!$chat = ChatRoom::find($room_id)) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "This chat does not exist",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->delete();
+        return response()->json(["status" => true]);
+    }
+
+    public function exit_admin($room_id, $user_id)
+    {
+        if (!$chat = ChatRoom::find($room_id)) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "This chat does not exist",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
+        }
+        $user = UserChat::where(['user_id' => $user_id, 'room_id' => $room_id])->first();
+        $user->is_admin = !$user->is_admin;
+        $user->save();
+        UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->delete();
+        return response()->json(["status" => true]);
+    }
 }

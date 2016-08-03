@@ -9,7 +9,7 @@
                 data: '='
             },
             controller: function () {
-                
+
             }
         });
 })(angular);

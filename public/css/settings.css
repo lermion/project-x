@@ -4238,6 +4238,7 @@ span.users-today-time-time.early {
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Статус чата...';
+        color: #999;
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
@@ -6316,7 +6317,7 @@ input.cmn-toggle-round:checked + label:after {
 		z-index: 100000000;
 	}
     body.public.user #wrapper {
-        padding-top: 68px;
+        padding-top: 45px;
     }
     #wrapper {
         padding-top: 68px;
@@ -6552,10 +6553,12 @@ textarea[type="text"]:focus,
     opacity:1;
 }
 
-
 /******************************************
             Search
 ******************************************/
 .search-result__item-publication {
     margin: 15px 0;
+}
+.emoji-wysiwyg-editor {
+    color: #000;
 }

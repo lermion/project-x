@@ -14,6 +14,7 @@ angular.module('placePeopleApp')
 				loaded: false
 			};
 			$scope.counter = 0;
+			var editGroupChat = null;
 			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name').success(function(response){
@@ -89,7 +90,7 @@ angular.module('placePeopleApp')
 			$scope.refTo = function(stateName){
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent = false;
-				}    
+				}
 				$state.go(stateName);
 			};
 
@@ -115,6 +116,7 @@ angular.module('placePeopleApp')
 					}
 				});
 			};
+
 			function clearChat(roomId){
 				if(!roomId){
 					for(var i = 0; i < $scope.Model.chatRooms.length; i++){
@@ -198,7 +200,8 @@ angular.module('placePeopleApp')
 
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
-			}
+			};
+
 			$scope.loadMoreMessages = function(roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
@@ -258,6 +261,10 @@ angular.module('placePeopleApp')
 			$scope.Model.loadUserContactList = function(){
 				loadUserContacts();
 			};
+
+			$scope.Model.leaveGroupChat = function(opponent){
+				console.log(opponent);
+			}
 
 			$scope.Model.showContactData = function(contact){
 				if($state.current.name === 'chat.list'){
@@ -544,24 +551,28 @@ angular.module('placePeopleApp')
 					// 	$state.go("user", {username: $stateParams.username});
 					// }
 				});
-			}
+			};
 			$scope.$on('ngDialog.opened', function (e, $dialog) {
-				$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
+				if($dialog.name === "edit-group-chat"){
+					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
+				}
 			});
+
 			$scope.Model.editGroupChat = function(opponent){
 				$scope.currentOpponent = opponent;
 				$scope.Model.newGroupChat = {};
 				$scope.Model.newGroupChat.users = opponent.members;
 				$scope.Model.newGroupChat.name = opponent.name;
 				$scope.Model.newGroupChat.avatar = opponent.avatar;
-				ngDialog.open({
+				editGroupChat = ngDialog.open({
 					template: '../app/Chat/views/popup-edit-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					name: 'edit-group-chat',
 				});
 			};
 
-			$scope.Model.saveGroupChat = function(name, status, avatar){
+			$scope.Model.saveGroupChat = function(name, status, avatar, users){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 			};
 
@@ -574,6 +585,11 @@ angular.module('placePeopleApp')
 			$scope.Model.cancelNewChat = function(){				
 				newGroupChatPopup.close();
 			};
+
+			$scope.Model.cancelEditGroupChat = function(){
+				editGroupChat.close();
+			}
+
 			$scope.Model.createGroupChat = function(name, status, avatar){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];
@@ -613,7 +629,7 @@ angular.module('placePeopleApp')
 				}
 				if(repeated === undefined){
 					$scope.Model.newGroupChat.users.push(user);
-				}else if(repeated!=0){
+				}else if(repeated != 0){
 					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
 					$scope.Model.newGroupChat.users.unshift(usr);
 				}								
@@ -631,7 +647,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.saveNotificationSettings = function(chat){			
 				ChatService.setNotification(chat.room_id).then(function(response){						
-						
+					
 				},
 				function(error){
 					console.log(error);
@@ -669,8 +685,8 @@ angular.module('placePeopleApp')
 
 			$scope.Model.addPublicationLike = function(pub){
 				PublicationService.addPublicationLike(pub.id).then(function(response){
-						pub.user_like = response.user_like;
-						pub.like_count = response.like_count;
+					pub.user_like = response.user_like;
+					pub.like_count = response.like_count;
 				},
 				function(error){
 					console.log(error);
