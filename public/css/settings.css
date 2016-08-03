@@ -3052,6 +3052,7 @@ span.users-today-time-time.early {
     resize: none;
     font-family: "SFUIDisplayLight";
     color: #999;
+    font-size: 14.6px;
 }
 .create-places-add-cover {
     width: 100%;
