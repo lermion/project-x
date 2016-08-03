@@ -1284,9 +1284,11 @@ label span.add {
 }
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Описание группы ...';
+    color: #999;
 }
 .group-pub.ngdialog-theme-default .emoji-wysiwyg-editor:empty:after {
     content: 'Текст публикации ...';
+    color: #999;
 }
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
@@ -1611,8 +1613,8 @@ div.my_profilll.photo-list div:last-child {
     height: 30px;
 }
 .avatar__card {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 /*----------------------
      People
@@ -3640,16 +3642,9 @@ span.users-today-time-time.early {
     background: 0 0;
     color: #fff;
     content: '\00D7';
-    font-size: 26px;
-    font-weight: 400;
-    height: 25px;
-    left: 0;
     text-align: center;
-    top: 0;
-    width: 25px;
-    width: 25px;
     display: block;
-    line-height: 24px;
+    line-height: 25px;
 }
 .send-wrap-bottom .pic .close-inner:before {
     content: '';
@@ -4116,11 +4111,20 @@ span.users-today-time-time.early {
 }
 .popup-group-chat .add-ava {
     width: 90px;
-    height: 85px;
+    height: 90px;
     background-color: #d7dade;
     border-radius: 3px;
     position: relative;
     margin-bottom: 0;
+    overflow: hidden;
+    background-image: url(/images/plus_group.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.popup-group-chat .add-ava img {
+    width: 100%;
+    height: 100%;
 }
 .popup-group-chat .new_group {
     font-size: 14.6px;
@@ -5571,6 +5575,7 @@ input.cmn-toggle-round:checked + label:after {
     background-size: 30%;
     background-repeat: no-repeat;
     background-position: center;
+    overflow: hidden;
 }
 @media (max-width: 520px){
 	.group-publication .photo.place-photo1 {
@@ -5655,33 +5660,9 @@ input.cmn-toggle-round:checked + label:after {
     background: 0 0;
     color: #fff;
     content: '\00D7';
-    font-size: 26px;
-    font-weight: 400;
-    height: 25px;
-    // line-height: 25px;
-    // position: absolute;
-    left: 0;
     text-align: center;
-    top: 0;
-    width: 25px;
-    width: 25px;
     display: block;
-    line-height: 24px;
-}
-.send-wrap-bottom .close:before {
-    background: 0 0;
-    color: #fff;
-    content: '\00D7';
-    font-size: 26px;
-    font-weight: 400;
-    height: 25px;
-    left: 0;
-    text-align: center;
-    top: 0;
-    width: 25px;
-    width: 25px;
-    display: block;
-    line-height: 24px;
+    line-height: 25px;
 }
 .send-wrap-bottom .close-inner {
     position: absolute;
