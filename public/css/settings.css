@@ -6451,6 +6451,11 @@ textarea[type="text"]:focus,
     background-color: #fff;
     padding: 10px;
  }
+.group-description-container1 p {
+    margin: 0;
+    font-family: "SFUIDisplayLight";
+    font-size: 14.6px;
+}
 @media (max-width: 720px) {
     .ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .ngdialog-content {
         width: 500px;
@@ -6481,7 +6486,11 @@ textarea[type="text"]:focus,
     .invite-group__items ul li p  {
         font-size: 10.6px;
     }
-    
+    .group-description-container1 p {
+        margin: 0;
+        font-family: "SFUIDisplayLight";
+        font-size: 12.6px;
+    }
     .popup-invite-group .modal__title,
     .item1-add-people-title,
     .invite-group__items ul p,

@@ -25,6 +25,12 @@
                 </div>
             </div>
 
+            <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
+                     <p ng-bind-html="vm.group.description | colonToSmiley">
+                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse reiciendis quod libero soluta non laborum, quasi, ipsam inventore consectetur vel.
+                     </p>
+                </div>
+
             <div class="place-menu-wrap">
                 <div class="group-menu">
                     <div class="group-menu-item">
