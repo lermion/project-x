@@ -176,10 +176,10 @@
 .admin-settings-data .row {
 	margin-bottom: 20px;
 }
-.admin-settings-restrictions {
+.admin-settings-limit {
 	margin: 0;
 }
-.admin-settings-restrictions .cmn-toggle {
+.admin-settings-limit .cmn-toggle {
 	display: inline-block;
 }
 .cmn-toggle {
@@ -229,11 +229,11 @@ input.cmn-toggle-round:checked + label:before {
 input.cmn-toggle-round:checked + label:after {
   margin-left: 20px;
 }
-.admin-settings-restrictions-toggle-btn {
+.admin-settings-limit-toggle-btn {
 	width: 100%;
 	display: flex;
 	align-items: center;
 }
-.admin-settings-restrictions .switch {
+.admin-settings-limit .switch {
 	margin-left: 10px;
 }
