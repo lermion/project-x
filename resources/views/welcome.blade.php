@@ -9,7 +9,7 @@
 	<link href="../../css/settings.css" rel="stylesheet">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
-	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/'">
+	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">
