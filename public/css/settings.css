@@ -4238,6 +4238,7 @@ span.users-today-time-time.early {
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Статус чата...';
+        color: #999;
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';

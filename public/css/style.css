@@ -3883,7 +3883,8 @@ body.ngdialog-open {
 }
 .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after,
 .user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:empty:after {
-	content: 'Текст комментария...'; 
+	content: 'Текст комментария...';
+	    color: #999;
 }
 .posFixedPopup{
 	position: fixed !important;
