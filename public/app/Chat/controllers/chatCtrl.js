@@ -546,6 +546,14 @@ angular.module('placePeopleApp')
 				});
 			}
 
+			$scope.Model.editGroupChat = function(){
+				ngDialog.open({
+					template: '../app/Chat/views/popup-edit-group-chat.html',
+					className: 'popup-group-chat ngdialog-theme-default',
+					scope: $scope
+				});
+			}
+
 			$scope.Model.openSettings = function(user){
 				$scope.Model.showNotificationBlock = true;
 				$scope.Model.displayNotificationBlock = true;
