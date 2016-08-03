@@ -43,7 +43,40 @@ class AdminModeratorTest extends TestCase
         $coment->delete();
     }
 
-    public function testGetComplaints()
+    public function testGetPublicationComplaints()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $user2 = \App\User::where('phone','380731059231')->first();
+        if(!$user2){
+            $user2 = \App\User::create(['phone'=>'380731059231', 'login'=>'bone', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $publication = \App\Publication::create(['text' => 'test','user_id' => $user->id]);
+        $complaint_comment = \App\ComplaintPublication::create(['publication_id' => $publication->id, 'complaint_category_id' => 1, 'user_which_id' => $user->id, 'user_to_id' => $user2->id]);
+        $this->json('GET', 'moderator/publication_complaints/');
+        $complaint_comment->delete();
+        $publication->delete();
+    }
+
+    public function testDeletePublicationComplaints()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $user2 = \App\User::where('phone','380731059231')->first();
+        if(!$user2){
+            $user2 = \App\User::create(['phone'=>'380731059231', 'login'=>'bone', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $publication = \App\Publication::create(['text' => 'test','user_id' => $user->id]);
+        $complaint_comment = \App\ComplaintPublication::create(['publication_id' => $publication->id, 'complaint_category_id' => 1, 'user_which_id' => $user->id, 'user_to_id' => $user2->id]);
+        $this->json('GET', 'moderator/delete_complaint_publication/'.$complaint_comment->id);
+        $publication->delete();
+    }
+
+    public function testGetCommentComplaints()
     {
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
@@ -55,12 +88,12 @@ class AdminModeratorTest extends TestCase
         }
         $coment = \App\Comment::create(['text' => 'test','user_id' => $user->id]);
         $complaint_comment = \App\ComplaintComment::create(['comment_id' => $coment->id, 'complaint_category_id' => 1, 'user_which_id' => $user->id, 'user_to_id' => $user2->id]);
-        $this->json('GET', 'moderator/complaints/');
+        $this->json('GET', 'moderator/comment_complaints/');
         $complaint_comment->delete();
         $coment->delete();
     }
 
-    public function testDeleteComplaints()
+    public function testDeleteCommentComplaints()
     {
         $user = \App\User::where('phone','380731059230')->first();
         if(!$user){
@@ -72,8 +105,52 @@ class AdminModeratorTest extends TestCase
         }
         $coment = \App\Comment::create(['text' => 'test','user_id' => $user->id]);
         $complaint_comment = \App\ComplaintComment::create(['comment_id' => $coment->id, 'complaint_category_id' => 1, 'user_which_id' => $user->id, 'user_to_id' => $user2->id]);
-        $this->json('GET', 'moderator/delete_complaint/'.$complaint_comment->id);
+        $this->json('GET', 'moderator/delete_complaint_comment/'.$complaint_comment->id);
         $coment->delete();
     }
 
+    public function testConfirmPublication()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $publication = \App\Publication::create(['text' => 'test','user_id' => $user->id]);
+        $this->json('GET', 'moderator/confirmPublication/'.$publication->id);
+        $publication->delete();
+    }
+
+    public function testBlockPublication()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $publication = \App\Publication::create(['text' => 'test','user_id' => $user->id]);
+        $data = ['block_message' => 'test'];
+        $this->json('POST', 'moderator/blockPublication/'.$publication->id, $data);
+        $publication->delete();
+    }
+
+    public function testTopicPublication()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $publication = \App\Publication::create(['text' => 'test','user_id' => $user->id]);
+        $this->json('GET', 'moderator/topic/'.$publication->id);
+        $publication->delete();
+    }
+
+    public function testGetPublication()
+    {
+        $user = \App\User::where('phone','380731059230')->first();
+        if(!$user){
+            $user = \App\User::create(['phone'=>'380731059230', 'login'=>'bonep', 'password'=>bcrypt('123'),'country_id'=>1]);
+        }
+        $publication = \App\Publication::create(['text' => 'test','user_id' => $user->id]);
+        $this->json('GET', 'moderator/getPublication/');
+        $publication->delete();
+    }
 }
