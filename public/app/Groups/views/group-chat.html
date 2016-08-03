@@ -1,8 +1,8 @@
 <div class="group-chat">
 	<div ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
-		<div class="date-messeges">
+		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
-		</div>
+		</div> -->
 		<div ng-init="scrollBottom(); checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
@@ -179,7 +179,7 @@
 			<div class="add-objects">						
 				<input id="addfile" type='file' ngf-select="beforeChange($files)" ngf-keep="true" ngf-multiple="true" style="display: none;" ng-model="files"> 
 				<div>
-					<span class="add"  ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
+					<span class="add" ng-mouseover="showChatAttachmentMenu = true" ng-mouseleave="showChatAttachmentMenu = false">
 						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
 							<!-- <a href="javascript:void();" class="active">Публикация</a> -->
 							<label for="addfile">Файл</label>
