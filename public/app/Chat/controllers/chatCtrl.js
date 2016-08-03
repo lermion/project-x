@@ -90,7 +90,7 @@ angular.module('placePeopleApp')
 			$scope.refTo = function(stateName){
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent = false;
-				}    
+				}
 				$state.go(stateName);
 			};
 
@@ -116,6 +116,7 @@ angular.module('placePeopleApp')
 					}
 				});
 			};
+
 			function clearChat(roomId){
 				if(!roomId){
 					for(var i = 0; i < $scope.Model.chatRooms.length; i++){
@@ -199,7 +200,8 @@ angular.module('placePeopleApp')
 
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
-			}
+			};
+
 			$scope.loadMoreMessages = function(roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
@@ -570,7 +572,7 @@ angular.module('placePeopleApp')
 				});
 			};
 
-			$scope.Model.saveGroupChat = function(name, status, avatar){
+			$scope.Model.saveGroupChat = function(name, status, avatar, users){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 			};
 
@@ -627,7 +629,7 @@ angular.module('placePeopleApp')
 				}
 				if(repeated === undefined){
 					$scope.Model.newGroupChat.users.push(user);
-				}else if(repeated!=0){
+				}else if(repeated != 0){
 					var usr = $scope.Model.newGroupChat.users.splice(repeated, 1)[0];					
 					$scope.Model.newGroupChat.users.unshift(usr);
 				}								
@@ -645,7 +647,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.saveNotificationSettings = function(chat){			
 				ChatService.setNotification(chat.room_id).then(function(response){						
-						
+					
 				},
 				function(error){
 					console.log(error);
@@ -683,8 +685,8 @@ angular.module('placePeopleApp')
 
 			$scope.Model.addPublicationLike = function(pub){
 				PublicationService.addPublicationLike(pub.id).then(function(response){
-						pub.user_like = response.user_like;
-						pub.like_count = response.like_count;
+					pub.user_like = response.user_like;
+					pub.like_count = response.like_count;
 				},
 				function(error){
 					console.log(error);
