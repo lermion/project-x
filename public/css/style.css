@@ -1992,7 +1992,7 @@ spam-item {
 	border-radius: 2px;
 	border: 1px solid #e5e7e9;
 	font-size: 14.6px;
-	color: #999;
+	color: #000;
 	background: #fff;
 	padding: 5px 30px 5px 10px;
 	box-sizing: border-box;
@@ -4049,7 +4049,7 @@ body.ngdialog-open {
 	background-repeat: no-repeat;
 }
 .group-chat .user-messege .pictures {
-	height: 100px;
+	height: 102px;
 	margin: 10px 0;
 	overflow: auto;
 	width: 100%;
