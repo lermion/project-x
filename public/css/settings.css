@@ -1959,6 +1959,7 @@ div.my_profilll.photo-list div:last-child {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: 5px;
 }
 .add_newgroup .button .create {
     text-decoration: none;
@@ -2347,7 +2348,7 @@ div.my_profilll.photo-list div:last-child {
 }
 .chat-top-person-data {
     display: flex;
-    width: 80%;
+    width: 85%;
     align-items: center;
 
 }
@@ -2364,17 +2365,29 @@ div.my_profilll.photo-list div:last-child {
 .chat-person-top-info {
     display: flex;
     flex-wrap: wrap;
-    width: 50%;
+    width: 82%;
 }
 .chat-person-top-info p {
-    display: flex;
-    flex-wrap: wrap;
     width: 100%;
     margin: 0;
     padding: 0;
     line-height: 20px;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+p.top-person-users {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+p.top-person-users a {
+    text-decoration: none;
 }
 p.top-person-status {
     font-size: 12.6px;
@@ -3676,7 +3689,7 @@ span.users-today-time-time.early {
 }
 .chat-add-file-menu {
     position: absolute;
-    top: 40px;
+    top: 31px;
     left: -55px;
     z-index: 10;
     width: 130px;
@@ -4029,6 +4042,15 @@ span.users-today-time-time.early {
     }
     .chat-users-today-data {
         width: 79%;
+    }
+    .chat-right-top-person {
+        padding-left: 30px;
+    }
+    .chat-link-back {
+        left: 0px;
+    }
+    .chat-person-top-info {
+        width: 70%;
     }
 }
 .chat-left-users-container-blocked {
@@ -6480,7 +6502,8 @@ textarea[type="text"]:focus,
     
     .popup-invite-group .modal__title,
     .item1-add-people-title,
-    .invite-group__items ul p {
+    .invite-group__items ul p,
+    .popup-group-chat .fifth_item .item1 p {
         font-size: .7em;
     }
     .popup-invite-group .invite-group__items input[type="text"] {
