@@ -1,8 +1,8 @@
 <div class="group-chat">
 	<div when-scrolled="loadMoreMessages()" class="group-chat-inner">
-		<div class="date-messeges">
+		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
-		</div>
+		</div> -->
 		<div ng-init="scrollBottom(); checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
