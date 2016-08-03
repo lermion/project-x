@@ -14,6 +14,7 @@ angular.module('placePeopleApp')
 				loaded: false
 			};
 			$scope.counter = 0;
+			var editGroupChat = null;
 			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name').success(function(response){
@@ -258,6 +259,10 @@ angular.module('placePeopleApp')
 			$scope.Model.loadUserContactList = function(){
 				loadUserContacts();
 			};
+
+			$scope.Model.leaveGroupChat = function(opponent){
+				console.log(opponent);
+			}
 
 			$scope.Model.showContactData = function(contact){
 				if($state.current.name === 'chat.list'){
@@ -544,19 +549,20 @@ angular.module('placePeopleApp')
 					// 	$state.go("user", {username: $stateParams.username});
 					// }
 				});
-			}
+			};
 			$scope.$on('ngDialog.opened', function (e, $dialog) {
 				if($dialog.name === "edit-group-chat"){
 					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
 				}
 			});
+
 			$scope.Model.editGroupChat = function(opponent){
 				$scope.currentOpponent = opponent;
 				$scope.Model.newGroupChat = {};
 				$scope.Model.newGroupChat.users = opponent.members;
 				$scope.Model.newGroupChat.name = opponent.name;
 				$scope.Model.newGroupChat.avatar = opponent.avatar;
-				ngDialog.open({
+				editGroupChat = ngDialog.open({
 					template: '../app/Chat/views/popup-edit-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
 					scope: $scope,
@@ -577,6 +583,11 @@ angular.module('placePeopleApp')
 			$scope.Model.cancelNewChat = function(){				
 				newGroupChatPopup.close();
 			};
+
+			$scope.Model.cancelEditGroupChat = function(){
+				editGroupChat.close();
+			}
+
 			$scope.Model.createGroupChat = function(name, status, avatar){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];

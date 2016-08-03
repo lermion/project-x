@@ -23,6 +23,7 @@
 						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent.room_id)">Очистить чат</a>
 						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent.room_id)">Удалить чат</a>
 						<a ng-if="Model.opponent.is_group" href="javascript:void(0);" ng-click="Model.editGroupChat(Model.opponent)">Редактировать</a>
+						<a ng-if="Model.opponent.is_group" href="javascript:void(0);" ng-click="Model.leaveGroupChat(Model.opponent)">Выйти из чата</a>
 					</div>
 				</div>
 			</div>
