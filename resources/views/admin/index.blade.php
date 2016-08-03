@@ -123,7 +123,7 @@
         </table>
     </div>
 
-       <br><br><br><br><br>
+       <br>
 
     <div class="row">
         <h1>Контакты пользователя</h1>
@@ -318,11 +318,35 @@ interfiniti.ltd@gmail.com</textarea>
         
         <p><button type="button" class="btn btn-primary">Сохранить</button></p>
     </div>
+<br>
 
-
-
-
-<br><br><br><br>
+	<div class="row">
+		<h1>Панель модератора - комментарии</h1>
+	</div>
+	<div class="row">
+		<table class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Где оставлен?</th>
+	        <th>Текст комментария</th>
+	        <th>Автор</th>
+	        <th>Действия</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Название</td>
+	        <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
+	        <td>Елена Новикова</td>
+	        <td>
+	        	<p>
+	        		<button class="btn btn-danger">Удалить</button>
+	        	</p>
+	        </td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
 
 
 
