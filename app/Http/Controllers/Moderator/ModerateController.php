@@ -18,10 +18,12 @@ class ModerateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getPublication()
     {
-        $publications = Publication::with('user','images','videos','group')->where(['is_moderate'=>false,'is_main'=>true,
-            'is_block'=>false])->get();
+        $publications = Publication::with('user','images','videos','group')
+//            ->where(['is_moderate'=>false,'is_main'=>false, 'is_block'=>false])
+            ->where('is_block',false)
+            ->get();
         $data = [];
         foreach ($publications as $publication){
             if(count($publication->group)==0){
@@ -30,14 +32,16 @@ class ModerateController extends Controller
                 $data[] = $publication;
             }
         }
-        return view('moderator.moderate.index',['publications'=>$data]);
+        //return view('moderator.moderate.index',['publications'=>$data]);
+        return response()->json(['status' => true, 'publications'=>$data]);
     }
 
-    public function confirm($id){
+    public function confirmPublication($id){
         $publication = Publication::find($id);
         $publication->is_moderate = true;
         $publication->save();
-        return redirect()->action('Moderator\ModerateController@index');
+        //return redirect()->action('Moderator\ModerateController@getPublication');
+        return response()->json(['status' => true]);
     }
 
     /**
@@ -95,25 +99,29 @@ class ModerateController extends Controller
         //
     }
     
-    public function block(Request $request,$id)
+    public function blockPublication(Request $request,$id)
     {
         $publication = Publication::find($id);
         $publication->is_block = true;
         $publication->block_message = $request->input('message');
         $publication->save();
-        return redirect()->action('Moderator\ModerateController@index');
+        //return redirect()->action('Moderator\ModerateController@getPublication');
+        return response()->json(['status' => true]);
     }
 
     public function topic($id){
-        $publications = Publication::where('is_topic',false)->get();
-        foreach ($publications as &$p){
-            $p->is_topic = false;
-            $p->save();
+        $publications = Publication::where('is_topic',true)->get();
+        if ($publications) {
+            foreach ($publications as &$p){
+                $p->is_topic = false;
+                $p->save();
+            }
         }
         $publication = Publication::find($id);
         $publication->is_topic = true;
         $publication->save();
-        return redirect()->action('Moderator\ModerateController@index');
+        //return redirect()->action('Moderator\ModerateController@getPublication');
+        return response()->json(['status' => true]);
     }
 
     public function comments(){
@@ -132,27 +140,51 @@ class ModerateController extends Controller
         return response()->json(['status' => true]);
     }
 
-    public function complaints(){
-        $publication = ComplaintPublication::select('users.login as user_to_login','u.login as user_which_login','publications.text as publication','complaint_categories.name as complaint')
-            ->join('publications','publications.id','=', 'complaint_publications.publication_id')
-            ->join('users','complaint_publications.user_to_id','=','users.id')
-            ->join('users as u','complaint_publications.user_which_id','=','u.id')
-            ->join('complaint_categories','complaint_publications.complaint_category_id','=','complaint_categories.id')
-            ->get()
-            ->toArray();
-        $comment = ComplaintComment::select('users.login as user_to_login','u.login as user_which_login','comments.text as comment','complaint_categories.name as complaint')
+    public function comment_complaints(){
+        $complaints = ComplaintComment::select('users.login as user_to_login','u.login as user_which_login','comments.text as comment','complaint_categories.name as complaint')
             ->join('comments','comments.id','=', 'complaint_comments.comment_id')
             ->join('users','complaint_comments.user_to_id','=','users.id')
             ->join('users as u','complaint_comments.user_which_id','=','u.id')
             ->join('complaint_categories','complaint_comments.complaint_category_id','=','complaint_categories.id')
-            ->get()
-            ->toArray();
-        $complaints = array_merge($publication, $comment);
-        return response()->json(['status' => true, 'complaints' => $complaints]);
+            ->get();
+            return response()->json(['status' => true, 'complaints' => $complaints]);
     }
 
-    public function delete_complaint($id){
+    public function publication_complaints(){
+        $complaints = ComplaintPublication::select('users.login as user_to_login','u.login as user_which_login','publications.text as publication','complaint_categories.name as complaint')
+            ->join('publications','publications.id','=', 'complaint_publications.publication_id')
+            ->join('users','complaint_publications.user_to_id','=','users.id')
+            ->join('users as u','complaint_publications.user_which_id','=','u.id')
+            ->join('complaint_categories','complaint_publications.complaint_category_id','=','complaint_categories.id')
+            ->get();
+            return response()->json(['status' => true, 'complaints' => $complaints]);
+    }
+
+    public function delete_complaint_comment($id){
+        ComplaintComment::first($id)->delete();
+        return response()->json(['status' => true]);
+    }
+
+    public function delete_complaint_publication($id){
         ComplaintPublication::first($id)->delete();
         return response()->json(['status' => true]);
+    }
+
+    public function getGroup()
+    {
+        $publications = Group::with('user','images','videos','group')
+//            ->where(['is_moderate'=>false,'is_main'=>false, 'is_block'=>false])
+            ->where('is_block',false)
+            ->get();
+        $data = [];
+        foreach ($publications as $publication){
+            if(count($publication->group)==0){
+                $data[] = $publication;
+            }elseif ($publication->group[0]->is_open){
+                $data[] = $publication;
+            }
+        }
+        return view('moderator.moderate.index',['publications'=>$data]);
+        //return response()->json(['status' => true, 'publications'=>$data]);
     }
 }

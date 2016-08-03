@@ -126,8 +126,14 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('logout', 'Moderator\AuthController@logout');
             Route::get('comments', 'Moderator\ModerateController@comments');
             Route::get('delete_comment/{id}', 'Moderator\ModerateController@delete_comment');
-            Route::get('complaints', 'Moderator\ModerateController@complaints');
-            Route::get('delete_complaint/{id}', 'Moderator\ModerateController@delete_complaint');
+            Route::get('comment_complaints', 'Moderator\ModerateController@comment_complaints');
+            Route::get('delete_complaint_comment/{id}', 'Moderator\ModerateController@delete_complaint_comment');
+            Route::get('publication_complaints', 'Moderator\ModerateController@publication_complaints');
+            Route::get('delete_complaint_publication/{id}', 'Moderator\ModerateController@delete_complaint_publication');
+            Route::get('getPublication', 'Moderator\ModerateController@getPublication');
+            Route::get('topic/{id}', 'Moderator\ModerateController@topic');
+            Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
+            Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
             Route::group(['prefix' => 'moderate'], function () {
                 Route::get('/', 'Moderator\ModerateController@index');
                 Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
@@ -198,6 +204,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
         Route::get('file_chat/{room_id}', 'ChatController@file_chat');
+        Route::post('update/{room_id}', 'ChatController@update');
+        Route::post('add_users/{room_id}', 'ChatController@add_users');
+        Route::post('delete_users/{room_id}', 'ChatController@delete_users');
+        Route::post('exit_user/{room_id}', 'ChatController@exit_user');
+        Route::get('exit_admin/{room_id}/{user_id}', 'ChatController@exit_admin');
     });
 
     Route::group(['prefix' => 'mail'], function () {
@@ -225,14 +236,11 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/moderator/complaints\" method=\"get\">
-            <input type='text' name='publication_id' value='1'><br>
-            <input type='text' name='complaint_category_id[]' value=1><br>
-            <input type='text' name='code'><br>
-            <input type='text' name='address'><br>
-            <input type='text' name='id'><br>
-            <input type='text' name='coordinates_y'><br>
-            <input type='text' name='type_place_id'><br>
+        echo "<form action=\"http://pp.dev/chat/exit_user/1\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='id[]' value='19'><br>
+            <input type='text' name='id[]' value='174'><br>
+
+
 
             <input type=\"submit\">
             </form>";

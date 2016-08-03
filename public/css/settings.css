@@ -1284,9 +1284,11 @@ label span.add {
 }
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Описание группы ...';
+    color: #999;
 }
 .group-pub.ngdialog-theme-default .emoji-wysiwyg-editor:empty:after {
     content: 'Текст публикации ...';
+    color: #999;
 }
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
@@ -4238,6 +4240,7 @@ span.users-today-time-time.early {
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Статус чата...';
+        color: #999;
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
@@ -6316,7 +6319,7 @@ input.cmn-toggle-round:checked + label:after {
 		z-index: 100000000;
 	}
     body.public.user #wrapper {
-        padding-top: 68px;
+        padding-top: 45px;
     }
     #wrapper {
         padding-top: 68px;
@@ -6550,4 +6553,7 @@ textarea[type="text"]:focus,
 }
 .animate-if.ng-leave, .animate-if.ng-enter.ng-enter-active {
     opacity:1;
+}
+.emoji-wysiwyg-editor {
+    color: #000;
 }
