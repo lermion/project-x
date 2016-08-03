@@ -545,14 +545,25 @@ angular.module('placePeopleApp')
 					// }
 				});
 			}
-
-			$scope.Model.editGroupChat = function(){
+			$scope.$on('ngDialog.opened', function (e, $dialog) {
+				$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
+			});
+			$scope.Model.editGroupChat = function(opponent){
+				$scope.currentOpponent = opponent;
+				$scope.Model.newGroupChat = {};
+				$scope.Model.newGroupChat.users = opponent.members;
+				$scope.Model.newGroupChat.name = opponent.name;
+				$scope.Model.newGroupChat.avatar = opponent.avatar;
 				ngDialog.open({
 					template: '../app/Chat/views/popup-edit-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
 					scope: $scope
 				});
-			}
+			};
+
+			$scope.Model.saveGroupChat = function(name, status, avatar){
+				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+			};
 
 			$scope.Model.openSettings = function(user){
 				$scope.Model.showNotificationBlock = true;
