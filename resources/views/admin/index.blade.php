@@ -146,13 +146,13 @@
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>id</th>
-                    <th>Аватар</th>
-                    <th>Имя</th>
-                    <th>Пол</th>
-                    <th>Возраст</th>
-                    <th>Дата регистрации</th>
-                    <th>Тип контакта</th>
+                    <th class="col-id">id</th>
+                    <th class="col-ava">Аватар</th>
+                    <th class="col-name">Имя</th>
+                    <th class="col-gender">Пол</th>
+                    <th class="col-age">Возраст</th>
+                    <th class="col-registration">Дата регистрации</th>
+                    <th class="col-type">Тип контакта</th>
                   </tr>
                 </thead>
                 <tbody>

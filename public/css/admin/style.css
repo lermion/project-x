@@ -356,7 +356,7 @@ input.cmn-toggle-round:checked + label:after {
 	width: 20%;
 }
 .admin-user-contacts .col-gender {
-	width: 5%;
+	width: 10%;
 }
 .admin-user-contacts .col-age {
 	width: 10%;
@@ -367,7 +367,9 @@ input.cmn-toggle-round:checked + label:after {
 .admin-user-contacts .col-action {
 	width: 15%;
 }
-
+.admin-user-contacts .col-type {
+	width: 10%;
+}
 .moderator-comments .col-comments-place {
 	width: 20%;
 }
