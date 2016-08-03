@@ -22,7 +22,7 @@
 						<a href="javascript:void(0);" ng-click="Model.showContactData(Model.opponent)">О контакте</a>
 						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent.room_id)">Очистить чат</a>
 						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent.room_id)">Удалить чат</a>
-						<a href="javascript:void(0);" ng-click="Model.editGroupChat()">Редактировать</a>
+						<a ng-if="Model.opponent.is_group" href="javascript:void(0);" ng-click="Model.editGroupChat(Model.opponent)">Редактировать</a>
 					</div>
 				</div>
 			</div>
@@ -200,7 +200,7 @@
 					</a>
 				</div>	
 			</div>
-			<div class="send-add-file" ng-click="showFileAddMenu=!showFileAddMenu">
+			<div class="send-add-file" ng-mouseover="showFileAddMenu = true" ng-mouseleave="showFileAddMenu = false">
 				<a href=""></a>
 				<div class="chat-add-file-menu" ng-show="showFileAddMenu">
 					<!-- <a class="chat-add-file-publ" href="">Публикация</a> -->
