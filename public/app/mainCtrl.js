@@ -29,6 +29,7 @@ angular.module('placePeopleApp')
             var storage = storageService.getStorage();
             $scope.loggedUser = storage.username;
             $scope.currentPath = $location.url();
+            console.log($scope.currentPath);
         });
         $scope.$on('publicPoint', function (event, data) {
             $scope.bodyClass = 'public';
