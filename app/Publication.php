@@ -9,9 +9,7 @@ use Illuminate\Support\Collection;
 
 class Publication extends Model
 {
-     protected $fillable = ['text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover'];
-
-    protected $hidden = ['is_block', 'block_message'];
+    protected $fillable = ['block_message','is_block', 'text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover'];
 
     public function images()
     {

@@ -173,7 +173,7 @@ class GroupController extends Controller
                 'name' => 'unique:groups',
                 'description' => 'required',
                 'is_open' => 'required|boolean',
-                'avatar' => 'file',
+                'avatar' => 'image',
                 'card_avatar' => 'image'
             ]);
         } catch (\Exception $ex) {
