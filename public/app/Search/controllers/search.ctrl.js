@@ -106,12 +106,16 @@
 
         }
 
-        vm.search = function () {
-            searchService.search(vm.searchObj)
+        function search(searchObj) {
+            searchService.search(searchObj)
                 .then(function (data) {
                     vm.results = data;
                 });
         }
+
+        $scope.$on('search', function (event, data) {
+            search(data.searchObj);
+        })
 
     }
 

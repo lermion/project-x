@@ -1,7 +1,7 @@
 <div class="chat-contact-right-selected">
 	<a class="chat-link-back" href="javascript:void(0);" ng-show="Model.mobile.display" ng-click="refTo('chat.contacts')"></a>	    	
 	<div class="chat-contact-selected-ava">
-		<img ng-src="{{Model.contact.avatar_path ? Model.contact.avatar_path : '/images/user.png'}}" alt="">
+		<img ng-src="{{Model.contact.avatar_path ? Model.contact.avatar_path : Model.contact.avatar}}" alt="">
 	</div>
 	<div class="chat-contact-selected-data">
 		<div class="contact-selected-data-name">{{Model.contact.first_name + ' ' + Model.contact.last_name}}</div>
@@ -12,6 +12,5 @@
 		<div class="contact-selected-data-message" ng-hide="Model.contact.is_lock" ng-click="Model.openChatWith(Model.contact)" style="cursor:pointer;"><span><img src="/images/chat-icon.png" alt=""></span><span class="contact-selected-message-span">Написать сообщение</span></div>
 		<div class="contact-selected-data-block" style="cursor:pointer;" ng-click="Model.blockContact(Model.contact, Model.contact.is_lock)"><span><img src="/images/chat-tab-block.png" alt=""></span><span class="contact-selected-block-span">{{Model.contact.is_lock ? 'Разблокировать' : 'Заблокировать'}} контакт</span></div>
 		<div class="contact-selected-data-delete" style="cursor:pointer;" ng-click="Model.deleteContact(Model.contact)"><span><img src="/images/chat-delete-contact.png" alt=""></span><span class="contact-selected-delete-span">Удалить контакт</span></div>
-
 	</div>
 </div>
