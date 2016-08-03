@@ -2365,7 +2365,7 @@ div.my_profilll.photo-list div:last-child {
 .chat-person-top-info {
     display: flex;
     flex-wrap: wrap;
-    width: 50%;
+    width: 82%;
 }
 .chat-person-top-info p {
     display: flex;
