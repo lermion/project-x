@@ -146,13 +146,13 @@
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>id</th>
-                    <th>Аватар</th>
-                    <th>Имя</th>
-                    <th>Пол</th>
-                    <th>Возраст</th>
-                    <th>Дата регистрации</th>
-                    <th>Тип контакта</th>
+                    <th class="col-id">id</th>
+                    <th class="col-ava">Аватар</th>
+                    <th class="col-name">Имя</th>
+                    <th class="col-gender">Пол</th>
+                    <th class="col-age">Возраст</th>
+                    <th class="col-registration">Дата регистрации</th>
+                    <th class="col-type">Тип контакта</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -349,14 +349,14 @@
 	<div class="x_content">
 		<h1>Панель модератора - комментарии</h1>
 	</div>
-	<div class="x_content">
+	<div class="x_content moderator-comments">
 		<table class="table table-bordered">
 	    <thead>
 	      <tr>
-	        <th>Где оставлен?</th>
-	        <th>Текст комментария</th>
-	        <th>Автор</th>
-	        <th>Действия</th>
+	        <th class="col-comments-place">Где оставлен?</th>
+	        <th class="col-comments-text">Текст комментария</th>
+	        <th class="col-comments-author">Автор</th>
+	        <th class="col-comments-action">Действия</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -421,13 +421,13 @@
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>id</th>
-                    <th>Аватар</th>
-                    <th>Имя</th>
-                    <th>Пол</th>
-                    <th>Возраст</th>
-                    <th>Дата регистрации</th>
-                    <th>Действие</th>
+                    <th class="col-id">id</th>
+                    <th class="col-ava">Аватар</th>
+                    <th class="col-name">Имя</th>
+                    <th class="col-gender">Пол</th>
+                    <th class="col-age">Возраст</th>
+                    <th class="col-registration">Дата регистрации</th>
+                    <th class="col-action">Действие</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -492,22 +492,22 @@
         </div>
 
     <h2>Публикации</h2>
-        <div class="admin-user-content-table">
+        <div class="admin-user-content-publication">
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>id</th>
-                    <th>Текст публикации</th>
-                    <th>Имя автора</th>
-                    <th>Картинки</th>
-                    <th>Видео</th>
-                    <th>Время создания</th>
-                    <th>Действия</th>
+                    <th class="col-id">id</th>
+                    <th class="col-text">Текст публикации</th>
+                    <th class="col-author">Имя автора</th>
+                    <th class="col-img">Картинки</th>
+                    <th class="col-video">Видео</th>
+                    <th class="col-time">Время создания</th>
+                    <th class="col-action">Действия</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><a href="">1</a></td>
+                    <td><a href="">123</a></td>
                     <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
                     <td>Елена Новикова</td>
                     <td>
@@ -566,14 +566,14 @@
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>id</th>
-                    <th>Описание группы</th>
-                    <th>Имя автора</th>
-                    <th>Название группы</th>
-                    <th>Картинки</th>
-                    <th>Видео</th>
-                    <th>Время создания</th>
-                    <th>Действия</th>
+                    <th class="col-id">id</th>
+                    <th class="col-description">Описание группы</th>
+                    <th class="col-author">Имя автора</th>
+                    <th class="col-name">Название группы</th>
+                    <th class="col-img">Картинки</th>
+                    <th class="col-video">Видео</th>
+                    <th class="col-time">Время создания</th>
+                    <th class="col-action">Действия</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -637,7 +637,7 @@
 
         <h2>Места</h2>
         <div class="admin-user-content-table">
-            <table class="table table-bordered">
+            <table class="table table-bordered ">
                 <thead>
                   <tr>
                     <th class="col-id">id</th>
@@ -690,7 +690,7 @@
                   <tr>
                     <td><a href="">1</a></td>
                     <td>Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места Описание места </td>
-                    <td>ЕленавввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввввНовикова</td>
+                    <td>Елена Новикова</td>
                     <td>Название места</td>
                     <td>
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">

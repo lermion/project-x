@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends Model
 {
     protected $fillable = [
-        'avatar','cover','description','name','url_name','address','coordinates_x','coordinates_y','dynamic','expired_date','city_id','type_place_id', 'room_id'
+        'avatar','cover','description','name','url_name','address','coordinates_x','coordinates_y','dynamic','expired_date','city_id','type_place_id', 'room_id', 'is_block', 'block_message'
     ];
 
     public function users()

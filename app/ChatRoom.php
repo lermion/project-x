@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChatRooms extends Model
+class ChatRoom extends Model
 {
     protected $fillable = [
-        'name','id'
+        'name','status','avatar'
     ];
 }
