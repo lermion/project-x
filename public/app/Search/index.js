@@ -17,7 +17,7 @@
                 controllerAs: 'vm',
                 params: {
                     searchObj: {
-                        str: null,
+                        str: '',
                         byUsers: true,
                         byPublications: true,
                         byPlaces: true,
@@ -25,14 +25,15 @@
                     }
                 },
                 resolve: {
-                    results: ['searchService', '$stateParams', '$state', '$q', function (searchService, $stateParams, $state, $q) {
-                        var deferred = $q.defer();
+                    results: ['searchService', '$stateParams', function (searchService, $stateParams) {
 
-                        searchService.search($stateParams.searchObj)
-                            .then(function (data) {
-                                deferred.resolve(data);
-                            });
-                        return deferred.promise;
+                        if ($stateParams.searchObj.str !== '') {
+                            return searchService.search($stateParams.searchObj)
+                                .then(function (data) {
+                                    return data;
+                                });
+                        }
+
                     }]
                 }
             })
