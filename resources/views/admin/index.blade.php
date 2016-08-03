@@ -153,7 +153,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -163,7 +163,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -173,7 +173,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -183,7 +183,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -193,7 +193,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -203,7 +203,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -213,7 +213,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -223,7 +223,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -233,7 +233,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -243,7 +243,7 @@
               <tr>
                 <td>1</td>
                 <td class="admin-user-contacts-ava">
-                    <img src="http://kingofwallpapers.com/face/face-002.jpg" alt="">
+                    <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                 </td>
                 <td>Елена Новикова</td>
                 <td>Женский</td>
@@ -265,12 +265,64 @@
         </ul>
     </div>
 
-
-
-
     <br><br><br><br>
 
+    <div class="row">
+        <h1>Админ панель - Настройки общие - Внешний вид</h1>
+    </div>
+    <br><br>
+    <div class="row admin-settings-menu">
+        <div class="col-md-3 active">Общие настройки</div>
+        <div class="col-md-3">Ограничения</div>
+    </div>
 
+    <div class="row admin-settings-data">
+        <div class="col-md-6">
+            <h2>Сквозные данные</h2>
+            <div class="row">
+                <div class="col-md-2">Контакты: </div>
+                <div class="col-md-8">
+                    <textarea name="" id="" cols="30" rows="5">ООО "Интерфинити"
++7 (495) 120-33-78
+interfiniti.ltd@gmail.com</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Copyright: </div>
+                <div class="col-md-8">
+                    <input type="text" value="interfiniti">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">Письмо админу: </div>
+                <div class="col-md-8">
+                    <input type="text" value="xmugutdin@gmail.com">
+                </div>
+            </div>
+            <p>
+                <button class="btn btn-primary">
+                    Сохранить
+                </button>
+            </p>
+        </div>
+    </div>
+<br><br><br>
+    <div class="row admin-settings-restrictions">
+        <p>Пользователь за <input type="text" class="miniText" value="60"> мин. может написать не более <input type="text" class="miniText" value="50"> новым юзерам.</p>
+        <div class="admin-settings-restrictions-toggle-btn"><span>Пользователь не загрузивший свое фото не может просматривать фото других пользователей</span>
+            <div class="switch">
+              <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+              <label for="cmn-toggle-1"></label>
+            </div>
+        </div>
+        
+        <p><button type="button" class="btn btn-primary">Сохранить</button></p>
+    </div>
+
+
+
+
+<br><br><br><br>
 
 
 
