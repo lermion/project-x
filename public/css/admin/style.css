@@ -131,8 +131,8 @@
 .admin-user-content-table table {
 	width: 100%;
 }
-.admin-user-content-table img,
-.admin-user-contacts-ava img {
+.table img,
+.table img {
 	height: 70px;
 	width: 70px;
 	margin-bottom: 3px;
@@ -286,4 +286,12 @@ input.cmn-toggle-round:checked + label:after {
 }
 .admin-user-contacts-action p {
 	margin: 0;
+}
+.table>thead>tr>th,
+.table>tbody>tr>td {
+	word-break: break-all;
+	word-wrap: break-word;
+}
+.admin-user-content-delete-place .col-id {
+	width: 20px;
 }
