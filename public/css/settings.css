@@ -2348,7 +2348,7 @@ div.my_profilll.photo-list div:last-child {
 }
 .chat-top-person-data {
     display: flex;
-    width: 80%;
+    width: 85%;
     align-items: center;
 
 }
@@ -2368,14 +2368,26 @@ div.my_profilll.photo-list div:last-child {
     width: 82%;
 }
 .chat-person-top-info p {
-    display: flex;
-    flex-wrap: wrap;
     width: 100%;
     margin: 0;
     padding: 0;
     line-height: 20px;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+p.top-person-users {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+p.top-person-users a {
+    text-decoration: none;
 }
 p.top-person-status {
     font-size: 12.6px;
@@ -4030,6 +4042,15 @@ span.users-today-time-time.early {
     }
     .chat-users-today-data {
         width: 79%;
+    }
+    .chat-right-top-person {
+        padding-left: 30px;
+    }
+    .chat-link-back {
+        left: 0px;
+    }
+    .chat-person-top-info {
+        width: 70%;
     }
 }
 .chat-left-users-container-blocked {

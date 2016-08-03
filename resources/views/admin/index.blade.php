@@ -147,6 +147,7 @@
                 <th>Пол</th>
                 <th>Возраст</th>
                 <th>Дата регистрации</th>
+                <th>Тип контакта</th>
               </tr>
             </thead>
             <tbody>
@@ -159,6 +160,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Контакт</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -169,6 +171,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписчик</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -179,6 +182,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписан</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -189,6 +193,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписан</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -199,6 +204,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписчик</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -209,6 +215,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписан</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -219,6 +226,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Контакт</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -229,6 +237,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписчик</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -239,6 +248,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Подписан</td>
               </tr>
               <tr>
                 <td>1</td>
@@ -249,6 +259,7 @@
                 <td>Женский</td>
                 <td>35 лет</td>
                 <td>02.08.2016</td>
+                <td>Контакт</td>
               </tr>
             </tbody>
         </table>
@@ -307,9 +318,9 @@ interfiniti.ltd@gmail.com</textarea>
         </div>
     </div>
 <br><br><br>
-    <div class="row admin-settings-restrictions">
+    <div class="row admin-settings-limit">
         <p>Пользователь за <input type="text" class="miniText" value="60"> мин. может написать не более <input type="text" class="miniText" value="50"> новым юзерам.</p>
-        <div class="admin-settings-restrictions-toggle-btn"><span>Пользователь не загрузивший свое фото не может просматривать фото других пользователей</span>
+        <div class="admin-settings-limit-toggle-btn"><span>Пользователь не загрузивший свое фото не может просматривать фото других пользователей</span>
             <div class="switch">
               <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
               <label for="cmn-toggle-1"></label>
@@ -320,10 +331,10 @@ interfiniti.ltd@gmail.com</textarea>
     </div>
 <br>
 
-	<div class="row">
+	<div class="x_content">
 		<h1>Панель модератора - комментарии</h1>
 	</div>
-	<div class="row">
+	<div class="x_content">
 		<table class="table table-bordered">
 	    <thead>
 	      <tr>
