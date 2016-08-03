@@ -29,6 +29,11 @@
 
         //////////////////////////////////////////
 
+
+        vm.openModalPublication = function(pubId) {
+          console.log('Publication is open!');
+        };
+
         function activate() {
             init();
         }
