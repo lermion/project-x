@@ -1959,6 +1959,7 @@ div.my_profilll.photo-list div:last-child {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: 5px;
 }
 .add_newgroup .button .create {
     text-decoration: none;
@@ -6480,7 +6481,8 @@ textarea[type="text"]:focus,
     
     .popup-invite-group .modal__title,
     .item1-add-people-title,
-    .invite-group__items ul p {
+    .invite-group__items ul p,
+    .popup-group-chat .fifth_item .item1 p {
         font-size: .7em;
     }
     .popup-invite-group .invite-group__items input[type="text"] {
