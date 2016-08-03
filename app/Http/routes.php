@@ -204,9 +204,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
         Route::get('file_chat/{room_id}', 'ChatController@file_chat');
-        Route::post('update/{room_id}', 'ChatController@update');
-        Route::post('add_users/{room_id}', 'ChatController@add_users');
-        Route::post('delete_users/{room_id}', 'ChatController@delete_users');
+        Route::post('users/{room_id}', 'ChatController@users');
         Route::post('exit_user/{room_id}', 'ChatController@exit_user');
         Route::get('exit_admin/{room_id}/{user_id}', 'ChatController@exit_admin');
     });
@@ -236,7 +234,10 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/exit_user/1\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/users/1\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='status' value='status'><br>
+            <input type='text' name='name' value='name'><br>
+            <input type='file' name='avatar'><br>
             <input type='text' name='id[]' value='19'><br>
             <input type='text' name='id[]' value='174'><br>
 

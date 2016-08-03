@@ -44,9 +44,9 @@
                                 </a>
                             </div>
                             <p class="status-user" ng-hide="profileEdition"
-                               ng-bind-html="userData.status | colonToSmiley"></p>
+                               ng-bind-html="userData.user_quote | colonToSmiley"></p>
                             <input class="status-correct" type="text" name=""
-                                   ng-show="profileEdition && !showStatusArea" ng-model="userData.status"
+                                   ng-show="profileEdition && !showStatusArea" ng-model="userData.user_quote"
                                    ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''"
                                    ng-click="statusErr=false;">
 
@@ -57,7 +57,7 @@
                                 <a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать
                                     публикацию</a>
                                 <a href="javascript:void(0)" class="rewrite"
-                                   ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition
+                                   ng-click="editProfile(userData.first_name, userData.last_name, userData.user_quote);">{{profileEdition
                                     ? 'Сохранить' : 'Редактировать'}}</a>
 
                                 <div class="view">
@@ -81,9 +81,9 @@
                         </div>
                     </div>
                     <p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea"
-                       ng-bind-html="userData.status | colonToSmiley"></p>
+                       ng-bind-html="userData.user_quote | colonToSmiley"></p>
                     <input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea"
-                           ng-model="userData.status" ng-model-options="{updateOn: 'blur'}"
+                           ng-model="userData.user_quote" ng-model-options="{updateOn: 'blur'}"
                            ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 
                     <p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition">Статус не может быть больше
@@ -93,7 +93,7 @@
                         <a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать
                             публикацию</a>
                         <a href="javascript:void(0)" class="rewrite"
-                           ng-click="editProfile(userData.first_name, userData.last_name, userData.status);">{{profileEdition
+                           ng-click="editProfile(userData.first_name, userData.last_name, userData.user_quote);">{{profileEdition
                             ? 'Сохранить' : 'Редактировать'}}</a>
 
                         <div class="view">
