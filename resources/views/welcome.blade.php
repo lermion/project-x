@@ -62,7 +62,7 @@
 	<script src="../../app/libs/moment/min/moment-with-locales.min.js"></script>
 	<script src="../../app/libs/angular-moment/angular-moment.min.js"></script>
 	<link rel="stylesheet" href="../../app/libs/ng-scrollbar/ng-scrollbar.min.css"/>
-		<script src="../../app/libs/angular-sanitize.js"></script>
+	<script src="../../app/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="../../app/libs/ng-infinite-scroll.min.js"></script>
 	<script src="../../app/libs/nanoscroller.min.js"></script>
 	<script src="../../app/libs/tether.min.js"></script>
