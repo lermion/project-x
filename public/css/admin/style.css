@@ -289,9 +289,94 @@ input.cmn-toggle-round:checked + label:after {
 }
 .table>thead>tr>th,
 .table>tbody>tr>td {
-	word-break: break-all;
 	word-wrap: break-word;
 }
-.admin-user-content-delete-place .col-id {
-	width: 20px;
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    padding: 5px;
+}
+.admin-user-content-table .col-id {
+	width: 25px;
+}
+.admin-user-content-table .col-description {
+	width: 30%;
+}
+.admin-user-content-table .col-author {
+	width: 7%;
+}
+.admin-user-content-table .col-name {
+	width: 10%;
+}
+.admin-user-content-table .col-img {
+	width: 20%;
+}
+.admin-user-content-table .col-video {
+	width: 20%;
+}
+.admin-user-content-table .col-time {
+	width: 10%;
+}
+.admin-user-content-table .col-action {
+	width: 10%;
+}
+.admin-user-content-publication .col-id {
+	width: 25px;
+}
+.admin-user-content-publication .col-text {
+	width: 30%;
+}
+.admin-user-content-publication .col-author {
+	width: 10%;
+}
+.admin-user-content-publication .col-img {
+	width: 20%;
+}
+.admin-user-content-publication .col-video {
+	width: 20%;
+}
+.admin-user-content-publication .col-time {
+	width: 10%;
+}
+.admin-user-content-publication .col-action {
+	width: 10%;
+}
+
+
+.admin-user-contacts .col-id {
+	width: 5%;
+}
+.admin-user-contacts .col-ava {
+	width: 10%;
+}
+.admin-user-contacts .col-name {
+	width: 20%;
+}
+.admin-user-contacts .col-gender {
+	width: 5%;
+}
+.admin-user-contacts .col-age {
+	width: 10%;
+}
+.admin-user-contacts .col-registration {
+	width: 15%;
+}
+.admin-user-contacts .col-action {
+	width: 15%;
+}
+
+.moderator-comments .col-comments-place {
+	width: 20%;
+}
+.moderator-comments .col-comments-text {
+	width: 50%;
+}
+.moderator-comments .col-comments-author {
+	width: 20%;
+}
+.moderator-comments .col-comments-action {
+	width: 10%;
 }
