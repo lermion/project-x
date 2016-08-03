@@ -175,7 +175,7 @@ class ChatController extends Controller
 
     }
 
-    public function update(Request $request, $room_id)
+    public function users(Request $request, $room_id)
     {
         try {
             $this->validate($request, [
@@ -201,7 +201,7 @@ class ChatController extends Controller
             ];
             return response()->json($responseData);
         }
-        $Data = $request->all();
+        $chat = ChatRoom::find($room_id);
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $path = '/upload/';
@@ -209,45 +209,16 @@ class ChatController extends Controller
             $fullPath = public_path() . $path;
             $avatar->move($fullPath, $fileName);
             $Data['avatar'] = $path . $fileName;
+            $chat->avatar = $Data['avatar'];
         }
-        $chat = ChatRoom::find($room_id);
-        $chat->update($Data);
-        return response()->json(["status" => true]);
-    }
-
-    public function add_users(Request $request, $room_id)
-    {
-        if (!$chat = ChatRoom::find($room_id)) {
-            $responseData = [
-                "status" => false,
-                "error" => [
-                    'message' => "This chat does not exist",
-                    'code' => '8'
-                ]
-            ];
-            return response()->json($responseData);
-        }
+        $chat->status = $request->input('status');
+        $chat->name = $request->input('name');
+        $chat->save();
         $users = $request->input('id');
         foreach ($users as $user) {
             UserChat::firstOrCreate(['user_id' => $user, 'room_id' => $room_id]);
+            UserChat::whereNotIn('user_id',$users)->where('room_id',$room_id)->delete();
         }
-        return response()->json(["status" => true]);
-    }
-
-    public function delete_users(Request $request, $room_id)
-    {
-        if (!$chat = ChatRoom::find($room_id)) {
-            $responseData = [
-                "status" => false,
-                "error" => [
-                    'message' => "This chat does not exist",
-                    'code' => '8'
-                ]
-            ];
-            return response()->json($responseData);
-        }
-        $users = $request->input('id');
-        UserChat::whereNotIn('user_id',$users)->where('room_id',$room_id)->delete();
         return response()->json(["status" => true]);
     }
 
