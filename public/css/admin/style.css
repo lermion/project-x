@@ -240,3 +240,50 @@ input.cmn-toggle-round:checked + label:after {
 .row-margin-none {
 	margin: 0;
 }
+.admin-delete-menu {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.admin-delete-menu-inner {
+	width: 75%;
+	display: flex;
+}
+.admin-delete-btn {
+	display: flex;
+	justify-content: flex-end;
+	margin: 10px 0;
+}
+.admin-delete-menu-inner .item {
+	width: 25%;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}
+.admin-delete-menu-inner .item.active {
+	background-color: #f1f1f1;
+}
+.admin-user-page .row,
+.admin-user-page-content .row,
+.admin-user-page-contacts .row,
+.admin-settings .row,
+.admin-settings-limit .row {
+	margin-left: 0px;
+	margin-right: 0px;
+	box-sizing: border-box;
+}
+.admin-user-contacts a {
+	text-decoration: none;
+}
+.admin-user-contacts-action {
+	text-align: center;
+	vertical-align: middle;
+}
+.admin-user-contacts-action p {
+	margin: 0;
+}
