@@ -237,3 +237,6 @@ input.cmn-toggle-round:checked + label:after {
 .admin-settings-limit .switch {
 	margin-left: 10px;
 }
+.row-margin-none {
+	margin: 0;
+}

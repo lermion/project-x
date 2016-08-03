@@ -1,44 +1,4 @@
 <div>
-    <header>
-        <div class="header header-user">
-            <a class="logo" ui-sref="feed"></a>
-
-            <div class="main-menu" ng-click="vm.openMenu();" ng-class="vm.showMenu ? 'show-menu' : ''"
-                 ng-init="vm.showMenu=true;">
-                <a class="drop-menu" href=""></a>
-
-                <div class="menu-item" ng-show="vm.showMenu">
-                    <a class="profile" ui-sref="user({username: vm.userName})">Мой профиль</a>
-                    <a class="places" ui-sref="places">Места <span class="places-count-span"
-                                                                   ng-if="counters.placesNew > 0">{{counters.placesNew}}</span></a>
-                    <a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span"
-                                                                               ng-if="counters.groupsNew > 0">{{counters.groupsNew}}</span></a>
-                    <a class="chat" ui-sref="chat"> Чаты <span class="places-count-span">10</span></a>
-                    <a class="settings" ui-sref="settings">Настройки</a>
-
-                    <div class="search">
-                        <input type="text" placeholder="Поиск...">
-                        <span class="button"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="search main-header-search" ng-click="showSearch = !showSearch">
-                <!--                 <input type="text" placeholder="Поиск...">
-                                <span class="button"></span> -->
-            </div>
-            <a class="exit" href="javascript:void(0);" ng-click="vm.logOut()"><span></span>Выйти</a>
-        </div>
-        <div class="header-search-container" ng-show="showSearch" ng-init="showSearch = true">
-            <div class="header-search-input-wrap">
-                <form name="form.search" ng-submit="vm.search()" novalidate>
-                    <input type="text" ng-model="vm.searchObj.str" placeholder="Поиск...">
-                    <span class="header-search-input-wrap-span"></span>
-                </form>
-            </div>
-        </div>
-    </header>
-
-
     <div class="search-page">
         <div class="place-menu-wrap">
             <div class="group-menu">
@@ -54,11 +14,11 @@
                         </a>
                         <a ui-sref="search.places" ui-sref-active="active" class="counter">
                             <p>Места</p>
-                            <span>{{vm.results[2].length}}</span>
+                            <span>{{vm.results[3].length}}</span>
                         </a>
                         <a ui-sref="search.groups" ui-sref-active="active" class="counter">
                             <p>Группы</p>
-                            <span>{{vm.results[3].length}}</span>
+                            <span>{{vm.results[2].length}}</span>
                         </a>
 
                     </div>
@@ -91,4 +51,3 @@
         </div>
     </div>
 </footer>
-</div>

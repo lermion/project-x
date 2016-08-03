@@ -546,7 +546,10 @@ angular.module('placePeopleApp')
 				});
 			}
 			$scope.$on('ngDialog.opened', function (e, $dialog) {
-				$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
+				console.log();
+				if($dialog.name === "edit-group-chat"){
+					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
+				}
 			});
 			$scope.Model.editGroupChat = function(opponent){
 				$scope.currentOpponent = opponent;
@@ -557,7 +560,8 @@ angular.module('placePeopleApp')
 				ngDialog.open({
 					template: '../app/Chat/views/popup-edit-group-chat.html',
 					className: 'popup-group-chat ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					name: 'edit-group-chat',
 				});
 			};
 
