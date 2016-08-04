@@ -212,7 +212,7 @@
 			</div>
 			<button ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 		</div>
-		<div class="send-wrap-bottom">
+		<div ng-show="files.length > 0" class="send-wrap-bottom">
 			<div class="pic" ng-repeat="file in files">
 				<div ng-click="deleteChatFiles(files, $index)" class="close">
 					<div class="close-inner">
