@@ -479,7 +479,9 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					if(!$scope.disabledSendMessage){
+						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					}
 				}
 			};
 			$scope.beforeChange = function(files){
