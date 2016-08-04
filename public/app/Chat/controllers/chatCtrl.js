@@ -221,7 +221,22 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.leaveGroupChat = function(opponent){
-				console.log(opponent);
+				if(opponent.is_admin === 1){
+					console.log("you can't leave chat");
+				}else{
+					ChatService.exitUserFromGroupChat(opponent.room_id).then(function(response){
+						if(response.status){
+							$scope.Model.opponent = [];
+							$scope.Model.showChatBlock = false;
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.displayBlockedBlock = true;
+							socket.emit("get user rooms", $scope.loggedUserId);
+						}
+					},
+					function(error){
+						console.log(error);
+					});
+				}
 			}
 
 			$scope.Model.showContactData = function(contact){
@@ -386,7 +401,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
-					message: message,
+					message: message ? message : "",
 					imagesObj: imagesObj
 				};
 				$scope.Model.chatMes = '';

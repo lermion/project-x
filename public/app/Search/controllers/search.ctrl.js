@@ -5,9 +5,9 @@
         .module('app.search')
         .controller('SearchCtrl', SearchCtrl);
 
-    SearchCtrl.$inject = ['$scope', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService'];
+    SearchCtrl.$inject = ['$rootScope', '$scope', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService', 'ngDialog', 'PublicationService'];
 
-    function SearchCtrl($scope, $stateParams, storageService, $http, $window, results, searchService) {
+    function SearchCtrl($rootScope, $scope, $stateParams, storageService, $http, $window, results, searchService, ngDialog, PublicationService) {
 
         var vm = this;
 
@@ -28,6 +28,29 @@
         activate();
 
         //////////////////////////////////////////
+
+
+        vm.openModalPublication = function(pubId) {
+          openModalPublication(pubId);
+        };
+
+        function openModalPublication(pubId) {
+            $rootScope.showSearch = false;
+            getPublication(pubId).then(function(pub) {
+                ngDialog.open({
+                    templateUrl: '../app/common/components/publication/publication-modal.html',
+                    name: 'modal-publication-group',
+                    className: 'view-publication ngdialog-theme-default',
+                    data: {
+                        pub: pub
+                    },
+                    preCloseCallback: function() {
+                        $rootScope.showSearch = true;
+                    }
+                });
+            });
+
+        }
 
         function activate() {
             init();
@@ -116,6 +139,14 @@
         $scope.$on('search', function (event, data) {
             search(data.searchObj);
         })
+
+
+        function getPublication(id) {
+            return PublicationService.getSinglePublication(id)
+                .then(function (data) {
+                    return data;
+                });
+        }
 
     }
 

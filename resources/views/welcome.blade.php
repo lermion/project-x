@@ -26,10 +26,10 @@
 				</div>
 			</div>
 			</div>
-			<div class="search main-header-search" ng-click="showSearch = !showSearch"></div>
+			<div class="search main-header-search" ng-click="$root.showSearch = !($root.showSearch)"></div>
 			<a class="exit" href="javascript:void(0);" ng-click="logOut()"><span></span>Выйти</a>
 		</div>
-		<div class="header-search-container" ng-show="showSearch" ng-init="showSearch = false">
+		<div class="header-search-container" ng-if="$root.showSearch">
 			<div class="header-search-input-wrap">
 				<form name="form.search" ng-submit="submitSearch()" novalidate>
 					<input type="text" ng-model="search.str" placeholder="Поиск..." focus-me="showSearch">
@@ -107,5 +107,7 @@
 	<script src="../../app/Search/index.js"></script>
 	<script src="../../app/Search/controllers/search.ctrl.js"></script>
 	<script src="../../app/Search/services/search.srv.js"></script>
+	<script src="../../app/common/components/index.js"></script>
+	<script src="../../app/common/components/publication/index.js"></script>
 </body>
 </html>

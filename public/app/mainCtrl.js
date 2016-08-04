@@ -140,7 +140,7 @@ angular.module('placePeopleApp')
 
 		function resetSearch() {
 			$scope.search = angular.copy(originalSearch);
-			$scope.showSearch = false;
+			$rootScope.showSearch = false;
 		}
 
 

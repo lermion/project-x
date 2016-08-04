@@ -1,0 +1,189 @@
+<div class="user-publication-bg"></div>
+<div class="user-publication">
+
+    <div class="user-publication-header">
+        <div class="user-function">
+            <a href class="user" ui-sref="place({placeName: $ctrl.place.url_name})" ng-click="closeThisDialog()">
+				<span class="ava">
+					<img ng-src="{{$ctrl.pub.user.avatar_path}}" alt="">
+				</span>
+
+                <p class="user-name">{{$ctrl.pub.user.first_name}}</p>
+            </a>
+
+            <div class="user-menu" ng-click="$ctrl.showPubMenu = !$ctrl.showPubMenu">
+                <div class="menu-item" ng-if="$ctrl.showPubMenu">
+                    <div class="inner">
+                        <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.editPub($ctrl.pub)">Редактировать</a>
+                        <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
+                        <a href ng-click="$ctrl.getPubLink($ctrl.pub)">Получить ссылку</a>
+                        <a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
+                        <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.deletePub($ctrl.pub)">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href ng-click="returnToBack()" class="return">Назад</a>
+    </div>
+
+    <div class="user-publication-content">
+        <div class="publication-ava">
+            <img ng-init="$ctrl.mainImage = $ctrl.pub.images[0].url" ng-src="{{$ctrl.mainImage}}">
+            <video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
+        </div>
+        <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
+             style="max-height:175px; overflow:hidden; position:relative;"
+             ng-hide="$ctrl.pub.images.length === 1">
+
+            <div ng-click="$ctrl.changeMainFile(file)"
+                 ng-repeat="file in $ctrl.pub.images.concat($ctrl.pub.videos) | limitTo: limit as results"
+                 class="images-item">
+                <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+                <video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>
+            </div>
+
+            <div ng-if="!(results.length === ($ctrl.pub.images.length + $ctrl.pub.videos.length))"
+                 class="images-item more"
+                 ng-click="loadMorePubFiles(results.length === ($ctrl.pub.images.length + $ctrl.pub.videos.length))">
+                <p class="counter">Еще<br> {{($ctrl.pub.images.length + $ctrl.pub.videos.length) -
+                    limit}} файлов</p>
+            </div>
+
+        </div>
+        <p class="publication-text" ng-bind-html="$ctrl.pub.text | colonToSmiley"></p>
+    </div>
+
+    <div class="likes">
+        <div class="likes-item">
+            <a href ng-click="$ctrl.addPublicationLike($ctrl.pub, $ctrl.pub.user.id == loggedUserId)"
+               class="like">Тема</a>
+
+            <p class="like-item">
+                В теме
+                <span ng-if="$ctrl.pub.user_like" class="you"> Вы </span>
+                <span ng-if="$ctrl.pub.user_like && $ctrl.pub.like_count > 1"
+                      class="more">и еще</span>
+                <span class="count-like"
+                      ng-if="!($ctrl.pub.user_like && $ctrl.pub.like_count === 1)">{{$ctrl.pub.user_like ? ($ctrl.pub.user_like && ($ctrl.pub.like_count - 1)) : $ctrl.pub.like_count}} чел.</span>
+            </p>
+        </div>
+        <a href class="comments-count">{{$ctrl.pub.comment_count}}</a>
+    </div>
+
+    <div class="more-comments" ng-if="$ctrl.pub.comments.length !== $ctrl.pub.comment_count">
+        <a href ng-click="$ctrl.getAllCommentsPublication('feedPage', $ctrl.pub, true)" class="all-comments">Еще
+            {{$ctrl.pub.comment_count - 3}} комментариев</a>
+    </div>
+
+    <div class="visible-comments" ng-hide="$ctrl.pub.comments.length === 0">
+        <div ng-repeat="comment in $ctrl.pub.comments | orderBy: 'comment.created_at'" class="user-comment">
+            <div class="user-ava">
+                <a href class="ava" ui-sref="user({username: comment.user.login})" ng-click="$ctrl.closeModal()">
+                    <img ng-src="{{comment.user.avatar_path}}" alt="">
+                </a>
+            </div>
+            <div class="comment">
+                <div class="user-info">
+                    <div class="info-item">
+                        <a href class="user-name" ui-sref="user({username: comment.user.login})"
+                           ng-click="$ctrl.closeModal()">{{comment.user.first_name}}
+                            {{comment.user.last_name}}</a>
+
+                        <p class="time" am-time-ago="comment.created_at"></p>
+                        <a href ng-click="$ctrl.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+                    </div>
+                    <a href ng-click="$ctrl.openCommentComplainBlock(comment.id)" class="alert alert-text"
+                       ng-if="!(comment.user.id == $ctrl.myId)">Пожаловаться</a>
+                    <a href ng-click="$ctrl.deleteComment('viewPage', $ctrl.pub, comment, $index)" class="alert"
+                       ng-if="comment.user.id == $ctrl.myId"></a>
+                </div>
+                <p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
+
+                <div ng-if="comment.images[0]" class="comment-pic">
+                    <a href ng-repeat="image in comment.images | limitTo: 3 as results"
+                       ng-click="$ctrl.showMoreImages(comment.images, image)" class="comment-pic-item">
+                        <img ng-src="{{::image.url}}">
+                    </a>
+                    <a href ng-if="comment.images.length >= 4" ng-click="$ctrl.showMoreImages(comment.images)"
+                       class="comment-pic-item">
+                        <p>Ещё {{comment.images.length - 3}} фото</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-comment">
+        <form class="popup-place-view-publication-form" name="$ctrl.commentForm" novalidate>
+            <div class="user-ava">
+                <a href class="ava" ui-sref="user({username: $ctrl.userName})" ng-click="$ctrl.closeModal()">
+                    <img ng-src="{{$ctrl.myAvatar}}" alt="My Avatar">
+                </a>
+            </div>
+            <div flow-init style="position:relative;" class="add">
+                <div class="text-field">
+                    <div emoji-form emoji-message="$ctrl.emojiMessage">
+                        <textarea id="messageInput" name="text" ng-model="$ctrl.emojiMessage.messagetext"
+                                  required></textarea>
+                        <a href class="emoji-button" id="emojibtn">
+                            <i class="icon icon-emoji"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="error-messages" ng-messages="$ctrl.commentForm.text.$error"
+                     ng-if="$ctrl.commentForm.$invalid && $ctrl.commentForm.$submitted">
+                    <div ng-message="required">Не указан текст комментария</div>
+                </div>
+
+                <div class="new-add" ng-if="$ctrl.newComment.files"
+                     ng-scrollbar
+                     rebuild-on="rebuild:me"
+                     bottom
+                     rebuild-on-resize style="max-height: 250px; overflow:hidden; position:relative;">
+                    <div class="new-img"
+                         ng-repeat="file in $ctrl.newComment.files"
+                         ng-click="showMoreImages($ctrl.newComment.files)">
+                        <div class="inner">
+                            <div ng-click="$ctrl.deletePubFile($ctrl.newComment.files, $index)" class="close">
+                                <div class="close-inner">
+                                    <p>Удалить</p>
+                                </div>
+                            </div>
+                            <img ngf-thumbnail="file || '/thumb.jpg'">
+                            <video width="200px" controls ngf-src="file"></video>
+                        </div>
+                        <p class="img-name">{{file.name}}</p>
+                    </div>
+                </div>
+                {{$ctrl.commentModel.pubText}}
+                <div class="publication-footer"
+                     ng-init="addFileObjId = 'add-file-to-comment-popup-'+$ctrl.pub.id">
+                    <div class="publication-footer-button">
+                        <button ladda="$ctrl.subForm" data-style="slide-right" ng-disabled="$ctrl.subForm"
+                                ng-click="$ctrl.addNewComment('feedPage', $ctrl.pub, emojiMessage, $ctrl.newComment.files)"
+                                class="publication-button">Отправить
+                        </button>
+                    </div>
+                    <div class="add-objects">
+                        <input id="{{addFileObjId}}" style="display: none;"
+                               name="files"
+                               ngf-keep="true"
+                               ngf-accept="'image/*, video/*'"
+                               ngf-pattern="'image/*, video/*'"
+                               ngf-select
+                               ng-model="$ctrl.newComment.files"
+                               ngf-multiple="true"
+                               ngf-change="$ctrl.attachFileToComment($files)">
+                        <label for="{{addFileObjId}}">
+                            Прикрепить
+                            <span class="add"></span>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

@@ -2287,6 +2287,7 @@ div.my_profilll.photo-list div:last-child {
     height: 100%;
     border-top: 1px solid #e0e2e5;
     border-right: 1px solid #e0e2e5;
+    border-bottom: 1px solid #e0e2e5;
     box-sizing: border-box;
 }
 .group-menu .user-menu {
@@ -3209,7 +3210,7 @@ span.users-today-time-time.early {
     position: absolute;
     top: 60px;
     left: 0;
-    bottom: 41px;
+    bottom: 35px;
 }
 .chat-message-date {
     display: flex;
@@ -3381,7 +3382,7 @@ span.users-today-time-time.early {
     margin-top: 10px;
 }
 .to-my-img-inner-photo-pict {
-    width: 140px;
+    width: 125px;
     height: 100px;
     margin-bottom: 2px;
     margin-right: 2px;
@@ -3867,7 +3868,7 @@ span.users-today-time-time.early {
         font-size: 10.6px;
     }
     .my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
-        width: 31%;
+        width: 100px;
         margin-right: 2px;
         height: 70px;
     }
@@ -3896,7 +3897,7 @@ span.users-today-time-time.early {
 }
 @media (max-width: 720px) {
 	.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
-    width: 31%;
+    width: 75px;
     margin-right: 2px;
     height: 50px;
 	}
@@ -5349,6 +5350,7 @@ input.cmn-toggle-round:checked + label:after {
     align-items: center;
     width: 100%;
     height: 100%;
+    cursor: default;
 }
 .place-top-ava-wrap .group-ava .ava img {
     width: 100%;
@@ -6545,6 +6547,13 @@ textarea[type="text"]:focus,
 }
 .animate-if.ng-leave, .animate-if.ng-enter.ng-enter-active {
     opacity:1;
+}
+
+/******************************************
+            Search
+******************************************/
+.search-result__item-publication {
+    margin: 15px 0;
 }
 .emoji-wysiwyg-editor {
     color: #000;

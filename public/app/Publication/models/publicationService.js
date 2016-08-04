@@ -47,7 +47,9 @@ angular.module('placePeopleApp')
 
 		function addCommentPublication(pubId, pubText, images, videos){
 			var formData = new FormData();
-			formData.append('text', pubText);			
+			if (pubText) {
+				formData.append('text', pubText);
+			}
 			images.forEach(function (img) {
 				formData.append('images[]', img);
 			});
