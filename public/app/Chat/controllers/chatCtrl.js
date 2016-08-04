@@ -541,6 +541,13 @@ angular.module('placePeopleApp')
 					if(response.data.status){
 						$scope.Model.opponent.name = name;
 						$scope.currentOpponent.status = statusToSave;
+						if(typeof avatar === "object"){
+							var reader = new window.FileReader();
+							reader.readAsDataURL(avatar); 
+							reader.onloadend = function(){
+								$scope.Model.opponent.avatar = reader.result;
+							}
+						}
 						socket.emit("get user rooms", $scope.loggedUserId);
 						ngDialog.closeAll();
 					}

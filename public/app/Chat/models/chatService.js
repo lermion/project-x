@@ -43,6 +43,9 @@ angular.module('placePeopleApp')
 			var data = new FormData();
 			data.append('name', name);
 			data.append('status', status);
+			if(typeof avatar === "object"){
+				data.append('avatar', avatar);
+			}
 			users.forEach(function (user) {
 				data.append('id[]', user);
 			});
