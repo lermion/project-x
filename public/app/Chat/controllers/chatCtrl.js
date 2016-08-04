@@ -540,6 +540,7 @@ angular.module('placePeopleApp')
 				ChatService.updateGroupChat($scope.currentOpponent.room_id, name, statusToSave, avatar, usersInChat).then(function(response){						
 					if(response.data.status){
 						$scope.Model.opponent.name = name;
+						$scope.currentOpponent.status = statusToSave;
 						socket.emit("get user rooms", $scope.loggedUserId);
 						ngDialog.closeAll();
 					}
