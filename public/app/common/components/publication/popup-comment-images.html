@@ -1,0 +1,10 @@
+<div class="comment-imges">
+	<div class="comment-img">
+		<img ng-init="mainImageInPopup = ngDialogData.mainImageInPopup" ng-src="{{mainImageInPopup}}">
+	</div>
+	<div class="comment-imges-list">
+		<a href ng-click="changeMainFile(image)" ng-repeat="image in ngDialogData.images" class="comment-list">
+			<img ng-src="{{image.url}}" alt="">
+		</a>
+	</div>
+</div>
