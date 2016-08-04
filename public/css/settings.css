@@ -1740,6 +1740,7 @@ div.my_profilll.photo-list div:last-child {
     padding: 10px;
     justify-content: space-between;
     position: relative;
+    box-sizing: border-box;
 }
 .group-peoples-inner-item .peoples-item__delete {
     background: #ec6045;
@@ -6633,3 +6634,6 @@ textarea[type="text"]:focus,
         width: 100%;
     }
  }
+ .popup-leave-group-chat .group-peoples-inner-item.active {
+    background: #e4e4e4;
+}
