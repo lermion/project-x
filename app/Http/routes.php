@@ -131,6 +131,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('publication_complaints', 'Moderator\ModerateController@publication_complaints');
             Route::get('delete_complaint_publication/{id}', 'Moderator\ModerateController@delete_complaint_publication');
             Route::get('getPublication', 'Moderator\ModerateController@getPublication');
+            Route::get('getGroups', 'Moderator\ModerateController@getGroups');
+            Route::post('blockGroup/{id}', 'Moderator\ModerateController@blockGroup');
+            Route::get('confirmGroup/{id}', 'Moderator\ModerateController@confirmGroup');
+            Route::get('getPlaces', 'Moderator\ModerateController@getPlaces');
+            Route::post('blockPlace/{id}', 'Moderator\ModerateController@blockPlace');
+            Route::get('confirmPlace/{id}', 'Moderator\ModerateController@confirmPlace');
             Route::get('topic/{id}', 'Moderator\ModerateController@topic');
             Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
             Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
@@ -240,8 +246,6 @@ Route::group(['middleware' => ['web']], function () {
             <input type='file' name='avatar'><br>
             <input type='text' name='id[]' value='19'><br>
             <input type='text' name='id[]' value='174'><br>
-
-
 
             <input type=\"submit\">
             </form>";

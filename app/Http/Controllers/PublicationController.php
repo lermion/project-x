@@ -286,6 +286,9 @@ class PublicationController extends Controller
                     $path = Image::getImagePath($cover);
                     $publicationData['cover'] = $path;
                 }
+                if ($publication->is_main == true or $publicationData['is_main'] == true){
+                    $publicationData['is_moderate'] = false;
+                }
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
