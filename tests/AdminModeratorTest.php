@@ -161,10 +161,40 @@ class AdminModeratorTest extends TestCase
         $group->delete();
     }
 
+    public function testConfirmGroup()
+    {
+        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>false]);
+        $this->json('GET', 'moderator/confirmGroup/'.$group->id);
+        $group->delete();
+    }
+
+    public function testBlockGroup()
+    {
+        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>false]);
+        $data = ['block_message' => 'test'];
+        $this->json('POST', 'moderator/blockGroup/'.$group->id, $data);
+        $group->delete();
+    }
+
     public function testGetPlaces()
     {
         $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>false]);
         $this->json('GET', 'moderator/getPlaces/');
+        $place->delete();
+    }
+
+    public function testConfirmPlace()
+    {
+        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>false]);
+        $this->json('GET', 'moderator/confirmPlace/'.$place->id);
+        $place->delete();
+    }
+
+    public function testBlockPlace()
+    {
+        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>false]);
+        $data = ['block_message' => 'test'];
+        $this->json('POST', 'moderator/blockPlace/'.$place->id, $data);
         $place->delete();
     }
 }
