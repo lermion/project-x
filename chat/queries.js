@@ -109,7 +109,7 @@ Queries.prototype.getUserRooms = function(data){
 									avatar: item.avatar,
 									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
 									last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
-									show_notif: result[0].show_notif,
+									show_notif: result[0] ? result[0].show_notif : "",
 									countMessages: countMessages[0]['COUNT(message_id)']
 								};
 								resolve(result);
