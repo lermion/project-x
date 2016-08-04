@@ -44,7 +44,6 @@
                     <div class="places-category-item"
                          ng-repeat="place in vm.places | filter: {is_admin: true} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
                             <a class="places-item-photo-link"
                                ui-sref="place({placeName: place.url_name, placeId: place.id})">
                                 <img class="places-item-photo-img"
