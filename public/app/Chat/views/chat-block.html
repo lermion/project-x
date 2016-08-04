@@ -70,7 +70,7 @@
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
-		<div ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
+		<div ng-hide="message.text == '' && message.images.length === 0" ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
 		<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
 			<div class="chat-main-user-sender-ava">
 				<a href="">
@@ -210,7 +210,7 @@
 					<input type="file" ngf-select="beforeChange($files)" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
 				</div>
 			</div>
-			<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+			<button ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 		</div>
 		<div class="send-wrap-bottom">
 			<div class="pic" ng-repeat="file in files">

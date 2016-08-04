@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
          $this->call(StaticPageTableSeeder::class);
          $this->call(ComplaintCategoryTableSeeder::class);
          $this->call(TypePlaceTableSeeder::class);
-         $this->call(PlaceTableSeeder::class);
+         //$this->call(PlaceTableSeeder::class);
     }
 }
 

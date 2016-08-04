@@ -3581,6 +3581,9 @@ span.users-today-time-time.early {
     background: transparent;
     cursor: pointer;
 }
+.chat-send-btn:hover:disabled {
+    cursor: not-allowed;
+}
 .send-wrap-bottom {
     padding: 5px 10px;
     overflow-x: auto;

@@ -22,9 +22,9 @@ class ChatTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if (!$room) {
-            $room = \App\ChatRooms::create(['name' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test']);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if (!$user_chat){
@@ -52,12 +52,12 @@ class ChatTest extends TestCase
         if (!$chat_locked_user){
             \App\ChatLockedUser::create(['user_id' => $user->id, 'locked_user_id' => $user2->id]);
         }
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if ($room) {
             $room->delete();
-            $room = \App\ChatRooms::create(['name' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test']);
         } else {
-            $room = \App\ChatRooms::create(['name' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test']);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if ($user_chat){
@@ -75,9 +75,9 @@ class ChatTest extends TestCase
         if (!$user) {
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if (!$room) {
-            $room = \App\ChatRooms::create(['name' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test']);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if ($user_chat){
@@ -101,9 +101,9 @@ class ChatTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if (!$room) {
-            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+            $room = \App\ChatRoom::create(['name' => 'test', 'id' => 1]);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if ($user_chat){
@@ -135,9 +135,9 @@ class ChatTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if (!$room) {
-            $room = \App\ChatRooms::create(['name' => 'test', 'id' => 1]);
+            $room = \App\ChatRoom::create(['name' => 'test', 'id' => 1]);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if ($user_chat){
@@ -167,9 +167,9 @@ class ChatTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if (!$room) {
-            $room = \App\ChatRooms::create(['name' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test']);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if ($user_chat){
@@ -204,9 +204,9 @@ class ChatTest extends TestCase
             $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $room = \App\ChatRooms::where('name', 'test')->first();
+        $room = \App\ChatRoom::where('name', 'test')->first();
         if (!$room) {
-            $room = \App\ChatRooms::create(['name' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test']);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
         if ($user_chat){

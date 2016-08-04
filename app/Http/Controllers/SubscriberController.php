@@ -37,7 +37,7 @@ class SubscriberController extends Controller
             $result = [
                 "status" => false,
                 "error" => [
-                    'message' => "Can not subscribe to yourself",
+                    'message' => "Can not subscribe to your self",
                     'code' => '14'
                 ]
             ];
