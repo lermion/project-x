@@ -11,12 +11,25 @@ angular.module('placePeopleApp')
 			setNotification: setNotification,
 			clearChat: clearChat,
 			getChatFiles: getChatFiles,
-			updateGroupChat: updateGroupChat
+			updateGroupChat: updateGroupChat,
+			exitUserFromGroupChat: exitUserFromGroupChat
 		};
 
 		function blockUser(userId) {
 			var defer = $q.defer();
 			$http.get('chat/locked/' + userId)
+				.success(function (response) {
+					defer.resolve(response);
+				})
+				.error(function (error) {
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function exitUserFromGroupChat(roomId) {
+			var defer = $q.defer();
+			$http.get('chat/exit_user/' + roomId)
 				.success(function (response) {
 					defer.resolve(response);
 				})

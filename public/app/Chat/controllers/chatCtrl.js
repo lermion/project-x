@@ -224,6 +224,14 @@ angular.module('placePeopleApp')
 				if(opponent.is_admin === 1){
 					console.log("you can't leave chat");
 				}else{
+					ChatService.exitUserFromGroupChat(opponent.room_id).then(function(response){
+						if(response.status){
+							socket.emit("get user rooms", $scope.loggedUserId);
+						}
+					},
+					function(error){
+						console.log(error);
+					});
 					console.log("you can leave chat");
 				}
 			}

@@ -211,7 +211,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
         Route::get('file_chat/{room_id}', 'ChatController@file_chat');
         Route::post('users/{room_id}', 'ChatController@users');
-        Route::post('exit_user/{room_id}', 'ChatController@exit_user');
+        Route::get('exit_user/{room_id}', 'ChatController@exit_user');
         Route::get('exit_admin/{room_id}/{user_id}', 'ChatController@exit_admin');
     });
 
