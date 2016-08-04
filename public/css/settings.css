@@ -2287,6 +2287,7 @@ div.my_profilll.photo-list div:last-child {
     height: 100%;
     border-top: 1px solid #e0e2e5;
     border-right: 1px solid #e0e2e5;
+    border-bottom: 1px solid #e0e2e5;
     box-sizing: border-box;
 }
 .group-menu .user-menu {
