@@ -225,7 +225,10 @@ angular.module('placePeopleApp')
 					ngDialog.open({
 						template: '../app/Chat/views/popup-leave-group-chat.html',
 						className: 'popup-group-chat popup-leave-group-chat ngdialog-theme-default',
-						scope: $scope
+						scope: $scope,
+						data: {
+							members: opponent.members
+						}
 					});
 				}else{
 					ChatService.exitUserFromGroupChat(opponent.room_id).then(function(response){
