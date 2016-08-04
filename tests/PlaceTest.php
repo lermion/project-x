@@ -162,6 +162,7 @@ class PlaceTest extends TestCase
         $this->json('GET', 'place/set_user_admin/' . $place->id . '/' . $user2->id)->seeJson([
             'status' => true,
         ]);
+        $place->delete();
     }
 
 
