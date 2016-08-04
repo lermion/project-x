@@ -222,7 +222,11 @@ angular.module('placePeopleApp')
 
 			$scope.Model.leaveGroupChat = function(opponent){
 				if(opponent.is_admin === 1){
-					console.log("you can't leave chat");
+					ngDialog.open({
+						template: '../app/Chat/views/popup-leave-group-chat.html',
+						className: 'popup-group-chat popup-leave-group-chat ngdialog-theme-default',
+						scope: $scope
+					});
 				}else{
 					ChatService.exitUserFromGroupChat(opponent.room_id).then(function(response){
 						if(response.status){
