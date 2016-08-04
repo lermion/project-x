@@ -189,7 +189,7 @@
 			</div> 
 			<button ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id, files)" class="send">Отправить</button>
 		</div>
-		<div class="pictures">
+		<div ng-show="files.length > 0" class="pictures">
 			<div class="pic" ng-repeat="file in files">
 				<div ng-click="deleteChatFiles(files, $index)" class="close">
 					<div class="close-inner">

@@ -221,7 +221,11 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.leaveGroupChat = function(opponent){
-				console.log(opponent);
+				if(opponent.is_admin === 1){
+					console.log("you can't leave chat");
+				}else{
+					console.log("you can leave chat");
+				}
 			}
 
 			$scope.Model.showContactData = function(contact){
