@@ -3209,7 +3209,7 @@ span.users-today-time-time.early {
     position: absolute;
     top: 60px;
     left: 0;
-    bottom: 41px;
+    bottom: 35px;
 }
 .chat-message-date {
     display: flex;
@@ -3381,7 +3381,7 @@ span.users-today-time-time.early {
     margin-top: 10px;
 }
 .to-my-img-inner-photo-pict {
-    width: 140px;
+    width: 125px;
     height: 100px;
     margin-bottom: 2px;
     margin-right: 2px;
@@ -3867,7 +3867,7 @@ span.users-today-time-time.early {
         font-size: 10.6px;
     }
     .my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
-        width: 31%;
+        width: 100px;
         margin-right: 2px;
         height: 70px;
     }
@@ -3896,7 +3896,7 @@ span.users-today-time-time.early {
 }
 @media (max-width: 720px) {
 	.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
-    width: 31%;
+    width: 75px;
     margin-right: 2px;
     height: 50px;
 	}
