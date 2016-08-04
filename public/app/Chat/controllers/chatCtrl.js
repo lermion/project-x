@@ -401,7 +401,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
-					message: message,
+					message: message ? message : "",
 					imagesObj: imagesObj
 				};
 				$scope.Model.chatMes = '';

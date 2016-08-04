@@ -128,4 +128,5 @@ angular.module('placePeopleApp')
             groupsNew: null,
             placesNew: null
         };
+        $rootScope.showSearch = false;
     }]);
