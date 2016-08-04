@@ -1,0 +1,16 @@
+<div class="new_group"> Выберите администратора чата</div>
+<div class="popup-leave-chat-container">
+	<div ng-repeat="member in ngDialogData.members" ng-mouseover="showAdmin = true" ng-mouseleave="showAdmin = false" class="group-peoples-inner-item active">
+		<div class="peoples-inner-item-data">
+			<div class="peoples-item-photo">
+				<a href="javascript:void(0);">
+					<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ7t30uQ_C4eV-HXMFZU2EPlqQ_MwsMA2kEfkzBFjC3Sav4OM3n" alt="User avatar">
+				</a>
+			</div>
+			<div class="peoples-item-name-content">
+				<a class="peoples-item-name-family" href=""><span>Елена Новикова</span></a>
+			</div>
+		</div>
+		<div ng-show="showAdmin" class="peoples-inner-item-admin">Администратор</div>
+	</div>
+</div>
