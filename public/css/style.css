@@ -3907,7 +3907,6 @@ body.ngdialog-open {
 .group-chat {
 	height: auto;
 	width: 100%;
-	background: url(../images/chat-bg.png) repeat; 
 	box-sizing: border-box;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
 	margin-bottom: 20px;
@@ -3918,6 +3917,7 @@ body.ngdialog-open {
 	max-height: 385px;
 	min-height: 150px;
 	height: auto;
+	background: url(../images/chat-bg.png) repeat;
 }
 .group-chat .date-messeges {
 	display: flex;
@@ -4062,7 +4062,7 @@ body.ngdialog-open {
 	flex-wrap: wrap;
 }
 .group-chat .user-messege .pictures .pic {
-	width: 134px;
+	width: 120px;
 	height: 100px;
 	overflow: hidden;
 	margin-bottom: 2px;
@@ -4244,7 +4244,7 @@ body.ngdialog-open {
 	flex-wrap: wrap;
 }
 .group-comments .pictures .pic {
-	width: 132px;
+	width: 130px;
 	height: 100px;
 	overflow: hidden;
 	margin-bottom: 2px;
@@ -4261,9 +4261,6 @@ body.ngdialog-open {
 	max-width: 100%;
 	height: auto;
 	width: auto;
-}
-.group-comments .pictures .pic:nth-child(5n) {
-	margin-right: 0;
 }
 .my-messege .user-messeges {
 	display: flex;
