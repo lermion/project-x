@@ -1,7 +1,7 @@
 <form name="vm.form.placeNew" novalidate ng-if="!vm.isPlaceAdded" ng-init="vm.placeNew.isDynamic = true;">
     <div class="create-places-common">
         <div class="create-places-header">
-            <a class="create-places-header-a" ui-sref="places.add">Создать место</a>
+            <a class="create-places-header-a" ui-sref="places.add" ng-click="vm.resetNewPlaceForm()">Создать место</a>
         </div>
         <div class="create-places-common-inner">
             <div class="create-places-type">

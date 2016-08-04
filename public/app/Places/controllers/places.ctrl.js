@@ -69,6 +69,7 @@
             // invited users
             users: []
         };
+        var originalPlaceNew = angular.copy(vm.placeNew);
 
         vm.location = {
             latitude: null,
@@ -198,7 +199,7 @@
         $scope.$watch(angular.bind(vm, function () {
             return vm.placeNew.country;
         }), function (newVal, oldVal) {
-            if (newVal !== oldVal) {
+            if (newVal !== oldVal && newVal !== null) {
                 getCities(newVal);
             }
         });
@@ -378,6 +379,10 @@
                 $anchorScroll();
             }
 
+        };
+
+        vm.resetNewPlaceForm = function() {
+            vm.placeNew = angular.copy(originalPlaceNew);
         };
 
         function getCities(country) {
