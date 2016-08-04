@@ -67,7 +67,8 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 			user_id: roomInfo.user_id,
 			room_id: roomInfo.room_id,
 			created_at: roomInfo.created_at,
-			updated_at: roomInfo.updated_at
+			updated_at: roomInfo.updated_at,
+			is_admin: roomInfo.members[i] === roomInfo.members[0] ? 1 : 0
 		};
 		connection.query('INSERT INTO user_chats SET ?', sqlReq, function(error, result){
 			if(error){
@@ -97,7 +98,7 @@ Queries.prototype.getUserRooms = function(data){
 		}else{
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
-					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif, user_chats.is_admin FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
 						connection.query("SELECT u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = '" + item.id + "')", function(error, lastMessages){
 							connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + item.id + " AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ")", function(error, countMessages){
 								result = {

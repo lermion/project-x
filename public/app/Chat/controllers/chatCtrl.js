@@ -360,9 +360,7 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
-				if(message === "" && files === undefined || message === "" && files.length === 0){
-					return;
-				}
+				$scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
@@ -397,6 +395,12 @@ angular.module('placePeopleApp')
 						files.length = 0;
 					}
 					$scope.emojiMessage.rawhtml = "";
+					data.message = "";
+					if(data.message === "" && $scope.emojiMessage.rawhtml === ""){
+						setTimeout(function(){
+							$scope.disabledSendMessage = false;
+						}, 200);
+					}
 				});
 			};
 
@@ -475,7 +479,9 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					if(!$scope.disabledSendMessage){
+						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					}
 				}
 			};
 			$scope.beforeChange = function(files){
