@@ -360,9 +360,6 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
-				if(message === "" && files === undefined || message === "" && files.length === 0){
-					return;
-				}
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
