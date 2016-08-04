@@ -85,7 +85,7 @@ class ModerateController extends Controller
         $places = Place::with('users','publications')
             ->where(['is_moderate'=>false, 'is_block'=>false])
             ->get();
-        return response()->json(['status' => true, 'groups'=>$places]);
+        return response()->json(['status' => true, 'places'=>$places]);
     }
 
     public function blockPlace(Request $request,$id)

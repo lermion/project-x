@@ -33,18 +33,19 @@
                 // Lifecycle hooks
                 ctrl.$onInit = function (args) {
                     ctrl.pub = ctrl.pubData;
+                    ctrl.pub.author = getAuthor();
                 };
 
                 ctrl.$onChanges = function (args) {
-                    console.log('OnChanges, ' + args);
+                    console.log('OnChanges');
                 };
 
                 ctrl.$onDestroy = function (args) {
-                    console.log('OnDestroy, ' + args);
+                    console.log('OnDestroy');
                 };
 
                 ctrl.$postLink = function (args) {
-                    console.log('OnLink, ' + args);
+                    console.log('OnLink');
                 };
 
 
@@ -71,7 +72,6 @@
                             console.log(error);
                         });
                 };
-
 
                 ctrl.closeModal = function () {
                     ngDialog.closeAll();
@@ -213,6 +213,30 @@
                         }
                     });
                 };
+
+
+
+
+                function getAuthor() {
+                    var name, avatar;
+                    if (ctrl.pub.group.length > 0) {
+                        name = ctrl.pub.group[0].name;
+                        avatar = ctrl.pub.group[0].card_avatar;
+                    } else if (ctrl.pub.place.length > 0) {
+                        name = ctrl.pub.place[0].name;
+                        avatar = ctrl.pub.place[0].avatar;
+                    } else if (ctrl.pub.is_anonym) {
+                        name = 'Анонимная публикация'
+                    } else if (ctrl.pub.user) {
+                        name = ctrl.pub.user.first_name + ' ' + ctrl.pub.user.last_name;
+                        avatar = ctrl.pub.user.avatar_path;
+                    }
+
+                    return {
+                        name: name,
+                        avatar: avatar
+                    }
+                }
 
 
             }

@@ -64,6 +64,17 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
             Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
         });
+        Route::group(['prefix' => 'lock'], function () {
+            Route::get('places', 'Admin\LockContentController@getLockPlaces');
+            Route::get('unlock_place/{id}', 'Admin\LockContentController@unlockPlace');
+            Route::get('destroy_place/{id}', 'Admin\LockContentController@destroyPlace');
+            Route::get('groups', 'Admin\LockContentController@getLockGroups');
+            Route::get('unlock_group/{id}', 'Admin\LockContentController@unlockGroup');
+            Route::get('destroy_group/{id}', 'Admin\LockContentController@destroyGroup');
+            Route::get('publications', 'Admin\LockContentController@getLockPublications');
+            Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
+            Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
+        });
 
     });
     Route::group(['prefix' => 'auth'], function () {
@@ -237,7 +248,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/subscribe/store\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/user/confirm/174\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='user_id' value='174'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
