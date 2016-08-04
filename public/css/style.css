@@ -2240,6 +2240,7 @@ spam-item {
 	content: '\00D7';
 	line-height: 25px;
 	text-align: center;
+	font-size: 14.6px;
 }
 .publication .new-add .inner .close:hover,
 .add-comment .new-add .inner .close:hover {
