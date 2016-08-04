@@ -102,6 +102,8 @@
         ];
         vm.showAllPlaces = false;
 
+        vm.subForm = false;
+
         activate();
 
         /////////////////////////////////////////////////
@@ -221,6 +223,9 @@
         };
 
         vm.submitPlaceNew = function () {
+            if (vm.subForm) {
+                return false;
+            }
             vm.form.placeNew.$setSubmitted();
 
             if (vm.form.placeNew.$invalid) {
@@ -229,6 +234,7 @@
             if (vm.placeNew.expired_date) {
                 vm.placeNew.expired_date = moment(vm.placeNew.expired_date).format('YYYY-MM-DD');
             }
+            vm.subForm = true;
             placesService.addPlace(vm.placeNew)
                 .then(function (data) {
                     if (data.status) {
@@ -240,7 +246,11 @@
                         data.place.is_new_place = true;
                         data.place.is_admin = true;
                         vm.places.push(data.place);
+                        vm.subForm = false;
                     }
+                }, function() {
+                    console.log('Add place failed');
+                    vm.subForm = false;
                 });
         };
 
@@ -274,9 +284,12 @@
         };
 
         vm.submitInviteUsers = function () {
-            if (vm.placeNew.users.length === 0) {
+
+            if (vm.placeNew.users.length === 0 || vm.subForm) {
                 return false;
             }
+
+            vm.subForm = true;
 
             placesService.inviteUsers(vm.placeId, vm.placeNew.users)
                 .then(function (data) {
@@ -288,11 +301,15 @@
                         if (users.length > 0) {
                             setAdmins(users, vm.placeId);
                         }
+                        vm.subForm = false;
                         $timeout(function () {
                             $state.go('places');
                             vm.isPlaceAdded = false;
                         }, 2000);
                     }
+                }, function() {
+                    console.log('Invite users to new place failed');
+                    vm.subForm = false;
                 });
         };
 
