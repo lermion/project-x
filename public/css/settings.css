@@ -6637,3 +6637,7 @@ textarea[type="text"]:focus,
  .popup-leave-group-chat .group-peoples-inner-item.active {
     background: #e4e4e4;
 }
+.popup-leave-chat-container {
+    max-height: 365px;
+    overflow-y: auto;
+ }
