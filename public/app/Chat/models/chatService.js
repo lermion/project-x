@@ -12,8 +12,21 @@ angular.module('placePeopleApp')
 			clearChat: clearChat,
 			getChatFiles: getChatFiles,
 			updateGroupChat: updateGroupChat,
-			exitUserFromGroupChat: exitUserFromGroupChat
+			exitUserFromGroupChat: exitUserFromGroupChat,
+			changeGroupChatAdmin: changeGroupChatAdmin
 		};
+
+		function changeGroupChatAdmin(){
+			var defer = $q.defer();
+			$http.get('chat/locked/' + userId)
+				.success(function (response) {
+					defer.resolve(response);
+				})
+				.error(function (error) {
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
 
 		function blockUser(userId) {
 			var defer = $q.defer();
