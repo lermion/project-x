@@ -39,49 +39,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.checkCurrUrl = function(){
 				$scope.Model.currRoute = $state.current.name;				
-			};		
-
-			$scope.openMenu = function(){
-				if($window.innerWidth <= 800){
-					$scope.showMenu = !$scope.showMenu;
-				}else{
-					$scope.showMenu = true;
-				}
 			};
-			$scope.openBottomMenu = function(){
-				if($window.innerWidth <= 650){
-					$scope.showBottomMenu = !$scope.showBottomMenu;
-				}else{
-					$scope.showBottomMenu = false;
-				}
-			};
-			var w = angular.element($window);
-			$scope.$watch(function(){
-					return $window.innerWidth;
-			},
-			function(value){
-				if(value <= 800){
-					$scope.showMenu = false;
-				}else{
-					$scope.showMenu = true;
-				}
-				if (value <= 650) {
-					$scope.showBottomMenu = false;
-				}else{
-					$scope.showBottomMenu = true;
-				}
-				if(value < 520){
-					var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
-					$scope.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
-					$scope.resizeHeight = 'height:' + blockThirdthLength + 'px;';
-				}else{
-					$scope.resizeSizes = '';
-					$scope.resizeHeight = '';
-				}
-			},true);
-			w.bind('resize', function(){
-				$scope.$apply();
-			});
 
 			if($state.current.name === "chat"){           
 				$state.go("chat.list");
@@ -263,7 +221,22 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.leaveGroupChat = function(opponent){
-				console.log(opponent);
+				if(opponent.is_admin === 1){
+					console.log("you can't leave chat");
+				}else{
+					ChatService.exitUserFromGroupChat(opponent.room_id).then(function(response){
+						if(response.status){
+							$scope.Model.opponent = [];
+							$scope.Model.showChatBlock = false;
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.displayBlockedBlock = true;
+							socket.emit("get user rooms", $scope.loggedUserId);
+						}
+					},
+					function(error){
+						console.log(error);
+					});
+				}
 			}
 
 			$scope.Model.showContactData = function(contact){
@@ -402,9 +375,7 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
-				if(message === "" && files === undefined || message === "" && files.length === 0){
-					return;
-				}
+				$scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
@@ -439,6 +410,12 @@ angular.module('placePeopleApp')
 						files.length = 0;
 					}
 					$scope.emojiMessage.rawhtml = "";
+					data.message = "";
+					if(data.message === "" && $scope.emojiMessage.rawhtml === ""){
+						setTimeout(function(){
+							$scope.disabledSendMessage = false;
+						}, 200);
+					}
 				});
 			};
 
@@ -517,7 +494,9 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					if(!$scope.disabledSendMessage){
+						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
+					}
 				}
 			};
 			$scope.beforeChange = function(files){
@@ -574,6 +553,29 @@ angular.module('placePeopleApp')
 
 			$scope.Model.saveGroupChat = function(name, status, avatar, users){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				var usersInChat = [];
+				usersInChat.push(parseInt($scope.loggedUserId));				
+				users.forEach(function(user){
+					usersInChat.push(user.id);
+				});
+				ChatService.updateGroupChat($scope.currentOpponent.room_id, name, statusToSave, avatar, usersInChat).then(function(response){						
+					if(response.data.status){
+						$scope.Model.opponent.name = name;
+						$scope.currentOpponent.status = statusToSave;
+						if(typeof avatar === "object"){
+							var reader = new window.FileReader();
+							reader.readAsDataURL(avatar); 
+							reader.onloadend = function(){
+								$scope.Model.opponent.avatar = reader.result;
+							}
+						}
+						socket.emit("get user rooms", $scope.loggedUserId);
+						ngDialog.closeAll();
+					}
+				},
+				function(error){
+					console.log(error);
+				});
 			};
 
 			$scope.Model.openSettings = function(user){

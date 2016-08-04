@@ -131,6 +131,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('publication_complaints', 'Moderator\ModerateController@publication_complaints');
             Route::get('delete_complaint_publication/{id}', 'Moderator\ModerateController@delete_complaint_publication');
             Route::get('getPublication', 'Moderator\ModerateController@getPublication');
+            Route::get('getGroups', 'Moderator\ModerateController@getGroups');
+            Route::post('blockGroup/{id}', 'Moderator\ModerateController@blockGroup');
+            Route::get('confirmGroup/{id}', 'Moderator\ModerateController@confirmGroup');
+            Route::get('getPlaces', 'Moderator\ModerateController@getPlaces');
+            Route::post('blockPlace/{id}', 'Moderator\ModerateController@blockPlace');
+            Route::get('confirmPlace/{id}', 'Moderator\ModerateController@confirmPlace');
             Route::get('topic/{id}', 'Moderator\ModerateController@topic');
             Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
             Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
@@ -204,10 +210,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('notification/{room_id}', 'ChatController@notification_chat');
         Route::get('correspondence_delete/{room_id}', 'ChatController@correspondence_delete');
         Route::get('file_chat/{room_id}', 'ChatController@file_chat');
-        Route::post('update/{room_id}', 'ChatController@update');
-        Route::post('add_users/{room_id}', 'ChatController@add_users');
-        Route::post('delete_users/{room_id}', 'ChatController@delete_users');
-        Route::post('exit_user/{room_id}', 'ChatController@exit_user');
+        Route::post('users/{room_id}', 'ChatController@users');
+        Route::get('exit_user/{room_id}', 'ChatController@exit_user');
         Route::get('exit_admin/{room_id}/{user_id}', 'ChatController@exit_admin');
     });
 
@@ -233,11 +237,12 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/exit_user/1\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/subscribe/store\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='user_id' value='174'><br>
+            <input type='text' name='limit' value='10'><br>
+            <input type='file' name='avatar'><br>
             <input type='text' name='id[]' value='19'><br>
             <input type='text' name='id[]' value='174'><br>
-
-
 
             <input type=\"submit\">
             </form>";

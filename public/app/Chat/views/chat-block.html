@@ -10,8 +10,9 @@
 			<div class="chat-person-top-info">
 				<p class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</p>
 				<p class="top-person-users">
-					<span ng-if="Model.opponent.is_group">участники: </span>
+					<span ng-if="Model.opponent.is_group && Model.opponent.members.length > 0">участники: </span>
 					<a ng-repeat="member in Model.opponent.members" ui-sref="user({username: member.login})" ng-if="Model.opponent.is_group" href="javascript:void(0);">{{member.first_name}}{{$last ? '' : ', '}}</a>
+					<span ng-if="Model.opponent.is_group && Model.opponent.members.length === 0">нет участников</span>
 				</p>
 				<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'Подключен':'Отключен'}}</p>
 			</div>
@@ -30,9 +31,9 @@
 	</div>
 	<p ng-show="status.loading">loading...</p>
 	<div when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
-		<div class="chat-message-date">
+		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
-		</div>
+		</div> -->
 		<!-- <div class="my-msg-wrap">
 			<div class="right-chat-my-msg">
 				<div class="right-chat-my-msg-inner">
@@ -69,7 +70,7 @@
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
-		<div ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
+		<div ng-hide="message.text == '' && message.images.length === 0" ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
 		<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
 			<div class="chat-main-user-sender-ava">
 				<a href="">
@@ -209,9 +210,9 @@
 					<input type="file" ngf-select="beforeChange($files)" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
 				</div>
 			</div>
-			<button class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+			<button ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 		</div>
-		<div class="send-wrap-bottom">
+		<div ng-show="files.length > 0" class="send-wrap-bottom">
 			<div class="pic" ng-repeat="file in files">
 				<div ng-click="deleteChatFiles(files, $index)" class="close">
 					<div class="close-inner">

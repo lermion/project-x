@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Moderator;
 use App\Comment;
 use App\ComplaintPublication;
 use App\ComplaintComment;
+use App\Group;
+use App\Place;
 use App\Publication;
 use Illuminate\Http\Request;
 
@@ -36,6 +38,16 @@ class ModerateController extends Controller
         return response()->json(['status' => true, 'publications'=>$data]);
     }
 
+    public function blockPublication(Request $request,$id)
+    {
+        $publication = Publication::find($id);
+        $publication->is_block = true;
+        $publication->block_message = $request->input('message');
+        $publication->save();
+        //return redirect()->action('Moderator\ModerateController@getPublication');
+        return response()->json(['status' => true]);
+    }
+
     public function confirmPublication($id){
         $publication = Publication::find($id);
         $publication->is_moderate = true;
@@ -44,68 +56,51 @@ class ModerateController extends Controller
         return response()->json(['status' => true]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getGroups()
     {
-        //
+        $groups = Group::with('users','publications')
+            ->where(['is_moderate'=>false, 'is_block'=>false])
+            ->get();
+        return response()->json(['status' => true, 'groups'=>$groups]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function blockGroup(Request $request,$id)
     {
-        //
+        $group = Group::find($id);
+        $group->is_block = true;
+        $group->block_message = $request->input('message');
+        $group->save();
+        return response()->json(['status' => true]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function confirmGroup($id){
+        $group = Group::find($id);
+        $group->is_moderate = true;
+        $group->save();
+        return response()->json(['status' => true]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function getPlaces()
     {
-        //
+        $places = Place::with('users','publications')
+            ->where(['is_moderate'=>false, 'is_block'=>false])
+            ->get();
+        return response()->json(['status' => true, 'groups'=>$places]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function blockPlace(Request $request,$id)
     {
-        //
+        $place = Place::find($id);
+        $place->is_block = true;
+        $place->block_message = $request->input('message');
+        $place->save();
+        return response()->json(['status' => true]);
     }
-    
-    public function blockPublication(Request $request,$id)
-    {
-        $publication = Publication::find($id);
-        $publication->is_block = true;
-        $publication->block_message = $request->input('message');
-        $publication->save();
-        //return redirect()->action('Moderator\ModerateController@getPublication');
+
+    public function confirmPlace($id){
+        $place = Place::find($id);
+        $place->is_moderate = true;
+        $place->save();
         return response()->json(['status' => true]);
     }
 
@@ -170,21 +165,4 @@ class ModerateController extends Controller
         return response()->json(['status' => true]);
     }
 
-    public function getGroup()
-    {
-        $publications = Group::with('user','images','videos','group')
-//            ->where(['is_moderate'=>false,'is_main'=>false, 'is_block'=>false])
-            ->where('is_block',false)
-            ->get();
-        $data = [];
-        foreach ($publications as $publication){
-            if(count($publication->group)==0){
-                $data[] = $publication;
-            }elseif ($publication->group[0]->is_open){
-                $data[] = $publication;
-            }
-        }
-        return view('moderator.moderate.index',['publications'=>$data]);
-        //return response()->json(['status' => true, 'publications'=>$data]);
-    }
 }

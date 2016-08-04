@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class Publication extends Model
 {
-    protected $fillable = ['block_message','is_block', 'text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover'];
+    protected $fillable = ['block_message','is_block', 'text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover', 'is_moderate'];
 
     public function images()
     {
@@ -127,7 +127,7 @@ class Publication extends Model
 
     public static function show($id)
     {
-        $publication = Publication::with(['videos', 'group', 'images'])
+        $publication = Publication::with(['videos', 'group', 'images', 'place'])
             ->find($id);
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();

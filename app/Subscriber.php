@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscriber extends Model
 {
     protected $fillable = [
-        'user_id', 'user_id_sub'
+        'user_id', 'user_id_sub','is_confirmed'
     ];
     
     public static function isSub($userId, $subId){

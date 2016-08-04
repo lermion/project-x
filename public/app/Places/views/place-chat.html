@@ -1,8 +1,8 @@
 <div class="group-chat">
 	<div when-scrolled="loadMoreMessages()" class="group-chat-inner">
-		<div class="date-messeges">
+		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
-		</div>
+		</div> -->
 		<div ng-init="scrollBottom(); checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
@@ -189,7 +189,7 @@
 			</div> 
 			<button ng-click="sendMessage(emojiMessage.messagetext, vm.place.room_id, files)" class="send">Отправить</button>
 		</div>
-		<div class="pictures">
+		<div ng-show="files.length > 0" class="pictures">
 			<div class="pic" ng-repeat="file in files">
 				<div ng-click="deleteChatFiles(files, $index)" class="close">
 					<div class="close-inner">

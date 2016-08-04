@@ -67,7 +67,8 @@ Queries.prototype.addUsersInUserChat = function(roomInfo){
 			user_id: roomInfo.user_id,
 			room_id: roomInfo.room_id,
 			created_at: roomInfo.created_at,
-			updated_at: roomInfo.updated_at
+			updated_at: roomInfo.updated_at,
+			is_admin: roomInfo.members[i] === roomInfo.members[0] ? 1 : 0
 		};
 		connection.query('INSERT INTO user_chats SET ?', sqlReq, function(error, result){
 			if(error){
@@ -88,7 +89,7 @@ Queries.prototype.getUserRooms = function(data){
 		data.members = [];
 		data.members[0] = data.userIdFrom;
 	}
-	connection.query('SELECT chat_rooms.id, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
+	connection.query('SELECT chat_rooms.id, user_chats.is_admin, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
 		var response = [];
 		if(error){
 			console.log("error to get user rooms: " + error.stack);
@@ -107,9 +108,10 @@ Queries.prototype.getUserRooms = function(data){
 									name: item.name,
 									status: item.status,
 									avatar: item.avatar,
+									is_admin: item.is_admin,
 									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
 									last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
-									show_notif: result[0].show_notif,
+									show_notif: result[0] ? result[0].show_notif : "",
 									countMessages: countMessages[0]['COUNT(message_id)']
 								};
 								resolve(result);

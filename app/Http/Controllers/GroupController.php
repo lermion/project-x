@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ChatRooms;
+use App\ChatRoom;
 use App\Group;
 use App\NewGroup;
 use App\GroupInvite;
@@ -89,7 +89,7 @@ class GroupController extends Controller
             ];
             return response()->json($result);
         }
-        $room = ChatRooms::create(['name' => $request->name]);
+        $room = ChatRoom::create(['name' => $request->name]);
         $publicationData = $request->all();
         $publicationData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {

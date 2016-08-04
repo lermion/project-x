@@ -46,9 +46,10 @@ class PublicationTest extends TestCase
             $user = \App\User::create(['country_id'=>1,'phone'=>'12345']);
         }
         $this->be($user);
-        $publication = \App\Publication::create(['user_id' => $user->id]);
+        $publication = \App\Publication::create(['user_id' => $user->id, 'is_main' => false]);
         $data = [
-            'text' => 'test'
+            'text' => 'test',
+            'is_main' => false
         ];
         $this->json('POST', 'publication/update/'.$publication->id, $data)->seeJson([
             'status' => true,
