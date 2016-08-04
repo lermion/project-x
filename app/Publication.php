@@ -127,7 +127,7 @@ class Publication extends Model
 
     public static function show($id)
     {
-        $publication = Publication::with(['videos', 'group', 'images'])
+        $publication = Publication::with(['videos', 'group', 'images', 'place'])
             ->find($id);
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
