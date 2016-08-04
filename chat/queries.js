@@ -89,7 +89,7 @@ Queries.prototype.getUserRooms = function(data){
 		data.members = [];
 		data.members[0] = data.userIdFrom;
 	}
-	connection.query('SELECT chat_rooms.id, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
+	connection.query('SELECT chat_rooms.id, user_chats.is_admin, chat_rooms.name, chat_rooms.is_group, chat_rooms.status, chat_rooms.avatar FROM `chat_rooms` INNER JOIN user_chats ON user_chats.room_id = chat_rooms.id INNER JOIN users ON users.id = user_chats.user_id WHERE user_chats.is_lock = false AND users.id = ' + data.members[0], function(error, result){
 		var response = [];
 		if(error){
 			console.log("error to get user rooms: " + error.stack);
@@ -98,7 +98,7 @@ Queries.prototype.getUserRooms = function(data){
 		}else{
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
-					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif, user_chats.is_admin FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
+					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
 						connection.query("SELECT u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = '" + item.id + "')", function(error, lastMessages){
 							connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + item.id + " AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ")", function(error, countMessages){
 								result = {
@@ -108,6 +108,7 @@ Queries.prototype.getUserRooms = function(data){
 									name: item.name,
 									status: item.status,
 									avatar: item.avatar,
+									is_admin: item.is_admin,
 									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
 									last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
 									show_notif: result[0] ? result[0].show_notif : "",
