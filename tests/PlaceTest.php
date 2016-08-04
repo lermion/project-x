@@ -176,9 +176,9 @@ class PlaceTest extends TestCase
             $user2 = \App\User::create(['phone' => '380731059231', 'password' => bcrypt('123'), 'country_id' => 1]);
         }
         $this->be($user);
-        $room = \App\ChatRooms::first();
+        $room = \App\ChatRoom::first();
         if (!$room){
-            $room = \App\ChatRooms::create(['name' => 'test', 'avatar' => 'test']);
+            $room = \App\ChatRoom::create(['name' => 'test', 'avatar' => 'test']);
         }
         $place = \App\Place::first();
         if (!$place) {

@@ -43,8 +43,9 @@ class PublicationController extends Controller
         $Data = $request->all();
         $offset = $Data['offset'];
         $limit = $Data['limit'];
+        $userId = Auth::id();
 
-        return Publication::getMainPublication($offset,$limit);
+        return Publication::getMainPublication($offset,$limit,$userId);
     }
 
     public function topic(){
@@ -285,8 +286,11 @@ class PublicationController extends Controller
                     $path = Image::getImagePath($cover);
                     $publicationData['cover'] = $path;
                 }
+
                 if ($publication->is_main == true or $publicationData['is_main'] == true){
                     $publicationData['is_moderate'] = false;
+                } else {
+                    $publicationData['is_moderate'] = $publication->is_moderate;
                 }
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');

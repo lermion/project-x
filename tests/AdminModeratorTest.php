@@ -163,8 +163,8 @@ class AdminModeratorTest extends TestCase
 
     public function testGetPlaces()
     {
-        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test']);
-        $this->json('GET', 'moderator/getGroups/');
+        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>false]);
+        $this->json('GET', 'moderator/getPlaces/');
         $place->delete();
     }
 }

@@ -237,9 +237,9 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/users/1\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='text' name='status' value='status'><br>
-            <input type='text' name='name' value='name'><br>
+        echo "<form action=\"http://pp.dev/user/subscribe/store\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='user_id' value='174'><br>
+            <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
             <input type='text' name='id[]' value='19'><br>
             <input type='text' name='id[]' value='174'><br>
