@@ -532,6 +532,21 @@ angular.module('placePeopleApp')
 
 			$scope.Model.saveGroupChat = function(name, status, avatar, users){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
+				var usersInChat = [];
+				usersInChat.push(parseInt($scope.loggedUserId));				
+				users.forEach(function(user){
+					usersInChat.push(user.id);
+				});
+				ChatService.updateGroupChat($scope.currentOpponent.room_id, name, statusToSave, avatar, usersInChat).then(function(response){						
+					if(response.data.status){
+						$scope.Model.opponent.name = name;
+						socket.emit("get user rooms", $scope.loggedUserId);
+						ngDialog.closeAll();
+					}
+				},
+				function(error){
+					console.log(error);
+				});
 			};
 
 			$scope.Model.openSettings = function(user){
