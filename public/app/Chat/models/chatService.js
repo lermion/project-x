@@ -39,20 +39,20 @@ angular.module('placePeopleApp')
 		}
 
 		function updateGroupChat(roomId, name, status, avatar, users) {
+			var defer = $q.defer();
 			var data = new FormData();
 			data.append('name', name);
 			data.append('status', status);
-			data.append('is_main', isMain);
-			data.append('users', users);
-			var defer = $q.defer();
-			$http.post('users/' + roomId)
-				.success(function (response) {
-					defer.resolve(response);
-				})
-				.error(function (error) {
-					defer.reject(error);
-				});
-			return defer.promise;
+			users.forEach(function (user) {
+				data.append('id[]', user);
+			});
+			return $http({
+				method: 'POST',
+				url: 'chat/users/' + roomId,
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: data
+			})
 		}
 
 		function deleteChatContact(roomId, userIdSub) {
