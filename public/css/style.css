@@ -4270,7 +4270,7 @@ body.ngdialog-open {
 }
 @media (max-width: 720px)  {
 	.group-chat {
-		padding: 0 10px;
+		padding: 0 0px;
 	}
 	.chat-user-pulication {
 		width: 80%;
@@ -4302,7 +4302,7 @@ body.ngdialog-open {
 			padding: 5px;
 	}
 	.group-chat {
-		padding: 0px 5px;
+		padding: 0px 0px;
 	}
 	.group-chat-inner {
 			padding: 0 0;
