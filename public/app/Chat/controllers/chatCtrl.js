@@ -39,49 +39,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.checkCurrUrl = function(){
 				$scope.Model.currRoute = $state.current.name;				
-			};		
-
-			$scope.openMenu = function(){
-				if($window.innerWidth <= 800){
-					$scope.showMenu = !$scope.showMenu;
-				}else{
-					$scope.showMenu = true;
-				}
 			};
-			$scope.openBottomMenu = function(){
-				if($window.innerWidth <= 650){
-					$scope.showBottomMenu = !$scope.showBottomMenu;
-				}else{
-					$scope.showBottomMenu = false;
-				}
-			};
-			var w = angular.element($window);
-			$scope.$watch(function(){
-					return $window.innerWidth;
-			},
-			function(value){
-				if(value <= 800){
-					$scope.showMenu = false;
-				}else{
-					$scope.showMenu = true;
-				}
-				if (value <= 650) {
-					$scope.showBottomMenu = false;
-				}else{
-					$scope.showBottomMenu = true;
-				}
-				if(value < 520){
-					var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
-					$scope.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
-					$scope.resizeHeight = 'height:' + blockThirdthLength + 'px;';
-				}else{
-					$scope.resizeSizes = '';
-					$scope.resizeHeight = '';
-				}
-			},true);
-			w.bind('resize', function(){
-				$scope.$apply();
-			});
 
 			if($state.current.name === "chat"){           
 				$state.go("chat.list");

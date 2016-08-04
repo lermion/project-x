@@ -3052,6 +3052,7 @@ span.users-today-time-time.early {
     resize: none;
     font-family: "SFUIDisplayLight";
     color: #999;
+    font-size: 14.6px;
 }
 .create-places-add-cover {
     width: 100%;
@@ -6451,6 +6452,11 @@ textarea[type="text"]:focus,
     background-color: #fff;
     padding: 10px;
  }
+.group-description-container1 p {
+    margin: 0;
+    font-family: "SFUIDisplayLight";
+    font-size: 14.6px;
+}
 @media (max-width: 720px) {
     .ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .ngdialog-content {
         width: 500px;
@@ -6481,7 +6487,11 @@ textarea[type="text"]:focus,
     .invite-group__items ul li p  {
         font-size: 10.6px;
     }
-    
+    .group-description-container1 p {
+        margin: 0;
+        font-family: "SFUIDisplayLight";
+        font-size: 12.6px;
+    }
     .popup-invite-group .modal__title,
     .item1-add-people-title,
     .invite-group__items ul p,
@@ -6536,3 +6546,78 @@ textarea[type="text"]:focus,
 .emoji-wysiwyg-editor {
     color: #000;
 }
+.static-admin-question {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+.static-admin-question-inner {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    font-family: "SFUIDisplayLight";
+    font-size: 14.6px;
+}
+.static-admin-question-inner-item {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.static-admin-question-inner-item.item-message {
+    align-items: flex-start;
+}
+.static-admin-question-inner-item span {
+    margin-right: 10px;
+}
+.static-admin-question-inner-item input {
+    padding: 5px;
+    width: 70%;
+    border: 1px solid #d2dbe3;
+    border-radius: 2px;
+    line-height: 20px;
+    box-sizing: border-box;
+    font-size: 14.6px;
+}
+.static-admin-question-inner-item textarea {
+    padding: 5px;
+    width: 70%;
+    border: 1px solid #d2dbe3;
+    border-radius: 2px;
+    line-height: 20px;
+    box-sizing: border-box;
+    font-size: 14.6px;
+    resize: none;
+    font-family: "SFUIDisplayLight";
+}
+.static-admin-question-inner-item.item-button {
+    justify-content: flex-end;
+}
+.static-admin-question-inner-item.item-button button {
+    text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px;
+    padding: 0 10px;
+    transition: all .3s ease-in-out .1s !important;
+    color: #fff;
+    background-color: #495b79;
+    border-radius: 3px;
+    border: 1px solid #495b79;
+    outline: none;
+    cursor: pointer;
+ }
+ .static-admin-question-inner-item.item-button button:hover {
+    background-color: #fff;
+    color: #495b79;
+ }
+ .static-admin-question-inner-item p {
+    font-family: "SFUIDisplayMedium";
+    color: #333;
+ }
+ @media (max-width: 720px) {
+    .static-admin-question-inner {
+        width: 100%;
+    }
+ }
