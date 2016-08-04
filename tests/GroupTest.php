@@ -180,6 +180,7 @@ class GroupTest extends TestCase
         $this->json('GET', 'group/set_user_admin/' . $group->id . '/' . $user2->id)->seeJson([
             'status' => true,
         ]);
+        $group->delete();
     }
 
     public function testAdmin_subscription_delete()

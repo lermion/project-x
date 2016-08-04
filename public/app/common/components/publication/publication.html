@@ -3,12 +3,12 @@
 
     <div class="user-publication-header">
         <div class="user-function">
-            <a href class="user" ui-sref="place({placeName: $ctrl.place.url_name})" ng-click="closeThisDialog()">
+            <a href class="user"  ui-sref="place({placeName: $ctrl.place.url_name})" ng-click="closeThisDialog()">
 				<span class="ava">
-					<img ng-src="{{$ctrl.pub.user.avatar_path}}" alt="">
+					<img ng-src="{{$ctrl.pub.author.avatar}}" alt="">
 				</span>
 
-                <p class="user-name">{{$ctrl.pub.user.first_name}}</p>
+                <p class="user-name">{{$ctrl.pub.author.name}}</p>
             </a>
 
             <div class="user-menu" ng-click="$ctrl.showPubMenu = !$ctrl.showPubMenu">
