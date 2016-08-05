@@ -2132,7 +2132,7 @@ spam-item {
 	color: #fff;
 	background-color: #495b79;
 	border-radius: 3px;
-	margin-left: 15px;
+	margin-left: 5px;
 	border: 1px solid #495b79;
 	transition: all .3s ease-in-out .1s;
 }
