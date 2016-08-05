@@ -1,20 +1,20 @@
 <div class="new_group"> Выберите администратора чата</div>
 <div class="popup-leave-chat-container">
-	<div ng-repeat="member in ngDialogData.members" ng-mouseover="showAdmin = true" ng-mouseleave="showAdmin = false" class="group-peoples-inner-item active">
+	<div ng-class="{active : activeMenu === member}" ng-repeat="member in ngDialogData.members" ng-click="setActive(member)" class="group-peoples-inner-item">
 		<div class="peoples-inner-item-data">
 			<div class="peoples-item-photo">
 				<a href="javascript:void(0);">
-					<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ7t30uQ_C4eV-HXMFZU2EPlqQ_MwsMA2kEfkzBFjC3Sav4OM3n" alt="User avatar">
+					<img ng-src="{{member.avatar_path}}" alt="User avatar">
 				</a>
 			</div>
 			<div class="peoples-item-name-content">
-				<a class="peoples-item-name-family" href=""><span>Елена Новикова</span></a>
+				<a class="peoples-item-name-family" href="javascript:void(0);"><span>{{member.first_name}} {{member.last_name}}</span></a>
 			</div>
 		</div>
-		<div ng-show="showAdmin" class="peoples-inner-item-admin">Администратор</div>
+		<div ng-show="activeMenu === member" class="peoples-inner-item-admin active">Администратор</div>
 	</div>
 </div>
 <div class="popup-leave-chat-button-wrap">
-	<button class="popup-leave-chat-button-button cancel">Отменить</button>
-	<button class="popup-leave-chat-button-button">Сохранить</button>
+	<button class="popup-leave-chat-button-button cancel" ng-click="cancelLeaveGroupChat()">Отменить</button>
+	<button class="popup-leave-chat-button-button" ng-click="saveNewAdmin(ngDialogData.roomId, member.id)">Сохранить</button>
 </div>
