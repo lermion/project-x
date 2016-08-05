@@ -2909,6 +2909,9 @@ span.users-today-time-time.early {
     color: #495b79;
     font-family: "SFUIDisplayMedium";
 }
+.group-comment .send:hover:disabled{
+    cursor: not-allowed;
+}
 .group-chat button {
     position: absolute;
     border: 1px solid transparent;
@@ -6686,4 +6689,9 @@ textarea[type="text"]:focus,
 }
 .popup-group-chat.popup-leave-group-chat .group-peoples-inner-item:hover .peoples-inner-item-admin {
     display: block !important;
+}
+.peoples-inner-item-admin.new-admin {
+    color: #333;
+    font-family: "SFUIDisplayLight";
+    font-size: 14.6px;
 }
