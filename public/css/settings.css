@@ -6684,3 +6684,6 @@ textarea[type="text"]:focus,
 .places-page .groups-header .pub-groups {
     background-size: 20px;
 }
+.popup-group-chat.popup-leave-group-chat .group-peoples-inner-item:hover .peoples-inner-item-admin {
+    display: block !important;
+}
