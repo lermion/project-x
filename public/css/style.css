@@ -2142,7 +2142,7 @@ spam-item {
 }
 .publication-footer-button .cansel {
 	color: #495b79;
-	margin-right: 5px;
+	margin-right: 10px;
 }
 .publication-footer-button .cansel:hover  {
 	color: #999;
@@ -2815,6 +2815,7 @@ spam-item {
 	border: 1px solid #495b79;
 	outline: none;
 	cursor: pointer;
+	width: auto;
 }
 .user-publication .add-comment .publication-footer-button .publication-button:disabled,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:disabled{
