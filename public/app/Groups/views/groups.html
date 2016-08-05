@@ -25,9 +25,7 @@
                         <div class="group"
                              ng-repeat="group in groupList | filter: showMyGroups | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups">
                             <div class="group-cover">
-                                <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
                                 <a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">
-                                    <!--<img ng-src="{{group.avatar}}">-->
                                     <img ngf-src="group.card_avatar" ngf-as-background="true">
                                 </a>
 

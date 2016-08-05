@@ -23,6 +23,7 @@ angular.module('app.groups')
                 newGroup: {}
             };
             $scope.submFormGroup = false;
+            $scope.subForm = false;
 
 
             $scope.newGroup = {
@@ -245,14 +246,20 @@ angular.module('app.groups')
             };
 
             $scope.addGroup = function () {
+
+                if ($scope.subForm) {
+                    return false;
+                }
                 $scope.isGroupNameExist = false;
-                $scope.submFormGroup = true;
                 validateEmojiArea();
                 $scope.forms.newGroup.$setSubmitted();
 
                 if ($scope.forms.newGroup.$invalid) {
                     return false;
                 }
+                $scope.submFormGroup = true;
+                $scope.subForm = true;
+
                 $scope.newGroup.description = $scope.emojiMessage.messagetext;
                 groupsService.addGroup($scope.newGroup)
                     .then(function (data) {
@@ -273,13 +280,18 @@ angular.module('app.groups')
                             } else {
                                 resetFormNewGroup();
                                 getGroupList();
+                                $scope.subForm = false;
                                 modalNewGroup.close();
                             }
                         } else {
                             if (+data.error.code === 1) {
+                                $scope.subForm = false;
                                 $scope.isGroupNameExist = true;
                             }
                         }
+                    }, function () {
+                        console.log('Add group failed');
+                        $scope.subForm = false;
                     });
             };
 
@@ -336,7 +348,7 @@ angular.module('app.groups')
 
 
             // Modal windows
-            $scope.openModalUnsubscribeCreator = function() {
+            $scope.openModalUnsubscribeCreator = function () {
                 modalUnsubscribeCreator = ngDialog.open({
                     template: '../app/Groups/views/popup-unsubscribe-creator-group.html',
                     name: 'modal-notfound-group',
@@ -401,6 +413,7 @@ angular.module('app.groups')
 
                 $q.all(prom).then(function () {
                     modalNewGroup.close();
+                    $scope.subForm = false;
                 });
             }
 

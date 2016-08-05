@@ -1,7 +1,7 @@
 <form name="vm.form.placeNew" novalidate ng-if="!vm.isPlaceAdded" ng-init="vm.placeNew.isDynamic = true;">
     <div class="create-places-common">
         <div class="create-places-header">
-            <a class="create-places-header-a" ui-sref="places.add">Создать место</a>
+            <a class="create-places-header-a" ui-sref="places.add" ng-click="vm.resetNewPlaceForm()">Создать место</a>
         </div>
         <div class="create-places-common-inner">
             <div class="create-places-type">
@@ -169,7 +169,7 @@
                      ngf-select
                      ngf-pattern="'image/*'"
                      ngf-accept="'image/*'"
-                     ngf-before-model-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ngf-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                      ng-model="vm.placeNew.logo1"
                      required>
                     <a href="">
@@ -177,7 +177,9 @@
                     </a>
                     <span>Добавить логотип места</span>
                 </div>
-                <div class="create-places-add-cover-button-create" ng-click="vm.submitPlaceNew()">Создать место</div>
+                <div class="create-places-add-cover-button-create"
+                     ng-click="vm.submitPlaceNew()"
+                     ladda="vm.subForm" data-style="slide-right">Создать место</div>
             </div>
             <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error"
                  ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.logo.$dirty">
@@ -213,7 +215,9 @@
         <div class="create-places-type-invite">
             <a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open"
                ng-click="cancelNewGroup()"> Открыть место </a>
-            <a href="" class="create-places-type-btn-invite" ng-click="vm.submitInviteUsers()"> Пригласить</a>
+            <a href class="create-places-type-btn-invite"
+               ng-click="vm.submitInviteUsers()"
+               ladda="vvm.subForm" data-style="slide-right"> Пригласить</a>
         </div>
         <div class="fifth_item" ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
             <div class="item1-container">
