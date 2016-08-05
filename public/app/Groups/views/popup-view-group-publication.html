@@ -15,7 +15,7 @@
                 <div class="menu-item" ng-show="showPubMenu">
                     <div class="inner">
                         <a href ng-click="vm.editPub(vm.activePublication)">Редактировать</a>
-                        <a href ng-click="vm.sharePub(vm.activePublication)">Переслать</a>
+                        <a href ng-click="sharePub(vm.activePublication.id)">Переслать</a>
                         <a href ng-click="vm.getPubLink(vm.activePublication)">Получить ссылку</a>
                         <a href ng-click="vm.openPubComplainBlock(vm.activePublication.id)">Пожаловаться</a>
                         <a href ng-click="vm.deletePub(vm.activePublication)">Удалить</a>
