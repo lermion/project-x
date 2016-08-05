@@ -1734,6 +1734,7 @@ div.my_profilll.photo-list div:last-child {
 }
 .group-peoples-inner-item {
     display: flex;
+    cursor: pointer;
     border-bottom: 2px solid #eee;
     width: 100%;
     align-items: center;
@@ -6682,4 +6683,7 @@ textarea[type="text"]:focus,
 }
 .places-page .groups-header .pub-groups {
     background-size: 20px;
+}
+.popup-group-chat.popup-leave-group-chat .group-peoples-inner-item:hover .peoples-inner-item-admin {
+    display: block !important;
 }
