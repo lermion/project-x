@@ -514,6 +514,10 @@ angular.module('placePeopleApp')
 				}
 			});
 
+			$scope.$on('$destroy', function (event) {
+				socket.removeAllListeners();
+			});
+
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers().then(function(response){	
 					$scope.Model.blockedUsers = response;                           
