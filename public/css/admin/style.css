@@ -382,3 +382,6 @@ input.cmn-toggle-round:checked + label:after {
 .moderator-comments .col-comments-action {
 	width: 10%;
 }
+.moderator-complaints table p {
+	margin-bottom: 0px;
+}
