@@ -13,6 +13,7 @@ angular.module('placePeopleApp')
 				loading: false,
 				loaded: false
 			};
+			$scope.showFileAddMenu = false;
 			$scope.counter = 0;
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
@@ -155,6 +156,14 @@ angular.module('placePeopleApp')
 						data: roomId
 					}
 				});
+			};
+
+			$scope.showFileAdd = function(){
+				if($scope.showFileAddMenu){
+					$scope.showFileAddMenu = false;
+				}else{
+					$scope.showFileAddMenu = true;
+				}
 			};
 
 			$scope.deleteChatFiles = function(files, index){

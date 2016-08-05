@@ -18,6 +18,8 @@
         var myAvatar = storage.loggedUserAva;
         var firstName = storage.firstName;
         var lastName = storage.lastName;
+         var login = storage.username;
+
 
         var modalEditPlace, modalDeletePlace, modalInviteUsers, modalCropLogoImage, modalMap,
             modalSetCreator, modalNewPublication, modalReviewPublication, map;
@@ -697,7 +699,7 @@
             modalInviteUsers.close();
         };
 
-        vm.setAdmin = function (user) {
+        vm.setAdmin = function (user, showAdmin) {
             if (!vm.place.is_creator) {
                 return false;
             }
@@ -705,6 +707,7 @@
                 .then(function (data) {
                     if (data.status) {
                         user.is_admin = +data.is_admin;
+                        showAdmin.status = false;
                     }
                 });
         };
@@ -809,12 +812,14 @@
                                     avatar_path: myAvatar,
                                     first_name: firstName,
                                     last_name: lastName,
-                                    id: myId
+                                    id: myId,
+                                    is_admin: false,
+                                    login: login
                                 });
-                                vm.place.count_users += 1;
+                                vm.place.count_users++;
                             } else {
-                                removeUser({userId: myId});
-                                vm.place.count_users -= 1;
+                                unsubscribe({userId: myId});
+                                vm.place.count_users--;
                             }
 
                         }
@@ -1115,6 +1120,16 @@
                 .then(function (data) {
                     vm.typeDynamic = data;
                 });
+        }
+
+        function unsubscribe(user) {
+            for (var i = vm.place.users.length - 1; i >= 0; i--) {
+                if (vm.place.users[i].id == user.userId) {
+                    vm.place.users.splice(i, 1);
+                    vm.place.count_users--;
+                    break;
+                }
+            }
         }
 
         //chat
