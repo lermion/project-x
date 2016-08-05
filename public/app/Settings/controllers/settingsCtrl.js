@@ -154,19 +154,28 @@ angular.module('placePeopleApp')
 	angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);	
 
 	$scope.saveCropp = function(img, cropped){
+		if ($scope.subForm) {
+			return false;
+		} else {
+			$scope.subForm = true;
+		}
+
 		var blobFile = blobToFile(cropped, $scope.fileName);
 		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;
+
 		UserService.updateAvatar(blobFile).then(function(res){
 			$scope.consoleLog = res;
 			if(res.status){
+				$scope.subForm = false;
 				ngDialog.closeAll();
 				storageService.setStorageItem('loggedUserAva', res.user.avatar_path);
 			}
 		},
 		function(err){
 			console.log(err);
+			$scope.subForm = false;
 		});	
 	};
 }]);

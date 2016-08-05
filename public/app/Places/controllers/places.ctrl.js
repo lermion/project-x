@@ -69,6 +69,7 @@
             // invited users
             users: []
         };
+        var originalPlaceNew = angular.copy(vm.placeNew);
 
         vm.location = {
             latitude: null,
@@ -101,6 +102,8 @@
             {show: true}
         ];
         vm.showAllPlaces = false;
+
+        vm.subForm = false;
 
         activate();
 
@@ -196,7 +199,7 @@
         $scope.$watch(angular.bind(vm, function () {
             return vm.placeNew.country;
         }), function (newVal, oldVal) {
-            if (newVal !== oldVal) {
+            if (newVal !== oldVal && newVal !== null) {
                 getCities(newVal);
             }
         });
@@ -221,6 +224,9 @@
         };
 
         vm.submitPlaceNew = function () {
+            if (vm.subForm) {
+                return false;
+            }
             vm.form.placeNew.$setSubmitted();
 
             if (vm.form.placeNew.$invalid) {
@@ -229,6 +235,7 @@
             if (vm.placeNew.expired_date) {
                 vm.placeNew.expired_date = moment(vm.placeNew.expired_date).format('YYYY-MM-DD');
             }
+            vm.subForm = true;
             placesService.addPlace(vm.placeNew)
                 .then(function (data) {
                     if (data.status) {
@@ -240,7 +247,11 @@
                         data.place.is_new_place = true;
                         data.place.is_admin = true;
                         vm.places.push(data.place);
+                        vm.subForm = false;
                     }
+                }, function() {
+                    console.log('Add place failed');
+                    vm.subForm = false;
                 });
         };
 
@@ -274,9 +285,12 @@
         };
 
         vm.submitInviteUsers = function () {
-            if (vm.placeNew.users.length === 0) {
+
+            if (vm.placeNew.users.length === 0 || vm.subForm) {
                 return false;
             }
+
+            vm.subForm = true;
 
             placesService.inviteUsers(vm.placeId, vm.placeNew.users)
                 .then(function (data) {
@@ -288,11 +302,15 @@
                         if (users.length > 0) {
                             setAdmins(users, vm.placeId);
                         }
+                        vm.subForm = false;
                         $timeout(function () {
                             $state.go('places');
                             vm.isPlaceAdded = false;
                         }, 2000);
                     }
+                }, function() {
+                    console.log('Invite users to new place failed');
+                    vm.subForm = false;
                 });
         };
 
@@ -322,14 +340,16 @@
 
         };
         vm.changePlaceLogoFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-            openModalCropLogoImage(event);
+            if (file) {
+                openModalCropLogoImage(file.name, event);
+            }
         };
 
         vm.saveCropp = function (croppedDataURL) {
 
-            var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImage.name);
+            var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
-            Upload.resize(blob, 100, 100, 1, null, null, true).then(function (resizedFile) {
+            Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
                 vm.placeNew.logo = resizedFile;
                 vm.form.placeNew.logo.$setValidity('required', true);
                 vm.form.placeNew.logo.$valid = true;
@@ -359,6 +379,10 @@
                 $anchorScroll();
             }
 
+        };
+
+        vm.resetNewPlaceForm = function() {
+            vm.placeNew = angular.copy(originalPlaceNew);
         };
 
         function getCities(country) {
@@ -403,7 +427,7 @@
             //});
         }
 
-        function openModalCropLogoImage(e) {
+        function openModalCropLogoImage(fileName, e) {
             var file = e.currentTarget.files[0];
             if (file) {
                 var reader = new FileReader();
@@ -411,6 +435,7 @@
                 reader.onload = function (e) {
                     $scope.$apply(function ($scope) {
                         vm.selectedLogoImage = e.target.result;
+                        vm.selectedLogoImageName = fileName;
                         modalCropLogoImage = ngDialog.open({
                             template: '../app/Places/views/popup-crop-image.html',
                             className: 'settings-add-ava ngdialog-theme-default',
@@ -470,7 +495,6 @@
         };
         vm.mapClick = function (e) {
             var coords = e.get('coords');
-            console.log(coords);
             vm.geoObject.geometry.coordinates = coords;
 
             // Отправим запрос на геокодирование.
@@ -481,7 +505,6 @@
                 res.geoObjects.each(function (obj) {
                     names.push(obj.properties.get('text'));
                 });
-                console.log(names[0]);
 
                 var addressStr = '';
                 var obj = res.geoObjects.get(0);
@@ -529,7 +552,6 @@
                 vm.placeNew.coordinates_x = +posArr[1];
                 vm.placeNew.coordinates_y = +posArr[0];
                 vm.placeNew.address = selected.title;
-                console.log(vm.placeNew);
             }
         };
 
@@ -537,7 +559,7 @@
 
             return $http({
                 method: 'GET',
-                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + vm.placeNew.country.name + ', ' +  vm.placeNew.city.name + ', ' + inputStr,
+                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + vm.placeNew.country.name + ', ' + vm.placeNew.city.name + ', ' + inputStr,
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
                 data: null,

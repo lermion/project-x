@@ -239,21 +239,21 @@ class PlaceController extends Controller
                 $user->delete();
             } else {
                 $isSub = true;
-                if($place->is_open){
+//                if($place->is_open){
+//                    PlaceUser::create(['place_id' => $place->id, 'user_id' => Auth::id()]);
+//                }elseif ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
+//                    $invite->delete();
                     PlaceUser::create(['place_id' => $place->id, 'user_id' => Auth::id()]);
-                }elseif ($invite = PlaceInvite::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
-                    $invite->delete();
-                    PlaceUser::create(['place_id' => $place->id, 'user_id' => Auth::id()]);
-                }else{
-                    $result = [
-                        "status" => false,
-                        "error" => [
-                            'message' => "Permission denied",
-                            'code' => '8'
-                        ]
-                    ];
-                    return response()->json($result);
-                }
+//                }else{
+//                    $result = [
+//                        "status" => false,
+//                        "error" => [
+//                            'message' => "Permission denied",
+//                            'code' => '8'
+//                        ]
+//                    ];
+//                    return response()->json($result);
+//                }
             }
             return response()->json(['status' => true, 'is_sub' => $isSub]);
         }else{
