@@ -2909,6 +2909,9 @@ span.users-today-time-time.early {
     color: #495b79;
     font-family: "SFUIDisplayMedium";
 }
+.group-comment .send:hover:disabled{
+    cursor: not-allowed;
+}
 .group-chat button {
     position: absolute;
     border: 1px solid transparent;

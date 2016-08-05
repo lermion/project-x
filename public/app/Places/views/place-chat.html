@@ -187,7 +187,7 @@
 					</span>
 				</div>                                         
 			</div> 
-			<button ng-click="sendMessage(emojiMessage.messagetext, vm.place.room_id, files)" class="send">Отправить</button>
+			<button ng-disabled="disabledSendMessage" ng-click="sendMessage(emojiMessage.messagetext, vm.place.room_id, files)" class="send">Отправить</button>
 		</div>
 		<div ng-show="files.length > 0" class="pictures">
 			<div class="pic" ng-repeat="file in files">
