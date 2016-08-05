@@ -129,7 +129,7 @@ class ModerateController extends Controller
     }
 
     public function delete_comment($id){
-        $comment = Comment::where('id',$id)->first();
+        $comment = Comment::first($id);
         $comment->text = 'Comment delete';
         $comment->save();
         return response()->json(['status' => true]);
