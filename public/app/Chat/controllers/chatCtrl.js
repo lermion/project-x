@@ -13,6 +13,7 @@ angular.module('placePeopleApp')
 				loading: false,
 				loaded: false
 			};
+			$scope.showFileAddMenu = false;
 			$scope.counter = 0;
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
@@ -157,6 +158,14 @@ angular.module('placePeopleApp')
 				});
 			};
 
+			$scope.showFileAdd = function(){
+				if($scope.showFileAddMenu){
+					$scope.showFileAddMenu = false;
+				}else{
+					$scope.showFileAddMenu = true;
+				}
+			};
+
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
 			};
@@ -284,6 +293,9 @@ angular.module('placePeopleApp')
 				$scope.Model.showContactBlock = true;
 				$scope.Model.displayContactBlock = true;
 				$scope.Model.contact = contact;
+				if($scope.Model.contact.status !== undefined){
+					$scope.Model.contact.status = $scope.Model.contact.status.split(' messagetext: ')[1];
+				}
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent	= true;							
 					$state.go('chat.contact-mobile');
@@ -335,6 +347,9 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat){
+				if($scope.files !== undefined){
+					$scope.files.length = 0;
+				}
 				$scope.status.loading = false;
 				$scope.counter = 0;
 				if ($state.current.name === 'chat.contacts') {
@@ -497,6 +512,10 @@ angular.module('placePeopleApp')
 						// };
 					}
 				}
+			});
+
+			$scope.$on('$destroy', function (event) {
+				socket.removeAllListeners();
 			});
 
 			$scope.Model.getLockedUsers = function(){
