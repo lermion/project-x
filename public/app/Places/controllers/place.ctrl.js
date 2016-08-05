@@ -1173,6 +1173,9 @@
             $scope.messages.push(response);
             vm.place.count_chat_message++;
         });
+        $scope.$on('$destroy', function (event) {
+            socket.removeAllListeners();
+        });
         $scope.emojiMessage = {
             replyToUser: function () {
                 $scope.sendMessage($scope.emojiMessage.messagetext, vm.place.room_id, $scope.files);
