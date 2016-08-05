@@ -4160,12 +4160,15 @@ body.ngdialog-open {
 }
 .group-comment  .send {
 	position: static;
-	height: 40px;
+	height: 30px;
 	margin-top: 0;
-	border-radius: 0;
+	border-radius: 3px;
 	background: transparent;
 	color: #495b79;
 	font-family: "SFUIDisplayMedium";
+	background-color: #dddddd;
+	font-size: 14.6px;
+	margin-right: 5px;
 }
 /*.group-comment  .add-objects label,*/
 .group-comment  .add-objects,
