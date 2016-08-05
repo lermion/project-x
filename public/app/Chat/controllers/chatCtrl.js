@@ -293,7 +293,9 @@ angular.module('placePeopleApp')
 				$scope.Model.showContactBlock = true;
 				$scope.Model.displayContactBlock = true;
 				$scope.Model.contact = contact;
-				$scope.Model.contact.status = $scope.Model.contact.status.split(' messagetext: ')[1];
+				if($scope.Model.contact.status !== undefined){
+					$scope.Model.contact.status = $scope.Model.contact.status.split(' messagetext: ')[1];
+				}
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent	= true;							
 					$state.go('chat.contact-mobile');
