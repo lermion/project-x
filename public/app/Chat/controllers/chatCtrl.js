@@ -15,6 +15,7 @@ angular.module('placePeopleApp')
 			};
 			$scope.counter = 0;
 			var editGroupChat = null;
+			var leaveGroupPopup = null;
 			$scope.loggedUserId = parseInt(storage.userId);
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name').success(function(response){
@@ -213,21 +214,50 @@ angular.module('placePeopleApp')
 				},
 				function(error){
 					console.log(error);
-				});                
+				});
 			}
 
 			$scope.Model.loadUserContactList = function(){
 				loadUserContacts();
 			};
 
+			$scope.setActive = function(member){
+				$scope.activeMenu = member;
+				$scope.member = member;
+			};
+
+			$scope.cancelLeaveGroupChat = function(){
+				leaveGroupPopup.close();
+			};
+
+			$scope.saveNewAdmin = function(roomId, userId){
+				if($scope.member !== undefined){
+					ChatService.changeGroupChatAdmin(roomId, userId).then(function(response){
+						if(response.status){
+							leaveGroupPopup.close();
+							socket.emit("get user rooms", $scope.loggedUserId);
+							$scope.Model.opponent = [];
+							$scope.Model.showChatBlock = false;
+							$scope.Model.displayChatBlock = false;
+							$scope.Model.displayBlockedBlock = true;
+						}
+					},
+					function(error){
+						console.log(error);
+					});
+				}
+			};
+
 			$scope.Model.leaveGroupChat = function(opponent){
 				if(opponent.is_admin === 1){
-					ngDialog.open({
+					leaveGroupPopup = ngDialog.open({
 						template: '../app/Chat/views/popup-leave-group-chat.html',
 						className: 'popup-group-chat popup-leave-group-chat ngdialog-theme-default',
 						scope: $scope,
+						cache: false,
 						data: {
-							members: opponent.members
+							members: opponent.members,
+							roomId: opponent.room_id
 						}
 					});
 				}else{
