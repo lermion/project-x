@@ -6692,3 +6692,19 @@ textarea[type="text"]:focus,
     font-family: "SFUIDisplayLight";
     font-size: 14.6px;
 }
+.ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button {
+    width: 100%;
+    display: block;
+    background: #ec6045;
+    border-radius: 0;
+    font-size: 14.6px;
+    color: #fff;
+    font-family: "SFUIDisplayMedium";
+    cursor: pointer;
+    transition: all .3s ease-in-out .3s;
+    border: none;
+    line-height: 40px;
+}
+.ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button:hover {
+    background: #DA5036;
+}
