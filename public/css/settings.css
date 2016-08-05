@@ -6671,3 +6671,15 @@ textarea[type="text"]:focus,
     background-color: #fff;
     color: #495b79;
  }
+.places-page .groups-header {
+    justify-content: flex-end;
+    font-family: "SFUIDisplayMedium";
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+.places-page .groups-header .pub-groups {
+    background-size: 20px;
+}
