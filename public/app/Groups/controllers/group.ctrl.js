@@ -1107,6 +1107,7 @@
 			}
 		};
 		$scope.sendMessage = function (messageText, roomId, files) {
+			$scope.disabledSendMessage = true;
 			if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
 				return;
 			}
@@ -1128,12 +1129,18 @@
 				imagesObj: imagesObj
 			};
 			socket.emit('send message', data, function () {
-				if (files) {
+				if(files){
 					files.length = 0;
 				}
 				$scope.emojiMessage.rawhtml = "";
+				data.message = "";
+				if(data.message === "" && $scope.emojiMessage.rawhtml === ""){
+					setTimeout(function(){
+						$scope.disabledSendMessage = false;
+					}, 200);
+				}
 			});
-		}
+		};
 
         //function getGroup() {
         //    return groupsService.getGroup(groupName)

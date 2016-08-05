@@ -344,6 +344,9 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat){
+				if($scope.files !== undefined){
+					$scope.files.length = 0;
+				}
 				$scope.status.loading = false;
 				$scope.counter = 0;
 				if ($state.current.name === 'chat.contacts') {
