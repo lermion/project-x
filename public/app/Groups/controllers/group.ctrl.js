@@ -1024,113 +1024,116 @@
 
         //Chat
 
-        $scope.counter = 0;
-        $scope.scrollBottom = function () {
-            setTimeout(function () {
-                var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
-                var height = chatWindow[0].scrollHeight;
-                chatWindow.scrollTop(height);
-            }, 100);
-        };
-        $scope.loadMoreMessages = function () {
-            var deferred = $q.defer();
-            var members = [];
-            members[0] = vm.myId;
-            var data = {
-                room_id: vm.group.room_id,
-                offset: $scope.counter,
-                limit: 10,
-                members: members
-            };
-            if ($scope.messages !== undefined && $scope.messages.length >= 10) {
-                socket.emit("load more messages", data);
-            } else {
-                deferred.reject();
-            }
-            return deferred.promise;
-        };
-        socket.on("load more messages", function (response) {
-            if (response.length === 0) {
-                $scope.counter = 0;
-            } else {
-                response.messages.forEach(function (value) {
-                    $scope.messages.unshift(value);
-                });
-                $scope.counter += 10;
-            }
-        });
-        var getGroupChatDialogue = {
-            room_id: vm.group.room_id,
-            offset: 0,
-            limit: 10
-        };
-        $scope.beforeChange = function (files) {
-            $scope.files = files;
-        };
-        $scope.deleteChatFiles = function (files, index) {
-            files.splice(index, 1);
-        }
-        socket.emit("get group chat dialogue", getGroupChatDialogue);
-        socket.on("get group chat dialogue", function (response) {
-            $scope.messages = response.messages.reverse();
-        });
-        socket.on('updatechat', function (response) {
-            $scope.messages.push(response);
-            vm.group.count_chat_message++;
-        });
-        $scope.emojiMessage = {
-            replyToUser: function () {
-                $scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id, $scope.files);
-            }
-        };
-        $scope.checkMessageType = function (message) {
-            var regExp = "^http://" + $location.host() + "/#/(\\w+)/pub(lication)?/(\\d+)$";
-            var match = (new RegExp(regExp)).exec(message.text);
-            if (match) {
-                message.type = 'pub';
-                message.pub = {};
-                message.pub.username = match[1];
-                message.pub.id = parseInt(match[3]);
-            }
-        };
-        $scope.loadPubIntoChat = function (message, pubId) {
-            if (pubId != undefined) {
-                PublicationService.getSinglePublication(pubId).then(function (response) {
-                        message.pub = response;
-                    },
-                    function (error) {
-                        console.log(error);
-                    });
-            }
-        };
-        $scope.sendMessage = function (messageText, roomId, files) {
-            if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
-                return;
-            }
-            if (files !== undefined) {
-                var imagesObj = {
-                    imageName: [],
-                    imageType: [],
-                    images: files
-                };
-                files.forEach(function (value) {
-                    imagesObj.imageName.push(value.name);
-                    imagesObj.imageType.push(value.type);
-                });
-            }
-            var data = {
-                userId: vm.myId,
-                room_id: roomId,
-                message: messageText,
-                imagesObj: imagesObj
-            };
-            socket.emit('send message', data, function () {
-                if (files) {
-                    files.length = 0;
-                }
-                $scope.emojiMessage.rawhtml = "";
-            });
-        }
+		$scope.counter = 0;
+		$scope.scrollBottom = function () {
+			setTimeout(function () {
+				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
+				var height = chatWindow[0].scrollHeight;
+				chatWindow.scrollTop(height);
+			}, 100);
+		};
+		$scope.loadMoreMessages = function () {
+			var deferred = $q.defer();
+			var members = [];
+			members[0] = vm.myId;
+			var data = {
+				room_id: vm.group.room_id,
+				offset: $scope.counter,
+				limit: 10,
+				members: members
+			};
+			if ($scope.messages !== undefined && $scope.messages.length >= 10) {
+				socket.emit("load more messages", data);
+			} else {
+				deferred.reject();
+			}
+			return deferred.promise;
+		};
+		socket.on("load more messages", function (response) {
+			if (response.length === 0) {
+				$scope.counter = 0;
+			} else {
+				response.messages.forEach(function (value) {
+					$scope.messages.unshift(value);
+				});
+				$scope.counter += 10;
+			}
+		});
+		var getGroupChatDialogue = {
+			room_id: vm.group.room_id,
+			offset: 0,
+			limit: 10
+		};
+		$scope.beforeChange = function (files) {
+			$scope.files = files;
+		};
+		$scope.deleteChatFiles = function (files, index) {
+			files.splice(index, 1);
+		}
+		socket.emit("get group chat dialogue", getGroupChatDialogue);
+		socket.on("get group chat dialogue", function (response) {
+			$scope.messages = response.messages.reverse();
+		});
+		socket.on('updatechat', function (response) {
+			$scope.messages.push(response);
+			vm.group.count_chat_message++;
+		});
+		$scope.$on('$destroy', function (event) {
+			socket.removeAllListeners();
+		});
+		$scope.emojiMessage = {
+			replyToUser: function () {
+				$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id, $scope.files);
+			}
+		};
+		$scope.checkMessageType = function(message){
+			var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
+			var match = (new RegExp(regExp)).exec(message.text);
+			if(match){
+				message.type = 'pub';
+				message.pub = {};
+				message.pub.username = match[1];                    
+				message.pub.id = parseInt(match[3]);
+			}           
+		};
+		$scope.loadPubIntoChat = function (message, pubId) {
+			if (pubId != undefined) {
+				PublicationService.getSinglePublication(pubId).then(function (response) {
+						message.pub = response;
+					},
+					function (error) {
+						console.log(error);
+					});
+			}
+		};
+		$scope.sendMessage = function (messageText, roomId, files) {
+			if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
+				return;
+			}
+			if (files !== undefined) {
+				var imagesObj = {
+					imageName: [],
+					imageType: [],
+					images: files
+				};
+				files.forEach(function (value) {
+					imagesObj.imageName.push(value.name);
+					imagesObj.imageType.push(value.type);
+				});
+			}
+			var data = {
+				userId: vm.myId,
+				room_id: roomId,
+				message: messageText,
+				imagesObj: imagesObj
+			};
+			socket.emit('send message', data, function () {
+				if (files) {
+					files.length = 0;
+				}
+				$scope.emojiMessage.rawhtml = "";
+			});
+		}
 
         //function getGroup() {
         //    return groupsService.getGroup(groupName)
