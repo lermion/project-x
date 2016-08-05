@@ -1734,6 +1734,7 @@ div.my_profilll.photo-list div:last-child {
 }
 .group-peoples-inner-item {
     display: flex;
+    cursor: pointer;
     border-bottom: 2px solid #eee;
     width: 100%;
     align-items: center;
