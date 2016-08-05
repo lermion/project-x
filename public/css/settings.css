@@ -2900,15 +2900,6 @@ span.users-today-time-time.early {
     color: #495b79;
     background: transparent;
 }
-.group-comment .send {
-    position: static;
-    height: 40px;
-    margin-top: 0;
-    border-radius: 0;
-    background: transparent;
-    color: #495b79;
-    font-family: "SFUIDisplayMedium";
-}
 .group-comment .send:hover:disabled{
     cursor: not-allowed;
 }
@@ -3581,6 +3572,8 @@ span.users-today-time-time.early {
     box-sizing: border-box;
     border: 1px solid transparent;
     border-radius: 3px;
+    font-size: 14.6px;
+    transition: all .3s ease-in-out .1s;
 }
 .chat-send-btn:hover {
     border: 1px solid #495b79;
@@ -4037,6 +4030,9 @@ span.users-today-time-time.early {
 @media (max-width: 520px)  {
     .right-chat-to-my-msg-inner, .my-msg-inner-text {
         font-size: 12.6px;
+    }
+    .chat-send-btn {
+        font-size: .8em;
     }
     .right-chat-my-msg-date span {
         margin-left: 5px;
@@ -6709,5 +6705,5 @@ textarea[type="text"]:focus,
     line-height: 40px;
 }
 .ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button:hover {
-    background: #DA5036;
+    background-color: #DA5036;
 }
