@@ -1025,7 +1025,7 @@
         }
 
         //Chat
-        
+
 		$scope.counter = 0;
 		$scope.scrollBottom = function () {
 			setTimeout(function () {
@@ -1144,6 +1144,7 @@
 			});
 		};
 
+		//pub share
 		var sharePublication;
 		$scope.sharePub = function (pubId) {							
 				sharePublication = ngDialog.open({
@@ -1339,6 +1340,7 @@
 					});
 				}
 			};
+			//end of pub share
 
 	}
 
