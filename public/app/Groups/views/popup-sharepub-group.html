@@ -1,40 +1,83 @@
-<div class="modal__title">Переслать публикацию</div>
-
-<div class="modal__content" ng-if="vm.inviteNotSend && vm.subscribers.length > 0">
-    <div class="invite-group__items">
-        <input type="text" id="" ng-model="searchString" placeholder="">
-        <ul>
-            <li ng-repeat="user in vm.subscribers | searchFor:searchString"
-                ng-click="vm.onItemSelected(user)">
-                <img ng-src="{{user.avatar_path}}">
-
-                <p>{{::user.first_name}} {{::user.last_name}}</p>
-            </li>
-        </ul>
-    </div>
-    <div class="invite-group__items-selected">
-        <p class="item1-add-people-title">Список пользователей</p>
-        <ul>
-            <li ng-repeat="user in vm.invitedUsers" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
-                <img ng-src="{{user.avatar}}">
-
-                <p>{{::user.firstName}} {{::user.lastName}}</p>
-                <span class="items-selected__item-delete" ng-click="vm.removeUserFromInviteList(user)">&#10006;</span>
-            </li>
-        </ul>
+<div class="share-publication-title">Переслать публикацию</div>
+<div class="share-publication-menu-wrap">
+    <div class="share-publication-menu-wrap-inner">
+        <a ng-class="{active:isSelected($index)}" ng-repeat="menuItem in menuItems" href="javascript:void(0);" ng-click="changeMenu(menuItem.menuType, $index)" class="share-publication-menu-item">{{menuItem.name}}</a>
     </div>
 </div>
-<div class="modal__content" ng-if="vm.subscribers.length === 0">
-    <p>Список контактов пуст</p>
-</div>
-<div class="modal__content" ng-if="!vm.inviteNotSend">
-    <p>Приглашение отправлено</p>
-</div>
-
-<div class="modal__footer">
-    <div class="modal__buttons">
-        <a href="" class="modal__buttons-negative" ng-if="vm.subscribers.length > 0" ng-click="vm.abortInviteUsers()">Отменить</a>
-        <a href="" class="modal__buttons-positive" ng-if="vm.subscribers.length > 0" ng-click="vm.submitInviteUsers()">Отправить</a>
-        <a href="" class="modal__buttons-positive" ng-if="vm.subscribers.length === 0" ng-click="closeThisDialog()">Закрыть</a>
+<div class="share-publication-search-wrap">
+    <div class="share-publication-search-input">
+        <input type="text" placeholder="Поиск...">
+    </div>
+    <div ng-if="members()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Я подписан</div>
+        <div ng-init="subscription.type = 'members'" ng-repeat="subscription in subscriptions" class="share-publication-search-data-item">
+            <span><input class="share-publication-checkbox" ng-model="active" ng-change="change(subscription, active)" type="checkbox"></span>
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="user({username: subscription.login})" href="javascript:void(0);">
+                        <img ng-src="{{subscription.avatar_path}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{subscription.first_name}} {{subscription.last_name}}</span>
+            </div>
+        </div>
+        <div class="share-publication-search-sign">Подписчики</div>
+        <div ng-init="subscriber.type = 'members'" ng-repeat="subscriber in subscribers" class="share-publication-search-data-item">
+            <span><input class="share-publication-checkbox" ng-model="active" ng-change="change(subscriber, active)" type="checkbox"></span>
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="user({username: subscriber.login})" href="javascript:void(0);">
+                        <img ng-src="{{subscriber.avatar_path}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{subscriber.first_name}} {{subscriber.last_name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="groupsChat()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Групповые чаты</div>
+        <div ng-repeat="groupChat in groupsChatArr" ng-if="groupChat.is_group" class="share-publication-search-data-item">
+            <span><input class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active)" type="checkbox"></span>
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
+                        <img ng-src="{{groupChat.avatar}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{groupChat.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="showGroups()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Группы</div>
+        <div ng-repeat="group in groups" class="share-publication-search-data-item">
+            <span><input class="share-publication-checkbox" ng-model="active" ng-change="change(group, active)" type="checkbox"></span>
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
+                        <img ng-src="{{group.card_avatar}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{group.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="showPlaces()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Места</div>
+        <div ng-repeat="place in places" class="share-publication-search-data-item">
+            <span><input class="share-publication-checkbox" ng-model="active" ng-change="change(place, active)" type="checkbox"></span>
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="place({placeName: place.url_name, placeId: place.id})" href="javascript:void(0);">
+                        <img ng-src="{{place.avatar}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{place.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="share-publication-send-btn">
+        <div ng-click="closeSharePopup()" class="share-publication-send-btn-cancel">Отменить</div>
+        <div ng-click="sendSharePublication(ngDialogData.pubId)" class="share-publication-send-btn-send">Отправить</div>
     </div>
 </div>

@@ -5,11 +5,13 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
-        'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService', 'Upload', 'amMoment', 'socket', '$q', '$location'];
+	GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
+		'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService', 
+		'Upload', 'amMoment', 'socket', '$q', '$location', 'placesService'];
 
-    function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
-                       AuthService, storageService, ngDialog, groupsService, UserService, PublicationService, Upload, amMoment, socket, $q, $location) {
+	function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
+					   AuthService, storageService, ngDialog, groupsService, UserService, PublicationService, 
+					   Upload, amMoment, socket, $q, $location, placesService) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -1142,21 +1144,204 @@
 			});
 		};
 
-        //function getGroup() {
-        //    return groupsService.getGroup(groupName)
-        //        .then(function (data) {
-        //            if (data) {
-        //                vm.group = data;
-        //                vm.group.is_open = !!vm.group.is_open;
-        //                vm.group.avatarIsChange = false;
-        //
-        //                $scope.emoji.messagetext = data.description;
-        //            } else {
-        //                showNoticeGroupNotFound();
-        //            }
-        //        });
-        //}
+		//pub share
+		var sharePublication;
+		$scope.sharePub = function (pubId) {							
+				sharePublication = ngDialog.open({
+					template: '../app/Groups/views/popup-sharepub-group.html',
+					className: 'share-publication ngdialog-theme-default',
+					scope: $scope,
+					preCloseCallback: resetFormInviteUsers,
+					data: {pubId: pubId}
+				});
+				loadUserContacts();
+			};
+			$scope.menuItems = [
+				{
+					menuType: "members",
+					name: "Пользователи"
+				},
+				{
+					menuType: "groups-chat",
+					name: "Групповые чаты"
+				},
+				{
+					menuType: "groups",
+					name: "Группы"
+				},
+				{
+					menuType: "places",
+					name: "Места"
+				}
+			];
+			$scope.currentIndex = 0;
+			$scope.members = function () {
+				return true;
+			}
+			$scope.isSelected = function (index) {
+				return index === $scope.currentIndex;
+			}
+			$scope.changeMenu = function (value, index) {
+				$scope.currentIndex = index;
+				if (value === "members") {
+					$scope.members = function () {
+						return true;
+					}
+					$scope.groupsChat = function () {
+						return false;
+					}
+					$scope.showGroups = function () {
+						return false;
+					}
+					$scope.showPlaces = function () {
+						return false;
+					}
+				} else if (value === "groups-chat") {
+					socket.emit("get user rooms", $scope.loggedUserId);
+					socket.on("get user rooms", function (response) {
+						$scope.groupsChatArr = response;
+					});
+					$scope.groupsChat = function () {
+						return true;
+					}
+					$scope.members = function () {
+						return false;
+					}
+					$scope.showGroups = function () {
+						return false;
+					}
+				} else if (value === "groups") {
+					$scope.showGroups = function () {
+						return true;
+					}
+					$scope.groupsChat = function () {
+						return false;
+					}
+					$scope.members = function () {
+						return false;
+					}
+					$scope.showPlaces = function () {
+						return false;
+					}
+					groupsService.getGroupList().then(function (response) {
+							$scope.groups = response;
+						},
+						function (error) {
+							console.log(error);
+						});
+				} else if (value === "places") {
+					$scope.showPlaces = function () {
+						return true;
+					}
+					$scope.showGroups = function () {
+						return false;
+					}
+					$scope.groupsChat = function () {
+						return false;
+					}
+					$scope.members = function () {
+						return false;
+					}
+					placesService.getPlaces().then(function (response) {
+							$scope.places = response;
+						},
+						function (error) {
+							console.log(error);
+						});
+				}
+			}
 
-    }
+			function loadUserContacts() {
+				PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
+						$scope.subscribers = response;
+					},
+					function (error) {
+						console.log(error);
+					});
+				PublicationService.getSubscription($scope.loggedUserId).then(function (response) {
+						$scope.subscriptions = response;
+					},
+					function (error) {
+						console.log(error);
+					});
+			}
+			$scope.shareData = [];
+			$scope.change = function (data, active) {
+				if (active) {
+					$scope.shareData.push(data);
+				} else {
+					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
+				}
+			};
+			$scope.closeSharePopup = function () {
+				sharePublication.close();
+			};
+			$scope.sendSharePublication = function (pubId) {
+				if ($scope.shareData.length > 0) {
+					var membersLength = [];
+					$scope.shareData.forEach(function (value) {
+						if(value.type === "members"){
+							membersLength.push(value);
+							var members = [];
+							members[0] = parseInt($scope.loggedUserId);
+							members[1] = value.id;
+							var data = {
+								members: members,
+								is_group: false,
+								share: true
+							};
+							socket.emit('create room', data, function(response){
+								if(Object.prototype.toString.call(response) === '[object Array]'){
+									if(response.length === membersLength.length){
+										response.forEach(function(value){
+											var data = {
+												userId: $scope.loggedUserId,
+												room_id: value.room_id,
+												message: $location.absUrl() + "/publication/" + pubId
+											};
+											socket.emit('send message', data);
+										});
+									}
+								}else{
+									var data = {
+										userId: $scope.loggedUserId,
+										room_id: response.room_id,
+										message: $location.absUrl() + "/publication/" + pubId
+									};
+									socket.emit('send message', data, function(){
+										var popupNotification = ngDialog.open({
+											template: '../app/User/views/popup-notification.html',
+											className: 'popup-delete-group ngdialog-theme-default',
+											scope: $scope
+										});
+										setTimeout(function () {
+											ngDialog.closeAll();
+										}, 2000);
+									});
+								}
+							});
+						}else{
+							var data = {
+								userId: $scope.loggedUserId,
+								room_id: value.room_id,
+								message: $location.absUrl() + "/publication/" + pubId
+							};
+							socket.emit('send message', data, function () {
+								var popupNotification = ngDialog.open({
+									template: '../app/User/views/popup-notification.html',
+									className: 'popup-delete-group ngdialog-theme-default',
+									scope: $scope
+								});
+								setTimeout(function () {									
+									ngDialog.closeAll();
+								}, 2000);
+							});
+						}
+					});
+				}
+			};
+			//end of pub share
+
+	}
 
 })(angular);
