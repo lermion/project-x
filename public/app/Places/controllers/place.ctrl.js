@@ -76,6 +76,8 @@
 			properties: {}
 		};
 		vm.newComment = {};
+		vm.showFullDescription = false;
+
 
 		amMoment.changeLocale('ru');
 
@@ -160,8 +162,7 @@
         vm.openModalMediaFile = function (file) {
             ngDialog.open({
                 templateUrl: '../app/common/components/media-file/modal-media-file.html',
-                name: 'modal-publication-group',
-                className: 'view-publication ngdialog-theme-default',
+                className: 'popup-comment-images ngdialog-theme-default',
                 data: {
                     file: file
                 },
