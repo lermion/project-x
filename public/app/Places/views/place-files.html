@@ -4,7 +4,7 @@
     </div>
     <div class="group-files-container" infinite-scroll="vm.loadMoreFiles()" infinite-scroll-distance="1">
         <div class="group-files-content" ng-repeat="file in month | limitTo: vm.limitToFiles" style="{{resizeSizes}}">
-            <a ng-href="{{::file.url}}">
+            <a href ng-click="vm.openModalMediaFile(file)">
                 <img ng-src="{{::file.url}}">
             </a>
         </div>

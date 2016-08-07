@@ -18,7 +18,7 @@
         var myAvatar = storage.loggedUserAva;
         var firstName = storage.firstName;
         var lastName = storage.lastName;
-         var login = storage.username;
+        var login = storage.username;
 
 
         var modalEditPlace, modalDeletePlace, modalInviteUsers, modalCropLogoImage, modalMap,
@@ -102,6 +102,7 @@
         });
 
 
+        // Modal windows
         vm.openModalEditPlace = function () {
             vm.placeEdited = angular.copy(vm.place);
             modalEditPlace = ngDialog.open({
@@ -156,6 +157,20 @@
             });
         };
 
+        vm.openModalMediaFile = function (file) {
+            ngDialog.open({
+                templateUrl: '../app/common/components/media-file/modal-media-file.html',
+                name: 'modal-publication-group',
+                className: 'view-publication ngdialog-theme-default',
+                data: {
+                    file: file
+                },
+                preCloseCallback: function () {
+                }
+            });
+        };
+
+
         vm.submitNewPublication = function () {
             vm.newPublicationForm.$setSubmitted();
             if (vm.newPublicationForm.$invalid || vm.files && vm.files.length === 0) {
@@ -165,6 +180,7 @@
             vm.newPublication.text = vm.emojiMessage.messagetext;
             vm.newPublication.files = filterAttachFilesByType();
             vm.newPublication.placeId = vm.place.id;
+
             placesService.addPublication(vm.newPublication)
                 .then(function (data) {
                     if (data.status) {
@@ -177,6 +193,7 @@
                     vm.subForm = false;
                 })
         };
+
 
         vm.updatePlace = function () {
 

@@ -34,6 +34,30 @@
           openModalPublication(pubId);
         };
 
+        vm.getAuthorName = function(pub) {
+            if (pub.gr_name) {
+                return pub.gr_name;
+            } else if (pub.pl_name) {
+                return pub.pl_name;
+            } else if (!!+pub.is_anonym) {
+                return 'Анонимная публикация'
+            } else {
+                return pub.first_name + ' ' + pub.last_name;
+            }
+        };
+
+        vm.getStateName = function(pub) {
+            if (pub.gr_name) {
+                return 'group({groupName: ' + '\'' + pub.gr_url_name + '\'' + '})';
+            } else if (pub.pl_name) {
+                return 'place({placeName: ' + '\'' + pub.pl_url_name + '\'' + '})';
+            } else if (!!+pub.is_anonym) {
+                return 'desktop-pub-view({username: ' + pub.usr_login + ',' + 'id: ' + pub.id + '})';
+            } else {
+                return 'desktop-pub-view({username: ' + pub.usr_login + ',' + 'id: ' + pub.id + '})';
+            }
+        };
+
         function openModalPublication(pubId) {
             $rootScope.showSearch = false;
             getPublication(pubId).then(function(pub) {
