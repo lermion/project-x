@@ -22,13 +22,13 @@
                  ng-click="vm.setAdmin(user, showAdmin)"
             >Администратор
             </div>
-            <div class="peoples-inner-item-admin"
+            <div class="peoples-inner-item-admin new-admin"
                  ng-if="showAdmin.status && !user.is_admin"
                  ng-class="vm.group.is_creator ? '' : 'no-click'"
                  ng-click="vm.setAdmin(user, showAdmin)"
             >Назначить администратором
             </div>
-            <div class="peoples-inner-item-admin"
+            <div class="peoples-inner-item-admin new-admin"
                  ng-if="showAdmin.status && user.is_admin && (vm.group.is_creator && user.id !== vm.myId)"
                  ng-class="vm.group.is_creator ? '' : 'no-click'"
                  ng-click="vm.setAdmin(user, showAdmin)"
