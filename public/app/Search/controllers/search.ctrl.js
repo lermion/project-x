@@ -5,9 +5,9 @@
         .module('app.search')
         .controller('SearchCtrl', SearchCtrl);
 
-    SearchCtrl.$inject = ['$rootScope', '$scope', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService', 'ngDialog', 'PublicationService'];
+    SearchCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService', 'ngDialog', 'PublicationService'];
 
-    function SearchCtrl($rootScope, $scope, $stateParams, storageService, $http, $window, results, searchService, ngDialog, PublicationService) {
+    function SearchCtrl($rootScope, $scope, $state, $stateParams, storageService, $http, $window, results, searchService, ngDialog, PublicationService) {
 
         var vm = this;
 
@@ -30,11 +30,11 @@
         //////////////////////////////////////////
 
 
-        vm.openModalPublication = function(pubId) {
-          openModalPublication(pubId);
+        vm.openModalPublication = function (pubId) {
+            openModalPublication(pubId);
         };
 
-        vm.getAuthorName = function(pub) {
+        vm.getAuthorName = function (pub) {
             if (pub.gr_name) {
                 return pub.gr_name;
             } else if (pub.pl_name) {
@@ -46,7 +46,7 @@
             }
         };
 
-        vm.getStateName = function(pub) {
+        vm.getStateName = function (pub) {
             if (pub.gr_name) {
                 return 'group({groupName: ' + '\'' + pub.gr_url_name + '\'' + '})';
             } else if (pub.pl_name) {
@@ -60,7 +60,7 @@
 
         function openModalPublication(pubId) {
             $rootScope.showSearch = false;
-            getPublication(pubId).then(function(pub) {
+            getPublication(pubId).then(function (pub) {
                 ngDialog.open({
                     templateUrl: '../app/common/components/publication/publication-modal.html',
                     name: 'modal-publication-group',
@@ -68,7 +68,7 @@
                     data: {
                         pub: pub
                     },
-                    preCloseCallback: function() {
+                    preCloseCallback: function () {
                         $rootScope.showSearch = true;
                     }
                 });
@@ -157,6 +157,17 @@
             searchService.search(searchObj)
                 .then(function (data) {
                     vm.results = data;
+
+                    // TODO: refact!
+                    if (vm.results[0].length > 0) {
+                        $state.go('search.people');
+                    } else if (vm.results[1].length > 0) {
+                        $state.go('search.publications');
+                    } else if (vm.results[2].length > 0) {
+                        $state.go('search.groups');
+                    } else {
+                        $state.go('search.places');
+                    }
                 });
         }
 
@@ -171,6 +182,7 @@
                     return data;
                 });
         }
+
 
     }
 
