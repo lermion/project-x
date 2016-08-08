@@ -43,7 +43,7 @@ angular.module('placePeopleApp')
 				$scope.Model.currRoute = $state.current.name;				
 			};
 
-			if($state.current.name === "chat"){           
+			if($state.current.name === "chat"){
 				$state.go("chat.list");
 			}
 
@@ -155,6 +155,14 @@ angular.module('placePeopleApp')
 						type: "deleteChat",
 						data: roomId
 					}
+				});
+			};
+
+			$scope.showPopupWithFiles = function(){
+				ngDialog.open({
+					template: '../app/Chat/views/popup-with-files.html',
+					className: 'popup-comment-images ngdialog-theme-default',
+					scope: $scope
 				});
 			};
 
