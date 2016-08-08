@@ -6,11 +6,11 @@
 </div>
 <div class="share-publication-search-wrap">
 	<div class="share-publication-search-input">
-		<input type="text" placeholder="Поиск...">
+		<input ng-model="query" type="text" placeholder="Поиск...">
 	</div>
 	<div ng-if="members()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Я подписан</div>
-		<div ng-init="subscription.type = 'members'" ng-repeat="subscription in subscriptions" class="share-publication-search-data-item">
+		<div ng-init="subscription.type = 'members'" ng-repeat="subscription in subscriptions | filter:{$:query}" class="share-publication-search-data-item">
 			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(subscription, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="share-publication-search-sign">Подписчики</div>
-		<div ng-init="subscriber.type = 'members'" ng-repeat="subscriber in subscribers" class="share-publication-search-data-item">
+		<div ng-init="subscriber.type = 'members'" ng-repeat="subscriber in subscribers | filter:{$:query}" class="share-publication-search-data-item">
 			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(subscriber, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
@@ -36,7 +36,7 @@
 	</div>
 	<div ng-if="groupsChat()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Групповые чаты</div>
-		<div ng-repeat="groupChat in groupsChatArr" ng-if="groupChat.is_group" class="share-publication-search-data-item">
+		<div ng-repeat="groupChat in groupsChatArr | filter:{$:query}" ng-if="groupChat.is_group" class="share-publication-search-data-item">
 			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
@@ -50,7 +50,7 @@
 	</div>
 	<div ng-if="showGroups()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Группы</div>
-		<div ng-show="group.is_sub" ng-repeat="group in groups" class="share-publication-search-data-item">
+		<div ng-show="group.is_sub" ng-repeat="group in groups | filter:{$:query}" class="share-publication-search-data-item">
 			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(group, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
@@ -64,7 +64,7 @@
 	</div>
 	<div ng-if="showPlaces()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Места</div>
-		<div ng-repeat="place in places" class="share-publication-search-data-item">
+		<div ng-repeat="place in places | filter:{$:query}" class="share-publication-search-data-item">
 			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(place, active)" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
