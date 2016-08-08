@@ -463,7 +463,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
-					message: message ? message : "image",
+					message: message ? message : "изображение",
 					imagesObj: imagesObj
 				};
 				console.log(data);
