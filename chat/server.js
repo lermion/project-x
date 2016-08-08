@@ -104,6 +104,13 @@ io.sockets.on('connection', function(socket){
 							var shareResponse = response.filter(function( obj ) {
     							return obj.is_group !== 1;
 							});
+							var roomsArray = [];
+							response.forEach(function(value){
+								roomsArray.push(value.room_id);
+								GLOBAL.rooms = roomsArray;
+								socket.room = GLOBAL.rooms;
+								socket.join(value.room_id);
+							});
 							callback(shareResponse);
 							response[response.length - 1].isNew = true;
 							//var socketId = usersId[response[0].id];

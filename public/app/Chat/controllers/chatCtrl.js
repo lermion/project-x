@@ -466,7 +466,6 @@ angular.module('placePeopleApp')
 					message: message ? message : "изображение",
 					imagesObj: imagesObj
 				};
-				console.log(data);
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data, function(){
 					if(files){
