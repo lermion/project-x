@@ -78,6 +78,7 @@
 
         function activate() {
             init();
+            setActiveState();
         }
 
         function init() {
@@ -157,17 +158,7 @@
             searchService.search(searchObj)
                 .then(function (data) {
                     vm.results = data;
-
-                    // TODO: refact!
-                    if (vm.results[0].length > 0) {
-                        $state.go('search.people');
-                    } else if (vm.results[1].length > 0) {
-                        $state.go('search.publications');
-                    } else if (vm.results[2].length > 0) {
-                        $state.go('search.groups');
-                    } else {
-                        $state.go('search.places');
-                    }
+                    setActiveState();
                 });
         }
 
@@ -181,6 +172,23 @@
                 .then(function (data) {
                     return data;
                 });
+        }
+
+        function setActiveState() {
+            // TODO: refact!
+
+            if (vm.results) {
+                if (vm.results[0].length > 0) {
+                    $state.go('search.people');
+                } else if (vm.results[1].length > 0) {
+                    $state.go('search.publications');
+                } else if (vm.results[3].length > 0) {
+                    $state.go('search.places');
+                } else if (vm.results[2].length > 0) {
+                    $state.go('search.groups');
+                }
+            }
+
         }
 
 
