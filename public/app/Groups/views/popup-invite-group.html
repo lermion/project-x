@@ -39,7 +39,7 @@
     <p>Приглашение отправлено</p>
 </div>
 
-<div class="modal__footer">
+<div class="modal__footer" ng-hide="!vm.inviteNotSend">
     <div class="modal__buttons">
         <a href="" class="modal__buttons-negative" ng-if="(vm.subscribers.length + vm.subscription.length) > 0" ng-click="vm.abortInviteUsers()">Отменить</a>
         <a href="" class="modal__buttons-positive" ng-if="(vm.subscribers.length + vm.subscription.length) > 0" ng-click="vm.submitInviteUsers()">Отправить</a>

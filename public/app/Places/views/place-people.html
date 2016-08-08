@@ -36,7 +36,7 @@
             >Удалить из администраторов
             </div>
 
-            <span class="peoples-item__delete" ng-if="vm.place.is_admin && vm.myId !== user.id && !user.is_admin || vm.group.is_creator && vm.myId !== user.id" ng-click="vm.removeUser(user)">✖</span>
+            <span class="peoples-item__delete" ng-if="vm.place.is_admin && vm.myId !== user.id && !user.is_admin || vm.place.is_creator && vm.myId !== user.id" ng-click="vm.removeUser(user)">✖</span>
         </div>
     </div>
 </div>
