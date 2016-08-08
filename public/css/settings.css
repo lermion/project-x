@@ -3458,11 +3458,23 @@ span.users-today-time-time.early {
     display: flex;
     box-sizing: border-box;
     width: 100%;
-    height: auto;
+    height: 350px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
-.chat-publication-photo img {
+.chat-publication-photo a {
+    height: 100%;
     width: 100%;
-    max-height: 285px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+.chat-publication-photo img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
 }
 .chat-publication-relations {
     display: flex;
@@ -3897,6 +3909,9 @@ span.users-today-time-time.early {
     .chat-contact-right-selected {
         width: 100%;
     }
+    .chat-publication-photo {
+        height: 250px;
+    }
 }
 @media (max-width: 720px) {
 	.my-img-inner-photo-pict, .to-my-img-inner-photo-pict {
@@ -4057,6 +4072,9 @@ span.users-today-time-time.early {
     }
     .chat-person-top-info {
         width: 70%;
+    }
+    .chat-publication-photo {
+        height: 200px;
     }
 }
 .chat-left-users-container-blocked {
