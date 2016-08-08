@@ -4,7 +4,7 @@
 		<img ng-src="{{Model.contact.avatar_path ? Model.contact.avatar_path : Model.contact.avatar}}" alt="">
 	</div>
 	<div class="chat-contact-selected-data">
-		<div class="contact-selected-data-name">{{Model.contact.first_name + ' ' + Model.contact.last_name}}</div>
+		<div class="contact-selected-data-name">{{Model.contact.is_group ? Model.contact.name : Model.contact.first_name + ' ' + Model.contact.last_name}}</div>
 		<div class="contact-selected-data-status">Статус</div>
 		<div ng-show="Model.contact.status" class="contact-selected-data-title" ng-bind-html="Model.contact.status | colonToSmiley"></div>
 		<div ng-show="Model.contact.user_quote" class="contact-selected-data-title">{{Model.contact.user_quote}}</div>
