@@ -43,7 +43,7 @@ angular.module('placePeopleApp')
 				$scope.Model.currRoute = $state.current.name;				
 			};
 
-			if($state.current.name === "chat"){           
+			if($state.current.name === "chat"){
 				$state.go("chat.list");
 			}
 
@@ -164,7 +164,7 @@ angular.module('placePeopleApp')
 					className: 'popup-comment-images ngdialog-theme-default',
 					scope: $scope
 				});
-			}
+			};
 
 			$scope.showFileAdd = function(){
 				if($scope.showFileAddMenu){
