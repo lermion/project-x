@@ -495,7 +495,7 @@ angular.module('placePeopleApp')
 					var height = chatWindow[0].scrollHeight;
 					// $scope.$broadcast('rebuildScroll');
 					chatWindow.scrollTop(height);
-				}, 100);
+				}, 500);
 			};
 			socket.on('updatechat', function(data){
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
