@@ -6,7 +6,7 @@
                     <div class="my-profile">
                         <div class="ava">
                             <a href="javascript:void(0)">
-                                <img ng-src="{{userData.avatar_path}}" alt="">
+                                <img ng-src="{{userData.avatar_path ? userData.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                             </a>
                         </div>
                         <div class="my-profile-item">
