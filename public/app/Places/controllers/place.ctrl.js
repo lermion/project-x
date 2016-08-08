@@ -76,6 +76,8 @@
 			properties: {}
 		};
 		vm.newComment = {};
+		vm.showFullDescription = false;
+
 
 		amMoment.changeLocale('ru');
 
@@ -102,15 +104,16 @@
 		});
 
 
-		vm.openModalEditPlace = function () {
-			vm.placeEdited = angular.copy(vm.place);
-			modalEditPlace = ngDialog.open({
-				template: '../app/Places/views/popup-edit-place.html',
-				name: 'modal-edit-group',
-				className: 'popup-add-group popup-edit-group ngdialog-theme-default',
-				scope: $scope
-			});
-		};
+        // Modal windows
+        vm.openModalEditPlace = function () {
+            vm.placeEdited = angular.copy(vm.place);
+            modalEditPlace = ngDialog.open({
+                template: '../app/Places/views/popup-edit-place.html',
+                name: 'modal-edit-group',
+                className: 'popup-add-group popup-edit-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
 
 		vm.openModalDeletePlace = function () {
 			modalDeletePlace = ngDialog.open({
@@ -156,40 +159,55 @@
 			});
 		};
 
-		vm.submitNewPublication = function () {
-			vm.newPublicationForm.$setSubmitted();
-			if (vm.newPublicationForm.$invalid || vm.files && vm.files.length === 0) {
-				return false;
-			}
-			vm.subForm = true;
-			vm.newPublication.text = vm.emojiMessage.messagetext;
-			vm.newPublication.files = filterAttachFilesByType();
-			vm.newPublication.placeId = vm.place.id;
-			placesService.addPublication(vm.newPublication)
-				.then(function (data) {
-					if (data.status) {
-						vm.place.publications.push(data.publication);
-						vm.place.count_publications++;
-						vm.subForm = false;
-						modalNewPublication.close();
-					}
-				}, function () {
-					vm.subForm = false;
-				})
-		};
+        vm.openModalMediaFile = function (file) {
+            ngDialog.open({
+                templateUrl: '../app/common/components/media-file/modal-media-file.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                data: {
+                    file: file
+                },
+                preCloseCallback: function () {
+                }
+            });
+        };
 
-		vm.updatePlace = function () {
 
-			vm.placeEditedForm.$setSubmitted();
+        vm.submitNewPublication = function () {
+            vm.newPublicationForm.$setSubmitted();
+            if (vm.newPublicationForm.$invalid || vm.files && vm.files.length === 0) {
+                return false;
+            }
+            vm.subForm = true;
+            vm.newPublication.text = vm.emojiMessage.messagetext;
+            vm.newPublication.files = filterAttachFilesByType();
+            vm.newPublication.placeId = vm.place.id;
 
-			if (vm.placeEditedForm.$invalid) {
-				return false;
-			}
+            placesService.addPublication(vm.newPublication)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.place.publications.push(data.publication);
+                        vm.place.count_publications++;
+                        vm.subForm = false;
+                        modalNewPublication.close();
+                    }
+                }, function () {
+                    vm.subForm = false;
+                })
+        };
 
-			vm.subForm = true;
 
-			var placeEdited = angular.copy(vm.placeEdited);
-			place = angular.copy(vm.placeEdited);
+        vm.updatePlace = function () {
+
+            vm.placeEditedForm.$setSubmitted();
+
+            if (vm.placeEditedForm.$invalid) {
+                return false;
+            }
+
+            vm.subForm = true;
+
+            var placeEdited = angular.copy(vm.placeEdited);
+            place = angular.copy(vm.placeEdited);
 
 			if (!vm.placeEditedForm.logo.$dirty) {
 				placeEdited.avatar = null;
@@ -1254,7 +1272,7 @@
 
 		//pub share
 		var sharePublication;
-		$scope.sharePub = function (pubId) {							
+		$scope.sharePub = function (pubId) {
 				sharePublication = ngDialog.open({
 					template: '../app/Groups/views/popup-sharepub-group.html',
 					className: 'share-publication ngdialog-theme-default',
@@ -1440,7 +1458,7 @@
 									className: 'popup-delete-group ngdialog-theme-default',
 									scope: $scope
 								});
-								setTimeout(function () {									
+								setTimeout(function () {
 									ngDialog.closeAll();
 								}, 2000);
 							});

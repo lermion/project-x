@@ -161,10 +161,20 @@ angular.module('placePeopleApp')
 			$scope.showFileAdd = function(){
 				if($scope.showFileAddMenu){
 					$scope.showFileAddMenu = false;
+					$scope.hideFileAdd = undefined;
 				}else{
 					$scope.showFileAddMenu = true;
+					setTimeout(function(){
+						$scope.hideFileAdd = hideFileAdd;
+					}, 0);
 				}
 			};
+			var hideFileAdd = function(){
+				if($scope.showFileAddMenu){
+					$scope.showFileAddMenu = false;
+					$scope.hideFileAdd = undefined;
+				}
+			}
 
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);

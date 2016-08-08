@@ -2,13 +2,13 @@
     <div class="user-publication">
         <div class="user-publication-header">
             <div class="user-function">
-                <a class="user" ui-sref="user({username: pub.user.login})">
+                <a class="user" ui-sref="{{vm.getStateName(pub)}}">
 							<span class="ava">
-								<img ng-src="{{pub.user.avatar_path}}" alt="">
+								<img ng-src="{{pub.pl_avatar || pub.gr_avatar || pub.usr_avatar}}" alt="">
 							</span>
 							<span class="block-info">
-								<p class="user-name">Елена Новикова</p>
-								<p class="time" am-time-ago="pub.created_at">15 дней назад</p>
+								<p class="user-name">{{vm.getAuthorName(pub)}}</p>
+								<p class="time" am-time-ago="pub.created_at"></p>
 							</span>
                 </a>
             </div>
