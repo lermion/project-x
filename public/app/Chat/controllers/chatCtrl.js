@@ -158,13 +158,31 @@ angular.module('placePeopleApp')
 				});
 			};
 
+			$scope.showPopupWithFiles = function(){
+				ngDialog.open({
+					template: '../app/Chat/views/popup-with-files.html',
+					className: 'popup-comment-images ngdialog-theme-default',
+					scope: $scope
+				});
+			}
+
 			$scope.showFileAdd = function(){
 				if($scope.showFileAddMenu){
 					$scope.showFileAddMenu = false;
+					$scope.hideFileAdd = undefined;
 				}else{
 					$scope.showFileAddMenu = true;
+					setTimeout(function(){
+						$scope.hideFileAdd = hideFileAdd;
+					}, 0);
 				}
 			};
+			var hideFileAdd = function(){
+				if($scope.showFileAddMenu){
+					$scope.showFileAddMenu = false;
+					$scope.hideFileAdd = undefined;
+				}
+			}
 
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
