@@ -158,14 +158,6 @@ angular.module('placePeopleApp')
 				});
 			};
 
-			$scope.showPopupWithFiles = function(){
-				ngDialog.open({
-					template: '../app/Chat/views/popup-with-files.html',
-					className: 'popup-comment-images ngdialog-theme-default',
-					scope: $scope
-				});
-			};
-
 			$scope.showFileAdd = function(){
 				if($scope.showFileAddMenu){
 					$scope.showFileAddMenu = false;
@@ -497,6 +489,36 @@ angular.module('placePeopleApp')
 					chatWindow.scrollTop(height);
 				}, 500);
 			};
+
+			$scope.showPopupWithFiles = function (files) {
+				$scope.imagesInPopup = files;
+				$scope.mainImageInPopup = files[0].url;
+				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+				ngDialog.open({
+					template: '../app/User/views/popup-comment-images.html',
+					className: 'popup-comment-images ngdialog-theme-default',
+					scope: $scope,
+					data: {
+						images: files
+					},
+					preCloseCallback: function (value) {
+						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+					}
+				});
+			};
+
+			$scope.changeMainFile = function(file, flag, pub){
+				if(flag){
+					$scope.mainImageInPopup = file.url;
+				}else{
+					$scope.mainVideo = "";
+					$scope.mainImage = file.url;
+				}
+				if(flag === 'list'){
+					pub.mainFile = file;
+				}
+			};
+
 			socket.on('updatechat', function(data){
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
