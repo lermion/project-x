@@ -6276,6 +6276,9 @@ input.cmn-toggle-round:checked + label:after {
     body.public.user #wrapper {
         padding-top: 45px;
     }
+    #wrapper {
+        padding-top: 45px;
+    }
 }
 input[type="text"],
 textarea[type="text"],
