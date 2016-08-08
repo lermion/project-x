@@ -11,7 +11,7 @@
 
                     <div class="group-likes">
                         <div class="group-info">
-                            <a href="" class="publication-place publication-place-img1">{{vm.place.name}}</a>
+                            <a href="" class="publication-place publication-place-img1" title="{{vm.place.name}}">{{vm.place.name}}</a>
                             <a href class="publication-place"
                                ng-click="vm.showFullDescription = !vm.showFullDescription"
                                ng-bind-html="vm.place.description | colonToSmiley"></a>
