@@ -1,57 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Moderator;
 
-use App\BlackList;
-use App\User;
 use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $count = $request->input('count') ? $request->input('count') : 10;
         $users = User::all();
-        return view('admin.user.index')->with('users', $users);
+        return response()->json(["status" => true, 'users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = User::find($id);
@@ -79,39 +45,10 @@ class UserController extends Controller
         return response()->json(["status" => true, 'user' => $user]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @param  int $month
-     * @return \Illuminate\Http\Response
-     */
     public function confirm($id)
     {
-        $user = User::where(['id' => $id])->first();
+        $user = User::find($id);
         if ($user->status != 'Подтвержден' or $user->status = '') {
             $user->status = 'Подтвержден';
             $user->save();
@@ -142,7 +79,7 @@ class UserController extends Controller
 
     public function review($id)
     {
-        $user = User::where(['id' => $id])->first();
+        $user = User::find($id);
         if ($user->status != 'На заметке' or $user->status = '') {
             $user->status = 'На заметке';
             $user->save();
@@ -173,7 +110,7 @@ class UserController extends Controller
 
     public function suspicious($id)
     {
-        $user = User::where(['id' => $id])->first();
+        $user = User::find($id);
         if ($user->status != 'Подозрительный' or $user->status = '') {
             $user->status = 'Подозрительный';
             $user->save();
@@ -202,52 +139,11 @@ class UserController extends Controller
         }
     }
 
-    public function destroy($id, $month)
+    public function destroy($id)
     {
         $user = User::find($id);
-        $timestamp = strtotime('+' . $month . ' month');
-        $date = date('Y:m:d', $timestamp);
-        Blacklist::create(['phone' => $user->phone, 'date' => $date]);
-        $user->first_name = 'Пользователь';
-        $user->last_name = 'удален';
-        //$user->login = str_random(8);
-        //$user->phone = '';
-        $user->password = str_random(8);
-        $user->avatar_path = '/upload/avatars/no-avatar';
-        $user->status = 'Удален';
-        $user->original_avatar_path = '/upload/avatars/no-avatar';
-        $user->user_quote = '';
-        $user->is_private = true;
+        $user->is_block = true;
         $user->save();
-        return redirect()->action('Admin\UserController@index');
-    }
-
-    public function mainPicture(Request $request)
-    {
-        try {
-            $this->validate($request, [
-                'picture' => 'required|image|mimes:png|max:5000'
-            ]);
-        } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return response()->json($result);
-        }
-        if ($request->hasFile('picture')) {
-            $picture = $request->file('picture');
-            $path = '/images/';
-            $fullPath = public_path() . $path;
-            Storage::put('bc.png', file_get_contents($picture->getRealPath()));
-            $picture->move($fullPath, 'bc.png');
-            Storage::delete('bc.png');
-            $result = 'true';
-        }
-        return response()->json($result);
-
+        return response()->json(['status' => true]);
     }
 }
