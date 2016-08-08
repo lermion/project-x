@@ -356,7 +356,8 @@ angular.module('placePeopleApp')
 					}
 				});
 			};
-			$scope.Model.openChatWith = function(chat){
+			$scope.Model.openChatWith = function(chat, index){
+				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
@@ -517,6 +518,10 @@ angular.module('placePeopleApp')
 				if(flag === 'list'){
 					pub.mainFile = file;
 				}
+			};
+			
+			$scope.isSelected = function (index) {
+				return index === $scope.currentIndex;
 			};
 
 			socket.on('updatechat', function(data){
