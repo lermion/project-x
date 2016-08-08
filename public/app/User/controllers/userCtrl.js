@@ -902,6 +902,9 @@ angular.module('placePeopleApp')
 					$scope.showGroups = function () {
 						return false;
 					}
+					$scope.showPlaces = function () {
+						return false;
+					}
 				} else if (value === "groups") {
 					$scope.showGroups = function () {
 						return true;

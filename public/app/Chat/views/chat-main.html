@@ -12,7 +12,7 @@
 				</div>
 				<div class="users-menu-tab-block" ng-class="Model.currRoute === 'chat.blocked' ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">	    			
 				</div>	    		
-				<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''" ng-mouseover="Model.showMenuBlock = true" ng-mouseleave="Model.showMenuBlock = false" style="cursor:pointer;">			    		
+				<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''" ng-click="Model.showMenuBlock = !Model.showMenuBlock" style="cursor:pointer;">			    		
 						<div class="chat-add-file-menu" ng-show="Model.showMenuBlock" style="min-width:140px;left:-59px">			    			
 							<div class="chat-add-file-publ" ng-click="Model.openGroupChatPopup()">Создать группу</div>
 							<div class="chat-add-file-publ" ng-click="refTo('chat.notification'); Model.showBlockedBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;">Уведомления</div>

@@ -356,7 +356,8 @@ angular.module('placePeopleApp')
 					}
 				});
 			};
-			$scope.Model.openChatWith = function(chat){
+			$scope.Model.openChatWith = function(chat, index){
+				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
@@ -463,7 +464,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
-					message: message ? message : "",
+					message: message ? message : "изображение",
 					imagesObj: imagesObj
 				};
 				$scope.Model.chatMes = '';
@@ -481,16 +482,7 @@ angular.module('placePeopleApp')
 				});
 			};
 
-			$scope.Model.scrollBottom = function(){
-				setTimeout(function(){
-					var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
-					var height = chatWindow[0].scrollHeight;
-					// $scope.$broadcast('rebuildScroll');
-					chatWindow.scrollTop(height);
-				}, 500);
-			};
-
-			$scope.showPopupWithFiles = function (files) {
+			$scope.showPopupWithFiles = function(files){
 				$scope.imagesInPopup = files;
 				$scope.mainImageInPopup = files[0].url;
 				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
@@ -517,6 +509,10 @@ angular.module('placePeopleApp')
 				if(flag === 'list'){
 					pub.mainFile = file;
 				}
+			};
+
+			$scope.isSelected = function (index) {
+				return index === $scope.currentIndex;
 			};
 
 			socket.on('updatechat', function(data){

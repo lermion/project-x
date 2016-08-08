@@ -75,6 +75,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
             Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
         });
+        Route::group(['prefix' => 'count'], function () {
+            Route::get('users', 'Admin\CountController@users');
+            Route::get('mails', 'Admin\CountController@mails');
+            Route::get('to_remove', 'Admin\CountController@to_remove');
+        });
 
     });
     Route::group(['prefix' => 'auth'], function () {
@@ -156,6 +161,17 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
                 Route::get('topic/{id}', 'Moderator\ModerateController@topic');
                 Route::post('block/{id}', 'Moderator\ModerateController@block');
+            });
+            Route::group(['prefix' => 'users'], function () {
+                Route::get('/', 'Moderator\UserController@index');
+                Route::get('confirm/{id}', 'Moderator\UserController@confirm');
+                Route::get('review/{id}', 'Moderator\UserController@review');
+                Route::get('suspicious/{id}', 'Moderator\UserController@suspicious');
+                Route::get('delete/{id}', 'Moderator\UserController@destroy');
+                Route::get('show/{id}', 'Moderator\UserController@show');
+                Route::get('get_confirm', 'Moderator\UserController@getConfirm');
+                Route::get('get_review', 'Moderator\UserController@getReview');
+                Route::get('get_suspicious', 'Moderator\UserController@getSuspicious');
             });
         });
         Route::get('login', 'Moderator\AuthController@login');
@@ -248,12 +264,11 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/subscription/1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/file_chat/1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
-            <input type='text' name='id[]' value='19'><br>
-            <input type='text' name='id[]' value='174'><br>
+
 
             <input type=\"submit\">
             </form>";

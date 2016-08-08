@@ -1,46 +1,52 @@
 
-	    	<div class="chat-left-users-container chat-left-users-container1" ng-init="Model.loadUserContactList(); Model.checkCurrUrl();">
-		    	<div class="chat-left-users-all">
-		    		<div class="chat-left-users-i-sign">
-		    			<div class="chat-left-users-sign-inner">
-		    				Я подписан
-		    			</div>
-		    		</div>			    	
-			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions | filter:{$:query}" ng-class="Model.contact.id === contact.id ? 'active' : ''">
-			    		<div class="chat-users-today-ava">
-			    			<a ui-sref="user({username: contact.login})">
-			    				<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
-			    			</a>
-			    		</div>
+			<div class="chat-left-users-container chat-left-users-container1" ng-init="Model.loadUserContactList(); Model.checkCurrUrl();">
+				<div class="chat-left-users-all">
+					<div class="chat-left-users-i-sign">
+						<div ng-show="Model.subscriptions.length > 0" class="chat-left-users-sign-inner">
+							Я подписан
+						</div>
+						<div ng-show="Model.subscriptions.length === 0" class="chat-left-users-sign-inner">
+							Нет подписок
+						</div>
+					</div>			    	
+					<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscriptions | filter:{$:query}" ng-class="Model.contact.id === contact.id ? 'active' : ''">
+						<div class="chat-users-today-ava">
+							<a ui-sref="user({username: contact.login})">
+								<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
+							</a>
+						</div>
 
-			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
-			    			<div class="chat-users-today-info tab-contact-title">
-			    				<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
-			    				<p class="users-today-message">{{contact.status}}</p>
-			    			</div>
-			    			
-			    		</div>
-			    	</div>
-			    	<div class="chat-left-users-my-sign">
-		    			<div class="chat-left-users-sign-inner">
-		    				Подписчики
-		    			</div>
-		    		</div>
+						<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
+							<div class="chat-users-today-info tab-contact-title">
+								<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
+								<p class="users-today-message">{{contact.user_quote}}</p>
+							</div>
+							
+						</div>
+					</div>
+					<div class="chat-left-users-my-sign">
+						<div ng-show="Model.subscribers.length > 0" class="chat-left-users-sign-inner">
+							Подписчики
+						</div>
+						<div ng-show="Model.subscribers.length === 0" class="chat-left-users-sign-inner">
+							Нет подписчиков
+						</div>
+					</div>
 
-			    	<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscribers | filter:{$:query}" ng-class="Model.contact.id === contact.id ? 'active' : ''">
-			    		<div class="chat-users-today-ava">
-			    			<a ui-sref="user({username: contact.login})">
-			    				<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
-			    			</a>
-			    		</div>
-			    		<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
-			    			<div class="chat-users-today-info tab-contact-title">
-			    				<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
-			    				<p class="users-today-message">{{contact.status}}</p>
-			    			</div>			    			
-			    		</div>
-			    	</div>
-	    	</div>
+					<div class="chat-left-users-users-today" ng-repeat="contact in Model.subscribers | filter:{$:query}" ng-class="Model.contact.id === contact.id ? 'active' : ''">
+						<div class="chat-users-today-ava">
+							<a ui-sref="user({username: contact.login})">
+								<img ng-src="{{contact.avatar_path ? contact.avatar_path : '/images/user.png'}}" alt="">
+							</a>
+						</div>
+						<div class="chat-users-today-data" ng-click="Model.showContactData(contact)" style="cursor:pointer;">
+							<div class="chat-users-today-info tab-contact-title">
+								<p class="users-today-name">{{contact.first_name + ' ' + contact.last_name}}</p>
+								<p class="users-today-message">{{contact.user_quote}}</p>
+							</div>			    			
+						</div>
+					</div>
+			</div>
 
 
 
