@@ -174,7 +174,8 @@
                 vm.isMobile = false;
             }
             if (state === 'group.files') {
-                vm.chatFiles = $state.params.chatFiles;
+                var chatFiles = $state.params.chatFiles;
+
             }
         });
         $scope.$on('ngDialog.opened', function (e, $dialog) {
@@ -250,6 +251,18 @@
                     });
                 }
 
+            });
+        };
+
+        vm.openModalMediaFile = function (file) {
+            ngDialog.open({
+                templateUrl: '../app/common/components/media-file/modal-media-file.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                data: {
+                    file: file
+                },
+                preCloseCallback: function () {
+                }
             });
         };
 
