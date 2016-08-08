@@ -6678,3 +6678,32 @@ textarea[type="text"]:focus,
 .ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button:hover {
     background-color: #DA5036;
 }
+.place-publication-menu {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -12px;
+}
+.place-publication-menu a {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 10px;
+    transition: all .3s ease-in-out .1s;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}
+.place-publication-menu-table {
+    background-image: url(/images/view-table.png);
+}
+.place-publication-menu-table.active {
+    background-image: url(/images/view-table-hover.png);
+}
+.place-publication-menu-list {
+    background-image: url(/images/view-list.png);
+}
+.place-publication-menu-list.active {
+    background-image: url(/images/view-list-hover.png);
+}
