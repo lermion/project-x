@@ -5,9 +5,9 @@
         .module('app.search')
         .controller('SearchCtrl', SearchCtrl);
 
-    SearchCtrl.$inject = ['$rootScope', '$scope', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService', 'ngDialog', 'PublicationService'];
+    SearchCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService', 'ngDialog', 'PublicationService'];
 
-    function SearchCtrl($rootScope, $scope, $stateParams, storageService, $http, $window, results, searchService, ngDialog, PublicationService) {
+    function SearchCtrl($rootScope, $scope, $state, $stateParams, storageService, $http, $window, results, searchService, ngDialog, PublicationService) {
 
         var vm = this;
 
@@ -30,13 +30,37 @@
         //////////////////////////////////////////
 
 
-        vm.openModalPublication = function(pubId) {
-          openModalPublication(pubId);
+        vm.openModalPublication = function (pubId) {
+            openModalPublication(pubId);
+        };
+
+        vm.getAuthorName = function (pub) {
+            if (pub.gr_name) {
+                return pub.gr_name;
+            } else if (pub.pl_name) {
+                return pub.pl_name;
+            } else if (!!+pub.is_anonym) {
+                return 'Анонимная публикация'
+            } else {
+                return pub.first_name + ' ' + pub.last_name;
+            }
+        };
+
+        vm.getStateName = function (pub) {
+            if (pub.gr_name) {
+                return 'group({groupName: ' + '\'' + pub.gr_url_name + '\'' + '})';
+            } else if (pub.pl_name) {
+                return 'place({placeName: ' + '\'' + pub.pl_url_name + '\'' + '})';
+            } else if (!!+pub.is_anonym) {
+                return 'desktop-pub-view({username: ' + pub.usr_login + ',' + 'id: ' + pub.id + '})';
+            } else {
+                return 'desktop-pub-view({username: ' + pub.usr_login + ',' + 'id: ' + pub.id + '})';
+            }
         };
 
         function openModalPublication(pubId) {
             $rootScope.showSearch = false;
-            getPublication(pubId).then(function(pub) {
+            getPublication(pubId).then(function (pub) {
                 ngDialog.open({
                     templateUrl: '../app/common/components/publication/publication-modal.html',
                     name: 'modal-publication-group',
@@ -44,7 +68,7 @@
                     data: {
                         pub: pub
                     },
-                    preCloseCallback: function() {
+                    preCloseCallback: function () {
                         $rootScope.showSearch = true;
                     }
                 });
@@ -54,6 +78,7 @@
 
         function activate() {
             init();
+            setActiveState();
         }
 
         function init() {
@@ -133,6 +158,7 @@
             searchService.search(searchObj)
                 .then(function (data) {
                     vm.results = data;
+                    setActiveState();
                 });
         }
 
@@ -147,6 +173,24 @@
                     return data;
                 });
         }
+
+        function setActiveState() {
+            // TODO: refact!
+
+            if (vm.results) {
+                if (vm.results[0].length > 0) {
+                    $state.go('search.people');
+                } else if (vm.results[1].length > 0) {
+                    $state.go('search.publications');
+                } else if (vm.results[3].length > 0) {
+                    $state.go('search.places');
+                } else if (vm.results[2].length > 0) {
+                    $state.go('search.groups');
+                }
+            }
+
+        }
+
 
     }
 

@@ -11,8 +11,10 @@
 
                     <div class="group-likes">
                         <div class="group-info">
-                            <a href="" class="publication-place publication-place-img1">{{vm.place.name}}</a>
-                            <a href="" class="publication-place">{{vm.place.description}}</a>
+                            <a href="" class="publication-place publication-place-img1" title="{{vm.place.name}}">{{vm.place.name}}</a>
+                            <a href class="publication-place"
+                               ng-click="vm.showFullDescription = !vm.showFullDescription"
+                               ng-bind-html="vm.place.description | colonToSmiley"></a>
 
 
                             <p class="like-item">
@@ -26,19 +28,22 @@
             </div>
 
             <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
-                     <p ng-bind-html="vm.group.description | colonToSmiley">
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse reiciendis quod libero soluta non laborum, quasi, ipsam inventore consectetur vel.
-                     </p>
-                </div>
+                <p ng-bind-html="vm.place.description | colonToSmiley"></p>
+            </div>
 
             <div class="place-menu-wrap">
                 <div class="group-menu">
                     <div class="group-menu-item">
-                    <div class="places-place-menu-avatar">
-                        <a href="">
-                            <img ng-src="{{vm.place.avatar}}">
-                        </a>
-                    </div>
+                        <div class="places-place-menu-avatar">
+                            <a href="">
+                                <img ng-src="{{vm.place.avatar}}">
+                            </a>
+                        </div>
+                        <div class="place-publication-menu">
+                            <a href="javascript:void(0)" class="place-publication-menu-table active"></a>
+                            <a href="javascript:void(0)" class="place-publication-menu-list">
+                            </a>
+                        </div>
                         <div class="counts">
                             <a ui-sref="place.publications" ui-sref-active="active" class="counter">
                                 <p>Публикации</p>
@@ -46,7 +51,7 @@
                             </a>
                             <a ui-sref="place.chat" ui-sref-active="active" class="counter">
                                 <p>Чат</p>
-                                <span>{{vm.place.count_chat_message}}</span>
+                                <span ng-if="vm.place.count_chat_message > 0">{{vm.place.count_chat_message}}</span>
                             </a>
                             <a ui-sref="place.people" ui-sref-active="active" class="counter">
                                 <p>Люди</p>
@@ -64,7 +69,8 @@
                                         <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
                                         <a ui-sref="place.edit({isDynamicPlace: vm.place.is_dynamic})">Редактировать</a>
                                         <a href ng-click="vm.openModalInviteUsers()">Пригласить</a>
-                                        <a href ng-if="vm.place.is_creator" ng-click="vm.openModalDeletePlace()">Удалить</a>
+                                        <a href ng-if="vm.place.is_creator"
+                                           ng-click="vm.openModalDeletePlace()">Удалить</a>
                                     </div>
                                 </div>
                             </div>
@@ -72,15 +78,13 @@
                         <button ng-if="!vm.place.is_sub" ng-click="vm.subscribe()">Подписаться</button>
                         <button ng-if="vm.place.is_sub" ng-click="vm.subscribe()">Отписаться</button>
                     </div>
-                    
+
                 </div>
                 <div class="group-header"></div>
             </div>
 
 
-
             <div class="group-page">
-                
 
 
                 <div ui-view></div>
@@ -98,7 +102,8 @@
                             <a class="visa" href=""></a>
                         </div>
                     </div>
-                    <div class="menu" ng-click="vm.openBottomMenu()" ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
+                    <div class="menu" ng-click="vm.openBottomMenu()"
+                         ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
                          ng-init="vm.showBottomMenu=true;">
                         <a class="drop-menu" href=""></a>
 

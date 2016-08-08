@@ -43,7 +43,7 @@ angular.module('placePeopleApp')
 				$scope.Model.currRoute = $state.current.name;				
 			};
 
-			if($state.current.name === "chat"){           
+			if($state.current.name === "chat"){
 				$state.go("chat.list");
 			}
 
@@ -161,10 +161,20 @@ angular.module('placePeopleApp')
 			$scope.showFileAdd = function(){
 				if($scope.showFileAddMenu){
 					$scope.showFileAddMenu = false;
+					$scope.hideFileAdd = undefined;
 				}else{
 					$scope.showFileAddMenu = true;
+					setTimeout(function(){
+						$scope.hideFileAdd = hideFileAdd;
+					}, 0);
 				}
 			};
+			var hideFileAdd = function(){
+				if($scope.showFileAddMenu){
+					$scope.showFileAddMenu = false;
+					$scope.hideFileAdd = undefined;
+				}
+			}
 
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
@@ -477,9 +487,40 @@ angular.module('placePeopleApp')
 					var height = chatWindow[0].scrollHeight;
 					// $scope.$broadcast('rebuildScroll');
 					chatWindow.scrollTop(height);
-				}, 100);
+				}, 500);
 			};
+
+			$scope.showPopupWithFiles = function (files) {
+				$scope.imagesInPopup = files;
+				$scope.mainImageInPopup = files[0].url;
+				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+				ngDialog.open({
+					template: '../app/User/views/popup-comment-images.html',
+					className: 'popup-comment-images ngdialog-theme-default',
+					scope: $scope,
+					data: {
+						images: files
+					},
+					preCloseCallback: function (value) {
+						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+					}
+				});
+			};
+
+			$scope.changeMainFile = function(file, flag, pub){
+				if(flag){
+					$scope.mainImageInPopup = file.url;
+				}else{
+					$scope.mainVideo = "";
+					$scope.mainImage = file.url;
+				}
+				if(flag === 'list'){
+					pub.mainFile = file;
+				}
+			};
+
 			socket.on('updatechat', function(data){
+				$scope.glued = true;
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
@@ -527,7 +568,7 @@ angular.module('placePeopleApp')
 				});
 			};
 
-			$scope.Model.showBlockedContactChat = function(user){				
+			$scope.Model.showBlockedContactChat = function(user){
 				$scope.Model.opponent = user;
 				$scope.Model.displayBlockedBlock = true;
 				$scope.Model.showBlockedBlock = true;				
@@ -592,6 +633,74 @@ angular.module('placePeopleApp')
 					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
 				}
 			});
+
+			$scope.showPublication = function(publication){
+				getSinglePublication(publication.id);
+			};
+
+			function getSinglePublication(pubId, flag) {
+				PublicationService.getSinglePublication(pubId).then(function (response) {
+					//getAllCommentsPublication(pubId);
+					$scope.limit = 6;
+					$scope.singlePublication = response;
+					if(response.images[0] !== undefined){
+						$scope.mainImage = response.images[0].url;
+					}
+					ngDialog.open({
+						template: '../app/User/views/view-publication.html',
+						className: 'view-publication ngdialog-theme-default',
+						scope: $scope,
+						name: "view-publication"
+					});
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+
+			$scope.addNewComment = function (flag, pub, pubText, files) {
+				$scope.disableAddComment = true;
+				var images = [];
+				var videos = [];
+				if (files != undefined) {
+					files.forEach(function (file) {
+						var type = file.type.split('/')[0];
+						if (type === 'image') {
+							images.push(file);
+						} else if (type === 'video') {
+							videos.push(file);
+						}
+					});
+				}
+				PublicationService.addCommentPublication(pub.id, pubText.messagetext, images, videos).then(function (response) {
+						$scope.showAddComment = false;
+						$scope.disableAddComment = false;
+						if (response.data.status) {
+							$(".emoji-wysiwyg-editor").html("");
+							pub.files = [];
+							if (flag === "userPage") {
+								pub.comments.push(response.data.comment);
+								pub.comment_count++;
+							} else {
+								$scope.singlePublication.comments.push(response.data.comment);
+								$scope.singlePublication.comment_count++;
+							}
+
+						}
+					},
+					function (error) {
+						console.log(error);
+					});
+			}
+
+			$scope.addCommentLike = function(comment){
+				PublicationService.addCommentLike(comment.id).then(function(response){
+					comment.like_count = response.like_count;
+				},
+				function(error){
+					console.log(error);
+				});
+			};
 
 			$scope.Model.editGroupChat = function(opponent){
 				$scope.currentOpponent = opponent;
@@ -750,4 +859,14 @@ angular.module('placePeopleApp')
 					console.log(error);
 				});
 			};
+
+			$scope.addPublicationLike = function(pub, isCurrentUser){
+				PublicationService.addPublicationLike(pub.id).then(function(response){
+					pub.user_like = response.user_like;
+					pub.like_count = response.like_count;
+				},
+				function(error){
+					console.log(error);
+				});
+			}
 	}]);

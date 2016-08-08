@@ -41,7 +41,7 @@
 							<a href="javascript:void(0);" class="publication-place school">г. Лондон</a>
 							<a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
 							<div class="publication-ava">
-								<img ng-src="{{message.pub.images[0].url}}">
+								<a href="javascript:void(0);" ng-click="vm.openModalReviewPublication(message.pub.id)"><img ng-src="{{message.pub.images[0].url}}"></a>
 							</div>					
 							<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="message.pub.images.length === 1">		
 								<div ng-click="changeMainFileFeed(image, message.pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
@@ -76,7 +76,7 @@
 						<div class="messege-text">
 							<p ng-bind-html="message.text | colonToSmiley"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
-								<span class="pic" ng-repeat="image in message.images">
+								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images">
 									<img ng-src="{{image.url}}" alt="">
 								</span>
 							</span>

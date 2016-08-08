@@ -1630,6 +1630,8 @@ div.my_profilll.photo-list div:last-child {
     box-sizing: border-box;
     background-color: #ffffff;
     margin: 0 auto 0px auto;
+    max-height: 500px;
+    overflow-y: auto;
 }
 .group-files:last-child {
     padding-bottom: 30px;
@@ -1731,6 +1733,8 @@ div.my_profilll.photo-list div:last-child {
     box-sizing: border-box;
     width: 100%;
     margin: 30px 25px;
+    max-height: 367px;
+    overflow-y: auto;
 }
 .group-peoples-inner-item {
     display: flex;
@@ -4907,7 +4911,7 @@ input.cmn-toggle-round:checked + label:after {
     color: rgb(83, 83, 83);
     padding: 10px;
     width: 100%;
-    word-break: break-all;
+    word-break: break-word;
 }
 .places-item-rating {
     display: flex;
@@ -5186,75 +5190,39 @@ input.cmn-toggle-round:checked + label:after {
 @media (max-width: 720px) {
     .places-page {
         width: 100%;
+        padding: 0 10px;
     }
     .places-category-item {
         width: 32%;
         box-shadow: 2px 2px 3px 0px #e3e3e3;
     }
     .places-category-item {
-        margin-right: 10px;
+        margin-right: 11px;
     }
     .places-item-photo {
-        height: 200px;
-    }
-    .places-item-rating,
-    .places-item-photo-place,
-    .places-item-photo-title {
-        height: 40px;
-    }
-    .places-item-photo-title {
-        bottom: 40px;
-    }
-    .places-item-description,
-    .places-item-photo-place span,
-    .places-item-photo-title span {
-        font-size: 11.6px;
+        height: 220px;
     }
 }
-@media (max-width: 520px) {
-    .places-category-item {
-        width: 32%;
-        box-shadow: 2px 2px 3px 0px #e3e3e3;
-        box-sizing: border-box;
-    }
-    .places-category-item {
-        margin-right: 5px;
-    }
-    .places-item-photo {
-        height: 150px;
-    }
-    .places-item-rating,
-    .places-item-photo-place {
-        height: 35px;
-    }
-    .places-item-description,
-    .places-item-photo-place span {
-        font-size: 11.6px;
-    }
-    .places-item-rating-like,
-    .places-item-rating-link {
-        font-size: .8em;
-    }
-    .places-item-photo-title {
-        bottom: 35px;
-    }
-    .places-item-description-p {
-        line-height: 17px;
-    }
-    .places-item-description {
-        height: 80px;
-    }
-    .places-type-place-btn,
-    .places-page-type-place,
-    .places-item-new-place,
-    .places-page-header-title,
-    .places-page-header-category select {
-        font-size: .9em;
-    }
+@media (max-width: 600px) {
+	.places-item-photo {
+	    height: 220px;
+	}
+	.places-page-category-wrap {
+	    justify-content: space-between;
+	}
+	.places-category-item {
+		width: 49%;
+	    margin-right: 0px;
+	}
 }
-@media (max-width: 450px) {
+@media (max-width: 400px) {
+ 	.places-category-item {
+	    width: 100%;
+	}
+ }
+@media (max-width: 420px) {
     .places-item-photo {
-        height: 120px;
+        height: 220px;
     }
 }
 @media (max-width: 720px) {
@@ -5466,7 +5434,7 @@ input.cmn-toggle-round:checked + label:after {
 @media (max-width: 978px) {
     .place-menu-wrap button {
         right: 0;
-        top: -70px;
+        top: -95px;
     }
     .places-place-menu-avatar {
         top: -155px;
@@ -5495,7 +5463,7 @@ input.cmn-toggle-round:checked + label:after {
         width: 50px;
         height: 50px;
         left: 10px;
-        top: -105px;
+        top: -125px;
     }
     .place-menu-wrap button {
         font-size: .8em;
@@ -5507,12 +5475,12 @@ input.cmn-toggle-round:checked + label:after {
 }
 @media (max-width: 390px) {
     .places-item-rating-like {
-        padding-left: 25px;
-        background-size: 18%;
+        padding-left: 30px;
+        background-size: 10px;
     }
     .places-item-rating-link {
-        background-size: 35%;
-        padding-right: 15px;
+        background-size: 12px;
+        padding-right: 25px;
         background-position: right 5px center;
     }
 }
@@ -6309,7 +6277,7 @@ input.cmn-toggle-round:checked + label:after {
         padding-top: 45px;
     }
     #wrapper {
-        padding-top: 68px;
+        padding-top: 45px;
     }
 }
 input[type="text"],
@@ -6681,7 +6649,13 @@ textarea[type="text"]:focus,
     box-sizing: border-box;
 }
 .places-page .groups-header .pub-groups {
-    background-size: 20px;
+    background-size: 15%;
+    background-image: url(/images/place-create.png);
+}
+.places-page .groups-header .pub-groups:hover {
+    background-image: url(/images/places-hover.png);
+    color: #777;
+
 }
 .popup-group-chat.popup-leave-group-chat .group-peoples-inner-item:hover .peoples-inner-item-admin {
     display: block !important;
@@ -6707,33 +6681,49 @@ textarea[type="text"]:focus,
 .ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button:hover {
     background-color: #DA5036;
 }
-
-    .content-preloader {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, .3);
-        box-sizing: border-box;
-        z-index: 9999999999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        display: none;
-        }
-        .preloader-item {
-            width: 100px;
-            height: 100px;
-        }
-        .preloader-item img {
-            width: 100%;
-            height: 100%;
-        }
-        @media (max-width: 520px) {
-            .preloader-item {
-                width: 50px;
-                height: 50px;
-            }
-        } 
+.place-publication-menu {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -12px;
+}
+.place-publication-menu a {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 10px;
+    transition: all .3s ease-in-out .1s;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}
+.place-publication-menu-table {
+    background-image: url(/images/view-table.png);
+}
+.place-publication-menu-table.active {
+    background-image: url(/images/view-table-hover.png);
+}
+.place-publication-menu-list {
+    background-image: url(/images/view-list.png);
+}
+.place-publication-menu-list.active {
+    background-image: url(/images/view-list-hover.png);
+}
+#wrapper .search-result__item-publication .user-publication:hover {
+    box-shadow: 0px 0px 10px 5px #bcbcbc;
+}
+@media (max-width: 520px) {
+    .place-publication-menu {
+        top: 25%;
+    }
+    .place-publication-menu a {
+        display: block;
+    }
+    .group-page .place-publication-menu a {
+        display: inline-block;
+    }
+    .place-menu-wrap .group-menu .group-menu-item .counts {
+        width: 90%;
+    }
+ }

@@ -18,7 +18,7 @@
 				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
 				<a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span" ng-if="counters.groupsNew > 0">@{{counters.groupsNew}}</span></a>
-				<a class="chat" ui-sref="chat"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
+				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
 				<a class="settings" ui-sref="settings">Настройки</a>
 				<div class="search">
 					<input type="text" placeholder="Поиск...">
@@ -71,6 +71,7 @@
 	<script src="../../app/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="../../app/libs/ng-infinite-scroll.min.js"></script>
 	<script src="../../app/libs/nanoscroller.min.js"></script>
+	<script src="../../app/libs/scrollglue.js"></script>
 	<script src="../../app/libs/tether.min.js"></script>
 	<script src="../../app/libs/config.js"></script>
 	<script src="../../app/libs/util.js"></script>
@@ -115,5 +116,6 @@
 	<script src="../../app/Search/services/search.srv.js"></script>
 	<script src="../../app/common/components/index.js"></script>
 	<script src="../../app/common/components/publication/index.js"></script>
+	<script src="../../app/common/components/media-file/index.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 	<div>
 		
 		
-	<div class="chat-main-container">
+	<div ng-click="hideFileAdd()" class="chat-main-container">
 		<div class="chat-main-container-left" ng-hide="Model.mobile.hideContent">
 			<div class="chat-left-users-menu" ng-init="Model.checkCurrUrl()">
 				<div class="users-menu-tab-chats" ng-class="Model.currRoute === 'chat.list' ? 'active' : ''" ng-click="refTo('chat.list'); Model.showChatBlock=true; Model.showContactBlock=false; Model.showBlockedBlock=false; Model.showNotificationBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">

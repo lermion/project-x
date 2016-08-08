@@ -73,7 +73,7 @@ angular.module('placePeopleApp')
                     controller: 'chatCtrl'
                 })
                 .state('chat.list', {
-                    url: '/',
+                    url: '/list',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-list.html',
                 })
