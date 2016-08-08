@@ -463,9 +463,10 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
-					message: message ? message : "",
+					message: message ? message : "изображение",
 					imagesObj: imagesObj
 				};
+				console.log(data);
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data, function(){
 					if(files){

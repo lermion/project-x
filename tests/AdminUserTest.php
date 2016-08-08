@@ -94,4 +94,27 @@ class AdminUserTest extends TestCase
     {
         $this->json('POST', 'admin/user/main_picture')->AssertResponseOk();
     }
+
+    public function testCountUsers()
+    {
+        $user = \App\User::create(['country_id' => 1,'phone'=>'12345','status' => '']);
+        $this->json('GET', 'admin/count/users');
+        $user->delete();
+    }
+
+    public function testCountMails()
+    {
+        $user = \App\User::create(['country_id' => 1,'phone'=>'12345','status' => '']);
+        $mail = \App\UserMail::create(['user_id' => $user->id, 'name'=>'name','email' => 'email','text' => 'text']);
+        $this->json('GET', 'admin/count/mails');
+        $user->delete();
+        $mail->delete();
+    }
+
+    public function testCountBlockContent()
+    {
+        $user = \App\User::create(['country_id' => 1,'phone'=>'12345','status' => '','is_block'=>true]);
+        $this->json('GET', 'admin/count/to_remove');
+        $user->delete();
+    }
 }
