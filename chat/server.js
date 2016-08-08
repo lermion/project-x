@@ -65,6 +65,8 @@ io.sockets.on('connection', function(socket){
 					}
 					if(data.avatarObj === undefined){
 						data.avatar = "";
+					}else if(data.avatarObj.avatar === ""){
+						data.avatar = "/upload/preview-chat-no-avatar.png";
 					}else{
 						fs.writeFile(GLOBAL.ABSPATH + "/../public/upload/" + data.avatarObj.avatarName, data.avatarObj.avatar, function(error){
 							if(error){

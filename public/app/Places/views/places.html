@@ -1,6 +1,10 @@
 <div>
     <div ui-view>
         <div class="places-page">
+            <div class="groups-header">
+                    <!-- <a class="public-groups" href="">Публичные группы</a> -->
+                    <a class="pub-groups" ui-sref="places.add">Создать место</a>
+                </div>
             <div class="places-page-header">
                 <div class="places-page-header-title" ng-click="vm.togglePlaceView()">
                     <span ng-if="vm.showAllPlaces"></span>
@@ -23,7 +27,7 @@
                         <option value="8">Университет</option>
                         <option value="9">Школа</option>
                         <option value="10">Адрес</option>
-                        <option value="places.add">Создать место</option>
+                        <!-- <option value="places.add">Создать место</option> -->
                     </select>
                 </div>
             </div>

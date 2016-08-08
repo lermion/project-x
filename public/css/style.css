@@ -2001,7 +2001,7 @@ spam-item {
 	min-height: 0;
 	margin-left: 50px;
 	overflow: hidden;
-	width: 510px;
+	width: 480px;
 }
 .emoji-group-chat-block a.emoji-button {
 	display: block;
@@ -2132,7 +2132,7 @@ spam-item {
 	color: #fff;
 	background-color: #495b79;
 	border-radius: 3px;
-	margin-left: 15px;
+	margin-left: 5px;
 	border: 1px solid #495b79;
 	transition: all .3s ease-in-out .1s;
 }
@@ -2142,7 +2142,7 @@ spam-item {
 }
 .publication-footer-button .cansel {
 	color: #495b79;
-	margin-right: 5px;
+	margin-right: 10px;
 }
 .publication-footer-button .cansel:hover  {
 	color: #999;
@@ -2815,6 +2815,7 @@ spam-item {
 	border: 1px solid #495b79;
 	outline: none;
 	cursor: pointer;
+	width: auto;
 }
 .user-publication .add-comment .publication-footer-button .publication-button:disabled,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button:disabled{
@@ -3258,7 +3259,8 @@ spam-item {
 	padding: 20px 0;
 }
 .main-content .groups a,
-.groups-content .groups-header .pub-groups {
+.groups-content .groups-header .pub-groups,
+.places-page .groups-header .pub-groups {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	padding-left: 35px;
@@ -4158,12 +4160,15 @@ body.ngdialog-open {
 }
 .group-comment  .send {
 	position: static;
-	height: 40px;
+	height: 30px;
 	margin-top: 0;
-	border-radius: 0;
+	border-radius: 3px;
 	background: transparent;
 	color: #495b79;
 	font-family: "SFUIDisplayMedium";
+	background-color: #dddddd;
+	font-size: 14.6px;
+	margin-right: 5px;
 }
 /*.group-comment  .add-objects label,*/
 .group-comment  .add-objects,

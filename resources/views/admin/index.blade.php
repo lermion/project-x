@@ -788,7 +788,142 @@
             </table>
         </div>
     </div>
-
+<br><br><br>
+    <div class="x_content">
+        <h1>Панель модератора - новые пользователи</h1>
+        <div class="admin-user-contacts">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="col-id">id</th>
+                    <th class="col-ava">Аватар</th>
+                    <th class="col-name">Имя</th>
+                    <th class="col-gender">Пол</th>
+                    <th class="col-age">Возраст</th>
+                    <th class="col-registration">Дата регистрации</th>
+                    <th class="col-action">Действие</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    </td>
+                    <td><a href="">Елена Новикова</a></td>
+                    <td>Женский</td>
+                    <td>35 лет</td>
+                    <td>02.08.2016</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-primary btn-xs">Подтвердить</button></p>
+                        <p><button class="btn btn-success btn-xs">На заметку</button></p>
+                        <p><button class="btn btn-danger btn-xs">Удалить</button></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    </td>
+                    <td><a href="">Елена Новикова</a></td>
+                    <td>Женский</td>
+                    <td>35 лет</td>
+                    <td>02.08.2016</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-primary btn-xs">Подтвердить</button></p>
+                        <p><button class="btn btn-success btn-xs">На заметку</button></p>
+                        <p><button class="btn btn-danger btn-xs">Удалить</button></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    </td>
+                    <td><a href="">Елена Новикова</a></td>
+                    <td>Женский</td>
+                    <td>35 лет</td>
+                    <td>02.08.2016</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-primary btn-xs">Подтвердить</button></p>
+                        <p><button class="btn btn-success btn-xs">На заметку</button></p>
+                        <p><button class="btn btn-danger btn-xs">Удалить</button></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                    </td>
+                    <td><a href="">Елена Новикова</a></td>
+                    <td>Женский</td>
+                    <td>35 лет</td>
+                    <td>02.08.2016</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-primary btn-xs">Подтвердить</button></p>
+                        <p><button class="btn btn-success btn-xs">На заметку</button></p>
+                        <p><button class="btn btn-danger btn-xs">Удалить</button></p>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<br><br><br>
+    <div class="x_content">
+        <h1>
+            Панель модератора - жалобы
+        </h1>
+        <div class="moderator-complaints">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Сущность</th>
+                    <th>Автор</th>
+                    <th>Кто пожаловался</th>
+                    <th>Тип жалобы</th>
+                    <th>Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Публикация</td>
+                    <td>Елена Новикова</td>
+                    <td>John Doe</td>
+                    <td>Спам</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
+                        <p><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Коментарий</td>
+                    <td>Елена Новикова</td>
+                    <td>John Doe</td>
+                    <td>Оскорбление</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
+                        <p><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Публикация</td>
+                    <td>Елена Новикова</td>
+                    <td>John Doe</td>
+                    <td>Материал для взрослых</td>
+                    <td class="admin-user-contacts-action">
+                        <p><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
+                        <p><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 @stop

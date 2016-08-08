@@ -165,14 +165,17 @@ class ChatController extends Controller
             return response()->json($result);
         }
         $files = array_merge($image, $video);
-        krsort($files);
-//        foreach ($files as $key => $value){
-//            $file[] =['date' =>  $key, 'path' =>  $value];
-//            }
-        $collection = collect($files);
+        $ar_sort = array();
+        foreach($files as &$files_item)
+        {
+            $ar_sort[] = $files_item['created_at'];
+        }
+        array_multisort($ar_sort, SORT_ASC, $files);
+        $file = array_reverse($files);
+        $collection = collect($file);
         $result = $collection->chunk(21);
-        return response()->json(['status' => true, 'data' => $result]);
-
+        $resul = $result->toArray();
+        return response()->json(['status' => true, 'data' => $resul]);
     }
 
     public function users(Request $request, $room_id)

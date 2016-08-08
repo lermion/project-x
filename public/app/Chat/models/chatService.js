@@ -16,9 +16,9 @@ angular.module('placePeopleApp')
 			changeGroupChatAdmin: changeGroupChatAdmin
 		};
 
-		function changeGroupChatAdmin(){
+		function changeGroupChatAdmin(roomId, userId){
 			var defer = $q.defer();
-			$http.get('chat/locked/' + userId)
+			$http.get('chat/exit_admin/' + roomId + "/" + userId)
 				.success(function (response) {
 					defer.resolve(response);
 				})
