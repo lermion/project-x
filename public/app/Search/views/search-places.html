@@ -2,7 +2,7 @@
     <div class="places-category-item" ng-repeat="place in vm.results[3]">
         <div class="places-item-photo">
             <!-- <span class="places-item-new-place">NEW</span> -->
-            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name})">
+            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, prevState: 'search.places'})">
                 <img class="places-item-photo-img"
                   ng-src="{{::place.avatar}}">
             </a>

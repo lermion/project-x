@@ -9,6 +9,8 @@
 
     function searchService($http) {
 
+        var results = [];
+
 
         return {
             search: search
@@ -16,7 +18,11 @@
 
         ////////////
 
-        function search(searchObj) {
+        function search(searchObj, isRestore) {
+
+            if (isRestore) {
+                return results;
+            }
 
             var fd = new FormData();
 
@@ -37,7 +43,8 @@
                 .catch(searchFailed);
 
             function searchComplete(response) {
-                return response.data;
+                results = response.data;
+                return results;
             }
 
             function searchFailed(error, status) {

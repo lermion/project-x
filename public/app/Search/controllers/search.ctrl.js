@@ -5,9 +5,11 @@
         .module('app.search')
         .controller('SearchCtrl', SearchCtrl);
 
-    SearchCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'storageService', '$http', '$window', 'results', 'searchService', 'ngDialog', 'PublicationService'];
+    SearchCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'storageService', '$http',
+        '$window', 'results', 'searchService', 'ngDialog', 'PublicationService', 'amMoment'];
 
-    function SearchCtrl($rootScope, $scope, $state, $stateParams, storageService, $http, $window, results, searchService, ngDialog, PublicationService) {
+    function SearchCtrl($rootScope, $scope, $state, $stateParams, storageService, $http,
+                        $window, results, searchService, ngDialog, PublicationService, amMoment) {
 
         var vm = this;
 
@@ -24,6 +26,8 @@
             byPlaces: true,
             byGroups: true
         };
+
+        amMoment.changeLocale('ru');
 
         activate();
 
@@ -51,10 +55,8 @@
                 return 'group({groupName: ' + '\'' + pub.gr_url_name + '\'' + '})';
             } else if (pub.pl_name) {
                 return 'place({placeName: ' + '\'' + pub.pl_url_name + '\'' + '})';
-            } else if (!!+pub.is_anonym) {
-                return 'desktop-pub-view({username: ' + pub.usr_login + ',' + 'id: ' + pub.id + '})';
             } else {
-                return 'desktop-pub-view({username: ' + pub.usr_login + ',' + 'id: ' + pub.id + '})';
+                return 'user({username: ' + '\'' + pub.usr_login + '\'' + '})';
             }
         };
 
@@ -78,6 +80,7 @@
 
         function activate() {
             init();
+            restoreSearchResult();
             setActiveState();
         }
 
@@ -177,7 +180,7 @@
         function setActiveState() {
             // TODO: refact!
 
-            if (vm.results) {
+            if (vm.results && $stateParams.setActiveTab) {
                 if (vm.results[0].length > 0) {
                     $state.go('search.people');
                 } else if (vm.results[1].length > 0) {
@@ -189,6 +192,12 @@
                 }
             }
 
+        }
+
+        function restoreSearchResult() {
+            if (!vm.results) {
+                vm.results = searchService.search({}, true);
+            }
         }
 
 
