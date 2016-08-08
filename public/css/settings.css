@@ -6707,3 +6707,14 @@ textarea[type="text"]:focus,
 .place-publication-menu-list.active {
     background-image: url(/images/view-list-hover.png);
 }
+@media (max-width: 520px) {
+    .place-publication-menu {
+        top: 25%;
+    }
+    .place-publication-menu a {
+        display: block;
+    }
+    .place-menu-wrap .group-menu .group-menu-item .counts {
+        width: 90%;
+    }
+ }
