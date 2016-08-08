@@ -83,7 +83,7 @@
 					<div class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
 					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 					<div ng-if="message.images" class="to-my-msg-inner-photo">
-						<span ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
+						<span ng-click="showPopupWithFiles()" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
 							<img ng-src="{{image.url}}" alt="">
 						</span>
 					</div>
