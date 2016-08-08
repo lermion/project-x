@@ -882,7 +882,7 @@ body.public.user {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 60%;
-	background-image: url(../images/enter.png);
+	/*background-image: url(../images/enter.png);*/
 	transition: all .2s ease-in-out .1s; 
 	width: 35px;
 	height: 35px;
@@ -894,7 +894,7 @@ body.public.user {
 	background-image: url(../images/exite.png);
 }
 .public header .exit:hover span {
-	background-image: url(../images/enter-hover.png);
+	/*background-image: url(../images/enter-hover.png);*/
 	transition: all .2s ease-in-out .1s; 
 }
 .public header .exit.enter:hover span {
@@ -1232,6 +1232,7 @@ body.public.user {
 	flex-grow:33;
 }
 .my-profile-item .user-name {
+	cursor: default;
 	font-size: 16.7px;
 	display: block;
 	color: #333;
@@ -1315,7 +1316,7 @@ body.public.user {
 	color: #333;
 	font-family: "SFUIDisplayMedium";
 	text-align: center;
-	cursor: pointer;
+	cursor: default;
 	line-height: 20px;
 	margin: 15px 0 10px;
 }
@@ -1327,7 +1328,8 @@ body.public.user {
 	font-family: "SFUIDisplayLight";
 	padding-left: 30px;
 	margin: 0 0 10px 0;
-	ine-height: 20px;
+	line-height: 20px;
+	cursor: pointer;
 	background-position: center left;
 	background-repeat: no-repeat;
 	color: #666;
