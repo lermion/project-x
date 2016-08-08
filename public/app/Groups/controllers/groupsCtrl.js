@@ -227,23 +227,17 @@ angular.module('app.groups')
                 }
             };
 
-            $scope.saveCropp = function (img, cropped) {
+            $scope.saveCropp = function (croppedDataURL) {
 
-                var blobFile = blobToFile(cropped);
+                var blob = Upload.dataUrltoBlob(croppedDataURL, $scope.myImageName);
 
-                $scope.dataURI = cropped;
-
-                blobFile.name = 'image';
-                blobFile.lastModifiedDate = new Date();
-
-                Upload.resize(blobFile, 200, 220, 1, null, null, true).then(function (resizedFile) {
+                Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
                     $scope.newGroup.avatarCard = resizedFile;
                 });
 
-                //$scope.newGroup.avatarCard = blobFile;
-
                 modalCropImage.close();
             };
+
 
             $scope.addGroup = function () {
 
@@ -295,6 +289,7 @@ angular.module('app.groups')
                     });
             };
 
+
             $scope.cancelNewGroup = function () {
                 modalNewGroup.close();
             };
@@ -340,10 +335,15 @@ angular.module('app.groups')
             };
 
             $scope.changeGroupCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-                Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
-                    $scope.newGroup.avatar = resizedFile;
-                });
-                onFileSelected(event);
+                var originalFile;
+                if (file) {
+                    originalFile = event.currentTarget.files[0];
+                    Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
+                        $scope.newGroup.avatar = resizedFile;
+                    });
+                    onFileSelected(file.name, originalFile);
+                }
+
             };
 
 
@@ -418,14 +418,16 @@ angular.module('app.groups')
             }
 
 
-            function onFileSelected(e) {
-                var file = e.currentTarget.files[0];
+            function onFileSelected(fileName, originalFile) {
+                var file = originalFile;
                 if (file) {
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
                         $scope.$apply(function ($scope) {
                             $scope.myImage = e.target.result;
+                            $scope.myImageName = fileName;
+
                             modalCropImage = ngDialog.open({
                                 template: '../app/Groups/views/popup-crop-image.html',
                                 className: 'settings-add-ava ngdialog-theme-default',
