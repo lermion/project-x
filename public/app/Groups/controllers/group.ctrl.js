@@ -1047,6 +1047,36 @@
 				chatWindow.scrollTop(height);
 			}, 100);
 		};
+
+		$scope.showPopupWithFiles = function (files) {
+			$scope.imagesInPopup = files;
+			$scope.mainImageInPopup = files[0].url;
+			angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+			ngDialog.open({
+				template: '../app/User/views/popup-comment-images.html',
+				className: 'popup-comment-images ngdialog-theme-default',
+				scope: $scope,
+				data: {
+					images: files
+				},
+				preCloseCallback: function (value) {
+					angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+				}
+			});
+		};
+
+		$scope.changeMainFile = function(file, flag, pub){
+			if(flag){
+				$scope.mainImageInPopup = file.url;
+			}else{
+				$scope.mainVideo = "";
+				$scope.mainImage = file.url;
+			}
+			if(flag === 'list'){
+				pub.mainFile = file;
+			}
+		};
+
 		$scope.loadMoreMessages = function () {
 			var deferred = $q.defer();
 			var members = [];

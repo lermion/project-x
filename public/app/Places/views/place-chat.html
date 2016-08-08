@@ -76,7 +76,7 @@
 						<div class="messege-text">
 							<p ng-bind-html="message.text | colonToSmiley"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
-								<span class="pic" ng-repeat="image in message.images">
+								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images">
 									<img ng-src="{{image.url}}" alt="">
 								</span>
 							</span>

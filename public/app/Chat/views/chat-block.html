@@ -30,7 +30,7 @@
 			</div>
 	</div>
 	<p ng-show="status.loading">loading...</p>
-	<div when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
+	<div scroll-glue="glued" when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
@@ -70,7 +70,7 @@
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
-		<div ng-hide="message.text == '' && message.images.length === 0" ng-repeat="message in Model.Chat" ng-init="Model.scrollBottom(); checkMessageType(message)">
+		<div ng-hide="message.text == '' && message.images.length === 0" ng-repeat="message in Model.Chat" ng-init="checkMessageType(message)">
 		<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
 			<div class="chat-main-user-sender-ava">
 				<a href="">
@@ -83,7 +83,7 @@
 					<div class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
 					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 					<div ng-if="message.images" class="to-my-msg-inner-photo">
-						<span ng-click="showPopupWithFiles()" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
+						<span ng-click="showPopupWithFiles(message.images)" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
 							<img ng-src="{{image.url}}" alt="">
 						</span>
 					</div>
