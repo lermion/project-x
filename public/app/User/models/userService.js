@@ -152,8 +152,8 @@ angular.module('placePeopleApp')
                 return response.data;
             }
 
-            function getSubscribersFailed(error) {
-                $log.error('XHR Failed for getMySubscribers. ' + error.data);
+            function getSubscribersFailed(error, status) {
+                console.log('XHR Failed for getMySubscribers. ' + status);
             }
         }
         

@@ -174,7 +174,7 @@
                 vm.isMobile = false;
             }
             if (state === 'group.files') {
-                var chatFiles = $state.params.chatFiles;
+                vm.chatFiles = $state.params.chatFiles;
 
             }
         });
