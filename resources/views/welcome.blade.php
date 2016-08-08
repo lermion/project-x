@@ -71,6 +71,7 @@
 	<script src="../../app/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="../../app/libs/ng-infinite-scroll.min.js"></script>
 	<script src="../../app/libs/nanoscroller.min.js"></script>
+	<script src="../../app/libs/scrollglue.js"></script>
 	<script src="../../app/libs/tether.min.js"></script>
 	<script src="../../app/libs/config.js"></script>
 	<script src="../../app/libs/util.js"></script>
