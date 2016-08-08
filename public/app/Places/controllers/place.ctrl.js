@@ -718,7 +718,7 @@
 		};
 
 		vm.setAdmin = function (user, showAdmin) {
-			if (!vm.place.is_creator) {
+			if (!vm.place.is_creator || (vm.place.is_creator && user.id === myId)) {
 				return false;
 			}
 			placesService.setAdmin(vm.place.id, user.id)
