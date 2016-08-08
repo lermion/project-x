@@ -1,7 +1,8 @@
 angular.module('placePeopleApp')
 	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService',
-		'storageService', 'AuthService', '$location', 'socket', '$http', '$window',
-		function ($rootScope, $scope, $state, groupsService, placesService, storageService, AuthService, $location, socket, $http, $window) {
+		'storageService', 'AuthService', '$location', 'socket', '$http', '$window', 'ngDialog',
+		function ($rootScope, $scope, $state, groupsService, placesService, storageService,
+		AuthService, $location, socket, $http, $window, ngDialog) {
 		var storage = storageService.getStorage();
 		$scope.currentPath = $location.url();
 		$scope.loggedUserId = parseInt(storage.userId);
@@ -75,6 +76,7 @@ angular.module('placePeopleApp')
 			socket.emit("get user rooms", $scope.loggedUserId);
 		});
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+			ngDialog.closeAll();
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
 			$scope.currentPath = $location.url();
