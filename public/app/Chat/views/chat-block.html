@@ -125,7 +125,7 @@
 					<span> г. Санкт-Петербург</span> -->
 				</div>
 				<div class="chat-publication-photo">    				
-					<img ng-src="{{message.pub.cover ? message.pub.cover : message.pub.images[0].url}}" alt="">
+					<a ng-click="showPublication(message.pub)" href="javascript:void(0);"><img ng-src="{{message.pub.cover ? message.pub.cover : message.pub.images[0].url}}" alt=""></a>
 				</div>
 				<div class="chat-publication-relations">
 					<div class="publication-relations-left">
