@@ -797,7 +797,7 @@ body.public.user {
 	font-family: "SFUIDisplayMedium";
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 27%;
+	background-size: 18px;
 	transition: all .2s ease-in-out .1s; 
 }
 .public header .main-menu.common a,

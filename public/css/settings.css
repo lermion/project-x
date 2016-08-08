@@ -6272,9 +6272,6 @@ input.cmn-toggle-round:checked + label:after {
     body.public.user #wrapper {
         padding-top: 45px;
     }
-    #wrapper {
-        padding-top: 68px;
-    }
 }
 input[type="text"],
 textarea[type="text"],
@@ -6645,7 +6642,13 @@ textarea[type="text"]:focus,
     box-sizing: border-box;
 }
 .places-page .groups-header .pub-groups {
-    background-size: 20px;
+    background-size: 15%;
+    background-image: url(/images/place-create.png);
+}
+.places-page .groups-header .pub-groups:hover {
+    background-image: url(/images/places-hover.png);
+    color: #777;
+
 }
 .popup-group-chat.popup-leave-group-chat .group-peoples-inner-item:hover .peoples-inner-item-admin {
     display: block !important;
