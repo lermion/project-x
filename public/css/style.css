@@ -2938,10 +2938,10 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
-.ngdialog.popup-user-subscribers.ngdialog-theme-default,
+/*.ngdialog.popup-user-subscribers.ngdialog-theme-default,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default {
 	position: absolute;
-}
+}*/
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;
