@@ -6707,12 +6707,18 @@ textarea[type="text"]:focus,
 .place-publication-menu-list.active {
     background-image: url(/images/view-list-hover.png);
 }
+#wrapper .search-result__item-publication .user-publication:hover {
+    box-shadow: 0px 0px 10px 5px #bcbcbc;
+}
 @media (max-width: 520px) {
     .place-publication-menu {
         top: 25%;
     }
     .place-publication-menu a {
         display: block;
+    }
+    .group-page .place-publication-menu a {
+        display: inline-block;
     }
     .place-menu-wrap .group-menu .group-menu-item .counts {
         width: 90%;
