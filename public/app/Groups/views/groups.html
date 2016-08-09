@@ -35,13 +35,15 @@
                                 </div>
                             </div>
                             <div class="titles">
-                                <a href ng-class="{'groups-locked-icon': !group.is_open}" class="title">{{::group.name}}</a>
+                                <a href ng-class="{'groups-locked-icon': !group.is_open}"
+                                   class="title">{{::group.name}}</a>
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-                            <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
-                            <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>
+                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться
+                            </button>
+                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
+                            <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
                         </div>
                     </div>
                 </div>
@@ -51,7 +53,8 @@
                         <div>
                             <h4>Все публичные группы</h4>
                         </div>
-                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value" ng-if="showAllButtons">
+                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value"
+                                ng-if="showAllButtons">
                             <option value="-count_user">Популярные</option>
                             <option value="-created_at">Новые</option>
                         </select>
@@ -82,9 +85,10 @@
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-                            <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
-                            <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>
+                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться
+                            </button>
+                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
+                            <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
                         </div>
                     </div>
                 </div>

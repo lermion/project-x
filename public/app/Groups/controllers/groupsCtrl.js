@@ -67,6 +67,8 @@ angular.module('app.groups')
                         firstName: user.first_name,
                         lastName: user.last_name,
                         avatar: user.avatar_path,
+                        user_quote: user.user_quote,
+                        is_online: user.is_online,
 
                         isAdmin: false
                     };
