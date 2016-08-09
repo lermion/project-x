@@ -48,12 +48,14 @@ class UserController extends Controller
 
     public function confirm($id)
     {
-        $user = User::find($id);
-        if ($user->status != 'Подтвержден' or $user->status = '') {
-            $user->status = 'Подтвержден';
-            $user->save();
-            return response()->json(['status' => true]);
-        } else {
+        if (\DB::transaction(function($id) use ($id){
+            $user = User::find($id);
+            if ($user->status != 'Подтвержден' or $user->status = '') {
+                $user->status = 'Подтвержден';
+                $user->save();
+                return true;
+            } }))
+        {return response()->json(['status' => true]);} else {
             $result = [
                 "status" => false,
                 "error" => [
@@ -79,12 +81,14 @@ class UserController extends Controller
 
     public function review($id)
     {
-        $user = User::find($id);
-        if ($user->status != 'На заметке' or $user->status = '') {
-            $user->status = 'На заметке';
-            $user->save();
-            return response()->json(['status' => true]);
-        } else {
+        if (\DB::transaction(function($id) use ($id){
+            $user = User::find($id);
+            if ($user->status != 'На заметке' or $user->status = '') {
+                $user->status = 'На заметке';
+                $user->save();
+                return true;
+            } }))
+        {return response()->json(['status' => true]);} else {
             $result = [
                 "status" => false,
                 "error" => [
@@ -110,12 +114,14 @@ class UserController extends Controller
 
     public function suspicious($id)
     {
+        if (\DB::transaction(function($id) use ($id){
         $user = User::find($id);
         if ($user->status != 'Подозрительный' or $user->status = '') {
             $user->status = 'Подозрительный';
             $user->save();
-            return response()->json(['status' => true]);
-        } else {
+            return true;
+        } }))
+        {return response()->json(['status' => true]);} else {
             $result = [
                 "status" => false,
                 "error" => [
@@ -145,5 +151,11 @@ class UserController extends Controller
         $user->is_block = true;
         $user->save();
         return response()->json(['status' => true]);
+    }
+
+    public function newCountUsers()
+    {
+        $user = User::where(['status'=>'','is_block'=>false])->count();
+        return response()->json(['status' => true, 'users'=> $user]);
     }
 }
