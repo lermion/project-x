@@ -51,7 +51,32 @@ class SphinxSearchController extends Controller
 
         }
         return response()->json($result);
-        }
+    }
+
+    public function geosearch(Request $request){
+            try {
+                $Data = $request->all();
+                $x = $Data['coordinate_x'];
+                $y = $Data['coordinate_y'];
+
+                $query = 'SELECT *, GEODIST(' . $x . ', ' . $y . ',coordinates_x, coordinates_y) as distance FROM pp_near_coordinates ORDER BY distance ASC LIMIT 0,20';
+
+
+                $result = (sphinx_raw($query));
+            }
+           catch (\Exception $ex) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'something went wrong',
+                        'code' => '5'
+                    ]
+                ];
+            }
+
+            return response()->json($result);
+
+    }
 
 
         
