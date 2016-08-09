@@ -92,7 +92,7 @@ angular.module('placePeopleApp')
 									scope: $scope
 								});
 								setTimeout(function () {
-									popupNotification.close();
+									ngDialog.closeAll();
 								}, 2000);
 							});
 						}
