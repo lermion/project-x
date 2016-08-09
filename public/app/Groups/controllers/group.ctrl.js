@@ -1046,7 +1046,7 @@
 
         //Chat
 
-		$scope.counter = 0;
+		$scope.counter = 10;
 		$scope.scrollBottom = function () {
 			setTimeout(function () {
 				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
@@ -1102,7 +1102,6 @@
 			return deferred.promise;
 		};
 		socket.on("load more messages", function (response) {
-			console.log(response);
 			if (response.messages.length === 0) {
 			} else {
 				$scope.messages = $scope.messages.concat(response.messages);
