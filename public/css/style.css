@@ -3152,10 +3152,10 @@ spam-item {
 		position: absolute;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content {
-		margin-left: -125px;
-		margin-top: -105px;
-		width: 250px;
-		height: 210px; 
+		margin-left: -140px;
+		margin-top: -130px;
+		width: 280px;
+		height: 250px; 
 		padding: 25px 10px 0 10px!important;
 	}
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
