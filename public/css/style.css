@@ -3292,7 +3292,7 @@ spam-item {
 }
 .main-content .groups a,
 .groups-content .groups-header .pub-groups,
-.places-page .groups-header .pub-groups {
+.places-page .pub-groups {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	padding-left: 35px;
