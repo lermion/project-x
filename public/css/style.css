@@ -3292,7 +3292,7 @@ spam-item {
 }
 .main-content .groups a,
 .groups-content .groups-header .pub-groups,
-.places-page .groups-header .pub-groups {
+.places-page .pub-groups {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	padding-left: 35px;
@@ -3833,6 +3833,9 @@ body.ngdialog-open {
 	.group-menu .group-menu-item {
 		margin: 0 0 10px 0;
 		width: 100%;
+	}
+	.place-menu-wrap .group-menu .group-menu-item {
+		margin: 0 0 0 0;
 	}
 	.group-page .group-publication {
 		width: 500px;

@@ -1,9 +1,9 @@
 <div class="group-chat">
-	<div ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
+	<div scroll-glue="glued" ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
 		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div> -->
-		<div ng-init="scrollBottom(); checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
+		<div ng-init="checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
 					<img ng-src="{{message.avatar_path}}" alt="">
@@ -72,7 +72,7 @@
 				</div>
 				<div ng-hide="message.type === 'pub'" class="user-messege">
 					<div class="messege">
-						<a class="user-name">{{message.first_name}} {{message.last_name}}</a>
+						<a ng-hide="messages[$index - 1].login == vm.loggedUser" class="user-name">{{message.first_name}} {{message.last_name}}</a>
 						<div class="messege-text">
 							<p ng-bind-html="message.text | colonToSmiley"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
