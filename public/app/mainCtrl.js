@@ -85,65 +85,72 @@ angular.module('placePeopleApp')
 			$scope.bodyClass = 'public';
 		});
 
-		$scope.$on('authPoint', function (event, data) {
-			$scope.bodyClass = 'main-page';
-		});
+            $scope.$on('authPoint', function (event, data) {
+                $scope.bodyClass = 'main-page';
+            });
 
-		$scope.$on('userPoint', function (event, data) {
-			$scope.bodyClass = 'public user';
-		});
+            $scope.$on('userPoint', function (event, data) {
+                $scope.bodyClass = 'public user';
+            });
 
-		$rootScope.$on('$stateChangeStart',
-			function (event, toState, toParams, fromState, fromParams) {
-				groupsService.getCounterNewGroups().then(function (data) {
-					$rootScope.counters.groupsNew = data;
-				});
-				placesService.getCounterNewPlaces().then(function (data) {
-					$rootScope.counters.placesNew = data;
-				});
+            $rootScope.$on('$stateChangeStart',
+                function (event, toState, toParams, fromState, fromParams) {
+                    groupsService.getCounterNewGroups().then(function (data) {
+                        $rootScope.counters.groupsNew = data;
+                    });
+                    placesService.getCounterNewPlaces().then(function (data) {
+                        $rootScope.counters.placesNew = data;
+                    });
 
-				if (toState.name !== 'search' &&
-					toState.name !== 'search.people' &&
-					toState.name !== 'search.publications' &&
-					toState.name !== 'search.places' &&
-					toState.name !== 'search.groups') {
+                    if (toState.name !== 'search' &&
+                        toState.name !== 'search.people' &&
+                        toState.name !== 'search.publications' &&
+                        toState.name !== 'search.places' &&
+                        toState.name !== 'search.groups') {
 
-					resetSearch();
+                        resetSearch();
 
-				}
+                    }
 
-			});
-
-
-		// Search
-		$scope.search = {
-			str: '',
-			byUsers: true,
-			byPublications: true,
-			byPlaces: true,
-			byGroups: true
-		};
-
-		var originalSearch = angular.copy($scope.search);
-
-		$scope.submitSearch = function () {
-			if ($state.current.name === 'search' ||
-				$state.current.name === 'search.people' ||
-				$state.current.name === 'search.publications' ||
-				$state.current.name === 'search.places' ||
-				$state.current.name === 'search.groups') {
-
-				$scope.$broadcast('search', {searchObj: angular.copy($scope.search)});
-
-			} else {
-				$state.go('search', {'searchObj': angular.copy($scope.search)});
-			}
-		};
-
-		function resetSearch() {
-			$scope.search = angular.copy(originalSearch);
-			$rootScope.showSearch = false;
-		}
+                });
 
 
-	}]);
+            // Search
+            $scope.search = {
+                str: '',
+                byUsers: true,
+                byPublications: true,
+                byPlaces: true,
+                byGroups: true
+            };
+
+            var originalSearch = angular.copy($scope.search);
+
+            $scope.submitSearch = function () {
+                if ($state.current.name === 'search' ||
+                    $state.current.name === 'search.people' ||
+                    $state.current.name === 'search.publications' ||
+                    $state.current.name === 'search.places' ||
+                    $state.current.name === 'search.groups') {
+
+                    $scope.$broadcast('search', {
+                        searchObj: angular.copy($scope.search),
+                        restoreSearchResult: false
+                    });
+
+                } else {
+                    $state.go('search', {
+                        'searchObj': angular.copy($scope.search),
+                        'restoreSearchResult': false,
+                        'setActiveTab': true
+                    });
+                }
+            };
+
+            function resetSearch() {
+                $scope.search = angular.copy(originalSearch);
+                $rootScope.showSearch = false;
+            }
+
+
+        }]);

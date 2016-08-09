@@ -22,13 +22,15 @@
                         byPublications: true,
                         byPlaces: true,
                         byGroups: true
-                    }
+                    },
+                    restoreSearchResult: true,
+                    setActiveTab: false
                 },
                 resolve: {
-                    results: ['searchService', '$stateParams', function (searchService, $stateParams) {
-
+                    results: ['searchService', '$state', '$stateParams', function (searchService, $state, $stateParams) {
+                        console.info('Router: Search resolve');
                         if ($stateParams.searchObj.str !== '') {
-                            return searchService.search($stateParams.searchObj)
+                            return searchService.search($stateParams.searchObj, $stateParams.restoreSearchResult)
                                 .then(function (data) {
                                     return data;
                                 });

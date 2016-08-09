@@ -64,7 +64,8 @@
                                       field-required="true"
                                       input-name="address"
                                       disable-input="!vm.placeNew.city"></angucomplete-alt>
-                    <span class="street-on-map" ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
+                    <span class="street-on-map"
+                          ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.address.$error"
                          ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
@@ -124,14 +125,15 @@
 
                     <span>Добавить обложку места</span>
                 </div>
-                
+
             </div>
-            <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.cover.$dirty">
-                    <div ng-message="pattern">Выбранный файл не является изображением</div>
-                    <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
-                    <div ng-message="required">Вы не выбрали обложку для места</div>
-                    <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
-                </div>
+            <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error"
+                 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.cover.$dirty">
+                <div ng-message="pattern">Выбранный файл не является изображением</div>
+                <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
+                <div ng-message="required">Вы не выбрали обложку для места</div>
+                <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
+            </div>
             <div class="create-places-add-cover">
                 <div class="create-places-add-cover-img"
                      name="logo"
@@ -140,22 +142,24 @@
                      ngf-accept="'image/*'"
                      ngf-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                      ng-model="vm.placeNew.logo1"
-                required>
+                     required>
                     <a href="">
                         <img ngf-thumbnail="vm.placeNew.logo" ngf-no-object-url="true">
                     </a>
                     <span>Добавить логотип места</span>
                 </div>
-                
+
                 <div class="create-places-add-cover-button-create"
                      ng-click="vm.submitPlaceNew()"
-                     ladda="vm.subForm" data-style="slide-right">Создать место</div>
+                     ladda="vm.subForm" data-style="slide-right">Создать место
+                </div>
             </div>
-            <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.logo.$dirty">
-                    <div ng-message="pattern">Выбранный файл не является изображением</div>
-                    <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
-                    <div ng-message="required">Вы не выбрали обложку для группы</div>
-                    <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
+            <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error"
+                 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.logo.$dirty">
+                <div ng-message="pattern">Выбранный файл не является изображением</div>
+                <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
+                <div ng-message="required">Вы не выбрали обложку для группы</div>
+                <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
             </div>
 
         </div>
@@ -188,33 +192,48 @@
                ng-click="vm.submitInviteUsers()"
                ladda="vm.subForm" data-style="slide-right"> Пригласить</a>
         </div>
-        <div class="fifth_item" ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
+        <div class="fifth_item contacts_list"
+             ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
             <div class="item1-container">
                 <input type="text" ng-model="searchString" placeholder="Быстрый поиск...">
 
                 <p>Я подписан</p>
                 <ul class="item1">
-                    <li ng-repeat="user in vm.subscription | searchFor:searchString">
-                        <img ng-src="{{::user.avatar_path}}"
-                             alt="">
+                    <li ng-repeat="user in vm.subscription | searchFor:searchString" class="user_block"
+                        ng-click="vm.onItemSelected(user)">
+                        <div class="popup-invite-place-people-name1">
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+                            </a>
 
-                        <p>{{::user.first_name}} {{::user.last_name}}</p>
-                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
-                        <span class="group-add-item1-user-plus" ng-click="vm.onItemSelected(user)">
-                        <img src="/images/add.png" alt=""></span>
+                            <div>
+                        <span>
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                {{::user.first_name}} {{::user.last_name}}
+                            </a>
+                        </span>
+                            </div>
+                        </div>
                     </li>
 
                 </ul>
                 <p>Подписчики</p>
                 <ul class="item1">
-                    <li ng-repeat="user in vm.subscribers | searchFor:searchString">
-                        <img ng-src="{{::user.avatar_path}}"
-                             alt="">
+                    <li ng-repeat="user in vm.subscribers | searchFor:searchString" class="user_block"
+                        ng-click="vm.onItemSelected(user)">
+                        <div class="popup-invite-place-people-name1">
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+                            </a>
 
-                        <p>{{::user.first_name}} {{::user.last_name}}</p>
-                        <span class="group-add-item1-user-plus"><img src="/images/add.png" alt=""></span>
-                        <span class="group-add-item1-user-plus" ng-click="vm.onItemSelected(user)">
-                        <img src="/images/add.png" alt=""></span>
+                            <div>
+                        <span>
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                {{::user.first_name}} {{::user.last_name}}
+                            </a>
+                        </span>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -224,13 +243,17 @@
                 <div class="item1 add-people add-people-right">
                     <ul>
                         <li ng-repeat="user in vm.placeNew.users" ng-mouseenter="showAdmin=true"
-                            ng-mouseleave="showAdmin=false">
-                            <img ng-src="{{user.avatar}}">
-
-                            <p>{{::user.firstName}} {{::user.lastName}}</p>
-                            <span class="add-people-delete" ng-click="vm.removeUser(user)">&#10006;</span>
-                            <span class="add-people-admin" ng-if="user.isAdmin || showAdmin"
-                                  ng-click="vm.setAdmin(user)">Администратор</span>
+                            ng-mouseleave="showAdmin=false" clss="user-block">
+                            <div class="popup-invite-place-people-name1">
+                                <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                    <img ng-src="{{user.avatar}}" class="contacts_photo_img">
+                                </a>
+                            </div>
+                            <span>
+                                <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                    {{::user.firstName}} {{::user.lastName}}
+                                </a>
+                            </span>
                         </li>
                     </ul>
                 </div>
