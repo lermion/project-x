@@ -1047,14 +1047,6 @@
         //Chat
 
 		$scope.counter = 10;
-		$scope.scrollBottom = function () {
-			setTimeout(function () {
-				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
-				var height = chatWindow[0].scrollHeight;
-				chatWindow.scrollTop(height);
-			}, 100);
-		};
-
 		$scope.showPopupWithFiles = function (files) {
 			$scope.imagesInPopup = files;
 			$scope.mainImageInPopup = files[0].url;
@@ -1122,6 +1114,7 @@
 		socket.emit("get group chat dialogue", getGroupChatDialogue);
 		socket.on("get group chat dialogue", function (response) {
 			$scope.messages = response.messages.reverse();
+			$scope.glued = true;
 		});
 		socket.on('updatechat', function (response) {
 			$scope.messages.push(response);
