@@ -420,6 +420,7 @@ angular.module('placePeopleApp')
 				}
 			};			
 			socket.on("get user rooms", function(response){
+				console.log(response);
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
 					if(lastDialogue.is_group && lastDialogue.isNew){
