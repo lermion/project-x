@@ -691,6 +691,7 @@ footer {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
+		background-size: 24px;
 		transition: all .3s ease-in-out .1s; 
 	}
 	.footer .menu {
@@ -1102,7 +1103,7 @@ body.public.user {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 30px;
+		background-size: 24px;
 		padding-left: 0;
 	}
 	.public header .main-menu .menu-item,
