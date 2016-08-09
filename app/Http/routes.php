@@ -273,6 +273,7 @@ Route::group(['middleware' => ['web']], function () {
             <input type=\"submit\">
             </form>";
     });
+
     Route::post('searchgeo','SphinxSearchController@geosearch');
     Route::get('searchgeo', function () {
         echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/searchgeo\" method=\"post\" enctype=\"multipart/form-data\">
