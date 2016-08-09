@@ -2852,8 +2852,8 @@ span.users-today-time-time.early {
 .chat-contact-selected-ava img {
     max-width: 200%;
     max-height: 200%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 .chat-contact-selected-data {
     width: 350px;
