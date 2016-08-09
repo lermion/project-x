@@ -45,10 +45,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.myPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.myPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+                    ng-click="vm.goPlace(place)">
                         <div class="places-item-photo">
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -87,7 +87,7 @@
                          ng-repeat="place in vm.popularPlaces | orderBy: ['-count_user'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-lin" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -126,8 +126,7 @@
                          ng-repeat="place in vm.newPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -166,8 +165,7 @@
                          ng-repeat="place in vm.dynamicPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -206,8 +204,7 @@
                          ng-repeat="place in vm.nearPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -246,8 +243,7 @@
                          ng-repeat="place in vm.shopPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -286,8 +282,7 @@
                          ng-repeat="place in vm.cafePlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -326,8 +321,7 @@
                          ng-repeat="place in vm.entertainmentPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -366,8 +360,7 @@
                          ng-repeat="place in vm.organizationPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -406,8 +399,7 @@
                          ng-repeat="place in vm.universityPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -446,8 +438,7 @@
                          ng-repeat="place in vm.schoolPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -486,8 +477,7 @@
                          ng-repeat="place in vm.addressPlaces| orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
