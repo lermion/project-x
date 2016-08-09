@@ -1,21 +1,29 @@
-<div class="content-item search-result__item-publication" ng-repeat="pub in vm.results[1]" ng-click="vm.openModalPublication(+pub.id)">
+<div class="content-item search-result__item-publication" ng-repeat="pub in vm.results[1]"
+     ng-click="vm.openModalPublication(+pub.id)">
     <div class="user-publication">
         <div class="user-publication-header">
             <div class="user-function">
-                <a class="user" ui-sref="{{vm.getStateName(pub)}}">
+                <a class="user" ng-if="!+pub.is_anonym" ui-sref="{{vm.getStateName(pub)}}" ng-click="$event.stopPropagation()">
 							<span class="ava">
 								<img ng-src="{{pub.pl_avatar || pub.gr_avatar || pub.usr_avatar}}" alt="">
 							</span>
 							<span class="block-info">
-								<p class="user-name">{{vm.getAuthorName(pub)}}</p>
+								<p class="user-name">{{::vm.getAuthorName(pub)}}</p>
 								<p class="time" am-time-ago="pub.created_at"></p>
 							</span>
                 </a>
+                <span class="user" ng-if="+pub.is_anonym">
+                    <span class="block-info">
+                        <p class="user-name">Анонимная публикация</p>
+                        <p class="time" am-time-ago="pub.created_at"></p>
+                    </span>
+                </span>
             </div>
         </div>
 
         <div class="user-publication-content">
             <p class="publication-text" ng-bind-html="pub.text | colonToSmiley"></p>
+
             <div class="publication-ava" ng-click="showPublication(pub)">
                 <a href>
                     <img ng-src="{{pub.url}}">
@@ -28,13 +36,10 @@
                 <a href class="like">Тема</a>
 
                 <p class="like-item">
-                    В теме
-                    <span ng-show="pub.user_like" class="you"> Вы </span>
-                    <span ng-show="pub.user_like && pub.like_count > 1" class="more">и еще</span>
-                    <span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>
+                    <span class="count-like" ng-if="+pub.cnt_likes > 0">В теме {{::+pub.cnt_likes}} чел.</span>
                 </p>
             </div>
-            <a href class="comments-count">{{pub.comment_count}} 10</a>
+            <span class="comments-count">{{::+pub.cnt_comments}}</span>
         </div>
     </div>
 </div>

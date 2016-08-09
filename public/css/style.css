@@ -1102,7 +1102,7 @@ body.public.user {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 75%;
+		background-size: 30px;
 		padding-left: 0;
 	}
 	.public header .main-menu .menu-item,
@@ -1129,6 +1129,7 @@ body.public.user {
 		box-sizing: border-box;
 		z-index: 9999999999;
 		position: fixed;
+		top: 0;
 	}
 	.public header .main-menu.show-menu .drop-menu {
 		position: absolute;
@@ -2938,10 +2939,10 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
-.ngdialog.popup-user-subscribers.ngdialog-theme-default,
+/*.ngdialog.popup-user-subscribers.ngdialog-theme-default,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default {
 	position: absolute;
-}
+}*/
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;

@@ -165,11 +165,16 @@
         }
 
         // set default tab (view) for group view
-        $scope.$on("$stateChangeSuccess", function () {
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
             var state = $state.current.name;
-            if (state === 'group') {
+
+            if (state === 'group' && fromState.name === 'group.publications') {
+                $state.go(toParams.prevState);
+            }
+            if (state === 'group' && fromState.name !== 'group.publications') {
                 $state.go('group.publications');
             }
+
             if (state !== 'group.mob-pub') {
                 vm.isMobile = false;
             }
@@ -178,6 +183,7 @@
 
             }
         });
+
         $scope.$on('ngDialog.opened', function (e, $dialog) {
             if ($dialog.name === "modal-edit-group") {
                 $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.groupEdited.description);
@@ -704,6 +710,7 @@
                     firstName: user.first_name,
                     lastName: user.last_name,
                     avatar: user.avatar_path,
+                    login: user.login,
 
                     isAdmin: false
                 };
