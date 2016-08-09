@@ -566,6 +566,7 @@
     cursor: pointer;
     box-shadow: 0 3px 3px rgba(0, 0, 0, .2), 0 0 0 2px #dddddd;
     vertical-align: middle;
+    margin-left: 10px;
 }
 .settingsss .checkbox-label:before {
     content: '';
