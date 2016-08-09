@@ -14,7 +14,7 @@ angular.module('placePeopleApp')
 				loaded: false
 			};
 			$scope.showFileAddMenu = false;
-			$scope.counter = 0;
+			$scope.counter = 10;
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
 			$scope.loggedUserId = parseInt(storage.userId);
@@ -362,7 +362,7 @@ angular.module('placePeopleApp')
 					$scope.files.length = 0;
 				}
 				$scope.status.loading = false;
-				$scope.counter = 0;
+				$scope.counter = 10;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -464,7 +464,7 @@ angular.module('placePeopleApp')
 				var data = {
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
-					message: message ? message : "изображение",
+					message: message ? message : "",
 					imagesObj: imagesObj
 				};
 				$scope.Model.chatMes = '';
