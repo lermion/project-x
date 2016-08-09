@@ -2779,9 +2779,15 @@ span.users-today-time-time.early {
     width: 290px;
     height: 290px;
     box-sizing: border-box;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 .chat-contact-selected-ava img {
-    width: 100%;
+    max-width: 200%;
+    max-height: 200%;
+    width: auto;
+    height: auto;
 }
 .chat-contact-selected-data {
     width: 350px;
@@ -3401,10 +3407,8 @@ span.users-today-time-time.early {
     cursor: pointer;
 }
 .to-my-img-inner-photo-pict img {
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
 }
 .group-comments .pictures {
     padding: 5px 10px;
