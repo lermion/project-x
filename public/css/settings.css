@@ -1902,6 +1902,7 @@ div.my_profilll.photo-list div:last-child {
     font-family: "SFUIDisplayLight";
     font-size: 22.8px;
     color: rgb(51, 51, 51);
+    padding-left: 10px;
 }
 .create-places h3 {
     font-family: "SFUIDisplayLight";
@@ -3155,6 +3156,9 @@ span.users-today-time-time.early {
     width: 100%;
     padding: 20px 0;
 }
+.places-page-header div {
+    display: flex;
+}
 .places-page-header-title {
     display: flex;
     font-size: 20.6px;
@@ -3186,10 +3190,10 @@ span.users-today-time-time.early {
     -moz-appearance: none;
     appearance: none;
     font-size: 14.6px;
-    padding-left: 30px;
+    padding-left: 25px;
     background-image: url(/images/filter.png);
     background-position: left center;
-    background-size: 12%;
+    background-size: 18px;
     background-repeat: no-repeat;
     transition: all .3s ease-in-out .1s;
     cursor: pointer;
@@ -3210,6 +3214,12 @@ span.users-today-time-time.early {
     border-radius: 3px;
     color: rgb(92, 108, 135);
     cursor: pointer;
+}
+@media (max-width: 520px) {
+    .places-page-header {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }
 /*CHAT*/
 .chat-right-chat-inner {
@@ -6688,11 +6698,12 @@ textarea[type="text"]:focus,
     width: 100%;
     box-sizing: border-box;
 }
-.places-page .groups-header .pub-groups {
+.places-page .pub-groups {
     background-size: 15%;
     background-image: url(/images/place-create.png);
+    padding-left: 25px;
 }
-.places-page .groups-header .pub-groups:hover {
+.places-page  .pub-groups:hover {
     background-image: url(/images/places-hover.png);
     color: #777;
 
