@@ -1046,7 +1046,7 @@
 
         //Chat
 
-		$scope.counter = 0;
+		$scope.counter = 10;
 		$scope.scrollBottom = function () {
 			setTimeout(function () {
 				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
