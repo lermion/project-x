@@ -625,7 +625,7 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.$on('ngDialog.opened', function(e, $dialog){
-				if($scope.currentOpponent.status !== undefined && $dialog.name === "edit-group-chat"){
+				if($dialog.name === "edit-group-chat" && $scope.currentOpponent.status !== undefined){
 					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
 				}
 			});
