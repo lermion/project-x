@@ -5381,8 +5381,9 @@ input.cmn-toggle-round:checked + label:after {
 .place-menu-wrap .group-menu .group-menu-item {
     width: 700px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     position: relative;
+    align-items: center;
 }
 .place-menu-wrap .group-menu .group-menu-item .counts {
     display: flex;
@@ -6733,10 +6734,10 @@ textarea[type="text"]:focus,
     background-color: #DA5036;
 }
 .place-publication-menu {
-    position: absolute;
+    /*position: absolute;
     left: 0;
     top: 50%;
-    margin-top: -12px;
+    margin-top: -12px;*/
 }
 .place-publication-menu a {
     width: 25px;

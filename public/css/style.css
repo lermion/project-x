@@ -3834,6 +3834,9 @@ body.ngdialog-open {
 		margin: 0 0 10px 0;
 		width: 100%;
 	}
+	.place-menu-wrap .group-menu .group-menu-item {
+		margin: 0 0 0 0;
+	}
 	.group-page .group-publication {
 		width: 500px;
 	}
