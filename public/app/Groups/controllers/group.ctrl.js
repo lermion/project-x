@@ -1102,7 +1102,6 @@
 			return deferred.promise;
 		};
 		socket.on("load more messages", function (response) {
-			console.log(response);
 			if (response.messages.length === 0) {
 			} else {
 				$scope.messages = $scope.messages.concat(response.messages);
