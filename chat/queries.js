@@ -130,6 +130,7 @@ Queries.prototype.getUserRooms = function(data){
 	return deferred.promise;
 }
 Queries.prototype.getUserDialogue = function(data){
+	console.log("data", data);
 	var deferred = Q.defer();
 	if(data.offset === undefined && data.limit === undefined){
 		data.offset = 0;
