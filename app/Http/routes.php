@@ -273,8 +273,6 @@ Route::group(['middleware' => ['web']], function () {
             <input type=\"submit\">
             </form>";
     });
-
-
     Route::post('searchgeo','SphinxSearchController@geosearch');
 
     Route::get('searchgeo', function () {
@@ -285,4 +283,7 @@ Route::group(['middleware' => ['web']], function () {
             <input type=\"submit\">
             </form>";
     });
+
+
+
 });
