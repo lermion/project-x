@@ -1048,15 +1048,7 @@
 
         //Chat
 
-		$scope.counter = 0;
-		$scope.scrollBottom = function () {
-			setTimeout(function () {
-				var chatWindow = angular.element(document.querySelector('.group-chat-inner'));
-				var height = chatWindow[0].scrollHeight;
-				chatWindow.scrollTop(height);
-			}, 100);
-		};
-
+		$scope.counter = 10;
 		$scope.showPopupWithFiles = function (files) {
 			$scope.imagesInPopup = files;
 			$scope.mainImageInPopup = files[0].url;
@@ -1104,12 +1096,9 @@
 			return deferred.promise;
 		};
 		socket.on("load more messages", function (response) {
-			if (response.length === 0) {
-				$scope.counter = 0;
+			if (response.messages.length === 0) {
 			} else {
-				response.messages.forEach(function (value) {
-					$scope.messages.unshift(value);
-				});
+				$scope.messages = $scope.messages.concat(response.messages);
 				$scope.counter += 10;
 			}
 		});
@@ -1127,6 +1116,7 @@
 		socket.emit("get group chat dialogue", getGroupChatDialogue);
 		socket.on("get group chat dialogue", function (response) {
 			$scope.messages = response.messages.reverse();
+			$scope.glued = true;
 		});
 		socket.on('updatechat', function (response) {
 			$scope.messages.push(response);

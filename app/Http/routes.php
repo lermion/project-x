@@ -156,6 +156,8 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('topic/{id}', 'Moderator\ModerateController@topic');
             Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
             Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
+            Route::get('count_complaint_comment', 'Moderator\ModerateController@count_complaint_comment');
+            Route::get('count_complaint_publication', 'Moderator\ModerateController@count_complaint_publication');
             Route::group(['prefix' => 'moderate'], function () {
                 Route::get('/', 'Moderator\ModerateController@index');
                 Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
@@ -172,6 +174,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('get_confirm', 'Moderator\UserController@getConfirm');
                 Route::get('get_review', 'Moderator\UserController@getReview');
                 Route::get('get_suspicious', 'Moderator\UserController@getSuspicious');
+                Route::get('new_count_users', 'Moderator\UserController@newCountUsers');
             });
         });
         Route::get('login', 'Moderator\AuthController@login');
@@ -264,7 +267,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/file_chat/1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/moderator/count_complaint_publication\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
@@ -273,4 +276,17 @@ Route::group(['middleware' => ['web']], function () {
             <input type=\"submit\">
             </form>";
     });
+    Route::post('searchgeo','SphinxSearchController@geosearch');
+
+    Route::get('searchgeo', function () {
+        echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/searchgeo\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='coordinate_x'><br>
+             <input type='text' name='coordinate_y'><br>
+            
+            <input type=\"submit\">
+            </form>";
+    });
+
+
+
 });

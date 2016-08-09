@@ -632,6 +632,7 @@
     cursor: pointer;
     box-shadow: 0 3px 3px rgba(0, 0, 0, .2), 0 0 0 2px #dddddd;
     vertical-align: middle;
+    margin-left: 10px;
 }
 .settingsss .checkbox-label:before {
     content: '';
@@ -1966,6 +1967,7 @@ div.my_profilll.photo-list div:last-child {
     font-family: "SFUIDisplayLight";
     font-size: 22.8px;
     color: rgb(51, 51, 51);
+    padding-left: 10px;
 }
 .create-places h3 {
     font-family: "SFUIDisplayLight";
@@ -2718,7 +2720,7 @@ p.top-person-status {
     height: 60px;
 }
 .chat-left-users-users-today.active {
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(240, 240, 240);
 }
 .chat-users-today-data {
     display: flex;
@@ -2843,9 +2845,15 @@ span.users-today-time-time.early {
     width: 290px;
     height: 290px;
     box-sizing: border-box;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 .chat-contact-selected-ava img {
-    width: 100%;
+    max-width: 200%;
+    max-height: 200%;
+    width: auto;
+    height: auto;
 }
 .chat-contact-selected-data {
     width: 350px;
@@ -3213,6 +3221,9 @@ span.users-today-time-time.early {
     width: 100%;
     padding: 20px 0;
 }
+.places-page-header div {
+    display: flex;
+}
 .places-page-header-title {
     display: flex;
     font-size: 20.6px;
@@ -3244,10 +3255,10 @@ span.users-today-time-time.early {
     -moz-appearance: none;
     appearance: none;
     font-size: 14.6px;
-    padding-left: 30px;
+    padding-left: 25px;
     background-image: url(/images/filter.png);
     background-position: left center;
-    background-size: 12%;
+    background-size: 18px;
     background-repeat: no-repeat;
     transition: all .3s ease-in-out .1s;
     cursor: pointer;
@@ -3268,6 +3279,12 @@ span.users-today-time-time.early {
     border-radius: 3px;
     color: rgb(92, 108, 135);
     cursor: pointer;
+}
+@media (max-width: 520px) {
+    .places-page-header {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }
 /*CHAT*/
 .chat-right-chat-inner {
@@ -3465,10 +3482,8 @@ span.users-today-time-time.early {
     cursor: pointer;
 }
 .to-my-img-inner-photo-pict img {
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
 }
 .group-comments .pictures {
     padding: 5px 10px;
@@ -5431,8 +5446,9 @@ input.cmn-toggle-round:checked + label:after {
 .place-menu-wrap .group-menu .group-menu-item {
     width: 700px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     position: relative;
+    align-items: center;
 }
 .place-menu-wrap .group-menu .group-menu-item .counts {
     display: flex;
@@ -6747,11 +6763,12 @@ textarea[type="text"]:focus,
     width: 100%;
     box-sizing: border-box;
 }
-.places-page .groups-header .pub-groups {
+.places-page .pub-groups {
     background-size: 15%;
     background-image: url(/images/place-create.png);
+    padding-left: 25px;
 }
-.places-page .groups-header .pub-groups:hover {
+.places-page  .pub-groups:hover {
     background-image: url(/images/places-hover.png);
     color: #777;
 
@@ -6780,9 +6797,15 @@ textarea[type="text"]:focus,
 .ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button:hover {
     background-color: #DA5036;
 }
+.place-user-menu-wrap {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+}
 .place-publication-menu {
     position: absolute;
-    left: 0;
+    left: 10px;
     top: 50%;
     margin-top: -12px;
 }
@@ -6815,6 +6838,14 @@ textarea[type="text"]:focus,
 @media (max-width: 520px) {
     .place-publication-menu {
         top: 25%;
+        left: 0px;
+    }
+    .place-user-menu-wrap {
+        right: 3px;
+        top: 25%;
+    }
+    .place-menu-wrap .place-user-menu-wrap {
+        top: 50%;
     }
     .place-publication-menu a {
         display: block;
