@@ -186,6 +186,66 @@
 
         }
 
+        $scope.$watchCollection(angular.bind(vm, function () {
+            return vm.places;
+        }), function (array) {
+
+            vm.myPlaces = array.filter(function(place) {
+                return place.is_admin === true;
+            });
+
+            vm.popularPlaces = array.filter(function(place) {
+                // all places
+                return true;
+            });
+
+            vm.newPlaces = array.filter(function(place) {
+                // all places
+                return true;
+            });
+
+            vm.dynamicPlaces = array.filter(function(place) {
+                return dynamicIds.indexOf(place.type_place_id) !== -1;
+            });
+
+            vm.nearPlaces = array.filter(function(place) {
+                // all places
+                return true;
+            });
+
+            vm.shopPlaces = array.filter(function(place) {
+                return +place.type_place_id === 1;
+            });
+
+            vm.cafePlaces = array.filter(function(place) {
+                return +place.type_place_id === 2;
+            });
+
+            vm.entertainmentPlaces = array.filter(function(place) {
+                return +place.type_place_id === 3;
+            });
+
+            vm.organizationPlaces = array.filter(function(place) {
+                return +place.type_place_id === 4;
+            });
+
+            vm.universityPlaces = array.filter(function(place) {
+                return +place.type_place_id === 5;
+            });
+
+            vm.schoolPlaces = array.filter(function(place) {
+                return +place.type_place_id === 6;
+            });
+
+            vm.addressPlaces = array.filter(function(place) {
+                // all places
+                return true;
+            });
+
+
+
+        });
+
 
         $scope.$watch(angular.bind(vm, function () {
             return vm.placesDropdown;

@@ -9,12 +9,13 @@
                         группу</a>
                 </div>
 
-                <div ng-if="showMyGroups">
+                <div ng-if="showMyGroups && myGroupsFiltered.length > 0">
                     <div class="places-page-type-place">
                         <div>
                             <h4>Мои группы</h4>
                         </div>
-                        <div class="places-type-place-btn" ng-if="!showAllButtons" ng-click="toogleGroupsView('my')">
+                        <div class="places-type-place-btn" ng-if="!showAllButtons && myGroupsFiltered.length > 3"
+                             ng-click="toogleGroupsView('my')">
                             Ещё
                         </div>
                         <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
@@ -23,7 +24,7 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | filter: showMyGroups | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups">
+                             ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups">
                             <div class="group-cover">
                                 <a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">
                                     <img ngf-src="group.card_avatar" ngf-as-background="true">
@@ -48,7 +49,7 @@
                     </div>
                 </div>
 
-                <div ng-if="showAllGroups">
+                <div ng-if="showAllGroups && publicGroupsFiltered.length > 0">
                     <div class="places-page-type-place">
                         <div>
                             <h4>Все публичные группы</h4>
@@ -59,7 +60,7 @@
                             <option value="-created_at">Новые</option>
                         </select>
 
-                        <div class="places-type-place-btn" ng-if="!showAllButtons"
+                        <div class="places-type-place-btn" ng-if="!showAllButtons && publicGroupsFiltered.length > 3"
                              ng-click="toogleGroupsView('public')">Ещё
                         </div>
                         <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
@@ -68,7 +69,7 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups">
+                             ng-repeat="group in publicGroupsFiltered | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups">
                             <div class="group-cover">
                                 <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
                                 <a ui-sref="group({groupName: group.url_name})" class="group-ava">
