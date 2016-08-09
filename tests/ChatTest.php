@@ -53,20 +53,16 @@ class ChatTest extends TestCase
             \App\ChatLockedUser::create(['user_id' => $user->id, 'locked_user_id' => $user2->id]);
         }
         $room = \App\ChatRoom::where('name', 'test')->first();
-        if ($room) {
-            $room->delete();
-            $room = \App\ChatRoom::create(['name' => 'test']);
-        } else {
+        if (!$room) {
             $room = \App\ChatRoom::create(['name' => 'test']);
         }
         $user_chat = \App\UserChat::where(['user_id' => $user->id, 'room_id' => $room->id]);
-        if ($user_chat){
-            $user_chat->delete();
-            $user_chat = \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
-        }else {
+        if (!$user_chat){
             $user_chat = \App\UserChat::create(['user_id' => $user->id, 'room_id' => $room->id]);
         }
         $this->json('GET', 'chat/get_locked_users')->AssertResponseOk();
+        $room->delete();
+        $user_chat->delete();
     }
 
     public function testDeleteChat()

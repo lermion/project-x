@@ -165,4 +165,13 @@ class ModerateController extends Controller
         return response()->json(['status' => true]);
     }
 
+    public function count_complaint_comment(){
+        $complaint_comment = ComplaintComment::count();
+        return response()->json(['status' => true, 'complaint_comment' => $complaint_comment]);
+    }
+
+    public function count_complaint_publication(){
+        $complaint_publication = ComplaintPublication::count();
+        return response()->json(['status' => true, 'complaint_publication' => $complaint_publication]);
+    }
 }
