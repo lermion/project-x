@@ -1103,8 +1103,7 @@
 		};
 		socket.on("load more messages", function (response) {
 			console.log(response);
-			if (response.length === 0) {
-				$scope.counter = 0;
+			if (response.messages.length === 0) {
 			} else {
 				$scope.messages = $scope.messages.concat(response.messages);
 				$scope.counter += 10;
