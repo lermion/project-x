@@ -185,7 +185,7 @@
         <div class="modal__content" ng-if="!vm.inviteNotSend">
             <p>Приглашение отправлено</p>
         </div>
-        <div class="create-places-type-invite">
+        <div class="create-places-type-invite" ng-hide="!vm.inviteNotSend">
             <a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open"
                ng-click="cancelNewGroup()"> Открыть место </a>
             <a href class="create-places-type-btn-invite"
