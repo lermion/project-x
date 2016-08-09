@@ -47,6 +47,7 @@
 				</a>
 			</div>
 		</div>
+		<span ng-show="showErrorMessage">* В групповом чате должно быть минимум два человека</span>
 		<div class="button">
 			<a href="javascript:void(0);" class="cansel" ng-click="Model.cancelEditGroupChat()"> Отменить </a>
 			<a href="javascript:void(0);" class="create" ng-click="Model.saveGroupChat(Model.newGroupChat.name, emojiMessage, Model.newGroupChat.avatar, Model.newGroupChat.users)"> Сохранить</a>

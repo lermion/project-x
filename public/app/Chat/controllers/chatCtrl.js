@@ -624,8 +624,8 @@ angular.module('placePeopleApp')
 					// }
 				});
 			};
-			$scope.$on('ngDialog.opened', function (e, $dialog) {
-				if($dialog.name === "edit-group-chat"){
+			$scope.$on('ngDialog.opened', function(e, $dialog){
+				if($scope.currentOpponent.status !== undefined && $dialog.name === "edit-group-chat"){
 					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
 				}
 			});
@@ -721,6 +721,7 @@ angular.module('placePeopleApp')
 				});
 				ChatService.updateGroupChat($scope.currentOpponent.room_id, name, statusToSave, avatar, usersInChat).then(function(response){						
 					if(response.data.status){
+						$scope.showErrorMessage = false;
 						$scope.Model.opponent.name = name;
 						$scope.currentOpponent.status = statusToSave;
 						if(typeof avatar === "object"){
@@ -811,7 +812,11 @@ angular.module('placePeopleApp')
 			};
 			
 			$scope.Model.removeUser = function(index){
-				$scope.Model.newGroupChat.users.splice(index, 1);
+				if($scope.Model.newGroupChat.users.length !== 1){
+					$scope.Model.newGroupChat.users.splice(index, 1);
+				}else{
+					$scope.showErrorMessage = true;
+				}
 			};
 
 			$scope.Model.saveNotificationSettings = function(chat){			
