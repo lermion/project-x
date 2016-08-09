@@ -3,38 +3,42 @@
 <div class="modal__content" ng-if="vm.inviteNotSend && (vm.subscribers.length + vm.subscription.length) > 0">
     <div class="invite-group__items">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в место...">
-        <ul>
+        <ul class="contacts_list">
             <p>Подписки</p>
             <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString"
-                ng-click="vm.onItemSelected(user)">
-                <div class="popup-invite-place-people-name1">
+                ng-click="vm.onItemSelected(user)" class="user_block">
+                <div class="popup-invite-place-people-name1 user-block">
                     <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
                         <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
                     </a>
 
-                    <div>
-                        <span>
+                    <div class="user-info">
+                        <div class="user-info__user">
                             <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
                                 {{::user.first_name}} {{::user.last_name}}
                             </a>
-                        </span>
+                        </div>
+                        <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+                        <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
                     </div>
                 </div>
             </li>
             <p>Подписчики</p>
             <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
-                ng-click="vm.onItemSelected(user)">
-                <div class="popup-invite-place-people-name1">
+                ng-click="vm.onItemSelected(user)" class="user_block">
+                <div class="popup-invite-place-people-name1 user-block">
                     <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
                         <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
                     </a>
 
-                    <div>
-                        <span>
+                    <div class="user-info">
+                        <div class="user-info__user">
                             <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
                                 {{::user.first_name}} {{::user.last_name}}
                             </a>
-                        </span>
+                        </div>
+                        <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+                        <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
                     </div>
                 </div>
             </li>
@@ -42,23 +46,26 @@
     </div>
     <div class="invite-group__items-selected">
         <p class="item1-add-people-title">Список пользователей</p>
-        <ul>
+        <ul class="contacts_list">
             <li ng-repeat="user in vm.invitedUsers" ui-sref="user({username: user.login})"
                 ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
-                <div class="popup-invite-place-people-name1">
+                <div class="popup-invite-place-people-name1 user-block">
                     <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
                         <img ng-src="{{user.avatar}}" class="contacts_photo_img">
                     </a>
 
-                    <div>
-                        <span>
+                    <div class="user-info">
+                        <div class="user-info__user">
                             <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
                                 {{::user.firstName}} {{::user.lastName}}
                             </a>
-                        </span>
+                        </div>
+                        <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+                        <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
                     </div>
-                    <span class="items-selected__item-delete" ng-click="vm.removeUserFromInviteList(user)">&#10006;</span>
                 </div>
+                    <span class="items-selected__item-delete"
+                          ng-click="vm.removeUserFromInviteList(user)">&#10006;</span>
             </li>
         </ul>
     </div>
