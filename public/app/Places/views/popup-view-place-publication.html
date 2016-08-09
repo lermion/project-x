@@ -11,7 +11,7 @@
                 <p class="user-name">{{::vm.place.name}}</p>
             </a>
 
-            <div class="user-menu" ng-click="showPubMenu=!showPubMenu">
+            <div class="user-menu" ng-click="showPubMenu=!showPubMenu" ng-init="showPubMenu = false">
                 <div class="menu-item" ng-show="showPubMenu">
                     <div class="inner">
                         <a href ng-if="vm.place.is_admin" ng-click="vm.editPub(vm.activePublication)">Редактировать</a>
