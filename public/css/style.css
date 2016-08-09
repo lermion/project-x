@@ -691,6 +691,7 @@ footer {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
+		background-size: 24px;
 		transition: all .3s ease-in-out .1s; 
 	}
 	.footer .menu {
@@ -1102,7 +1103,7 @@ body.public.user {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 30px;
+		background-size: 24px;
 		padding-left: 0;
 	}
 	.public header .main-menu .menu-item,
@@ -2294,8 +2295,8 @@ spam-item {
  .comment .comment-pic .comment-pic-item img {
 	max-width: 100%;
 	max-height: 100%;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 }
 .publication .new-add .inner .close-inner,
 .publication .new-add .inner .check-inner,
@@ -2521,6 +2522,9 @@ spam-item {
 		flex-wrap: wrap;
 		margin-top: 5px;
 }
+.user-publication-content .publication-images .ngsb-wrap {
+	width: 100%;
+}
 .publication-images .images-item {
 	width: 97px;
 	overflow: hidden;
@@ -2543,8 +2547,8 @@ spam-item {
 .publication-images .images-item img {
 	max-width: 100%;
 	max-height: 100%;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 }
 .publication-images .images-item.more:hover {
 	background-color: #fff;
@@ -2922,7 +2926,7 @@ spam-item {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 5px;
-	background: rgba(0,0,0,.2);
+	/*background: rgba(0,0,0,.2);*/
 	text-decoration: none;
 }
 .comment .comment-pic .comment-pic-item:nth-child(4n) {
@@ -2939,10 +2943,6 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
-/*.ngdialog.popup-user-subscribers.ngdialog-theme-default,
-.ngdialog.popup-user-subscribe.ngdialog-theme-default {
-	position: absolute;
-}*/
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;
@@ -3083,7 +3083,7 @@ spam-item {
 	}
 	.contacts-off-container {
 		width: 100%;
-		padding: 20px 15px;
+		padding: 35px 15px;
 		box-sizing: border-box;
 		background: #fff;
 	}
@@ -3131,12 +3131,12 @@ spam-item {
 	.contacts-off-container .prev {
 		position: absolute;
 		top: 10px;
-		right: 10px;
+		left: 10px;
 		width: 30px;
 		height: 25px;
 		background-image: url(../images/left-arrow-hover.png);
 		background-position: center;
-		background-size: 90%;
+		background-size: 28px;
 		background-repeat: no-repeat;
 	}
 	.contacts-off-container .prev:hover {

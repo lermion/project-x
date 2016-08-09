@@ -2864,8 +2864,8 @@ span.users-today-time-time.early {
 .chat-contact-selected-ava img {
     max-width: 200%;
     max-height: 200%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 .chat-contact-selected-data {
     width: 350px;
@@ -6733,6 +6733,14 @@ textarea[type="text"]:focus,
     .static-admin-question-inner {
         width: 100%;
     }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+        width: 98%;
+        margin-left: -50%;
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
+        margin-right: 0;
+        right: 20px;
+    }
  }
  .popup-leave-group-chat .group-peoples-inner-item.active {
     background: #e4e4e4;
@@ -6867,5 +6875,21 @@ textarea[type="text"]:focus,
     }
     .place-menu-wrap .group-menu .group-menu-item .counts {
         width: 90%;
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+        width: 96%;
+        margin-left: -50%;
+    }
+    .view-publication .user-publication .user-function .user .user-name {
+        font-size: .8em;    
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
+        top: 25px;
+    }
+ }
+ @media (max-width: 430px) {
+    .view-publication .user-publication .user-function .user .user-name {
+        font-size: .8em;
+        max-width: 170px;    
     }
  }
