@@ -669,6 +669,8 @@
                     lastName: user.last_name,
                     avatar: user.avatar_path,
                     login: user.login,
+                    user_quote: user.user_quote,
+                    is_online: user.is_online,
 
                     isAdmin: false
                 };
