@@ -3754,24 +3754,25 @@ body.ngdialog-open {
 	color: #fff;
 	background: #495b79;
 	cursor: pointer;
-	top: 50%;
+	top: -100%;
 	margin-top: -14px;
 	right: 5px;
 }
 .group-page button:hover {
 	border: 1px solid #495b79;
 	color: #495b79;
-	background: transparent;
+	background: #fff;
 }
 .group-menu .group-menu-item {
 	width: 700px;
 	display: flex;
-		justify-content: center;
+	justify-content: center;
+	align-items: center;
 }
 .group-menu .group-menu-item .counts {
 	display: flex;
 	justify-content: space-between;
-	width: 400px;
+	width: 350px;
 	align-items: stretch;
 }
 .group-menu-item .counts .counter {
