@@ -190,58 +190,57 @@
             return vm.places;
         }), function (array) {
 
-            vm.myPlaces = array.filter(function(place) {
+            vm.myPlaces = array.filter(function (place) {
                 return place.is_admin === true;
             });
 
-            vm.popularPlaces = array.filter(function(place) {
+            vm.popularPlaces = array.filter(function (place) {
                 // all places
                 return true;
             });
 
-            vm.newPlaces = array.filter(function(place) {
+            vm.newPlaces = array.filter(function (place) {
                 // all places
                 return true;
             });
 
-            vm.dynamicPlaces = array.filter(function(place) {
+            vm.dynamicPlaces = array.filter(function (place) {
                 return dynamicIds.indexOf(place.type_place_id) !== -1;
             });
 
-            vm.nearPlaces = array.filter(function(place) {
+            vm.nearPlaces = array.filter(function (place) {
                 // all places
                 return true;
             });
 
-            vm.shopPlaces = array.filter(function(place) {
+            vm.shopPlaces = array.filter(function (place) {
                 return +place.type_place_id === 1;
             });
 
-            vm.cafePlaces = array.filter(function(place) {
+            vm.cafePlaces = array.filter(function (place) {
                 return +place.type_place_id === 2;
             });
 
-            vm.entertainmentPlaces = array.filter(function(place) {
+            vm.entertainmentPlaces = array.filter(function (place) {
                 return +place.type_place_id === 3;
             });
 
-            vm.organizationPlaces = array.filter(function(place) {
+            vm.organizationPlaces = array.filter(function (place) {
                 return +place.type_place_id === 4;
             });
 
-            vm.universityPlaces = array.filter(function(place) {
+            vm.universityPlaces = array.filter(function (place) {
                 return +place.type_place_id === 5;
             });
 
-            vm.schoolPlaces = array.filter(function(place) {
+            vm.schoolPlaces = array.filter(function (place) {
                 return +place.type_place_id === 6;
             });
 
-            vm.addressPlaces = array.filter(function(place) {
+            vm.addressPlaces = array.filter(function (place) {
                 // all places
                 return true;
             });
-
 
 
         });
@@ -309,7 +308,7 @@
                         vm.places.push(data.place);
                         vm.subForm = false;
                     }
-                }, function() {
+                }, function () {
                     console.log('Add place failed');
                     vm.subForm = false;
                 });
@@ -371,7 +370,7 @@
                             vm.isPlaceAdded = false;
                         }, 2000);
                     }
-                }, function() {
+                }, function () {
                     console.log('Invite users to new place failed');
                     vm.subForm = false;
                 });
@@ -444,8 +443,15 @@
 
         };
 
-        vm.resetNewPlaceForm = function() {
+        vm.resetNewPlaceForm = function () {
             vm.placeNew = angular.copy(originalPlaceNew);
+        };
+
+        vm.goPlace = function (place) {
+            $state.go('place', {
+                placeName: place.url_name,
+                placeId: place.id
+            });
         };
 
         function getCities(country) {
