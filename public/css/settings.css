@@ -243,6 +243,18 @@
     cursor: pointer;
 }
 
+
+
+.groups .group div.wright {
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 13.3px;
+    background: #d7dade;
+    font-stretch: normal;
+    color: #333;
+}
+
 /*******************************
             Modal dialogs
 *******************************/
