@@ -305,6 +305,7 @@
                         vm.placeId = data.place.id;
                         data.place.is_new_place = true;
                         data.place.is_admin = true;
+                        vm.currentPlace = data.place;
                         vm.places.push(data.place);
                         vm.subForm = false;
                     }
@@ -366,8 +367,7 @@
                         }
                         vm.subForm = false;
                         $timeout(function () {
-                            $state.go('places');
-                            vm.isPlaceAdded = false;
+                            vm.goPlace(vm.currentPlace);
                         }, 2000);
                     }
                 }, function () {
