@@ -1106,9 +1106,7 @@
 			if (response.length === 0) {
 				$scope.counter = 0;
 			} else {
-				response.messages.forEach(function (value) {
-					$scope.messages.unshift(value);
-				});
+				$scope.messages = $scope.messages.concat(response.messages);
 				$scope.counter += 10;
 			}
 		});
