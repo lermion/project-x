@@ -10,7 +10,7 @@ class CityController extends Controller
 {
     public function index($country_id)
     {
-        $cities = City::where('country_id', $country_id)->get();
+        $cities = City::where('country_id', $country_id)->orderBy('name', 'asc')->get();
         return $cities;
     }
 }

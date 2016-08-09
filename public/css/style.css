@@ -1102,7 +1102,7 @@ body.public.user {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 75%;
+		background-size: 30px;
 		padding-left: 0;
 	}
 	.public header .main-menu .menu-item,
@@ -1129,6 +1129,7 @@ body.public.user {
 		box-sizing: border-box;
 		z-index: 9999999999;
 		position: fixed;
+		top: 0;
 	}
 	.public header .main-menu.show-menu .drop-menu {
 		position: absolute;
