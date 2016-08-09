@@ -159,7 +159,6 @@ return [
          * phinx
          */
         euclid1990\PhpSphinxSearch\Providers\SphinxSearchServiceProvider::class,
-
     ],
 
     /*

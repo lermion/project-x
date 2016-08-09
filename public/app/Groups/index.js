@@ -23,7 +23,8 @@
                 params: {
                     groupId: null,
                     modalId: null,
-                    isOpenModal: false
+                    isOpenModal: false,
+                    prevState: null
                 },
                 resolve: {
                     group: ['groupsService', '$stateParams', '$state', '$q', 'ngDialog', function (groupsService, $stateParams, $state, $q, ngDialog) {

@@ -61,8 +61,8 @@
                                 <p>Файлы</p>
                                 <span>{{vm.place.count_chat_files}}</span>
                             </a>
-
-                            <div class="user-menu" ng-if="vm.place.is_admin"
+                        </div>
+                        <div class="user-menu" ng-if="vm.place.is_admin"
                                  ng-click="vm.showGroupMenu=!vm.showGroupMenu">
                                 <div class="menu-item" ng-if="vm.showGroupMenu">
                                     <div class="inner">
@@ -74,7 +74,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <button ng-if="!vm.place.is_sub" ng-click="vm.subscribe()">Подписаться</button>
                         <button ng-if="vm.place.is_sub" ng-click="vm.subscribe()">Отписаться</button>
                     </div>

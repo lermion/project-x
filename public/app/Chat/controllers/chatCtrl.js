@@ -14,7 +14,7 @@ angular.module('placePeopleApp')
 				loaded: false
 			};
 			$scope.showFileAddMenu = false;
-			$scope.counter = 0;
+			$scope.counter = 10;
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
 			$scope.loggedUserId = parseInt(storage.userId);
@@ -356,12 +356,13 @@ angular.module('placePeopleApp')
 					}
 				});
 			};
-			$scope.Model.openChatWith = function(chat){
+			$scope.Model.openChatWith = function(chat, index){
+				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
 				$scope.status.loading = false;
-				$scope.counter = 0;
+				$scope.counter = 10;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
 					if ($window.innerWidth <= 768) {
@@ -419,6 +420,7 @@ angular.module('placePeopleApp')
 				}
 			};			
 			socket.on("get user rooms", function(response){
+				console.log(response);
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
 					if(lastDialogue.is_group && lastDialogue.isNew){
@@ -481,16 +483,7 @@ angular.module('placePeopleApp')
 				});
 			};
 
-			$scope.Model.scrollBottom = function(){
-				setTimeout(function(){
-					var chatWindow = angular.element(document.querySelector('.chat-right-chat-inner'));
-					var height = chatWindow[0].scrollHeight;
-					// $scope.$broadcast('rebuildScroll');
-					chatWindow.scrollTop(height);
-				}, 500);
-			};
-
-			$scope.showPopupWithFiles = function (files) {
+			$scope.showPopupWithFiles = function(files){
 				$scope.imagesInPopup = files;
 				$scope.mainImageInPopup = files[0].url;
 				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
@@ -517,6 +510,10 @@ angular.module('placePeopleApp')
 				if(flag === 'list'){
 					pub.mainFile = file;
 				}
+			};
+
+			$scope.isSelected = function (index) {
+				return index === $scope.currentIndex;
 			};
 
 			socket.on('updatechat', function(data){

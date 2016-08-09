@@ -7,16 +7,36 @@
             <p>Подписки</p>
             <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString"
                 ng-click="vm.onItemSelected(user)">
-                <img ng-src="{{user.avatar_path}}">
+                <div class="popup-invite-place-people-name1">
+                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                        <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+                    </a>
 
-                <p>{{::user.first_name}} {{::user.last_name}}</p>
+                    <div>
+                        <span>
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                {{::user.first_name}} {{::user.last_name}}
+                            </a>
+                        </span>
+                    </div>
+                </div>
             </li>
             <p>Подписчики</p>
             <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
                 ng-click="vm.onItemSelected(user)">
-                <img ng-src="{{user.avatar_path}}">
+                <div class="popup-invite-place-people-name1">
+                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                        <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+                    </a>
 
-                <p>{{::user.first_name}} {{::user.last_name}}</p>
+                    <div>
+                        <span>
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                {{::user.first_name}} {{::user.last_name}}
+                            </a>
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -24,10 +44,20 @@
         <p class="item1-add-people-title">Список пользователей</p>
         <ul>
             <li ng-repeat="user in vm.invitedUsers" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
-                <img ng-src="{{user.avatar}}">
+                <div class="popup-invite-place-people-name1">
+                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                        <img ng-src="{{user.avatar}}" class="contacts_photo_img">
+                    </a>
 
-                <p>{{::user.firstName}} {{::user.lastName}}</p>
-                <span class="items-selected__item-delete" ng-click="vm.removeUserFromInviteList(user)">&#10006;</span>
+                    <div>
+                        <span>
+                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+                                {{::user.firstName}} {{::user.lastName}}
+                            </a>
+                        </span>
+                    </div>
+                    <span class="items-selected__item-delete" ng-click="vm.removeUserFromInviteList(user)">&#10006;</span>
+                </div>
             </li>
         </ul>
     </div>

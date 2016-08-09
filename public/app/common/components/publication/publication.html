@@ -67,7 +67,7 @@
                       ng-if="!($ctrl.pub.user_like && $ctrl.pub.like_count === 1)">{{$ctrl.pub.user_like ? ($ctrl.pub.user_like && ($ctrl.pub.like_count - 1)) : $ctrl.pub.like_count}} чел.</span>
             </p>
         </div>
-        <a href class="comments-count">{{$ctrl.pub.comment_count}}</a>
+        <span href class="comments-count">{{$ctrl.pub.comment_count}}</span>
     </div>
 
     <div class="more-comments" ng-if="$ctrl.pub.comments.length !== $ctrl.pub.comment_count">

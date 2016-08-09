@@ -120,7 +120,7 @@ class PlaceController extends Controller
             $place->count_users = $place->users()->count();
             $place->count_chat_files = $place->count_chat_files($place->room_id);
             $place->count_publications = $place->publications()->count();
-            $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'place_users.is_admin')
+            $place->users = User::join('place_users','place_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'users.login', 'place_users.is_admin')
                 ->where('place_users.place_id',$place->id)->get();
             if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
                 $place->is_sub = true;

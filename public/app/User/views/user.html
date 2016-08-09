@@ -6,7 +6,7 @@
                     <div class="my-profile">
                         <div class="ava">
                             <a href="javascript:void(0)">
-                                <img ng-src="{{userData.avatar_path}}" alt="">
+                                <img ng-src="{{userData.avatar_path ? userData.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                             </a>
                         </div>
                         <div class="my-profile-item">
@@ -20,7 +20,7 @@
                                     <input type="text" ng-show="profileEdition" placeholder="Фамилия"
                                            ng-model="userData.last_name">
                                 </div>
-                                <p>{{userData.is_online ? 'Online' : 'Offline'}}</p>
+                                <p>{{userData.is_online ? 'В сети' : 'Не в сети'}}</p>
                             </div>
 
                             <div class="counts" ng-class="myProfile ? '' : 'another-user'">

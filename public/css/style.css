@@ -882,7 +882,7 @@ body.public.user {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 60%;
-	background-image: url(../images/enter.png);
+	/*background-image: url(../images/enter.png);*/
 	transition: all .2s ease-in-out .1s; 
 	width: 35px;
 	height: 35px;
@@ -894,7 +894,7 @@ body.public.user {
 	background-image: url(../images/exite.png);
 }
 .public header .exit:hover span {
-	background-image: url(../images/enter-hover.png);
+	/*background-image: url(../images/enter-hover.png);*/
 	transition: all .2s ease-in-out .1s; 
 }
 .public header .exit.enter:hover span {
@@ -1102,7 +1102,7 @@ body.public.user {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 75%;
+		background-size: 30px;
 		padding-left: 0;
 	}
 	.public header .main-menu .menu-item,
@@ -1129,6 +1129,7 @@ body.public.user {
 		box-sizing: border-box;
 		z-index: 9999999999;
 		position: fixed;
+		top: 0;
 	}
 	.public header .main-menu.show-menu .drop-menu {
 		position: absolute;
@@ -1232,6 +1233,7 @@ body.public.user {
 	flex-grow:33;
 }
 .my-profile-item .user-name {
+	cursor: default;
 	font-size: 16.7px;
 	display: block;
 	color: #333;
@@ -1315,7 +1317,7 @@ body.public.user {
 	color: #333;
 	font-family: "SFUIDisplayMedium";
 	text-align: center;
-	cursor: pointer;
+	cursor: default;
 	line-height: 20px;
 	margin: 15px 0 10px;
 }
@@ -1327,7 +1329,8 @@ body.public.user {
 	font-family: "SFUIDisplayLight";
 	padding-left: 30px;
 	margin: 0 0 10px 0;
-	ine-height: 20px;
+	line-height: 20px;
+	cursor: pointer;
 	background-position: center left;
 	background-repeat: no-repeat;
 	color: #666;
@@ -2936,10 +2939,10 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
-.ngdialog.popup-user-subscribers.ngdialog-theme-default,
+/*.ngdialog.popup-user-subscribers.ngdialog-theme-default,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default {
 	position: absolute;
-}
+}*/
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;
@@ -3289,7 +3292,7 @@ spam-item {
 }
 .main-content .groups a,
 .groups-content .groups-header .pub-groups,
-.places-page .groups-header .pub-groups {
+.places-page .pub-groups {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	padding-left: 35px;
@@ -3831,6 +3834,9 @@ body.ngdialog-open {
 		margin: 0 0 10px 0;
 		width: 100%;
 	}
+	.place-menu-wrap .group-menu .group-menu-item {
+		margin: 0 0 0 0;
+	}
 	.group-page .group-publication {
 		width: 500px;
 	}
@@ -3918,7 +3924,7 @@ body.ngdialog-open {
 }
 .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after,
 .user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:empty:after {
-	content: 'Текст комментария...';
+	content: 'Текст публикации...';
 	    color: #999;
 }
 .posFixedPopup{

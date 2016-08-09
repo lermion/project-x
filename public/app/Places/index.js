@@ -73,7 +73,8 @@
                 controller: 'PlaceCtrl',
                 controllerAs: 'vm',
                 params: {
-                    placeId: null
+                    placeId: null,
+                    prevState: null
                 },
                 resolve: {
                     place: ['placesService', '$state', '$stateParams', '$q', 'ngDialog', function (placesService, $state, $stateParams, $q, ngDialog) {
