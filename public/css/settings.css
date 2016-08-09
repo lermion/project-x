@@ -3407,10 +3407,8 @@ span.users-today-time-time.early {
     cursor: pointer;
 }
 .to-my-img-inner-photo-pict img {
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
 }
 .group-comments .pictures {
     padding: 5px 10px;
