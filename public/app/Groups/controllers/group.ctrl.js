@@ -1102,6 +1102,7 @@
 			return deferred.promise;
 		};
 		socket.on("load more messages", function (response) {
+			console.log(response);
 			if (response.length === 0) {
 				$scope.counter = 0;
 			} else {
