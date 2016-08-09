@@ -17,6 +17,8 @@ use DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class ChatController extends Controller
 {
     public function delete_chat($room_id)
