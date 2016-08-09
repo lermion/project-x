@@ -516,6 +516,7 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on('updatechat', function(data){
+				console.log(data);
 				$scope.glued = true;
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
