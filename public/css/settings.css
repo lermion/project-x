@@ -292,7 +292,8 @@
 .popup-invite-group .invite-group__items-selected ul li {
     padding-left: 10px;
 }
-.popup-invite-group .invite-group__items ul li:hover {
+.popup-invite-group .invite-group__items ul li:hover,
+.contacts_list .user-block:hover {
     cursor: pointer;
 }
 .popup-invite-group .invite-group__items ul li > img,
@@ -312,7 +313,7 @@
     height: 15px;
     line-height: 15px;
     position: absolute;
-    left: 45px;
+    left: 54px;
     text-align: center;
     top: 0;
     width: 15px;
@@ -330,6 +331,14 @@
     color: #999;
     padding: 10px;
     font-family: "SFUIDisplayLight";
+}
+.invite-group__items .contacts_photo_img,
+.invite-group__items-selected .contacts_photo_img {
+    width: 50px;
+    height: 50px;
+    display: block;
+    overflow: hidden;
+    border-radius: 50%;
 }
 /*----------------------
      Group Set Creator
@@ -6405,6 +6414,13 @@ textarea[type="text"]:focus,
 .popup-invite-place-people-name1 {
     display: flex;
 }
+.popup-invite-place-people-name1 a,
+.contacts_list .user-block a{
+    text-decoration: none;
+    cursor: pointer;
+    color: #333;
+    margin-left: 5px;
+}
 .popup-invite-group .invite-group__items .popup-invite-place-people-plus img {
     width: 10px;
     height: 10px;
@@ -6436,7 +6452,8 @@ textarea[type="text"]:focus,
     top: 28%;
     right: 0;
 }
-.ngdialog.popup-invite-group.ngdialog-theme-default.ng-scope .modal__content .invite-group__items ul li {
+.ngdialog.popup-invite-group.ngdialog-theme-default .modal__content .invite-group__items ul li,
+.contacts_list .user_block {
     background-image: url(/images/add.png);
     background-repeat: no-repeat;
     background-position: right 5px center;

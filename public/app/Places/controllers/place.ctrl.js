@@ -668,6 +668,7 @@
                     firstName: user.first_name,
                     lastName: user.last_name,
                     avatar: user.avatar_path,
+                    login: user.login,
 
                     isAdmin: false
                 };
