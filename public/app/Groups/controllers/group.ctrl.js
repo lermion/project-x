@@ -1098,7 +1098,9 @@
 		socket.on("load more messages", function (response) {
 			if (response.messages.length === 0) {
 			} else {
-				$scope.messages = $scope.messages.concat(response.messages);
+				response.messages.forEach(function(value){
+					$scope.messages.unshift(value);
+				});
 				$scope.counter += 10;
 			}
 		});

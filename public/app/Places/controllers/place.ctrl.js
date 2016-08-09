@@ -1211,7 +1211,7 @@
 			if (response.length === 0) {
 				$scope.counter = 0;
 			} else {
-				response.messages.forEach(function (value) {
+				response.messages.forEach(function(value){
 					$scope.messages.unshift(value);
 				});
 				$scope.counter += 10;
