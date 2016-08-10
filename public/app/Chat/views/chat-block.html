@@ -30,7 +30,7 @@
 				</div>
 			</div>
 	</div>
-	<div scroll-glue="glued" infinite-scroll='loadMoreMessages(Model.opponent.room_id)' infinite-scroll-distance='2' class="chat-right-chat-inner">
+	<div scroll-glue="glued" when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
