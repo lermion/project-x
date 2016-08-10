@@ -6881,7 +6881,8 @@ textarea[type="text"]:focus,
         width: 96%;
         margin-left: -50%;
     }
-    .view-publication .user-publication .user-function .user .user-name {
+    .view-publication .user-publication .user-function .user .user-name,
+    .peoples-inner-item-admin.new-admin {
         font-size: .8em;    
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
