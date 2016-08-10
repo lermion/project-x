@@ -2728,7 +2728,7 @@ p.top-person-status {
     width: 100%;
     box-sizing: border-box;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     height: 60px;
 }
 .chat-left-users-users-today.active {
@@ -2785,7 +2785,7 @@ p.top-person-status {
     flex-wrap: wrap;
     position: absolute;
     top: 0px;
-    right: 5px;
+    right: 0px;
     align-items: center;
     align-content: center;
     width: 50px;
