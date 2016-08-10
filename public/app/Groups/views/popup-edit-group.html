@@ -17,8 +17,7 @@
                        ngf-pattern="'image/*'"
                        ngf-min-height="240"
                        ngf-min-width="700"
-                       ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
-                       ngf-before-model-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+                       ngf-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
                 <label for="avatarImg">
                     <img class="avatar__card" ngf-src="vm.groupEdited.card_avatar" ngf-no-object-url="true">
                 </label>
