@@ -1,4 +1,4 @@
-<div class="group-files">
+<div class="group-files" ng-if="vm.mergedChatFiles.length > 0">
 
     <div class="group-files-container">
 
@@ -16,3 +16,4 @@
         </div>
     </div>
 </div>
+<h4 class="text-center" ng-if="vm.mergedChatFiles.length === 0">Список файлов пуст</h4>
