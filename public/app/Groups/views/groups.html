@@ -27,13 +27,13 @@
                              ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups"
                         ng-click="goGroup(group)">
                             <div class="group-cover">
-                                <a hrefclass="group-ava">
+                                <a href class="group-ava">
                                     <img ngf-src="group.card_avatar" ngf-as-background="true">
                                 </a>
 
                                 <div class="group-likes">
-                                    <a href="" class="group-like">{{::group.count_user}}</a>
-                                    <a href="" class="group-comments">{{::group.publications}}</a>
+                                    <p href="" class="group-like">{{::group.count_user}}</p>
+                                    <p href="" class="group-comments">{{::group.publications}}</p>
                                 </div>
                             </div>
                             <div class="titles">
