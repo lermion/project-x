@@ -17,10 +17,10 @@
                        ngf-select
                        ngf-accept="'image/*'"
                        ngf-pattern="'image/*'"
-                       ngf-min-height="240"
-                       ngf-min-width="700"
+                       ngf-min-height="290"
+                       ngf-min-width="290"
                        ngf-resize="{width: 100, height: 100, quality: 1, centerCrop: true}"
-                       ngf-before-model-change="Model.changeChatCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       ngf-before-model-change="Model.cropImageGroupChat($file)"
                        required>
                 <label for="avatarImg" style="cursor:pointer;">               
                     <img ngf-thumbnail="Model.newGroupChat.avatar" ngf-no-object-url="true">                
@@ -52,7 +52,7 @@
 
         <div class="button">
             <a href="" class="cansel" ng-click="Model.cancelNewChat()"> Отменить </a>
-            <a href="" class="create" ng-click="Model.createGroupChat(Model.newGroupChat.name, emojiMessage, Model.newGroupChat.avatar)"> Создать чат</a>
+            <a href="" class="create" ng-click="Model.createGroupChat(Model.newGroupChat.name, emojiMessage)"> Создать чат</a>
         </div>
 
         <div class="fifth_item" ng-if="Model.subscribers.length + Model.subscriptions.length > 0">

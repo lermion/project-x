@@ -1225,7 +1225,8 @@ body.public.user {
 	display: block;
 	overflow: hidden;
 	width: 140px;
-		height: 140px;
+	height: 140px;
+	cursor: default;
 }
 .my-profile .ava a img {
 	width: 100%;
@@ -1321,6 +1322,12 @@ body.public.user {
 	cursor: default;
 	line-height: 20px;
 	margin: 15px 0 10px;
+}
+.counts .counter:nth-child(1),
+.counts .counter:nth-child(2),
+.counts .counter:nth-child(1) p,
+.counts .counter:nth-child(2) p {
+	cursor: default;
 }
 .counts.another-user .counter {
 	margin: 15px 8% 10px 0;
@@ -1772,7 +1779,7 @@ body.public.user {
 	width: 100%;
 	left: 0;
 	right: 0;
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(0, 0, 0, .6);
 	box-sizing: border-box;
 	z-index: 9999999;
 }
@@ -1909,9 +1916,6 @@ body.public.user {
 	line-height: 20px;
 	display: inline-block;
 	vertical-align: middle;
-}
-spam-item {
-	padding: 0 40px;
 }
 .spam-item label {
 	font-size: 14px;
@@ -2651,6 +2655,11 @@ spam-item {
 	color: #fff;
 	background-image: url(../images/like-hover.png);
 }
+.user-publication .likes-item .like.active {
+    background-color: #495b79;
+    color: #fff;
+    background-image: url(../images/like-hover.png);
+}
 .user-publication .likes-item .like-item {
 	color: #333;
 	font-size: 14.6px;
@@ -2953,8 +2962,8 @@ spam-item {
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;
-	width: 700px;
-	margin-left: -350px;
+	width: 500px;
+	margin-left: -250px;
 	margin-top: 0;
 	top: 10%;
 	height: auto;
@@ -2985,8 +2994,8 @@ spam-item {
 	border-radius: 50%;
 	display: block;
 	overflow: hidden;
-	width: 100px;
-	height: 100px;
+	width: 50px;
+	height: 50px;
 	opacity: 1;
 	transition: all .3s ease-in-out .2s;
 	cursor: pointer;
@@ -2996,6 +3005,7 @@ spam-item {
 }
 .contacts-off-container .subscriber-item .user-ava .ava img {
 	width: 100%;
+	height: 100%;
 }
 .contacts-off-container .user-info .user-name {
 	font-size: 16.7px;
@@ -3006,7 +3016,7 @@ spam-item {
 	line-height: 20px;
 	font-family: "SFUIDisplayMedium";
 	transition: all .3s ease-in-out .1s;
-	max-width: 190px;
+	max-width: 210px;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap; 
@@ -3270,7 +3280,7 @@ spam-item {
 			height: 40px;
 	}
 	.contacts-off-container .user-info .user-name {
-		max-width: 140px;
+		max-width: 120px;
 			font-size: 14.6px;
 	}
 	.contacts-off-container .user-info .status-user {
@@ -3283,6 +3293,11 @@ spam-item {
 	.comment-imges .comment-list {
 		height: 45px;
 	}
+	.ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
+	 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
+	 	width: 96%;
+	 	margin-left: -48%;
+	 }
 }
 /*  main page*/
 

@@ -10,6 +10,7 @@ angular.module('placePeopleApp')
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
 			$scope.showFileAddMenu = false;
+			$scope.myCroppedImage = null;
 			$scope.counter = 10;
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
@@ -410,7 +411,6 @@ angular.module('placePeopleApp')
 						limit: 10
 					};
 				}
-				console.log($scope.Model.opponent);
 				$scope.Model.opponent.room_id = chat.room_id;
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
@@ -444,7 +444,6 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
-				console.log("images", files);
 				$scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
@@ -760,7 +759,7 @@ angular.module('placePeopleApp')
 				editGroupChat.close();
 			}
 
-			$scope.Model.createGroupChat = function(name, status, avatar){
+			$scope.Model.createGroupChat = function(name, status){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];
 				users.push(parseInt($scope.loggedUserId));
@@ -772,9 +771,9 @@ angular.module('placePeopleApp')
 						users.push(user.id);
 					});
 					var avatarObj = {
-						avatarName: avatar.name,
-						avatarType: avatar.type,
-						avatar: avatar
+						avatarName: $scope.avatarGroupChat.name,
+						avatarType: $scope.avatarGroupChat.type,
+						avatar: $scope.avatarGroupChat
 					};
 					var data = {
 						is_group: true,
@@ -811,11 +810,47 @@ angular.module('placePeopleApp')
 				}								
 			};
 
-			$scope.Model.changeChatCoverFile = function(files, file, newFiles, duplicateFiles, invalidFiles, event){
-				Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
-					$scope.Model.newGroupChat.avatar = resizedFile;	                
-				});
+			$scope.Model.cropImageGroupChat = function(file){
+				if(file){
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$scope.$apply(function($scope){
+							$scope.myImage = e.target.result;
+							modalCropImage = ngDialog.open({
+								template: '../app/Chat/views/popup-crop-image-group-chat.html',
+								className: 'settings-add-ava ngdialog-theme-default',
+								scope: $scope,
+								data: {
+									fileName: file.name
+								}
+							});
+						});
+					};
+					reader.readAsDataURL(file);
+				}
+				// Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+				// 	$scope.Model.newGroupChat.avatar = resizedFile;	                
+				// });
 			};
+
+			$scope.saveCropp = function(myCroppedImage, fileName){
+				$scope.Model.newGroupChat.avatar = myCroppedImage;
+				var blobFile = blobToFile(myCroppedImage);
+				blobFile.name = fileName;
+				blobFile.lastModifiedDate = new Date();
+				$scope.avatarGroupChat = blobFile;
+				modalCropImage.close();
+			};
+
+			function blobToFile(dataURI){
+				var byteString = atob(dataURI.split(',')[1]);
+				var ab = new ArrayBuffer(byteString.length);
+				var ia = new Uint8Array(ab);
+				for (var i = 0; i < byteString.length; i++) {
+					ia[i] = byteString.charCodeAt(i);
+				}
+				return new Blob([ab], {type: 'image/jpeg', name: 'fewfewfewfe'});
+			}
 			
 			$scope.Model.removeUser = function(index){
 				if($scope.Model.newGroupChat.users.length !== 1){

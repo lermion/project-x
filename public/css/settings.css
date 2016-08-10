@@ -1760,6 +1760,7 @@ div.my_profilll.photo-list div:last-child {
     align-items: center;
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 .group-files-content a img {
     display: flex;
@@ -3375,10 +3376,15 @@ span.users-today-time-time.early {
     display: flex;
     margin-right: 5px;
     box-sizing: border-box;
-    background-image: url(/images/done.png);
     background-position: right center;
-    background-size: 15%;
+    background-size: 11px;
     background-repeat: no-repeat;
+}
+.right-chat-my-msg-date.done {
+    background-image: url(/images/done.png);
+}
+.right-chat-my-msg-date.no-done {
+    background-image: url(/images/no-done.png);
 }
 .right-chat-my-msg-date span {
     font-family: "SFUIDisplayMedium";
@@ -3460,10 +3466,15 @@ span.users-today-time-time.early {
     display: flex;
     margin-right: 5px;
     box-sizing: border-box;
-    background-image: url(/images/done.png);
     background-position: right center;
-    background-size: 20%;
+    background-size: 11px;
     background-repeat: no-repeat;
+}
+.right-chat-to-my-msg-date.done {
+    background-image: url(/images/done.png);
+}
+.right-chat-to-my-msg-date.no-done {
+    background-image: url(/images/no-done.png);
 }
 .right-chat-to-my-msg-date span {
     font-family: "SFUIDisplayMedium";
