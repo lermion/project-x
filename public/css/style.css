@@ -2535,7 +2535,7 @@ spam-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: rgba(0,0,0,.2);
+	background: rgba(0,0,0,0.03);
 	cursor: pointer;
 }
 .publication-images .images-item:nth-child(7n){
@@ -2953,6 +2953,8 @@ spam-item {
 	margin-top: 0;
 	top: 10%;
 	height: auto;
+	max-height: 75vh;
+    overflow-y: auto;
 }
 .contacts-off-container .subscriber,
 .contacts-off-container .subscriber-item {
@@ -3902,7 +3904,7 @@ body.ngdialog-open {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgba(0,0,0,.2);
+	background: rgba(0,0,0,.6);
 }
 .content-user #user-page.list-style {
 	box-shadow: none;

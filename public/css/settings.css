@@ -2161,7 +2161,7 @@ div.my_profilll.photo-list div:last-child {
     height: 15px;
     line-height: 15px;
     position: absolute;
-    left: 35px;
+    left: 40px;
     text-align: center;
     top: 0px;
     width: 15px;
@@ -3162,8 +3162,8 @@ span.users-today-time-time.early {
     align-items: center;
 }
 .create-places-add-cover-img a > img {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 .create-places-add-cover-img a {
     width: 80px;
@@ -5191,7 +5191,7 @@ input.cmn-toggle-round:checked + label:after {
         color: #bbb;
         height: 10px;
         line-height: 10px;
-        left: 29px;
+        left: 35px;
         top: 5px;
         width: 10px;
         font-size: .5em;

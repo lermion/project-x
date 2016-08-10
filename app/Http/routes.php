@@ -270,7 +270,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/moderator/count_complaint_publication\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/file_chat/1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
