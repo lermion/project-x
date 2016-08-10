@@ -9,10 +9,6 @@ angular.module('placePeopleApp')
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
-			$scope.status = {
-				loading: false,
-				loaded: false
-			};
 			$scope.showFileAddMenu = false;
 			$scope.counter = 10;
 			var editGroupChat = null;
@@ -204,6 +200,7 @@ angular.module('placePeopleApp')
 				};
 				var deferred = $q.defer();
 				if($scope.Model.Chat !== undefined && $scope.Model.Chat.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading){
+					console.log("inside");
 					$scope.busyMessages = true;
 					socket.emit("load more messages", data);
 				}else{
@@ -213,11 +210,11 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on("load more messages", function(response){
-				$scope.busyMessages = false;
 				if(response.messages.length === 0){
 					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
+					$scope.busyMessages = false;
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
@@ -365,6 +362,7 @@ angular.module('placePeopleApp')
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
+				$scope.statusLoading = true;
 				$scope.busyMessages = false;
 				$scope.counter = 10;
 				if ($state.current.name === 'chat.contacts') {
