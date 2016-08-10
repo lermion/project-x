@@ -1,5 +1,5 @@
 <div class="group-chat">
-	<div scroll-glue="glued" infinite-scroll='loadMoreMessages()' infinite-scroll-distance='2' ng-class="{'stop-scrolling': vm.group.is_sub === false}" class="group-chat-inner">
+	<div scroll-glue="glued" ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
 		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div> -->

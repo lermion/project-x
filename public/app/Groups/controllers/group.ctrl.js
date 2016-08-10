@@ -1078,6 +1078,7 @@
 			}
 		};
 		$scope.statusLoading = true;
+		$scope.busyGrp = false;
 		$scope.loadMoreMessages = function () {
 			var deferred = $q.defer();
 			var members = [];
@@ -1088,7 +1089,8 @@
 				limit: 10,
 				members: members
 			};
-			if ($scope.messages !== undefined && $scope.messages.length >= 10 && $scope.statusLoading) {
+			if ($scope.messages !== undefined && $scope.messages.length !== 0 && $scope.busyGrp !== true && $scope.statusLoading) {
+				$scope.busyGrp = true;
 				socket.emit("load more messages", data);
 			} else {
 				deferred.reject();
@@ -1096,8 +1098,9 @@
 			return deferred.promise;
 		};
 		socket.on("load more messages", function (response) {
-			$scope.statusLoading = false;
+			$scope.busyGrp = false;
 			if (response.messages.length === 0) {
+				$scope.statusLoading = false;
 			} else {
 				response.messages.forEach(function(value){
 					$scope.messages.unshift(value);
