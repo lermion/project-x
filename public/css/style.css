@@ -1225,7 +1225,8 @@ body.public.user {
 	display: block;
 	overflow: hidden;
 	width: 140px;
-		height: 140px;
+	height: 140px;
+	cursor: default;
 }
 .my-profile .ava a img {
 	width: 100%;
@@ -1321,6 +1322,12 @@ body.public.user {
 	cursor: default;
 	line-height: 20px;
 	margin: 15px 0 10px;
+}
+.counts .counter:nth-child(1),
+.counts .counter:nth-child(2),
+.counts .counter:nth-child(1) p,
+.counts .counter:nth-child(2) p {
+	cursor: default;
 }
 .counts.another-user .counter {
 	margin: 15px 8% 10px 0;
