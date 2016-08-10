@@ -443,6 +443,7 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
+				console.log("images", files);
 				$scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
