@@ -25,7 +25,7 @@
 						<a href="javascript:void(0);" ng-click="Model.deleteChat(Model.opponent.room_id)">Удалить чат</a>
 						<a ng-if="Model.opponent.is_group" href="javascript:void(0);" ng-click="Model.editGroupChat(Model.opponent)">Редактировать</a>
 						<a ng-if="Model.opponent.is_group" href="javascript:void(0);" ng-click="Model.leaveGroupChat(Model.opponent)">Выйти из чата</a>
-						<a href="javascript:void(0);" ng-click="refTo('chat.notification'); Model.showBlockedBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;">Уведомления</a>
+						<a href="javascript:void(0);" ng-click="refTo('chat.notification', Model.opponent); Model.showBlockedBlock=false; Model.showContactBlock=false; Model.showChatBlock=false;">Уведомления</a>
 					</div>
 				</div>
 			</div>

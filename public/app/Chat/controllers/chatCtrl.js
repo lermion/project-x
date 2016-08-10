@@ -47,7 +47,8 @@ angular.module('placePeopleApp')
 				$state.go("chat.list");
 			}
 
-			$scope.refTo = function(stateName){
+			$scope.refTo = function(stateName, opponent){
+				$scope.Model.openSettings(opponent);
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent = false;
 				}
