@@ -2728,7 +2728,7 @@ p.top-person-status {
     width: 100%;
     box-sizing: border-box;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     height: 60px;
 }
 .chat-left-users-users-today.active {
@@ -2785,7 +2785,7 @@ p.top-person-status {
     flex-wrap: wrap;
     position: absolute;
     top: 0px;
-    right: 5px;
+    right: 0px;
     align-items: center;
     align-content: center;
     width: 50px;
@@ -4132,7 +4132,7 @@ span.users-today-time-time.early {
         margin-left: 10px;
     }
     .chat-left-users-users-today {
-        justify-content: space-between;
+        justify-content: flex-start;
     }
     .chat-users-today-data {
         width: 88%;
@@ -6241,7 +6241,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
     color: #495b79;
     border-bottom: 1px solid #e0e2e5;
