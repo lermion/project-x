@@ -4934,6 +4934,7 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     box-shadow: 0px 0px 10px 0px #c0c0c0;
     background-color: #fff;
+    cursor: pointer;
 }
 .places-category-item:nth-child(3n) {
     margin-right: 0px;
@@ -6785,7 +6786,7 @@ textarea[type="text"]:focus,
 }
 .places-page .pub-groups {
     background-size: 15%;
-    background-image: url(/images/place-create.png);
+    background-image: url(/images/place-create1.png);
     padding-left: 25px;
 }
 .places-page  .pub-groups:hover {

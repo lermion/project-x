@@ -47,7 +47,8 @@ angular.module('placePeopleApp')
 				$state.go("chat.list");
 			}
 
-			$scope.refTo = function(stateName){
+			$scope.refTo = function(stateName, opponent){
+				$scope.Model.openSettings(opponent);
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent = false;
 				}
@@ -179,7 +180,8 @@ angular.module('placePeopleApp')
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
 			};
-
+			$scope.statusLoading = true;
+			$scope.busyMessages = false;
 			$scope.loadMoreMessages = function(roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
@@ -201,7 +203,8 @@ angular.module('placePeopleApp')
 					members: members
 				};
 				var deferred = $q.defer();
-				if(!$scope.status.loading && $scope.Model.Chat !== undefined && $scope.Model.Chat.length >= 10){
+				if($scope.Model.Chat !== undefined && $scope.Model.Chat.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading){
+					$scope.busyMessages = true;
 					socket.emit("load more messages", data);
 				}else{
 					deferred.reject();
@@ -210,8 +213,9 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on("load more messages", function(response){
-				if(response.length === 0){
-					$scope.status.loading = true;
+				$scope.busyMessages = false;
+				if(response.messages.length === 0){
+					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
 					response.messages.forEach(function(value){
@@ -361,7 +365,7 @@ angular.module('placePeopleApp')
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
-				$scope.status.loading = false;
+				$scope.busyMessages = false;
 				$scope.counter = 10;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
