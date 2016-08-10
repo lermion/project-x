@@ -365,7 +365,7 @@ angular.module('placePeopleApp')
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
-				$scope.status.loading = false;
+				$scope.busyMessages = false;
 				$scope.counter = 10;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
