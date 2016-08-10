@@ -17,8 +17,8 @@ class Video extends Model
     public static function makeFrame($f_name, $f_path, $new_fname){
         if (substr(php_uname(), 0, 7) == "Windows"){
             $ffmpeg = FFMpeg::create([
-                'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
-                'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
+                'ffmpeg.binaries'        => 'C:\ffmpeg\bin\ffmpeg.exe',
+                'ffprobe.binaries'        => 'C:\ffmpeg\bin\ffprobe.exe'
             ]);
         }
         else {
@@ -44,8 +44,8 @@ class Video extends Model
 
             if (substr(php_uname(), 0, 7) == "Windows"){
                 $ffmpeg = FFMpeg::create([
-                    'ffmpeg'        => 'C:\ffmpeg\bin\ffmpeg.exe',
-                       'ffprobe'        => 'C:\ffmpeg\bin\ffprobe.exe'
+                    'ffmpeg.binaries'        => 'C:\ffmpeg\bin\ffmpeg.exe',
+                       'ffprobe.binaries'        => 'C:\ffmpeg\bin\ffprobe.exe'
                 ]);
             }
             else {
