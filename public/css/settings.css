@@ -2728,7 +2728,7 @@ p.top-person-status {
     width: 100%;
     box-sizing: border-box;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     height: 60px;
 }
 .chat-left-users-users-today.active {
@@ -2785,7 +2785,7 @@ p.top-person-status {
     flex-wrap: wrap;
     position: absolute;
     top: 0px;
-    right: 5px;
+    right: 0px;
     align-items: center;
     align-content: center;
     width: 50px;
@@ -4132,7 +4132,7 @@ span.users-today-time-time.early {
         margin-left: 10px;
     }
     .chat-left-users-users-today {
-        justify-content: space-between;
+        justify-content: flex-start;
     }
     .chat-users-today-data {
         width: 88%;
@@ -5283,7 +5283,7 @@ input.cmn-toggle-round:checked + label:after {
     background-image: url(/images/search-hover.png);
 }
 .main-content .groups {
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 @media (max-width: 800px) {
     .public header .main-menu .main-header-group {
@@ -6241,7 +6241,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
     color: #495b79;
     border-bottom: 1px solid #e0e2e5;
@@ -6786,7 +6786,7 @@ textarea[type="text"]:focus,
 }
 .places-page .pub-groups {
     background-size: 15%;
-    background-image: url(/images/place-create1.png);
+    background-image: url(/images/place-create2.png);
     padding-left: 25px;
 }
 .places-page  .pub-groups:hover {
@@ -6881,7 +6881,8 @@ textarea[type="text"]:focus,
         width: 96%;
         margin-left: -50%;
     }
-    .view-publication .user-publication .user-function .user .user-name {
+    .view-publication .user-publication .user-function .user .user-name,
+    .peoples-inner-item-admin.new-admin {
         font-size: .8em;    
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
@@ -6894,3 +6895,17 @@ textarea[type="text"]:focus,
         max-width: 170px;    
     }
  }
+.feed-publication-menu {
+    display: flex;
+}
+.feed-publication-menu a {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 10px;
+    transition: all .3s ease-in-out .1s;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}

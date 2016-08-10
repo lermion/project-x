@@ -20,6 +20,9 @@ angular.module('placePeopleApp')
 			}).error(function(error){
 				console.log(error);
 			});
+			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+				$scope.currentPath = $location.path();
+			});
 			$scope.Model.mobile = {};
 			if($window.innerWidth <= 768){
 				$scope.Model.mobile.display = true;								
@@ -210,6 +213,7 @@ angular.module('placePeopleApp')
 
 			socket.on("load more messages", function(response){
 				if(response.messages.length === 0){
+					$scope.glued = true;
 					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
@@ -357,7 +361,6 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
-				$scope.glued = true;
 				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
@@ -407,6 +410,7 @@ angular.module('placePeopleApp')
 						limit: 10
 					};
 				}
+				console.log($scope.Model.opponent);
 				$scope.Model.opponent.room_id = chat.room_id;
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
@@ -440,6 +444,7 @@ angular.module('placePeopleApp')
 			// });
 			
 			$scope.Model.sendMes = function(message, roomId, files){
+				console.log("images", files);
 				$scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
@@ -518,7 +523,6 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on('updatechat', function(data){
-				$scope.glued = true;
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
@@ -589,7 +593,7 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					if(!$scope.disabledSendMessage){
+					if(!$scope.disabledSendMessage && $scope.currentPath !== "/chat/blocked"){
 						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
 					}
 				}
@@ -821,15 +825,24 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){			
-				ChatService.setNotification(chat.room_id).then(function(response){						
-					
+			$scope.Model.saveNotificationSettings = function(){
+				var roomId = null;
+				for(var i = 0; i < $scope.Model.chatRooms.length; i++){
+					for(var j = 0; j < $scope.Model.chatRooms[i].members.length; j++){
+						if (!$scope.Model.chatRooms[i].is_group) {
+							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id){
+								roomId = $scope.Model.chatRooms[i].room_id;
+							}
+						}
+					}
+				}
+				ChatService.setNotification(roomId).then(function(response){
+					console.log(response);
 				},
 				function(error){
 					console.log(error);
-				});				
+				});
 			};
-
 			$scope.checkMessageType = function(message){
 				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
 				var match = (new RegExp(regExp)).exec(message.text);
