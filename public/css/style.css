@@ -2651,6 +2651,11 @@ spam-item {
 	color: #fff;
 	background-image: url(../images/like-hover.png);
 }
+.user-publication .likes-item .like.active {
+    background-color: #495b79;
+    color: #fff;
+    background-image: url(../images/like-hover.png);
+}
 .user-publication .likes-item .like-item {
 	color: #333;
 	font-size: 14.6px;
