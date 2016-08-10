@@ -177,6 +177,84 @@
     color: #7e7b7b;
     padding-left: 10px;
 }
+
+/*******************************
+            Common rules
+*******************************/
+
+/*----------------------
+     Contacts list (people of groups/places etc.)
+----------------------*/
+.contacts_list li {
+    padding: 0 0 0 10px;
+}
+.contacts_list .user-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: background;
+    transition-property: background;
+}
+.contacts_list .user-block:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+.contacts_list .user-info {
+    padding-top: 4px;
+    padding-left: 14px;
+    overflow: hidden;
+    line-height: 1;
+}
+.contacts_list .user-info__user {
+    padding-bottom: 5px;
+}
+.contacts_list .user-info__user a {
+    text-decoration: none;
+    cursor: pointer;
+}
+.contacts_list .user-info__status,
+.contacts_list .user-info__online {
+    color: #999;
+    padding: 0 0 5px 0;
+    font-size: 11px;
+}
+.contacts_list .items-selected__item-delete {
+    background: #ec6045;
+    border-radius: 50%;
+    color: #bbb;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    left: 54px;
+    text-align: center;
+    top: 0;
+    width: 15px;
+    font-size: .695em;
+    cursor: pointer;
+}
+
+
+
+.groups .group div.wright {
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 13.3px;
+    background: #d7dade;
+    font-stretch: normal;
+    color: #333;
+}
+
 /*******************************
             Modal dialogs
 *******************************/
@@ -293,7 +371,7 @@
     padding-left: 10px;
 }
 .popup-invite-group .invite-group__items ul li:hover,
-.contacts_list .user-block:hover {
+.contacts_list .user_block:hover {
     cursor: pointer;
 }
 .popup-invite-group .invite-group__items ul li > img,
@@ -1444,7 +1522,6 @@ label span.add {
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    margin-right: 15px;
 }
 .popup-add-group .fifth_item .item2 {
     margin-top: 22px;
@@ -2655,7 +2732,7 @@ p.top-person-status {
     height: 60px;
 }
 .chat-left-users-users-today.active {
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(240, 240, 240);
 }
 .chat-users-today-data {
     display: flex;
@@ -2787,8 +2864,8 @@ span.users-today-time-time.early {
 .chat-contact-selected-ava img {
     max-width: 200%;
     max-height: 200%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 .chat-contact-selected-data {
     width: 350px;
@@ -4857,6 +4934,7 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     box-shadow: 0px 0px 10px 0px #c0c0c0;
     background-color: #fff;
+    cursor: pointer;
 }
 .places-category-item:nth-child(3n) {
     margin-right: 0px;
@@ -6431,11 +6509,10 @@ textarea[type="text"]:focus,
     display: flex;
 }
 .popup-invite-place-people-name1 a,
-.contacts_list .user-block a{
+.contact_list a {
     text-decoration: none;
     cursor: pointer;
     color: #333;
-    margin-left: 5px;
 }
 .popup-invite-group .invite-group__items .popup-invite-place-people-plus img {
     width: 10px;
@@ -6472,7 +6549,7 @@ textarea[type="text"]:focus,
 .contacts_list .user_block {
     background-image: url(/images/add.png);
     background-repeat: no-repeat;
-    background-position: right 5px center;
+    background-position: right 20px center;
     background-size: 10px;
 }
 .group-description-container1 {
@@ -6657,6 +6734,14 @@ textarea[type="text"]:focus,
     .static-admin-question-inner {
         width: 100%;
     }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+        width: 98%;
+        margin-left: -50%;
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
+        margin-right: 0;
+        right: 20px;
+    }
  }
  .popup-leave-group-chat .group-peoples-inner-item.active {
     background: #e4e4e4;
@@ -6701,7 +6786,7 @@ textarea[type="text"]:focus,
 }
 .places-page .pub-groups {
     background-size: 15%;
-    background-image: url(/images/place-create.png);
+    background-image: url(/images/place-create1.png);
     padding-left: 25px;
 }
 .places-page  .pub-groups:hover {
@@ -6733,11 +6818,17 @@ textarea[type="text"]:focus,
 .ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .check-in-button.settings-save-button:hover {
     background-color: #DA5036;
 }
-.place-publication-menu {
-    /*position: absolute;
-    left: 0;
+.place-user-menu-wrap {
+    position: absolute;
+    right: 10px;
     top: 50%;
-    margin-top: -12px;*/
+    margin-top: -15px;
+}
+.place-publication-menu {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -12px;
 }
 .place-publication-menu a {
     width: 25px;
@@ -6768,6 +6859,14 @@ textarea[type="text"]:focus,
 @media (max-width: 520px) {
     .place-publication-menu {
         top: 25%;
+        left: 0px;
+    }
+    .place-user-menu-wrap {
+        right: 3px;
+        top: 25%;
+    }
+    .place-menu-wrap .place-user-menu-wrap {
+        top: 50%;
     }
     .place-publication-menu a {
         display: block;
@@ -6777,5 +6876,21 @@ textarea[type="text"]:focus,
     }
     .place-menu-wrap .group-menu .group-menu-item .counts {
         width: 90%;
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+        width: 96%;
+        margin-left: -50%;
+    }
+    .view-publication .user-publication .user-function .user .user-name {
+        font-size: .8em;    
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
+        top: 25px;
+    }
+ }
+ @media (max-width: 430px) {
+    .view-publication .user-publication .user-function .user .user-name {
+        font-size: .8em;
+        max-width: 170px;    
     }
  }

@@ -7,6 +7,7 @@ use App\UserChat;
 use App\ChatLockedUser;
 use App\Subscriber;
 use App\User;
+use App\Online;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -94,6 +95,7 @@ class SubscriberController extends Controller
             if (Auth::check()) {
                 foreach ($subscription as &$sub) {
                     $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
+                    $sub->is_online = Online::isOnline($sub->id);
                     if (ChatLockedUser::where(['user_id'=>$id, 'locked_user_id'=>$sub->id])->first()) {
                         $sub->is_lock = true;
                     } else {
@@ -127,6 +129,7 @@ class SubscriberController extends Controller
 
                 foreach ($subscribers as &$sub) {
                     $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
+                    $sub->is_online = Online::isOnline($sub->id);
                     if (ChatLockedUser::where(['user_id'=>$id, 'locked_user_id'=>$sub->id])->first()) {
                         $sub->is_lock = true;
                     } else {

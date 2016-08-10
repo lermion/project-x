@@ -1,680 +1,682 @@
 (function (angular) {
-	'use strict';
+    'use strict';
 
-	angular
-		.module('app.places')
-		.controller('PlaceCtrl', PlaceCtrl);
+    angular
+        .module('app.places')
+        .controller('PlaceCtrl', PlaceCtrl);
 
-	PlaceCtrl.$inject = ['$q', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
-		'$http', '$window', 'Upload', 'amMoment', 'socket', '$location', 'groupsService'];
+    PlaceCtrl.$inject = ['$q', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
+        '$http', '$window', 'Upload', 'amMoment', 'socket', '$location', 'groupsService'];
 
-	function PlaceCtrl($q, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
-					   $http, $window, Upload, amMoment, socket, $location, groupsService) {
+    function PlaceCtrl($q, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
+                       $http, $window, Upload, amMoment, socket, $location, groupsService) {
 
-		var vm = this;
-		var storage = storageService.getStorage();
+        var vm = this;
+        var storage = storageService.getStorage();
 
-		var myId = +storage.userId;
-		var myAvatar = storage.loggedUserAva;
-		var firstName = storage.firstName;
-		var lastName = storage.lastName;
-		var login = storage.username;
+        var myId = +storage.userId;
+        var myAvatar = storage.loggedUserAva;
+        var firstName = storage.firstName;
+        var lastName = storage.lastName;
+        var login = storage.username;
 
 
-		var modalEditPlace, modalDeletePlace, modalInviteUsers, modalCropLogoImage, modalMap,
-			modalSetCreator, modalNewPublication, modalReviewPublication, map;
+        var modalEditPlace, modalDeletePlace, modalInviteUsers, modalCropLogoImage, modalMap,
+            modalSetCreator, modalNewPublication, modalReviewPublication, map;
 
-		var originalCities = [];
+        var originalCities = [];
 
-		var watchCountry, watchCity;
+        var watchCountry, watchCity;
 
 
-		vm.firstName = firstName;
-		vm.lastName = lastName;
-		vm.myAvatar = myAvatar;
-		vm.myId = myId;
+        vm.firstName = firstName;
+        vm.lastName = lastName;
+        vm.myAvatar = myAvatar;
+        vm.myId = myId;
 
-		vm.subForm = false;
+        vm.subForm = false;
 
-		vm.inviteNotSend = true;
+        vm.inviteNotSend = true;
 
-		vm.countries = [];
-		vm.cities = [];
+        vm.countries = [];
+        vm.cities = [];
 
 
-		vm.place = place;
-		vm.placeEdited = angular.copy(vm.place);
+        vm.place = place;
+        vm.placeEdited = angular.copy(vm.place);
 
-		vm.newPublication = {};
+        vm.newPublication = {};
 
-		vm.selectedImage = null;
-		vm.myCroppedImage = null;
-		vm.blobImg = null;
-		vm.selectedLogoImageName = '';
+        vm.selectedImage = null;
+        vm.myCroppedImage = null;
+        vm.blobImg = null;
+        vm.selectedLogoImageName = '';
 
-		vm.invitedUsers = [];
+        vm.invitedUsers = [];
 
-		vm.creator = {id: null};
-		vm.isSend = false;
-
-		vm.emojiMessage = {
-			messagetext: '',
-			rawhtml: ''
-		};
-
-		vm.userName = storage.username;
-
-		vm.newPublicationForm = {};
-
-		vm.files = [];
-
-		vm.geoObject = {
-			geometry: {
-				type: 'Point',
-				coordinates: []
-			},
-			properties: {}
-		};
-		vm.newComment = {};
-		vm.showFullDescription = false;
-
-
-		amMoment.changeLocale('ru');
-
-		activate();
-
-		///////////////////////////////////////////////////
-
-		// set default tab (view) for place view
-		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
-			var state = $state.current.name;
-
-			if (state === 'place' && fromState.name === 'place.publications') {
-				$state.go(toParams.prevState);
-			}
-			if (state === 'place' && fromState.name !== 'place.publications') {
-				$state.go('place.publications');
-			}
-			if (state === 'place.edit') {
-				setWatchers();
-			} else if (state === 'place.files') {
-				vm.chatFiles = $state.params.chatFiles;
-			}
-		});
-
-		$scope.$on('ngDialog.opened', function (e, $dialog) {
-			if ($dialog.name === "modal-edit-publication") {
-				$(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
-			}
-		});
-
-
-		// Modal windows
-		vm.openModalEditPlace = function () {
-			vm.placeEdited = angular.copy(vm.place);
-			modalEditPlace = ngDialog.open({
-				template: '../app/Places/views/popup-edit-place.html',
-				name: 'modal-edit-group',
-				className: 'popup-add-group popup-edit-group ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		vm.openModalDeletePlace = function () {
-			modalDeletePlace = ngDialog.open({
-				template: '../app/Places/views/popup-delete-place.html',
-				name: 'modal-delete-group',
-				className: 'popup-delete-group ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		vm.openModalInviteUsers = function () {
-			getSubscribers().then(function () {
-				getSubscription().then(function () {
-					modalInviteUsers = ngDialog.open({
-						template: '../app/Places/views/popup-invite-place.html',
-						name: 'modal-invite-group',
-						className: 'popup-invite-group ngdialog-theme-default',
-						scope: $scope
-					});
-				});
-
-			});
-		};
-
-		vm.openModalNewPublication = function () {
-			modalNewPublication = ngDialog.open({
-				template: '../app/Places/views/popup-add-publication.html',
-				name: 'modal-publication-group',
-				className: 'user-publication place-publication ngdialog-theme-default',
-				scope: $scope,
-				preCloseCallback: resetFormNewPublication
-			});
-		};
-
-		vm.openModalReviewPublication = function (id) {
-			getPublication(id).then(function () {
-				modalReviewPublication = ngDialog.open({
-					template: '../app/Places/views/popup-view-place-publication.html',
-					name: 'modal-publication-group',
-					className: 'view-publication ngdialog-theme-default',
-					scope: $scope
-				});
-			});
-		};
-
-		vm.openModalMediaFile = function (file) {
-			ngDialog.open({
-				templateUrl: '../app/common/components/media-file/modal-media-file.html',
-				className: 'popup-comment-images ngdialog-theme-default',
-				data: {
-					file: file
-				},
-				preCloseCallback: function () {
-				}
-			});
-		};
-
-
-		vm.submitNewPublication = function () {
-			vm.newPublicationForm.$setSubmitted();
-			if (vm.newPublicationForm.$invalid || vm.files && vm.files.length === 0) {
-				return false;
-			}
-			vm.subForm = true;
-			vm.newPublication.text = vm.emojiMessage.messagetext;
-			vm.newPublication.files = filterAttachFilesByType();
-			vm.newPublication.placeId = vm.place.id;
-
-			placesService.addPublication(vm.newPublication)
-				.then(function (data) {
-					if (data.status) {
-						vm.place.publications.push(data.publication);
-						vm.place.count_publications++;
-						vm.subForm = false;
-						modalNewPublication.close();
-					}
-				}, function () {
-					vm.subForm = false;
-				})
-		};
-
-
-		vm.updatePlace = function () {
-
-			vm.placeEditedForm.$setSubmitted();
-
-			if (vm.placeEditedForm.$invalid) {
-				return false;
-			}
-
-			vm.subForm = true;
-
-			var placeEdited = angular.copy(vm.placeEdited);
-			place = angular.copy(vm.placeEdited);
-
-			if (!vm.placeEditedForm.logo.$dirty) {
-				placeEdited.avatar = null;
-			}
-			if (!vm.placeEditedForm.cover.$dirty) {
-				placeEdited.cover = null;
-			}
-			if (!vm.placeEditedForm.name.$dirty) {
-				placeEdited.name = null;
-			}
-
-			if (placeEdited.expired_date) {
-				placeEdited.expired_date = moment(placeEdited.expired_date).format('YYYY-MM-DD');
-			}
-
-			placesService.updatePlace(placeEdited)
-				.then(function (data) {
-					if (data.status) {
-						if (data.placeData.avatar) {
-							place.avatar = data.placeData.avatar;
-						}
-						if (data.placeData.cover) {
-							place.cover = data.placeData.cover;
-						}
-						vm.place = place;
-						if (data.placeData.url_name) {
-							place.url_name = data.placeData.url_name;
-							changePlaceUrlName(data.placeData.url_name);
-						} else {
-							originalCities = angular.copy(vm.cities);
-							$state.go('place', {'placeName': place.url_name});
-							$timeout(function () {
-								vm.subForm = false;
-							}, 0);
-						}
-					}
-				});
-		};
-
-		vm.removeAttachFile = function (index) {
-			vm.files.splice(index, 1);
-			$scope.$broadcast('rebuild:me');
-		};
-
-		vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-			if (vm.files.length > 4 || files > 4) {
-				$scope.$broadcast('rebuild:me');
-			}
-		};
-
-		vm.addNewComment = function (flag, pub, pubText, files) {
-			vm.commentForm.$setSubmitted();
-			if (vm.commentForm.$invalid) {
-				return false;
-			}
-
-
-			var images = [];
-			var videos = [];
-			if (files != undefined) {
-				files.forEach(function (file) {
-					var type = file.type.split('/')[0];
-					if (type === 'image') {
-						images.push(file);
-					} else if (type === 'video') {
-						videos.push(file);
-					}
-				});
-			}
-
-			vm.newComment.text = vm.emojiMessage.messagetext;
-			if (images.length === 0 && videos.length === 0) {
-				return false;
-			}
-			vm.subForm = true;
-
-			PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
-					vm.showAddComment = false;
-					vm.disableAddComment = false;
-					if (response.data.status) {
-						$(".emoji-wysiwyg-editor").html("");
-						if (flag === "feedPage") {
-							pub.files = [];
-							vm.newComment.text = '';
-							pub.comments.push(response.data.comment);
-							pub.comment_count++;
-						}
-					}
-					vm.commentForm.$setPristine();
-					vm.subForm = false;
-				},
-				function (error) {
-					console.log(error);
-					vm.subForm = false;
-				});
-		};
-
-		vm.addCommentLike = function (comment) {
-			PublicationService.addCommentLike(comment.id).then(function (response) {
-					comment.like_count = response.like_count;
-				},
-				function (error) {
-					console.log(error);
-				});
-		};
-
-		vm.getAllCommentsPublication = function (flag, pub, showAllComments) {
-			PublicationService.getAllCommentsPublication(pub.id).then(function (response) {
-					if (showAllComments === true) {
-						if (flag === "feedPage") {
-							pub.comments = response;
-						}
-					}
-					pub.comment_count = response.length;
-				},
-				function (error) {
-					console.log(error);
-				});
-		};
-
-		vm.deleteComment = function (flag, pub, comment, index) {
-			PublicationService.deleteCommentPublication(comment.id).then(function (response) {
-					if (response.status) {
-						pub.comments.splice(index, 1);
-						pub.comment_count--;
-					}
-				},
-				function (error) {
-					console.log(error);
-				});
-		};
-
-		vm.openCommentComplainBlock = function (commentId) {
-			ngDialog.open({
-				template: '../app/Places/views/alert-publication.html',
-				className: 'alert-publication ngdialog-theme-default',
-				scope: $scope,
-				data: {
-					id: commentId,
-					flag: 'comment'
-				}
-			});
-		};
-
-		vm.showMoreImages = function (images, currImg) {
-			if (currImg != null) {
-				vm.mainImageInPopup = currImg.url;
-			} else {
-				vm.mainImageInPopup = images[0].url;
-			}
-
-			ngDialog.open({
-				template: '../app/Groups/views/popup-comment-images.html',
-				className: 'popup-comment-images ngdialog-theme-default',
-				scope: $scope,
-				data: {
-					images: images
-				}
-			});
-		};
-
-		vm.deletePubFile = function (files, index) {
-			files.splice(index, 1);
-		};
-
-		vm.deletePub = function (pub) {
-			vm.pubToDelete = pub.id;
-			ngDialog.open({
-				template: '../app/Places/views/delete-publication.html',
-				className: 'delete-publication place ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		vm.confirmPubDelete = function (pubId) {
-			vm.subForm = true;
-			PublicationService.deletePublication(pubId).then(function (res) {
-					if (res.status) {
-						angular.forEach(vm.place.publications, function (item, index, arr) {
-							if (item.id === pubId) {
-								arr.splice(index, 1);
-								vm.place.count_publications--;
-							}
-						});
-					}
-					vm.subForm = false;
-					ngDialog.closeAll();
-				},
-				function (err) {
-					console.log(err);
-				});
-		};
-
-		vm.openPubComplainBlock = function (pubId) {
-			ngDialog.open({
-				template: '../app/Places/views/alert-publication.html',
-				className: 'alert-publication ngdialog-theme-default',
-				scope: $scope,
-				data: {
-					id: pubId,
-					flag: 'pub'
-				}
-			});
-		};
-
-		vm.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
-			var complainCategory = [];
-			cat1 ? complainCategory.push(1) : '';
-			cat2 ? complainCategory.push(2) : '';
-			cat3 ? complainCategory.push(3) : '';
-			cat4 ? complainCategory.push(4) : '';
-			cat5 ? complainCategory.push(5) : '';
-			cat6 ? complainCategory.push(6) : '';
-			cat7 ? complainCategory.push(7) : '';
-			if (flag === 'comment') {
-				PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
-					.then(
-						function (res) {
-							if (res.status) {
-								ngDialog.closeAll();
-							} else {
-								console.log('Error');
-							}
-						},
-						function (err) {
-							console.log(err);
-						});
-			} else if (flag === 'pub') {
-				// PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
-				// 	.then(
-				// 		function(res){
-				// 			if (res.status) {
-				ngDialog.closeAll();
-				// 			} else {
-				// 				console.log('Error');
-				// 			}
-				// 		},
-				// 		function(err){
-				// 			console.log(err);
-				// 		});
-			}
-		};
-
-		vm.getPubLink = function (pub) {
-			var pathArray = window.location.href.split('/');
-			pathArray.splice(pathArray.length - 1, 1, 'pub');
-			pathArray.push(pub.id);
-
-			var newPathname = "";
-			for (var i = 0; i < pathArray.length; i++) {
-				newPathname += "/";
-				newPathname += pathArray[i];
-			}
-			vm.pubLink = newPathname.substring(1);
-			ngDialog.open({
-				template: '../app/Groups/views/get-link-publication.html',
-				className: 'link-publication ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		vm.sharePub = function (pubId) {
-
-			var defer = $q.defer();
-
-			var prom = [];
-
-			prom.push(getSubscribers());
-			prom.push(getSubscription());
-
-			$q.all(prom).then(function () {
-				ngDialog.open({
-					template: '../app/Places/views/popup-sharepub-place.html',
-					className: 'popup-invite-group ngdialog-theme-default',
-					scope: $scope,
-					preCloseCallback: resetFormInviteUsers
-				});
-			});
-		};
-
-		var editPubPopup;
-		var pubEditDeletedPhotos = [];
-		var pubEditDeletedVideos = [];
-		vm.editPub = function (pub) {
-			vm.pubEdited = angular.copy(vm.activePublication);
-			vm.emojiMessage.messagetext = vm.pubEdited.text;
-
-			editPubPopup = ngDialog.open({
-				template: '../app/Places/views/popup-edit-publication.html',
-				className: 'user-publication user-publication-edit ngdialog-theme-default',
-				scope: $scope,
-				name: "modal-edit-publication",
-				preCloseCallback: resetFormNewPublication
-			});
-		};
-
-		vm.editedPubFiles = function (pub) {
-			var files = [];
-			pub.images.forEach(function (img) {
-				var filename = img.url.split('/')[(img.url.split('/')).length - 1];
-				img.name = filename.substring(8, filename.length);
-				files.push(img);
-			});
-			pub.videos.forEach(function (video) {
-				files.push(video);
-			});
-			vm.editedPubFilesArray = files;
-		};
-
-		vm.editedPubDeleteFile = function (index, fileId, pivot) {
-			vm.editedPubFilesArray.splice(index, 1);
-			if (pivot.image_id) {
-				pubEditDeletedPhotos.push(fileId);
-			} else if (pivot.video_id) {
-				pubEditDeletedVideos.push(fileId);
-			}
-			$scope.$broadcast('rebuild:me');
-		};
-
-		vm.rebuildScroll = function () {
-			$scope.$broadcast('loadPubFiles');
-		};
-
-		vm.saveEditedPub = function (pubId, pubText, files) {
-			vm.pubEdited.description = vm.emojiMessage.messagetext;
-			vm.updatePubLoader = true;
-			var images = [];
-			var videos = [];
-			var isMain;
-			if ($state.current.name === 'feed') {
-				isMain = 1;
-			} else {
-				isMain = 0;
-			}
-			if (files) {
-				files.forEach(function (file) {
-					var type = file.type.split('/')[0];
-					if (type === 'image') {
-						images.push(file);
-					} else if (type === 'video') {
-						videos.push(file);
-					}
-				});
-			}
-			PublicationService.updatePublication(pubId, vm.pubEdited.description, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
-				.then(
-					function (res) {
-						if (res.status) {
-							ngDialog.closeAll();
-						} else {
-							console.log('Error');
-						}
-						vm.updatePubLoader = false;
-					},
-					function (err) {
-						console.log(err);
-					});
-		};
-
-		vm.deletePlace = function () {
-			placesService.deletePlace(vm.place.id)
-				.then(function (data) {
-					if (data.status) {
-						$state.go('places');
-						modalDeletePlace.close();
-					}
-				});
-		};
-
-		vm.abortUpdatePlace = function () {
-			clearWatchers();
-			resetFormPlaceEdit();
-			$state.go('place', {'placeName': vm.place.url_name});
-		};
-
-		vm.openModalMap = function () {
-			modalMap = ngDialog.open({
-				template: '../app/Places/views/popup-map.html',
-				name: 'modal-edit-group',
-				className: 'popup-add-group place-map ngdialog-theme-default',
-				scope: $scope
-			});
-		};
-
-		vm.beforeInit = function () {
-			var addressStr = vm.placeEdited.country.name + ' ' + vm.placeEdited.city.name;
-			ymaps.geocode(addressStr, {results: 1}).then(function (res) {
-				// Выбираем первый результат геокодирования.
-				var firstGeoObject = res.geoObjects.get(0);
-				// Задаем центр карты.
-				$scope.$apply(function () {
-					vm.center = firstGeoObject.geometry.getCoordinates();
-				});
-			}, function (err) {
-				// Если геокодирование не удалось, сообщаем об ошибке.
-				alert(err.message);
-			});
-		};
-
-		vm.afterInit = function ($map) {
-			map = $map;
-		};
-
-		vm.mapClick = function (e) {
-			var coords = e.get('coords');
-			vm.geoObject.geometry.coordinates = coords;
-
-			// Отправим запрос на геокодирование.
-			ymaps.geocode(coords).then(function (res) {
-				var names = [];
-				// Переберём все найденные результаты и
-				// запишем имена найденный объектов в массив names.
-				res.geoObjects.each(function (obj) {
-					names.push(obj.properties.get('text'));
-				});
-				vm.placeEdited.address = names[0];
-
-				// Добавим на карту метку в точку, по координатам
-				// которой запрашивали обратное геокодирование.
-				var geoObj = {
-					geometry: {
-						type: 'Point',
-						coordinates: coords
-					},
-					properties: {
-						// В качестве контента иконки выведем
-						// первый найденный объект.
-						iconContent: names[0],
-						// А в качестве контента балуна - подробности:
-						// имена всех остальных найденных объектов.
-						balloonContent: names.reverse().join(', ')
-					}
-				};
-
-				vm.placeEdited.coordinates_x = geoObj.geometry.coordinates[0];
-				vm.placeEdited.coordinates_y = geoObj.geometry.coordinates[1];
-				$scope.$apply(function () {
-					vm.geoObject = geoObj;
-				});
-			});
-		};
-
-		vm.abortDeletePlace = function () {
-			modalDeletePlace.close();
-		};
-
-		vm.onItemSelected = function (user) {
-			var isExist = $filter('getById')(vm.invitedUsers, user.id);
-
-			if (!isExist) {
-				var item = {
-					userId: user.id,
-					firstName: user.first_name,
-					lastName: user.last_name,
-					avatar: user.avatar_path,
-					login: user.login,
-
-					isAdmin: false
-				};
-				vm.invitedUsers.push(item);
-			}
-		};
+        vm.creator = {id: null};
+        vm.isSend = false;
+
+        vm.emojiMessage = {
+            messagetext: '',
+            rawhtml: ''
+        };
+
+        vm.userName = storage.username;
+
+        vm.newPublicationForm = {};
+
+        vm.files = [];
+
+        vm.geoObject = {
+            geometry: {
+                type: 'Point',
+                coordinates: []
+            },
+            properties: {}
+        };
+        vm.newComment = {};
+        vm.showFullDescription = false;
+
+
+        amMoment.changeLocale('ru');
+
+        activate();
+
+        ///////////////////////////////////////////////////
+
+        // set default tab (view) for place view
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
+            var state = $state.current.name;
+
+            if (state === 'place' && fromState.name === 'place.publications') {
+                $state.go(toParams.prevState);
+            }
+            if (state === 'place' && fromState.name !== 'place.publications') {
+                $state.go('place.publications');
+            }
+            if (state === 'place.edit') {
+                setWatchers();
+            } else if (state === 'place.files') {
+                vm.chatFiles = $state.params.chatFiles;
+            }
+        });
+
+        $scope.$on('ngDialog.opened', function (e, $dialog) {
+            if ($dialog.name === "modal-edit-publication") {
+                $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
+            }
+        });
+
+
+        // Modal windows
+        vm.openModalEditPlace = function () {
+            vm.placeEdited = angular.copy(vm.place);
+            modalEditPlace = ngDialog.open({
+                template: '../app/Places/views/popup-edit-place.html',
+                name: 'modal-edit-group',
+                className: 'popup-add-group popup-edit-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.openModalDeletePlace = function () {
+            modalDeletePlace = ngDialog.open({
+                template: '../app/Places/views/popup-delete-place.html',
+                name: 'modal-delete-group',
+                className: 'popup-delete-group ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.openModalInviteUsers = function () {
+            getSubscribers().then(function () {
+                getSubscription().then(function () {
+                    modalInviteUsers = ngDialog.open({
+                        template: '../app/Places/views/popup-invite-place.html',
+                        name: 'modal-invite-group',
+                        className: 'popup-invite-group ngdialog-theme-default',
+                        scope: $scope
+                    });
+                });
+
+            });
+        };
+
+        vm.openModalNewPublication = function () {
+            modalNewPublication = ngDialog.open({
+                template: '../app/Places/views/popup-add-publication.html',
+                name: 'modal-publication-group',
+                className: 'user-publication place-publication ngdialog-theme-default',
+                scope: $scope,
+                preCloseCallback: resetFormNewPublication
+            });
+        };
+
+        vm.openModalReviewPublication = function (id) {
+            getPublication(id).then(function () {
+                modalReviewPublication = ngDialog.open({
+                    template: '../app/Places/views/popup-view-place-publication.html',
+                    name: 'modal-publication-group',
+                    className: 'view-publication ngdialog-theme-default',
+                    scope: $scope
+                });
+            });
+        };
+
+        vm.openModalMediaFile = function (file) {
+            ngDialog.open({
+                templateUrl: '../app/common/components/media-file/modal-media-file.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                data: {
+                    file: file
+                },
+                preCloseCallback: function () {
+                }
+            });
+        };
+
+
+        vm.submitNewPublication = function () {
+            vm.newPublicationForm.$setSubmitted();
+            if (vm.newPublicationForm.$invalid || vm.files && vm.files.length === 0) {
+                return false;
+            }
+            vm.subForm = true;
+            vm.newPublication.text = vm.emojiMessage.messagetext;
+            vm.newPublication.files = filterAttachFilesByType();
+            vm.newPublication.placeId = vm.place.id;
+
+            placesService.addPublication(vm.newPublication)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.place.publications.push(data.publication);
+                        vm.place.count_publications++;
+                        vm.subForm = false;
+                        modalNewPublication.close();
+                    }
+                }, function () {
+                    vm.subForm = false;
+                })
+        };
+
+
+        vm.updatePlace = function () {
+
+            vm.placeEditedForm.$setSubmitted();
+
+            if (vm.placeEditedForm.$invalid) {
+                return false;
+            }
+
+            vm.subForm = true;
+
+            var placeEdited = angular.copy(vm.placeEdited);
+            place = angular.copy(vm.placeEdited);
+
+            if (!vm.placeEditedForm.logo.$dirty) {
+                placeEdited.avatar = null;
+            }
+            if (!vm.placeEditedForm.cover.$dirty) {
+                placeEdited.cover = null;
+            }
+            if (!vm.placeEditedForm.name.$dirty) {
+                placeEdited.name = null;
+            }
+
+            if (placeEdited.expired_date) {
+                placeEdited.expired_date = moment(placeEdited.expired_date).format('YYYY-MM-DD');
+            }
+
+            placesService.updatePlace(placeEdited)
+                .then(function (data) {
+                    if (data.status) {
+                        if (data.placeData.avatar) {
+                            place.avatar = data.placeData.avatar;
+                        }
+                        if (data.placeData.cover) {
+                            place.cover = data.placeData.cover;
+                        }
+                        vm.place = place;
+                        if (data.placeData.url_name) {
+                            place.url_name = data.placeData.url_name;
+                            changePlaceUrlName(data.placeData.url_name);
+                        } else {
+                            originalCities = angular.copy(vm.cities);
+                            $state.go('place', {'placeName': place.url_name});
+                            $timeout(function () {
+                                vm.subForm = false;
+                            }, 0);
+                        }
+                    }
+                });
+        };
+
+        vm.removeAttachFile = function (index) {
+            vm.files.splice(index, 1);
+            $scope.$broadcast('rebuild:me');
+        };
+
+        vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+            if (vm.files.length > 4 || files > 4) {
+                $scope.$broadcast('rebuild:me');
+            }
+        };
+
+        vm.addNewComment = function (flag, pub, pubText, files) {
+            vm.commentForm.$setSubmitted();
+            if (vm.commentForm.$invalid) {
+                return false;
+            }
+
+
+            var images = [];
+            var videos = [];
+            if (files != undefined) {
+                files.forEach(function (file) {
+                    var type = file.type.split('/')[0];
+                    if (type === 'image') {
+                        images.push(file);
+                    } else if (type === 'video') {
+                        videos.push(file);
+                    }
+                });
+            }
+
+            vm.newComment.text = vm.emojiMessage.messagetext;
+            if (images.length === 0 && videos.length === 0) {
+                return false;
+            }
+            vm.subForm = true;
+
+            PublicationService.addCommentPublication(pub.id, vm.newComment.text, images, videos).then(function (response) {
+                    vm.showAddComment = false;
+                    vm.disableAddComment = false;
+                    if (response.data.status) {
+                        $(".emoji-wysiwyg-editor").html("");
+                        if (flag === "feedPage") {
+                            pub.files = [];
+                            vm.newComment.text = '';
+                            pub.comments.push(response.data.comment);
+                            pub.comment_count++;
+                        }
+                    }
+                    vm.commentForm.$setPristine();
+                    vm.subForm = false;
+                },
+                function (error) {
+                    console.log(error);
+                    vm.subForm = false;
+                });
+        };
+
+        vm.addCommentLike = function (comment) {
+            PublicationService.addCommentLike(comment.id).then(function (response) {
+                    comment.like_count = response.like_count;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.getAllCommentsPublication = function (flag, pub, showAllComments) {
+            PublicationService.getAllCommentsPublication(pub.id).then(function (response) {
+                    if (showAllComments === true) {
+                        if (flag === "feedPage") {
+                            pub.comments = response;
+                        }
+                    }
+                    pub.comment_count = response.length;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.deleteComment = function (flag, pub, comment, index) {
+            PublicationService.deleteCommentPublication(comment.id).then(function (response) {
+                    if (response.status) {
+                        pub.comments.splice(index, 1);
+                        pub.comment_count--;
+                    }
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        vm.openCommentComplainBlock = function (commentId) {
+            ngDialog.open({
+                template: '../app/Places/views/alert-publication.html',
+                className: 'alert-publication ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    id: commentId,
+                    flag: 'comment'
+                }
+            });
+        };
+
+        vm.showMoreImages = function (images, currImg) {
+            if (currImg != null) {
+                vm.mainImageInPopup = currImg.url;
+            } else {
+                vm.mainImageInPopup = images[0].url;
+            }
+
+            ngDialog.open({
+                template: '../app/Groups/views/popup-comment-images.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    images: images
+                }
+            });
+        };
+
+        vm.deletePubFile = function (files, index) {
+            files.splice(index, 1);
+        };
+
+        vm.deletePub = function (pub) {
+            vm.pubToDelete = pub.id;
+            ngDialog.open({
+                template: '../app/Places/views/delete-publication.html',
+                className: 'delete-publication place ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.confirmPubDelete = function (pubId) {
+            vm.subForm = true;
+            PublicationService.deletePublication(pubId).then(function (res) {
+                    if (res.status) {
+                        angular.forEach(vm.place.publications, function (item, index, arr) {
+                            if (item.id === pubId) {
+                                arr.splice(index, 1);
+                                vm.place.count_publications--;
+                            }
+                        });
+                    }
+                    vm.subForm = false;
+                    ngDialog.closeAll();
+                },
+                function (err) {
+                    console.log(err);
+                });
+        };
+
+        vm.openPubComplainBlock = function (pubId) {
+            ngDialog.open({
+                template: '../app/Places/views/alert-publication.html',
+                className: 'alert-publication ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    id: pubId,
+                    flag: 'pub'
+                }
+            });
+        };
+
+        vm.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
+            var complainCategory = [];
+            cat1 ? complainCategory.push(1) : '';
+            cat2 ? complainCategory.push(2) : '';
+            cat3 ? complainCategory.push(3) : '';
+            cat4 ? complainCategory.push(4) : '';
+            cat5 ? complainCategory.push(5) : '';
+            cat6 ? complainCategory.push(6) : '';
+            cat7 ? complainCategory.push(7) : '';
+            if (flag === 'comment') {
+                PublicationService.complaintCommentAuthor(complainUnitId, complainCategory)
+                    .then(
+                        function (res) {
+                            if (res.status) {
+                                ngDialog.closeAll();
+                            } else {
+                                console.log('Error');
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        });
+            } else if (flag === 'pub') {
+                // PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
+                // 	.then(
+                // 		function(res){
+                // 			if (res.status) {
+                ngDialog.closeAll();
+                // 			} else {
+                // 				console.log('Error');
+                // 			}
+                // 		},
+                // 		function(err){
+                // 			console.log(err);
+                // 		});
+            }
+        };
+
+        vm.getPubLink = function (pub) {
+            var pathArray = window.location.href.split('/');
+            pathArray.splice(pathArray.length - 1, 1, 'pub');
+            pathArray.push(pub.id);
+
+            var newPathname = "";
+            for (var i = 0; i < pathArray.length; i++) {
+                newPathname += "/";
+                newPathname += pathArray[i];
+            }
+            vm.pubLink = newPathname.substring(1);
+            ngDialog.open({
+                template: '../app/Groups/views/get-link-publication.html',
+                className: 'link-publication ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.sharePub = function (pubId) {
+
+            var defer = $q.defer();
+
+            var prom = [];
+
+            prom.push(getSubscribers());
+            prom.push(getSubscription());
+
+            $q.all(prom).then(function () {
+                ngDialog.open({
+                    template: '../app/Places/views/popup-sharepub-place.html',
+                    className: 'popup-invite-group ngdialog-theme-default',
+                    scope: $scope,
+                    preCloseCallback: resetFormInviteUsers
+                });
+            });
+        };
+
+        var editPubPopup;
+        var pubEditDeletedPhotos = [];
+        var pubEditDeletedVideos = [];
+        vm.editPub = function (pub) {
+            vm.pubEdited = angular.copy(vm.activePublication);
+            vm.emojiMessage.messagetext = vm.pubEdited.text;
+
+            editPubPopup = ngDialog.open({
+                template: '../app/Places/views/popup-edit-publication.html',
+                className: 'user-publication user-publication-edit ngdialog-theme-default',
+                scope: $scope,
+                name: "modal-edit-publication",
+                preCloseCallback: resetFormNewPublication
+            });
+        };
+
+        vm.editedPubFiles = function (pub) {
+            var files = [];
+            pub.images.forEach(function (img) {
+                var filename = img.url.split('/')[(img.url.split('/')).length - 1];
+                img.name = filename.substring(8, filename.length);
+                files.push(img);
+            });
+            pub.videos.forEach(function (video) {
+                files.push(video);
+            });
+            vm.editedPubFilesArray = files;
+        };
+
+        vm.editedPubDeleteFile = function (index, fileId, pivot) {
+            vm.editedPubFilesArray.splice(index, 1);
+            if (pivot.image_id) {
+                pubEditDeletedPhotos.push(fileId);
+            } else if (pivot.video_id) {
+                pubEditDeletedVideos.push(fileId);
+            }
+            $scope.$broadcast('rebuild:me');
+        };
+
+        vm.rebuildScroll = function () {
+            $scope.$broadcast('loadPubFiles');
+        };
+
+        vm.saveEditedPub = function (pubId, pubText, files) {
+            vm.pubEdited.description = vm.emojiMessage.messagetext;
+            vm.updatePubLoader = true;
+            var images = [];
+            var videos = [];
+            var isMain;
+            if ($state.current.name === 'feed') {
+                isMain = 1;
+            } else {
+                isMain = 0;
+            }
+            if (files) {
+                files.forEach(function (file) {
+                    var type = file.type.split('/')[0];
+                    if (type === 'image') {
+                        images.push(file);
+                    } else if (type === 'video') {
+                        videos.push(file);
+                    }
+                });
+            }
+            PublicationService.updatePublication(pubId, vm.pubEdited.description, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+                .then(
+                    function (res) {
+                        if (res.status) {
+                            ngDialog.closeAll();
+                        } else {
+                            console.log('Error');
+                        }
+                        vm.updatePubLoader = false;
+                    },
+                    function (err) {
+                        console.log(err);
+                    });
+        };
+
+        vm.deletePlace = function () {
+            placesService.deletePlace(vm.place.id)
+                .then(function (data) {
+                    if (data.status) {
+                        $state.go('places');
+                        modalDeletePlace.close();
+                    }
+                });
+        };
+
+        vm.abortUpdatePlace = function () {
+            clearWatchers();
+            resetFormPlaceEdit();
+            $state.go('place', {'placeName': vm.place.url_name});
+        };
+
+        vm.openModalMap = function () {
+            modalMap = ngDialog.open({
+                template: '../app/Places/views/popup-map.html',
+                name: 'modal-edit-group',
+                className: 'popup-add-group place-map ngdialog-theme-default',
+                scope: $scope
+            });
+        };
+
+        vm.beforeInit = function () {
+            var addressStr = vm.placeEdited.country.name + ' ' + vm.placeEdited.city.name;
+            ymaps.geocode(addressStr, {results: 1}).then(function (res) {
+                // Выбираем первый результат геокодирования.
+                var firstGeoObject = res.geoObjects.get(0);
+                // Задаем центр карты.
+                $scope.$apply(function () {
+                    vm.center = firstGeoObject.geometry.getCoordinates();
+                });
+            }, function (err) {
+                // Если геокодирование не удалось, сообщаем об ошибке.
+                alert(err.message);
+            });
+        };
+
+        vm.afterInit = function ($map) {
+            map = $map;
+        };
+
+        vm.mapClick = function (e) {
+            var coords = e.get('coords');
+            vm.geoObject.geometry.coordinates = coords;
+
+            // Отправим запрос на геокодирование.
+            ymaps.geocode(coords).then(function (res) {
+                var names = [];
+                // Переберём все найденные результаты и
+                // запишем имена найденный объектов в массив names.
+                res.geoObjects.each(function (obj) {
+                    names.push(obj.properties.get('text'));
+                });
+                vm.placeEdited.address = names[0];
+
+                // Добавим на карту метку в точку, по координатам
+                // которой запрашивали обратное геокодирование.
+                var geoObj = {
+                    geometry: {
+                        type: 'Point',
+                        coordinates: coords
+                    },
+                    properties: {
+                        // В качестве контента иконки выведем
+                        // первый найденный объект.
+                        iconContent: names[0],
+                        // А в качестве контента балуна - подробности:
+                        // имена всех остальных найденных объектов.
+                        balloonContent: names.reverse().join(', ')
+                    }
+                };
+
+                vm.placeEdited.coordinates_x = geoObj.geometry.coordinates[0];
+                vm.placeEdited.coordinates_y = geoObj.geometry.coordinates[1];
+                $scope.$apply(function () {
+                    vm.geoObject = geoObj;
+                });
+            });
+        };
+
+        vm.abortDeletePlace = function () {
+            modalDeletePlace.close();
+        };
+
+        vm.onItemSelected = function (user) {
+            var isExist = $filter('getById')(vm.invitedUsers, user.id);
+
+            if (!isExist) {
+                var item = {
+                    userId: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    avatar: user.avatar_path,
+                    login: user.login,
+                    user_quote: user.user_quote,
+                    is_online: user.is_online,
+
+                    isAdmin: false
+                };
+                vm.invitedUsers.push(item);
+            }
+        };
 
 		vm.removeUserFromInviteList = function (user) {
 			for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
@@ -1187,7 +1189,8 @@
 				pub.mainFile = file;
 			}
 		};
-
+		$scope.statusLoading = true;
+		$scope.busyMessages = false;
 		$scope.loadMoreMessages = function () {
 			var deferred = $q.defer();
 			var members = [];
@@ -1198,7 +1201,8 @@
 				limit: 10,
 				members: members
 			};
-			if ($scope.messages !== undefined && $scope.messages.length >= 10) {
+			if ($scope.messages !== undefined && $scope.messages.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading) {
+				$scope.busyMessages = true;
 				socket.emit("load more messages", data);
 			} else {
 				deferred.reject();
@@ -1206,10 +1210,11 @@
 			return deferred.promise;
 		};
 		socket.on("load more messages", function (response) {
-			if (response.length === 0) {
-				$scope.counter = 0;
+			$scope.busyMessages = false;
+			if (response.messages.length === 0) {
+				$scope.statusLoading = false;
 			} else {
-				response.messages.forEach(function (value) {
+				response.messages.forEach(function(value){
 					$scope.messages.unshift(value);
 				});
 				$scope.counter += 10;

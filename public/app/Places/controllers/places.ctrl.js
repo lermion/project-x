@@ -186,6 +186,65 @@
 
         }
 
+        $scope.$watchCollection(angular.bind(vm, function () {
+            return vm.places;
+        }), function (array) {
+
+            vm.myPlaces = array.filter(function (place) {
+                return place.is_admin === true;
+            });
+
+            vm.popularPlaces = array.filter(function (place) {
+                // all places
+                return true;
+            });
+
+            vm.newPlaces = array.filter(function (place) {
+                // all places
+                return true;
+            });
+
+            vm.dynamicPlaces = array.filter(function (place) {
+                return dynamicIds.indexOf(place.type_place_id) !== -1;
+            });
+
+            vm.nearPlaces = array.filter(function (place) {
+                // all places
+                return true;
+            });
+
+            vm.shopPlaces = array.filter(function (place) {
+                return +place.type_place_id === 1;
+            });
+
+            vm.cafePlaces = array.filter(function (place) {
+                return +place.type_place_id === 2;
+            });
+
+            vm.entertainmentPlaces = array.filter(function (place) {
+                return +place.type_place_id === 3;
+            });
+
+            vm.organizationPlaces = array.filter(function (place) {
+                return +place.type_place_id === 4;
+            });
+
+            vm.universityPlaces = array.filter(function (place) {
+                return +place.type_place_id === 5;
+            });
+
+            vm.schoolPlaces = array.filter(function (place) {
+                return +place.type_place_id === 6;
+            });
+
+            vm.addressPlaces = array.filter(function (place) {
+                // all places
+                return true;
+            });
+
+
+        });
+
 
         $scope.$watch(angular.bind(vm, function () {
             return vm.placesDropdown;
@@ -246,10 +305,11 @@
                         vm.placeId = data.place.id;
                         data.place.is_new_place = true;
                         data.place.is_admin = true;
+                        vm.currentPlace = data.place;
                         vm.places.push(data.place);
                         vm.subForm = false;
                     }
-                }, function() {
+                }, function () {
                     console.log('Add place failed');
                     vm.subForm = false;
                 });
@@ -265,6 +325,9 @@
                     firstName: user.first_name,
                     lastName: user.last_name,
                     avatar: user.avatar_path,
+                    login: user.login,
+                    user_quote: user.user_quote,
+                    is_online: user.is_online,
 
                     isAdmin: false
                 };
@@ -304,11 +367,10 @@
                         }
                         vm.subForm = false;
                         $timeout(function () {
-                            $state.go('places');
-                            vm.isPlaceAdded = false;
+                            vm.goPlace(vm.currentPlace);
                         }, 2000);
                     }
-                }, function() {
+                }, function () {
                     console.log('Invite users to new place failed');
                     vm.subForm = false;
                 });
@@ -381,8 +443,15 @@
 
         };
 
-        vm.resetNewPlaceForm = function() {
+        vm.resetNewPlaceForm = function () {
             vm.placeNew = angular.copy(originalPlaceNew);
+        };
+
+        vm.goPlace = function (place) {
+            $state.go('place', {
+                placeName: place.url_name,
+                placeId: place.id
+            });
         };
 
         function getCities(country) {

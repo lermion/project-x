@@ -106,7 +106,7 @@ Queries.prototype.getUserRooms = function(data){
 									room_id: item.id,
 									is_group: item.is_group,
 									name: item.name,
-									status: item.user_quote,
+									status: item.user_quote || item.status,
 									avatar: item.avatar,
 									is_admin: item.is_admin,
 									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",

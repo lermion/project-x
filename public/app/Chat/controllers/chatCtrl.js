@@ -9,10 +9,6 @@ angular.module('placePeopleApp')
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
-			$scope.status = {
-				loading: false,
-				loaded: false
-			};
 			$scope.showFileAddMenu = false;
 			$scope.counter = 10;
 			var editGroupChat = null;
@@ -47,7 +43,8 @@ angular.module('placePeopleApp')
 				$state.go("chat.list");
 			}
 
-			$scope.refTo = function(stateName){
+			$scope.refTo = function(stateName, opponent){
+				$scope.Model.openSettings(opponent);
 				if($window.innerWidth <= 768){
 					$scope.Model.mobile.hideContent = false;
 				}
@@ -179,7 +176,8 @@ angular.module('placePeopleApp')
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
 			};
-
+			$scope.statusLoading = true;
+			$scope.busyMessages = false;
 			$scope.loadMoreMessages = function(roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
@@ -201,7 +199,8 @@ angular.module('placePeopleApp')
 					members: members
 				};
 				var deferred = $q.defer();
-				if(!$scope.status.loading && $scope.Model.Chat !== undefined && $scope.Model.Chat.length >= 10){
+				if($scope.Model.Chat !== undefined && $scope.Model.Chat.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading){
+					$scope.busyMessages = true;
 					socket.emit("load more messages", data);
 				}else{
 					deferred.reject();
@@ -210,10 +209,11 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on("load more messages", function(response){
-				if(response.length === 0){
-					$scope.status.loading = true;
+				if(response.messages.length === 0){
+					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
+					$scope.busyMessages = false;
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
@@ -357,11 +357,13 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
+				$scope.glued = true;
 				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
-				$scope.status.loading = false;
+				$scope.statusLoading = true;
+				$scope.busyMessages = false;
 				$scope.counter = 10;
 				if ($state.current.name === 'chat.contacts') {
 					$scope.Model.showContactBlock = false;
@@ -624,8 +626,8 @@ angular.module('placePeopleApp')
 					// }
 				});
 			};
-			$scope.$on('ngDialog.opened', function (e, $dialog) {
-				if($dialog.name === "edit-group-chat"){
+			$scope.$on('ngDialog.opened', function(e, $dialog){
+				if($dialog.name === "edit-group-chat" && $scope.currentOpponent.status !== undefined){
 					$(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $scope.currentOpponent.status.split(' messagetext: ')[0];
 				}
 			});
@@ -721,6 +723,7 @@ angular.module('placePeopleApp')
 				});
 				ChatService.updateGroupChat($scope.currentOpponent.room_id, name, statusToSave, avatar, usersInChat).then(function(response){						
 					if(response.data.status){
+						$scope.showErrorMessage = false;
 						$scope.Model.opponent.name = name;
 						$scope.currentOpponent.status = statusToSave;
 						if(typeof avatar === "object"){
@@ -756,30 +759,36 @@ angular.module('placePeopleApp')
 			$scope.Model.createGroupChat = function(name, status, avatar){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];
-				users.push(parseInt($scope.loggedUserId));				
-				$scope.Model.newGroupChat.users.forEach(function(user){
-					users.push(user.id);
-				});
-				var avatarObj = {
-					avatarName: avatar.name,
-					avatarType: avatar.type,
-					avatar: avatar
-				};
-				var data = {
-					is_group: true,
-					name: name,
-					status: statusToSave,
-					avatarObj: avatarObj,
-					members: users,
-					offset: 0,
-					limit: 10
-				};
-				socket.emit('create room', data);
-				newGroupChatPopup.close();
-				$scope.Model.displayChatBlock = false;
-				$scope.Model.displayContactBlock = false;
-				$scope.Model.displayNotificationBlock = false;
-				$state.go('chat.list');				
+				users.push(parseInt($scope.loggedUserId));
+				if($scope.Model.newGroupChat.users.length === 0){
+					$scope.showErrorMessage = true;
+					return;
+				}else{
+					$scope.Model.newGroupChat.users.forEach(function(user){
+						users.push(user.id);
+					});
+					var avatarObj = {
+						avatarName: avatar.name,
+						avatarType: avatar.type,
+						avatar: avatar
+					};
+					var data = {
+						is_group: true,
+						name: name,
+						status: statusToSave,
+						avatarObj: avatarObj,
+						members: users,
+						offset: 0,
+						limit: 10
+					};
+					socket.emit('create room', data);
+					newGroupChatPopup.close();
+					$scope.showErrorMessage = false;
+					$scope.Model.displayChatBlock = false;
+					$scope.Model.displayContactBlock = false;
+					$scope.Model.displayNotificationBlock = false;
+					$state.go('chat.list');
+				}
 			};
 
 			$scope.Model.onItemSelected = function(user){
@@ -805,7 +814,11 @@ angular.module('placePeopleApp')
 			};
 			
 			$scope.Model.removeUser = function(index){
-				$scope.Model.newGroupChat.users.splice(index, 1);
+				if($scope.Model.newGroupChat.users.length !== 1){
+					$scope.Model.newGroupChat.users.splice(index, 1);
+				}else{
+					$scope.showErrorMessage = true;
+				}
 			};
 
 			$scope.Model.saveNotificationSettings = function(chat){			

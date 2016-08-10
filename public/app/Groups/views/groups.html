@@ -9,12 +9,13 @@
                         группу</a>
                 </div>
 
-                <div ng-if="showMyGroups">
+                <div ng-if="showMyGroups && myGroupsFiltered.length > 0">
                     <div class="places-page-type-place">
                         <div>
                             <h4>Мои группы</h4>
                         </div>
-                        <div class="places-type-place-btn" ng-if="!showAllButtons" ng-click="toogleGroupsView('my')">
+                        <div class="places-type-place-btn" ng-if="!showAllButtons && myGroupsFiltered.length > 3"
+                             ng-click="toogleGroupsView('my')">
                             Ещё
                         </div>
                         <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
@@ -23,40 +24,44 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | filter: showMyGroups | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups">
+                             ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups"
+                        ng-click="goGroup(group)">
                             <div class="group-cover">
-                                <a ui-sref="group({groupName: group.url_name, groupId: group.id})" class="group-ava">
+                                <a href class="group-ava">
                                     <img ngf-src="group.card_avatar" ngf-as-background="true">
                                 </a>
 
                                 <div class="group-likes">
-                                    <a href="" class="group-like">{{::group.count_user}}</a>
-                                    <a href="" class="group-comments">{{::group.publications}}</a>
+                                    <p href="" class="group-like">{{::group.count_user}}</p>
+                                    <p href="" class="group-comments">{{::group.publications}}</p>
                                 </div>
                             </div>
                             <div class="titles">
-                                <a href ng-class="{'groups-locked-icon': !group.is_open}" class="title">{{::group.name}}</a>
+                                <a href ng-class="{'groups-locked-icon': !group.is_open}"
+                                   class="title">{{::group.name}}</a>
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-                            <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
-                            <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>
+                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
+                            </button>
+                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
+                            <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
                         </div>
                     </div>
                 </div>
 
-                <div ng-if="showAllGroups">
+                <div ng-if="showAllGroups && publicGroupsFiltered.length > 0">
                     <div class="places-page-type-place">
                         <div>
                             <h4>Все публичные группы</h4>
                         </div>
-                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value" ng-if="showAllButtons">
+                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value"
+                                ng-if="showAllButtons">
                             <option value="-count_user">Популярные</option>
                             <option value="-created_at">Новые</option>
                         </select>
 
-                        <div class="places-type-place-btn" ng-if="!showAllButtons"
+                        <div class="places-type-place-btn" ng-if="!showAllButtons && publicGroupsFiltered.length > 3"
                              ng-click="toogleGroupsView('public')">Ещё
                         </div>
                         <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
@@ -65,10 +70,11 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in groupList | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups">
+                             ng-repeat="group in publicGroupsFiltered | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups"
+                             ng-click="goGroup(group)">
                             <div class="group-cover">
                                 <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
-                                <a ui-sref="group({groupName: group.url_name})" class="group-ava">
+                                <a class="group-ava">
                                     <img ngf-src="group.card_avatar" ngf-as-background="true">
                                 </a>
 
@@ -82,9 +88,10 @@
 
                                 <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-                            <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
-                            <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>
+                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
+                            </button>
+                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
+                            <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
                         </div>
                     </div>
                 </div>

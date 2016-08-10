@@ -9,6 +9,7 @@ use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
 use App\User;
+use App\Online;
 use App\UserRoomsMessage;
 use Illuminate\Http\Request;
 
@@ -137,6 +138,11 @@ class GroupController extends Controller
             $group->count_chat_files = $group->count_chat_files($group->room_id);
             $group->users = User::join('group_users','group_users.user_id','=','users.id')->select('users.id', 'users.first_name', 'users.last_name', 'users.avatar_path', 'users.user_quote', 'users.login', 'group_users.is_admin')
             ->where('group_users.group_id',$group->id)->get();
+
+            foreach ($group->users as $user) {
+                $user->is_online = Online::isOnline($user->id);
+            }
+
             if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
                 $group->is_sub = true;
             } else {$group->is_sub = false;}

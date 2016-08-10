@@ -691,6 +691,7 @@ footer {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
+		background-size: 24px;
 		transition: all .3s ease-in-out .1s; 
 	}
 	.footer .menu {
@@ -1102,7 +1103,7 @@ body.public.user {
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 30px;
+		background-size: 24px;
 		padding-left: 0;
 	}
 	.public header .main-menu .menu-item,
@@ -1399,6 +1400,7 @@ body.public.user {
 }
 .comunications .reread:hover,
 .comunications .read:hover,
+.comunications .read.is-sub,
 .contacts-off-container  .subscriber .read:hover,
 .contacts-off-container  .subscriber .read:hover {
 	color: #495b79;
@@ -1406,7 +1408,8 @@ body.public.user {
 }
 .comunications .rewrite:hover,
 .comunications .reread:hover,
-.comunications .read:hover ,
+.comunications .read:hover,
+.comunications .read.is-sub,
 .contacts-off-container  .subscriber .read:hover,
 .contacts-off-container  .subscriber .read:hover{
 	border: 1px solid #77849b;
@@ -2294,8 +2297,8 @@ spam-item {
  .comment .comment-pic .comment-pic-item img {
 	max-width: 100%;
 	max-height: 100%;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 }
 .publication .new-add .inner .close-inner,
 .publication .new-add .inner .check-inner,
@@ -2521,6 +2524,9 @@ spam-item {
 		flex-wrap: wrap;
 		margin-top: 5px;
 }
+.user-publication-content .publication-images .ngsb-wrap {
+	width: 100%;
+}
 .publication-images .images-item {
 	width: 97px;
 	overflow: hidden;
@@ -2529,7 +2535,7 @@ spam-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: rgba(0,0,0,.2);
+	background: rgba(0,0,0,0.03);
 	cursor: pointer;
 }
 .publication-images .images-item:nth-child(7n){
@@ -2543,8 +2549,8 @@ spam-item {
 .publication-images .images-item img {
 	max-width: 100%;
 	max-height: 100%;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 }
 .publication-images .images-item.more:hover {
 	background-color: #fff;
@@ -2922,7 +2928,7 @@ spam-item {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 5px;
-	background: rgba(0,0,0,.2);
+	/*background: rgba(0,0,0,.2);*/
 	text-decoration: none;
 }
 .comment .comment-pic .comment-pic-item:nth-child(4n) {
@@ -2939,10 +2945,6 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
-/*.ngdialog.popup-user-subscribers.ngdialog-theme-default,
-.ngdialog.popup-user-subscribe.ngdialog-theme-default {
-	position: absolute;
-}*/
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;
@@ -3083,7 +3085,7 @@ spam-item {
 	}
 	.contacts-off-container {
 		width: 100%;
-		padding: 20px 15px;
+		padding: 35px 15px;
 		box-sizing: border-box;
 		background: #fff;
 	}
@@ -3131,12 +3133,12 @@ spam-item {
 	.contacts-off-container .prev {
 		position: absolute;
 		top: 10px;
-		right: 10px;
+		left: 10px;
 		width: 30px;
 		height: 25px;
 		background-image: url(../images/left-arrow-hover.png);
 		background-position: center;
-		background-size: 90%;
+		background-size: 28px;
 		background-repeat: no-repeat;
 	}
 	.contacts-off-container .prev:hover {
@@ -3152,10 +3154,10 @@ spam-item {
 		position: absolute;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content {
-		margin-left: -125px;
-		margin-top: -105px;
-		width: 250px;
-		height: 210px; 
+		margin-left: -140px;
+		margin-top: -130px;
+		width: 280px;
+		height: 250px; 
 		padding: 25px 10px 0 10px!important;
 	}
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
@@ -3498,6 +3500,7 @@ body.ngdialog-open {
 	width: 100%;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
 }
 .group-cover .group-likes {
 	position: absolute;
@@ -3518,7 +3521,7 @@ body.ngdialog-open {
 .group-cover:hover .group-likes {
 	opacity: 1;
 }
-.group-likes a {
+.group-likes p {
 	text-decoration: none;
 	color: #fff;
 	font-size: 14.6px;
@@ -3526,7 +3529,7 @@ body.ngdialog-open {
 	cursor: pointer;
 	line-height: 30px;
 }
-.group-likes a:hover {
+.group-likes p:hover {
 	color: #495b79;
 }
 .group-likes .group-like {
@@ -3555,6 +3558,7 @@ body.ngdialog-open {
 	overflow: hidden;
 	box-sizing: border-box;
 	padding: 10px;
+	cursor: pointer;
 }
 .titles .title {
 	text-decoration: none;
@@ -3754,24 +3758,25 @@ body.ngdialog-open {
 	color: #fff;
 	background: #495b79;
 	cursor: pointer;
-	top: 50%;
+	top: -100%;
 	margin-top: -14px;
 	right: 5px;
 }
 .group-page button:hover {
 	border: 1px solid #495b79;
 	color: #495b79;
-	background: transparent;
+	background: #fff;
 }
 .group-menu .group-menu-item {
 	width: 700px;
 	display: flex;
-		justify-content: center;
+	justify-content: center;
+	align-items: center;
 }
 .group-menu .group-menu-item .counts {
 	display: flex;
 	justify-content: space-between;
-	width: 400px;
+	width: 350px;
 	align-items: stretch;
 }
 .group-menu-item .counts .counter {
