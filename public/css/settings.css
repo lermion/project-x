@@ -1760,6 +1760,7 @@ div.my_profilll.photo-list div:last-child {
     align-items: center;
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 .group-files-content a img {
     display: flex;
