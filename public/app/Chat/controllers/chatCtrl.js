@@ -200,7 +200,6 @@ angular.module('placePeopleApp')
 				};
 				var deferred = $q.defer();
 				if($scope.Model.Chat !== undefined && $scope.Model.Chat.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading){
-					console.log("inside");
 					$scope.busyMessages = true;
 					socket.emit("load more messages", data);
 				}else{
@@ -358,6 +357,7 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
+				$scope.glued = true;
 				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
