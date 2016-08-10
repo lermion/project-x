@@ -5283,7 +5283,7 @@ input.cmn-toggle-round:checked + label:after {
     background-image: url(/images/search-hover.png);
 }
 .main-content .groups {
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 @media (max-width: 800px) {
     .public header .main-menu .main-header-group {
@@ -6894,3 +6894,17 @@ textarea[type="text"]:focus,
         max-width: 170px;    
     }
  }
+.feed-publication-menu {
+    display: flex;
+}
+.feed-publication-menu a {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 10px;
+    transition: all .3s ease-in-out .1s;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}
