@@ -33,10 +33,10 @@
 
 
             <!--My places-->
-            <div class="places-page-one-category" ng-if="vm.categories[11].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[11].show || vm.showAll) && vm.myPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Мои места</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(11)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.myPlaces.length > 3" ng-click="vm.togglePlaceView(11)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -45,10 +45,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {is_admin: true} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.myPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+                    ng-click="vm.goPlace(place)">
                         <div class="places-item-photo">
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -72,10 +72,10 @@
             </div>
 
             <!--Popular-->
-            <div class="places-page-one-category" ng-if="vm.categories[1].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[1].show || vm.showAll) && vm.popularPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Популярные</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(1)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.popularPlaces.length > 3" ng-click="vm.togglePlaceView(1)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -84,10 +84,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-count_user'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.popularPlaces | orderBy: ['-count_user'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-lin" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -111,10 +111,10 @@
             </div>
 
             <!--New-->
-            <div class="places-page-one-category" ng-if="vm.categories[2].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[2].show || vm.showAll) && vm.newPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Новые</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(2)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.newPlaces.length > 3" ng-click="vm.togglePlaceView(2)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -123,11 +123,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.newPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -151,10 +150,10 @@
             </div>
 
             <!--Dynamic-->
-            <div class="places-page-one-category" ng-if="vm.categories[0].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[0].show || vm.showAll) && vm.dynamicPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Динамичные места</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(0)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.dynamicPlaces.length > 3" ng-click="vm.togglePlaceView(0)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -163,11 +162,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.dynamicPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -191,10 +189,10 @@
             </div>
 
             <!--Near-->
-            <div class="places-page-one-category" ng-if="vm.categories[3].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[3].show || vm.showAll) && vm.nearPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Рядом с Вами</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(3)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.nearPlaces.length > 3" ng-click="vm.togglePlaceView(3)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -203,11 +201,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.nearPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -231,10 +228,10 @@
             </div>
 
             <!--Shop-->
-            <div class="places-page-one-category" ng-if="vm.categories[4].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[4].show || vm.showAll) && vm.shopPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Магазин</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(4)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.shopPlaces.length > 3" ng-click="vm.togglePlaceView(4)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -243,11 +240,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {type_place_id: 1} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.shopPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -271,10 +267,10 @@
             </div>
 
             <!--Cafe-->
-            <div class="places-page-one-category" ng-if="vm.categories[5].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[5].show || vm.showAll) && vm.cafePlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Кафе/Ресторан</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(5)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.cafePlaces.length > 3" ng-click="vm.togglePlaceView(5)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -283,11 +279,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {type_place_id: 2} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.cafePlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -311,10 +306,10 @@
             </div>
 
             <!--Entertainment-->
-            <div class="places-page-one-category" ng-if="vm.categories[6].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[6].show || vm.showAll) && vm.entertainmentPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Развлечение</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(6)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.entertainmentPlaces.length > 3" ng-click="vm.togglePlaceView(6)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -323,11 +318,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {type_place_id: 3} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.entertainmentPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -351,10 +345,10 @@
             </div>
 
             <!--Oganization-->
-            <div class="places-page-one-category" ng-if="vm.categories[7].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[7].show || vm.showAll) && vm.organizationPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Организация</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(7)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.organizationPlaces.length > 3" ng-click="vm.togglePlaceView(7)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -363,11 +357,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {type_place_id: 4} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.organizationPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -391,10 +384,10 @@
             </div>
 
             <!--University-->
-            <div class="places-page-one-category" ng-if="vm.categories[8].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[8].show || vm.showAll) && vm.universityPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Университет</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(8)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.universityPlaces.length > 3" ng-click="vm.togglePlaceView(8)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -403,11 +396,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {type_place_id: 5} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.universityPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -431,10 +423,10 @@
             </div>
 
             <!--School-->
-            <div class="places-page-one-category" ng-if="vm.categories[9].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[9].show || vm.showAll) && vm.schoolPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Школа</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(9)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.schoolPlaces.length > 3" ng-click="vm.togglePlaceView(9)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -443,11 +435,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: {type_place_id: 6} | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.schoolPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>
@@ -471,10 +462,10 @@
             </div>
 
             <!--Address-->
-            <div class="places-page-one-category" ng-if="vm.categories[10].show || vm.showAll">
+            <div class="places-page-one-category" ng-if="(vm.categories[10].show || vm.showAll) && vm.addressPlaces.length > 0">
                 <div class="places-page-type-place">
                     <div>Адрес</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces" ng-click="vm.togglePlaceView(10)">
+                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.addressPlaces.length > 3" ng-click="vm.togglePlaceView(10)">
                         Ещё
                     </div>
                     <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
@@ -483,11 +474,10 @@
                 </div>
                 <div class="places-page-category-wrap">
                     <div class="places-category-item"
-                         ng-repeat="place in vm.places | filter: vm.filterByDynamicType | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
+                         ng-repeat="place in vm.addressPlaces| orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace">
                         <div class="places-item-photo">
                             <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link"
-                               ui-sref="place({placeName: place.url_name, placeId: place.id})">
+                            <a class="places-item-photo-link" href>
                                 <img class="places-item-photo-img"
                                      ngf-src="place.avatar">
                             </a>

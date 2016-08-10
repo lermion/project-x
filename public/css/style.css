@@ -1400,6 +1400,7 @@ body.public.user {
 }
 .comunications .reread:hover,
 .comunications .read:hover,
+.comunications .read.is-sub,
 .contacts-off-container  .subscriber .read:hover,
 .contacts-off-container  .subscriber .read:hover {
 	color: #495b79;
@@ -1407,7 +1408,8 @@ body.public.user {
 }
 .comunications .rewrite:hover,
 .comunications .reread:hover,
-.comunications .read:hover ,
+.comunications .read:hover,
+.comunications .read.is-sub,
 .contacts-off-container  .subscriber .read:hover,
 .contacts-off-container  .subscriber .read:hover{
 	border: 1px solid #77849b;
@@ -2295,8 +2297,8 @@ spam-item {
  .comment .comment-pic .comment-pic-item img {
 	max-width: 100%;
 	max-height: 100%;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 }
 .publication .new-add .inner .close-inner,
 .publication .new-add .inner .check-inner,
@@ -2522,6 +2524,9 @@ spam-item {
 		flex-wrap: wrap;
 		margin-top: 5px;
 }
+.user-publication-content .publication-images .ngsb-wrap {
+	width: 100%;
+}
 .publication-images .images-item {
 	width: 97px;
 	overflow: hidden;
@@ -2544,8 +2549,8 @@ spam-item {
 .publication-images .images-item img {
 	max-width: 100%;
 	max-height: 100%;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 }
 .publication-images .images-item.more:hover {
 	background-color: #fff;
@@ -2923,7 +2928,7 @@ spam-item {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 5px;
-	background: rgba(0,0,0,.2);
+	/*background: rgba(0,0,0,.2);*/
 	text-decoration: none;
 }
 .comment .comment-pic .comment-pic-item:nth-child(4n) {
@@ -2940,10 +2945,6 @@ spam-item {
 .comment .comment-pic .comment-pic-item:hover p {
 	color: #495b79;
 }
-/*.ngdialog.popup-user-subscribers.ngdialog-theme-default,
-.ngdialog.popup-user-subscribe.ngdialog-theme-default {
-	position: absolute;
-}*/
 .ngdialog.popup-user-subscribers.ngdialog-theme-default .ngdialog-content,
 .ngdialog.popup-user-subscribe.ngdialog-theme-default .ngdialog-content {
 	background: #fff;

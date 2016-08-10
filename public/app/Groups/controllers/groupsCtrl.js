@@ -332,7 +332,7 @@ angular.module('app.groups')
                     });
             };
 
-            $scope.showMyGroups = function (group) {
+            $scope.showMyGroupsFilter = function (group) {
                 return group.is_admin === true || group.is_sub === true;
             };
 
@@ -363,6 +363,15 @@ angular.module('app.groups')
                 return groupsService.getGroupList()
                     .then(function (groupList) {
                         $scope.groupList = groupList;
+
+                        $scope.myGroupsFiltered = groupList.filter(function(group) {
+                            return group.is_admin === true || group.is_sub === true;
+                        });
+
+                        $scope.publicGroupsFiltered = groupList.filter(function(group) {
+                            return !!+group.is_open === true;
+                        });
+
                     });
             }
 
