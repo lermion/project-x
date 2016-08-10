@@ -3500,6 +3500,7 @@ body.ngdialog-open {
 	width: 100%;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
 }
 .group-cover .group-likes {
 	position: absolute;
@@ -3520,7 +3521,7 @@ body.ngdialog-open {
 .group-cover:hover .group-likes {
 	opacity: 1;
 }
-.group-likes a {
+.group-likes p {
 	text-decoration: none;
 	color: #fff;
 	font-size: 14.6px;
@@ -3528,7 +3529,7 @@ body.ngdialog-open {
 	cursor: pointer;
 	line-height: 30px;
 }
-.group-likes a:hover {
+.group-likes p:hover {
 	color: #495b79;
 }
 .group-likes .group-like {
@@ -3557,6 +3558,7 @@ body.ngdialog-open {
 	overflow: hidden;
 	box-sizing: border-box;
 	padding: 10px;
+	cursor: pointer;
 }
 .titles .title {
 	text-decoration: none;
