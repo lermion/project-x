@@ -410,6 +410,7 @@ angular.module('placePeopleApp')
 						limit: 10
 					};
 				}
+				console.log($scope.Model.opponent);
 				$scope.Model.opponent.room_id = chat.room_id;
 				$scope.Model.showChatBlock = true; 
 				$scope.Model.displayChatBlock = true;
@@ -824,13 +825,23 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){			
-				ChatService.setNotification(chat.room_id).then(function(response){						
-					
+			$scope.Model.saveNotificationSettings = function(){
+				var roomId = null;
+				for(var i = 0; i < $scope.Model.chatRooms.length; i++){
+					for(var j = 0; j < $scope.Model.chatRooms[i].members.length; j++){
+						if (!$scope.Model.chatRooms[i].is_group) {
+							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id){
+								roomId = $scope.Model.chatRooms[i].room_id;
+							}
+						}
+					}
+				}
+				ChatService.setNotification(roomId).then(function(response){
+					console.log(response);
 				},
 				function(error){
 					console.log(error);
-				});				
+				});
 			};
 			$scope.checkMessageType = function(message){
 				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";

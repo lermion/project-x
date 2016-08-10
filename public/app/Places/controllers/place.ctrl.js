@@ -99,6 +99,7 @@
                 setWatchers();
             } else if (state === 'place.files') {
                 vm.chatFiles = $state.params.chatFiles;
+                vm.mergedChatFiles = [].concat.apply([], vm.chatFiles);
             }
         });
 
@@ -854,11 +855,15 @@
 
 		};
 
-		vm.getMonth = function (date) {
+		vm.getMonthYear = function (date) {
 			var newDate = moment(date).format("MMMM YYYY");
 			newDate = newDate[0].toUpperCase() + newDate.substr(1);
 			return newDate;
 		};
+
+        vm.getMonth = function (date) {
+            return moment(date).month();
+        };
 
 		vm.limitToFiles = 3;
 
