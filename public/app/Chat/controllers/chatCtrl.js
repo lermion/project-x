@@ -20,6 +20,9 @@ angular.module('placePeopleApp')
 			}).error(function(error){
 				console.log(error);
 			});
+			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+				$scope.currentPath = $location.path();
+			});
 			$scope.Model.mobile = {};
 			if($window.innerWidth <= 768){
 				$scope.Model.mobile.display = true;								
@@ -588,7 +591,7 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					if(!$scope.disabledSendMessage){
+					if(!$scope.disabledSendMessage && $scope.currentPath !== "/chat/blocked"){
 						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
 					}
 				}
@@ -828,7 +831,6 @@ angular.module('placePeopleApp')
 					console.log(error);
 				});				
 			};
-
 			$scope.checkMessageType = function(message){
 				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
 				var match = (new RegExp(regExp)).exec(message.text);
