@@ -149,13 +149,12 @@
                      required
                 >
                     <a href="">
-                        <img ngf-thumbnail="vm.placeNew.cover" ngf-no-object-url="true">
+                        <img ngf-src="vm.placeNew.cover" ngf-no-object-url="true">
                     </a>
 
                     <span>Добавить обложку места</span>
                 </div>
             </div>
-
             <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error"
                  ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.cover.$dirty">
                 <div ng-message="pattern">Выбранный файл не является изображением</div>
@@ -163,6 +162,7 @@
                 <div ng-message="required">Выберите обложку</div>
                 <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
             </div>
+
             <div class="create-places-add-cover">
                 <div class="create-places-add-cover-img"
                      name="logo"
@@ -173,7 +173,7 @@
                      ng-model="vm.placeNew.logo1"
                      required>
                     <a href="">
-                        <img ngf-thumbnail="vm.placeNew.logo" ngf-no-object-url="true">
+                        <img ngf-src="vm.placeNew.logo" ngf-no-object-url="true">
                     </a>
                     <span>Добавить логотип места</span>
                 </div>

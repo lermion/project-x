@@ -24,11 +24,12 @@
                        ngf-change="changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        required>
                 <label for="avatarImg">
-                    <img class="avatar__card" ngf-thumbnail="newGroup.avatarCard" ngf-no-object-url="true">
+                    <img class="avatar__card" ngf-src="newGroup.avatarCard" ngf-no-object-url="true">
                 </label>
             </div>
             <span class="add_ava_grp"> Добавить обложку группе </span>
         </div>
+        <img ngf-src="cropImageTest" ngf-no-object-url="true">
         <div class="error-messages" ng-messages="forms.newGroup.avatar.$error"
              ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted || forms.newGroup.$dirty">
             <div ng-message="pattern">Выбранный файл не является изображением</div>
