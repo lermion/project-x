@@ -6786,7 +6786,7 @@ textarea[type="text"]:focus,
 }
 .places-page .pub-groups {
     background-size: 15%;
-    background-image: url(/images/place-create1.png);
+    background-image: url(/images/place-create2.png);
     padding-left: 25px;
 }
 .places-page  .pub-groups:hover {
@@ -6881,7 +6881,8 @@ textarea[type="text"]:focus,
         width: 96%;
         margin-left: -50%;
     }
-    .view-publication .user-publication .user-function .user .user-name {
+    .view-publication .user-publication .user-function .user .user-name,
+    .peoples-inner-item-admin.new-admin {
         font-size: .8em;    
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
