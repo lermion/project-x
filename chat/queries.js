@@ -99,8 +99,18 @@ Queries.prototype.getUserRooms = function(data){
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_quote, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
-						connection.query("SELECT u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = '" + item.id + "')", function(error, lastMessages){
+						connection.query("SELECT message_videos.id as isVideo, message_images.id as isImage, u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u LEFT JOIN message_images ON u.message_id = message_images.message_id LEFT JOIN message_videos ON u.message_id = message_videos.message_id INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = " + item.id + ")", function(error, lastMessages){
 							connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + item.id + " AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ")", function(error, countMessages){
+								var last_message = null;
+								if(lastMessages[0]){
+									if(lastMessages[0].text){
+										last_message = lastMessages[0].text;
+									}else if(lastMessages[0].isImage){
+										last_message = 'изображение';
+									}else{
+										last_message = 'видео';
+									}
+								}
 								result = {
 									members: result,
 									room_id: item.id,
@@ -109,7 +119,7 @@ Queries.prototype.getUserRooms = function(data){
 									status: item.user_quote || item.status,
 									avatar: item.avatar,
 									is_admin: item.is_admin,
-									last_message: lastMessages[0] ? lastMessages[0].text : "нет сообщений",
+									last_message: last_message,
 									last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
 									show_notif: result[0] ? result[0].show_notif : "",
 									countMessages: countMessages[0]['COUNT(message_id)']
