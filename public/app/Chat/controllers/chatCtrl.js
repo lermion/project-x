@@ -210,6 +210,7 @@ angular.module('placePeopleApp')
 
 			socket.on("load more messages", function(response){
 				if(response.messages.length === 0){
+					$scope.glued = true;
 					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
@@ -357,7 +358,6 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
-				$scope.glued = true;
 				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
@@ -518,7 +518,6 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on('updatechat', function(data){
-				$scope.glued = true;
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
