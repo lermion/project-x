@@ -6241,7 +6241,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
     color: #495b79;
     border-bottom: 1px solid #e0e2e5;
