@@ -180,7 +180,8 @@ angular.module('placePeopleApp')
 			$scope.deleteChatFiles = function(files, index){
 				files.splice(index, 1);
 			};
-
+			$scope.statusLoading = true;
+			$scope.busyMessages = false;
 			$scope.loadMoreMessages = function(roomId){
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
@@ -202,7 +203,8 @@ angular.module('placePeopleApp')
 					members: members
 				};
 				var deferred = $q.defer();
-				if(!$scope.status.loading && $scope.Model.Chat !== undefined && $scope.Model.Chat.length >= 10){
+				if($scope.Model.Chat !== undefined && $scope.Model.Chat.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading){
+					$scope.busyMessages = true;
 					socket.emit("load more messages", data);
 				}else{
 					deferred.reject();
@@ -211,9 +213,9 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on("load more messages", function(response){
-				if(response.length === 0){
-					$scope.status.loading = true;
-					$scope.counter = 0;
+				$scope.busyMessages = false;
+				if(response.messages.length === 0){
+					$scope.statusLoading = false;
 				}else{
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
