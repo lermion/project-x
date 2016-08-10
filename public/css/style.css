@@ -2953,6 +2953,8 @@ spam-item {
 	margin-top: 0;
 	top: 10%;
 	height: auto;
+	max-height: 75vh;
+    overflow-y: auto;
 }
 .contacts-off-container .subscriber,
 .contacts-off-container .subscriber-item {
