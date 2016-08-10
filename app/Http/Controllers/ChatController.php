@@ -174,10 +174,15 @@ class ChatController extends Controller
         }
         array_multisort($ar_sort, SORT_ASC, $files);
         $file = array_reverse($files);
-        $collection = collect($file);
-        $result = $collection->chunk(21);
-        $resul = $result->toArray();
-        return response()->json(['status' => true, 'data' => $resul]);
+        $result = array_chunk($file, 21);
+        foreach($result as &$files){
+            $tmp = [];
+            foreach($files as &$f){
+                $tmp[] = (object)$f;
+            }
+            $files = $tmp;
+        }
+        return response()->json(['status' => true, 'data' => $result]);
     }
 
     public function users(Request $request, $room_id)
