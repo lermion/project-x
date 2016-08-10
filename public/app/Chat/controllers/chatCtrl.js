@@ -216,6 +216,7 @@ angular.module('placePeopleApp')
 				$scope.busyMessages = false;
 				if(response.messages.length === 0){
 					$scope.statusLoading = false;
+					$scope.counter = 0;
 				}else{
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
