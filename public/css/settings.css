@@ -4132,7 +4132,7 @@ span.users-today-time-time.early {
         margin-left: 10px;
     }
     .chat-left-users-users-today {
-        justify-content: space-between;
+        justify-content: flex-start;
     }
     .chat-users-today-data {
         width: 88%;
