@@ -80,7 +80,7 @@
 			<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
 
 				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
-					<div ng-hide="Model.Chat[$index - 1].login == loggedUser && Model.Chat[Model.Chat.length - 1].login == loggedUser" class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
+					<div ng-hide="Model.Chat[$index - 1].login == Model.Chat[Model.Chat.length - 1].login" class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
 					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 					<div ng-if="message.images" class="to-my-msg-inner-photo">
 						<span ng-click="showPopupWithFiles(message.images)" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
@@ -88,7 +88,7 @@
 						</span>
 					</div>
 				</div>
-				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
+				<div ng-class="(message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (message.login === loggedUser ? 'done' : 'no-done')">
 					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 				</div>
 			</div>
