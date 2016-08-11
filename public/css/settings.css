@@ -5716,6 +5716,9 @@ input.cmn-toggle-round:checked + label:after {
     width: 100%;
     z-index: 2;
 }
+.search.group-peoples {
+    justify-content: center;
+}
 .header-search-input-wrap {
     width: 700px;
     margin: 5px auto;

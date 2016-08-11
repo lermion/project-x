@@ -1,564 +1,540 @@
 <div>
-    <div ui-view>
-        <div class="places-page">
-            <div class="places-page-header">
-                <div class="places-page-header-title" ng-click="vm.togglePlaceView()">
-                    <span ng-if="vm.showAllPlaces"></span>
-                    Все места
-                    <div id="map"></div>
-                </div>
-                <div>
-                    <a class="pub-groups" ui-sref="places.add">Создать место</a>
-                </div>
-                <div class="places-page-header-category">
-                    <select ng-model="vm.placesDropdown">
+	<div ui-view>
+		<div class="places-page">
+			<div class="places-page-header">
+				<div class="places-page-header-title" ng-click="vm.togglePlaceView()">
+					<span ng-if="vm.showAllPlaces"></span>
+					Все места
+					<div id="map"></div>
+				</div>
+				<div>
+					<a class="pub-groups" ui-sref="places.add">Создать место</a>
+				</div>
+				<div class="places-page-header-category">
+					<select ng-model="vm.placesDropdown">
 
-                        <option value="">Выберите категорию</option>
-                        <option value="11">Мои места</option>
-                        <option value="1">Популярные</option>
-                        <option value="2">Новые</option>
-                        <option value="0">Динамичные</option>
-                        <option value="3">Рядом с вами</option>
-                        <option value="4">Магазин</option>
-                        <option value="5">Кафе/Ресторан</option>
-                        <option value="6">Развлечение</option>
-                        <option value="7">Организация</option>
-                        <option value="8">Университет</option>
-                        <option value="9">Школа</option>
-                        <option value="10">Адрес</option>
-                        <!-- <option value="places.add">Создать место</option> -->
-                    </select>
-                </div>
-            </div>
-
-
-            <!--My places-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[11].show || vm.showAll) && vm.myPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Мои места</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.myPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(11)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.myPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Popular-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[1].show || vm.showAll) && vm.popularPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Популярные</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.popularPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(1)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.popularPlaces | orderBy: ['-count_user'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--New-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[2].show || vm.showAll) && vm.newPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Новые</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.newPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(2)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.newPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Dynamic-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[0].show || vm.showAll) && vm.dynamicPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Динамичные места</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.dynamicPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(0)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.dynamicPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Near-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[3].show || vm.showAll) && vm.nearPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Рядом с Вами</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.nearPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(3)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.nearPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Shop-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[4].show || vm.showAll) && vm.shopPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Магазин</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.shopPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(4)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.shopPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Cafe-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[5].show || vm.showAll) && vm.cafePlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Кафе/Ресторан</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.cafePlaces.length > 3"
-                         ng-click="vm.togglePlaceView(5)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.cafePlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Entertainment-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[6].show || vm.showAll) && vm.entertainmentPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Развлечение</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.entertainmentPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(6)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.entertainmentPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Oganization-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[7].show || vm.showAll) && vm.organizationPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Организация</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.organizationPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(7)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.organizationPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--University-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[8].show || vm.showAll) && vm.universityPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Университет</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.universityPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(8)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.universityPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--School-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[9].show || vm.showAll) && vm.schoolPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Школа</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.schoolPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(9)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.schoolPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Address-->
-            <div class="places-page-one-category"
-                 ng-if="(vm.categories[10].show || vm.showAll) && vm.addressPlaces.length > 0">
-                <div class="places-page-type-place">
-                    <div>Адрес</div>
-                    <div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.addressPlaces.length > 3"
-                         ng-click="vm.togglePlaceView(10)">
-                        Ещё
-                    </div>
-                    <div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
-                        Все
-                    </div>
-                </div>
-                <div class="places-page-category-wrap">
-                    <div class="places-category-item"
-                         ng-repeat="place in vm.addressPlaces| orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
-                         ng-click="vm.goPlace(place)">
-                        <div class="places-item-photo">
-                            <span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
-                            <a class="places-item-photo-link" href>
-                                <img class="places-item-photo-img"
-                                     ngf-src="place.avatar">
-                            </a>
-
-                            <div class="places-item-photo-title">
-                                <span>{{::place.name}}</span>
-                            </div>
-                            <div class="places-item-photo-place">
-                                <span>{{::place.city_name[0]}}</span>
-                            </div>
-                        </div>
-                        <div class="places-item-description">
-                            <p class="places-item-description-p">{{::place.description}}</p>
-                        </div>
-                        <div class="places-item-rating">
-                            <span class="places-item-rating-like">{{::place.count_user}}</span>
-                            <span class="places-item-rating-link">{{::place.publications}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
+						<option value="">Выберите категорию</option>
+						<option value="11">Мои места</option>
+						<option value="1">Популярные</option>
+						<option value="2">Новые</option>
+						<option value="0">Динамичные</option>
+						<option value="3">Рядом с вами</option>
+						<option value="4">Магазин</option>
+						<option value="5">Кафе/Ресторан</option>
+						<option value="6">Развлечение</option>
+						<option value="7">Организация</option>
+						<option value="8">Университет</option>
+						<option value="9">Школа</option>
+						<option value="10">Адрес</option>
+						<!-- <option value="places.add">Создать место</option> -->
+					</select>
+				</div>
+			</div>
 
 
-    <footer>
-        <div class="footer">
-            <div class="footer-item">
-                <div class="footer-place">
-                    <a href="">Place People </a>
-                    <span>© 2016</span>
-                </div>
-                <!-- <div class="payment">
-                    <a class="mastercard" href=""></a>
-                    <a class="visa" href=""></a>
-                </div> -->
-            </div>
-            <div class="menu" ng-click="vm.openBottomMenu()" ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
-                 ng-init="vm.showBottomMenu=true;">
-                <a class="drop-menu" href=""></a>
+			<!--My places-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[11].show || vm.showAll) && vm.myPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Мои места</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.myPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(11)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.myPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
 
-                <div class="menu-item" ng-show="vm.showBottomMenu">
-                    <a ng-repeat="staticPage in vm.staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Popular-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[1].show || vm.showAll) && vm.popularPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Популярные</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.popularPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(1)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.popularPlaces | orderBy: ['-count_user'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--New-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[2].show || vm.showAll) && vm.newPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Новые</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.newPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(2)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.newPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Dynamic-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[0].show || vm.showAll) && vm.dynamicPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Динамичные места</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.dynamicPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(0)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.dynamicPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Near-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[3].show || vm.showAll) && vm.nearPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Рядом с Вами</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.nearPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(3)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.nearPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Shop-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[4].show || vm.showAll) && vm.shopPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Магазин</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.shopPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(4)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.shopPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Cafe-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[5].show || vm.showAll) && vm.cafePlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Кафе/Ресторан</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.cafePlaces.length > 3"
+						 ng-click="vm.togglePlaceView(5)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.cafePlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Entertainment-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[6].show || vm.showAll) && vm.entertainmentPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Развлечение</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.entertainmentPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(6)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.entertainmentPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Oganization-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[7].show || vm.showAll) && vm.organizationPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Организация</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.organizationPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(7)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.organizationPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--University-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[8].show || vm.showAll) && vm.universityPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Университет</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.universityPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(8)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.universityPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--School-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[9].show || vm.showAll) && vm.schoolPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Школа</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.schoolPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(9)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.schoolPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Address-->
+			<div class="places-page-one-category"
+				 ng-if="(vm.categories[10].show || vm.showAll) && vm.addressPlaces.length > 0">
+				<div class="places-page-type-place">
+					<div>Адрес</div>
+					<div class="places-type-place-btn" ng-if="!vm.showAllPlaces && vm.addressPlaces.length > 3"
+						 ng-click="vm.togglePlaceView(10)">
+						Ещё
+					</div>
+					<div class="places-type-place-btn" ng-if="vm.showAllPlaces" ng-click="vm.togglePlaceView()">
+						Все
+					</div>
+				</div>
+				<div class="places-page-category-wrap">
+					<div class="places-category-item"
+						 ng-repeat="place in vm.addressPlaces| orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
+						 ng-click="vm.goPlace(place)">
+						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
+							<a class="places-item-photo-link" href>
+								<img class="places-item-photo-img"
+									 ngf-src="place.avatar">
+							</a>
+
+							<div class="places-item-photo-title">
+								<span>{{::place.name}}</span>
+							</div>
+							<div class="places-item-photo-place">
+								<span>{{::place.city_name[0]}}</span>
+							</div>
+						</div>
+						<div class="places-item-description">
+							<p class="places-item-description-p">{{::place.description}}</p>
+						</div>
+						<div class="places-item-rating">
+							<span class="places-item-rating-like">{{::place.count_user}}</span>
+							<span class="places-item-rating-link">{{::place.publications}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </div>
