@@ -56,5 +56,5 @@
 			<button class="publication-button" ng-click="publishNewPub(files, emojiMessage);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>    
 		</div>       
 	</div>
-	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
+	<p ng-style="publishNewPubErr && {'color':'red'}" class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
 </div>
