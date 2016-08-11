@@ -99,9 +99,10 @@ Queries.prototype.getUserRooms = function(data){
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT delete_messages.message_id as delete_id, u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u LEFT JOIN delete_messages ON u.message_id = delete_messages.message_id INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = " + item.id + ")", function(error, result){
-						console.log(result);
+						// console.log(result);
 					});
-					connection.query("SELECT avatar_path, login, user_id as id, first_name, last_name, user_quote, user_chats.show_notif FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = '" + item.id + "' AND users.id!='" + data.members[0] + "'", function(error, result){
+					connection.query("SELECT (SELECT show_notif FROM user_chats WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ") as show_notif, avatar_path, login, user_id as id, first_name, last_name, user_quote FROM users INNER JOIN user_chats ON user_chats.user_id = users.id WHERE user_chats.room_id = " + item.id + " AND users.id!=" + data.members[0] + "", function(error, result){
+						// console.log("result", result);
 						connection.query("SELECT message_videos.id as isVideo, message_images.id as isImage, u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u LEFT JOIN message_images ON u.message_id = message_images.message_id LEFT JOIN message_videos ON u.message_id = message_videos.message_id INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = " + item.id + ")", function(error, lastMessages){
 							connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + item.id + " AND message_id > (SELECT message_id FROM chat_notice_messages WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ")", function(error, countMessages){
 								var last_message = null;
