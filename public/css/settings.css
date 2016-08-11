@@ -1746,15 +1746,14 @@ div.my_profilll.photo-list div:last-child {
 .group-files-container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 4px;
+    margin-left: 15px;
     margin-top: 3px;
     box-sizing: border-box;
 }
 .group-files-content {
-    box-sizing: border-box;
     display: flex;
-    width: 136px;
-    height: 136px;
+    width: 130px;
+    height: 130px;
     margin: 0 3px 3px 0;
     overflow: hidden;
     box-sizing: border-box;
@@ -1790,8 +1789,8 @@ div.my_profilll.photo-list div:last-child {
         font-family: "SFUIDisplayMedium";
     }
     .group-files-content {
-        width: 97px;
-        height: 97px;
+        width: 92px;
+        height: 92px;
         margin: 0 1px 1px 0;
     }
 }
