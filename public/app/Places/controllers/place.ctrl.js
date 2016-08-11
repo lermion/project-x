@@ -140,7 +140,10 @@
                         template: '../app/Places/views/popup-invite-place.html',
                         name: 'modal-invite-group',
                         className: 'popup-invite-group ngdialog-theme-default',
-                        scope: $scope
+                        scope: $scope,
+                        preCloseCallback: function() {
+                            vm.invitedUsers = [];
+                        }
                     });
                 });
 
