@@ -905,6 +905,10 @@
             }
         };
 
+        vm.closeThis = function() {
+          vm.showGroupMenu = false;
+        };
+
 
         $scope.saveCropp = function (croppedDataURL) {
 

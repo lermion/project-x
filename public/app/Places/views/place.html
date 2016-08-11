@@ -64,8 +64,10 @@
                         </div>
                         <div class="place-user-menu-wrap">
                             <div class="user-menu" ng-if="vm.place.is_admin"
-                                 ng-click="vm.showGroupMenu=!vm.showGroupMenu">
-                                <div class="menu-item" ng-if="vm.showGroupMenu">
+                                 ng-click="$root.showUserMenu=!$root.showUserMenu"
+                                 click-outside="closeUserMenu()"
+                                 outside-if-not="user-menu">
+                                <div class="menu-item" ng-if="$root.showUserMenu">
                                     <div class="inner">
                                         <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
                                         <a ui-sref="place.edit({isDynamicPlace: vm.place.is_dynamic})">Редактировать</a>

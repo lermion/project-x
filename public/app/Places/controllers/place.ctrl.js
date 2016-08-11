@@ -902,6 +902,10 @@
             }
         };
 
+        vm.closeThis = function() {
+            vm.showGroupMenu = false;
+        };
+
 		function activate() {
 			init();
 			getCountries();
