@@ -942,12 +942,13 @@ angular.module('placePeopleApp')
 					$scope.members = function () {
 						return false;
 					}
-					placesService.getPlaces().then(function (response) {
-							$scope.places = response;
-						},
-						function (error) {
-							console.log(error);
-						});
+					placesService.getPlaces().then(function(response){
+						console.log(response);
+						$scope.places = response;
+					},
+					function(error){
+						console.log(error);
+					});
 				}
 			}
 			function loadUserContacts() {
