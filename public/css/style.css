@@ -4007,7 +4007,10 @@ body.ngdialog-open {
 .user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:after { 
 	content: '';
 }
-.user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after,
+.user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after {
+	content: 'Текст комментария...';
+	    color: #999;
+}
 .user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:empty:after {
 	content: 'Текст публикации...';
 	    color: #999;
