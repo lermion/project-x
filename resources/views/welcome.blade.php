@@ -12,11 +12,11 @@
 	<div class="main-up-button">
 		Наверх
 	</div>
-	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
+	<header ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
-			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">
-			<a class="drop-menu" ng-click="openMenu()" href></a>
+			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
+			<a class="drop-menu" ng-click="openMenu()" href="javascript:void(0);"></a>
 			<div class="menu-item" ng-show="showMenu">
 				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
@@ -41,6 +41,19 @@
 					<span class="header-search-input-wrap-span" ng-click="submitSearch()"></span>
 				</form>
 			</div>
+		</div>
+	</header>
+	<header ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
+		<div class="header">
+			<a class="logo" href="javascript:void(0);"></a>
+			<div class="main-menu common">
+			   <!--  <a class="drop-menu" href=""></a> -->
+				<div class="menu-item">		            
+					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">@{{staticPage.description}}</a>		            
+				</div>
+			</div>
+			<a class="registration" ui-sref="reg">Регистрация</a>
+			<a class="exit enter"  ui-sref="login"><span></span>Вoйти</a>
 		</div>
 	</header>
 	<div id="wrapper" ui-view></div>
