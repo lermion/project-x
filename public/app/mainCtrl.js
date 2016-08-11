@@ -79,6 +79,11 @@ angular.module('placePeopleApp')
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 			ngDialog.closeAll();
 			var storage = storageService.getStorage();
+			if(storage.userId !== undefined){
+				$rootScope.userLogged = true;
+			}else{
+				$rootScope.userLogged = false;
+			}
 			$scope.loggedUser = storage.username;
 			$scope.currentPath = $location.url();
 			if($window.innerWidth <= 800){
