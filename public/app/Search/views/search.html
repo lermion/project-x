@@ -25,7 +25,9 @@
                 </div>
             </div>
         </div>
-        <div class="search-tab-container" ui-view></div>
+        <div class="search-tab-container" ui-view>
+            <h4 class="text-center" ng-if="!vm.isResults">Ничего не найдено</h4>
+        </div>
     </div>
 </div>
 
