@@ -94,6 +94,7 @@ angular.module('placePeopleApp')
 					if(response.status){
 						ngDialog.closeAll();
 						$scope.Model.Chat = [];
+						socket.emit("get user rooms", $scope.loggedUserId);
 					}
 				},
 				function(error){
