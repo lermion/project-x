@@ -581,13 +581,19 @@ angular.module('placePeopleApp')
 				$scope.indexCurrentPublication = index;
 				getSinglePublication(pub.id);
 			};
-			$scope.showAddCommentBlock = function (pub) {
+
+			$scope.showAddCommentBlock = function (pub, index) {
+				var div = $(".emoji-wysiwyg-editor")[index];
+				setTimeout(function() {
+				    div.focus();
+				}, 0);
 				if (pub.showAddComment) {
 					pub.showAddComment = false;
 				} else {
 					pub.showAddComment = true;
 				}
-			}
+			};
+
 			$scope.addNewComment = function (flag, pub, pubText, files) {
 				$scope.disableAddComment = true;
 				var images = [];
