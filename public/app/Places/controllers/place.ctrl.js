@@ -1296,7 +1296,6 @@
 		socket.emit("get group chat dialogue", getPlaceChatDialogue);
 		socket.on("get group chat dialogue", function (response) {
 			$scope.messages = response.messages.reverse();
-			$scope.glued = true;
 		});
 		socket.on('updatechat', function (response) {
 			$scope.messages.push(response);
