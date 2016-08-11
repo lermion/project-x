@@ -148,7 +148,8 @@
                     }
 
                     if (value < 520) {
-                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
+                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 42) / 4;
+                        console.log(1);
                         vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
                         vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
                     } else {
@@ -161,7 +162,6 @@
             w.bind('resize', function () {
                 $scope.$apply();
             });
-
         }
 
         // set default tab (view) for group view
