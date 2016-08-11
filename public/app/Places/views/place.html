@@ -1,119 +1,95 @@
 <div style="min-height: 100%;">
-    <div class="user-main-content">
-        <div class="user-main-content-item">
-            <!-- Content -->
+	<div class="user-main-content">
+		<div class="user-main-content-item">
+			<!-- Content -->
 
-            <div class="place-top-ava-wrap">
-                <div class="group-ava">
-                    <a href="" class="ava">
-                        <img ng-src="{{vm.place.cover}}">
-                    </a>
+			<div class="place-top-ava-wrap">
+				<div class="group-ava">
+					<a href="" class="ava">
+						<img ng-src="{{vm.place.cover}}">
+					</a>
 
-                    <div class="group-likes">
-                        <div class="group-info">
-                            <a href="" class="publication-place publication-place-img1" title="{{vm.place.name}}">{{vm.place.name}}</a>
-                            <a href class="publication-place"
-                               ng-click="vm.showFullDescription = !vm.showFullDescription"
-                               ng-bind-html="vm.place.description | colonToSmiley"></a>
-
-
-                            <p class="like-item">
-                                В теме
-                                <span class="count-like">{{vm.place.count_users}}</span>
-                                чел.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
-                <p ng-bind-html="vm.place.description | colonToSmiley"></p>
-            </div>
-
-            <div class="place-menu-wrap">
-                <div class="group-menu">
-                    <div class="group-menu-item">
-                        <div class="places-place-menu-avatar">
-                            <a href="">
-                                <img ng-src="{{vm.place.avatar}}">
-                            </a>
-                        </div>
-                        <div class="place-publication-menu">
-                            <a href="javascript:void(0)" class="place-publication-menu-table active"></a>
-                            <a href="javascript:void(0)" class="place-publication-menu-list">
-                            </a>
-                        </div>
-                        <div class="counts">
-                            <a ui-sref="place.publications" ui-sref-active="active" class="counter">
-                                <p>Публикации</p>
-                                <span>{{vm.place.count_publications}}</span>
-                            </a>
-                            <a ui-sref="place.chat" ui-sref-active="active" class="counter">
-                                <p>Чат</p>
-                                <span ng-if="vm.place.count_chat_message > 0">{{vm.place.count_chat_message}}</span>
-                            </a>
-                            <a ui-sref="place.people" ui-sref-active="active" class="counter">
-                                <p>Люди</p>
-                                <span>{{vm.place.count_users}}</span>
-                            </a>
-                            <a ui-sref="place.files()" ui-sref-active="active" class="counter">
-                                <p>Файлы</p>
-                                <span>{{vm.place.count_chat_files}}</span>
-                            </a>
-                        </div>
-                        <div class="place-user-menu-wrap">
-                            <div class="user-menu" ng-if="vm.place.is_admin"
-                                 ng-click="vm.showGroupMenu=!vm.showGroupMenu">
-                                <div class="menu-item" ng-if="vm.showGroupMenu">
-                                    <div class="inner">
-                                        <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
-                                        <a ui-sref="place.edit({isDynamicPlace: vm.place.is_dynamic})">Редактировать</a>
-                                        <a href ng-click="vm.openModalInviteUsers()">Пригласить</a>
-                                        <a href ng-if="vm.place.is_creator"
-                                           ng-click="vm.openModalDeletePlace()">Удалить</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button ng-if="!vm.place.is_sub" ng-click="vm.subscribe()">Подписаться</button>
-                        <button ng-if="vm.place.is_sub" ng-click="vm.subscribe()">Отписаться</button>
-                    </div>
-
-                </div>
-                <div class="group-header"></div>
-            </div>
+					<div class="group-likes">
+						<div class="group-info">
+							<a href="" class="publication-place publication-place-img1" title="{{vm.place.name}}">{{vm.place.name}}</a>
+							<a href class="publication-place"
+							   ng-click="vm.showFullDescription = !vm.showFullDescription"
+							   ng-bind-html="vm.place.description | colonToSmiley"></a>
 
 
-            <div class="group-page">
+							<p class="like-item">
+								В теме
+								<span class="count-like">{{vm.place.count_users}}</span>
+								чел.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
+				<p ng-bind-html="vm.place.description | colonToSmiley"></p>
+			</div>
+
+			<div class="place-menu-wrap">
+				<div class="group-menu">
+					<div class="group-menu-item">
+						<div class="places-place-menu-avatar">
+							<a href="">
+								<img ng-src="{{vm.place.avatar}}">
+							</a>
+						</div>
+						<div class="place-publication-menu">
+							<a href="javascript:void(0)" class="place-publication-menu-table active"></a>
+							<a href="javascript:void(0)" class="place-publication-menu-list">
+							</a>
+						</div>
+						<div class="counts">
+							<a ui-sref="place.publications" ui-sref-active="active" class="counter">
+								<p>Публикации</p>
+								<span>{{vm.place.count_publications}}</span>
+							</a>
+							<a ui-sref="place.chat" ui-sref-active="active" class="counter">
+								<p>Чат</p>
+								<span ng-if="vm.place.count_chat_message > 0">{{vm.place.count_chat_message}}</span>
+							</a>
+							<a ui-sref="place.people" ui-sref-active="active" class="counter">
+								<p>Люди</p>
+								<span>{{vm.place.count_users}}</span>
+							</a>
+							<a ui-sref="place.files()" ui-sref-active="active" class="counter">
+								<p>Файлы</p>
+								<span>{{vm.place.count_chat_files}}</span>
+							</a>
+						</div>
+						<div class="place-user-menu-wrap">
+							<div class="user-menu" ng-if="vm.place.is_admin"
+								 ng-click="vm.showGroupMenu=!vm.showGroupMenu">
+								<div class="menu-item" ng-if="vm.showGroupMenu">
+									<div class="inner">
+										<a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
+										<a ui-sref="place.edit({isDynamicPlace: vm.place.is_dynamic})">Редактировать</a>
+										<a href ng-click="vm.openModalInviteUsers()">Пригласить</a>
+										<a href ng-if="vm.place.is_creator"
+										   ng-click="vm.openModalDeletePlace()">Удалить</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<button ng-if="!vm.place.is_sub" ng-click="vm.subscribe()">Подписаться</button>
+						<button ng-if="vm.place.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+					</div>
+
+				</div>
+				<div class="group-header"></div>
+			</div>
 
 
-                <div ui-view></div>
-            </div>
+			<div class="group-page">
 
-            <footer>
-                <div class="footer">
-                    <div class="footer-item">
-                        <div class="footer-place">
-                            <a href="">Place People </a>
-                            <span>© 2016</span>
-                        </div>
-                        <!-- <div class="payment">
-                            <a class="mastercard" href=""></a>
-                            <a class="visa" href=""></a>
-                        </div> -->
-                    </div>
-                    <div class="menu" ng-click="vm.openBottomMenu()"
-                         ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
-                         ng-init="vm.showBottomMenu=true;">
-                        <a class="drop-menu" href=""></a>
 
-                        <div class="menu-item" ng-show="vm.showBottomMenu">
-                            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
+				<div ui-view></div>
+			</div>
+		</div>
+	</div>
 </div>

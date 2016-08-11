@@ -35,30 +35,5 @@
 		</div>
 
 		<div class="chat-mobile-chat-inner" ng-show="Model.mobile.hideContent" ui-view></div>
-
 	</div>
-
-
-
-
-		<footer>
-			<div class="footer">
-				<div class="footer-item">
-					<div class="footer-place">
-						<a href="javascript:void(0)">Place People </a>
-						<span>© 2016</span>
-					</div>
-					<!-- <div class="payment">
-						<a class="mastercard" href="javascript:void(0)"></a>
-						<a class="visa" href="javascript:void(0)"></a>
-					</div> -->
-				</div>
-				<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-					<a class="drop-menu" href="javascript:void(0)" ></a>
-					<div class="menu-item" ng-show="showBottomMenu">		        	       
-						<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">{{staticPage.description}}</a>		            
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
+</div>
