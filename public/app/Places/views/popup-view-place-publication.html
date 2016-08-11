@@ -92,7 +92,7 @@
                             {{comment.user.last_name}}</a>
 
                         <p class="time" am-time-ago="comment.created_at"></p>
-                        <a href ng-click="vm.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+                        <a href="javascript:void(0);" ng-click="comment.user.id != vm.myId && vm.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
                     </div>
                     <a href ng-click="vm.openCommentComplainBlock(comment.id)" class="alert alert-text"
                        ng-hide="comment.user.id == vm.myId">Пожаловаться</a>
