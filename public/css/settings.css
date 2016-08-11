@@ -1736,7 +1736,7 @@ div.my_profilll.photo-list div:last-child {
     display: flex;
     box-sizing: border-box;
     background-color: white;
-    width: 700px;
+    width: 100%;
     padding: 8px;
     justify-content: flex-start;
     font-size: 14.6px;
@@ -1784,7 +1784,7 @@ div.my_profilll.photo-list div:last-child {
         width: 500px;
     }
     .group-files-title {
-        width: 500px;
+        width: 100%;
         padding: 5px;
         padding-left: 8px;
         font-family: "SFUIDisplayMedium";
