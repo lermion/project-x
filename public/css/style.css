@@ -1102,6 +1102,10 @@ body.public.user {
 		outline: none;
 		transition: all .4s ease-in-out .1s;
 	}
+	.public header .main-menu .search input:focus + span.button {
+		    background-image: url(/images/search-hover.png);
+		    cursor: pointer;
+	}
 	.public header .main-menu{
 		position: absolute;
 		left: 0;
