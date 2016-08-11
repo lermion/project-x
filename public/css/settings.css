@@ -5834,7 +5834,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     box-sizing: border-box;
     margin: 60px auto 20px auto;
-    font-family: "SFUIDisplayMedium";
+    font-family: "SFUIDisplayLight";
 }
 .search-tab-container {
     width: 100%;
