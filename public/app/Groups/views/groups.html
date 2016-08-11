@@ -1,124 +1,101 @@
 <div style="min-height: 100%;">
-    <div class="user-main-content">
-        <div class="user-main-content-item">
-            <!-- Content -->
-            <div class="groups-content">
-                <div class="groups-header">
-                    <!-- <a class="public-groups" href="">Публичные группы</a> -->
-                    <a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную
-                        группу</a>
-                </div>
+	<div class="user-main-content">
+		<div class="user-main-content-item">
+			<!-- Content -->
+			<div class="groups-content">
+				<div class="groups-header">
+					<!-- <a class="public-groups" href="">Публичные группы</a> -->
+					<a class="pub-groups" href="javascript:void(0)" ng-click="openNewGroupCreation()">Создать публичную
+						группу</a>
+				</div>
 
-                <div ng-if="showMyGroups && myGroupsFiltered.length > 0">
-                    <div class="places-page-type-place">
-                        <div>
-                            <h4>Мои группы</h4>
-                        </div>
-                        <div class="places-type-place-btn" ng-if="!showAllButtons && myGroupsFiltered.length > 3"
-                             ng-click="toogleGroupsView('my')">
-                            Ещё
-                        </div>
-                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
-                            Все
-                        </div>
-                    </div>
-                    <div class="groups">
-                        <div class="group"
-                             ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups"
-                        ng-click="goGroup(group)">
-                            <div class="group-cover">
-                                <a href class="group-ava">
-                                    <img ngf-src="group.card_avatar" ngf-as-background="true">
-                                </a>
+				<div ng-if="showMyGroups && myGroupsFiltered.length > 0">
+					<div class="places-page-type-place">
+						<div>
+							<h4>Мои группы</h4>
+						</div>
+						<div class="places-type-place-btn" ng-if="!showAllButtons && myGroupsFiltered.length > 3"
+							 ng-click="toogleGroupsView('my')">
+							Ещё
+						</div>
+						<div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
+							Все
+						</div>
+					</div>
+					<div class="groups">
+						<div class="group"
+							 ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups"
+						ng-click="goGroup(group)">
+							<div class="group-cover">
+								<a href class="group-ava">
+									<img ngf-src="group.card_avatar" ngf-as-background="true">
+								</a>
 
-                                <div class="group-likes">
-                                    <p href="" class="group-like">{{::group.count_user}}</p>
-                                    <p href="" class="group-comments">{{::group.publications}}</p>
-                                </div>
-                            </div>
-                            <div class="titles">
-                                <a href ng-class="{'groups-locked-icon': !group.is_open}"
-                                   class="title">{{::group.name}}</a>
+								<div class="group-likes">
+									<p href="" class="group-like">{{::group.count_user}}</p>
+									<p href="" class="group-comments">{{::group.publications}}</p>
+								</div>
+							</div>
+							<div class="titles">
+								<a href ng-class="{'groups-locked-icon': !group.is_open}"
+								   class="title">{{::group.name}}</a>
 
-                                <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
-                            </div>
-                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
-                            </button>
-                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
-                            <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
-                        </div>
-                    </div>
-                </div>
+								<p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+							</div>
+							<button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
+							</button>
+							<div class="wright" ng-if="group.is_sub">Вы подписаны</div>
+							<!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
+						</div>
+					</div>
+				</div>
 
-                <div ng-if="showAllGroups && publicGroupsFiltered.length > 0">
-                    <div class="places-page-type-place">
-                        <div>
-                            <h4>Все публичные группы</h4>
-                        </div>
-                        <select class="groups-filter" name="" id="" ng-model="filterGroups.value"
-                                ng-if="showAllButtons">
-                            <option value="-count_user">Популярные</option>
-                            <option value="-created_at">Новые</option>
-                        </select>
+				<div ng-if="showAllGroups && publicGroupsFiltered.length > 0">
+					<div class="places-page-type-place">
+						<div>
+							<h4>Все публичные группы</h4>
+						</div>
+						<select class="groups-filter" name="" id="" ng-model="filterGroups.value"
+								ng-if="showAllButtons">
+							<option value="-count_user">Популярные</option>
+							<option value="-created_at">Новые</option>
+						</select>
 
-                        <div class="places-type-place-btn" ng-if="!showAllButtons && publicGroupsFiltered.length > 3"
-                             ng-click="toogleGroupsView('public')">Ещё
-                        </div>
-                        <div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
-                            Все
-                        </div>
-                    </div>
-                    <div class="groups">
-                        <div class="group"
-                             ng-repeat="group in publicGroupsFiltered | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups"
-                             ng-click="goGroup(group)">
-                            <div class="group-cover">
-                                <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
-                                <a class="group-ava">
-                                    <img ngf-src="group.card_avatar" ngf-as-background="true">
-                                </a>
+						<div class="places-type-place-btn" ng-if="!showAllButtons && publicGroupsFiltered.length > 3"
+							 ng-click="toogleGroupsView('public')">Ещё
+						</div>
+						<div class="places-type-place-btn" ng-if="showAllButtons" ng-click="toogleGroupsView('all')">
+							Все
+						</div>
+					</div>
+					<div class="groups">
+						<div class="group"
+							 ng-repeat="group in publicGroupsFiltered | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups"
+							 ng-click="goGroup(group)">
+							<div class="group-cover">
+								<span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
+								<a class="group-ava">
+									<img ngf-src="group.card_avatar" ngf-as-background="true">
+								</a>
 
-                                <div class="group-likes">
-                                    <a href="" class="group-like">{{::group.count_user}}</a>
-                                    <a href="" class="group-comments">{{::group.publications}}</a>
-                                </div>
-                            </div>
-                            <div class="titles">
-                                <a href="" class="title">{{::group.name}}</a>
+								<div class="group-likes">
+									<a href="" class="group-like">{{::group.count_user}}</a>
+									<a href="" class="group-comments">{{::group.publications}}</a>
+								</div>
+							</div>
+							<div class="titles">
+								<a href="" class="title">{{::group.name}}</a>
 
-                                <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
-                            </div>
-                            <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
-                            </button>
-                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
-                            <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer>
-                <div class="footer">
-                    <div class="footer-item">
-                        <div class="footer-place">
-                            <a href="">Place People </a>
-                            <span>© 2016</span>
-                        </div>
-                        <!-- <div class="payment">
-                            <a class="mastercard" href=""></a>
-                            <a class="visa" href=""></a>
-                        </div> -->
-                    </div>
-                    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''"
-                         ng-init="showBottomMenu=true;">
-                        <a class="drop-menu" href=""></a>
-
-                        <div class="menu-item" ng-show="showBottomMenu">
-                            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
+								<p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+							</div>
+							<button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
+							</button>
+							<div class="wright" ng-if="group.is_sub">Вы подписаны</div>
+							<!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

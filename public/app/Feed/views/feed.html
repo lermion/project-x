@@ -4,20 +4,20 @@
 	<div class="main-content" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 		<div class="groups">
 			<div class="feed-publication-menu">
-	            <a href="javascript:void(0)" class="place-publication-menu-table active"></a>
-	            <a href="javascript:void(0)" class="place-publication-menu-list">
-	            </a>
-	        </div>
+				<a href="javascript:void(0)" class="place-publication-menu-table active"></a>
+				<a href="javascript:void(0)" class="place-publication-menu-list">
+				</a>
+			</div>
 			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
 		</div>
 		<div class="content-item" ng-init="$last ? ngRepeatHasRendered() : null" ng-repeat="pub in publications">
 			<div class="my-photos">
-                <div class="photo" ng-repeat="pub in [1,2,3,4,5]">
-                    <a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
-                        <img src="https://newevolutiondesigns.com/images/freebies/city-wallpaper-47.jpg" alt="">
-                    </a>
-                </div>
-            </div>
+				<div class="photo" ng-repeat="pub in [1,2,3,4,5]">
+					<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
+						<img src="https://newevolutiondesigns.com/images/freebies/city-wallpaper-47.jpg" alt="">
+					</a>
+				</div>
+			</div>
 			<div class="user-publication">
 				<div class="user-publication-header">
 					<div class="user-function">
@@ -162,29 +162,7 @@
 			</div>
 		</div>  <!-- end of publication -->		
 
-	</div> 
-
-	<footer>
-		<div class="footer">
-			<div class="footer-item">
-						<div class="footer-place">
-							<a href="">Place People </a>
-							<span>© 2016</span>
-						</div>
-						<!-- <div class="payment">
-							<a class="mastercard" href=""></a>
-							<a class="visa" href=""></a>
-						</div> -->
-			</div>
-			<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-				<a class="drop-menu" href="" ></a>
-				<div class="menu-item" ng-show="showBottomMenu">		        	       
-					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
-				</div>
-			</div>
-		</div>
-	</footer>
-
+	</div>
 </div> 
 </div>
 </div>

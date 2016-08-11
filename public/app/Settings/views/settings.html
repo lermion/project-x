@@ -8,30 +8,30 @@
 				<!-- <div class="add-ava" ng-init="showEditAva=true;"> 
 					<input type="file" id="avatarImg">  
 					<label for="avatarImg">                                            
-		                <span class="ava ng-hide" ng-show="croppedFile">         
-		                    <img data-ng-src="{{croppedFile}}" style="width:100%;">
-		                </span>
-			            <span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-			                <span class="add-photo" ng-show="!croppedFile || showEditAva">
-			                </span>
-		                </span>
-		            </label>
-			    </div>
+						<span class="ava ng-hide" ng-show="croppedFile">         
+							<img data-ng-src="{{croppedFile}}" style="width:100%;">
+						</span>
+						<span class="add" ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+							<span class="add-photo" ng-show="!croppedFile || showEditAva">
+							</span>
+						</span>
+					</label>
+				</div>
 
 			</div> -->
 
 			<div class="add-ava" ng-init="showEditAva=true;">
-	                                            <input type="file" id="avatarImg"/>  
-	                                            <label for="avatarImg">                                            
-	                                            	<span class="ava">         
-	                                            		<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">
-	                                            		<img  ng-show="userData.is_avatar &&  croppedFile" style="width:100%;"  data-ng-src="{{croppedFile}}">
-	                                               	</span>
-	                                                	<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-	                                                    		<span class="add-photo"  ng-show="!croppedFile || showEditAva"></span>
-	                                                	</span>
-	                                            </label>                                         
-	                              </div>     
+												<input type="file" id="avatarImg"/>  
+												<label for="avatarImg">                                            
+													<span class="ava">         
+														<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">
+														<img  ng-show="userData.is_avatar &&  croppedFile" style="width:100%;"  data-ng-src="{{croppedFile}}">
+													</span>
+														<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+																<span class="add-photo"  ng-show="!croppedFile || showEditAva"></span>
+														</span>
+												</label>                                         
+								  </div>     
 
 			<div class="text">
 				<p class="">
@@ -57,7 +57,7 @@
 				<p>Показать статус "В сети"
 			<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" ng-checked="!!userData.is_visible"/>
 			<label for="checkbox1" class="checkbox-label" data-off="off" data-on="on" ng-click="isVisible=!isVisible; changeIsVisible(isVisible)"></label>
- 				</p>
+				</p>
 				<!-- <p>Отправлять статус "Просмотрено"
 			<input type="checkbox" name="checkbox2" id="checkbox2" class="ios-toggle"/>
 			<label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label> -->
@@ -72,27 +72,4 @@
 				</p> 
 		</div>
 	</div>
-
-
-	<footer>
-		<div class="footer">
-		    <div class="footer-item">
-		                <div class="footer-place">
-		                    <a href="">Place People </a>
-		                    <span>© 2016</span>
-		                </div>
-		                <!-- <div class="payment">
-		                    <a class="mastercard" href=""></a>
-		                    <a class="visa" href=""></a>
-		                </div> -->
-		    </div>
-		    <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-		        <a class="drop-menu" href="" ></a>
-		        <div class="menu-item" ng-show="showBottomMenu">		        	       
-		            <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
-		        </div>
-		    </div>
-		</div>
-	</footer>
-
 </div>
