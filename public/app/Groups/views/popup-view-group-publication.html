@@ -11,8 +11,10 @@
                 <p class="user-name">{{vm.group.name}}</p>
             </a>
 
-            <div class="user-menu" ng-click="showPubMenu=!showPubMenu" ng-init="showPubMenu = false">
-                <div class="menu-item" ng-show="showPubMenu">
+            <div class="user-menu" ng-click="$root.showUserMenu=!$root.showUserMenu"
+                 click-outside="closeUserMenu()"
+                 outside-if-not="user-menu">
+                <div class="menu-item" ng-show="$root.showUserMenu">
                     <div class="inner">
                         <a href ng-click="vm.editPub(vm.activePublication)">Изменить</a>
                         <a href ng-click="sharePub(vm.activePublication.id)">Переслать</a>
