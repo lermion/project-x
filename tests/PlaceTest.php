@@ -196,6 +196,26 @@ class PlaceTest extends TestCase
     {
         $this->json('GET', 'place/counter_new_place')->AssertResponseOk();
     }
+
+    public function testCityCreate()
+    {
+
+        $user = \App\User::where('phone', '380731059230')->first();
+        if (!$user) {
+            $user = \App\User::create(['phone' => '380731059230', 'password' => bcrypt('123'), 'country_id' => 1]);
+        }
+        $this->be($user);
+        $country = \App\Country::create([
+            'name'=>'test',
+            'code'=>'00'
+        ]);
+        $data = [
+            'country_id' => $country->id,
+            'name' => 'test'
+        ];
+        $this->json('POST', 'place/add_city', $data )->seeJson(['status' => true]);
+        $country->delete();
+    }
 }
 
 

@@ -13,7 +13,7 @@ class CityController extends Controller
     public function create(Request $request)
     {
         if (City::where(['country_id'=>$request->input('country_id'), 'name'=>$request->input('name')])->first()){
-            return view('admin.country.create',['error'=>'Этот грорд уже есть']);
+            return view('admin.country.create',['error'=>'???? ????? ??? ????']);
         }
         $data = $request->all();
         City::create($data);
