@@ -1216,7 +1216,7 @@
             var data = {
                 userId: vm.myId,
                 room_id: roomId,
-                message: messageText,
+                message: messageText ? messageText : "",
                 imagesObj: imagesObj
             };
             socket.emit('send message', data, function () {

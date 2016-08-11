@@ -153,44 +153,13 @@ class SubscriberController extends Controller
             return response()->json($responseData);
         }
     }
-//
-//    public function my_subscription()
-//    {
-//        $user = User::find(Auth::id());
-//        if ($user) {
-//            $subscription = $user->subscription;
-//            foreach ($subscription as &$sub) {
-//                $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
-//            } return $subscription;
-//        } else {
-//            $responseData = [
-//                "status" => false,
-//                "error" => [
-//                    'message' => 'Incorrect id',
-//                    'code' => '1'
-//                ]
-//            ];
-//            return response()->json($responseData);
-//        }
-//    }
-//
-//    public function my_subscribers()
-//    {
-//        $user = User::find(Auth::id());
-//        if ($user) {
-//            $subscribers = $user->subscribers;
-//            foreach ($subscribers as &$sub) {
-//                $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
-//            } return $subscribers;
-//        } else {
-//            $responseData = [
-//                "status" => false,
-//                "error" => [
-//                    'message' => 'Incorrect id',
-//                    'code' => '1'
-//                ]
-//            ];
-//            return response()->json($responseData);
-//        }
-//    }
+
+
+    public function count_not_confirmed()
+    {
+        $confirmed = Subscriber::where(['user_id' =>  Auth::id(), 'is_confirmed' => false])->count();
+        return response()->json(['status' => true, 'confirmed' => $confirmed]);
+
+    }
+
 }
