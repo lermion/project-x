@@ -3205,6 +3205,18 @@ body.public.user {
 		height: 250px; 
 		padding: 25px 10px 0 10px!important;
 	}
+	.ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content {
+		margin-left: -45%;
+    	width: 90%;
+    	height: 300px;
+	}
+	.ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content div button {
+		margin-top: 15px;
+	}
+	.ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content .cropArea {
+	    width: 100%;
+	    height: 210px;
+	}
 	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
 		padding: 0!important;
 		width: 310px;
@@ -3468,6 +3480,13 @@ body.ngdialog-open {
 }
 .ngdialog-open .ngdialog-content {
 	position: relative;
+}
+.ngdialog-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 @media (max-width: 720px) {
 	.main-content {
