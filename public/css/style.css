@@ -2553,7 +2553,6 @@ body.public.user {
 .publication-images .images-item.more {
 	background-color: #495b79;
 	color: #fff;
-	transition: all .3s ease-in-out .1s;
 }
 .publication-images .images-item img {
 	max-width: 100%;
