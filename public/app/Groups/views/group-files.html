@@ -1,12 +1,13 @@
 <div class="group-files" ng-if="vm.mergedChatFiles.length > 0">
 
-    <div class="group-files-container">
+    <div class="group-files-container" infinite-scroll="vm.nextPage()" infinite-scroll-container="'.group-files'"
+         infinite-scroll-disabled="vm.postLoading">
 
         <div class="group-files-title"
-             ng-if="vm.getMonth(file.created_at) !== vm.getMonth(vm.mergedChatFiles[$index - 1].created_at) && !$first || $first"
-             ng-repeat-start="file in vm.mergedChatFiles track by $index">
+             ng-if="vm.getMonth(file.created_at) !== vm.getMonth(vm.itemsFiles[$index - 1].created_at) && !$first || $first"
+             ng-repeat-start="file in vm.itemsFiles track by $index">
             <span ng-if="$first">{{::vm.getMonthYear(file.created_at)}}</span>
-            <span ng-if="vm.getMonth(file.created_at) !== vm.getMonth(vm.mergedChatFiles[$index - 1].created_at) && !$first">{{::vm.getMonthYear(file.created_at)}}</span>
+            <span ng-if="vm.getMonth(file.created_at) !== vm.getMonth(vm.itemsFiles[$index - 1].created_at) && !$first">{{::vm.getMonthYear(file.created_at)}}</span>
         </div>
         <div class="group-files-content" style="{{resizeSizes}}" ng-repeat-end>
 
