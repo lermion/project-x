@@ -2309,6 +2309,7 @@ body.public.user {
 	background-color: #333;
 	text-align: center;
 	line-height: 25px;
+	font-size: 1em;
 }
 .publication .new-add .inner .close:before,
 .add-comment .new-add .inner .close:before {
@@ -2317,7 +2318,8 @@ body.public.user {
 	content: '\00D7';
 	line-height: 25px;
 	text-align: center;
-	font-size: 14.6px;
+	/*font-size: 14.6px;*/
+	font-size: 1em;
 }
 .publication .new-add .inner .close:hover,
 .add-comment .new-add .inner .close:hover {
@@ -4500,6 +4502,7 @@ body.ngdialog-open {
 	text-align: center;
 	display: block;
 	line-height: 25px;
+	font-size: 1em;
 }
 .group-comments .pictures .pic .close-inner {
 	position: absolute;
