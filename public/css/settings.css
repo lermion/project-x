@@ -2370,7 +2370,8 @@ div.my_profilll.photo-list div:last-child {
     height: 100px;
 }
 .user-publication-content .publication-text {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .chat-main-container {
     width: 1025px;
