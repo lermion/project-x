@@ -45,7 +45,7 @@
         </ul>
     </div>
     <div class="invite-group__items-selected">
-        <p class="item1-add-people-title">Список пользователей</p>
+        <p class="item1-add-people-title" ng-if="vm.invitedUsers.length > 0">Список пользователей</p>
         <ul class="contacts_list">
             <li ng-repeat="user in vm.invitedUsers" ui-sref="user({username: user.login})"
                 ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
