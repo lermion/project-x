@@ -1201,6 +1201,23 @@
 		//chat
 
 		$scope.counter = 10;
+		$scope.showFileAdd = function(){
+			if($scope.showFileAddMenu){
+				$scope.showFileAddMenu = false;
+				$scope.hideFileAdd = undefined;
+			}else{
+				$scope.showFileAddMenu = true;
+				setTimeout(function(){
+					$scope.hideFileAdd = hideFileAdd;
+				}, 0);
+			}
+		};
+        var hideFileAdd = function(){
+			if($scope.showFileAddMenu){
+				$scope.showFileAddMenu = false;
+				$scope.hideFileAdd = undefined;
+			}
+		}
 		$scope.showPopupWithFiles = function (files) {
 			$scope.imagesInPopup = files;
 			$scope.mainImageInPopup = files[0].url;
