@@ -340,12 +340,20 @@ angular.module('app.groups')
                 var originalFile;
                 if (file) {
                     originalFile = event.currentTarget.files[0];
-                    Upload.resize(file, 700, 240, 1, null, null, true).then(function (resizedFile) {
+
+                    Upload.imageDimensions(file).then(function (dimensions) {
+                        console.info('Group: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                    });
+
+                    Upload.resize(file, 700).then(function (resizedFile) {
+                        Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                            console.info('Group: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                        });
                         $scope.newGroup.avatar = resizedFile;
                     });
+
                     onFileSelected(file.name, originalFile);
                 }
-
             };
 
 
@@ -364,11 +372,11 @@ angular.module('app.groups')
                     .then(function (groupList) {
                         $scope.groupList = groupList;
 
-                        $scope.myGroupsFiltered = groupList.filter(function(group) {
+                        $scope.myGroupsFiltered = groupList.filter(function (group) {
                             return group.is_admin === true || group.is_sub === true;
                         });
 
-                        $scope.publicGroupsFiltered = groupList.filter(function(group) {
+                        $scope.publicGroupsFiltered = groupList.filter(function (group) {
                             return !!+group.is_open === true;
                         });
 
