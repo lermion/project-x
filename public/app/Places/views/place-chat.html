@@ -179,8 +179,8 @@
 			<div class="add-objects">						
 				<input id="addfile" type='file' ngf-select="beforeChange($files)" ngf-keep="true" ngf-multiple="true" style="display: none;" ng-model="files"> 
 				<div>
-					<span class="add"  ng-click="showChatAttachmentMenu=!showChatAttachmentMenu">
-						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
+					<span class="add" ng-click="showFileAdd()">
+						<span class="dropp" ng-show='showFileAddMenu'>
 							<!-- <a href="javascript:void();" class="active">Публикация</a> -->
 							<label for="addfile">Файл</label>
 						</span>
