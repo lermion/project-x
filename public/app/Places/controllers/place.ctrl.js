@@ -971,7 +971,7 @@
 					}
 
 					if (value < 520) {
-						var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
+						var blockThirdthLength = (parseInt(w[0].innerWidth) - 42) / 4;
 						vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
 						vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
 					} else {
