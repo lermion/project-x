@@ -5739,6 +5739,9 @@ input.cmn-toggle-round:checked + label:after {
     background-color: #fff;
     color: #000;
 }
+.header-search-input-wrap input:focus + span.header-search-input-wrap-span {
+    background-image: url(/images/search-hover.png);
+}
 .header-search-input-wrap-span {
     position: absolute;
     top: 0;
