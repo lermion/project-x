@@ -299,7 +299,11 @@ angular.module('placePeopleApp')
 			});
 		}
 
-		$scope.showAddCommentBlock = function(pub){
+		$scope.showAddCommentBlock = function(pub, index){
+			var div = $(".emoji-wysiwyg-editor")[index];
+			setTimeout(function(){
+				div.focus();
+			}, 0);
 			if(pub.showAddComment){
 				pub.showAddComment = false;
 			}else{
