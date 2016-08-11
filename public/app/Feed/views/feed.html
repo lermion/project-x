@@ -110,7 +110,7 @@
 				</div>
 
 				<div class="added_comments" ng-init="pub.showAddComment = false;">
-					<a ng-hide="pub.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(pub)" class="add_comments">Добавить комментарий</a>
+					<a ng-hide="pub.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(pub, $index)" class="add_comments">Добавить комментарий</a>
 				</div>
 
 				<div class="add-comment" ng-show="pub.showAddComment" ng-init="pub.commentModel = commentModel">
