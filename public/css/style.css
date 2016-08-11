@@ -3469,6 +3469,13 @@ body.ngdialog-open {
 .ngdialog-open .ngdialog-content {
 	position: relative;
 }
+.ngdialog-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
 @media (max-width: 720px) {
 	.main-content {
 		width: 100%;
