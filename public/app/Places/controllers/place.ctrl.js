@@ -1274,6 +1274,9 @@
 		});
 		socket.on('updatechat', function (response) {
 			$scope.messages.push(response);
+			if(response.images.length > 0){
+            	vm.place.count_chat_files += response.images.length;
+            }
 			vm.place.count_chat_message++;
 		});
 		$scope.$on('$destroy', function (event) {
