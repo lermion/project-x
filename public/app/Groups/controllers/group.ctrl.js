@@ -223,12 +223,13 @@
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
                 getSubscription().then(function () {
+                    vm.canInviteUsers = canInviteUsers();
                     modalInviteUsers = ngDialog.open({
                         template: '../app/Groups/views/popup-invite-group.html',
                         name: 'modal-invite-group',
                         className: 'popup-invite-group ngdialog-theme-default',
                         scope: $scope,
-                        preCloseCallback: function() {
+                        preCloseCallback: function () {
                             vm.invitedUsers = [];
                         }
                     });
@@ -890,7 +891,7 @@
         };
 
         var moreItems = true;
-            vm.postLoading = false;
+        vm.postLoading = false;
 
         vm.nextPage = function () {
             if (vm.postLoading !== true && vm.itemsFiles.length !== 0 && moreItems === true) {
@@ -910,8 +911,8 @@
             }
         };
 
-        vm.closeThis = function() {
-          vm.showGroupMenu = false;
+        vm.closeThis = function () {
+            vm.showGroupMenu = false;
         };
 
 
@@ -1096,26 +1097,60 @@
             }
         }
 
+        function canInviteUsers() {
+
+            var arr = vm.subscribers.concat(vm.subscription);
+
+
+            var uniqueUsers = [],
+                result = [];
+
+            var subUsersIds = {};
+            var groupUsersIds = {};
+
+            for (var i = 0; i < arr.length; i++) {
+                if (($.inArray(arr[i].id, uniqueUsers)) == -1) {
+                    uniqueUsers.push(arr[i]);
+                }
+            }
+
+            angular.forEach(uniqueUsers, function (el, i) {
+                subUsersIds[el.id] = uniqueUsers[i];
+            });
+
+            angular.forEach(vm.group.users, function (el, i) {
+                groupUsersIds[el.id] = vm.group.users[i];
+            });
+
+            for (var prop in subUsersIds) {
+                if (!groupUsersIds.hasOwnProperty(prop)) {
+                    result.push(subUsersIds[prop]);
+                }
+            }
+
+            return result.length > 0;
+        }
+
         //Chat
 
         $scope.counter = 10;
-        $scope.showFileAdd = function(){
-			if($scope.showFileAddMenu){
-				$scope.showFileAddMenu = false;
-				$scope.hideFileAdd = undefined;
-			}else{
-				$scope.showFileAddMenu = true;
-				setTimeout(function(){
-					$scope.hideFileAdd = hideFileAdd;
-				}, 0);
-			}
-		};
-        var hideFileAdd = function(){
-			if($scope.showFileAddMenu){
-				$scope.showFileAddMenu = false;
-				$scope.hideFileAdd = undefined;
-			}
-		}
+        $scope.showFileAdd = function () {
+            if ($scope.showFileAddMenu) {
+                $scope.showFileAddMenu = false;
+                $scope.hideFileAdd = undefined;
+            } else {
+                $scope.showFileAddMenu = true;
+                setTimeout(function () {
+                    $scope.hideFileAdd = hideFileAdd;
+                }, 0);
+            }
+        };
+        var hideFileAdd = function () {
+            if ($scope.showFileAddMenu) {
+                $scope.showFileAddMenu = false;
+                $scope.hideFileAdd = undefined;
+            }
+        }
         $scope.showPopupWithFiles = function (files) {
             $scope.imagesInPopup = files;
             $scope.mainImageInPopup = files[0].url;
@@ -1192,9 +1227,9 @@
             $scope.glued = true;
         });
         socket.on('updatechat', function (response) {
-        	$scope.messages.push(response);
-            if(response.images.length > 0){
-            	vm.group.count_chat_files += response.images.length;
+            $scope.messages.push(response);
+            if (response.images.length > 0) {
+                vm.group.count_chat_files += response.images.length;
             }
             vm.group.count_chat_message++;
         });
