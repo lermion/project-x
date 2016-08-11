@@ -15,8 +15,8 @@
 	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
-			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">
-			<a class="drop-menu" href=""></a>
+			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">
+			<a class="drop-menu" ng-click="openMenu()" href></a>
 			<div class="menu-item" ng-show="showMenu">
 				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
@@ -24,8 +24,10 @@
 				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
 				<a class="settings" ui-sref="settings">Настройки</a>
 				<div class="search">
-					<input type="text" placeholder="Поиск...">
-					<span class="button"></span>
+					<form name="form.search" ng-submit="submitSearch()" novalidate>
+						<input type="text" ng-model="search.str" placeholder="Поиск...">
+						<span class="button" ng-click="submitSearch()"></span>
+					</form>
 				</div>
 			</div>
 			</div>
