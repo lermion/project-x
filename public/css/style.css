@@ -3209,6 +3209,9 @@ body.public.user {
 		height: 250px; 
 		padding: 25px 10px 0 10px!important;
 	}
+	.ngdialog.alert-publication.ngdialog-theme-default.ng-scope .ngdialog-content {
+		margin-top: -190px;
+	}
 	.ngdialog.settings-add-ava.ngdialog-theme-default.ng-scope .ngdialog-content {
 		margin-left: -45%;
     	width: 90%;
