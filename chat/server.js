@@ -15,28 +15,8 @@ server.listen(config.port);
 io.sockets.on('connection', function(socket){
 	socket.on('create room', function(data, callback){
 		queries.createRoom(data).then(function(response){
-			// if(socket.room !== undefined && socket.room.length !== undefined){
-			// 	for(var i = 0; i < socket.room.length; i++){
-			// 		if(socket.room[i] === data.room_id){
-			// 			var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-			// 			socket.room = GLOBAL.rooms[indexRooms];
-			// 			socket.join(GLOBAL.rooms[indexRooms]);
-			// 			data.created_at = new Date();
-			// 			data.updated_at = new Date();
-			// 		}else{
-			// 			socket.emit("switchRoom", data.room_id);
-			// 		}
-			// 	}
-			// }
-			// if(data.room_id === socket.room){
-			// 	var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-			// 	socket.room = GLOBAL.rooms[indexRooms];
-			// 	socket.join(GLOBAL.rooms[indexRooms]);
-				data.created_at = new Date();
-				data.updated_at = new Date();
-			// }else{
-			// 	socket.emit("switchRoom", data.room_id);
-			// }
+			data.created_at = new Date();
+			data.updated_at = new Date();
 			if(response.length >= 1){
 				if(data.share){
 					callback(response[0]);
@@ -181,15 +161,6 @@ io.sockets.on('connection', function(socket){
 				});
 			}
 		}
-		// if(data.room_id === socket.room){
-		// 	var indexRooms = GLOBAL.rooms.indexOf(data.room_id);
-		// 	socket.room = GLOBAL.rooms[indexRooms];
-		// 	socket.join(GLOBAL.rooms[indexRooms]);
-		// 	data.created_at = new Date();
-		// 	data.updated_at = new Date();
-		// }else{
-		// 	socket.emit("switchRoom", data.room_id);
-		// }
 		queries.sendMessage(data).then(function(response){
 			if(imagesPath !== undefined && imagesPath.length >= 1){
 				queries.saveFiles(imagesPath, response.insertId).then(function(response){
@@ -231,9 +202,4 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
-	// socket.on('switchRoom', function(newRoom){
-	// 	socket.leave(socket.room);
-	// 	socket.join(newRoom);
-	// 	socket.room = newRoom;
-	// });
 });

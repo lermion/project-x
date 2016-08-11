@@ -14,7 +14,7 @@
 					<a ng-repeat="member in Model.opponent.members" ui-sref="user({username: member.login})" ng-if="Model.opponent.is_group" href="javascript:void(0);">{{member.first_name}}{{$last ? '' : ', '}}</a>
 					<span ng-if="Model.opponent.is_group && Model.opponent.members.length === 0">нет участников</span>
 				</p>
-				<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'Подключен':'Отключен'}}</p>
+				<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'В сети':'Не в сети'}}</p>
 			</div>
 		</div>
 			<div class="user-menu-top" ng-click="showTopChatMenu=!showTopChatMenu">
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 	</div>
-	<div scroll-glue="glued" when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
+	<div scroll-glue="!glued" when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
@@ -80,7 +80,7 @@
 			<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
 
 				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
-					<div ng-hide="Model.Chat[$index - 1].login == loggedUser" class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
+					<div ng-hide="Model.Chat[$index - 1].login == Model.Chat[Model.Chat.length - 1].login" class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
 					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 					<div ng-if="message.images" class="to-my-msg-inner-photo">
 						<span ng-click="showPopupWithFiles(message.images)" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
@@ -88,7 +88,7 @@
 						</span>
 					</div>
 				</div>
-				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date'">
+				<div ng-class="(message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (message.login === loggedUser ? 'done' : 'no-done')">
 					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 				</div>
 			</div>
@@ -202,7 +202,7 @@
 					</a>
 				</div>	
 			</div>
-			<div class="send-add-file" ng-click="showFileAdd()">
+			<div ng-hide="currentPath === '/chat/blocked'" class="send-add-file" ng-click="showFileAdd()">
 				<a href=""></a>
 				<div class="chat-add-file-menu" ng-show="showFileAddMenu">
 					<!-- <a class="chat-add-file-publ" href="">Публикация</a> -->
@@ -210,7 +210,7 @@
 					<input type="file" ngf-select="beforeChange($files)" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
 				</div>
 			</div>
-			<button ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+			<button ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent, true) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 		</div>
 		<div ng-show="files.length > 0" class="send-wrap-bottom">
 			<div class="pic" ng-repeat="file in files">

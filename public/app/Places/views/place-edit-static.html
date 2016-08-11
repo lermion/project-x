@@ -105,7 +105,7 @@
                      ng-model="vm.placeEdited.cover"
                 >
                     <a href="">
-                        <img ngf-thumbnail="vm.placeEdited.cover" ngf-no-object-url="true">
+                        <img ngf-src="vm.placeEdited.cover" ngf-no-object-url="true">
                     </a>
 
                     <span>Добавить обложку месту</span>
@@ -123,10 +123,10 @@
                      ngf-select
                      ngf-pattern="'image/*'"
                      ngf-accept="'image/*'"
-                     ngf-before-model-change="vm.changePlaceAvatarFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                     ng-model="vm.placeEdited.avatar">
+                     ngf-change="vm.changePlaceAvatarFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ng-model="vm.placeEdited.avatar1">
                     <a href="">
-                        <img ngf-thumbnail="vm.placeEdited.avatar" ngf-no-object-url="true">
+                        <img ngf-src="vm.placeEdited.avatar" ngf-no-object-url="true">
                     </a>
                     <span>Добавить логотип месту</span>
                 </div>

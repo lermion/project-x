@@ -99,6 +99,8 @@
                 setWatchers();
             } else if (state === 'place.files') {
                 vm.chatFiles = $state.params.chatFiles;
+                vm.mergedChatFiles = [].concat.apply([], vm.chatFiles);
+                vm.itemsFiles = vm.mergedChatFiles.slice(0, 21);
             }
         });
 
@@ -762,7 +764,16 @@
 
 		vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
 			if (file) {
-				Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
+
+                Upload.imageDimensions(file).then(function (dimensions) {
+                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+
+				Upload.resize(file, 1200).then(function (resizedFile) {
+                    Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                        console.info('Place: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                    });
+
 					vm.placeEdited.cover = resizedFile;
 				});
 			}
@@ -780,7 +791,7 @@
 			var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
 
-			Upload.resize(blob, 100, 100, 1, null, null, true).then(function (resizedFile) {
+			Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
 				vm.placeEdited.avatar = resizedFile;
 			});
 
@@ -854,17 +865,42 @@
 
 		};
 
-		vm.getMonth = function (date) {
+		vm.getMonthYear = function (date) {
 			var newDate = moment(date).format("MMMM YYYY");
 			newDate = newDate[0].toUpperCase() + newDate.substr(1);
 			return newDate;
 		};
+
+        vm.getMonth = function (date) {
+            return moment(date).month();
+        };
 
 		vm.limitToFiles = 3;
 
 		vm.loadMoreFiles = function () {
 			vm.limitToFiles += 1;
 		};
+
+        var moreItems = true;
+        vm.postLoading = false;
+
+        vm.nextPage = function () {
+            if (vm.postLoading !== true && vm.itemsFiles.length !== 0 && moreItems === true) {
+                vm.postLoading = true;
+                var last = vm.itemsFiles.length - 1;
+                var arr = [];
+                for (var i = last; i <= last + 20; i++) {
+                    if (vm.mergedChatFiles[i]) {
+                        arr.push(vm.mergedChatFiles[i]);
+                    } else {
+                        moreItems = false;
+                    }
+                }
+                console.info('Files list load, length - ' + vm.itemsFiles.length + ', moteItems = ' + moreItems);
+                vm.itemsFiles = vm.itemsFiles.concat(arr);
+                vm.postLoading = false;
+            }
+        };
 
 		function activate() {
 			init();

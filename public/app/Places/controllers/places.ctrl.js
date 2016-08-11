@@ -393,7 +393,16 @@
         // Dynamic Place
         vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             if (file) {
-                Upload.resize(file, 1200, 280, 1, null, null, true).then(function (resizedFile) {
+
+                Upload.imageDimensions(file).then(function (dimensions) {
+                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+
+                Upload.resize(file, 1200).then(function (resizedFile) {
+                    Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                        console.info('Place: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                    });
+
                     vm.placeNew.cover = resizedFile;
                     vm.form.placeNew.cover.$setValidity('required', true);
                     vm.form.placeNew.cover.$valid = true;

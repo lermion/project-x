@@ -553,7 +553,7 @@ angular.module('placePeopleApp')
 			function getSinglePublication(pubId, flag) {
 				PublicationService.getSinglePublication(pubId).then(function (response) {
 						//getAllCommentsPublication(pubId);
-						$scope.limit = 6;
+						$scope.limit = 7;
 						$scope.singlePublication = response;
 						if (response.images[0] !== undefined) {
 							$scope.mainImage = response.images[0].url;
@@ -682,7 +682,6 @@ angular.module('placePeopleApp')
 								pub.comment_count--;
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
-								$scope.singlePublication.comment_count--;
 							}
 						}
 					},
@@ -715,7 +714,7 @@ angular.module('placePeopleApp')
 					if (key === false) {
 						pub.limit = pub.images.length + pub.videos.length;
 					} else {
-						pub.limit = 6;
+						pub.limit = 7;
 					}
 					// pub.morePubFiles = true;
 					$scope.$broadcast('loadPubFiles');
@@ -723,7 +722,7 @@ angular.module('placePeopleApp')
 					if (key === false) {
 						$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
 					} else {
-						$scope.limit = 6;
+						$scope.limit = 7;
 					}
 					$scope.morePubFiles = true;
 					$scope.$broadcast('loadPubFiles');

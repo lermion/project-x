@@ -10,6 +10,7 @@ angular.module('placePeopleApp')
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
 			$scope.showFileAddMenu = false;
+			$scope.myCroppedImage = null;
 			$scope.counter = 10;
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
@@ -19,6 +20,9 @@ angular.module('placePeopleApp')
 				$scope.staticPages = response;
 			}).error(function(error){
 				console.log(error);
+			});
+			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+				$scope.currentPath = $location.path();
 			});
 			$scope.Model.mobile = {};
 			if($window.innerWidth <= 768){
@@ -210,6 +214,7 @@ angular.module('placePeopleApp')
 
 			socket.on("load more messages", function(response){
 				if(response.messages.length === 0){
+					$scope.glued = true;
 					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
@@ -357,7 +362,6 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
-				$scope.glued = true;
 				$scope.currentIndex = index;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
@@ -518,7 +522,6 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on('updatechat', function(data){
-				$scope.glued = true;
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
@@ -589,7 +592,7 @@ angular.module('placePeopleApp')
 
 			$scope.emojiMessage = {
 				replyToUser: function(){
-					if(!$scope.disabledSendMessage){
+					if(!$scope.disabledSendMessage && $scope.currentPath !== "/chat/blocked"){
 						$scope.Model.sendMes($scope.emojiMessage.messagetext, undefined, $scope.files);
 					}
 				}
@@ -756,7 +759,7 @@ angular.module('placePeopleApp')
 				editGroupChat.close();
 			}
 
-			$scope.Model.createGroupChat = function(name, status, avatar){
+			$scope.Model.createGroupChat = function(name, status){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
 				var users = [];
 				users.push(parseInt($scope.loggedUserId));
@@ -768,9 +771,9 @@ angular.module('placePeopleApp')
 						users.push(user.id);
 					});
 					var avatarObj = {
-						avatarName: avatar.name,
-						avatarType: avatar.type,
-						avatar: avatar
+						avatarName: $scope.avatarGroupChat.name,
+						avatarType: $scope.avatarGroupChat.type,
+						avatar: $scope.avatarGroupChat
 					};
 					var data = {
 						is_group: true,
@@ -807,11 +810,47 @@ angular.module('placePeopleApp')
 				}								
 			};
 
-			$scope.Model.changeChatCoverFile = function(files, file, newFiles, duplicateFiles, invalidFiles, event){
-				Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
-					$scope.Model.newGroupChat.avatar = resizedFile;	                
-				});
+			$scope.Model.cropImageGroupChat = function(file){
+				if(file){
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$scope.$apply(function($scope){
+							$scope.myImage = e.target.result;
+							modalCropImage = ngDialog.open({
+								template: '../app/Chat/views/popup-crop-image-group-chat.html',
+								className: 'settings-add-ava ngdialog-theme-default',
+								scope: $scope,
+								data: {
+									fileName: file.name
+								}
+							});
+						});
+					};
+					reader.readAsDataURL(file);
+				}
+				// Upload.resize(file, 100, 100, 1, null, null, true).then(function (resizedFile) {
+				// 	$scope.Model.newGroupChat.avatar = resizedFile;	                
+				// });
 			};
+
+			$scope.saveCropp = function(myCroppedImage, fileName){
+				$scope.Model.newGroupChat.avatar = myCroppedImage;
+				var blobFile = blobToFile(myCroppedImage);
+				blobFile.name = fileName;
+				blobFile.lastModifiedDate = new Date();
+				$scope.avatarGroupChat = blobFile;
+				modalCropImage.close();
+			};
+
+			function blobToFile(dataURI){
+				var byteString = atob(dataURI.split(',')[1]);
+				var ab = new ArrayBuffer(byteString.length);
+				var ia = new Uint8Array(ab);
+				for (var i = 0; i < byteString.length; i++) {
+					ia[i] = byteString.charCodeAt(i);
+				}
+				return new Blob([ab], {type: 'image/jpeg', name: 'fewfewfewfe'});
+			}
 			
 			$scope.Model.removeUser = function(index){
 				if($scope.Model.newGroupChat.users.length !== 1){
@@ -821,15 +860,24 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.Model.saveNotificationSettings = function(chat){			
-				ChatService.setNotification(chat.room_id).then(function(response){						
-					
+			$scope.Model.saveNotificationSettings = function(){
+				var roomId = null;
+				for(var i = 0; i < $scope.Model.chatRooms.length; i++){
+					for(var j = 0; j < $scope.Model.chatRooms[i].members.length; j++){
+						if (!$scope.Model.chatRooms[i].is_group) {
+							if ($scope.Model.chatRooms[i].members[j].id === $scope.Model.opponent.id){
+								roomId = $scope.Model.chatRooms[i].room_id;
+							}
+						}
+					}
+				}
+				ChatService.setNotification(roomId).then(function(response){
+					console.log(response);
 				},
 				function(error){
 					console.log(error);
-				});				
+				});
 			};
-
 			$scope.checkMessageType = function(message){
 				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
 				var match = (new RegExp(regExp)).exec(message.text);

@@ -55,7 +55,7 @@
 		</div>
 		<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments" ng-if="singlePublication.comments.length !== singlePublication.comment_count">
+	<div class="more-comments" ng-show="singlePublication.comment_count - 3 > singlePublication.comments.length">
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
@@ -70,7 +70,7 @@
 					<div class="info-item">
 						<a class="user-name" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 						<p class="time" am-time-ago="comment.created_at"></p>
-						<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+						<a href="javascript:void(0);" ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 					</div>
 					<a href="javascript:void(0);" ng-click="alertPubComment(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
