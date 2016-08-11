@@ -204,11 +204,19 @@ Queries.prototype.getUserDialogue = function(data){
 				for(var i = 0; i < result.length; i++){
 					result[i].images = response[i];
 				}
-				var res = {
-					room_id: data.room_id,
-					messages: result
-				};
-				deferred.resolve(res);
+				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND (select max(user_rooms_messages.message_id)FROM user_rooms_messages where user_rooms_messages.room_id = " + data.room_id + ") = (SELECT max(message_id) FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND NOT user_id = " + data.members[0] + ")", function(err, isRead) {
+					if(isRead[0]['COUNT(message_id)'] === 0){
+						isRead = false;
+					}else{
+						isRead = true;
+					}
+					var res = {
+						room_id: data.room_id,
+						messages: result,
+						isRead: isRead
+					};
+					deferred.resolve(res);
+				});
 			});
 			var oldMessageArray = [];
 			result.forEach(function(value){
