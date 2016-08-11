@@ -58,7 +58,7 @@
             <a href ng-click="vm.addPublicationLike(vm.activePublication, vm.activePublication.user.id == loggedUserId)"
                class="like">Тема</a>
 
-            <p class="like-item">
+            <p class="like-item" ng-if="vm.activePublication.like_count > 0">
                 В теме
                 <span ng-show="vm.activePublication.user_like" class="you"> Вы </span>
                 <span ng-show="vm.activePublication.user_like && vm.activePublication.like_count > 1"
