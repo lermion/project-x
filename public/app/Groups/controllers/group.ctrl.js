@@ -181,7 +181,7 @@
             if (state === 'group.files') {
                 vm.chatFiles = $state.params.chatFiles;
                 vm.mergedChatFiles = [].concat.apply([], vm.chatFiles);
-
+                vm.itemsFiles = vm.mergedChatFiles.slice(0, 21);
             }
         });
 
@@ -872,8 +872,37 @@
 
         vm.limitToFiles = 3;
 
+        vm.itemsFiles = [];
+
         vm.loadMoreFiles = function () {
-            vm.limitToFiles += 1;
+            console.info('Load more');
+            var last = vm.itemsFiles.length - 1;
+            for (var i = last; i <= last + 21; i++) {
+                if (vm.mergedChatFiles[i]) {
+                    vm.itemsFiles.push(vm.mergedChatFiles[i]);
+                }
+            }
+        };
+
+        var moreItems = true;
+            vm.postLoading = false;
+
+        vm.nextPage = function () {
+            if (vm.postLoading !== true && vm.itemsFiles.length !== 0 && moreItems === true) {
+                vm.postLoading = true;
+                var last = vm.itemsFiles.length - 1;
+                var arr = [];
+                for (var i = last; i <= last + 20; i++) {
+                    if (vm.mergedChatFiles[i]) {
+                        arr.push(vm.mergedChatFiles[i]);
+                    } else {
+                        moreItems = false;
+                    }
+                }
+                console.info('Files list load, length - ' + vm.itemsFiles.length + ', moteItems = ' + moreItems);
+                vm.itemsFiles = vm.itemsFiles.concat(arr);
+                vm.postLoading = false;
+            }
         };
 
 
@@ -1187,7 +1216,7 @@
             var data = {
                 userId: vm.myId,
                 room_id: roomId,
-                message: messageText,
+                message: messageText ? messageText : "",
                 imagesObj: imagesObj
             };
             socket.emit('send message', data, function () {

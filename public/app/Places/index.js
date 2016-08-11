@@ -4,7 +4,7 @@
     angular
         .module('app.places', ['yaMap', 'ngFileUpload', 'angucomplete-alt'])
         .config(routes);
-    angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
+    angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000);
 
 
     routes.$inject = ['$stateProvider'];
@@ -147,8 +147,9 @@
                             .then(function (resp) {
                                 if (resp.status) {
                                     $stateParams.chatFiles = resp.data;
-                                    deferred.resolve(resp);
                                 }
+
+                                deferred.resolve(resp);
                             });
 
                         return deferred.promise;

@@ -59,8 +59,7 @@ class SphinxSearchController extends Controller
                 $x = $Data['coordinate_x'];
                 $y = $Data['coordinate_y'];
 
-                $query = 'SELECT *, GEODIST(' . $x . ', ' . $y . ',coordinates_x, coordinates_y) as distance FROM pp_near_coordinates ORDER BY distance ASC LIMIT 0,20';
-
+                $query = 'SELECT *, GEODIST(' . $x . ', ' . $y . ',coordinates_x, coordinates_y) as distance FROM pp_near_coordinates WHERE distance < 100000 ORDER BY distance ASC LIMIT 0,20';
 
                 $result = (sphinx_raw($query));
             }

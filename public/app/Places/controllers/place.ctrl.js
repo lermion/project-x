@@ -100,6 +100,7 @@
             } else if (state === 'place.files') {
                 vm.chatFiles = $state.params.chatFiles;
                 vm.mergedChatFiles = [].concat.apply([], vm.chatFiles);
+                vm.itemsFiles = vm.mergedChatFiles.slice(0, 21);
             }
         });
 
@@ -790,7 +791,7 @@
 			var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
 
-			Upload.resize(blob, 100, 100, 1, null, null, true).then(function (resizedFile) {
+			Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
 				vm.placeEdited.avatar = resizedFile;
 			});
 
@@ -879,6 +880,27 @@
 		vm.loadMoreFiles = function () {
 			vm.limitToFiles += 1;
 		};
+
+        var moreItems = true;
+        vm.postLoading = false;
+
+        vm.nextPage = function () {
+            if (vm.postLoading !== true && vm.itemsFiles.length !== 0 && moreItems === true) {
+                vm.postLoading = true;
+                var last = vm.itemsFiles.length - 1;
+                var arr = [];
+                for (var i = last; i <= last + 20; i++) {
+                    if (vm.mergedChatFiles[i]) {
+                        arr.push(vm.mergedChatFiles[i]);
+                    } else {
+                        moreItems = false;
+                    }
+                }
+                console.info('Files list load, length - ' + vm.itemsFiles.length + ', moteItems = ' + moreItems);
+                vm.itemsFiles = vm.itemsFiles.concat(arr);
+                vm.postLoading = false;
+            }
+        };
 
 		function activate() {
 			init();
@@ -1301,7 +1323,7 @@
 			var data = {
 				userId: vm.myId,
 				room_id: roomId,
-				message: messageText,
+				message: messageText ? messageText : "",
 				imagesObj: imagesObj
 			};
 			socket.emit('send message', data, function () {

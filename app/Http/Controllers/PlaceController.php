@@ -450,6 +450,17 @@ class PlaceController extends Controller
         return NewPlace::where(['user_id' => Auth::id()])->count();
     }
 
+    public function add_city(Request $request)
+    {
+        if ($city = City::where(['country_id'=>$request->input('country_id'), 'name'=>$request->input('name')])->first()){
+            return response()->json(['status' => true, 'city_id' => $city->id]);
+        } else {
+            $data = $request->all();
+            $city = City::create($data);
+            return response()->json(['status' => true, 'city_id' => $city->id]);
+        }
+    }
+
     function transliterate($input)
     {
         $translite = array(

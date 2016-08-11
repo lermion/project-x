@@ -123,7 +123,7 @@
                      ngf-select
                      ngf-pattern="'image/*'"
                      ngf-accept="'image/*'"
-                     ngf-before-model-change="vm.changePlaceAvatarFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                     ngf-change="vm.changePlaceAvatarFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                      ng-model="vm.placeEdited.avatar1">
                     <a href="">
                         <img ngf-src="vm.placeEdited.avatar" ngf-no-object-url="true">
