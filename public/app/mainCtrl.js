@@ -75,12 +75,17 @@ angular.module('placePeopleApp')
 		socket.on('updatechat', function (data) {
 			socket.emit("get user rooms", $scope.loggedUserId);
 		});
+
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 			ngDialog.closeAll();
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
 			$scope.currentPath = $location.url();
+			if($window.innerWidth <= 800){
+				$scope.showMenu = false;
+			}
 		});
+
 		$scope.$on('publicPoint', function (event, data) {
 			$scope.bodyClass = 'public';
 		});

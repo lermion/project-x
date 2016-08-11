@@ -180,6 +180,8 @@
         function setActiveState() {
             // TODO: refact!
 
+            vm.isResults = true;
+
             if (vm.results && $stateParams.setActiveTab) {
                 if (vm.results[0].length > 0) {
                     $state.go('search.people');
@@ -189,6 +191,8 @@
                     $state.go('search.places');
                 } else if (vm.results[2].length > 0) {
                     $state.go('search.groups');
+                } else {
+                    vm.isResults = false;
                 }
             }
 

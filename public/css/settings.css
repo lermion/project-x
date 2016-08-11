@@ -5715,6 +5715,9 @@ input.cmn-toggle-round:checked + label:after {
     width: 100%;
     z-index: 2;
 }
+.search.group-peoples {
+    justify-content: center;
+}
 .header-search-input-wrap {
     width: 700px;
     margin: 5px auto;
@@ -5738,6 +5741,9 @@ input.cmn-toggle-round:checked + label:after {
 .header-search-input-wrap input:focus {
     background-color: #fff;
     color: #000;
+}
+.header-search-input-wrap input:focus + span.header-search-input-wrap-span {
+    background-image: url(/images/search-hover.png);
 }
 .header-search-input-wrap-span {
     position: absolute;
@@ -5828,7 +5834,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     box-sizing: border-box;
     margin: 60px auto 20px auto;
-    font-family: "SFUIDisplayMedium";
+    font-family: "SFUIDisplayLight";
 }
 .search-tab-container {
     width: 100%;
