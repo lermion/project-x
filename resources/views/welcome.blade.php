@@ -9,6 +9,9 @@
 	<link href="../../css/settings.css" rel="stylesheet">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
+	<div class="main-up-button">
+		Наверх
+	</div>
 	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
