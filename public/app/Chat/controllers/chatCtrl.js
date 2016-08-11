@@ -214,7 +214,6 @@ angular.module('placePeopleApp')
 
 			socket.on("load more messages", function(response){
 				if(response.messages.length === 0){
-					$scope.glued = true;
 					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
@@ -873,12 +872,13 @@ angular.module('placePeopleApp')
 					}
 				}
 				ChatService.setNotification(roomId).then(function(response){
-					console.log(response);
+					
 				},
 				function(error){
 					console.log(error);
 				});
 			};
+
 			$scope.checkMessageType = function(message){
 				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
 				var match = (new RegExp(regExp)).exec(message.text);
