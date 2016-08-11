@@ -1,27 +1,35 @@
-<div class="groups">
-    <div class="group"
-         ng-repeat="group in vm.results[2]">
-        <div class="group-cover">
-            <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
-            <a ui-sref="group({groupName: group.url_name, groupId: +group.id, prevState: 'search.groups'})"
-               ng-click="$event.stopPropagation()" class="group-ava">
-                <img ngf-src="group.card_avatar" ngf-as-background="true">
-            </a>
+<div class="group-peoples search">
+    <h4 class="text-center" ng-if="vm.results[2].length === 0">Группы не найдены</h4>
+    <div class="group-peoples-inner" ng-if="vm.results[2].length > 0">
+        <div class="groups">
+            <div class="group"
+                 ng-repeat="group in vm.results[2]">
+                <div class="group-cover">
+                    <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
+                    <a ui-sref="group({groupName: group.url_name, groupId: +group.id, prevState: 'search.groups'})"
+                       ng-click="$event.stopPropagation()" class="group-ava">
+                        <img ngf-src="group.card_avatar" ngf-as-background="true">
+                    </a>
 
-            <div class="group-likes">
-                <a href="" class="group-like">{{::group.cnt_usr}}</a>
-                <a href="" class="group-comments">{{::group.cnt_pbl}}</a>
+                    <div class="group-likes">
+                        <a href="" class="group-like">{{::group.cnt_usr}}</a>
+                        <a href="" class="group-comments">{{::group.cnt_pbl}}</a>
+                    </div>
+                </div>
+                <div class="titles">
+                    <a href ng-class="{'groups-locked-icon': !group.is_open}" class="title">{{::group.name}}</a>
+
+                    <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+                </div>
+                <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
+                <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">
+                    Отписаться
+                </button>
+                <button class="wright" ng-if="group.is_sub && group.is_creator"
+                        ng-click="openModalUnsubscribeCreator()">
+                    Отписаться
+                </button>
             </div>
         </div>
-        <div class="titles">
-            <a href ng-class="{'groups-locked-icon': !group.is_open}" class="title">{{::group.name}}</a>
-
-            <p ng-bind-html="group.description | colonToSmiley" class="about"></p>
-        </div>
-        <button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group)">Подписаться</button>
-        <button class="wright" ng-if="group.is_sub && !group.is_creator" ng-click="subscribe(group)">Отписаться</button>
-        <button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">
-            Отписаться
-        </button>
     </div>
 </div>

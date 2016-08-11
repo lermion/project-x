@@ -1,5 +1,6 @@
-<div class="group-peoples">
-    <div class="group-peoples-inner">
+<div class="group-peoples search">
+    <h4 class="text-center" ng-if="vm.results[0].length === 0">Люди не найдены</h4>
+    <div class="group-peoples-inner" ng-if="vm.results[0].length > 0">
     	<div class="group-peoples-inner-item" ng-repeat="user in vm.results[0]">
             <div class="peoples-inner-item-data">
                 <div class="peoples-item-photo">
