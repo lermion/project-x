@@ -165,14 +165,13 @@
                                ngf-select
                                ng-model="vm.activePublication.files"
                                ngf-multiple="true"
-                               ngf-before-model-change="pubFiles($files)"
-                               required>
+                               ngf-before-model-change="pubFiles($files)">
                         <label for="{{addFileObjId}}">
                             Прикрепить
                             <span class="add"></span>
                         </label>
                         <div class="error-messages" ng-messages="vm.commentForm.files.$error" ng-if="vm.commentForm.$invalid && vm.commentForm.$submitted || vm.commentForm.files.$dirty">
-                            <div ng-message="required">Вы не выбрали медиафайл</div>
+                            <!--<div ng-message="required">Вы не выбрали медиафайл</div>-->
                             <div ng-message="pattern">Выбранный файл не является фото или видео</div>
                         </div>
                     </div>
