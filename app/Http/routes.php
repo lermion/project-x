@@ -95,6 +95,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('{id}/publication', 'PublicationController@userPublication')->middleware(['auth']);
         Route::post('subscribe/store', 'SubscriberController@store')->middleware(['auth']);
         Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
+        Route::get('count_not_confirmed', 'SubscriberController@count_not_confirmed')->middleware(['auth']);
         Route::get('{id}/subscription', 'SubscriberController@subscription');
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
     });
@@ -209,6 +210,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
         Route::post('update/{id}', 'PlaceController@update');
+        Route::post('add_city', 'PlaceController@add_city');
         Route::get('destroy/{id}', 'PlaceController@destroy');
         Route::get('set_user_admin/{place_id}/{user_id}', 'PlaceController@setUserAdmin');
         Route::get('set_admin_creator/{place_id}/{admin_id}', 'PlaceController@setUserCreator');
@@ -270,7 +272,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/file_chat/1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/count_not_confirmed\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
