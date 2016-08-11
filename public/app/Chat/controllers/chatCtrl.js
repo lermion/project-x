@@ -522,10 +522,12 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on('updatechat', function(data){
+				console.log(data);
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
+					$scope.isReadRoom = data.isRead;
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
 							return chat.countMessages = 0;
