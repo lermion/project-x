@@ -244,7 +244,7 @@
                                         </div>
                                         <div class="added_comments" ng-init="singlePublication.showAddComment = false;">
                                             <a ng-hide="singlePublication.showAddComment" href="javascript:void(0);"
-                                               ng-click="showAddCommentBlock(singlePublication)" class="add_comments">Добавить
+                                               ng-click="showAddCommentBlock(singlePublication, $index)" class="add_comments">Добавить
                                                 комментарий</a>
                                         </div>
                                         <div class="add-comment" ng-show="singlePublication.showAddComment">

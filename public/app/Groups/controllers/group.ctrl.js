@@ -892,7 +892,7 @@
                 vm.postLoading = true;
                 var last = vm.itemsFiles.length - 1;
                 var arr = [];
-                for (var i = last; i <= last + 20; i++) {
+                for (var i = last + 1; i <= last + 20; i++) {
                     if (vm.mergedChatFiles[i]) {
                         arr.push(vm.mergedChatFiles[i]);
                     } else {
@@ -1166,7 +1166,10 @@
             $scope.glued = true;
         });
         socket.on('updatechat', function (response) {
-            $scope.messages.push(response);
+        	$scope.messages.push(response);
+            if(response.images.length > 0){
+            	vm.group.count_chat_files += response.images.length;
+            }
             vm.group.count_chat_message++;
         });
         $scope.$on('$destroy', function (event) {

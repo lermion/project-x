@@ -3719,8 +3719,9 @@ body.ngdialog-open {
 
 .group-page {
 	width: 700px;
-		margin: 0 auto;
+	margin: 0 auto;
 	position: relative;
+	font-family: "SFUIDisplayLight";
 }
 .group-page .group-ava {
 	height: 240px;
