@@ -147,8 +147,9 @@
                             .then(function (resp) {
                                 if (resp.status) {
                                     $stateParams.chatFiles = resp.data;
-                                    deferred.resolve(resp);
                                 }
+
+                                deferred.resolve(resp);
                             });
 
                         return deferred.promise;
