@@ -102,6 +102,8 @@
                 vm.mergedChatFiles = [].concat.apply([], vm.chatFiles);
                 vm.itemsFiles = vm.mergedChatFiles.slice(0, 21);
             }
+
+            vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
         });
 
         $scope.$on('ngDialog.opened', function (e, $dialog) {

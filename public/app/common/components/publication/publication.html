@@ -60,7 +60,7 @@
             <a href ng-click="$ctrl.addPublicationLike($ctrl.pub, $ctrl.pub.user.id == loggedUserId)"
                class="like">Тема</a>
 
-            <p class="like-item">
+            <p class="like-item" ng-if="$ctrl.pub.like_count > 0">
                 В теме
                 <span ng-if="$ctrl.pub.user_like" class="you"> Вы </span>
                 <span ng-if="$ctrl.pub.user_like && $ctrl.pub.like_count > 1"
