@@ -129,10 +129,10 @@
 					<a href="javascript:void(0)">Place People </a>
 					<span>© 2016</span>
 				</div>
-				<div class="payment">
+				<!-- <div class="payment">
 					<a class="mastercard" href="javascript:void(0)"></a>
 					<a class="visa" href="javascript:void(0)"></a>
-				</div>
+				</div> -->
 			</div>
 			<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''"
 						 ng-init="showBottomMenu=true;">

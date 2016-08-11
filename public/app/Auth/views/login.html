@@ -1,33 +1,13 @@
 <div class="check-in recovery">
-       <div class="form">
-                <a class="logo" href=""></a>
-                <input class="password-field-first" type="text" name="userLogin" placeholder="Логин или номер телефона..." ng-model="userLogin" ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode)">
-                <input class="password-field-second" type="password" name="userPassword" placeholder="Пароль..." ng-model="userPassword"  ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode)">
-                <p class="capcha" ng-show="loginError">{{loginError}}</p>
-                <button class="check-in-button" ng-click="login(userLogin, userPassword);" ladda="loginLoader">Войти</button>
-                <div class="remember">
-                    <a ui-sref="restore">Забыли пароль? </a>
-                    <a ui-sref="reg">Регистрация</a>
-                </div>
-       </div>        
+	   <div class="form">
+				<a class="logo" href=""></a>
+				<input class="password-field-first" type="text" name="userLogin" placeholder="Логин или номер телефона..." ng-model="userLogin" ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode)">
+				<input class="password-field-second" type="password" name="userPassword" placeholder="Пароль..." ng-model="userPassword"  ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode)">
+				<p class="capcha" ng-show="loginError">{{loginError}}</p>
+				<button class="check-in-button" ng-click="login(userLogin, userPassword);" ladda="loginLoader">Войти</button>
+				<div class="remember">
+					<a ui-sref="restore">Забыли пароль? </a>
+					<a ui-sref="reg">Регистрация</a>
+				</div>
+	   </div>        
 </div>
-<footer>
-    <div class="footer">
-        <div class="footer-item">
-                    <div class="footer-place">
-                        <a href="">Place People </a>
-                        <span>© 2016</span>
-                    </div>
-                    <!-- <div class="payment">
-                        <a class="mastercard" href=""></a>
-                        <a class="visa" href=""></a>
-                    </div> -->
-        </div>
-        <div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-            <a class="drop-menu" href="" ></a>
-            <div class="menu-item" ng-show="showBottomMenu">                           
-                <a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>                  
-            </div>
-        </div>
-    </div>
-</footer>
