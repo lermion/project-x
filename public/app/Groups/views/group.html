@@ -1,75 +1,77 @@
-<div ng-click="hideFileAdd()" style="min-height: 100%;">
-	<div class="user-main-content">
-		<div class="user-main-content-item">
-			<!-- Content -->
-			<div class="group-page">
-				<div class="group-ava" ng-if="!vm.isMobile">
-					<a href="" class="ava">
-						<img ng-src="{{vm.group.avatar}}" alt="">
-					</a>
+<div style="min-height: 100%;">
+    <div class="user-main-content">
+        <div class="user-main-content-item">
+            <!-- Content -->
+            <div class="group-page">
+                <div class="group-ava" ng-if="!vm.isMobile">
+                    <a href="" class="ava">
+                        <img ng-src="{{vm.group.avatar}}" alt="">
+                    </a>
 
-					<div class="group-likes">
-						<div class="group-info">
-							<a href="" class="publication-place" title="{{vm.group.name}}">{{vm.group.name}}</a>
-							<a href class="publication-place"
-							   ng-click="vm.showFullDescription = !vm.showFullDescription"
-							   ng-bind-html="vm.group.description | colonToSmiley"></a>
+                    <div class="group-likes">
+                        <div class="group-info">
+                            <a href="" class="publication-place" title="{{vm.group.name}}">{{vm.group.name}}</a>
+                            <a href class="publication-place"
+                               ng-click="vm.showFullDescription = !vm.showFullDescription"
+                               ng-bind-html="vm.group.description | colonToSmiley"></a>
 
 
-							<p class="like-item">
-								В теме
-								<span class="count-like">{{vm.group.count_users}}</span>
-								чел.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
-					<p ng-bind-html="vm.group.description | colonToSmiley"></p>
-				</div>
-				<div class="group-menu" ng-if="!vm.isMobile">
-					<div class="group-menu-item">
-						<div class="place-publication-menu">
-							<a href="javascript:void(0)" class="place-publication-menu-table active"></a>
-							<a href="javascript:void(0)" class="place-publication-menu-list">
-							</a>
-						</div>
-						<div class="counts">
-							<a ui-sref="group.publications" ui-sref-active="active" class="counter">
-								<p>Публикации</p>
-								<span>{{vm.group.count_publications}}</span>
-							</a>
-							<a ui-sref="group.chat" ui-sref-active="active" class="counter">
-								<p>Чат</p>
-								<span ng-if="vm.group.count_chat_message > 0">{{vm.group.count_chat_message}}</span>
-							</a>
-							<a ui-sref="group.people" ui-sref-active="active" class="counter">
-								<p>Люди</p>
-								<span>{{vm.group.count_users}}</span>
-							</a>
-							<a ui-sref="group.files" ui-sref-active="active" class="counter">
-								<p>Файлы</p>
-								<span>{{vm.group.count_chat_files}}</span>
-							</a>
-						</div>
-						<div class="place-user-menu-wrap">
-							<div class="user-menu" ng-if="vm.group.is_admin"
-								 ng-click="vm.showGroupMenu=!vm.showGroupMenu">
-								<div class="menu-item" ng-if="vm.showGroupMenu">
-									<div class="inner">
-										<a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
-										<a href="" ng-click="vm.openModalEditGroup()">Редактировать</a>
-										<a href="" ng-click="vm.openModalInviteUsers()">Пригласить</a>
-										<a href="" ng-if="vm.group.is_creator" ng-click="vm.openModalDeleteGroup()">Удалить</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
-					<button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
-				</div>
-				<div class="group-header"></div>
+                            <p class="like-item">
+                                В теме
+                                <span class="count-like">{{vm.group.count_users}}</span>
+                                чел.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
+                    <p ng-bind-html="vm.group.description | colonToSmiley"></p>
+                </div>
+                <div class="group-menu" ng-if="!vm.isMobile">
+                    <div class="group-menu-item">
+                        <div class="place-publication-menu">
+                            <a href="javascript:void(0)" class="place-publication-menu-table active"></a>
+                            <a href="javascript:void(0)" class="place-publication-menu-list">
+                            </a>
+                        </div>
+                        <div class="counts">
+                            <a ui-sref="group.publications" ui-sref-active="active" class="counter">
+                                <p>Публикации</p>
+                                <span>{{vm.group.count_publications}}</span>
+                            </a>
+                            <a ui-sref="group.chat" ui-sref-active="active" class="counter">
+                                <p>Чат</p>
+                                <span ng-if="vm.group.count_chat_message > 0">{{vm.group.count_chat_message}}</span>
+                            </a>
+                            <a ui-sref="group.people" ui-sref-active="active" class="counter">
+                                <p>Люди</p>
+                                <span>{{vm.group.count_users}}</span>
+                            </a>
+                            <a ui-sref="group.files" ui-sref-active="active" class="counter">
+                                <p>Файлы</p>
+                                <span>{{vm.group.count_chat_files}}</span>
+                            </a>
+                        </div>
+                        <div class="place-user-menu-wrap">
+                            <div class="user-menu" ng-if="vm.group.is_admin"
+                                 ng-click="$root.showUserMenu=!$root.showUserMenu"
+                                 click-outside="closeUserMenu()"
+                                 outside-if-not="user-menu">
+                                <div class="menu-item" ng-if="$root.showUserMenu">
+                                    <div class="inner">
+                                        <a href="" ng-click="vm.openModalNewPublication()">Публикация</a>
+                                        <a href="" ng-click="vm.openModalEditGroup()">Редактировать</a>
+                                        <a href="" ng-click="vm.openModalInviteUsers()">Пригласить</a>
+                                        <a href="" ng-if="vm.group.is_creator" ng-click="vm.openModalDeleteGroup()">Удалить</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
+                    <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+                </div>
+                <div class="group-header"></div>
 
 				<div ui-view></div>
 			</div>

@@ -3838,9 +3838,9 @@ body.ngdialog-open {
 	color: #fff;
 	background: #495b79;
 	cursor: pointer;
-	top: -100%;
+	top: 50%;
 	margin-top: -14px;
-	right: 5px;
+	right: 65px;
 }
 .group-page button:hover {
 	border: 1px solid #495b79;
