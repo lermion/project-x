@@ -70,6 +70,35 @@ body.main-page {
                 height: 50px;
             }
         }
+.main-up-button {
+	position: fixed;
+	top: 50px;
+	left: 15px;
+	height: 20px;
+	padding: 0 10px 0 25px;
+	border-radius: 3px;
+	background: url(/images/up-icon.png) no-repeat left 5px center;
+	background-size: 14px;
+	font-family:  "SFUIDisplayMedium";
+	font-size: 14.6px;
+	line-height: 20px;
+	z-index: 9999999999999;
+	cursor: pointer;
+	background-color: #fff;
+	box-sizing: border-box;
+	display: none;
+}
+.main-up-button:hover {
+	background: url(/images/up-icon-hover.png) no-repeat left 5px center;
+	background-size: 14px;
+	color: #999;
+	background-color: #fff;
+}
+@media (max-width: 800px) {
+            .main-up-button {
+            	top: 65px;
+            }
+        }
 .check-in .form {
 	display: flex;
 	flex-direction: column;
@@ -2553,7 +2582,6 @@ body.public.user {
 .publication-images .images-item.more {
 	background-color: #495b79;
 	color: #fff;
-	transition: all .3s ease-in-out .1s;
 }
 .publication-images .images-item img {
 	max-width: 100%;
@@ -3280,7 +3308,7 @@ body.public.user {
 			height: 40px;
 	}
 	.contacts-off-container .user-info .user-name {
-		max-width: 120px;
+		max-width: 110px;
 			font-size: 14.6px;
 	}
 	.contacts-off-container .user-info .status-user {
