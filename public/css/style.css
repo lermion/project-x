@@ -2518,7 +2518,6 @@ body.public.user {
 	left: 50%;
 	margin-left: -78px;
 	padding-top: 20px;
-	transition: all .3s ease-in-out .1s;
 }
 // .user-publication-header .user-menu:hover  .menu-item {
 // 	display: block;

@@ -11,10 +11,10 @@
                 <p class="user-name">{{$ctrl.pub.author.name}}</p>
             </a>
 
-            <div class="user-menu" ng-click="$root.showUserMenu=!$root.showUserMenu"
-                 click-outside="closeUserMenu()"
+            <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
+                 click-outside="$ctrl.showUserMenu = false"
                  outside-if-not="user-menu">
-                <div class="menu-item" ng-if="$root.showUserMenu">
+                <div class="menu-item" ng-if="$ctrl.showUserMenu">
                     <div class="inner">
                         <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.editPub($ctrl.pub)">Редактировать</a>
                         <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>

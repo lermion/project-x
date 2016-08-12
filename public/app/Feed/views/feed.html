@@ -31,10 +31,11 @@
 							</span>
 						</a>
 						<div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
-						<div href="" class="user-menu" ng-click="$root.showUserMenu=!$root.showUserMenu"
-							 click-outside="closeUserMenu()"
-							 outside-if-not="user-menu">
-							<div class="menu-item" ng-show="$root.showUserMenu">
+						<div href="" class="user-menu" ng-class="'pub{{pub.id}}'"
+							 ng-click="pubs[pub.id].showUserMenu=!pubs[pub.id].showUserMenu"
+							 click-outside="pubs[pub.id].showUserMenu = false"
+							 outside-if-not="pub{{pub.id}}">
+							<div class="menu-item" ng-show="pubs[pub.id].showUserMenu">
 								<div class="inner">									
 									<a href="" ng-click="sharePub(pub.id)">Переслать</a>
 									<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
