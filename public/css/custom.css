@@ -3355,8 +3355,8 @@ html > body > .ui-pnotify {
   color: #FFFFFF;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
-  background-color: #1479B8;
-  border-color: #1479B8;
+  background-color: #286090;
+  border-color: #204d74;
   color: #FFFFFF;
 }
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open .dropdown-toggle.btn-danger {
