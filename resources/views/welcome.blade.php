@@ -9,9 +9,7 @@
 	<link href="../../css/settings.css" rel="stylesheet">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
-	<div class="main-up-button">
-		Наверх
-	</div>
+	<back-top class="main-up-button">Наверх</back-top>
 	<header ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
@@ -77,6 +75,7 @@
 	<link rel="stylesheet" type="text/css" href="../../app/libs/ladda/ladda-themeless.min.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/nanoscroller.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/emoji.css">
+	<link rel="stylesheet" type="text/css" href="../../app/libs/angular-backtop.css">
 	<script src="../../app/libs/ladda/spin.min.js"></script>
 	<script src="../../app/libs/ng-file-upload/ng-file-upload-shim.min.js"></script>
 	<script src="../../app/libs/ng-file-upload/ng-file-upload.min.js"></script>
@@ -95,6 +94,7 @@
 	<script src="../../app/libs/util.js"></script>
 	<script src="../../app/libs/jquery.emojiarea.js"></script>
 	<script src="../../app/libs/emoji-picker.js"></script>
+	<script src="../../app/libs/angular-backtop.min.js"></script>
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>
 	<script src="../../app/libs/angucomplete-alt.min.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>

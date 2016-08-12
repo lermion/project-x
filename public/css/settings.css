@@ -6434,7 +6434,7 @@ input.cmn-toggle-round:checked + label:after {
 	header {
 		position: fixed;
 		top: 0;
-		z-index: 100000000;
+		z-index: 99999;
 	}
     body.public.user #wrapper {
         padding-top: 45px;
