@@ -950,7 +950,7 @@ angular.module('placePeopleApp')
 						console.log(error);
 					});
 				}
-			}
+			};
 			function loadUserContacts() {
 				PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
 						$scope.subscribers = response;
