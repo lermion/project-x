@@ -11,13 +11,12 @@ angular.module('placePeopleApp')
 		$scope.emojiMessage = {};
 		$scope.shareData = [];
 		$scope.loggedUserAva = storage.loggedUserAva;
-		$http.get('/static_page/get/name')
-					.success(function (response){            	
-						$scope.staticPages = response;
-					})
-					.error(function (error){
-						console.log(error);
-					});
+		$http.get('/static_page/get/name').success(function (response){            	
+			$scope.staticPages = response;
+		})
+		.error(function (error){
+			console.log(error);
+		});
 		$scope.openMenu = function(){
 			if ($window.innerWidth <= 800) {    			
 				 $scope.showMenu = !$scope.showMenu;
@@ -100,6 +99,15 @@ angular.module('placePeopleApp')
 				return;
 			}			
 			getMainPubs(counter);
+		};
+
+		$scope.getPubLink = function (pubId) {
+			$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId;
+			ngDialog.open({
+				template: '../app/User/views/get-link-publication.html',
+				className: 'link-publication ngdialog-theme-default',
+				scope: $scope
+			});
 		};
 
 		$scope.sharePub = function(pubId){
