@@ -550,7 +550,7 @@ angular.module('placePeopleApp')
 			}
 
 
-			function getSinglePublication(pubId, flag) {
+			function getSinglePublication(pubId, flag, index) {
 				PublicationService.getSinglePublication(pubId).then(function (response) {
 						//getAllCommentsPublication(pubId);
 						$scope.limit = 7;
@@ -566,7 +566,10 @@ angular.module('placePeopleApp')
 									template: '../app/User/views/view-publication.html',
 									className: 'view-publication ngdialog-theme-default',
 									scope: $scope,
-									name: "view-publication"
+									name: "view-publication",
+									preCloseCallback: function(){
+										$scope.userPublications[index] = response;
+									}
 								});
 								// $state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});
 							}
@@ -579,7 +582,7 @@ angular.module('placePeopleApp')
 
 			$scope.showPublication = function (pub, index) {
 				$scope.indexCurrentPublication = index;
-				getSinglePublication(pub.id);
+				getSinglePublication(pub.id, false, index);
 			};
 
 			$scope.showAddCommentBlock = function (pub, index) {
@@ -974,7 +977,7 @@ angular.module('placePeopleApp')
 					scope: $scope
 				});
 			};
-			
+
 			$scope.alertPub = function (pubId) {
 				ngDialog.open({
 					template: '../app/User/views/alert-publication.html',
