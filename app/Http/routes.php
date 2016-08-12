@@ -29,13 +29,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('get_review', 'Admin\UserController@getReview');
             Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
             Route::post('main_picture', 'Admin\UserController@mainPicture');
-            Route::get('option', 'Admin\OptionController@index');
-            Route::post('create_option', 'Admin\OptionController@create');
-            Route::post('update_option/{id}', 'Admin\OptionController@update');
         });
         Route::group(['prefix' => 'moderator'], function () {
             Route::get('/', 'Admin\ModeratorController@index');
             Route::get('create', 'Admin\ModeratorController@create');
+            Route::get('stop/{id}', 'Admin\ModeratorController@stop');
+            Route::post('update/{id}', 'Admin\ModeratorController@update');
             Route::post('store', 'Admin\ModeratorController@store');
         });
         Route::group(['prefix' => 'static_page'], function () {
@@ -64,7 +63,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
             Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
         });
+        Route::group(['prefix' => 'option'], function () {
+            Route::get('/', 'Admin\OptionController@index');
+            Route::post('create_option', 'Admin\OptionController@create');
+            Route::post('update_option/{id}', 'Admin\OptionController@update');
+        });
         Route::group(['prefix' => 'lock'], function () {
+            Route::get('/', 'Admin\LockContentController@index');
             Route::get('places', 'Admin\LockContentController@getLockPlaces');
             Route::get('unlock_place/{id}', 'Admin\LockContentController@unlockPlace');
             Route::get('destroy_place/{id}', 'Admin\LockContentController@destroyPlace');
@@ -269,7 +274,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/count_not_confirmed\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/notification/1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>

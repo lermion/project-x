@@ -32,8 +32,8 @@
 								</a>
 
 								<div class="group-likes">
-									<p href="" class="group-like">{{::group.count_user}}</p>
-									<p href="" class="group-comments">{{::group.publications}}</p>
+									<p href class="group-like">{{group.count_user > 0 ? group.count_user : '&nbsp;'}}</p>
+									<p href class="group-comments">{{group.publications > 0 ? group.publications : '&nbsp;'}}</p>
 								</div>
 							</div>
 							<div class="titles">
@@ -79,8 +79,8 @@
 								</a>
 
 								<div class="group-likes">
-									<a href="" class="group-like">{{::group.count_user}}</a>
-									<a href="" class="group-comments">{{::group.publications}}</a>
+									<p href class="group-like">{{group.count_user > 0 ? group.count_user : ''}}</p>
+									<p href class="group-comments">{{group.publications > 0 ? group.publications : ''}}</p>
 								</div>
 							</div>
 							<div class="titles">
