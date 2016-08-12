@@ -12,6 +12,11 @@ use App\Http\Controllers\Controller;
 
 class LockContentController extends Controller
 {
+    public function index()
+    {
+        return view('admin.lock.index');
+    }
+
     public function getLockPlaces()
     {
         $places = Place::with('users','publications')
