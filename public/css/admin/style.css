@@ -385,3 +385,6 @@ input.cmn-toggle-round:checked + label:after {
 .moderator-complaints table p {
 	margin-bottom: 0px;
 }
+.moderator-time-to-work p {
+	margin: 0 5px;
+}
