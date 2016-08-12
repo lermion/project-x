@@ -2413,7 +2413,7 @@ body.public.user {
 	background: transparent;
 	width: 100%;
 	padding:  50px 0;
-	margin-left: 8.5px;
+	margin-left: 0px;
 	height: auto;
 	top: 0;
 		margin-top: 0;
@@ -4015,7 +4015,7 @@ body.ngdialog-open {
 }
 .ngdialog.view-publication.ngdialog-theme-default {
 	position: fixed;
-	overflow-y: scroll;
+	overflow-y: overlay;
 	overflow-x: hidden;
 }
 
