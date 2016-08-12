@@ -5352,6 +5352,10 @@ input.cmn-toggle-round:checked + label:after {
         width: 32%;
         box-shadow: 2px 2px 3px 0px #e3e3e3;
     }
+    .search-tab-container .places-category-item {
+        width: 31%;
+        box-shadow: 2px 2px 3px 0px #e3e3e3;
+    }
     .places-category-item {
         margin-right: 11px;
     }
@@ -6953,7 +6957,7 @@ textarea[type="text"]:focus,
 }
 .search-tab-container .group-peoples .group-peoples-inner {
     margin: 0;
-    max-height: auto;
+    max-height: none;
 }
 .content-item.search-result__item-publication {
     margin: 15px 0;
