@@ -86,7 +86,6 @@ body.main-page {
 	cursor: pointer;
 	background-color: #fff;
 	box-sizing: border-box;
-	display: none;
 }
 .main-up-button:hover {
 	background: url(/images/up-icon-hover.png) no-repeat left 5px center;
