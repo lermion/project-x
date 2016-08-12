@@ -6953,7 +6953,7 @@ textarea[type="text"]:focus,
 }
 .search-tab-container .group-peoples .group-peoples-inner {
     margin: 0;
-    max-height: auto;
+    max-height: none;
 }
 .content-item.search-result__item-publication {
     margin: 15px 0;
