@@ -10,10 +10,15 @@ use App\Http\Controllers\Controller;
 
 class CountryController extends Controller
 {
+    public function index()
+    {
+        return view('admin.base.index');
+    }
+
     public function create(Request $request)
     {
         if (Country::where('name',$request->input('name'))->first()){
-            return view('admin.country.create',['error'=>'Такая страна уже есть']);
+            return view('admin.country.create',['error'=>'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ']);
         }
         $data = $request->all();
         Country::create($data);

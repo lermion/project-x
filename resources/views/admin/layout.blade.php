@@ -57,7 +57,9 @@
                             <li><a href="mesta.php?mod"><i class="fa fa-child"></i> Места</a></li>
                             <li><a href="index2.php?mod"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
                             <li><a href="index5.php?mod"><i class="fa fa-comments-o"></i> Комментарии</a></li>
-                            <li><a href="index4.php?mod"><i class="fa fa-bell-slash-o"></i> Управление спамом</a></li> <!-- отправить предупреждение [блокирует] -->
+                            <li><a href="index4.php?mod"><i class="fa fa-bell-slash-o"></i> Управление спамом</a></li>
+
+                            <!-- отправить предупреждение [блокирует] -->
 
                             <li><a><i class="fa fa-database"></i> База <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" style="display: none">
@@ -80,6 +82,9 @@
                             <!--<li><a href="#"><i class="fa fa-institution"></i> Услуги</a></li>-->
                             <li><a href="{{ action('Admin\LockContentController@index') }}"><i class="fa fa-trash"></i> На удаление</a></li>
                             <li><a href="{{ action('Admin\OptionController@index') }}"><i class="fa fa-cogs"></i> Настройки</a></li>
+                            <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-cogs"></i> Жалобы</a></li>
+                            <li><a href="{{ action('Admin\CountryController@index') }}"><i class="fa fa-cogs"></i> База</a></li>
+                            <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-cogs"></i> Модерация</a></li>
 
                         </ul>
                         <?php } ?>
