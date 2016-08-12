@@ -881,14 +881,25 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.checkMessageType = function(message){
-				var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
+				var regExp = "^http://" + $location.host();
 				var match = (new RegExp(regExp)).exec(message.text);
 				if(match){
-					message.type = 'pub';
-					message.pub = {};
-					message.pub.username = match[1];					
-					message.pub.id = parseInt(match[3]);
-				}			
+					var publicationUrl = match.input.split("/publication/");
+					if(publicationUrl[1]){
+						message.pub = {};
+						message.type = 'pub';
+						message.pub.username = message.login;
+						message.pub.id = parseInt(publicationUrl[1]);
+					}
+				}
+				// var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
+				// var match = (new RegExp(regExp)).exec(message.text);
+				// if(match){
+				// 	message.type = 'pub';
+				// 	message.pub = {};
+				// 	message.pub.username = match[1];					
+				// 	message.pub.id = parseInt(match[3]);
+				// }
 			};
 
 			$scope.loadPubIntoChat = function(message, pubId){
