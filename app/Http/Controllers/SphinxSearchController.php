@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Online;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,7 +22,11 @@ class SphinxSearchController extends Controller
         $result[3]=[];
         if(!empty($Data['usersearch']) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            $result[0]=(sphinx_raw($query));
+            foreach(sphinx_raw($query) as $res){
+                $res['online'] = Online::isOnline($res['id']);
+                $user[] = $res;
+            }
+            $result[0]=($user);
         }
 
         if (!empty($Data['publicationsearch'])){
@@ -31,7 +36,7 @@ class SphinxSearchController extends Controller
         if (!empty($Data['placesearch'])){
             $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
             $result[2]=(sphinx_raw($query));
-            //dd($result[2]=(sphinx_raw($query)));
+
         }
         if (!empty($Data['groupsearch'])){
             $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql)";
@@ -41,7 +46,11 @@ class SphinxSearchController extends Controller
         if((empty($Data['usersearch'])) && (empty($Data['publicationsearch'])) &&
             (empty($Data['groupsearch'])) && (empty($Data['placesearch'])) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            $result[0]=(sphinx_raw($query));
+            foreach(sphinx_raw($query) as $res){
+                $res['online'] = Online::isOnline($res['id']);
+                $user[] = $res;
+            }
+            $result[0]=($user);
             $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
             $result[1]=(sphinx_raw($query));
             $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
@@ -56,10 +65,10 @@ class SphinxSearchController extends Controller
     public function geosearch(Request $request){
             try {
                 $Data = $request->all();
-                $x = $Data['coordinate_x'];
-                $y = $Data['coordinate_y'];
+                $x = deg2rad($Data['coordinate_x']);
+                $y = deg2rad($Data['coordinate_y']);
 
-                $query = 'SELECT *, GEODIST(' . $x . ', ' . $y . ',coordinates_x, coordinates_y) as distance FROM pp_near_coordinates WHERE distance < 100000 ORDER BY distance ASC LIMIT 0,20';
+                $query = 'SELECT *, GEODIST(' . $x . ', ' . $y . ',coordinates_x_rad, coordinates_y_rad) as distance FROM pp_near_coordinates WHERE distance < 10000  ORDER BY distance ASC LIMIT 0,20';
 
                 $result = (sphinx_raw($query));
             }
