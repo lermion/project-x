@@ -136,6 +136,7 @@
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
                 getSubscription().then(function () {
+                    vm.canInviteUsers = canInviteUsers();
                     modalInviteUsers = ngDialog.open({
                         template: '../app/Places/views/popup-invite-place.html',
                         name: 'modal-invite-group',
@@ -1202,6 +1203,40 @@
 				}
 			}
 		}
+
+        function canInviteUsers() {
+
+            var arr = vm.subscribers.concat(vm.subscription);
+
+
+            var uniqueUsers = [],
+                result = [];
+
+            var subUsersIds = {};
+            var groupUsersIds = {};
+
+            for (var i = 0; i < arr.length; i++) {
+                if (($.inArray(arr[i].id, uniqueUsers)) == -1) {
+                    uniqueUsers.push(arr[i]);
+                }
+            }
+
+            angular.forEach(uniqueUsers, function (el, i) {
+                subUsersIds[el.id] = uniqueUsers[i];
+            });
+
+            angular.forEach(vm.place.users, function (el, i) {
+                groupUsersIds[el.id] = vm.place.users[i];
+            });
+
+            for (var prop in subUsersIds) {
+                if (!groupUsersIds.hasOwnProperty(prop)) {
+                    result.push(subUsersIds[prop]);
+                }
+            }
+
+            return result.length > 0;
+        }
 
 		//chat
 

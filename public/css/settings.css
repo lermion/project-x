@@ -265,6 +265,15 @@
 }
 
 /*******************************
+            Alerts
+*******************************/
+.alerts-container {
+    display: flex;
+    font-family: SFUIDisplayLight, Arial, sans-serif;
+}
+
+
+/*******************************
             Modal dialogs
 *******************************/
 
@@ -316,6 +325,14 @@
     transition: all .3s ease-in-out .1s;
     color: #495b79;
 }
+
+/*---------------------------
+     Common modificators
+---------------------------*/
+.modal__content.flex-content-center {
+    justify-content: center;
+}
+
 
 .ngdialog.popup-delete-group.ngdialog-theme-default .ngdialog-content {
     height: auto;
