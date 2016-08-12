@@ -14,22 +14,26 @@ angular.module('placePeopleApp')
                 .state('auth', {
                     url: '/',
                     templateUrl: '../../app/Auth/views/auth.html',
-                    controller: 'authCtrl'
+                    controller: 'authCtrl',
+                    isLogin: true
                 })
                 .state('reg', {
                     url: '/auth/registration',
                     templateUrl: '../../app/Auth/views/reg.html',
-                    controller: 'authCtrl'
+                    controller: 'authCtrl',
+                     isLogin: true
                 })
                 .state('restore', {
                     url: '/auth/restore',
                     templateUrl: '../../app/Auth/views/restore.html',
-                    controller: 'authCtrl'
+                    controller: 'authCtrl',
+                     isLogin: true
                 })
                 .state('login', {
                     url: '/auth/login',
                     templateUrl: '../../app/Auth/views/login.html',
-                    controller: 'authCtrl'
+                    controller: 'authCtrl',
+                     isLogin: true
                 })
                 .state('static', {
                     url: '/static/:pageName',
@@ -39,23 +43,27 @@ angular.module('placePeopleApp')
                 .state('subscribers', {
                     url: '/:username/subscribers/:id',
                     templateUrl: '../../app/User/views/popup-user-subscribers.html',
-                    controller: 'userCtrl'
+                    controller: 'userCtrl',
+                    isLogin: false
                 })
                 .state('subscribes', {
                     url: '/:username/subscribes/:id',
                     templateUrl: '../../app/User/views/popup-user-subscribe.html',
-                    controller: 'userCtrl'
+                    controller: 'userCtrl',
+                    isLogin: false
                 })
                 .state('settings', {
                     url: '/settings',
                     templateUrl: '../../app/Settings/views/settings.html',
-                    controller: 'settingsCtrl'
+                    controller: 'settingsCtrl',
+                    isLogin: false
                 })
 
                 .state('feed', {
                     url: '/feed',
                     templateUrl: '../../app/Feed/views/feed.html',
-                    controller: 'feedCtrl'
+                    controller: 'feedCtrl',
+                    isLogin: false
                 })
                 // .state('feed-mobile', {
                 //   url: 'feed/:pubId',
@@ -70,7 +78,8 @@ angular.module('placePeopleApp')
                 .state('chat', {
                     url: '/chat',
                     templateUrl: '../../app/Chat/views/chat-main.html',
-                    controller: 'chatCtrl'
+                    controller: 'chatCtrl',
+                    isLogin: false
                 })
                 .state('chat.list', {
                     url: '/list',
@@ -107,7 +116,8 @@ angular.module('placePeopleApp')
                 .state('user', {
                     url: '/:username',
                     templateUrl: '../../app/User/views/user.html',
-                    controller: 'userCtrl'
+                    controller: 'userCtrl',
+                    isLogin: true
                 })
                 .state('mobile-pub-view', {
                     url: '/:username/pub/:id',
