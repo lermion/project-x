@@ -14,6 +14,7 @@
         return {
             getPlaces: getPlaces,
             getPlace: getPlace,
+            getPlaceNearMe: getPlaceNearMe,
             addPlace: addPlace,
             getPublications: getPublications,
             getCounterNewPlaces: getCounterNewPlaces,
@@ -77,6 +78,32 @@
 
             function getPlaceFailed(error) {
                 console.error('XHR Failed for getPlace. ' + error.data);
+            }
+        }
+
+        function getPlaceNearMe(x, y) {
+            var fd = new FormData();
+
+            fd.append('coordinate_x', x);
+            fd.append('coordinate_y', y);
+
+
+            return $http({
+                method: 'POST',
+                url: 'searchgeo',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(getPlaceNearMeComplete)
+                .catch(getPlaceNearMeFailed);
+
+            function getPlaceNearMeComplete(response) {
+                return response.data;
+            }
+
+            function getPlaceNearMeFailed(error, status) {
+                console.error('XHR Failed for getPlaceNearMeFailed. ' + status);
             }
         }
 
