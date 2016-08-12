@@ -63,8 +63,7 @@
                     <div class="menu_section">
                         <h3>Moderator</h3>
                         <ul class="nav side-menu">
-                            <li><a href="{{ action('Moderator\ModerateController@index') }}"><i
-                                            class="fa fa-thumbs-o-up"></i> Модерация</a></li>
+                            <li><a href="{{ action('Moderator\ModerateController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li>
                             <li><a href="#"><i class="fa fa-child"></i> Новые пользователи</a></li>
                             <li><a href="#"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
                             <li><a href="#"><i class="fa fa-comments-o"></i> Комментарии</a></li>

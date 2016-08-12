@@ -34,7 +34,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/', 'Admin\ModeratorController@index');
             Route::get('create', 'Admin\ModeratorController@create');
             Route::get('stop/{id}', 'Admin\ModeratorController@stop');
-            Route::post('update/{id}', 'Admin\ModeratorController@update');
+            Route::get('update/{id}', 'Admin\ModeratorController@update');
             Route::post('store', 'Admin\ModeratorController@store');
         });
         Route::group(['prefix' => 'static_page'], function () {
@@ -46,14 +46,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('edit/{id}', 'Admin\StaticPageController@edit');
             Route::post('update/{id}', 'Admin\StaticPageController@update');
         });
-        Route::group(['prefix' => 'country'], function () {
-            Route::post('/', 'Admin\CountryController@create');
-            Route::get('destroy/{id}', 'Admin\CountryController@destroy');
-        });
-        Route::group(['prefix' => 'city'], function () {
-            Route::post('/', 'Admin\CityController@create');
-            Route::get('destroy/{id}', 'Admin\CityController@destroy');
-        });
+
         Route::group(['prefix' => 'mail'], function () {
             Route::get('/', 'Admin\MailController@index');
             Route::get('get_review', 'Admin\MailController@get_review');
@@ -85,6 +78,15 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('mails', 'Admin\CountController@mails');
             Route::get('to_remove', 'Admin\CountController@to_remove');
         });
+        Route::group(['prefix' => 'base'], function () {
+            Route::get('/', 'Admin\CountryController@index');
+            Route::post('/', 'Admin\CountryController@create');
+            Route::get('destroy/{id}', 'Admin\CountryController@destroy');
+            Route::post('/', 'Admin\CityController@create');
+            Route::get('destroy/{id}', 'Admin\CityController@destroy');
+        });
+        Route::get('/moderation', 'Admin\ModerationController@index');
+        Route::get('/complaints', 'Admin\ComplaintsController@index');
 
     });
     Route::group(['prefix' => 'auth'], function () {
@@ -277,7 +279,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/notification/1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
