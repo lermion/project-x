@@ -4,18 +4,8 @@ angular.module('placePeopleApp')
 		function ($rootScope, $scope, $state, groupsService, placesService, storageService,
 		AuthService, $location, socket, $http, $window, ngDialog) {
 		$scope.currentPath = $location.url();
-		storageService.isUserAuthorized().then(function(response){
-			var storage = storageService.getStorage();
-			$scope.loggedUserId = parseInt(storage.userId);
-			if(storage.userId === undefined && !response.is_authorization){
-				$rootScope.isAuthorized = false;
-			}else{
-				$rootScope.isAuthorized = true;
-			}
-		},
-		function(error){
-			console.log(error);
-		});
+		var storage = storageService.getStorage();
+		$scope.loggedUserId = parseInt(storage.userId);
 		$scope.$emit('userPoint', 'user');
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
@@ -122,14 +112,15 @@ angular.module('placePeopleApp')
 						}else{
 							$rootScope.isAuthorized = true;
 						}
+						if(!toState.isLogin && !$rootScope.isAuthorized){
+							event.preventDefault();
+							return $state.go('login');
+						}
+						
 					},
 					function(error){
 						console.log(error);
 					});
-					if(!toState.isLogin && !$rootScope.isAuthorized){
-						event.preventDefault();
-        				return $state.go('login');
-					}
 					$scope.preloader = true;
 					groupsService.getCounterNewGroups().then(function (data) {
 						$rootScope.counters.groupsNew = data;
