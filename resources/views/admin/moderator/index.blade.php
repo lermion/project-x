@@ -16,7 +16,7 @@
                             </tr>
                         </table>
                     </td>
-                    <td><p><a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary btn-xs">Добавить</a></p></td>
+                    <td><p><a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary">Добавить</a></p></td>
                 </tr>
             </table>
         </div>
@@ -38,8 +38,16 @@
                     <td>{{$moderator->id}}</td>
                     <td><p align="center" class="m0 cp"><img src="{{$moderator->photo?$moderator->photo:'/img/ava/moderator.png'}}" height="70" /></p></td>
                     <td><a href="#">{{ $moderator->first_name.' '.$moderator->last_name }}</a></td>
-                    <td>
-                        <p>Пн, Вт, Ср, Чт, Пт</p>
+                    <td class="moderator-time-to-work">
+                        <p>Пн</p>
+                        <p>9:00 - 18:00</p>
+                        <p>Вт</p>
+                        <p>9:00 - 18:00</p>
+                        <p>Ср</p>
+                        <p>9:00 - 18:00</p>
+                        <p>Чт</p>
+                        <p>9:00 - 18:00</p>
+                        <p>Пт</p>
                         <p>9:00 - 18:00</p>
                         <p><a href="#" style="text-decoration:underline; font-size:12px;">Изменить</a></p>
                     </td>
@@ -49,7 +57,7 @@
                         <p>Присутствие: <b>17/19</b></p>
                     </td>
                     <td>
-                        <p style="margin-top:20px;"><button type="button" class="btn btn-default btn-xs">Остановить</button></p>
+                        <p style="margin-top:20px;"><button type="button" class="btn btn-warning">Остановить</button></p>
                     </td>
                 </tr>
             @endforeach
@@ -60,8 +68,8 @@
         <hr />
 
         <h4 style="margin-top:30px;">Настройки модерации:</h4>
-        <p><input class="form-control input-sm" type="text" placeholder="30" style="width:50px; float:left; margin-right:10px;"> мин. Значение для проверки присутствия модераторов.</p>
-        <p style="margin-top:30px;"><button type="button" class="btn btn-default btn-xs">Сохранить</button></p>
+        <p>Укажите значение для проверки присутствия модераторов: <input class="form-control input-sm" type="text" placeholder="30" style="width:50px;margin-left:10px; display: inline-block;"> мин. </p>
+        <p style="margin-top:30px;"><button type="button" class="btn btn-success">Сохранить</button></p>
 
 
     </div>
