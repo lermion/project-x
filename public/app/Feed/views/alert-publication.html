@@ -1,5 +1,5 @@
 <div>
-	<form action="">
+	<form action="" ng-if="!complainIsSend">
 		<div class="spam-item">
 			<input type="checkbox" id="spam" ng-model="alertPub1">
 			<label for="spam">
@@ -50,6 +50,6 @@
 			</label>
 		</div>
 	</form>
-	<button ng-click="sendComplain(ngDialogData.id, ngDialogData.flag, alertPub1, alertPub2, alertPub3, alertPub4, alertPub5, alertPub6, alertPub7)">Отправить</button>
-	<p class="publication-alert-done">Жалоба отправлена!</p>
+	<button ng-if="!complainIsSend" ng-click="sendComplain(ngDialogData.id, ngDialogData.flag, alertPub1, alertPub2, alertPub3, alertPub4, alertPub5, alertPub6, alertPub7)">Отправить</button>
+	<p class="publication-alert-done" ng-if="complainIsSend">Жалоба отправлена!</p>
 </div>
