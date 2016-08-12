@@ -73,7 +73,8 @@
             })
             .state('group.publications', {
                 url: '/publications',
-                templateUrl: '../../app/Groups/views/group-publications.html'
+                templateUrl: '../../app/Groups/views/group-publications.html',
+                isLogin: true
             })
             .state('group.chat', {
                 url: '/chat',

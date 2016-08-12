@@ -104,8 +104,7 @@
                                             deferred.resolve(data);
                                         });
                                 } else if (!data.status && data.error.code === '15') {
-                                    deferred.reject();
-                                    $state.go('auth');
+                                    deferred.resolve(data);
                                 } else if (!data.status && data.error.code === '6') {
                                     deferred.reject();
                                     ngDialog.open({
@@ -113,8 +112,6 @@
                                         name: 'modal-notfound-group',
                                         className: 'popup-delete-group ngdialog-theme-default'
                                     });
-                                } else {
-                                    deferred.resolve(data);
                                 }
                             });
 
@@ -137,7 +134,8 @@
             })
             .state('place.publications', {
                 url: '/publications',
-                templateUrl: '../../app/Places/views/place-publications.html'
+                templateUrl: '../../app/Places/views/place-publications.html',
+                isLogin: true
             })
             .state('place.chat', {
                 url: '/chat',
