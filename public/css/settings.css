@@ -6951,3 +6951,11 @@ textarea[type="text"]:focus,
     background-position: center;
     background-size: 20px;
 }
+.search-tab-container .group-peoples-inner  .group-peoples-inner {
+    margin: 0;
+    max-height: auto;
+}
+.content-item.search-result__item-publication {
+    margin: 15px 0;
+    width: 100%;
+}
