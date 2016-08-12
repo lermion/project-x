@@ -3,14 +3,19 @@ angular.module('placePeopleApp')
 		'storageService', 'AuthService', '$location', 'socket', '$http', '$window', 'ngDialog',
 		function ($rootScope, $scope, $state, groupsService, placesService, storageService,
 		AuthService, $location, socket, $http, $window, ngDialog) {
-		var storage = storageService.getStorage();
 		$scope.currentPath = $location.url();
-		$scope.loggedUserId = parseInt(storage.userId);
-		if(storage.userId === undefined){
-			$rootScope.isAuthorized = false;
-		}else{
-			$rootScope.isAuthorized = true;
-		}
+		storageService.isUserAuthorized().then(function(response){
+			var storage = storageService.getStorage();
+			$scope.loggedUserId = parseInt(storage.userId);
+			if(storage.userId === undefined && !response.is_authorization){
+				$rootScope.isAuthorized = false;
+			}else{
+				$rootScope.isAuthorized = true;
+			}
+		},
+		function(error){
+			console.log(error);
+		});
 		$scope.$emit('userPoint', 'user');
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
@@ -110,13 +115,17 @@ angular.module('placePeopleApp')
 			});
 			$rootScope.$on('$stateChangeStart',
 				function (event, toState, toParams, fromState, fromParams) {
-					$rootScope.isAuthorized = null;
-					var storage = storageService.getStorage();
-					if(storage.userId === undefined){
-						$rootScope.isAuthorized = false;
-					}else{
-						$rootScope.isAuthorized = true;
-					}
+					storageService.isUserAuthorized().then(function(response){
+						var storage = storageService.getStorage();
+						if(storage.userId === undefined && !response.is_authorization){
+							$rootScope.isAuthorized = false;
+						}else{
+							$rootScope.isAuthorized = true;
+						}
+					},
+					function(error){
+						console.log(error);
+					});
 					if(!toState.isLogin && !$rootScope.isAuthorized){
 						event.preventDefault();
         				return $state.go('login');

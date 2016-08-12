@@ -10,7 +10,7 @@ class AuthorizationController extends Controller
 {
     public function index()
     {
-        if (Auth::id()) {$result = 'true';} else {$result = 'false';}
+        if (Auth::id()) {$result = true;} else {$result = false;}
         return response()->json(["is_authorization" => $result]);
     }
 }
