@@ -2431,7 +2431,6 @@ div.my_profilll.photo-list div:last-child {
     top: 20px;
     left: -120px;
     padding-top: 20px;
-    transition: all .3s ease-in-out .1s;
     z-index: 10;
 }
 .group-menu .user-menu:hover .menu-item {

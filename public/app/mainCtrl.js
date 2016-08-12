@@ -166,6 +166,8 @@ angular.module('placePeopleApp')
 			// Ellipsis menu button
 			$scope.closeUserMenu = function() {
 				$rootScope.showUserMenu = false;
+				$rootScope.showUserMenuSecondary = false;
+
 			};
 
 
