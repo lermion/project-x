@@ -40,4 +40,3 @@ class CountController extends Controller
 
     }
 }
-

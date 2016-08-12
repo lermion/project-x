@@ -22,8 +22,8 @@
 				<li>"удалить" - полное удаление объекта и всех его связей, без возможности восстановления; </li>
 			</ul>
 		</div> -->
-		<div  class="info" ng-bind-html="sce.trustAsHtml(staticText)"><!-- {{staticText}} --></div>
-		 <div ng-show="currentPath === '/static/help'" class="static-admin-question">
+		<div class="info" ng-bind-html="sce.trustAsHtml(staticText)"><!-- {{staticText}} --></div>
+		 <div ng-show="currentPath === '/static/help' && staticText" class="static-admin-question">
 			<div class="static-admin-question-inner">
 				<div class="static-admin-question-inner-item">
 					<p>Письмо админу:</p>
