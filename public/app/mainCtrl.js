@@ -6,6 +6,11 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.currentPath = $location.url();
 		$scope.loggedUserId = parseInt(storage.userId);
+		if(storage.userId === undefined){
+			$rootScope.isAuthorized = false;
+		}else{
+			$rootScope.isAuthorized = true;
+		}
 		$scope.$emit('userPoint', 'user');
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
@@ -103,7 +108,6 @@ angular.module('placePeopleApp')
 			$scope.$on('userPoint', function (event, data) {
 				$scope.bodyClass = 'public user';
 			});
-
 			$rootScope.$on('$stateChangeStart',
 				function (event, toState, toParams, fromState, fromParams) {
 					$rootScope.isAuthorized = null;
