@@ -292,7 +292,7 @@
             }
 
             vm.newComment.text = vm.emojiMessage.messagetext;
-            if (images.length === 0 && videos.length === 0) {
+            if (images.length === 0 && videos.length === 0 && vm.newComment.text === '') {
                 return false;
             }
             vm.subForm = true;
@@ -305,6 +305,7 @@
                         if (flag === "feedPage") {
                             pub.files = [];
                             vm.newComment.text = '';
+                            vm.emojiMessage.messagetext = '';
                             pub.comments.push(response.data.comment);
                             pub.comment_count++;
                         }
