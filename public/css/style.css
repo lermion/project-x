@@ -4015,7 +4015,7 @@ body.ngdialog-open {
 }
 .ngdialog.view-publication.ngdialog-theme-default {
 	position: fixed;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 }
 
