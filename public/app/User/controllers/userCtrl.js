@@ -950,7 +950,7 @@ angular.module('placePeopleApp')
 						console.log(error);
 					});
 				}
-			}
+			};
 			function loadUserContacts() {
 				PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
 						$scope.subscribers = response;
@@ -974,6 +974,7 @@ angular.module('placePeopleApp')
 					scope: $scope
 				});
 			};
+			
 			$scope.alertPub = function (pubId) {
 				ngDialog.open({
 					template: '../app/User/views/alert-publication.html',
