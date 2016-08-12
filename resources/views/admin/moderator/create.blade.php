@@ -6,6 +6,31 @@
         @if(isset($error))
             {{ $error }}
         @endif
+        <div class="row">
+                <div class="col-md-2">
+                    <div class="row">
+                        <img class="img-responsive" src="http://all4desktop.com/data_images/original/4242440-face.jpg" alt="">
+                    </div>
+                    <div class="row">
+                        <input type="file">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="email">Email</label><br>
+                    <input class="form-control" type="email" name="email" id="email" required><br>
+                    <label for="password">Пароль</label><br>
+                    <input type="password" name="password" id="password" required><br>
+                    <label for="first_name">Имя</label><br>
+                    <input type="text" name="first_name" id="first_name" required><br>
+                    <label for="last_name">Фамилия</label><br>
+                    <input type="text" name="last_name" id="last_name" required><br>
+                </div>
+                <div class="col-md-6">таблица с данными</div>
+            </div>
+
+
+
+
         <form action="{{ action('Admin\ModeratorController@store') }}" method="post" enctype="multipart/form-data">
             <label for="email">Email</label><br>
             <input type="email" name="email" id="email" required><br>
