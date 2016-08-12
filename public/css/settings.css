@@ -6951,7 +6951,7 @@ textarea[type="text"]:focus,
     background-position: center;
     background-size: 20px;
 }
-.search-tab-container .group-peoples-inner  .group-peoples-inner {
+.search-tab-container .group-peoples .group-peoples-inner {
     margin: 0;
     max-height: auto;
 }
