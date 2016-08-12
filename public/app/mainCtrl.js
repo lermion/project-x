@@ -110,12 +110,10 @@ angular.module('placePeopleApp')
 						if(response.is_authorization){
 							$rootScope.isAuthorized = true;
 						}else{
-							storageService.deleteStorage();
 							$rootScope.isAuthorized = false;
-							event.preventDefault();
-							return $state.go('login');
 						}
 						if(!toState.isLogin && !$rootScope.isAuthorized){
+							storageService.deleteStorage();
 							event.preventDefault();
 							return $state.go('login');
 						}

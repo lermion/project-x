@@ -20,6 +20,7 @@
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
+                isLogin: true,
                 params: {
                     groupId: null,
                     modalId: null,
@@ -61,6 +62,8 @@
                                             $state.go('groups');
                                         }
                                     });
+                                } else {
+                                    deferred.resolve(data);
                                 }
                             });
 
@@ -70,7 +73,8 @@
             })
             .state('group.publications', {
                 url: '/publications',
-                templateUrl: '../../app/Groups/views/group-publications.html'
+                templateUrl: '../../app/Groups/views/group-publications.html',
+                isLogin: true
             })
             .state('group.chat', {
                 url: '/chat',

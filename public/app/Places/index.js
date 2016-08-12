@@ -84,6 +84,7 @@
                 templateUrl: '../../app/Places/views/place.html',
                 controller: 'PlaceCtrl',
                 controllerAs: 'vm',
+                isLogin: true,
                 params: {
                     placeId: null,
                     prevState: null
@@ -103,8 +104,7 @@
                                             deferred.resolve(data);
                                         });
                                 } else if (!data.status && data.error.code === '15') {
-                                    deferred.reject();
-                                    $state.go('auth');
+                                    deferred.resolve(data);
                                 } else if (!data.status && data.error.code === '6') {
                                     deferred.reject();
                                     ngDialog.open({
@@ -134,7 +134,8 @@
             })
             .state('place.publications', {
                 url: '/publications',
-                templateUrl: '../../app/Places/views/place-publications.html'
+                templateUrl: '../../app/Places/views/place-publications.html',
+                isLogin: true
             })
             .state('place.chat', {
                 url: '/chat',
