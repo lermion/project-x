@@ -78,6 +78,8 @@
         vm.newComment = {};
         vm.showFullDescription = false;
 
+        vm.complainIsSend = true;
+
 
         amMoment.changeLocale('ru');
 
@@ -362,6 +364,9 @@
                 data: {
                     id: commentId,
                     flag: 'comment'
+                },
+                preCloseCallback: function () {
+                    vm.complainIsSend = false;
                 }
             });
         };
@@ -423,6 +428,9 @@
                 data: {
                     id: pubId,
                     flag: 'pub'
+                },
+                preCloseCallback: function () {
+                    vm.complainIsSend = false;
                 }
             });
         };
@@ -441,7 +449,10 @@
                     .then(
                         function (res) {
                             if (res.status) {
-                                ngDialog.closeAll();
+                                vm.complainIsSend = true;
+                                $timeout(function () {
+                                    ngDialog.closeAll();
+                                }, 2000);
                             } else {
                                 console.log('Error');
                             }
@@ -454,7 +465,10 @@
                 // 	.then(
                 // 		function(res){
                 // 			if (res.status) {
-                ngDialog.closeAll();
+                vm.complainIsSend = true;
+                $timeout(function () {
+                    ngDialog.closeAll();
+                }, 2000);
                 // 			} else {
                 // 				console.log('Error');
                 // 			}

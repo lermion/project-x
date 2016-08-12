@@ -33,12 +33,12 @@
 									<span>417</span>
 								</a>
 								<a href="javascript:void(0)" class="counter"
-								   ng-click="userData.subscribers_count > 0 && openSubscribers(userData.id)">
+								   ng-click="isAuthorized && userData.subscribers_count > 0 && openSubscribers(userData.id)">
 									<p class="contacts-off">Подписчики</p>
 									<span>{{userData.subscribers_count}}</span>
 								</a>
 								<a href="javascript:void(0)" class="counter"
-								   ng-click="userData.subscription_count > 0 && openSubscribe(userData.id)">
+								   ng-click="isAuthorized && userData.subscription_count > 0 && openSubscribe(userData.id)">
 									<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
 									<span>{{userData.subscription_count}}</span>
 								</a>
@@ -67,7 +67,7 @@
 									   ng-click="pubViewStyleChange(false);"></a>
 								</div>
 							</div>
-							<div class="comunications" ng-hide="myProfile">
+							<div class="comunications" ng-hide="myProfile || !isAuthorized">
 								<a href="javascript:void(0)" class="read" ng-class="isSigned ? 'is-sub' : ''" ng-click="sign()">{{isSigned ? 'Отписаться' :
 									'Подписаться'}}</a>
 

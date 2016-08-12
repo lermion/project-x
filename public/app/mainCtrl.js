@@ -6,6 +6,11 @@ angular.module('placePeopleApp')
 		var storage = storageService.getStorage();
 		$scope.currentPath = $location.url();
 		$scope.loggedUserId = parseInt(storage.userId);
+		if(storage.userId === undefined){
+			$rootScope.isAuthorized = false;
+		}else{
+			$rootScope.isAuthorized = true;
+		}
 		$scope.$emit('userPoint', 'user');
 		$scope.logOut = function(){
 			AuthService.userLogOut().then(function(response){
@@ -96,73 +101,83 @@ angular.module('placePeopleApp')
 			$scope.bodyClass = 'public';
 		});
 
-            $scope.$on('authPoint', function (event, data) {
-                $scope.bodyClass = 'main-page';
-            });
+			$scope.$on('authPoint', function (event, data) {
+				$scope.bodyClass = 'main-page';
+			});
 
-            $scope.$on('userPoint', function (event, data) {
-                $scope.bodyClass = 'public user';
-            });
+			$scope.$on('userPoint', function (event, data) {
+				$scope.bodyClass = 'public user';
+			});
+			$rootScope.$on('$stateChangeStart',
+				function (event, toState, toParams, fromState, fromParams) {
+					$rootScope.isAuthorized = null;
+					var storage = storageService.getStorage();
+					if(storage.userId === undefined){
+						$rootScope.isAuthorized = false;
+					}else{
+						$rootScope.isAuthorized = true;
+					}
+					if(!toState.isLogin && !$rootScope.isAuthorized){
+						event.preventDefault();
+        				return $state.go('login');
+					}
+					$scope.preloader = true;
+					groupsService.getCounterNewGroups().then(function (data) {
+						$rootScope.counters.groupsNew = data;
+					});
+					placesService.getCounterNewPlaces().then(function (data) {
+						$rootScope.counters.placesNew = data;
+					});
 
-            $rootScope.$on('$stateChangeStart',
-                function (event, toState, toParams, fromState, fromParams) {
-                	$scope.preloader = true;
-                    groupsService.getCounterNewGroups().then(function (data) {
-                        $rootScope.counters.groupsNew = data;
-                    });
-                    placesService.getCounterNewPlaces().then(function (data) {
-                        $rootScope.counters.placesNew = data;
-                    });
+					if (toState.name !== 'search' &&
+						toState.name !== 'search.people' &&
+						toState.name !== 'search.publications' &&
+						toState.name !== 'search.places' &&
+						toState.name !== 'search.groups') {
 
-                    if (toState.name !== 'search' &&
-                        toState.name !== 'search.people' &&
-                        toState.name !== 'search.publications' &&
-                        toState.name !== 'search.places' &&
-                        toState.name !== 'search.groups') {
+						resetSearch();
 
-                        resetSearch();
+					}
 
-                    }
-
-                });
+				});
 
 
-            // Search
-            $scope.search = {
-                str: '',
-                byUsers: true,
-                byPublications: true,
-                byPlaces: true,
-                byGroups: true
-            };
+			// Search
+			$scope.search = {
+				str: '',
+				byUsers: true,
+				byPublications: true,
+				byPlaces: true,
+				byGroups: true
+			};
 
-            var originalSearch = angular.copy($scope.search);
+			var originalSearch = angular.copy($scope.search);
 
-            $scope.submitSearch = function () {
-                if ($state.current.name === 'search' ||
-                    $state.current.name === 'search.people' ||
-                    $state.current.name === 'search.publications' ||
-                    $state.current.name === 'search.places' ||
-                    $state.current.name === 'search.groups') {
+			$scope.submitSearch = function () {
+				if ($state.current.name === 'search' ||
+					$state.current.name === 'search.people' ||
+					$state.current.name === 'search.publications' ||
+					$state.current.name === 'search.places' ||
+					$state.current.name === 'search.groups') {
 
-                    $scope.$broadcast('search', {
-                        searchObj: angular.copy($scope.search),
-                        restoreSearchResult: false
-                    });
+					$scope.$broadcast('search', {
+						searchObj: angular.copy($scope.search),
+						restoreSearchResult: false
+					});
 
-                } else {
-                    $state.go('search', {
-                        'searchObj': angular.copy($scope.search),
-                        'restoreSearchResult': false,
-                        'setActiveTab': true
-                    });
-                }
-            };
+				} else {
+					$state.go('search', {
+						'searchObj': angular.copy($scope.search),
+						'restoreSearchResult': false,
+						'setActiveTab': true
+					});
+				}
+			};
 
-            function resetSearch() {
-                $scope.search = angular.copy(originalSearch);
-                $rootScope.showSearch = false;
-            }
+			function resetSearch() {
+				$scope.search = angular.copy(originalSearch);
+				$rootScope.showSearch = false;
+			}
 
 
 			// Ellipsis menu button
@@ -173,4 +188,4 @@ angular.module('placePeopleApp')
 			};
 
 
-        }]);
+		}]);
