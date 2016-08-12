@@ -516,7 +516,7 @@
 
         vm.getPubLink = function (pub) {
             var pathArray = window.location.href.split('/');
-            pathArray.splice(pathArray.length - 1, 1, 'pub');
+            pathArray.splice(pathArray.length - 1, 1, 'publication');
             pathArray.push(pub.id);
 
             var newPathname = "";
