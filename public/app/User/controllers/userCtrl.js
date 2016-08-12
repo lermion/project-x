@@ -24,6 +24,7 @@ angular.module('placePeopleApp')
 					$scope.photosGrid = false;
 				}
 			}
+			$scope.complainIsSend = false;
 			$scope.images = {};
 			$scope.commentModel = {pubText: ''};
 			$http.get('/static_page/get/name').success(function (response) {
@@ -986,6 +987,9 @@ angular.module('placePeopleApp')
 					data: {
 						id: pubId,
 						flag: 'pub'
+					},
+					preCloseCallback: function() {
+						$scope.complainIsSend = false;
 					}
 				});
 			};
@@ -998,6 +1002,9 @@ angular.module('placePeopleApp')
 					data: {
 						id: commentId,
 						flag: 'comment'
+					},
+					preCloseCallback: function () {
+						$scope.complainIsSend = false;
 					}
 				});
 			};
@@ -1014,7 +1021,10 @@ angular.module('placePeopleApp')
 				if (flag === 'comment') {
 					PublicationService.complaintCommentAuthor(complainUnitId, complainCategory).then(function (res) {
 							if (res.status) {
-								ngDialog.closeAll();
+								$scope.complainIsSend = true;
+								$timeout(function () {
+									ngDialog.closeAll();
+								}, 2000);
 							} else {
 								onsole.log('Error');
 							}
@@ -1027,7 +1037,10 @@ angular.module('placePeopleApp')
 					//  .then(
 					//      function(res){
 					//          if (res.status) {
-					ngDialog.closeAll();
+					$scope.complainIsSend = true;
+					$timeout(function () {
+						ngDialog.closeAll();
+					}, 2000);
 					//          } else {
 					//              console.log('Error');
 					//          }

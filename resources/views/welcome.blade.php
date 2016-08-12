@@ -56,7 +56,7 @@
 	</header>
 	<div id="wrapper" ui-view></div>
 
-	<div class="content-preloader">
+	<div ng-show="preloader" class="content-preloader">
 		<div class="preloader-item">
 			<img src="/images/loading-main.gif" alt="">
 		</div>

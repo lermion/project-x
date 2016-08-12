@@ -51,13 +51,13 @@ class MailController extends Controller
 
     public function index()
     {
-        $mails = UserMail::where('status','New')->get();
-        foreach($mails as &$mail){
-            if (!UserMail::where('user_id', 'null')->first()) {
-                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
-            }
-        }
-        return $mails;
+//        $mails = UserMail::where('status','New')->get();
+//        foreach($mails as &$mail){
+//            if (!UserMail::where('user_id', 'null')->first()) {
+//                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
+//            }
+//        }
+        return view('admin.mail.index');
     }
 
     public function change_status_closed($id)
@@ -76,7 +76,7 @@ class MailController extends Controller
                     'code' => '7'
                 ]
             ];
-            return response()->json($result);
+            return redirect('admin/mail/index')->with('message', 'Сообщение закрыто');
         }
     }
 
@@ -96,14 +96,14 @@ class MailController extends Controller
                     'code' => '7'
                 ]
             ];
-            return response()->json($result);
+            return redirect('admin/mail/index')->with('message', 'Сообщение просмотренно');
         }
     }
 
     public function destroy($id)
     {
         UserMail::find($id)->delete();
-        return redirect()->action('Admin\MailController@index');
+        return redirect('admin/mail/index')->with('message', 'Сообщение удаленно');
     }
 
     public function get_closed()

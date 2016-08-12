@@ -75,8 +75,8 @@ class UserController extends Controller
         User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray()
             ? $user->places = User::find($user->id)->places()->where(['place_users.user_id' => $user->id, 'place_users.is_creator' => true])->get()->toArray()
             : $user->places = false;
-        //return view('admin.user.show')->with('user', $user);
-        return response()->json(["status" => true, 'user' => $user]);
+        return view('admin.user.show')->with('user', $user);
+        //return response()->json(["status" => true, 'user' => $user]);
     }
 
     /**

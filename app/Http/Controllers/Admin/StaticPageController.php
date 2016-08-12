@@ -56,7 +56,8 @@ class StaticPageController extends Controller
             return response()->json($result);
         }
         StaticPage::create($request->all());
-        return response()->json(["status" => true]);
+//        return response()->json(["status" => true]);
+        return redirect()->action('Admin\StaticPageController@index')->with('message', 'Страница добавленна');
     }
 
     /**
@@ -80,7 +81,7 @@ class StaticPageController extends Controller
     public function edit($id)
     {
         $page = StaticPage::find($id);
-        return view('admin.static_page.edit')->with('page', $page);
+        return redirect()->action('Admin\StaticPageController@index')->with('page', $page);
     }
 
     /**
@@ -124,6 +125,6 @@ class StaticPageController extends Controller
     {
         $page = StaticPage::find($id);
         $page->delete();
-        return redirect()->action('Admin\StaticPageController@index');
+        return redirect()->action('Admin\StaticPageController@index')->with('message', 'Страница удаленна');
     }
 }

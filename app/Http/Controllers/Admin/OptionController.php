@@ -12,8 +12,8 @@ class OptionController extends Controller
 {
     public function index()
     {
-        $options = Option::all();
-        return $options;
+//        $options = Option::all();
+        return view('admin.option.index');
     }
 
     public function create(Request $request)
@@ -38,7 +38,8 @@ class OptionController extends Controller
         }
         $optionData = $request->all();
         $option = Option::create($optionData);
-        return response()->json(["status" => true, 'option' => $option]);
+//        return response()->json(["status" => true, 'option' => $option]);
+        return redirect('admin.option.index')->with('message', 'Настройки сохраненны');
     }
 
     public function update(Request $request, $id)
@@ -64,6 +65,7 @@ class OptionController extends Controller
         $optionData = $request->all();
         $option = Option::find($id);
         $option->update($optionData);
-        return response()->json(["status" => true, 'option' => $option]);
+//        return response()->json(["status" => true, 'option' => $option]);
+        return redirect('admin.option.index')->with('message', 'Настройки измененны');
     }
 }

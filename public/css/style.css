@@ -42,20 +42,19 @@ body.main-page {
 	overflow: hidden;
 }
 .content-preloader {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, .3);
-        box-sizing: border-box;
-        z-index: 9999999999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        display: none;
-        }
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .3);
+    box-sizing: border-box;
+    z-index: 9999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
         .preloader-item {
             width: 100px;
             height: 100px;

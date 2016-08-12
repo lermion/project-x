@@ -74,12 +74,12 @@
                             <li><a href="/admin/"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>
                             <li><a href="/admin/user"><i class="fa fa-male"></i>Пользователи</a></li>
                             <li><a href="{{ action('Admin\ModeratorController@index') }}"><i class="fa fa-mortar-board"></i> Модераторы</a></li>
-                            <li><a href="#"><i class="fa fa-rouble"></i> Финансы</a></li>
+                            <!--<li><a href="#"><i class="fa fa-rouble"></i> Финансы</a></li>-->
                             <li><a href="/admin/static_page"><i class="fa fa-desktop"></i> Промо</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i> Письма админу</a></li>
-                            <li><a href="#"><i class="fa fa-institution"></i> Услуги</a></li>
-                            <li><a href="#"><i class="fa fa-trash"></i> На удаление</a></li>
-                            <li><a href="#"><i class="fa fa-cogs"></i> Настройки</a></li>
+                            <li><a href="{{ action('Admin\MailController@index') }}"><i class="fa fa-envelope-o"></i> Письма админу</a></li>
+                            <!--<li><a href="#"><i class="fa fa-institution"></i> Услуги</a></li>-->
+                            <li><a href="{{ action('Admin\LockContentController@index') }}"><i class="fa fa-trash"></i> На удаление</a></li>
+                            <li><a href="{{ action('Admin\OptionController@index') }}"><i class="fa fa-cogs"></i> Настройки</a></li>
 
                         </ul>
                         <?php } ?>
