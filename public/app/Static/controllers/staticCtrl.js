@@ -1,6 +1,8 @@
 angular.module('placePeopleApp')
-	.controller('staticCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', '$window', '$http', 'storageService', '$sce',
-		function($scope, $state, $stateParams, StaticService, AuthService, $window, $http, storageService, $sce){
+	.controller('staticCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService',
+		'$window', '$http', 'storageService', '$sce', '$location',
+		function($scope, $rootScope, $state, $stateParams, StaticService, AuthService, $window, $http,
+			storageService, $sce, $location){
 
 		$scope.$emit('publicPoint', 'public');
 		$scope.sce = $sce;
@@ -15,13 +17,13 @@ angular.module('placePeopleApp')
 		}
 
 		$scope.page = $stateParams.pageName;
-		
+
 		StaticService.getStatic($stateParams.pageName).then(function(res){			    			
 			$scope.staticText = res.text;	    			    			
 		},
 		function(err){
 			console.log(err);
-		}); 
+		});
 
 		$scope.openMenu = function(){
 			if ($window.innerWidth <= 800) {                
