@@ -974,6 +974,7 @@ angular.module('placePeopleApp')
 					scope: $scope
 				});
 			};
+			
 			$scope.alertPub = function (pubId) {
 				ngDialog.open({
 					template: '../app/User/views/alert-publication.html',
