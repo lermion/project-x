@@ -85,7 +85,7 @@
                             <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-cogs"></i> Жалобы</a></li>
                             <li><a href="{{ action('Admin\CountryController@index') }}"><i class="fa fa-cogs"></i> База</a></li>
                             <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-cogs"></i> Модерация</a></li>
-
+                            <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-cogs"></i> Комментарии</a></li>
                         </ul>
                         <?php } ?>
                     </div>

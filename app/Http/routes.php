@@ -87,6 +87,7 @@ Route::group(['middleware' => ['web']], function () {
         });
         Route::get('/moderation', 'Admin\ModerationController@index');
         Route::get('/complaints', 'Admin\ComplaintsController@index');
+        Route::get('/comments', 'Admin\CommentsController@index');
 
     });
     Route::group(['prefix' => 'auth'], function () {
@@ -264,6 +265,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('status_review/{id}', 'MailController@change_status_review');
     });
 
+    Route::get('authorization', 'AuthorizationController@index');
+
     Route::post('search','SphinxSearchController@search');
     Route::get('search', function () {
 
@@ -279,7 +282,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/show/art1\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/authorization\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='ur_id' value='175'><br>
             <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
