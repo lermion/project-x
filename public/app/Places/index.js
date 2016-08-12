@@ -84,6 +84,7 @@
                 templateUrl: '../../app/Places/views/place.html',
                 controller: 'PlaceCtrl',
                 controllerAs: 'vm',
+                isLogin: true,
                 params: {
                     placeId: null,
                     prevState: null
@@ -112,6 +113,8 @@
                                         name: 'modal-notfound-group',
                                         className: 'popup-delete-group ngdialog-theme-default'
                                     });
+                                } else {
+                                    deferred.resolve(data);
                                 }
                             });
 
