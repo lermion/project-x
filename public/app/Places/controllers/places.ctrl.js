@@ -208,10 +208,10 @@
                 return dynamicIds.indexOf(place.type_place_id) !== -1;
             });
 
-            vm.nearPlaces = array.filter(function (place) {
-                // all places
-                return true;
-            });
+            //vm.nearPlaces = array.filter(function (place) {
+            //    // all places
+            //    return true;
+            //});
 
             vm.shopPlaces = array.filter(function (place) {
                 return +place.type_place_id === 1;
@@ -621,6 +621,24 @@
                     vm.geoObject = geoObj;
                 });
             });
+        };
+
+        vm.beforeInit = function () {
+                var geolocation = ymaps.geolocation;
+                geolocation.get({
+                    provider: 'yandex',
+                    mapStateAutoApply: true
+                }).then(function (result) {
+                    //vm.geoObject.geometry.coordinates = result.geoObjects.position;
+                    vm.myCoords = result.geoObjects.position;
+                    placesService.getPlaceNearMe(vm.myCoords[0], vm.myCoords[1])
+                        .then(function(data) {
+                            console.log(data);
+                            vm.nearPlaces = data;
+
+                        });
+                    //$scope.$digest();
+                });
         };
 
         vm.addressSelected = function (selected) {

@@ -1,5 +1,7 @@
 <div>
 	<div ui-view>
+		<ya-map ya-before-init="vm.beforeInit()">
+		</ya-map>
 		<div class="places-page">
 			<div class="places-page-header">
 				<div class="places-page-header-title" ng-click="vm.togglePlaceView()">

@@ -20,6 +20,7 @@
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
+                isLogin: true,
                 params: {
                     groupId: null,
                     modalId: null,
@@ -61,6 +62,8 @@
                                             $state.go('groups');
                                         }
                                     });
+                                } else {
+                                    deferred.resolve(data);
                                 }
                             });
 
