@@ -31,13 +31,12 @@
                     <div class="group-menu-item">
                         <div class="place-publication-menu" ng-if="vm.showPubSwitch">
                             <a href class="place-publication-menu-table active"></a>
-                            <a href class="place-publication-menu-list">
-                            </a>
+                            <a href class="place-publication-menu-list"></a>
                         </div>
                         <div class="counts">
                             <a ui-sref="group.publications" ui-sref-active="active" class="counter">
                                 <p>Публикации</p>
-                                <span>{{vm.group.count_publications}}</span>
+                                <span ng-if="vm.group.count_publications > 0">{{vm.group.count_publications}}</span>
                             </a>
                             <a ui-sref="group.chat" ui-sref-active="active" class="counter">
                                 <p>Чат</p>
@@ -45,11 +44,11 @@
                             </a>
                             <a ui-sref="group.people" ui-sref-active="active" class="counter">
                                 <p>Люди</p>
-                                <span>{{vm.group.count_users}}</span>
+                                <span ng-if="vm.group.count_users > 0">{{vm.group.count_users}}</span>
                             </a>
                             <a ui-sref="group.files" ui-sref-active="active" class="counter">
                                 <p>Файлы</p>
-                                <span>{{vm.group.count_chat_files}}</span>
+                                <span ng-if="vm.group.count_chat_files > 0">{{vm.group.count_chat_files}}</span>
                             </a>
                         </div>
                         <div class="place-user-menu-wrap">

@@ -69,7 +69,7 @@
                       ng-hide="vm.activePublication.user_like && vm.activePublication.like_count == 1">{{vm.activePublication.user_like ? vm.activePublication.like_count - 1 : vm.activePublication.like_count}} чел.</span>
             </p>
         </div>
-        <a href class="comments-count">{{vm.activePublication.comment_count}}</a>
+        <a href class="comments-count" ng-if="vm.activePublication.comment_count > 0">{{vm.activePublication.comment_count}}</a>
     </div>
 
     <div class="more-comments" ng-if="vm.activePublication.comments.length !== vm.activePublication.comment_count">

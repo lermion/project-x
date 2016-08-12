@@ -47,7 +47,7 @@
                         <div class="counts">
                             <a ui-sref="place.publications" ui-sref-active="active" class="counter">
                                 <p>Публикации</p>
-                                <span>{{vm.place.count_publications}}</span>
+                                <span ng-if="vm.place.count_publications > 0">{{vm.place.count_publications}}</span>
                             </a>
                             <a ui-sref="place.chat" ui-sref-active="active" class="counter">
                                 <p>Чат</p>
@@ -55,11 +55,11 @@
                             </a>
                             <a ui-sref="place.people" ui-sref-active="active" class="counter">
                                 <p>Люди</p>
-                                <span>{{vm.place.count_users}}</span>
+                                <span ng-if="vm.place.count_users > 0">{{vm.place.count_users}}</span>
                             </a>
                             <a ui-sref="place.files()" ui-sref-active="active" class="counter">
                                 <p>Файлы</p>
-                                <span>{{vm.place.count_chat_files}}</span>
+                                <span ng-if="vm.place.count_chat_files > 0">{{vm.place.count_chat_files}}</span>
                             </a>
                         </div>
                         <div class="place-user-menu-wrap">

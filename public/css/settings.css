@@ -2431,7 +2431,6 @@ div.my_profilll.photo-list div:last-child {
     top: 20px;
     left: -120px;
     padding-top: 20px;
-    transition: all .3s ease-in-out .1s;
     z-index: 10;
 }
 .group-menu .user-menu:hover .menu-item {
@@ -6951,4 +6950,12 @@ textarea[type="text"]:focus,
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
+}
+.search-tab-container .group-peoples .group-peoples-inner {
+    margin: 0;
+    max-height: none;
+}
+.content-item.search-result__item-publication {
+    margin: 15px 0;
+    width: 100%;
 }
