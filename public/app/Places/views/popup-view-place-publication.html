@@ -11,8 +11,10 @@
                 <p class="user-name">{{::vm.place.name}}</p>
             </a>
 
-            <div class="user-menu" ng-click="showPubMenu=!showPubMenu" ng-init="showPubMenu = false">
-                <div class="menu-item" ng-show="showPubMenu">
+            <div class="user-menu" ng-click="$root.showUserMenu=!$root.showUserMenu"
+                 click-outside="closeUserMenu()"
+                 outside-if-not="user-menu">
+                <div class="menu-item" ng-show="$root.showUserMenu">
                     <div class="inner">
                         <a href ng-if="vm.place.is_admin" ng-click="vm.editPub(vm.activePublication)">Изменить</a>
                         <a href ng-click="sharePub(vm.activePublication.id)">Переслать</a>
@@ -56,9 +58,9 @@
     <div class="likes">
         <div class="likes-item">
             <a href ng-click="vm.addPublicationLike(vm.activePublication, vm.activePublication.user.id == loggedUserId)"
-               class="like">Тема</a>
+               class="like" ng-class="vm.activePublication.user_like ? 'active': ''">Тема</a>
 
-            <p class="like-item">
+            <p class="like-item" ng-if="vm.activePublication.like_count > 0">
                 В теме
                 <span ng-show="vm.activePublication.user_like" class="you"> Вы </span>
                 <span ng-show="vm.activePublication.user_like && vm.activePublication.like_count > 1"
@@ -67,7 +69,7 @@
                       ng-hide="vm.activePublication.user_like && vm.activePublication.like_count == 1">{{vm.activePublication.user_like ? vm.activePublication.like_count - 1 : vm.activePublication.like_count}} чел.</span>
             </p>
         </div>
-        <a href class="comments-count">{{vm.activePublication.comment_count}}</a>
+        <a href class="comments-count" ng-if="vm.activePublication.comment_count > 0">{{vm.activePublication.comment_count}}</a>
     </div>
 
     <div class="more-comments" ng-if="vm.activePublication.comments.length !== vm.activePublication.comment_count">
@@ -90,7 +92,7 @@
                             {{comment.user.last_name}}</a>
 
                         <p class="time" am-time-ago="comment.created_at"></p>
-                        <a href ng-click="vm.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+                        <a href="javascript:void(0);" ng-click="comment.user.id != vm.myId && vm.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
                     </div>
                     <a href ng-click="vm.openCommentComplainBlock(comment.id)" class="alert alert-text"
                        ng-hide="comment.user.id == vm.myId">Пожаловаться</a>
@@ -163,14 +165,13 @@
                                ngf-select
                                ng-model="vm.activePublication.files"
                                ngf-multiple="true"
-                               ngf-before-model-change="pubFiles($files)"
-                               required>
+                               ngf-before-model-change="pubFiles($files)">
                         <label for="{{addFileObjId}}">
                             Прикрепить
                             <span class="add"></span>
                         </label>
                         <div class="error-messages" ng-messages="vm.commentForm.files.$error" ng-if="vm.commentForm.$invalid && vm.commentForm.$submitted || vm.commentForm.files.$dirty">
-                            <div ng-message="required">Вы не выбрали медиафайл</div>
+                            <!--<div ng-message="required">Вы не выбрали медиафайл</div>-->
                             <div ng-message="pattern">Выбранный файл не является фото или видео</div>
                         </div>
                     </div>

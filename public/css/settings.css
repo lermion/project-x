@@ -265,6 +265,15 @@
 }
 
 /*******************************
+            Alerts
+*******************************/
+.alerts-container {
+    display: flex;
+    font-family: SFUIDisplayLight, Arial, sans-serif;
+}
+
+
+/*******************************
             Modal dialogs
 *******************************/
 
@@ -316,6 +325,14 @@
     transition: all .3s ease-in-out .1s;
     color: #495b79;
 }
+
+/*---------------------------
+     Common modificators
+---------------------------*/
+.modal__content.flex-content-center {
+    justify-content: center;
+}
+
 
 .ngdialog.popup-delete-group.ngdialog-theme-default .ngdialog-content {
     height: auto;
@@ -1736,7 +1753,7 @@ div.my_profilll.photo-list div:last-child {
     display: flex;
     box-sizing: border-box;
     background-color: white;
-    width: 700px;
+    width: 100%;
     padding: 8px;
     justify-content: flex-start;
     font-size: 14.6px;
@@ -1746,15 +1763,14 @@ div.my_profilll.photo-list div:last-child {
 .group-files-container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 4px;
+    margin-left: 15px;
     margin-top: 3px;
     box-sizing: border-box;
 }
 .group-files-content {
-    box-sizing: border-box;
     display: flex;
-    width: 136px;
-    height: 136px;
+    width: 130px;
+    height: 130px;
     margin: 0 3px 3px 0;
     overflow: hidden;
     box-sizing: border-box;
@@ -1784,14 +1800,14 @@ div.my_profilll.photo-list div:last-child {
         width: 500px;
     }
     .group-files-title {
-        width: 500px;
+        width: 100%;
         padding: 5px;
         padding-left: 8px;
         font-family: "SFUIDisplayMedium";
     }
     .group-files-content {
-        width: 97px;
-        height: 97px;
+        width: 92px;
+        height: 92px;
         margin: 0 1px 1px 0;
     }
 }
@@ -2371,7 +2387,8 @@ div.my_profilll.photo-list div:last-child {
     height: 100px;
 }
 .user-publication-content .publication-text {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .chat-main-container {
     width: 1025px;
@@ -2414,7 +2431,6 @@ div.my_profilll.photo-list div:last-child {
     top: 20px;
     left: -120px;
     padding-top: 20px;
-    transition: all .3s ease-in-out .1s;
     z-index: 10;
 }
 .group-menu .user-menu:hover .menu-item {
@@ -5336,6 +5352,10 @@ input.cmn-toggle-round:checked + label:after {
         width: 32%;
         box-shadow: 2px 2px 3px 0px #e3e3e3;
     }
+    .search-tab-container .places-category-item {
+        width: 31%;
+        box-shadow: 2px 2px 3px 0px #e3e3e3;
+    }
     .places-category-item {
         margin-right: 11px;
     }
@@ -5716,6 +5736,9 @@ input.cmn-toggle-round:checked + label:after {
     width: 100%;
     z-index: 2;
 }
+.search.group-peoples {
+    justify-content: center;
+}
 .header-search-input-wrap {
     width: 700px;
     margin: 5px auto;
@@ -5739,6 +5762,9 @@ input.cmn-toggle-round:checked + label:after {
 .header-search-input-wrap input:focus {
     background-color: #fff;
     color: #000;
+}
+.header-search-input-wrap input:focus + span.header-search-input-wrap-span {
+    background-image: url(/images/search-hover.png);
 }
 .header-search-input-wrap-span {
     position: absolute;
@@ -5829,7 +5855,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     box-sizing: border-box;
     margin: 60px auto 20px auto;
-    font-family: "SFUIDisplayMedium";
+    font-family: "SFUIDisplayLight";
 }
 .search-tab-container {
     width: 100%;
@@ -6412,7 +6438,7 @@ input.cmn-toggle-round:checked + label:after {
 	header {
 		position: fixed;
 		top: 0;
-		z-index: 100000000;
+		z-index: 99999;
 	}
     body.public.user #wrapper {
         padding-top: 45px;
@@ -6928,4 +6954,12 @@ textarea[type="text"]:focus,
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
+}
+.search-tab-container .group-peoples .group-peoples-inner {
+    margin: 0;
+    max-height: none;
+}
+.content-item.search-result__item-publication {
+    margin: 15px 0;
+    width: 100%;
 }

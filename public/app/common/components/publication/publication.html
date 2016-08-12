@@ -11,8 +11,10 @@
                 <p class="user-name">{{$ctrl.pub.author.name}}</p>
             </a>
 
-            <div class="user-menu" ng-click="$ctrl.showPubMenu = !$ctrl.showPubMenu">
-                <div class="menu-item" ng-if="$ctrl.showPubMenu">
+            <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
+                 click-outside="$ctrl.showUserMenu = false"
+                 outside-if-not="user-menu">
+                <div class="menu-item" ng-if="$ctrl.showUserMenu">
                     <div class="inner">
                         <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.editPub($ctrl.pub)">Редактировать</a>
                         <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
@@ -58,7 +60,7 @@
             <a href ng-click="$ctrl.addPublicationLike($ctrl.pub, $ctrl.pub.user.id == loggedUserId)"
                class="like">Тема</a>
 
-            <p class="like-item">
+            <p class="like-item" ng-if="$ctrl.pub.like_count > 0">
                 В теме
                 <span ng-if="$ctrl.pub.user_like" class="you"> Вы </span>
                 <span ng-if="$ctrl.pub.user_like && $ctrl.pub.like_count > 1"
@@ -67,7 +69,7 @@
                       ng-if="!($ctrl.pub.user_like && $ctrl.pub.like_count === 1)">{{$ctrl.pub.user_like ? ($ctrl.pub.user_like && ($ctrl.pub.like_count - 1)) : $ctrl.pub.like_count}} чел.</span>
             </p>
         </div>
-        <span href class="comments-count">{{$ctrl.pub.comment_count}}</span>
+        <span href class="comments-count" ng-if="$ctrl.pub.comment_count > 0">{{$ctrl.pub.comment_count}}</span>
     </div>
 
     <div class="more-comments" ng-if="$ctrl.pub.comments.length !== $ctrl.pub.comment_count">

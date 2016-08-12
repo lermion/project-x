@@ -385,3 +385,17 @@ input.cmn-toggle-round:checked + label:after {
 .moderator-complaints table p {
 	margin-bottom: 0px;
 }
+.moderator-time-to-work p {
+	margin: 0 5px;
+}
+.admin-moderator-avatar {
+	text-align: center;
+}
+.admin-moderator-avatar div {
+	width: 100%;
+	padding: 10px 0 10px 0;
+}
+.admin-moderator-avatar img {
+	width: 100px;
+	height: 100px;
+}

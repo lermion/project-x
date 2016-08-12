@@ -12,7 +12,10 @@
 				</div>
 				<div class="users-menu-tab-block" ng-class="Model.currRoute === 'chat.blocked' ? 'active' : ''" ng-click="refTo('chat.blocked'); Model.showBlockedBlock=true; Model.showNotificationBlock=false; Model.showContactBlock=false; Model.showChatBlock=false; Model.showMenuBlock=false; Model.displayChatBlock=false; Model.displayBlockedBlock=false;" style="cursor:pointer;">	    			
 				</div>	    		
-				<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''" ng-click="Model.showMenuBlock = !Model.showMenuBlock" style="cursor:pointer;">	<div class="chat-add-file-menu" ng-show="Model.showMenuBlock" style="min-width:140px;left:-59px">			    			
+				<div class="users-menu-tab-menu-do" ng-class="Model.currRoute === 'chat.notification' ? 'active' : ''"
+					 ng-click="$root.showUserMenuSecondary=!$root.showUserMenuSecondary"
+					 click-outside="closeUserMenu()"
+					 outside-if-not="users-menu-tab-menu-do, user-menu-top" style="cursor:pointer;">	<div class="chat-add-file-menu" ng-show="$root.showUserMenuSecondary" style="min-width:140px;left:-59px">
 						<div class="chat-add-file-publ" ng-click="Model.openGroupChatPopup()">Создать группу</div>
 					</div>
 				</div>
@@ -35,30 +38,5 @@
 		</div>
 
 		<div class="chat-mobile-chat-inner" ng-show="Model.mobile.hideContent" ui-view></div>
-
 	</div>
-
-
-
-
-		<footer>
-			<div class="footer">
-				<div class="footer-item">
-					<div class="footer-place">
-						<a href="javascript:void(0)">Place People </a>
-						<span>© 2016</span>
-					</div>
-					<!-- <div class="payment">
-						<a class="mastercard" href="javascript:void(0)"></a>
-						<a class="visa" href="javascript:void(0)"></a>
-					</div> -->
-				</div>
-				<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-					<a class="drop-menu" href="javascript:void(0)" ></a>
-					<div class="menu-item" ng-show="showBottomMenu">		        	       
-						<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">{{staticPage.description}}</a>		            
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
+</div>

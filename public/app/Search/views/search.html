@@ -1,53 +1,32 @@
 <div>
-    <div class="search-page">
-        <div class="place-menu-wrap">
-            <div class="group-menu">
-                <div class="group-menu-item">
-                    <div class="counts">
-                        <a ui-sref="search.people" ui-sref-active="active" class="counter">
-                            <p>Люди</p>
-                            <span>{{vm.results[0].length}}</span>
-                        </a>
-                        <a ui-sref="search.publications" ui-sref-active="active" class="counter">
-                            <p>Публикации</p>
-                            <span>{{vm.results[1].length}}</span>
-                        </a>
-                        <a ui-sref="search.places" ui-sref-active="active" class="counter">
-                            <p>Места</p>
-                            <span>{{vm.results[3].length}}</span>
-                        </a>
-                        <a ui-sref="search.groups" ui-sref-active="active" class="counter">
-                            <p>Группы</p>
-                            <span>{{vm.results[2].length}}</span>
-                        </a>
+	<div class="search-page">
+		<div class="place-menu-wrap">
+			<div class="group-menu">
+				<div class="group-menu-item">
+					<div class="counts">
+						<a ui-sref="search.people" ui-sref-active="active" class="counter">
+							<p>Люди</p>
+							<span ng-if="vm.results[0].length > 0">{{vm.results[0].length}}</span>
+						</a>
+						<a ui-sref="search.publications" ui-sref-active="active" class="counter">
+							<p>Публикации</p>
+							<span ng-if="vm.results[1].length > 0">{{vm.results[1].length}}</span>
+						</a>
+						<a ui-sref="search.places" ui-sref-active="active" class="counter">
+							<p>Места</p>
+							<span ng-if="vm.results[3].length > 0">{{vm.results[3].length}}</span>
+						</a>
+						<a ui-sref="search.groups" ui-sref-active="active" class="counter">
+							<p>Группы</p>
+							<span ng-if="vm.results[2].length > 0">{{vm.results[2].length}}</span>
+						</a>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="search-tab-container" ui-view></div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="search-tab-container" ui-view>
+			<h4 class="text-center" ng-if="!vm.isResults">Ничего не найдено</h4>
+		</div>
+	</div>
 </div>
-
-<footer>
-    <div class="footer">
-        <div class="footer-item">
-            <div class="footer-place">
-                <a href="">Place People </a>
-                <span>© 2016</span>
-            </div>
-            <!-- <div class="payment">
-                <a class="mastercard" href=""></a>
-                <a class="visa" href=""></a>
-            </div> -->
-        </div>
-        <div class="menu" ng-click="vm.openBottomMenu()" ng-class="vm.showBottomMenu ? 'open-bottom-menu' : ''"
-             ng-init="vm.showBottomMenu=true;">
-            <a class="drop-menu" href=""></a>
-
-            <div class="menu-item" ng-show="vm.showBottomMenu">
-                <a ng-repeat="staticPage in vm.staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
-            </div>
-        </div>
-    </div>
-</footer>

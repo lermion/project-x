@@ -7,6 +7,90 @@
             {{ $error }}
         @endif
         <form action="{{ action('Admin\ModeratorController@store') }}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-3 admin-moderator-avatar">
+                    <div>
+                        <img src="http://all4desktop.com/data_images/original/4242440-face.jpg" alt="">
+                    </div>
+                    <div>
+                        <input type="file">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="email">Email</label><br>
+                    <input class="form-control" type="email" name="email" id="email" required><br>
+                    <label for="password">Пароль</label><br>
+                    <input class="form-control"  type="password" name="password" id="password" required><br>
+                    <label for="first_name">Имя</label><br>
+                    <input class="form-control"  type="text" name="first_name" id="first_name" required><br>
+                    <label for="last_name">Фамилия</label><br>
+                    <input class="form-control"  type="text" name="last_name" id="last_name" required><br>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>День недели</th>
+                            <th>От</th>
+                            <th>До</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><input type="checkbox" name="weekday1" id="weekday1" value="1"></td>
+                            <td>Понедельник</td>
+                            <td><input type="time" name="from_time1" id="from_time1"></td>
+                            <td><input type="time" name="to_time1" id="to_time1"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" name="weekday2" id="weekday2" value="2"></td>
+                            <td>Вторник</td>
+                            <td><input type="time" name="from_time2" id="from_time2"></td>
+                            <td><input type="time" name="to_time2" id="to_time2"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" name="weekday3" id="weekday3" value="3"></td>
+                            <td>Среда</td>
+                            <td><input type="time" name="from_time3" id="from_time3"></td>
+                            <td><input type="time" name="to_time3" id="to_time3"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" name="weekday4" id="weekday4" value="4"></td>
+                            <td>Четверг</td>
+                            <td><input type="time" name="from_time4" id="from_time4"></td>
+                            <td><input type="time" name="to_time4" id="to_time4"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" name="weekday5" id="weekday5" value="5"></td>
+                            <td>Пятница</td>
+                            <td><input type="time" name="from_time5" id="from_time5"></td>
+                            <td><input type="time" name="to_time5" id="to_time5"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" name="weekday6" id="weekday6" value="6"></td>
+                            <td>Суббота</td>
+                            <td><input type="time" name="from_time6" id="from_time6"></td>
+                            <td><input type="time" name="to_time6" id="to_time6"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" name="weekday7" id="weekday7" value="7"></td>
+                            <td>Воскресенье</td>
+                            <td><input type="time" name="from_time7" id="from_time7"></td>
+                            <td><input type="time" name="to_time7" id="to_time7"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Добавить">
+            <button class="btn btn-default">Отменить</button>
+        </form>
+
+
+
+
+        <!-- <form action="{{ action('Admin\ModeratorController@store') }}" method="post" enctype="multipart/form-data">
             <label for="email">Email</label><br>
             <input type="email" name="email" id="email" required><br>
             <label for="password">Пароль</label><br>
@@ -56,7 +140,7 @@
                 </div>
             </div>
             <input class="btn btn-primary" type="submit" value="Добавить">
-        </form>
+        </form> -->
 
 
 

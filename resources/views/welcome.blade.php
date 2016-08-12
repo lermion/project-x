@@ -9,14 +9,12 @@
 	<link href="../../css/settings.css" rel="stylesheet">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
-	<div class="main-up-button">
-		Наверх
-	</div>
-	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
+	<back-top class="main-up-button">Наверх</back-top>
+	<header ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
-			<div class="main-menu" ng-click="openMenu();" ng-class="showMenu ? 'show-menu' : ''" ng-init="showMenu=true;">
-			<a class="drop-menu" href=""></a>
+			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
+			<a class="drop-menu" ng-click="openMenu()" href="javascript:void(0);"></a>
 			<div class="menu-item" ng-show="showMenu">
 				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
@@ -24,8 +22,10 @@
 				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
 				<a class="settings" ui-sref="settings">Настройки</a>
 				<div class="search">
-					<input type="text" placeholder="Поиск...">
-					<span class="button"></span>
+					<form name="form.search" ng-submit="submitSearch()" novalidate>
+						<input type="text" ng-model="search.str" placeholder="Поиск...">
+						<span class="button" ng-click="submitSearch()"></span>
+					</form>
 				</div>
 			</div>
 			</div>
@@ -41,9 +41,22 @@
 			</div>
 		</div>
 	</header>
+	<header ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
+		<div class="header">
+			<a class="logo" href="javascript:void(0);"></a>
+			<div class="main-menu common">
+			   <!--  <a class="drop-menu" href=""></a> -->
+				<div class="menu-item">		            
+					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">@{{staticPage.description}}</a>		            
+				</div>
+			</div>
+			<a class="registration" ui-sref="reg">Регистрация</a>
+			<a class="exit enter"  ui-sref="login"><span></span>Вoйти</a>
+		</div>
+	</header>
 	<div id="wrapper" ui-view></div>
 
-	<div class="content-preloader">
+	<div ng-show="preloader" class="content-preloader">
 		<div class="preloader-item">
 			<img src="/images/loading-main.gif" alt="">
 		</div>
@@ -62,6 +75,7 @@
 	<link rel="stylesheet" type="text/css" href="../../app/libs/ladda/ladda-themeless.min.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/nanoscroller.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/emoji.css">
+	<link rel="stylesheet" type="text/css" href="../../app/libs/angular-backtop.css">
 	<script src="../../app/libs/ladda/spin.min.js"></script>
 	<script src="../../app/libs/ng-file-upload/ng-file-upload-shim.min.js"></script>
 	<script src="../../app/libs/ng-file-upload/ng-file-upload.min.js"></script>
@@ -80,6 +94,7 @@
 	<script src="../../app/libs/util.js"></script>
 	<script src="../../app/libs/jquery.emojiarea.js"></script>
 	<script src="../../app/libs/emoji-picker.js"></script>
+	<script src="../../app/libs/angular-backtop.min.js"></script>
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>
 	<script src="../../app/libs/angucomplete-alt.min.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
@@ -120,5 +135,28 @@
 	<script src="../../app/common/components/index.js"></script>
 	<script src="../../app/common/components/publication/index.js"></script>
 	<script src="../../app/common/components/media-file/index.js"></script>
+	<footer>
+		<div class="footer">
+			<div class="footer-item">
+				<div class="footer-place">
+					<a href="javascript:void(0)">Place People </a>
+					<span>© 2016</span>
+				</div>
+				<!-- <div class="payment">
+					<a class="mastercard" href="javascript:void(0)"></a>
+					<a class="visa" href="javascript:void(0)"></a>
+				</div> -->
+			</div>
+			<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''"
+						 ng-init="showBottomMenu=true;">
+				<a class="drop-menu" href="javascript:void(0)"></a>
+
+				<div class="menu-item" ng-show="showBottomMenu">
+					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})"
+							   ng-click="closePopup()">@{{staticPage.description}}</a>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

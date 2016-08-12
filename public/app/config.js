@@ -129,4 +129,6 @@ angular.module('placePeopleApp')
             placesNew: null
         };
         $rootScope.showSearch = false;
+        $rootScope.showUserMenu = false;
+        $rootScope.showUserMenuSecondary = false;
     }]);

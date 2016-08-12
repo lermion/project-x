@@ -1,5 +1,5 @@
 <div class="group-chat">
-	<div scroll-glue="glued" ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
+	<div schroll-bottom="messages" ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
 		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div> -->
@@ -58,7 +58,7 @@
 						<div class="likes">
 							<div class="likes-item">
 								<a href="javascript:void(0);" ng-click="addPublicationLike(message.pub)" class="like">Тема</a>
-								<p class="like-item">
+								<p class="like-item" ng-if="message.pub.like_count > 0">
 									В теме 
 									<span ng-if="message.pub.user_like" class="you"> Вы </span>
 									<span ng-if="message.pub.user_like" class="more">и еще</span>
@@ -179,8 +179,8 @@
 			<div class="add-objects">						
 				<input id="addfile" type='file' ngf-select="beforeChange($files)" ngf-keep="true" ngf-multiple="true" style="display: none;" ng-model="files"> 
 				<div>
-					<span class="add" ng-mouseover="showChatAttachmentMenu = true" ng-mouseleave="showChatAttachmentMenu = false">
-						<span  class="dropp"  ng-show='showChatAttachmentMenu'>
+					<span class="add" ng-click="showFileAdd()">
+						<span class="dropp" ng-show="showFileAddMenu">
 							<!-- <a href="javascript:void();" class="active">Публикация</a> -->
 							<label for="addfile">Файл</label>
 						</span>

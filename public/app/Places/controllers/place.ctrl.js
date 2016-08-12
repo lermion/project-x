@@ -102,6 +102,8 @@
                 vm.mergedChatFiles = [].concat.apply([], vm.chatFiles);
                 vm.itemsFiles = vm.mergedChatFiles.slice(0, 21);
             }
+
+            vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
         });
 
         $scope.$on('ngDialog.opened', function (e, $dialog) {
@@ -134,11 +136,15 @@
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
                 getSubscription().then(function () {
+                    vm.canInviteUsers = canInviteUsers();
                     modalInviteUsers = ngDialog.open({
                         template: '../app/Places/views/popup-invite-place.html',
                         name: 'modal-invite-group',
                         className: 'popup-invite-group ngdialog-theme-default',
-                        scope: $scope
+                        scope: $scope,
+                        preCloseCallback: function() {
+                            vm.invitedUsers = [];
+                        }
                     });
                 });
 
@@ -286,7 +292,7 @@
             }
 
             vm.newComment.text = vm.emojiMessage.messagetext;
-            if (images.length === 0 && videos.length === 0) {
+            if (images.length === 0 && videos.length === 0 && vm.newComment.text === '') {
                 return false;
             }
             vm.subForm = true;
@@ -299,6 +305,7 @@
                         if (flag === "feedPage") {
                             pub.files = [];
                             vm.newComment.text = '';
+                            vm.emojiMessage.messagetext = '';
                             pub.comments.push(response.data.comment);
                             pub.comment_count++;
                         }
@@ -460,7 +467,7 @@
 
         vm.getPubLink = function (pub) {
             var pathArray = window.location.href.split('/');
-            pathArray.splice(pathArray.length - 1, 1, 'pub');
+            pathArray.splice(pathArray.length - 1, 1, 'publication');
             pathArray.push(pub.id);
 
             var newPathname = "";
@@ -889,7 +896,7 @@
                 vm.postLoading = true;
                 var last = vm.itemsFiles.length - 1;
                 var arr = [];
-                for (var i = last; i <= last + 20; i++) {
+                for (var i = last + 1; i <= last + 20; i++) {
                     if (vm.mergedChatFiles[i]) {
                         arr.push(vm.mergedChatFiles[i]);
                     } else {
@@ -900,6 +907,10 @@
                 vm.itemsFiles = vm.itemsFiles.concat(arr);
                 vm.postLoading = false;
             }
+        };
+
+        vm.closeThis = function() {
+            vm.showGroupMenu = false;
         };
 
 		function activate() {
@@ -971,7 +982,7 @@
 					}
 
 					if (value < 520) {
-						var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
+						var blockThirdthLength = (parseInt(w[0].innerWidth) - 42) / 4;
 						vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
 						vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
 					} else {
@@ -1194,9 +1205,60 @@
 			}
 		}
 
+        function canInviteUsers() {
+
+            var arr = vm.subscribers.concat(vm.subscription);
+
+
+            var uniqueUsers = [],
+                result = [];
+
+            var subUsersIds = {};
+            var groupUsersIds = {};
+
+            for (var i = 0; i < arr.length; i++) {
+                if (($.inArray(arr[i].id, uniqueUsers)) == -1) {
+                    uniqueUsers.push(arr[i]);
+                }
+            }
+
+            angular.forEach(uniqueUsers, function (el, i) {
+                subUsersIds[el.id] = uniqueUsers[i];
+            });
+
+            angular.forEach(vm.place.users, function (el, i) {
+                groupUsersIds[el.id] = vm.place.users[i];
+            });
+
+            for (var prop in subUsersIds) {
+                if (!groupUsersIds.hasOwnProperty(prop)) {
+                    result.push(subUsersIds[prop]);
+                }
+            }
+
+            return result.length > 0;
+        }
+
 		//chat
 
 		$scope.counter = 10;
+		$scope.showFileAdd = function(){
+			if($scope.showFileAddMenu){
+				$scope.showFileAddMenu = false;
+				$scope.hideFileAdd = undefined;
+			}else{
+				$scope.showFileAddMenu = true;
+				setTimeout(function(){
+					$scope.hideFileAdd = hideFileAdd;
+				}, 0);
+			}
+		};
+        var hideFileAdd = function(){
+			if($scope.showFileAddMenu){
+				$scope.showFileAddMenu = false;
+				$scope.hideFileAdd = undefined;
+			}
+		}
 		$scope.showPopupWithFiles = function (files) {
 			$scope.imagesInPopup = files;
 			$scope.mainImageInPopup = files[0].url;
@@ -1270,10 +1332,12 @@
 		socket.emit("get group chat dialogue", getPlaceChatDialogue);
 		socket.on("get group chat dialogue", function (response) {
 			$scope.messages = response.messages.reverse();
-			$scope.glued = true;
 		});
 		socket.on('updatechat', function (response) {
 			$scope.messages.push(response);
+			if(response.images.length > 0){
+            	vm.place.count_chat_files += response.images.length;
+            }
 			vm.place.count_chat_message++;
 		});
 		$scope.$on('$destroy', function (event) {
@@ -1323,7 +1387,7 @@
 			var data = {
 				userId: vm.myId,
 				room_id: roomId,
-				message: messageText,
+				message: messageText ? messageText : "",
 				imagesObj: imagesObj
 			};
 			socket.emit('send message', data, function () {

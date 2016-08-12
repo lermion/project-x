@@ -1,11 +1,12 @@
 <div class="modal__title">Пригласить пользователя в группу</div>
 
-<div class="modal__content" ng-if="vm.inviteNotSend && (vm.subscribers.length + vm.subscription.length) > 0">
-    <div class="invite-group__items">
+<div class="modal__content" ng-if="vm.inviteNotSend && (vm.subscribers.length + vm.subscription.length) > 0"
+ng-class="{'flex-content-center': !vm.canInviteUsers}">
+    <div class="invite-group__items" ng-if="vm.canInviteUsers">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul class="contacts_list">
-            <p>Подписки</p>
-            <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString"
+            <p ng-if="subscription.length > 0">Подписки</p>
+            <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString as subscription"
                 ng-click="vm.onItemSelected(user)" class="user_block">
                 <div class="popup-invite-place-people-name1 user-block">
                     <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
@@ -23,8 +24,8 @@
                     </div>
                 </div>
             </li>
-            <p>Подписчики</p>
-            <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString"
+            <p ng-if="subscribers.length > 0">Подписчики</p>
+            <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString as subscribers"
                 ng-click="vm.onItemSelected(user)" class="user_block">
                 <div class="popup-invite-place-people-name1 user-block">
                     <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
@@ -44,8 +45,14 @@
             </li>
         </ul>
     </div>
-    <div class="invite-group__items-selected">
-        <p class="item1-add-people-title">Список пользователей</p>
+    <div class="alerts-container flex-content-center" ng-if="!vm.canInviteUsers">
+        <h4 class="text-center">
+            Вы пригласили всех подписчиков и подписавшихся
+        </h4>
+    </div>
+
+    <div class="invite-group__items-selected" ng-if="vm.invitedUsers.length > 0">
+        <p class="item1-add-people-title" ng-if="vm.invitedUsers.length > 0">Список пользователей</p>
         <ul class="contacts_list">
             <li ng-repeat="user in vm.invitedUsers" ng-mouseenter="showAdmin=true" ng-mouseleave="showAdmin=false">
                 <div class="popup-invite-place-people-name1 user-block">

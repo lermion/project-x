@@ -17,8 +17,10 @@
 				<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.is_online ? 'В сети':'Не в сети'}}</p>
 			</div>
 		</div>
-			<div class="user-menu-top" ng-click="showTopChatMenu=!showTopChatMenu">
-				<div class="user-menu-top-do" ng-show="showTopChatMenu">
+			<div class="user-menu-top" ng-click="$root.showUserMenu=!$root.showUserMenu"
+				 click-outside="closeUserMenu()"
+				 outside-if-not="user-menu-top, users-menu-tab-menu-do">
+				<div class="user-menu-top-do" ng-show="$root.showUserMenu">
 					<div class="user-menu-top-inner">			
 						<a href="javascript:void(0);" ng-click="Model.showContactData(Model.opponent)">{{Model.opponent.is_group ? 'О группе' : 'О контакте'}}</a>
 						<a href="javascript:void(0);" ng-click="Model.clearChat(Model.opponent.room_id)">Очистить чат</a>
@@ -30,7 +32,7 @@
 				</div>
 			</div>
 	</div>
-	<div scroll-glue="!glued" when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
+	<div schroll-bottom="Model.Chat" when-scrolled="loadMoreMessages(Model.opponent.room_id)" class="chat-right-chat-inner">
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
@@ -88,7 +90,7 @@
 						</span>
 					</div>
 				</div>
-				<div ng-class="(message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (message.login === loggedUser ? 'done' : 'no-done')">
+				<div ng-class="(message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (isReadRoom ? 'done' : 'no-done')">
 					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 				</div>
 			</div>

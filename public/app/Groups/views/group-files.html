@@ -9,7 +9,7 @@
             <span ng-if="$first">{{::vm.getMonthYear(file.created_at)}}</span>
             <span ng-if="vm.getMonth(file.created_at) !== vm.getMonth(vm.itemsFiles[$index - 1].created_at) && !$first">{{::vm.getMonthYear(file.created_at)}}</span>
         </div>
-        <div class="group-files-content" style="{{resizeSizes}}" ng-repeat-end>
+        <div class="group-files-content" style="{{vm.resizeSizes}}" ng-repeat-end>
 
             <a a href ng-click="vm.openModalMediaFile(file)">
                 <img ng-src="{{::file.url}}">

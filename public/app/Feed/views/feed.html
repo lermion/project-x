@@ -4,20 +4,20 @@
 	<div class="main-content" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 		<div class="groups">
 			<div class="feed-publication-menu">
-	            <a href="javascript:void(0)" class="place-publication-menu-table active"></a>
-	            <a href="javascript:void(0)" class="place-publication-menu-list">
-	            </a>
-	        </div>
+				<a href="javascript:void(0)" class="place-publication-menu-table active"></a>
+				<a href="javascript:void(0)" class="place-publication-menu-list">
+				</a>
+			</div>
 			<a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
 		</div>
 		<div class="content-item" ng-init="$last ? ngRepeatHasRendered() : null" ng-repeat="pub in publications">
 			<div class="my-photos">
-                <div class="photo" ng-repeat="pub in [1,2,3,4,5]">
-                    <a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
-                        <img src="https://newevolutiondesigns.com/images/freebies/city-wallpaper-47.jpg" alt="">
-                    </a>
-                </div>
-            </div>
+				<div class="photo" ng-repeat="pub in [1,2,3,4,5]">
+					<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
+						<img src="https://newevolutiondesigns.com/images/freebies/city-wallpaper-47.jpg" alt="">
+					</a>
+				</div>
+			</div>
 			<div class="user-publication">
 				<div class="user-publication-header">
 					<div class="user-function">
@@ -31,8 +31,11 @@
 							</span>
 						</a>
 						<div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
-						<div href="" class="user-menu" ng-click="showPubMenu=!showPubMenu">
-							<div class="menu-item" ng-show="showPubMenu">
+						<div href="" class="user-menu" ng-class="'pub{{pub.id}}'"
+							 ng-click="pubs[pub.id].showUserMenu=!pubs[pub.id].showUserMenu"
+							 click-outside="pubs[pub.id].showUserMenu = false"
+							 outside-if-not="pub{{pub.id}}">
+							<div class="menu-item" ng-show="pubs[pub.id].showUserMenu">
 								<div class="inner">									
 									<a href="" ng-click="sharePub(pub.id)">Переслать</a>
 									<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
@@ -67,7 +70,7 @@
 				<div class="likes">
 					<div class="likes-item">
 						<a href="javascript:void(0);" ng-click="addPublicationLike(pub)" class="like">Тема</a>
-						<p class="like-item">
+						<p class="like-item" ng-if="pub.like_count > 0">
 							В теме 
 							<span ng-show="pub.user_like" class="you"> Вы </span>
 							<span ng-show="pub.user_like && pub.like_count > 1" class="more">и еще</span>
@@ -91,7 +94,7 @@
 								<div class="info-item">
 									<a class="user-name" ui-sref="user({username: comment.user.login})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 									<p class="time" am-time-ago="comment.created_at"></p>
-									<a href="javascript:void(0);" ng-click="addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+									<a href="javascript:void(0);" ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 								</div>
 								<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 								<a href="javascript:void(0);" ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>				
@@ -110,7 +113,7 @@
 				</div>
 
 				<div class="added_comments" ng-init="pub.showAddComment = false;">
-					<a ng-hide="pub.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(pub)" class="add_comments">Добавить комментарий</a>
+					<a ng-hide="pub.showAddComment" href="javascript:void(0);" ng-click="showAddCommentBlock(pub, $index)" class="add_comments">Добавить комментарий</a>
 				</div>
 
 				<div class="add-comment" ng-show="pub.showAddComment" ng-init="pub.commentModel = commentModel">
@@ -162,29 +165,7 @@
 			</div>
 		</div>  <!-- end of publication -->		
 
-	</div> 
-
-	<footer>
-		<div class="footer">
-			<div class="footer-item">
-						<div class="footer-place">
-							<a href="">Place People </a>
-							<span>© 2016</span>
-						</div>
-						<!-- <div class="payment">
-							<a class="mastercard" href=""></a>
-							<a class="visa" href=""></a>
-						</div> -->
-			</div>
-			<div class="menu" ng-click="openBottomMenu()" ng-class="showBottomMenu ? 'open-bottom-menu' : ''" ng-init="showBottomMenu=true;">
-				<a class="drop-menu" href="" ></a>
-				<div class="menu-item" ng-show="showBottomMenu">		        	       
-					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>		            
-				</div>
-			</div>
-		</div>
-	</footer>
-
+	</div>
 </div> 
 </div>
 </div>

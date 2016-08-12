@@ -550,7 +550,7 @@ angular.module('placePeopleApp')
 			}
 
 
-			function getSinglePublication(pubId, flag) {
+			function getSinglePublication(pubId, flag, index) {
 				PublicationService.getSinglePublication(pubId).then(function (response) {
 						//getAllCommentsPublication(pubId);
 						$scope.limit = 7;
@@ -566,7 +566,10 @@ angular.module('placePeopleApp')
 									template: '../app/User/views/view-publication.html',
 									className: 'view-publication ngdialog-theme-default',
 									scope: $scope,
-									name: "view-publication"
+									name: "view-publication",
+									preCloseCallback: function(){
+										$scope.userPublications[index] = response;
+									}
 								});
 								// $state.go('desktop-pub-view', {username: $stateParams.username, id: pubId});
 							}
@@ -579,15 +582,21 @@ angular.module('placePeopleApp')
 
 			$scope.showPublication = function (pub, index) {
 				$scope.indexCurrentPublication = index;
-				getSinglePublication(pub.id);
+				getSinglePublication(pub.id, false, index);
 			};
-			$scope.showAddCommentBlock = function (pub) {
+
+			$scope.showAddCommentBlock = function (pub, index) {
+				var div = $(".emoji-wysiwyg-editor")[index];
+				setTimeout(function() {
+				    div.focus();
+				}, 0);
 				if (pub.showAddComment) {
 					pub.showAddComment = false;
 				} else {
 					pub.showAddComment = true;
 				}
-			}
+			};
+
 			$scope.addNewComment = function (flag, pub, pubText, files) {
 				$scope.disableAddComment = true;
 				var images = [];
@@ -936,14 +945,15 @@ angular.module('placePeopleApp')
 					$scope.members = function () {
 						return false;
 					}
-					placesService.getPlaces().then(function (response) {
-							$scope.places = response;
-						},
-						function (error) {
-							console.log(error);
-						});
+					placesService.getPlaces().then(function(response){
+						console.log(response);
+						$scope.places = response;
+					},
+					function(error){
+						console.log(error);
+					});
 				}
-			}
+			};
 			function loadUserContacts() {
 				PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
 						$scope.subscribers = response;
@@ -967,6 +977,7 @@ angular.module('placePeopleApp')
 					scope: $scope
 				});
 			};
+
 			$scope.alertPub = function (pubId) {
 				ngDialog.open({
 					template: '../app/User/views/alert-publication.html',

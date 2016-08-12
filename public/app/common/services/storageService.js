@@ -13,6 +13,10 @@ angular.module('placePeopleApp')
 			return $window.localStorage;
 		}
 		function deleteStorage(){
-			$window.localStorage.clear();
+			$window.localStorage.removeItem("firstName");
+			$window.localStorage.removeItem("lastName");
+			$window.localStorage.removeItem("loggedUserAva");
+			$window.localStorage.removeItem("userId");
+			$window.localStorage.removeItem("username");
 		}
 }]);

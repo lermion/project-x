@@ -75,12 +75,23 @@ angular.module('placePeopleApp')
 		socket.on('updatechat', function (data) {
 			socket.emit("get user rooms", $scope.loggedUserId);
 		});
+
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+			$scope.preloader = false;
 			ngDialog.closeAll();
 			var storage = storageService.getStorage();
+			if(storage.userId !== undefined){
+				$rootScope.userLogged = true;
+			}else{
+				$rootScope.userLogged = false;
+			}
 			$scope.loggedUser = storage.username;
 			$scope.currentPath = $location.url();
+			if($window.innerWidth <= 800){
+				$scope.showMenu = false;
+			}
 		});
+
 		$scope.$on('publicPoint', function (event, data) {
 			$scope.bodyClass = 'public';
 		});
@@ -95,6 +106,7 @@ angular.module('placePeopleApp')
 
             $rootScope.$on('$stateChangeStart',
                 function (event, toState, toParams, fromState, fromParams) {
+                	$scope.preloader = true;
                     groupsService.getCounterNewGroups().then(function (data) {
                         $rootScope.counters.groupsNew = data;
                     });
@@ -151,6 +163,14 @@ angular.module('placePeopleApp')
                 $scope.search = angular.copy(originalSearch);
                 $rootScope.showSearch = false;
             }
+
+
+			// Ellipsis menu button
+			$scope.closeUserMenu = function() {
+				$rootScope.showUserMenu = false;
+				$rootScope.showUserMenuSecondary = false;
+
+			};
 
 
         }]);

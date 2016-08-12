@@ -1,24 +1,31 @@
-<div class="places-page-category-wrap">
-    <div class="places-category-item" ng-repeat="place in vm.results[3]">
-        <div class="places-item-photo">
-            <!-- <span class="places-item-new-place">NEW</span> -->
-            <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, prevState: 'search.places'})">
-                <img class="places-item-photo-img"
-                  ng-src="{{::place.avatar}}">
-            </a>
-            <div class="places-item-photo-title">
-                <span>{{::place.name}}</span>
+<div class="group-peoples search">
+    <h4 class="text-center" ng-if="vm.results[3].length === 0">Места не найдены</h4>
+    <div class="group-peoples-inner" ng-if="vm.results[3].length > 0">
+        <div class="places-page-category-wrap">
+            <div class="places-category-item" ng-repeat="place in vm.results[3]">
+                <div class="places-item-photo">
+                    <!-- <span class="places-item-new-place">NEW</span> -->
+                    <a class="places-item-photo-link" ui-sref="place({placeName: place.url_name, prevState: 'search.places'})">
+                        <img class="places-item-photo-img"
+                             ng-src="{{::place.avatar}}">
+                    </a>
+
+                    <div class="places-item-photo-title">
+                        <span>{{::place.name}}</span>
+                    </div>
+                    <div class="places-item-photo-place">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="places-item-description">
+                    <p class="places-item-description-p">{{::place.description}}</p>
+                </div>
+                <div class="places-item-rating">
+                    <span class="places-item-rating-like">{{::place.cnt_usr}}</span>
+                    <span class="places-item-rating-link">{{::place.cnt_pbl}}</span>
+                </div>
             </div>
-            <div class="places-item-photo-place">
-                <span></span>
-            </div>
-        </div>
-        <div class="places-item-description">
-            <p class="places-item-description-p">{{::place.description}}</p>
-        </div>
-        <div class="places-item-rating">
-            <span class="places-item-rating-like">{{::place.cnt_usr}}</span>
-            <span class="places-item-rating-link">{{::place.cnt_pbl}}</span>
         </div>
     </div>
 </div>
+
