@@ -77,6 +77,7 @@ angular.module('placePeopleApp')
 		});
 
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+			$scope.preloader = false;
 			ngDialog.closeAll();
 			var storage = storageService.getStorage();
 			if(storage.userId !== undefined){
@@ -105,6 +106,7 @@ angular.module('placePeopleApp')
 
             $rootScope.$on('$stateChangeStart',
                 function (event, toState, toParams, fromState, fromParams) {
+                	$scope.preloader = true;
                     groupsService.getCounterNewGroups().then(function (data) {
                         $rootScope.counters.groupsNew = data;
                     });
