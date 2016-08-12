@@ -78,7 +78,7 @@ body.main-page {
 	width: 81px;
 	font-family:  "SFUIDisplayMedium";
 	font-size: 14.6px;
-	z-index: 99999999;
+	z-index: 1;
 	box-sizing: border-box;
 	overflow: hidden;
 }
@@ -480,6 +480,7 @@ footer {
 	right: 0;
 	background: rgba(0, 0, 0, 0.4);
 	height: 40px;
+	z-index: 2;
 }
 .footer {
 	width: 1025px; 
