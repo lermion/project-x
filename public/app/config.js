@@ -130,4 +130,5 @@ angular.module('placePeopleApp')
         };
         $rootScope.showSearch = false;
         $rootScope.showUserMenu = false;
+        $rootScope.showUserMenuSecondary = false;
     }]);

@@ -6,19 +6,19 @@
 					<div class="counts">
 						<a ui-sref="search.people" ui-sref-active="active" class="counter">
 							<p>Люди</p>
-							<span>{{vm.results[0].length}}</span>
+							<span ng-if="vm.results[0].length > 0">{{vm.results[0].length}}</span>
 						</a>
 						<a ui-sref="search.publications" ui-sref-active="active" class="counter">
 							<p>Публикации</p>
-							<span>{{vm.results[1].length}}</span>
+							<span ng-if="vm.results[1].length > 0">{{vm.results[1].length}}</span>
 						</a>
 						<a ui-sref="search.places" ui-sref-active="active" class="counter">
 							<p>Места</p>
-							<span>{{vm.results[3].length}}</span>
+							<span ng-if="vm.results[3].length > 0">{{vm.results[3].length}}</span>
 						</a>
 						<a ui-sref="search.groups" ui-sref-active="active" class="counter">
 							<p>Группы</p>
-							<span>{{vm.results[2].length}}</span>
+							<span ng-if="vm.results[2].length > 0">{{vm.results[2].length}}</span>
 						</a>
 
 					</div>

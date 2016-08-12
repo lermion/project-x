@@ -9,6 +9,32 @@
 	</div>
 
 	<div class="user-publication">
+        <div class="user-publication-header">
+            <div class="user-function">
+                <a href class="user"  ui-sref="place({placeName: $ctrl.place.url_name})" ng-click="closeThisDialog()">
+				<span class="ava">
+					<img ng-src="{{$ctrl.pub.author.avatar}}" alt="">
+				</span>
+
+                    <p class="user-name">{{$ctrl.pub.author.name}}</p>
+                </a>
+
+                <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
+                     click-outside="$ctrl.showUserMenu = false"
+                     outside-if-not="user-menu">
+                    <div class="menu-item" ng-if="$ctrl.showUserMenu">
+                        <div class="inner">
+                            <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.editPub($ctrl.pub)">Редактировать</a>
+                            <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
+                            <a href ng-click="$ctrl.getPubLink($ctrl.pub)">Получить ссылку</a>
+                            <a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
+                            <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.deletePub($ctrl.pub)">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href ng-click="returnToBack()" class="return">Назад</a>
+        </div>
         <div class="user-publication-content">
 
             <div class="publication-ava"
