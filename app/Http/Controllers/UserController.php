@@ -33,12 +33,9 @@ class UserController extends Controller
      */
     public function show($login)
     {
-        //Session::flash('message', 'fsdfsfds');
-        dd(Session::all());
         $user = User::where('login', $login)->first();
         ChatLockedUser::where(['user_id' => $user->id, 'locked_user_id' => Auth::id()])->first() ? $user->is_lock = true : $user->is_lock = false;
         $user->is_online = Online::isOnline($user->id);
-       // dd($user->id);
         $user->is_sub = Subscriber::isSub($user->id, Auth::id());
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
