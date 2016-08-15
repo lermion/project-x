@@ -259,9 +259,9 @@ angular.module('placePeopleApp')
 			      });
     	};
 
-    	$scope.keyPress = function(event){
-    		if (event === 13) {
-    			$scope.login();
+    	$scope.keyPress = function(event, login, password){
+    		if(event === 13){
+    			$scope.login(login, password);
     		}
     	};
     	
