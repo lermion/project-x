@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Moderator;
+namespace App\Http\Controllers\Admin;
 
 use App\Moderator;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     public function login(){
-        return view('moderator.auth');
+        return view('admin.auth');
     }
     public function auth(Request $request){
         $email = $request->input('email');
@@ -24,15 +24,15 @@ class AuthController extends Controller
                 $request->session()->put('moderator', $moderator);
                 return redirect()->action('Admin\HomeController@index');
             }else {
-                return redirect()->action('Moderator\AuthController@login');
+                return redirect()->action('Admin\AuthController@login');
             }
         }else{
-            return redirect()->action('Moderator\AuthController@login');
+            return redirect()->action('Admin\AuthController@login');
         }
     }
 
     public function logout(Request $request){
         $request->session()->forget('moderator');
-        return redirect()->action('Moderator\HomeController@index');
+        return redirect()->action('Admin\HomeController@index');
     }
 }
