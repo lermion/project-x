@@ -892,14 +892,6 @@ angular.module('placePeopleApp')
 						message.pub.id = parseInt(publicationUrl[1]);
 					}
 				}
-				// var regExp = "^http://"+$location.host()+"/#/(\\w+)/pub(lication)?/(\\d+)$";
-				// var match = (new RegExp(regExp)).exec(message.text);
-				// if(match){
-				// 	message.type = 'pub';
-				// 	message.pub = {};
-				// 	message.pub.username = match[1];					
-				// 	message.pub.id = parseInt(match[3]);
-				// }
 			};
 
 			$scope.loadPubIntoChat = function(message, pubId){

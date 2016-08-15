@@ -953,7 +953,6 @@ angular.module('placePeopleApp')
 						return false;
 					}
 					placesService.getPlaces().then(function (response) {
-							console.log(response);
 							$scope.places = response;
 						},
 						function (error) {
