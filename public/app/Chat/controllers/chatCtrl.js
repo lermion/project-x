@@ -520,9 +520,9 @@ angular.module('placePeopleApp')
 			$scope.isSelected = function (index) {
 				return index === $scope.currentIndex;
 			};
-
-			socket.on('updatechat', function(data){
-				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
+			socket.forward('updatechat', $scope);
+			$scope.$on('socket:updatechat', function (event, data) {
+      			if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
@@ -555,11 +555,7 @@ angular.module('placePeopleApp')
 						// };
 					}
 				}
-			});
-
-			$scope.$on('$destroy', function (event) {
-				socket.removeAllListeners();
-			});
+    		});
 
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers().then(function(response){	

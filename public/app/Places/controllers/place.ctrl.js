@@ -1349,16 +1349,14 @@
 		socket.on("get group chat dialogue", function (response) {
 			$scope.messages = response.messages.reverse();
 		});
-		socket.on('updatechat', function (response) {
-			$scope.messages.push(response);
-			if(response.images.length > 0){
-            	vm.place.count_chat_files += response.images.length;
+        socket.forward('updatechat', $scope);
+        $scope.$on('socket:updatechat', function(event, data){
+            $scope.messages.push(data);
+            if(data.images.length > 0){
+                vm.place.count_chat_files += data.images.length;
             }
-			vm.place.count_chat_message++;
-		});
-		$scope.$on('$destroy', function (event) {
-			socket.removeAllListeners();
-		});
+            vm.place.count_chat_message++;
+        });
 		$scope.emojiMessage = {
 			replyToUser: function () {
 				$scope.sendMessage($scope.emojiMessage.messagetext, vm.place.room_id, $scope.files);
