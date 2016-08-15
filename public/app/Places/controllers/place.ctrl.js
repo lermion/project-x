@@ -1425,7 +1425,7 @@
 		var sharePublication;
 		$scope.sharePub = function (pubId) {
 			sharePublication = ngDialog.open({
-				template: '../app/Groups/views/popup-sharepub-group.html',
+				template: '../app/Places/views/popup-sharepub-place.html',
 				className: 'share-publication ngdialog-theme-default',
 				scope: $scope,
 				preCloseCallback: resetFormInviteUsers,
@@ -1487,6 +1487,9 @@
 				$scope.showGroups = function () {
 					return false;
 				}
+                $scope.showPlaces = function () {
+                    return false;
+                }
 			} else if (value === "groups") {
 				$scope.showGroups = function () {
 					return true;
