@@ -1736,13 +1736,14 @@ body.public.user {
 		justify-content: space-between;
 		align-items: center;
 		padding: 10px 20px 10px 20px;
+		background-color: #fff;
 	}
 	.my-profile-item .comunications {
 		display: none;
 	}
-	.comunications.adaptiv .create {
-		border-radius: 4px;
-		font-size: 14.6px;
+	.comunications.adaptiv .create,
+	.comunications.adaptiv .rewrite {
+		font-size: 13.6px;
 		font-family: "SFUIDisplayMedium";
 		padding: 0 10px;
 		margin: 0;
@@ -1751,11 +1752,16 @@ body.public.user {
 		transition: all .3s ease-in-out .1s;
 		text-decoration: none;
 		background-image: none;
-		border: 1px solid #77849b;
+	}
+	.comunications.adaptiv .create {
+		color: #ec6045;
+	}
+	.comunications.adaptiv .create:hover {
+		color: #666;
 	}
 	#user-page .status-correct.adaptiv {
 		margin: 20px;
-			width: 92%;
+		width: 92%;
 	}
 }
 @media (max-width: 450px) {
@@ -1773,8 +1779,9 @@ body.public.user {
 	}
 	.adaptiv {
 		padding: 10px 5px 10px 5px;
+		background-color: #fff;
 	}
-	.comunications .rewrite,
+	.comunications.adaptiv .rewrite,
 	.comunications.adaptiv .create {
 		padding: 0 5px;
 		font-size: 13px;
