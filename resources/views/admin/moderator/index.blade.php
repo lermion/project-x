@@ -2,8 +2,6 @@
 @section('content')
     <div style="width:100%; height:auto;">
 
-        <h3>Модераторы</h3>
-
         <div style="width:100%; height:auto; margin-bottom:20px;">
             <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
                 <tr>
@@ -19,6 +17,12 @@
                     <td><p><a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary">Добавить</a></p></td>
                 </tr>
             </table>
+        </div>
+        <div class="x_content admin-settings">
+            <ul class="row admin-settings-menu">
+                <li class="col-md-3 active"><a href="">Действующие</a></li>
+                <li class="col-md-3"><a href="">Приостановлено</a></li>
+            </ul>
         </div>
 
         <table class="table table-striped">
