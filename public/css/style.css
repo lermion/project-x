@@ -1771,7 +1771,7 @@ body.public.user {
 		font-size: 10px;
 	}
 	.adaptiv {
-		padding: 0 5px 25px 5px;
+		padding: 10px 5px 10px 5px;
 	}
 	.comunications .rewrite,
 	.comunications.adaptiv .create {
