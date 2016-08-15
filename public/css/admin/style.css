@@ -430,3 +430,6 @@ table.admin-moderators .photo {
 .admin-moderators .do {
 	width: 20%;
 }
+.btn.btn-success.save {
+	margin-bottom: 15px;
+}
