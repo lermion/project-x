@@ -22,7 +22,7 @@
 
 
         var modalEditPlace, modalDeletePlace, modalInviteUsers, modalCropLogoImage, modalMap,
-            modalSetCreator, modalNewPublication, modalReviewPublication, map;
+            modalSetCreator, modalNewPublication, modalReviewPublication, map, modalAlertComment;
 
         var originalCities = [];
 
@@ -78,7 +78,7 @@
         vm.newComment = {};
         vm.showFullDescription = false;
 
-        vm.complainIsSend = true;
+        vm.complainIsSend = false;
 
 
         amMoment.changeLocale('ru');
@@ -421,7 +421,7 @@
         };
 
         vm.openPubComplainBlock = function (pubId) {
-            ngDialog.open({
+            modalAlertComment = ngDialog.open({
                 template: '../app/Places/views/alert-publication.html',
                 className: 'alert-publication ngdialog-theme-default',
                 scope: $scope,
@@ -431,10 +431,12 @@
                 },
                 preCloseCallback: function () {
                     vm.complainIsSend = false;
+                    vm.alerts = {};
                 }
             });
         };
 
+        vm.alerts = {};
         vm.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
             var complainCategory = [];
             cat1 ? complainCategory.push(1) : '';
@@ -451,7 +453,7 @@
                             if (res.status) {
                                 vm.complainIsSend = true;
                                 $timeout(function () {
-                                    ngDialog.closeAll();
+                                    modalAlertComment.close();
                                 }, 2000);
                             } else {
                                 console.log('Error');
