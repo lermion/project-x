@@ -23,7 +23,8 @@
         var login = storage.username;
 
         var modalEditGroup, modalDeleteGroup, modalInviteUsers,
-            modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage;
+            modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage,
+            modalAlertComment;
         var groupName = $stateParams.groupName;
 
         var newPublicationObj = {
@@ -76,7 +77,7 @@
 
         vm.showFullDescription = false;
 
-        vm.complainIsSend = true;
+        vm.complainIsSend = false;
 
         $scope.myImage = null;
         $scope.myCroppedImage = null;
@@ -405,7 +406,7 @@
 
         vm.openCommentComplainBlock = function (commentId) {
             ngDialog.open({
-                template: '../app/Feed/views/alert-publication.html',
+                template: '../app/Groups/views/alert-publication.html',
                 className: 'alert-publication ngdialog-theme-default',
                 scope: $scope,
                 data: {
@@ -470,7 +471,7 @@
         };
 
         vm.openPubComplainBlock = function (pubId) {
-            ngDialog.open({
+            modalAlertComment = ngDialog.open({
                 template: '../app/Groups/views/alert-publication.html',
                 className: 'alert-publication ngdialog-theme-default',
                 scope: $scope,
@@ -480,10 +481,12 @@
                 },
                 preCloseCallback: function () {
                     vm.complainIsSend = false;
+                    vm.alerts = {};
                 }
             });
         };
 
+        vm.alerts = {};
         vm.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
             var complainCategory = [];
             cat1 ? complainCategory.push(1) : '';
@@ -500,7 +503,7 @@
                             if (res.status) {
                                 vm.complainIsSend = true;
                                 $timeout(function () {
-                                    ngDialog.closeAll();
+                                    modalAlertComment.close();
                                 }, 2000);
                             } else {
                                 console.log('Error');

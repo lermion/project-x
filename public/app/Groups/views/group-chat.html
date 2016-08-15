@@ -29,7 +29,7 @@
 										<div class="inner">			
 											<a href="javascript:void();" ng-click="sharePub(message.pub.id)">Переслать</a>
 											<a href="javascript:void();" ng-click="getPubLink(message.pub.id)">Получить ссылку</a>
-											<a href="javascript:void();" ng-click="alertPub(message.pub.id)">Пожаловаться</a>
+											<a href="javascript:void();"  ng-if="message.pub.user_id !== vm.myId" ng-click="alertPub(message.pub.id)">Пожаловаться</a>
 										</div>
 									</div>
 								</div>
