@@ -153,6 +153,7 @@
 }
 .admin-settings-menu {
 	margin: 0;
+	margin-bottom: 10px;
 }
 .admin-settings-menu li {
 	border: 1px solid #ddd;
@@ -405,4 +406,30 @@ input.cmn-toggle-round:checked + label:after {
 .admin-moderator-avatar img {
 	width: 100px;
 	height: 100px;
+}
+.add-admin-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+table thead {
+	background-color: #f1f1f1;
+}
+table.admin-moderators .photo {
+	width: 10%;
+}
+.admin-moderators .name {
+	width: 20%;
+}
+.admin-moderators .time {
+	width: 20%;
+}
+.admin-moderators .process {
+	width: 25%;
+}
+.admin-moderators .do {
+	width: 20%;
+}
+.btn.btn-success.save {
+	margin-bottom: 15px;
 }

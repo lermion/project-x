@@ -2,38 +2,23 @@
 @section('content')
     <div style="width:100%; height:auto;">
 
-        <div style="width:100%; height:auto; margin-bottom:20px;">
-            <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
-                <tr>
-                    <td width="100%">
-                        <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
-                            <tr>
-                                <td><div class="daosn2" style="background-color:#f1f1f1;">Действующие <b>3</b></div></td>
-                                <td><div class="daosn2" style="border-right:1px #999 solid;">Приостановлено <b>2</b></div></td>
-                                <td width="100%"></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td><p><a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary">Добавить</a></p></td>
-                </tr>
-            </table>
-        </div>
         <div class="x_content admin-settings">
             <ul class="row admin-settings-menu">
                 <li class="col-md-3 active"><a href="">Действующие</a></li>
                 <li class="col-md-3"><a href="">Приостановлено</a></li>
             </ul>
+            <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
         </div>
 
-        <table class="table table-striped">
+        <table class="table table-bordered admin-moderators">
             <thead>
             <tr>
                 <th>id</th>
-                <th>Фото</th>
-                <th>Имя</th>
-                <th>Время работы</th>
-                <th>Процесс</th>
-                <th>Действия</th>
+                <th class="text-center photo">Фото</th>
+                <th class="name">Имя</th>
+                <th class="time">Время работы</th>
+                <th class="process">Процесс</th>
+                <th class="do">Действия</th>
             </tr>
             </thead>
             <tbody>
@@ -61,7 +46,8 @@
                         <p>Присутствие: <b>17/19</b></p>
                     </td>
                     <td>
-                        <p style="margin-top:20px;"><button type="button" class="btn btn-warning">Остановить</button></p>
+                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-warning">Остановить</button></p>
+                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-info">Редактировать</button></p>
                     </td>
                 </tr>
             @endforeach
@@ -69,11 +55,9 @@
             </tbody>
         </table>
 
-        <hr />
-
-        <h4 style="margin-top:30px;">Настройки модерации:</h4>
-        <p>Укажите значение для проверки присутствия модераторов: <input class="form-control input-sm" type="text" placeholder="30" style="width:50px;margin-left:10px; display: inline-block;"> мин. </p>
-        <p style="margin-top:30px;"><button type="button" class="btn btn-success">Сохранить</button></p>
+        <h4 style="margin-top:30px;">Настройки модерации</h4>
+        <p>Проверка активности модератора - каждые <input class="miniText form-control" type="text" placeholder="30"> мин.</p>
+        <p><button type="button" class="btn btn-success save">Сохранить</button></p>
 
 
     </div>

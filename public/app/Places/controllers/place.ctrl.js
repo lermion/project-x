@@ -44,6 +44,7 @@
 
         vm.place = place;
         vm.placeEdited = angular.copy(vm.place);
+        vm.placeEdited.coverPreview = vm.placeEdited.cover;
 
         vm.newPublication = {};
 
@@ -144,7 +145,7 @@
                         name: 'modal-invite-group',
                         className: 'popup-invite-group ngdialog-theme-default',
                         scope: $scope,
-                        preCloseCallback: function() {
+                        preCloseCallback: function () {
                             vm.invitedUsers = [];
                         }
                     });
@@ -703,206 +704,219 @@
             }
         };
 
-		vm.removeUserFromInviteList = function (user) {
-			for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
-				if (vm.invitedUsers[i].userId == user.userId) {
-					vm.invitedUsers.splice(i, 1);
-				}
-			}
-		};
+        vm.removeUserFromInviteList = function (user) {
+            for (var i = vm.invitedUsers.length - 1; i >= 0; i--) {
+                if (vm.invitedUsers[i].userId == user.userId) {
+                    vm.invitedUsers.splice(i, 1);
+                }
+            }
+        };
 
-		vm.removeUser = function (user) {
-			removeUser({
-				userId: user.id,
-				isAdmin: user.is_admin
-			});
-		};
+        vm.removeUser = function (user) {
+            removeUser({
+                userId: user.id,
+                isAdmin: user.is_admin
+            });
+        };
 
-		vm.submitInviteUsers = function () {
-			if (!vm.inviteNotSend) {
-				return false;
-			}
-			placesService.inviteUsers(vm.place.id, vm.invitedUsers)
-				.then(function (data) {
-					if (data.status) {
-						vm.inviteNotSend = false;
+        vm.submitInviteUsers = function () {
+            if (!vm.inviteNotSend) {
+                return false;
+            }
+            placesService.inviteUsers(vm.place.id, vm.invitedUsers)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.inviteNotSend = false;
 
-						angular.forEach(vm.invitedUsers, function (item, i, arr) {
-							vm.place.users.push({
-								avatar_path: item.avatar,
-								first_name: item.firstName,
-								id: item.userId,
-								is_admin: item.isAdmin,
-								last_name: item.lastName
-							});
-						});
-						vm.place.count_users += vm.invitedUsers.length;
-						$timeout(function () {
-							resetFormInviteUsers();
-							modalInviteUsers.close();
-						}, 2000);
-					}
-				});
-		};
+                        angular.forEach(vm.invitedUsers, function (item, i, arr) {
+                            vm.place.users.push({
+                                avatar_path: item.avatar,
+                                first_name: item.firstName,
+                                id: item.userId,
+                                is_admin: item.isAdmin,
+                                last_name: item.lastName
+                            });
+                        });
+                        vm.place.count_users += vm.invitedUsers.length;
+                        $timeout(function () {
+                            resetFormInviteUsers();
+                            modalInviteUsers.close();
+                        }, 2000);
+                    }
+                });
+        };
 
-		vm.abortInviteUsers = function () {
-			resetFormInviteUsers();
-			modalInviteUsers.close();
-		};
+        vm.abortInviteUsers = function () {
+            resetFormInviteUsers();
+            modalInviteUsers.close();
+        };
 
-		vm.setAdmin = function (user, showAdmin) {
-			if (!vm.place.is_creator || (vm.place.is_creator && user.id === myId)) {
-				return false;
-			}
-			placesService.setAdmin(vm.place.id, user.id)
-				.then(function (data) {
-					if (data.status) {
-						user.is_admin = +data.is_admin;
-						showAdmin.status = false;
-					}
-				});
-		};
+        vm.setAdmin = function (user, showAdmin) {
+            if (!vm.place.is_creator || (vm.place.is_creator && user.id === myId)) {
+                return false;
+            }
+            placesService.setAdmin(vm.place.id, user.id)
+                .then(function (data) {
+                    if (data.status) {
+                        user.is_admin = +data.is_admin;
+                        showAdmin.status = false;
+                    }
+                });
+        };
 
-		vm.setCreator = function () {
-			if (vm.isSend) {
-				return false;
-			}
-			placesService.setCreator(vm.place.id, vm.creator.id)
-				.then(function (data) {
-					if (data.status) {
-						vm.isSend = true;
-						$timeout(function () {
-							resetFormSetCreator();
-							modalSetCreator.close();
-							$state.go('places');
-						}, 2000);
-					}
-				});
-		};
+        vm.setCreator = function () {
+            if (vm.isSend) {
+                return false;
+            }
+            placesService.setCreator(vm.place.id, vm.creator.id)
+                .then(function (data) {
+                    if (data.status) {
+                        vm.isSend = true;
+                        $timeout(function () {
+                            resetFormSetCreator();
+                            modalSetCreator.close();
+                            $state.go('places');
+                        }, 2000);
+                    }
+                });
+        };
 
-		vm.abortSetCreator = function () {
-			resetFormSetCreator();
-			modalSetCreator.close();
-		};
+        vm.abortSetCreator = function () {
+            resetFormSetCreator();
+            modalSetCreator.close();
+        };
 
-		vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-			if (file) {
 
-                Upload.imageDimensions(file).then(function (dimensions) {
-                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+        vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+
+            if (file) {
+                // For show on the form
+                Upload.resize(file, 218, 220, 1, null, null, true).then(function (resizedFile) {
+                    vm.placeEdited.coverPreviewToShow = resizedFile;
                 });
 
-				Upload.resize(file, 1200).then(function (resizedFile) {
-                    Upload.imageDimensions(resizedFile).then(function (dimensions) {
-                        console.info('Place: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                var isCoverCropMode = true;
+
+                openModalCropAvatarImage(file.name, event, isCoverCropMode);
+            }
+        };
+
+        vm.changePlaceAvatarFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+            if (file) {
+                var isCoverCropMode = false;
+
+                openModalCropAvatarImage(file.name, event, isCoverCropMode);
+            }
+
+        };
+
+        vm.saveCropp = function (croppedDataURL, isCoverCrop) {
+
+            var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
+
+            if (isCoverCrop) {
+                Upload.imageDimensions(blob).then(function (dimensions) {
+                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                vm.placeEdited.cover = blob;
+                vm.placeEdited.coverPreview = vm.placeEdited.coverPreviewToShow;
+                vm.placeEditedForm.cover.$setValidity('required', true);
+                vm.placeEditedForm.cover.$valid = true;
+            } else {
+                Upload.imageDimensions(blob).then(function (dimensions) {
+                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                vm.placeEdited.logo = blob;
+                vm.placeEditedForm.logo.$setValidity('required', true);
+                vm.placeEditedForm.logo.$valid = true;
+            }
+
+            modalCropLogoImage.close();
+        };
+
+
+        vm.showUsersForInvite = function (user) {
+            var result = true;
+
+            for (var i = 0; i < vm.place.users.length; i++) {
+                if (user.id === vm.place.users[i].id) {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        };
+
+        vm.changeMainFile = function (file, flag, pub) {
+            if (file.pivot.video_id) {
+                vm.mainImage = "";
+                vm.mainVideo = file.url;
+            } else if (file.pivot.image_id) {
+                if (flag) {
+                    vm.mainImageInPopup = file.url;
+                } else {
+                    vm.mainVideo = "";
+                    vm.mainImage = file.url;
+                }
+            }
+        };
+
+        vm.addPublicationLike = function () {
+            PublicationService.addPublicationLike(vm.activePublication.id).then(function (response) {
+                    vm.activePublication.user_like = response.user_like;
+                    vm.activePublication.like_count = response.like_count;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+
+        vm.subscribe = function () {
+            if (place.is_creator) {
+                openModalSetCreator();
+            } else {
+                placesService.subscribePlace(vm.place.id)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.place.is_sub = data.is_sub;
+                            if (data.is_sub) {
+                                vm.place.users.push({
+                                    avatar_path: myAvatar,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    id: myId,
+                                    is_admin: false,
+                                    login: login
+                                });
+                                vm.place.count_users++;
+                            } else {
+                                unsubscribe({userId: myId});
+                                vm.place.count_users--;
+                            }
+
+                        }
                     });
+            }
 
-					vm.placeEdited.cover = resizedFile;
-				});
-			}
-		};
+        };
 
-		vm.changePlaceAvatarFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-			if (file) {
-				openModalCropAvatarImage(file.name, event);
-			}
-
-		};
-
-		vm.saveCropp = function (croppedDataURL) {
-
-			var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
-
-
-			Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
-				vm.placeEdited.avatar = resizedFile;
-			});
-
-			modalCropLogoImage.close();
-		};
-
-		vm.showUsersForInvite = function (user) {
-			var result = true;
-
-			for (var i = 0; i < vm.place.users.length; i++) {
-				if (user.id === vm.place.users[i].id) {
-					result = false;
-					break;
-				}
-			}
-
-			return result;
-		};
-
-		vm.changeMainFile = function (file, flag, pub) {
-			if (file.pivot.video_id) {
-				vm.mainImage = "";
-				vm.mainVideo = file.url;
-			} else if (file.pivot.image_id) {
-				if (flag) {
-					vm.mainImageInPopup = file.url;
-				} else {
-					vm.mainVideo = "";
-					vm.mainImage = file.url;
-				}
-			}
-		};
-
-		vm.addPublicationLike = function () {
-			PublicationService.addPublicationLike(vm.activePublication.id).then(function (response) {
-					vm.activePublication.user_like = response.user_like;
-					vm.activePublication.like_count = response.like_count;
-				},
-				function (error) {
-					console.log(error);
-				});
-		};
-
-
-		vm.subscribe = function () {
-			if (place.is_creator) {
-				openModalSetCreator();
-			} else {
-				placesService.subscribePlace(vm.place.id)
-					.then(function (data) {
-						if (data.status) {
-							vm.place.is_sub = data.is_sub;
-							if (data.is_sub) {
-								vm.place.users.push({
-									avatar_path: myAvatar,
-									first_name: firstName,
-									last_name: lastName,
-									id: myId,
-									is_admin: false,
-									login: login
-								});
-								vm.place.count_users++;
-							} else {
-								unsubscribe({userId: myId});
-								vm.place.count_users--;
-							}
-
-						}
-					});
-			}
-
-		};
-
-		vm.getMonthYear = function (date) {
-			var newDate = moment(date).format("MMMM YYYY");
-			newDate = newDate[0].toUpperCase() + newDate.substr(1);
-			return newDate;
-		};
+        vm.getMonthYear = function (date) {
+            var newDate = moment(date).format("MMMM YYYY");
+            newDate = newDate[0].toUpperCase() + newDate.substr(1);
+            return newDate;
+        };
 
         vm.getMonth = function (date) {
             return moment(date).month();
         };
 
-		vm.limitToFiles = 3;
+        vm.limitToFiles = 3;
 
-		vm.loadMoreFiles = function () {
-			vm.limitToFiles += 1;
-		};
+        vm.loadMoreFiles = function () {
+            vm.limitToFiles += 1;
+        };
 
         var moreItems = true;
         vm.postLoading = false;
@@ -925,301 +939,304 @@
             }
         };
 
-        vm.closeThis = function() {
+        vm.closeThis = function () {
             vm.showGroupMenu = false;
         };
 
-		function activate() {
-			init();
-			getCountries();
-			getCities(vm.place.country.id).then(saveOriginalCities);
-			getDynamicPlaceType();
+        function activate() {
+            init();
+            getCountries();
+            getCities(vm.place.country.id).then(saveOriginalCities);
+            getDynamicPlaceType();
 
-			//TODO: refact!
-			if (vm.placeEdited.is_dynamic) {
-				vm.placeEdited.expired_date = new Date(vm.placeEdited.expired_date);
-			}
-		}
+            //TODO: refact!
+            if (vm.placeEdited.is_dynamic) {
+                vm.placeEdited.expired_date = new Date(vm.placeEdited.expired_date);
+            }
+        }
 
-		function init() {
-			$scope.$emit('userPoint', 'user');
-			var storage = storageService.getStorage();
-			vm.loggedUser = storage.username;
+        function init() {
+            $scope.$emit('userPoint', 'user');
+            var storage = storageService.getStorage();
+            vm.loggedUser = storage.username;
 
-			$http.get('/static_page/get/name')
-				.success(function (response) {
-					vm.staticPages = response;
-				})
-				.error(function (error) {
-					console.log(error);
-				});
-			vm.logOut = function () {
-				AuthService.userLogOut()
-					.then(function (res) {
-						storageService.deleteStorage();
-						$state.go('login');
-					}, function (err) {
-						console.log(err);
-					});
-			};
+            $http.get('/static_page/get/name')
+                .success(function (response) {
+                    vm.staticPages = response;
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+            vm.logOut = function () {
+                AuthService.userLogOut()
+                    .then(function (res) {
+                        storageService.deleteStorage();
+                        $state.go('login');
+                    }, function (err) {
+                        console.log(err);
+                    });
+            };
 
-			vm.openMenu = function () {
-				if ($window.innerWidth <= 800) {
-					vm.showMenu = !vm.showMenu;
-				} else {
-					vm.showMenu = true;
-				}
-			};
+            vm.openMenu = function () {
+                if ($window.innerWidth <= 800) {
+                    vm.showMenu = !vm.showMenu;
+                } else {
+                    vm.showMenu = true;
+                }
+            };
 
-			vm.openBottomMenu = function () {
-				if ($window.innerWidth <= 650) {
-					vm.showBottomMenu = !vm.showBottomMenu;
-				} else {
-					vm.showBottomMenu = false;
-				}
-			};
+            vm.openBottomMenu = function () {
+                if ($window.innerWidth <= 650) {
+                    vm.showBottomMenu = !vm.showBottomMenu;
+                } else {
+                    vm.showBottomMenu = false;
+                }
+            };
 
-			var w = angular.element($window);
-			$scope.$watch(
-				function () {
-					return $window.innerWidth;
-				},
-				function (value) {
-					if (value <= 800) {
-						vm.showMenu = false;
-					} else {
-						vm.showMenu = true;
-					}
+            var w = angular.element($window);
+            $scope.$watch(
+                function () {
+                    return $window.innerWidth;
+                },
+                function (value) {
+                    if (value <= 800) {
+                        vm.showMenu = false;
+                    } else {
+                        vm.showMenu = true;
+                    }
 
-					if (value <= 650) {
-						vm.showBottomMenu = false;
-					} else {
-						vm.showBottomMenu = true;
-					}
+                    if (value <= 650) {
+                        vm.showBottomMenu = false;
+                    } else {
+                        vm.showBottomMenu = true;
+                    }
 
-					if (value < 520) {
-						var blockThirdthLength = (parseInt(w[0].innerWidth) - 42) / 4;
-						vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
-						vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
-					} else {
-						vm.resizeSizes = '';
-						vm.resizeHeight = '';
-					}
-				},
-				true
-			);
-			w.bind('resize', function () {
-				$scope.$apply();
-			});
+                    if (value < 520) {
+                        var blockThirdthLength = (parseInt(w[0].innerWidth) - 42) / 4;
+                        vm.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
+                        vm.resizeHeight = 'height:' + blockThirdthLength + 'px;';
+                    } else {
+                        vm.resizeSizes = '';
+                        vm.resizeHeight = '';
+                    }
+                },
+                true
+            );
+            w.bind('resize', function () {
+                $scope.$apply();
+            });
 
-		}
+        }
 
-		function setWatchers() {
-			watchCountry = $scope.$watch(angular.bind(vm, function () {
-				return vm.placeEdited.country;
-			}), function (newCountry, oldCountry) {
-				if (newCountry && oldCountry && newCountry.id !== oldCountry.id) {
-					getCities(newCountry.id);
-					vm.placeEdited.address = null;
-				}
-			});
-			watchCity = $scope.$watch(angular.bind(vm, function () {
-				return vm.placeEdited.city;
-			}), function (newCity, oldCity) {
-				if (newCity && oldCity && newCity.id !== oldCity.id) {
-					vm.placeEdited.address = null;
-				}
-			});
-		}
+        function setWatchers() {
+            watchCountry = $scope.$watch(angular.bind(vm, function () {
+                return vm.placeEdited.country;
+            }), function (newCountry, oldCountry) {
+                if (newCountry && oldCountry && newCountry.id !== oldCountry.id) {
+                    getCities(newCountry.id);
+                    vm.placeEdited.address = null;
+                }
+            });
+            watchCity = $scope.$watch(angular.bind(vm, function () {
+                return vm.placeEdited.city;
+            }), function (newCity, oldCity) {
+                if (newCity && oldCity && newCity.id !== oldCity.id) {
+                    vm.placeEdited.address = null;
+                }
+            });
+        }
 
-		function clearWatchers() {
-			watchCountry();
-			watchCity();
-		}
+        function clearWatchers() {
+            watchCountry();
+            watchCity();
+        }
 
-		function saveOriginalCities() {
-			originalCities = angular.copy(vm.cities);
-		}
+        function saveOriginalCities() {
+            originalCities = angular.copy(vm.cities);
+        }
 
-		function getSubscribers() {
-			return UserService.getSubscribers(myId)
-				.then(function (subscribers) {
-					vm.subscribers = subscribers;
-				});
-		}
+        function getSubscribers() {
+            return UserService.getSubscribers(myId)
+                .then(function (subscribers) {
+                    vm.subscribers = subscribers;
+                });
+        }
 
-		function getSubscription() {
-			return PublicationService.getSubscription(myId)
-				.then(function (data) {
-					vm.subscription = data;
-				});
-		}
+        function getSubscription() {
+            return PublicationService.getSubscription(myId)
+                .then(function (data) {
+                    vm.subscription = data;
+                });
+        }
 
-		function resetFormInviteUsers() {
-			vm.invitedUsers = [];
-			vm.subscribers = [];
-			vm.subscription = [];
-			vm.inviteNotSend = true;
-		}
+        function resetFormInviteUsers() {
+            vm.invitedUsers = [];
+            vm.subscribers = [];
+            vm.subscription = [];
+            vm.inviteNotSend = true;
+        }
 
-		function resetFormSetCreator() {
-			vm.adminsList = [];
-			vm.creator.id = null;
-		}
+        function resetFormSetCreator() {
+            vm.adminsList = [];
+            vm.creator.id = null;
+        }
 
-		function resetFormNewPublication() {
-			vm.newPublication = {};
-			vm.files = [];
-		}
+        function resetFormNewPublication() {
+            vm.newPublication = {};
+            vm.files = [];
+        }
 
-		function getPublication(id) {
-			return PublicationService.getSinglePublication(id)
-				.then(function (data) {
-					vm.activePublication = data;
-					if (data.images[0] !== undefined) {
-						vm.mainImage = data.images[0].url;
-					}
-				});
-		}
+        function getPublication(id) {
+            return PublicationService.getSinglePublication(id)
+                .then(function (data) {
+                    vm.activePublication = data;
+                    if (data.images[0] !== undefined) {
+                        vm.mainImage = data.images[0].url;
+                    }
+                });
+        }
 
-		function removeUser(user) {
-			var arr = [];
-			var indexToRemove;
-			for (var i = vm.place.users.length - 1; i >= 0; i--) {
-				if (vm.place.users[i].id == user.userId) {
-					if (user.isAdmin && vm.place.is_creator || !user.isAdmin && vm.place.is_admin || user.userId === myId) {
-						arr.push(user.userId);
-						indexToRemove = i;
-						placesService.removeUsers(vm.place.id, arr)
-							.then(function (data) {
-								if (data.status) {
-									vm.place.users.splice(indexToRemove, 1);
-									vm.place.count_users--;
-								}
-							});
-					}
+        function removeUser(user) {
+            var arr = [];
+            var indexToRemove;
+            for (var i = vm.place.users.length - 1; i >= 0; i--) {
+                if (vm.place.users[i].id == user.userId) {
+                    if (user.isAdmin && vm.place.is_creator || !user.isAdmin && vm.place.is_admin || user.userId === myId) {
+                        arr.push(user.userId);
+                        indexToRemove = i;
+                        placesService.removeUsers(vm.place.id, arr)
+                            .then(function (data) {
+                                if (data.status) {
+                                    vm.place.users.splice(indexToRemove, 1);
+                                    vm.place.count_users--;
+                                }
+                            });
+                    }
 
-				}
-			}
-		}
+                }
+            }
+        }
 
-		function changePlaceUrlName(str) {
-			var url = window.location.toString();
-			var pathArray = window.location.href.split('/');
-			var urlNamePos = pathArray.indexOf('place');
-			pathArray[urlNamePos + 1] = str;
-			pathArray.splice(pathArray.length - 1, 1);
+        function changePlaceUrlName(str) {
+            var url = window.location.toString();
+            var pathArray = window.location.href.split('/');
+            var urlNamePos = pathArray.indexOf('place');
+            pathArray[urlNamePos + 1] = str;
+            pathArray.splice(pathArray.length - 1, 1);
 
-			var newPathname = '';
-			for (var i = 0; i < pathArray.length; i++) {
-				newPathname += pathArray[i];
-				newPathname += "/";
-			}
-			window.location = newPathname.substring(0, newPathname.length - 1);
-		}
+            var newPathname = '';
+            for (var i = 0; i < pathArray.length; i++) {
+                newPathname += pathArray[i];
+                newPathname += "/";
+            }
+            window.location = newPathname.substring(0, newPathname.length - 1);
+        }
 
-		function getPlace() {
-			placesService.getPlace(place.url_name)
-				.then(function (data) {
-					if (data) {
-						vm.place = data;
-					}
-				});
-		}
+        function getPlace() {
+            placesService.getPlace(place.url_name)
+                .then(function (data) {
+                    if (data) {
+                        vm.place = data;
+                    }
+                });
+        }
 
-		function openModalSetCreator() {
-			vm.adminsList = getAdminsList();
-			modalSetCreator = ngDialog.open({
-				template: '../app/Places/views/popup-setcreator-place.html',
-				name: 'modal-setcreator-group',
-				className: 'popup-setcreator-group ngdialog-theme-default',
-				scope: $scope
-			});
-		}
+        function openModalSetCreator() {
+            vm.adminsList = getAdminsList();
+            modalSetCreator = ngDialog.open({
+                template: '../app/Places/views/popup-setcreator-place.html',
+                name: 'modal-setcreator-group',
+                className: 'popup-setcreator-group ngdialog-theme-default',
+                scope: $scope
+            });
+        }
 
-		function getAdminsList() {
-			return vm.place.users.filter(function (item) {
-				return (!!item.is_admin === true && item.id !== myId);
-			});
-		}
+        function getAdminsList() {
+            return vm.place.users.filter(function (item) {
+                return (!!item.is_admin === true && item.id !== myId);
+            });
+        }
 
-		function filterAttachFilesByType() {
-			var filesByType = {
-				images: [],
-				videos: []
-			};
-			if (vm.files && vm.files.length > 0) {
-				angular.forEach(vm.files, function (file) {
-					if (~file.type.indexOf('image')) {
-						filesByType.images.push(file);
-					} else if (~file.type.indexOf('video')) {
-						filesByType.videos.push(file);
-					}
-				});
-			}
+        function filterAttachFilesByType() {
+            var filesByType = {
+                images: [],
+                videos: []
+            };
+            if (vm.files && vm.files.length > 0) {
+                angular.forEach(vm.files, function (file) {
+                    if (~file.type.indexOf('image')) {
+                        filesByType.images.push(file);
+                    } else if (~file.type.indexOf('video')) {
+                        filesByType.videos.push(file);
+                    }
+                });
+            }
 
-			return filesByType;
-		}
+            return filesByType;
+        }
 
-		function openModalCropAvatarImage(fileName, e) {
-			var file = e.currentTarget.files[0];
-			if (file) {
-				var reader = new FileReader();
+        function openModalCropAvatarImage(fileName, e, isCoverMode) {
+            var file = e.currentTarget.files[0];
+            if (file) {
+                var reader = new FileReader();
 
-				reader.onload = function (e) {
-					$scope.$apply(function ($scope) {
-						vm.selectedLogoImage = e.target.result;
-						vm.selectedLogoImageName = fileName;
-						modalCropLogoImage = ngDialog.open({
-							template: '../app/Places/views/popup-crop-image.html',
-							className: 'settings-add-ava ngdialog-theme-default',
-							scope: $scope
-						});
-					});
-				};
+                reader.onload = function (e) {
+                    $scope.$apply(function ($scope) {
+                        vm.selectedLogoImage = e.target.result;
+                        vm.selectedLogoImageName = fileName;
+                        modalCropLogoImage = ngDialog.open({
+                            template: '../app/Places/views/popup-crop-image.html',
+                            className: 'settings-add-ava ngdialog-theme-default',
+                            scope: $scope,
+                            data: {
+                                isCover: isCoverMode
+                            }
+                        });
+                    });
+                };
 
-				reader.readAsDataURL(file);
-			}
-		}
+                reader.readAsDataURL(file);
+            }
+        }
 
-		function resetFormPlaceEdit() {
-			vm.placeEdited = angular.copy(vm.place);
-			vm.cities = angular.copy(originalCities);
-			vm.placeEditedForm.$setPristine();
-		}
+        function resetFormPlaceEdit() {
+            vm.placeEdited = angular.copy(vm.place);
+            vm.cities = angular.copy(originalCities);
+            vm.placeEditedForm.$setPristine();
+        }
 
-		function getCities(countryId) {
-			return placesService.getCities(countryId).then(
-				function (data) {
-					vm.cities = data;
-				}
-			);
-		}
+        function getCities(countryId) {
+            return placesService.getCities(countryId).then(
+                function (data) {
+                    vm.cities = data;
+                }
+            );
+        }
 
-		function getCountries() {
-			placesService.getCountries().then(
-				function (data) {
-					vm.countries = data;
-				}
-			);
-		}
+        function getCountries() {
+            placesService.getCountries().then(
+                function (data) {
+                    vm.countries = data;
+                }
+            );
+        }
 
-		function getDynamicPlaceType() {
-			placesService.getPlaceTypeDynamic()
-				.then(function (data) {
-					vm.typeDynamic = data;
-				});
-		}
+        function getDynamicPlaceType() {
+            placesService.getPlaceTypeDynamic()
+                .then(function (data) {
+                    vm.typeDynamic = data;
+                });
+        }
 
-		function unsubscribe(user) {
-			for (var i = vm.place.users.length - 1; i >= 0; i--) {
-				if (vm.place.users[i].id == user.userId) {
-					vm.place.users.splice(i, 1);
-					vm.place.count_users--;
-					break;
-				}
-			}
-		}
+        function unsubscribe(user) {
+            for (var i = vm.place.users.length - 1; i >= 0; i--) {
+                if (vm.place.users[i].id == user.userId) {
+                    vm.place.users.splice(i, 1);
+                    vm.place.count_users--;
+                    break;
+                }
+            }
+        }
 
         function canInviteUsers() {
 
@@ -1255,121 +1272,121 @@
             return result.length > 0;
         }
 
-		//chat
+        //chat
 
-		$scope.counter = 10;
-		$scope.showFileAdd = function(){
-			if($scope.showFileAddMenu){
-				$scope.showFileAddMenu = false;
-				$scope.hideFileAdd = undefined;
-			}else{
-				$scope.showFileAddMenu = true;
-				setTimeout(function(){
-					$scope.hideFileAdd = hideFileAdd;
-				}, 0);
-			}
-		};
-        var hideFileAdd = function(){
-			if($scope.showFileAddMenu){
-				$scope.showFileAddMenu = false;
-				$scope.hideFileAdd = undefined;
-			}
-		}
-		$scope.showPopupWithFiles = function (files) {
-			$scope.imagesInPopup = files;
-			$scope.mainImageInPopup = files[0].url;
-			angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
-			ngDialog.open({
-				template: '../app/User/views/popup-comment-images.html',
-				className: 'popup-comment-images ngdialog-theme-default',
-				scope: $scope,
-				data: {
-					images: files
-				},
-				preCloseCallback: function (value) {
-					angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
-				}
-			});
-		};
-
-		$scope.changeMainFile = function (file, flag, pub) {
-			if (flag) {
-				$scope.mainImageInPopup = file.url;
-			} else {
-				$scope.mainVideo = "";
-				$scope.mainImage = file.url;
-			}
-			if (flag === 'list') {
-				pub.mainFile = file;
-			}
-		};
-		$scope.statusLoading = true;
-		$scope.busyMessages = false;
-		$scope.loadMoreMessages = function () {
-			var deferred = $q.defer();
-			var members = [];
-			members[0] = vm.myId;
-			var data = {
-				room_id: vm.place.room_id,
-				offset: $scope.counter,
-				limit: 10,
-				members: members
-			};
-			if ($scope.messages !== undefined && $scope.messages.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading) {
-				$scope.busyMessages = true;
-				socket.emit("load more messages", data);
-			} else {
-				deferred.reject();
-			}
-			return deferred.promise;
-		};
-		socket.on("load more messages", function (response) {
-			$scope.busyMessages = false;
-			if (response.messages.length === 0) {
-				$scope.statusLoading = false;
-			} else {
-				response.messages.forEach(function(value){
-					$scope.messages.unshift(value);
-				});
-				$scope.counter += 10;
-			}
-		});
-		var getPlaceChatDialogue = {
-			room_id: vm.place.room_id,
-			offset: 0,
-			limit: 10
-		};
-		$scope.beforeChange = function (files) {
-			$scope.files = files;
-		};
-		$scope.deleteChatFiles = function (files, index) {
-			files.splice(index, 1);
-		}
-		socket.emit("get group chat dialogue", getPlaceChatDialogue);
-		socket.on("get group chat dialogue", function (response) {
-			$scope.messages = response.messages.reverse();
-		});
-		socket.on('updatechat', function (response) {
-			$scope.messages.push(response);
-			if(response.images.length > 0){
-            	vm.place.count_chat_files += response.images.length;
+        $scope.counter = 10;
+        $scope.showFileAdd = function () {
+            if ($scope.showFileAddMenu) {
+                $scope.showFileAddMenu = false;
+                $scope.hideFileAdd = undefined;
+            } else {
+                $scope.showFileAddMenu = true;
+                setTimeout(function () {
+                    $scope.hideFileAdd = hideFileAdd;
+                }, 0);
             }
-			vm.place.count_chat_message++;
-		});
-		$scope.$on('$destroy', function (event) {
-			socket.removeAllListeners();
-		});
-		$scope.emojiMessage = {
-			replyToUser: function () {
-				$scope.sendMessage($scope.emojiMessage.messagetext, vm.place.room_id, $scope.files);
-			}
-		};
-		$scope.checkMessageType = function(message){
+        };
+        var hideFileAdd = function () {
+            if ($scope.showFileAddMenu) {
+                $scope.showFileAddMenu = false;
+                $scope.hideFileAdd = undefined;
+            }
+        }
+        $scope.showPopupWithFiles = function (files) {
+            $scope.imagesInPopup = files;
+            $scope.mainImageInPopup = files[0].url;
+            angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+            ngDialog.open({
+                template: '../app/User/views/popup-comment-images.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                    images: files
+                },
+                preCloseCallback: function (value) {
+                    angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+                }
+            });
+        };
+
+        $scope.changeMainFile = function (file, flag, pub) {
+            if (flag) {
+                $scope.mainImageInPopup = file.url;
+            } else {
+                $scope.mainVideo = "";
+                $scope.mainImage = file.url;
+            }
+            if (flag === 'list') {
+                pub.mainFile = file;
+            }
+        };
+        $scope.statusLoading = true;
+        $scope.busyMessages = false;
+        $scope.loadMoreMessages = function () {
+            var deferred = $q.defer();
+            var members = [];
+            members[0] = vm.myId;
+            var data = {
+                room_id: vm.place.room_id,
+                offset: $scope.counter,
+                limit: 10,
+                members: members
+            };
+            if ($scope.messages !== undefined && $scope.messages.length !== 0 && $scope.busyMessages !== true && $scope.statusLoading) {
+                $scope.busyMessages = true;
+                socket.emit("load more messages", data);
+            } else {
+                deferred.reject();
+            }
+            return deferred.promise;
+        };
+        socket.on("load more messages", function (response) {
+            $scope.busyMessages = false;
+            if (response.messages.length === 0) {
+                $scope.statusLoading = false;
+            } else {
+                response.messages.forEach(function (value) {
+                    $scope.messages.unshift(value);
+                });
+                $scope.counter += 10;
+            }
+        });
+        var getPlaceChatDialogue = {
+            room_id: vm.place.room_id,
+            offset: 0,
+            limit: 10
+        };
+        $scope.beforeChange = function (files) {
+            $scope.files = files;
+        };
+        $scope.deleteChatFiles = function (files, index) {
+            files.splice(index, 1);
+        }
+        socket.emit("get group chat dialogue", getPlaceChatDialogue);
+        socket.on("get group chat dialogue", function (response) {
+            $scope.messages = response.messages.reverse();
+        });
+        socket.on('updatechat', function (response) {
+            $scope.messages.push(response);
+            if (response.images.length > 0) {
+                vm.place.count_chat_files += response.images.length;
+            }
+            vm.place.count_chat_message++;
+        });
+        $scope.$on('$destroy', function (event) {
+            socket.removeAllListeners();
+        });
+        $scope.emojiMessage = {
+            replyToUser: function () {
+                $scope.sendMessage($scope.emojiMessage.messagetext, vm.place.room_id, $scope.files);
+            }
+        };
+        $scope.checkMessageType = function (message) {
             var regExp = "^http://" + $location.host();
             var match = (new RegExp(regExp)).exec(message.text);
-            if(match){
+            if (match) {
                 var publicationUrl = match.input.split("/publication/");
-                if(publicationUrl[1]){
+                if (publicationUrl[1]) {
                     message.pub = {};
                     message.type = 'pub';
                     message.pub.username = message.login;
@@ -1377,254 +1394,254 @@
                 }
             }
         };
-		$scope.loadPubIntoChat = function (message, pubId) {
-			if (pubId != undefined) {
-				PublicationService.getSinglePublication(pubId).then(function (response) {
-						message.pub = response;
-					},
-					function (error) {
-						console.log(error);
-					});
-			}
-		};
-		$scope.sendMessage = function (messageText, roomId, files) {
-			$scope.disabledSendMessage = true;
-			if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
-				return;
-			}
-			if (files !== undefined) {
-				var imagesObj = {
-					imageName: [],
-					imageType: [],
-					images: files
-				};
-				files.forEach(function (value) {
-					imagesObj.imageName.push(value.name);
-					imagesObj.imageType.push(value.type);
-				});
-			}
-			var data = {
-				userId: vm.myId,
-				room_id: roomId,
-				message: messageText ? messageText : "",
-				imagesObj: imagesObj
-			};
-			socket.emit('send message', data, function () {
-				if (files) {
-					files.length = 0;
-				}
-				$scope.emojiMessage.rawhtml = "";
-				data.message = "";
-				if (data.message === "" && $scope.emojiMessage.rawhtml === "") {
-					setTimeout(function () {
-						$scope.disabledSendMessage = false;
-					}, 200);
-				}
-			});
-		}
+        $scope.loadPubIntoChat = function (message, pubId) {
+            if (pubId != undefined) {
+                PublicationService.getSinglePublication(pubId).then(function (response) {
+                        message.pub = response;
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
+            }
+        };
+        $scope.sendMessage = function (messageText, roomId, files) {
+            $scope.disabledSendMessage = true;
+            if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
+                return;
+            }
+            if (files !== undefined) {
+                var imagesObj = {
+                    imageName: [],
+                    imageType: [],
+                    images: files
+                };
+                files.forEach(function (value) {
+                    imagesObj.imageName.push(value.name);
+                    imagesObj.imageType.push(value.type);
+                });
+            }
+            var data = {
+                userId: vm.myId,
+                room_id: roomId,
+                message: messageText ? messageText : "",
+                imagesObj: imagesObj
+            };
+            socket.emit('send message', data, function () {
+                if (files) {
+                    files.length = 0;
+                }
+                $scope.emojiMessage.rawhtml = "";
+                data.message = "";
+                if (data.message === "" && $scope.emojiMessage.rawhtml === "") {
+                    setTimeout(function () {
+                        $scope.disabledSendMessage = false;
+                    }, 200);
+                }
+            });
+        }
 
-		//pub share
-		var sharePublication;
-		$scope.sharePub = function (pubId) {
-			sharePublication = ngDialog.open({
-				template: '../app/Places/views/popup-sharepub-place.html',
-				className: 'share-publication ngdialog-theme-default',
-				scope: $scope,
-				preCloseCallback: resetFormInviteUsers,
-				data: {pubId: pubId}
-			});
-			loadUserContacts();
-		};
-		$scope.menuItems = [
-			{
-				menuType: "members",
-				name: "Пользователи"
-			},
-			{
-				menuType: "groups-chat",
-				name: "Групповые чаты"
-			},
-			{
-				menuType: "groups",
-				name: "Группы"
-			},
-			{
-				menuType: "places",
-				name: "Места"
-			}
-		];
-		$scope.currentIndex = 0;
-		$scope.members = function () {
-			return true;
-		}
-		$scope.isSelected = function (index) {
-			return index === $scope.currentIndex;
-		}
-		$scope.changeMenu = function (value, index) {
-			$scope.currentIndex = index;
-			if (value === "members") {
-				$scope.members = function () {
-					return true;
-				}
-				$scope.groupsChat = function () {
-					return false;
-				}
-				$scope.showGroups = function () {
-					return false;
-				}
-				$scope.showPlaces = function () {
-					return false;
-				}
-			} else if (value === "groups-chat") {
-				socket.emit("get user rooms", $scope.loggedUserId);
-				socket.on("get user rooms", function (response) {
-					$scope.groupsChatArr = response;
-				});
-				$scope.groupsChat = function () {
-					return true;
-				}
-				$scope.members = function () {
-					return false;
-				}
-				$scope.showGroups = function () {
-					return false;
-				}
+        //pub share
+        var sharePublication;
+        $scope.sharePub = function (pubId) {
+            sharePublication = ngDialog.open({
+                template: '../app/Places/views/popup-sharepub-place.html',
+                className: 'share-publication ngdialog-theme-default',
+                scope: $scope,
+                preCloseCallback: resetFormInviteUsers,
+                data: {pubId: pubId}
+            });
+            loadUserContacts();
+        };
+        $scope.menuItems = [
+            {
+                menuType: "members",
+                name: "Пользователи"
+            },
+            {
+                menuType: "groups-chat",
+                name: "Групповые чаты"
+            },
+            {
+                menuType: "groups",
+                name: "Группы"
+            },
+            {
+                menuType: "places",
+                name: "Места"
+            }
+        ];
+        $scope.currentIndex = 0;
+        $scope.members = function () {
+            return true;
+        }
+        $scope.isSelected = function (index) {
+            return index === $scope.currentIndex;
+        }
+        $scope.changeMenu = function (value, index) {
+            $scope.currentIndex = index;
+            if (value === "members") {
+                $scope.members = function () {
+                    return true;
+                }
+                $scope.groupsChat = function () {
+                    return false;
+                }
+                $scope.showGroups = function () {
+                    return false;
+                }
                 $scope.showPlaces = function () {
                     return false;
                 }
-			} else if (value === "groups") {
-				$scope.showGroups = function () {
-					return true;
-				}
-				$scope.groupsChat = function () {
-					return false;
-				}
-				$scope.members = function () {
-					return false;
-				}
-				$scope.showPlaces = function () {
-					return false;
-				}
-				groupsService.getGroupList().then(function (response) {
-						$scope.groups = response;
-					},
-					function (error) {
-						console.log(error);
-					});
-			} else if (value === "places") {
-				$scope.showPlaces = function () {
-					return true;
-				}
-				$scope.showGroups = function () {
-					return false;
-				}
-				$scope.groupsChat = function () {
-					return false;
-				}
-				$scope.members = function () {
-					return false;
-				}
-				placesService.getPlaces().then(function (response) {
-						$scope.places = response;
-					},
-					function (error) {
-						console.log(error);
-					});
-			}
-		}
+            } else if (value === "groups-chat") {
+                socket.emit("get user rooms", $scope.loggedUserId);
+                socket.on("get user rooms", function (response) {
+                    $scope.groupsChatArr = response;
+                });
+                $scope.groupsChat = function () {
+                    return true;
+                }
+                $scope.members = function () {
+                    return false;
+                }
+                $scope.showGroups = function () {
+                    return false;
+                }
+                $scope.showPlaces = function () {
+                    return false;
+                }
+            } else if (value === "groups") {
+                $scope.showGroups = function () {
+                    return true;
+                }
+                $scope.groupsChat = function () {
+                    return false;
+                }
+                $scope.members = function () {
+                    return false;
+                }
+                $scope.showPlaces = function () {
+                    return false;
+                }
+                groupsService.getGroupList().then(function (response) {
+                        $scope.groups = response;
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
+            } else if (value === "places") {
+                $scope.showPlaces = function () {
+                    return true;
+                }
+                $scope.showGroups = function () {
+                    return false;
+                }
+                $scope.groupsChat = function () {
+                    return false;
+                }
+                $scope.members = function () {
+                    return false;
+                }
+                placesService.getPlaces().then(function (response) {
+                        $scope.places = response;
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
+            }
+        }
 
-		function loadUserContacts() {
-			PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
-					$scope.subscribers = response;
-				},
-				function (error) {
-					console.log(error);
-				});
-			PublicationService.getSubscription($scope.loggedUserId).then(function (response) {
-					$scope.subscriptions = response;
-				},
-				function (error) {
-					console.log(error);
-				});
-		}
+        function loadUserContacts() {
+            PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
+                    $scope.subscribers = response;
+                },
+                function (error) {
+                    console.log(error);
+                });
+            PublicationService.getSubscription($scope.loggedUserId).then(function (response) {
+                    $scope.subscriptions = response;
+                },
+                function (error) {
+                    console.log(error);
+                });
+        }
 
-		$scope.shareData = [];
-		$scope.change = function (data, active) {
-			if (active) {
-				$scope.shareData.push(data);
-			} else {
-				$scope.shareData.splice($scope.shareData.indexOf(data), 1);
-			}
-		};
-		$scope.closeSharePopup = function () {
-			sharePublication.close();
-		};
-		$scope.sendSharePublication = function (pubId) {
-			if ($scope.shareData.length > 0) {
-				var membersLength = [];
-				$scope.shareData.forEach(function (value) {
-					if (value.type === "members") {
-						membersLength.push(value);
-						var members = [];
-						members[0] = parseInt($scope.loggedUserId);
-						members[1] = value.id;
-						var data = {
-							members: members,
-							is_group: false,
-							share: true
-						};
-						socket.emit('create room', data, function (response) {
-							if (Object.prototype.toString.call(response) === '[object Array]') {
-								if (response.length === membersLength.length) {
-									response.forEach(function (value) {
-										var data = {
-											userId: $scope.loggedUserId,
-											room_id: value.room_id,
-											message: $location.absUrl() + "/publication/" + pubId
-										};
-										socket.emit('send message', data);
-									});
-								}
-							} else {
-								var data = {
-									userId: $scope.loggedUserId,
-									room_id: response.room_id,
-									message: $location.absUrl() + "/publication/" + pubId
-								};
-								socket.emit('send message', data, function () {
-									var popupNotification = ngDialog.open({
-										template: '../app/User/views/popup-notification.html',
-										className: 'popup-delete-group ngdialog-theme-default',
-										scope: $scope
-									});
-									setTimeout(function () {
-										ngDialog.closeAll();
-									}, 2000);
-								});
-							}
-						});
-					} else {
-						var data = {
-							userId: $scope.loggedUserId,
-							room_id: value.room_id,
-							message: $location.absUrl() + "/publication/" + pubId
-						};
-						socket.emit('send message', data, function () {
-							var popupNotification = ngDialog.open({
-								template: '../app/User/views/popup-notification.html',
-								className: 'popup-delete-group ngdialog-theme-default',
-								scope: $scope
-							});
-							setTimeout(function () {
-								ngDialog.closeAll();
-							}, 2000);
-						});
-					}
-				});
-			}
-		};
-		//end of pub share
-	}
+        $scope.shareData = [];
+        $scope.change = function (data, active) {
+            if (active) {
+                $scope.shareData.push(data);
+            } else {
+                $scope.shareData.splice($scope.shareData.indexOf(data), 1);
+            }
+        };
+        $scope.closeSharePopup = function () {
+            sharePublication.close();
+        };
+        $scope.sendSharePublication = function (pubId) {
+            if ($scope.shareData.length > 0) {
+                var membersLength = [];
+                $scope.shareData.forEach(function (value) {
+                    if (value.type === "members") {
+                        membersLength.push(value);
+                        var members = [];
+                        members[0] = parseInt($scope.loggedUserId);
+                        members[1] = value.id;
+                        var data = {
+                            members: members,
+                            is_group: false,
+                            share: true
+                        };
+                        socket.emit('create room', data, function (response) {
+                            if (Object.prototype.toString.call(response) === '[object Array]') {
+                                if (response.length === membersLength.length) {
+                                    response.forEach(function (value) {
+                                        var data = {
+                                            userId: $scope.loggedUserId,
+                                            room_id: value.room_id,
+                                            message: $location.absUrl() + "/publication/" + pubId
+                                        };
+                                        socket.emit('send message', data);
+                                    });
+                                }
+                            } else {
+                                var data = {
+                                    userId: $scope.loggedUserId,
+                                    room_id: response.room_id,
+                                    message: $location.absUrl() + "/publication/" + pubId
+                                };
+                                socket.emit('send message', data, function () {
+                                    var popupNotification = ngDialog.open({
+                                        template: '../app/User/views/popup-notification.html',
+                                        className: 'popup-delete-group ngdialog-theme-default',
+                                        scope: $scope
+                                    });
+                                    setTimeout(function () {
+                                        ngDialog.closeAll();
+                                    }, 2000);
+                                });
+                            }
+                        });
+                    } else {
+                        var data = {
+                            userId: $scope.loggedUserId,
+                            room_id: value.room_id,
+                            message: $location.absUrl() + "/publication/" + pubId
+                        };
+                        socket.emit('send message', data, function () {
+                            var popupNotification = ngDialog.open({
+                                template: '../app/User/views/popup-notification.html',
+                                className: 'popup-delete-group ngdialog-theme-default',
+                                scope: $scope
+                            });
+                            setTimeout(function () {
+                                ngDialog.closeAll();
+                            }, 2000);
+                        });
+                    }
+                });
+            }
+        };
+        //end of pub share
+    }
 
 })
 (angular);
