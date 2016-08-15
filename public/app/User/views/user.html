@@ -119,8 +119,10 @@
 
 					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций
 						следует авторизоваться</p>
+					<p ng-show="needToAddAvatar && !isSigned" class="content-error" style="text-align:center;">Для просмотра публикаций
+						следует добавить аватар или подписаться</p>	
 
-					<div infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
+					<div ng-hide="needToAddAvatar && !isSigned" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 						<!-- unit grid-->
 						<div class="my-photos" ng-show="photosGrid">
 							<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">
