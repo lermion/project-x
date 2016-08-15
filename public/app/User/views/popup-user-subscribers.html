@@ -9,12 +9,18 @@
                 </a>
             </div>
             <div class="user-info">
-                <a class="user-name" ui-sref="user({username: subscriber.login})" ng-click="closePopup()">{{subscriber.first_name}}
-                    {{subscriber.last_name}}</a>
-
-                <p class="status-user">{{subscriber.status}}</p>
+                <div class="user-info__user">
+                    <a ui-sref="user({username: subscriber.login})" ng-click="$event.stopPropagation()">
+                        {{::subscriber.first_name}} {{::subscriber.last_name}}
+                    </a>
+                </div>
+                <div class="user-info__status" ng-if="subscriber.user_quote">{{::subscriber.user_quote}}</div>
+                <div class="user-info__online">{{::subscriber.is_online ? 'В сети' : 'Не в сети'}}</div>
             </div>
         </div>
+        <a href class="read"
+           ng-if="!subscriber.is_confirmed"
+           ng-click="confirmSubscriber(subscriber)">Подтвердить</a>
         <a href="javascript:void(0);" class="read"
            ng-if="!myProfile"
            ng-click="subscribe(subscriber)"
