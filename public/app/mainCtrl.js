@@ -105,23 +105,30 @@ angular.module('placePeopleApp')
 				$scope.bodyClass = 'public user';
 			});
 			$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+				if($rootScope.stateChangeBypass || toState.name === 'login') {
+		            $rootScope.stateChangeBypass = false;
+		            $scope.preloader = false;
+		            return;
+        		}
+				event.preventDefault();
 				storageService.isUserAuthorized().then(function(response){
 					var storage = storageService.getStorage();
 					if(response.is_authorization){
 						$rootScope.isAuthorized = true;
+						$scope.preloader = true;
+						$rootScope.stateChangeBypass = true;
+						$state.go(toState, toParams);
 					}else{
 						$rootScope.isAuthorized = false;
 					}
 					if(!toState.isLogin && !$rootScope.isAuthorized){
 						storageService.deleteStorage();
-						event.preventDefault();
-						return $state.go('login');
+						$state.go('login');
 					}
 				},
 				function(error){
 					console.log(error);
 				});
-				$scope.preloader = true;
 					
 					// Header counters
 					groupsService.getCounterNewGroups().then(function (data) {
