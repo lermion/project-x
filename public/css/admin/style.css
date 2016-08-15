@@ -163,9 +163,6 @@
 	font-weight: bold;
 	list-style: none;
 }
-.admin-settings-menu li:first-child {
-	border-right: 0px;
-}
 .admin-settings-menu li.active {
 	background-color: #f1f1f1;
 }
@@ -415,6 +412,13 @@ input.cmn-toggle-round:checked + label:after {
 table thead {
 	background-color: #f1f1f1;
 }
+div table.table>thead>tr>th {
+	text-align: center;
+	vertical-align: middle;
+}
+div table.table>tbody>tr:hover {
+	background-color: #f1f1f1;
+}
 table.admin-moderators .photo {
 	width: 10%;
 }
@@ -432,4 +436,11 @@ table.admin-moderators .photo {
 }
 .btn.btn-success.save {
 	margin-bottom: 15px;
+}
+.table .mini-image img {
+	width: 40px;
+	height: 40px;
+}
+.table .mini-image {
+	width: 140px;
 }

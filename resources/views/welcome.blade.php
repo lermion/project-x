@@ -63,6 +63,7 @@
 	</div>
 	<!-- Scripts -->
 	<script type="text/javascript" src="../../app/libs/jquery-2.1.3.min.js"></script>
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 	<script src="../../app/libs/angular.min.js"></script>
 	<script src="../../app/libs/angular-ui-router.min.js"></script>
 	<script src="../../app/libs/angular-messages.min.js"></script>
