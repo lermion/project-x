@@ -3452,7 +3452,7 @@ body.public.user #wrapper {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	right: 0;
+	right: 50%;
 	z-index: -1;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
@@ -3461,7 +3461,7 @@ body.public.user #wrapper {
 	margin-left: -350px;
 	left: 50%;
 	position: absolute;
-	// margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
 	right: 50%;
@@ -3986,6 +3986,7 @@ body.ngdialog-open {
 	left: 0;
 	right: 0;
 	background: rgba(0,0,0,.6);
+	z-index: -2;
 }
 .content-user #user-page.list-style {
 	box-shadow: none;
