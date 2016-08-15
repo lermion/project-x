@@ -14,7 +14,9 @@ angular.module('placePeopleApp')
 		      }, function(err){
 		        console.log(err);
 		      });
+
 			ymaps.ready(checkUserCountry);
+
 			function checkUserCountry() {
 				var geolocation = ymaps.geolocation;
 				geolocation.get({
@@ -23,8 +25,13 @@ angular.module('placePeopleApp')
 				}).then(function (result) {
 					var metaData = result.geoObjects.get(0).properties.get('metaDataProperty');
 					var countryName = metaData.GeocoderMetaData.AddressDetails.Country.CountryName;
-					alert(countryName);
+					//alert(countryName);
 
+					$scope.countries.forEach(function(elem) {
+						if (elem.name === countryName) {
+							$scope.newUserCountryId = +elem.id;
+						}
+					});
 				});
 			}
     	$scope.phoneRegExp = /[0-9]{3,18}/;
@@ -81,6 +88,7 @@ angular.module('placePeopleApp')
     	};
 
     	$scope.setCoutryCode = function(){
+			console.log($scope.newUserCountryId);
     		var countryId = parseInt($scope.newUserCountryId);    		
 	    	$scope.countries.forEach(function(country){
 	    		if (country.id === countryId) {	    			
