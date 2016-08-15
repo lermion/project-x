@@ -129,6 +129,7 @@ class SubscriberController extends Controller
 
                 foreach ($subscribers as &$sub) {
                     $sub->is_sub = Subscriber::isSub($sub->id, Auth::id());
+                    $sub->is_confirmed = Subscriber::isConfirmed($sub->id, Auth::id());
                     $sub->is_online = Online::isOnline($sub->id);
                     if (ChatLockedUser::where(['user_id'=>$id, 'locked_user_id'=>$sub->id])->first()) {
                         $sub->is_lock = true;

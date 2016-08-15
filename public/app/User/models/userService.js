@@ -12,8 +12,12 @@ angular.module('placePeopleApp')
             changeShowAvatar: changeShowAvatar,
             changeIsVisible: changeIsVisible,
             changeLockProfile: changeLockProfile,
-            getSubscribers: getSubscribers
-		};
+            getSubscribers: getSubscribers,
+            getCounterNewSubscribers: getCounterNewSubscribers,
+            confirmSubscriber: confirmSubscriber
+
+
+        };
 
 		function getUserData(login){                
             var defer = $q.defer();
@@ -154,6 +158,54 @@ angular.module('placePeopleApp')
 
             function getSubscribersFailed(error, status) {
                 console.log('XHR Failed for getMySubscribers. ' + status);
+            }
+        }
+
+        /**
+         * Gets the number of subscribers to be approved
+         * @returns {*}
+         */
+        function getCounterNewSubscribers() {
+            return $http({
+                method: 'GET',
+                url: 'user/count_not_confirmed',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getCounterNewSubscribersComplete)
+                .catch(getCounterNewSubscribersFailed);
+
+            function getCounterNewSubscribersComplete(response) {
+                return response.data;
+            }
+
+            function getCounterNewSubscribersFailed(error, status) {
+                console.log('XHR Failed for getCounterNewSubscribers. ' + status);
+            }
+        }
+
+        /**
+         * Confirmation of the subscriber
+         * @returns {*}
+         */
+        function confirmSubscriber(subscriberId) {
+            return $http({
+                method: 'GET',
+                url: 'user/subscribe/confirm/' + subscriberId,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(confirmSubscriberComplete)
+                .catch(confirmSubscriberFailed);
+
+            function confirmSubscriberComplete(response) {
+                return response.data;
+            }
+
+            function confirmSubscriberFailed(error, status) {
+                console.log('XHR Failed for confirmSubscriber. ' + status);
             }
         }
         
