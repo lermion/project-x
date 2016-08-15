@@ -142,7 +142,8 @@ angular.module('placePeopleApp')
     .run(['$rootScope', function($rootScope) {
         $rootScope.counters = {
             groupsNew: null,
-            placesNew: null
+            placesNew: null,
+            subscribersNew: null
         };
         $rootScope.showSearch = false;
         $rootScope.showUserMenu = false;
