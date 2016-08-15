@@ -9,7 +9,7 @@
 .daosn3{height:auto;}
 .daosn4{background-color:#f1f1f1;}
 
-.miniText{width:40px; text-align:center;}
+.miniText{width:60px; text-align:center;display: inline-block;}
 .b{color:#000;}
 .admin-table {
 	padding-right: 5px;
@@ -154,24 +154,31 @@
 .admin-settings-menu {
 	margin: 0;
 }
-.admin-settings-menu div {
-	border: 1px solid black;
+.admin-settings-menu li {
+	border: 1px solid #ddd;
 	line-height: 30px;
 	text-align: center;
 	cursor: pointer;
 	font-weight: bold;
+	list-style: none;
 }
-.admin-settings-menu div:first-child {
+.admin-settings-menu li:first-child {
 	border-right: 0px;
 }
-.admin-settings-menu div.active {
+.admin-settings-menu li.active {
 	background-color: #f1f1f1;
+}
+.admin-settings-menu li:hover {
+	background-color: #f1f1f1;
+}
+.admin-settings-menu li a {
+	text-decoration: none;
 }
 .admin-settings-data h2 {
 	margin: 30px 0 30px 0px;
 }
-.admin-settings-data textarea {
-	width: 100%;
+.admin-settings-data div.col-md-3 {
+	line-height: 34px;
 }
 .admin-settings-data .row {
 	margin-bottom: 20px;
