@@ -113,14 +113,14 @@
                      ngf-select
                      ngf-pattern="'image/*'"
                      ngf-accept="'image/*'"
-                     ngf-min-heiht="280"
+                     ngf-min-heiht="300"
                      ngf-min-width="1200"
                      ngf-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                      ng-model="vm.placeNew.cover1"
                      required
                 >
                     <a href="">
-                        <img ngf-src="vm.placeNew.cover" ngf-no-object-url="true">
+                        <img ngf-src="vm.placeNew.coverPreview" ngf-no-object-url="true">
                     </a>
 
                     <span>Добавить обложку места</span>
