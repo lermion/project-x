@@ -2,6 +2,7 @@
 @section('content')
     <div style="width:100%; height:auto;">
 
+<<<<<<< HEAD
         <h3>Модераторы</h3>
 
         <div style="width:100%; height:auto; margin-bottom:20px;">
@@ -19,17 +20,25 @@
                     <td><p><a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary">Добавить</a></p></td>
                 </tr>
             </table>
+=======
+        <div class="x_content admin-settings">
+            <ul class="row admin-settings-menu">
+                <li class="col-md-3 active"><a href="">Действующие</a></li>
+                <li class="col-md-3"><a href="">Приостановлено</a></li>
+            </ul>
+            <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
+>>>>>>> 442890942c252503c8355b30829be8fbd828e5f8
         </div>
 
-        <table class="table table-striped">
+        <table class="table table-bordered admin-moderators">
             <thead>
             <tr>
                 <th>id</th>
-                <th>Фото</th>
-                <th>Имя</th>
-                <th>Время работы</th>
-                <th>Процесс</th>
-                <th>Действия</th>
+                <th class="text-center photo">Фото</th>
+                <th class="name">Имя</th>
+                <th class="time">Время работы</th>
+                <th class="process">Процесс</th>
+                <th class="do">Действия</th>
             </tr>
             </thead>
             <tbody>
@@ -57,7 +66,12 @@
                         <p>Присутствие: <b>17/19</b></p>
                     </td>
                     <td>
+<<<<<<< HEAD
                         <p style="margin-top:20px;"><a href="/admin/moderator/stop/{{$mod->id}}"button type="button" class="btn btn-warning"> @if ($mod->is_stop == false) Остановить  @else   Востановить @endif </a></p>
+=======
+                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-warning btn-xs">Остановить</button></p>
+                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-info btn-xs">Редактировать</button></p>
+>>>>>>> 442890942c252503c8355b30829be8fbd828e5f8
                     </td>
                 </tr>
             @endforeach
@@ -65,11 +79,9 @@
             </tbody>
         </table>
 
-        <hr />
-
-        <h4 style="margin-top:30px;">Настройки модерации:</h4>
-        <p>Укажите значение для проверки присутствия модераторов: <input class="form-control input-sm" type="text" placeholder="30" style="width:50px;margin-left:10px; display: inline-block;"> мин. </p>
-        <p style="margin-top:30px;"><button type="button" class="btn btn-success">Сохранить</button></p>
+        <h4 style="margin-top:30px;">Настройки модерации</h4>
+        <p>Проверка активности модератора - каждые <input class="miniText form-control" type="text" placeholder="30"> мин.</p>
+        <p><button type="button" class="btn btn-success save">Сохранить</button></p>
 
 
     </div>

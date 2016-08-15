@@ -23,7 +23,8 @@
         var login = storage.username;
 
         var modalEditGroup, modalDeleteGroup, modalInviteUsers,
-            modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage;
+            modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage,
+            modalAlertComment;
         var groupName = $stateParams.groupName;
 
         var newPublicationObj = {
@@ -76,7 +77,7 @@
 
         vm.showFullDescription = false;
 
-        vm.complainIsSend = true;
+        vm.complainIsSend = false;
 
         $scope.myImage = null;
         $scope.myCroppedImage = null;
@@ -405,7 +406,7 @@
 
         vm.openCommentComplainBlock = function (commentId) {
             ngDialog.open({
-                template: '../app/Feed/views/alert-publication.html',
+                template: '../app/Groups/views/alert-publication.html',
                 className: 'alert-publication ngdialog-theme-default',
                 scope: $scope,
                 data: {
@@ -470,7 +471,7 @@
         };
 
         vm.openPubComplainBlock = function (pubId) {
-            ngDialog.open({
+            modalAlertComment = ngDialog.open({
                 template: '../app/Groups/views/alert-publication.html',
                 className: 'alert-publication ngdialog-theme-default',
                 scope: $scope,
@@ -480,10 +481,12 @@
                 },
                 preCloseCallback: function () {
                     vm.complainIsSend = false;
+                    vm.alerts = {};
                 }
             });
         };
 
+        vm.alerts = {};
         vm.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
             var complainCategory = [];
             cat1 ? complainCategory.push(1) : '';
@@ -500,7 +503,7 @@
                             if (res.status) {
                                 vm.complainIsSend = true;
                                 $timeout(function () {
-                                    ngDialog.closeAll();
+                                    modalAlertComment.close();
                                 }, 2000);
                             } else {
                                 console.log('Error');
@@ -657,10 +660,17 @@
         };
 
         vm.updateGroup = function () {
-            if (vm.groupEdited.description !== vm.emoji.emojiMessage.messagetext) {
-                vm.forms.editGroup.$setDirty();
+            if (vm.subForm) {
+                return false;
             }
-            if (vm.forms.editGroup.$pristine) {
+
+            if (vm.groupEdited.description === vm.emoji.emojiMessage.messagetext && vm.forms.editGroup.$pristine) {
+                return false;
+            }
+
+            vm.forms.editGroup.$setSubmitted();
+
+            if (vm.forms.editGroup.$invalid) {
                 return false;
             }
 
@@ -670,7 +680,7 @@
             if (!vm.forms.editGroup.avatar.$dirty) {
                 vm.groupEdited.avatar = null;
             }
-            vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
+
             groupsService.updateGroup(vm.groupEdited)
                 .then(function (data) {
                     if (data.status) {
@@ -1239,31 +1249,34 @@
         socket.on("get group chat dialogue", function (response) {
             $scope.messages = response.messages.reverse();
         });
-        socket.on('updatechat', function (response) {
-            $scope.messages.push(response);
-            if (response.images.length > 0) {
-                vm.group.count_chat_files += response.images.length;
+        socket.forward('updatechat', $scope);
+        $scope.$on('socket:updatechat', function(event, data){
+        	$scope.messages.push(data);
+            if (data.images.length > 0) {
+                vm.group.count_chat_files += data.images.length;
             }
             vm.group.count_chat_message++;
-        });
-        $scope.$on('$destroy', function (event) {
-            socket.removeAllListeners();
         });
         $scope.emojiMessage = {
             replyToUser: function () {
                 $scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id, $scope.files);
             }
         };
-        $scope.checkMessageType = function (message) {
-            var regExp = "^http://" + $location.host() + "/#/(\\w+)/pub(lication)?/(\\d+)$";
-            var match = (new RegExp(regExp)).exec(message.text);
-            if (match) {
-                message.type = 'pub';
-                message.pub = {};
-                message.pub.username = match[1];
-                message.pub.id = parseInt(match[3]);
-            }
-        };
+
+        $scope.checkMessageType = function(message){
+			var regExp = "^http://" + $location.host();
+			var match = (new RegExp(regExp)).exec(message.text);
+			if(match){
+				var publicationUrl = match.input.split("/publication/");
+				if(publicationUrl[1]){
+					message.pub = {};
+					message.type = 'pub';
+					message.pub.username = message.login;
+					message.pub.id = parseInt(publicationUrl[1]);
+				}
+			}
+		};
+
         $scope.loadPubIntoChat = function (message, pubId) {
             if (pubId != undefined) {
                 PublicationService.getSinglePublication(pubId).then(function (response) {
@@ -1376,6 +1389,9 @@
                 $scope.showGroups = function () {
                     return false;
                 }
+                $scope.showPlaces = function () {
+                    return false;
+                }
             } else if (value === "groups") {
                 $scope.showGroups = function () {
                     return true;
@@ -1409,6 +1425,7 @@
                     return false;
                 }
                 placesService.getPlaces().then(function (response) {
+                		console.log(response);
                         $scope.places = response;
                     },
                     function (error) {

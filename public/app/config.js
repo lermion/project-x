@@ -85,31 +85,37 @@ angular.module('placePeopleApp')
                     url: '/list',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-list.html',
+                    isLogin: false
                 })
                 .state('chat.contacts', {
                     url: '/contacts',
                     parent: 'chat',
-                    templateUrl: '../../app/Chat/views/chat-contacts.html'
+                    templateUrl: '../../app/Chat/views/chat-contacts.html',
+                    isLogin: false
                 })
                 .state('chat.blocked', {
                     url: '/blocked',
                     parent: 'chat',
-                    templateUrl: '../../app/Chat/views/chat-blocked.html'
+                    templateUrl: '../../app/Chat/views/chat-blocked.html',
+                    isLogin: false
                 })
                 .state('chat.notification', {
                     url: '/settings',
                     parent: 'chat',
-                    templateUrl: '../../app/Chat/views/chat-notification.html'
+                    templateUrl: '../../app/Chat/views/chat-notification.html',
+                    isLogin: false
                 })
                 .state('chat.mobile', {
                     url: '/m/',
                     parent: 'chat',
-                    templateUrl: '../../app/Chat/views/chat-block.html'
+                    templateUrl: '../../app/Chat/views/chat-block.html',
+                    isLogin: false
                 })
                 .state('chat.contact-mobile', {
                     url: '/c/',
                     parent: 'chat',
-                    templateUrl: '../../app/Chat/views/contact-block.html'
+                    templateUrl: '../../app/Chat/views/contact-block.html',
+                    isLogin: false
                 })
 
                 /*User must be in the end*/
@@ -136,7 +142,8 @@ angular.module('placePeopleApp')
     .run(['$rootScope', function($rootScope) {
         $rootScope.counters = {
             groupsNew: null,
-            placesNew: null
+            placesNew: null,
+            subscribersNew: null
         };
         $rootScope.showSearch = false;
         $rootScope.showUserMenu = false;

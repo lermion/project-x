@@ -16,7 +16,7 @@
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
 			<a class="drop-menu" ng-click="openMenu()" href="javascript:void(0);"></a>
 			<div class="menu-item" ng-show="showMenu">
-				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль</a>
+				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль <span class="places-count-span" ng-if="counters.subscribersNew > 0">@{{counters.subscribersNew}}</span></a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
 				<a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span" ng-if="counters.groupsNew > 0">@{{counters.groupsNew}}</span></a>
 				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
@@ -63,6 +63,7 @@
 	</div>
 	<!-- Scripts -->
 	<script type="text/javascript" src="../../app/libs/jquery-2.1.3.min.js"></script>
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 	<script src="../../app/libs/angular.min.js"></script>
 	<script src="../../app/libs/angular-ui-router.min.js"></script>
 	<script src="../../app/libs/angular-messages.min.js"></script>
@@ -72,6 +73,7 @@
 	<script src="../../app/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../app/libs/css/ng-img-crop.css">
 	<script src="../../app/libs/ng-img-crop.js"></script>
+	<script src="../../app/libs/ng-img-crop-full-extended/compile/minified/ng-img-crop.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../app/libs/ladda/ladda-themeless.min.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/nanoscroller.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/emoji.css">
@@ -97,6 +99,7 @@
 	<script src="../../app/libs/angular-backtop.min.js"></script>
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>
 	<script src="../../app/libs/angucomplete-alt.min.js"></script>
+	<script src="../../app/libs/socket.min.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>
 	<link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />

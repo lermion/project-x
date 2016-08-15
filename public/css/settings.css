@@ -209,21 +209,27 @@
 .contacts_list .user-block:hover {
     background: rgba(0, 0, 0, 0.1);
 }
-.contacts_list .user-info {
+.contacts_list .user-info,
+.user-info {
     padding-top: 4px;
     padding-left: 14px;
     overflow: hidden;
     line-height: 1;
 }
-.contacts_list .user-info__user {
+.contacts_list .user-info__user,
+.user-info__user {
     padding-bottom: 5px;
 }
-.contacts_list .user-info__user a {
+.contacts_list .user-info__user a,
+.user-info__user a {
     text-decoration: none;
     cursor: pointer;
+    color: #333;
 }
 .contacts_list .user-info__status,
-.contacts_list .user-info__online {
+.user-info__status,
+.contacts_list .user-info__online,
+.user-info__online {
     color: #999;
     padding: 0 0 5px 0;
     font-size: 11px;
@@ -6780,13 +6786,25 @@ textarea[type="text"]:focus,
     .static-admin-question-inner {
         width: 100%;
     }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
+        width: 100%;
+        padding: 50px 0;
+        margin-left: 0;
+        height: auto;
+        top: 0;
+        margin-top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
-        width: 98%;
-        margin-left: -50%;
+        width: 96%;
+        margin-left: -48%;
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
-        margin-right: 0;
-        right: 20px;
+       /* margin-right: 0;
+        right: 20px;*/
+        display: none;
     }
  }
  .popup-leave-group-chat .group-peoples-inner-item.active {
@@ -6925,7 +6943,7 @@ textarea[type="text"]:focus,
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
         width: 96%;
-        margin-left: -50%;
+        margin-left: -48%;
     }
     .view-publication .user-publication .user-function .user .user-name,
     .peoples-inner-item-admin.new-admin {
@@ -6962,4 +6980,7 @@ textarea[type="text"]:focus,
 .content-item.search-result__item-publication {
     margin: 15px 0;
     width: 100%;
+}
+.publication-alert-done {
+    text-align: center;
 }

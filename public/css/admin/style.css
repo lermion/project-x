@@ -9,7 +9,7 @@
 .daosn3{height:auto;}
 .daosn4{background-color:#f1f1f1;}
 
-.miniText{width:40px; text-align:center;}
+.miniText{width:60px; text-align:center;display: inline-block;}
 .b{color:#000;}
 .admin-table {
 	padding-right: 5px;
@@ -153,25 +153,30 @@
 }
 .admin-settings-menu {
 	margin: 0;
+	margin-bottom: 10px;
 }
-.admin-settings-menu div {
-	border: 1px solid black;
+.admin-settings-menu li {
+	border: 1px solid #ddd;
 	line-height: 30px;
 	text-align: center;
 	cursor: pointer;
 	font-weight: bold;
+	list-style: none;
 }
-.admin-settings-menu div:first-child {
-	border-right: 0px;
-}
-.admin-settings-menu div.active {
+.admin-settings-menu li.active {
 	background-color: #f1f1f1;
+}
+.admin-settings-menu li:hover {
+	background-color: #f1f1f1;
+}
+.admin-settings-menu li a {
+	text-decoration: none;
 }
 .admin-settings-data h2 {
 	margin: 30px 0 30px 0px;
 }
-.admin-settings-data textarea {
-	width: 100%;
+.admin-settings-data div.col-md-3 {
+	line-height: 34px;
 }
 .admin-settings-data .row {
 	margin-bottom: 20px;
@@ -398,4 +403,44 @@ input.cmn-toggle-round:checked + label:after {
 .admin-moderator-avatar img {
 	width: 100px;
 	height: 100px;
+}
+.add-admin-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+table thead {
+	background-color: #f1f1f1;
+}
+div table.table>thead>tr>th {
+	text-align: center;
+	vertical-align: middle;
+}
+div table.table>tbody>tr:hover {
+	background-color: #f1f1f1;
+}
+table.admin-moderators .photo {
+	width: 10%;
+}
+.admin-moderators .name {
+	width: 20%;
+}
+.admin-moderators .time {
+	width: 20%;
+}
+.admin-moderators .process {
+	width: 25%;
+}
+.admin-moderators .do {
+	width: 20%;
+}
+.btn.btn-success.save {
+	margin-bottom: 15px;
+}
+.table .mini-image img {
+	width: 40px;
+	height: 40px;
+}
+.table .mini-image {
+	width: 140px;
 }

@@ -40,69 +40,10 @@
         <h3 class="b">Сегодня: 48 чел. За неделю: 756 чел. За месяц: 7 569 чел. За год: 250 783 чел.</h3>
         <p><img src="/img/pr/grafik.png" height="240" /> <br>x:Время; y:Деньги;</p>
     </div>
-    <br><br><br><br><br><br>
-
-
-	<div class="x_content">
-		<h1>Панель модератора - комментарии</h1>
-	</div>
-	<div class="x_content moderator-comments">
-		<table class="table table-bordered">
-	    <thead>
-	      <tr>
-	        <th class="col-comments-place">Где оставлен?</th>
-	        <th class="col-comments-text">Текст комментария</th>
-	        <th class="col-comments-author">Автор</th>
-	        <th class="col-comments-action">Действия</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	      <tr>
-	        <td>Название</td>
-	        <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-	        <td>Елена Новикова</td>
-	        <td>
-	        	<p>
-	        		<button class="btn btn-danger">Удалить</button>
-	        	</p>
-	        </td>
-	      </tr>
-          <tr>
-            <td>Название</td>
-            <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-            <td>Елена Новикова</td>
-            <td>
-                <p>
-                    <button class="btn btn-danger">Удалить</button>
-                </p>
-            </td>
-          </tr>
-          <tr>
-            <td>Название</td>
-            <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-            <td>Елена Новикова</td>
-            <td>
-                <p>
-                    <button class="btn btn-danger">Удалить</button>
-                </p>
-            </td>
-          </tr>
-          <tr>
-            <td>Название</td>
-            <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-            <td>Елена Новикова</td>
-            <td>
-                <p>
-                    <button class="btn btn-danger">Удалить</button>
-                </p>
-            </td>
-          </tr>
-	    </tbody>
-	  </table>
-	</div>
-    <br><br><br><br>
     
-    <div class="x_content">
+    <br><br><br><br><br><br>
+    
+    <!-- <div class="x_content">
         <h1>Панель модератора - новые пользователи</h1>
         <div class="admin-user-contacts">
             <table class="table table-bordered">
@@ -181,5 +122,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 @stop

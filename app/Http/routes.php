@@ -15,6 +15,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('group/{name}', 'GroupController@show');
+    Route::get('place/{name}', 'PlaceController@show');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'moderator'], function () {

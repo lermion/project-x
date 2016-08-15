@@ -1,4 +1,4 @@
-<div>
+<div ng-if="!ngDialogData.isCover">
     <div class="cropArea">
         <img-crop image="vm.selectedLogoImage"
                   result-image="vm.myCroppedImage"
@@ -7,5 +7,17 @@
                   result-image-quality="1"
                   result-image-size="220"></img-crop>
     </div>
-    <button ng-click="vm.saveCropp(vm.myCroppedImage);" class="check-in-button">Выбрать</button>
+    <button ng-click="vm.saveCropp(vm.myCroppedImage, false);" class="check-in-button">Выбрать</button>
+</div>
+<div ng-if="ngDialogData.isCover">
+    <div class="cropArea">
+        <img-crop image="vm.selectedLogoImage"
+                  result-image="vm.myCroppedImage"
+                  chargement="'Загрузка ...'"
+                  area-type="rectangle"
+                  area-min-relative-size="{w: 1200, h: 280}"
+                  result-image-size="{w: 1200, h: 280}"
+                  result-image-quality="1"></img-crop>
+    </div>
+    <button ng-click="vm.saveCropp(vm.myCroppedImage, true);" class="check-in-button">Выбрать</button>
 </div>

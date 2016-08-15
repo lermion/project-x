@@ -820,7 +820,8 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 100%;
 	width: 163px;
-	height: 25px; 
+	height: 25px;
+	z-index: 1;
 } 
 .public header .main-menu {
 	width: 45%;
@@ -1692,10 +1693,11 @@ body.public.user {
 		display: none;
 	}
 	#user-page .status-user.adaptiv {
-		padding: 0 20px 15px;
+		padding: 10px 20px 10px;
 		max-width: 100vw;
 			box-sizing: border-box;
 			display: block;
+			background-color: #fff;
 
 	}
 	#user-page textarea {
@@ -1733,14 +1735,15 @@ body.public.user {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0 20px 25px 20px;
+		padding: 10px 20px 10px 20px;
+		background-color: #fff;
 	}
 	.my-profile-item .comunications {
 		display: none;
 	}
-	.comunications.adaptiv .create {
-		border-radius: 4px;
-		font-size: 14.6px;
+	.comunications.adaptiv .create,
+	.comunications.adaptiv .rewrite {
+		font-size: 13.6px;
 		font-family: "SFUIDisplayMedium";
 		padding: 0 10px;
 		margin: 0;
@@ -1749,11 +1752,16 @@ body.public.user {
 		transition: all .3s ease-in-out .1s;
 		text-decoration: none;
 		background-image: none;
-		border: 1px solid #77849b;
+	}
+	.comunications.adaptiv .create {
+		color: #ec6045;
+	}
+	.comunications.adaptiv .create:hover {
+		color: #666;
 	}
 	#user-page .status-correct.adaptiv {
 		margin: 20px;
-			width: 92%;
+		width: 92%;
 	}
 }
 @media (max-width: 450px) {
@@ -1770,9 +1778,10 @@ body.public.user {
 		font-size: 10px;
 	}
 	.adaptiv {
-		padding: 0 5px 25px 5px;
+		padding: 10px 5px 10px 5px;
+		background-color: #fff;
 	}
-	.comunications .rewrite,
+	.comunications.adaptiv .rewrite,
 	.comunications.adaptiv .create {
 		padding: 0 5px;
 		font-size: 13px;
@@ -2411,17 +2420,16 @@ body.public.user {
 
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content{
 	background: transparent;
-	width: 100%;
+	width: 700px;
 	padding:  50px 0;
-	margin-left: 8.5px;
+	margin-left: -350px;
 	height: auto;
 	top: 0;
-		margin-top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		box-sizing: border-box;
-		// animation: ngdialog-flyin .2s;
+	margin-top: 0;
+	left: 50%;
+	right: 0;
+	bottom: 0;
+	box-sizing: border-box;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -2559,6 +2567,9 @@ body.public.user {
 		margin-top: 5px;
 }
 .user-publication-content .publication-images .ngsb-wrap {
+	width: 100%;
+}
+.user-publication-content .publication-images .ngsb-wrap .ngsb-container {
 	width: 100%;
 }
 .publication-images .images-item {
@@ -3191,6 +3202,13 @@ body.public.user {
 
 }
 @media (max-width: 520px) {
+	.add-comment .new-add .inner,
+	.publication .new-add .inner {
+		margin-right: 0;
+		height: 80px;
+		width: 100%;
+		box-sizing: border-box;
+	}
 	.ngdialog.user-publication.ngdialog-theme-default {
 		position: absolute;
 	}
@@ -3441,7 +3459,7 @@ body.public.user #wrapper {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	right: 0;
+	right: 50%;
 	z-index: -1;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
@@ -3450,7 +3468,7 @@ body.public.user #wrapper {
 	margin-left: -350px;
 	left: 50%;
 	position: absolute;
-	// margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
 	right: 50%;
@@ -3975,6 +3993,7 @@ body.ngdialog-open {
 	left: 0;
 	right: 0;
 	background: rgba(0,0,0,.6);
+	z-index: -2;
 }
 .content-user #user-page.list-style {
 	box-shadow: none;
@@ -3982,7 +4001,6 @@ body.ngdialog-open {
 }
 #user-page.list-style .my-profile {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
-	margin-bottom: 20px;
 	background-color: #fff;
 }
 #user-page.list-style .my-photos {
@@ -4018,8 +4036,12 @@ body.ngdialog-open {
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-
-
+.ngdialog.view-publication.ngdialog-theme-default::-webkit-scrollbar {
+ display: none;
+}
+.ngdialog.view-publication.ngdialog-theme-default::-webkit-scrollbar { width: 0 !important }
+.ngdialog.view-publication.ngdialog-theme-default { -ms-overflow-style: none; }
+.ngdialog.view-publication.ngdialog-theme-default { overflow: -moz-scrollbars-none; }
 /* group-chat */
 
 .group-chat {
