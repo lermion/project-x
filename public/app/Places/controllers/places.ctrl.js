@@ -389,33 +389,38 @@
         };
 
 
-        // Forms
-        // Dynamic Place
+        // Crop cover & logo for new places
         vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             if (file) {
 
-                Upload.imageDimensions(file).then(function (dimensions) {
-                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                });
+                //Upload.imageDimensions(file).then(function (dimensions) {
+                //    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                //});
+                //
+                //Upload.resize(file, 1200).then(function (resizedFile) {
+                //    Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                //        console.info('Place: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                //    });
+                //
+                //    vm.placeNew.cover = resizedFile;
+                //    vm.form.placeNew.cover.$setValidity('required', true);
+                //    vm.form.placeNew.cover.$valid = true;
+                //});
 
-                Upload.resize(file, 1200).then(function (resizedFile) {
-                    Upload.imageDimensions(resizedFile).then(function (dimensions) {
-                        console.info('Place: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                    });
+                var isCoverCropMode = true;
 
-                    vm.placeNew.cover = resizedFile;
-                    vm.form.placeNew.cover.$setValidity('required', true);
-                    vm.form.placeNew.cover.$valid = true;
-                });
+                openModalCropLogoImage(file.name, event, isCoverCropMode);
             }
 
         };
         vm.changePlaceLogoFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             if (file) {
-                openModalCropLogoImage(file.name, event);
+
+                var isCoverCropMode = false;
+
+                openModalCropLogoImage(file.name, event, isCoverCropMode);
             }
         };
-
         vm.saveCropp = function (croppedDataURL) {
 
             var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
@@ -428,6 +433,7 @@
 
             modalCropLogoImage.close();
         };
+
 
         vm.togglePlaceView = function (index) {
 
@@ -505,7 +511,7 @@
             //});
         }
 
-        function openModalCropLogoImage(fileName, e) {
+        function openModalCropLogoImage(fileName, e, isCoverMode) {
             var file = e.currentTarget.files[0];
             if (file) {
                 var reader = new FileReader();
@@ -517,7 +523,10 @@
                         modalCropLogoImage = ngDialog.open({
                             template: '../app/Places/views/popup-crop-image.html',
                             className: 'settings-add-ava ngdialog-theme-default',
-                            scope: $scope
+                            scope: $scope,
+                            data: {
+                                isCover: isCoverMode
+                            }
                         });
                     });
                 };
@@ -626,7 +635,7 @@
         vm.beforeInit = function () {
                 var geolocation = ymaps.geolocation;
                 geolocation.get({
-                    provider: 'yandex',
+                    provider: 'browser',
                     mapStateAutoApply: true
                 }).then(function (result) {
                     //vm.geoObject.geometry.coordinates = result.geoObjects.position;
