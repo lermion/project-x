@@ -2413,17 +2413,16 @@ body.public.user {
 
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content{
 	background: transparent;
-	width: 100%;
+	width: 700px;
 	padding:  50px 0;
-	margin-left: 8.5px;
+	margin-left: -350px;
 	height: auto;
 	top: 0;
-		margin-top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		box-sizing: border-box;
-		// animation: ngdialog-flyin .2s;
+	margin-top: 0;
+	left: 50%;
+	right: 0;
+	bottom: 0;
+	box-sizing: border-box;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
@@ -4029,8 +4028,12 @@ body.ngdialog-open {
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-
-
+.ngdialog.view-publication.ngdialog-theme-default::-webkit-scrollbar {
+ display: none;
+}
+.ngdialog.view-publication.ngdialog-theme-default::-webkit-scrollbar { width: 0 !important }
+.ngdialog.view-publication.ngdialog-theme-default { -ms-overflow-style: none; }
+.ngdialog.view-publication.ngdialog-theme-default { overflow: -moz-scrollbars-none; }
 /* group-chat */
 
 .group-chat {
