@@ -49,23 +49,22 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <?php if(isset($_GET['mod'])){ ?>
-                        <h3>Moderator</h3>
+                        <?php echo $moderator['is_admin']; ?>
+                        <?php if($moderator['is_admin'] == false){ ?>
+                            <h3>Moderator</h3>
                         <ul class="nav side-menu">
-                            <li><a href="{{ action('Admin\ModeratorController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li> <!-- Публикации, места, публичные группы -->
-                            <li><a href="users_m.php?mod"><i class="fa fa-child"></i> Новые пользователи</a></li> <!-- адекватность [блокирует] -->
-                            <li><a href="mesta.php?mod"><i class="fa fa-child"></i> Места</a></li>
-                            <li><a href="index2.php?mod"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
-                            <li><a href="index5.php?mod"><i class="fa fa-comments-o"></i> Комментарии</a></li>
-                            <li><a href="index4.php?mod"><i class="fa fa-bell-slash-o"></i> Управление спамом</a></li>
+                            <li><a href="/admin/"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>
+                            <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li> <!-- Публикации, места, публичные группы -->
+                            <li><a href="/admin/user"><i class="fa fa-child"></i> Пользователи</a></li> <!-- адекватность [блокирует] -->
+                            <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
+                            <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-comments-o"></i> Комментарии</a></li>
 
                             <!-- отправить предупреждение [блокирует] -->
 
                             <li><a><i class="fa fa-database"></i> База <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" style="display: none">
-                                    <li><a href="form.html?mod">Адреса</a></li>
-                                    <li><a href="form_advanced.html?mod">Университеты</a></li>
-                                    <li><a href="form_validation.html?mod">Школы</a></li>
+                                    <li><a href="#">Страны</a></li>
+                                    <li><a href="#">Города</a></li>
                                 </ul>
                             </li>
 
@@ -82,10 +81,15 @@
                             <!--<li><a href="#"><i class="fa fa-institution"></i> Услуги</a></li>-->
                             <li><a href="{{ action('Admin\LockContentController@index') }}"><i class="fa fa-trash"></i> На удаление</a></li>
                             <li><a href="{{ action('Admin\OptionController@index') }}"><i class="fa fa-cogs"></i> Настройки</a></li>
-                            <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-cogs"></i> Жалобы</a></li>
-                            <li><a href="{{ action('Admin\CountryController@index') }}"><i class="fa fa-cogs"></i> База</a></li>
-                            <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-cogs"></i> Модерация</a></li>
-                            <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-cogs"></i> Комментарии</a></li>
+                            <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
+                            <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li>
+                            <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-comments-o"></i> Комментарии</a></li>
+                            <li><a><i class="fa fa-database"></i> База <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu" style="display: none">
+                                    <li><a href="#">Страны</a></li>
+                                    <li><a href="#">Города</a></li>
+                                </ul>
+                            </li>
                         </ul>
                         <?php } ?>
                     </div>
@@ -93,7 +97,11 @@
                 <!-- /sidebar menu -->
 
                 <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small"> <a data-toggle="tooltip" data-placement="top" title="Settings"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a> <a data-toggle="tooltip" data-placement="top" title="FullScreen"> <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> </a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> </a> <a data-toggle="tooltip" data-placement="top" title="Logout"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> </div>
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen"> <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> </a>
+                    <a href="{{ action('Admin\AuthController@logout') }}" data-toggle="tooltip" data-placement="top" title="Logout"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> </div>
                 <!-- /menu footer buttons -->
             </div>
         </div>
@@ -109,7 +117,7 @@
                                 <li><a href="javascript:;"> Профайл</a> </li>
                                 <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Настройки</span> </a> </li>
                                 <li> <a href="javascript:;">Помощь</a> </li>
-                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Выход</a> </li>
+                                <li><a href="{{ action('Admin\AuthController@logout') }}"><i class="fa fa-sign-out pull-right"></i> Выход</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -123,7 +131,7 @@
 
             <!-- top tiles --><!-- /top tiles --><br />
                 @yield('content')
-        </div>
+    </div>
         <!-- /page content -->
     </div>
 </div>

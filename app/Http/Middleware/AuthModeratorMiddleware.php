@@ -17,7 +17,7 @@ class AuthModeratorMiddleware
     public function handle($request, Closure $next)
     {
         if (!$request->session()->has('moderator')){
-            return redirect()->action('Moderator\AuthController@login');
+            return redirect()->action('Admin\AuthController@login');
         }
         view()->share('moderator', Moderator::find($request->session()->get('moderator')->id));
         return $next($request);

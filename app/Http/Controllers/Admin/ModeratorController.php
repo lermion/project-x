@@ -18,7 +18,7 @@ class ModeratorController extends Controller
      */
     public function index()
     {
-        $moderators = Moderator::all();
+        $moderators = Moderator::where('is_stop',false)->get();
         return view('admin.moderator.index')->with('moderators', $moderators);
     }
 
@@ -52,60 +52,69 @@ class ModeratorController extends Controller
 
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $moderator = Moderator::create($data);
-        if($data['weekday1']){
+        $from_time = $data['from_time'];
+        $to_time = $data['to_time'];
+        $weekday = $data['weekday'];
+        if (isset ($weekday[1]) && $weekday[1]=='on'){
             WorkingHoursModerator::create(
-                ['weekday'=>1,'from_time'=>$data['from_time1'],
-                    'to_time'=>$data['to_time1'],
+                ['weekday'=>1,'from_time'=>$from_time[1],
+                    'to_time'=>$to_time[1],
                     'moderator_id'=>$moderator['id']
-                ]);
-        }
-        if($data['weekday2']){
-            WorkingHoursModerator::create(
-                ['weekday'=>2,'from_time'=>$data['from_time2'],
-                    'to_time'=>$data['to_time2'],
-                    'moderator_id'=>$moderator['id']
-                ]);
-        }
-        if($data['weekday3']){
-            WorkingHoursModerator::create(
-                ['weekday'=>3,'from_time'=>$data['from_time3'],
-                    'to_time'=>$data['to_time3'],
-                    'moderator_id'=>$moderator['id']
-                ]);
-        }
-        if($data['weekday4']){
-            WorkingHoursModerator::create(
-                ['weekday'=>4,'from_time'=>$data['from_time4'],
-                    'to_time'=>$data['to_time4'],
-                    'moderator_id'=>$moderator['id']
-                ]);
-        }
-        if($data['weekday5']){
-            WorkingHoursModerator::create(
-                ['weekday'=>5,'from_time'=>$data['from_time5'],
-                    'to_time'=>$data['to_time5'],
-                    'moderator_id'=>$moderator['id']
-                ]);
-        }
-        if($data['weekday6']){
-        WorkingHoursModerator::create(
-            ['weekday'=>6,'from_time'=>$data['from_time6'],
-                'to_time'=>$data['to_time6'],
-                'moderator_id'=>$moderator['id']
-            ]);
-        }
-        if($data['weekday7']){
-            WorkingHoursModerator::create(
-                ['weekday'=>7,'from_time'=>$data['from_time7'],
-                    'to_time'=>$data['to_time7'],
-                    'moderator_id'=>$moderator['id']
-                ]);
-        }
-//        $result = [
-//            "status" => true];
-//        return response()->json($result);
+                    ]);
+            };
 
-        return redirect('admin/moderator/')->with('message', 'Модератор добавленн');
+        if (isset ($weekday[2]) && $weekday[2]=='on'){
+            WorkingHoursModerator::create(
+                ['weekday'=>2,'from_time'=>$from_time[2],
+                    'to_time'=>$to_time[2],
+                    'moderator_id'=>$moderator['id']
+                ]);
+        };
+
+        if (isset ($weekday[3]) && $weekday[3]=='on'){
+            WorkingHoursModerator::create(
+                ['weekday'=>3,'from_time'=>$from_time[3],
+                    'to_time'=>$to_time[3],
+                    'moderator_id'=>$moderator['id']
+                ]);
+        };
+
+        if (isset ($weekday[4]) && $weekday[4]=='on'){
+            WorkingHoursModerator::create(
+                ['weekday'=>4,'from_time'=>$from_time[4],
+                    'to_time'=>$to_time[4],
+                    'moderator_id'=>$moderator['id']
+                ]);
+        };
+
+        if (isset ($weekday[5]) && $weekday[5]=='on'){
+            WorkingHoursModerator::create(
+                ['weekday'=>5,'from_time'=>$from_time[5],
+                    'to_time'=>$to_time[5],
+                    'moderator_id'=>$moderator['id']
+                ]);
+        };
+
+        if (isset ($weekday[6]) && $weekday[6]=='on'){
+            WorkingHoursModerator::create(
+                ['weekday'=>6,'from_time'=>$from_time[6],
+                    'to_time'=>$to_time[6],
+                    'moderator_id'=>$moderator['id']
+                ]);
+        };
+
+        if (isset ($weekday[7]) && $weekday[7]=='on'){
+            WorkingHoursModerator::create(
+                ['weekday'=>7,'from_time'=>$from_time[7],
+                    'to_time'=>$to_time[7],
+                    'moderator_id'=>$moderator['id']
+                ]);
+        };
+
+
+//        return response()->json($data);
+
+        return redirect('admin/moderator/');
     }
 
     private function getAvatarPath($photo)
@@ -125,7 +134,17 @@ class ModeratorController extends Controller
      */
     public function stop($id)
     {
-        return redirect('admin/moderator/')->with('message', 'Модератор остановлен');
+        $moderator = Moderator::find($id);
+        $moderator->is_stop = !$moderator->is_stop;
+        $moderator->save();
+        $moderators = Moderator::where('is_stop',true)->get();
+        return view('admin.moderator.index')->with('moderators', $moderators);
+    }
+
+    public function stopped()
+    {
+        $moderators = Moderator::where('is_stop',true)->get();
+        return view('admin.moderator.index')->with('moderators', $moderators);
     }
 
     /**
@@ -148,7 +167,9 @@ class ModeratorController extends Controller
      */
     public function update($id)
     {
-        return view('admin.moderator.create');
+        $moderators = Moderator::find($id);
+        $moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id);
+        return view('admin.moderator.update')->with('moderators', $moderators);
     }
 
     /**

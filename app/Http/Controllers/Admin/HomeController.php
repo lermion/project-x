@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+//use Illuminate\Support\Facades\Gate;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function index(){
-        return view('admin.index');
+    public function index(Request $request){
+        return view('admin.index', ['admin' => $request->session()->get('moderator')]);
     }
 }
