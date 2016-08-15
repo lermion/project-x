@@ -2563,6 +2563,9 @@ body.public.user {
 .user-publication-content .publication-images .ngsb-wrap {
 	width: 100%;
 }
+.user-publication-content .publication-images .ngsb-wrap .ngsb-container {
+	width: 100%;
+}
 .publication-images .images-item {
 	width: 97px;
 	overflow: hidden;
@@ -3193,6 +3196,13 @@ body.public.user {
 
 }
 @media (max-width: 520px) {
+	.add-comment .new-add .inner,
+	.publication .new-add .inner {
+		margin-right: 0;
+		height: 80px;
+		width: 100%;
+		box-sizing: border-box;
+	}
 	.ngdialog.user-publication.ngdialog-theme-default {
 		position: absolute;
 	}
