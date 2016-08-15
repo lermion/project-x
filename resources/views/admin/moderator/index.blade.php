@@ -46,8 +46,8 @@
                         <p>Присутствие: <b>17/19</b></p>
                     </td>
                     <td>
-                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-warning">Остановить</button></p>
-                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-info">Редактировать</button></p>
+                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-warning btn-xs">Остановить</button></p>
+                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-info btn-xs">Редактировать</button></p>
                     </td>
                 </tr>
             @endforeach
