@@ -660,10 +660,17 @@
         };
 
         vm.updateGroup = function () {
-            if (vm.groupEdited.description !== vm.emoji.emojiMessage.messagetext) {
-                vm.forms.editGroup.$setDirty();
+            if (vm.subForm) {
+                return false;
             }
-            if (vm.forms.editGroup.$pristine) {
+
+            if (vm.groupEdited.description === vm.emoji.emojiMessage.messagetext && vm.forms.editGroup.$pristine) {
+                return false;
+            }
+
+            vm.forms.editGroup.$setSubmitted();
+
+            if (vm.forms.editGroup.$invalid) {
                 return false;
             }
 
@@ -673,7 +680,7 @@
             if (!vm.forms.editGroup.avatar.$dirty) {
                 vm.groupEdited.avatar = null;
             }
-            vm.groupEdited.description = vm.emoji.emojiMessage.messagetext;
+
             groupsService.updateGroup(vm.groupEdited)
                 .then(function (data) {
                     if (data.status) {

@@ -72,6 +72,7 @@
 	<script src="../../app/libs/ng-flow/dist/ng-flow-standalone.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../app/libs/css/ng-img-crop.css">
 	<script src="../../app/libs/ng-img-crop.js"></script>
+	<script src="../../app/libs/ng-img-crop-full-extended/compile/minified/ng-img-crop.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../app/libs/ladda/ladda-themeless.min.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/nanoscroller.css">
 	<link rel="stylesheet" type="text/css" href="../../app/libs/emoji.css">

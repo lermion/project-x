@@ -32,17 +32,13 @@
     </script>
 
     <div class="x_content">
-        <h3>Статичные страницы в промо {{session()->get('message')}}</h3>
+        <h3>Промо страницы {{session()->get('message')}}</h3>
 
         <ul>
             @foreach($pages as $page)
                 <li><a href="{{action('Admin\StaticPageController@show', ['id'=>$page->id])}}">{{$page->description}}</a></li>
             @endforeach
         </ul>
-
-        <br>
-
-        <br>
         <p>
             <a type="button" href="/admin/static_page/create" class="btn btn-primary">Добавить страницу</a>
         </p>

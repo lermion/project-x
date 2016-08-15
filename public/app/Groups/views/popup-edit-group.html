@@ -40,11 +40,16 @@
 
         <div class="text-field">
             <div emoji-form emoji-message="vm.emoji.emojiMessage">
-                <textarea id="messageInput" ng-model="vm.emoji.emojiMessage.messagetext"></textarea>
+                <textarea id="messageInput" name="description"
+                          ng-model="vm.emoji.emojiMessage.messagetext" required></textarea>
                 <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
                     <i class="icon icon-emoji"></i>
                 </a>
             </div>
+        </div>
+        <div class="error-messages" ng-messages="vm.forms.editGroup.description.$error"
+             ng-if="vm.forms.editGroup.$invalid && vm.forms.editGroup.$submitted">
+            <div ng-message="required">Вы не указали описание группы</div>
         </div>
 
         <div class="button">
