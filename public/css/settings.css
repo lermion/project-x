@@ -6786,9 +6786,20 @@ textarea[type="text"]:focus,
     .static-admin-question-inner {
         width: 100%;
     }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
+        width: 100%;
+        padding: 50px 0;
+        margin-left: 0;
+        height: auto;
+        top: 0;
+        margin-top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
-        width: 98%;
-        margin-left: -50%;
+        width: 96%;
+        margin-left: -48%;
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
        /* margin-right: 0;
@@ -6932,7 +6943,7 @@ textarea[type="text"]:focus,
     }
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
         width: 96%;
-        margin-left: -50%;
+        margin-left: -48%;
     }
     .view-publication .user-publication .user-function .user .user-name,
     .peoples-inner-item-admin.new-admin {
