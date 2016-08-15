@@ -820,7 +820,8 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 100%;
 	width: 163px;
-	height: 25px; 
+	height: 25px;
+	z-index: 1;
 } 
 .public header .main-menu {
 	width: 45%;
