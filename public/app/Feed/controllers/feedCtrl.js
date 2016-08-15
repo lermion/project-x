@@ -58,6 +58,9 @@ angular.module('placePeopleApp')
             });
 
             /*Page content*/
+
+            var alertPubCommentModal;
+
             $scope.ngRepeatHasRendered = function () {
                 window.emojiPicker = new EmojiPicker({
                     emojiable_selector: '[data-emojiable=true]',
@@ -68,7 +71,7 @@ angular.module('placePeopleApp')
                 $(".emoji-button").text("");
             }
             amMoment.changeLocale('ru');
-            $scope.loggedUserId = storage.userId;
+            $scope.loggedUserId = +storage.userId;
             $scope.commentModel = {pubText: ''};
             var emptyPost = {pubText: ''};
 
@@ -668,7 +671,7 @@ angular.module('placePeopleApp')
             };
 
             $scope.openPubComplainBlock = function (pubId) {
-                ngDialog.open({
+                alertPubCommentModal = ngDialog.open({
                     template: '../app/Feed/views/alert-publication.html',
                     className: 'alert-publication ngdialog-theme-default',
                     scope: $scope,
@@ -678,10 +681,12 @@ angular.module('placePeopleApp')
                     },
                     preCloseCallback: function () {
                         $scope.complainIsSend = false;
+                        $scope.alerts = {};
                     }
                 });
             };
 
+            $scope.alerts = {};
             $scope.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
                 var complainCategory = [];
                 cat1 ? complainCategory.push(1) : '';
@@ -698,7 +703,7 @@ angular.module('placePeopleApp')
                                 if (res.status) {
                                     $scope.complainIsSend = true;
                                     $timeout(function () {
-                                        ngDialog.closeAll();
+                                        alertPubCommentModal.close();
                                     }, 2000);
 
                                 } else {
