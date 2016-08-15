@@ -115,7 +115,7 @@
 								<div class="user-menu-top-inner chat-in">			
 									<a href="javascript:void(0);">Переслать</a>
 									<a href="javascript:void(0);">Получить ссылку</a>
-									<a href="javascript:void(0);">Пожаловаться</a>
+									<a href="javascript:void(0);" ng-if="message.pub.user_id !== loggedUserId">Пожаловаться</a>
 								</div>
 							</div>
 						</div>

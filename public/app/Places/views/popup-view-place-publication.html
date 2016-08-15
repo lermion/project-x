@@ -19,7 +19,7 @@
                         <a href ng-if="vm.place.is_admin" ng-click="vm.editPub(vm.activePublication)">Изменить</a>
                         <a href ng-click="sharePub(vm.activePublication.id)">Переслать</a>
                         <a href ng-click="vm.getPubLink(vm.activePublication)">Получить ссылку</a>
-                        <a href ng-click="vm.openPubComplainBlock(vm.activePublication.id)">Пожаловаться</a>
+                        <a href ng-if="vm.activePublication.user_id !== vm.myId" ng-click="vm.openPubComplainBlock(vm.activePublication.id)">Пожаловаться</a>
                         <a href ng-if="vm.place.is_admin" ng-click="vm.deletePub(vm.activePublication)">Удалить</a>
                     </div>
                 </div>

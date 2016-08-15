@@ -39,7 +39,7 @@
 								<div class="inner">									
 									<a href="" ng-click="sharePub(pub.id)">Переслать</a>
 									<a href="" ng-click="getPubLink(pub.id)">Получить ссылку</a>
-									<a href="" ng-click="openPubComplainBlock(pub.id)">Пожаловаться</a>
+									<a href ng-if="pub.user_id !== loggedUserId" ng-click="openPubComplainBlock(pub.id)">Пожаловаться</a>
 								</div>
 							</div>
 						</div>

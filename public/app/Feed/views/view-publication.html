@@ -17,7 +17,7 @@
 						<!-- <a href="" ng-click="editPub(singlePublication)">Редактировать</a> -->
 						<a href="" ng-click="sharePub(singlePublication)">Переслать</a>
 						<a href="" ng-click="getPubLink(singlePublication)">Получить ссылку</a>
-						<a href="" ng-click="openPubComplainBlock(singlePublication.id)">Пожаловаться</a>
+						<a href ng-if="singlePublication.user_id !== loggedUserId" ng-click="openPubComplainBlock(singlePublication.id)">Пожаловаться</a>
 						<!-- <a href="" ng-click="deletePub(singlePublication)">Удалить</a> -->
 					</div>
 				</div>

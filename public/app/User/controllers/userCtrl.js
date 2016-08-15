@@ -124,6 +124,9 @@ angular.module('placePeopleApp')
                 }
             };
 
+            // Modals
+            var alertPubCommentModal;
+
             var w = angular.element($window);
             var photosBlock = angular.element(document.querySelector('#user-page .my-photos'))[0];
 
@@ -995,7 +998,7 @@ angular.module('placePeopleApp')
             };
 
             $scope.alertPubComment = function (commentId) {
-                ngDialog.open({
+                alertPubCommentModal = ngDialog.open({
                     template: '../app/User/views/alert-publication.html',
                     className: 'alert-publication ngdialog-theme-default',
                     scope: $scope,
@@ -1005,9 +1008,13 @@ angular.module('placePeopleApp')
                     },
                     preCloseCallback: function () {
                         $scope.complainIsSend = false;
+                        $scope.alerts = {};
                     }
                 });
             };
+
+
+            $scope.alerts = {};
 
             $scope.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
                 var complainCategory = [];
@@ -1023,10 +1030,10 @@ angular.module('placePeopleApp')
                             if (res.status) {
                                 $scope.complainIsSend = true;
                                 $timeout(function () {
-                                    ngDialog.closeAll();
+                                    alertPubCommentModal.close();
                                 }, 2000);
                             } else {
-                                onsole.log('Error');
+                                console.log('Error');
                             }
                         },
                         function (err) {
