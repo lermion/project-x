@@ -6981,3 +6981,6 @@ textarea[type="text"]:focus,
     margin: 15px 0;
     width: 100%;
 }
+.publication-alert-done {
+    text-align: center;
+}
