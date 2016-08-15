@@ -1249,15 +1249,13 @@
         socket.on("get group chat dialogue", function (response) {
             $scope.messages = response.messages.reverse();
         });
-        socket.on('updatechat', function (response) {
-            $scope.messages.push(response);
-            if (response.images.length > 0) {
-                vm.group.count_chat_files += response.images.length;
+        socket.forward('updatechat', $scope);
+        $scope.$on('socket:updatechat', function(event, data){
+        	$scope.messages.push(data);
+            if (data.images.length > 0) {
+                vm.group.count_chat_files += data.images.length;
             }
             vm.group.count_chat_message++;
-        });
-        $scope.$on('$destroy', function (event) {
-            socket.removeAllListeners();
         });
         $scope.emojiMessage = {
             replyToUser: function () {
