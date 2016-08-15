@@ -392,20 +392,10 @@
         // Crop cover & logo for new places
         vm.changePlaceCoverFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             if (file) {
-
-                //Upload.imageDimensions(file).then(function (dimensions) {
-                //    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                //});
-                //
-                //Upload.resize(file, 1200).then(function (resizedFile) {
-                //    Upload.imageDimensions(resizedFile).then(function (dimensions) {
-                //        console.info('Place: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                //    });
-                //
-                //    vm.placeNew.cover = resizedFile;
-                //    vm.form.placeNew.cover.$setValidity('required', true);
-                //    vm.form.placeNew.cover.$valid = true;
-                //});
+                // For show on the form
+                Upload.resize(file, 218, 220, 1, null, null, true).then(function (resizedFile) {
+                    vm.placeNew.coverPreviewToShow = resizedFile;
+                });
 
                 var isCoverCropMode = true;
 
@@ -421,15 +411,26 @@
                 openModalCropLogoImage(file.name, event, isCoverCropMode);
             }
         };
-        vm.saveCropp = function (croppedDataURL) {
+        vm.saveCropp = function (croppedDataURL, isCoverCrop) {
 
             var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
-            Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
-                vm.placeNew.logo = resizedFile;
+            if (isCoverCrop) {
+                Upload.imageDimensions(blob).then(function (dimensions) {
+                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                vm.placeNew.cover = blob;
+                vm.placeNew.coverPreview = vm.placeNew.coverPreviewToShow;
+                vm.form.placeNew.cover.$setValidity('required', true);
+                vm.form.placeNew.cover.$valid = true;
+            } else {
+                Upload.imageDimensions(blob).then(function (dimensions) {
+                    console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                vm.placeNew.logo = blob;
                 vm.form.placeNew.logo.$setValidity('required', true);
                 vm.form.placeNew.logo.$valid = true;
-            });
+            }
 
             modalCropLogoImage.close();
         };
@@ -633,21 +634,21 @@
         };
 
         vm.beforeInit = function () {
-                var geolocation = ymaps.geolocation;
-                geolocation.get({
-                    provider: 'browser',
-                    mapStateAutoApply: true
-                }).then(function (result) {
-                    //vm.geoObject.geometry.coordinates = result.geoObjects.position;
-                    vm.myCoords = result.geoObjects.position;
-                    placesService.getPlaceNearMe(vm.myCoords[0], vm.myCoords[1])
-                        .then(function(data) {
-                            console.log(data);
-                            vm.nearPlaces = data;
+            var geolocation = ymaps.geolocation;
+            geolocation.get({
+                provider: 'browser',
+                mapStateAutoApply: true
+            }).then(function (result) {
+                //vm.geoObject.geometry.coordinates = result.geoObjects.position;
+                vm.myCoords = result.geoObjects.position;
+                placesService.getPlaceNearMe(vm.myCoords[0], vm.myCoords[1])
+                    .then(function (data) {
+                        console.log(data);
+                        vm.nearPlaces = data;
 
-                        });
-                    //$scope.$digest();
-                });
+                    });
+                //$scope.$digest();
+            });
         };
 
         vm.addressSelected = function (selected) {
