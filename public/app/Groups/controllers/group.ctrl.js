@@ -664,7 +664,7 @@
                 return false;
             }
 
-            if (vm.groupEdited.description === vm.emoji.emojiMessage.messagetext) {
+            if (vm.groupEdited.description === vm.emoji.emojiMessage.messagetext && vm.forms.editGroup.$pristine) {
                 return false;
             }
 
