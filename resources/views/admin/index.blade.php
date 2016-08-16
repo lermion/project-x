@@ -42,7 +42,219 @@
     </div>
     
     <br><br><br><br><br><br>
-    
+    <h1>Страны</h1>
+    <div class="base">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Название</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Россия</td>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Польша</td>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Беларусь</td>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+
+
+
+    <br>
+    <h1>Области</h1>
+    <div class="base">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Страна</th>
+                <th>Название</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <th>Днепропетровская область</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Россия</td>
+                <th>Московская область</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <th>Киевская область</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+    <br>
+    <h1>Районы</h1>
+    <div class="base">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Страна</th>
+                <th>Область</th>
+                <th>Название</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <th>Днепропетровская область</th>
+                <th>Днепровский район</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Россия</td>
+                <th>Московская область</th>
+                <th>Московский район</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <th>Киевская область</th>
+                <th>Киевский район</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+    <br>
+    <h1>Населенные пункты</h1>
+    <div class="base">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Страна</th>
+                <th>Область</th>
+                <th>Район</th>
+                <th>Название</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <th>Днепропетровская область</th>
+                <th>Днепровский район</th>
+                <th>Днепродзержинск</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Россия</td>
+                <th>Московская область</th>
+                <th>Московский район</th>
+                <th>Москва</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Украина</td>
+                <th>Киевская область</th>
+                <th>Киевский район</th>
+                <th>Оболонь</th>
+                <td>
+                    <p class="text-center">
+                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                    </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+
+
     <!-- <div class="x_content">
         <h1>Панель модератора - новые пользователи</h1>
         <div class="admin-user-contacts">
