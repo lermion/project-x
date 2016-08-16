@@ -12,8 +12,26 @@ class CountryController extends Controller
 {
     public function index()
     {
-        return view('admin.base.index');
+        return view('admin.base.country');
     }
+
+    public function district()
+    {
+        return view('admin.base.district');
+    }
+
+
+    public function region()
+    {
+        return view('admin.base.region');
+    }
+
+
+    public function settlement()
+    {
+        return view('admin.base.settlement');
+    }
+
 
     public function create(Request $request)
     {

@@ -16,39 +16,19 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($complaints as $complaint)
                   <tr>
-                    <td>1</td>
-                    <td>Публикация</td>
-                    <td>Елена Новикова</td>
-                    <td>John Doe</td>
-                    <td>Спам</td>
+                    <td>{{$complaint->id}}</td>
+                    <td>{{$complaint->comment}}</td>
+                    <td>{{$complaint->user_to_login}}</td>
+                    <td>{{$complaint->user_which_login}}</td>
+                    <td>{{$complaint->complaint}}</td>
                     <td class="admin-user-contacts-action">
-                        <p><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
-                        <p><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
+                        <p><a href="/admin/complaints/delete_complaint_comment/{{$complaint->id}}"><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
+                        <p><a href="/admin/complaints/delete_comment/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
                     </td>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Коментарий</td>
-                    <td>Елена Новикова</td>
-                    <td>John Doe</td>
-                    <td>Оскорбление</td>
-                    <td class="admin-user-contacts-action">
-                        <p><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
-                        <p><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Публикация</td>
-                    <td>Елена Новикова</td>
-                    <td>John Doe</td>
-                    <td>Материал для взрослых</td>
-                    <td class="admin-user-contacts-action">
-                        <p><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
-                        <p><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
-                    </td>
-                  </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
