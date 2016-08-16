@@ -56,7 +56,7 @@ class Publication extends Model
 
     public static function getMainPublication($offset,$limit,$userId = null)
     {
-        $publications = Publication::with(['user', 'videos', 'group', 'images', 'place', 'group'])
+        $publications = Publication::with(['user', 'videos', 'images'])
             ->where(function ($query) use ($userId) {
                 $query->where(['is_main'=> true,'is_moderate'=>true])
                     ->orWhere(function ($query) use ($userId) {
@@ -68,7 +68,24 @@ class Publication extends Model
                                 ->whereRaw('subscribers.user_id = publications.user_id');
                         });
                     });
-            })->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+            })
+            ->where(function($query){
+                $query->whereNotExists(function($query)
+                {
+                    $query->select(DB::raw('id'))
+                        ->from('place_publications')
+                        ->whereRaw('place_publications.publication_id = publications.id');
+                });
+            })
+            ->where(function($query){
+                $query->whereNotExists(function($query)
+                {
+                    $query->select(DB::raw('id'))
+                        ->from('group_publications')
+                        ->whereRaw('group_publications.publication_id = publications.id');
+                });
+            })
+            ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
             //$publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->toArray();
             $publication_coment = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->get();
@@ -91,8 +108,6 @@ class Publication extends Model
     public static function getUserPublication($offset,$limit,$userId)
     {
         $publications = Publication::with(['videos', 'images', 'user'])
-//            ->where('user_id', $userId)
-//            ->where('is_anonym', false)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
             ->where('publications.user_id', $userId)
             ->where('publications.is_anonym', false)
             ->where(function($query){
