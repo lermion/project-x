@@ -4,8 +4,8 @@
 
         <div class="x_content admin-settings">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 active"><a href="{{action('Admin\ModeratorController@index')}}" type="button" class="btn btn-primary">Действующие</a></li>
-                <li class="col-md-3"><a href="{{action('Admin\ModeratorController@stopped')}}" type="button" class="btn btn-primary">Приостановлено</a></li>
+                <li class="col-md-3 active"><a href="{{action('Admin\ModeratorController@index')}}">Действующие</a></li>
+                <li class="col-md-3"><a href="{{action('Admin\ModeratorController@stopped')}}">Приостановлено</a></li>
             </ul>
             <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
         </div>
