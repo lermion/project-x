@@ -440,7 +440,7 @@ angular.module('placePeopleApp')
 			};
 			$scope.indexCurrentImage = 0;
 			$scope.openPreviousInfo = function(images){
-				if(images.length > 1){
+				if(images.length >= 1){
 					$scope.indexCurrentImage--;
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
@@ -451,7 +451,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.openNextInfo = function(images){
-				if(images.length > 1){
+				if(images.length >= 1){
 					$scope.indexCurrentImage++;
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
