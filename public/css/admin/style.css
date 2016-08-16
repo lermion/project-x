@@ -387,9 +387,6 @@ input.cmn-toggle-round:checked + label:after {
 .moderator-comments .col-comments-action {
 	width: 10%;
 }
-.moderator-complaints table p {
-	margin-bottom: 0px;
-}
 .moderator-time-to-work p {
 	margin: 0 5px;
 }
@@ -491,4 +488,32 @@ table.admin-moderators .photo {
 }
 .moderator-content-table.groups .col-do {
 	width: 10%;
+}
+.moderator-complaints .col-id {
+	width: 4%;
+}
+.moderator-complaints .col-text {
+	width: 15%;
+}
+.moderator-complaints .col-author {
+	width: 10%;
+}
+.moderator-complaints .col-img {
+	width: 15%;
+}
+.moderator-complaints .col-who {
+	width: 10%;
+}
+.moderator-complaints .col-complains {
+	width: 10%;
+}
+.moderator-complaints .col-do {
+	width: 35%;
+}
+.moderator-complaints table tbody tr td {
+	vertical-align: middle;
+}
+.buttons, button, .btn {
+     margin-bottom: 0px; 
+    margin-right: 5px;
 }
