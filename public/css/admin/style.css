@@ -639,3 +639,12 @@ table.admin-users .col-do {
 	display: block;
 	width: 100%;
 }
+.promo li {
+	margin-bottom: 5px;
+}
+.promo-create form label {
+	margin-bottom: 5px;
+}
+.promo-create form .form-control {
+	width: 300px;
+}
