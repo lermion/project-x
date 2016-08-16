@@ -445,9 +445,13 @@ angular.module('placePeopleApp')
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
-						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication -= 1];
-						if($scope.singlePublication.images[0] !== undefined){
-							$scope.mainImage = $scope.singlePublication.images[0].url;
+						if($scope.indexCurrentPublication !== 0){
+							$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication -= 1];
+							if($scope.singlePublication.images[0] !== undefined){
+								$scope.mainImage = $scope.singlePublication.images[0].url;
+								$scope.indexCurrentImage = 0;
+							}
+						}else{
 							$scope.indexCurrentImage = 0;
 						}
 					}
@@ -460,9 +464,8 @@ angular.module('placePeopleApp')
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
-						console.log("open next publication");
-						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication += 1];
-						if($scope.userPublications[$scope.indexCurrentPublication] !== undefined){
+						if($scope.indexCurrentPublication + 1 !== $scope.userPublications.length){
+							$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication += 1];
 							if($scope.singlePublication.images[0] !== undefined){
 								$scope.mainImage = $scope.singlePublication.images[0].url;
 								$scope.indexCurrentImage = 0;
@@ -1122,7 +1125,6 @@ angular.module('placePeopleApp')
 				UserService.confirmSubscriber(subscriber.id)
 					.then(function (status) {
 						subscriber.is_confirmed = status;
-						$rootScope.counters.subscribersNew--;
 					});
 			};
 		}]);

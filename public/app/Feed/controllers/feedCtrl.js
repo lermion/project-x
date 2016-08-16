@@ -114,6 +114,43 @@ angular.module('placePeopleApp')
                 });
             };
 
+            $scope.indexCurrentImage = 0;
+			$scope.openPreviousInfo = function(images){
+				if(images.length >= 1){
+					$scope.indexCurrentImage--;
+					if(images[$scope.indexCurrentImage] !== undefined){
+						$scope.mainImage = images[$scope.indexCurrentImage].url;
+					}else{
+						if($scope.indexCurrentPublication !== 0){
+							$scope.singlePublication = $scope.publications[$scope.indexCurrentPublication -= 1];
+							if($scope.singlePublication.images[0] !== undefined){
+								$scope.mainImage = $scope.singlePublication.images[0].url;
+								$scope.indexCurrentImage = 0;
+							}
+						}else{
+							$scope.indexCurrentImage = 0;
+						}
+					}
+				}
+			};
+
+			$scope.openNextInfo = function(images){
+				if(images.length >= 1){
+					$scope.indexCurrentImage++;
+					if(images[$scope.indexCurrentImage] !== undefined){
+						$scope.mainImage = images[$scope.indexCurrentImage].url;
+					}else{
+						if($scope.indexCurrentPublication + 1 !== $scope.publications.length){
+							$scope.singlePublication = $scope.publications[$scope.indexCurrentPublication += 1];
+							if($scope.singlePublication.images[0] !== undefined){
+								$scope.mainImage = $scope.singlePublication.images[0].url;
+								$scope.indexCurrentImage = 0;
+							}
+						}
+					}
+				}
+			};
+
             $scope.sharePub = function (pubId) {
                 sharePublication = ngDialog.open({
                     template: '../app/User/views/share-publication.html',
@@ -632,7 +669,8 @@ angular.module('placePeopleApp')
                     });
             }
 
-            $scope.showPublication = function (pub) {
+            $scope.showPublication = function (pub, index) {
+            	$scope.indexCurrentPublication = index;
                 getSinglePublication(pub.id);
             };
 
