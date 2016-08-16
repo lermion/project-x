@@ -437,10 +437,58 @@ table.admin-moderators .photo {
 .btn.btn-success.save {
 	margin-bottom: 15px;
 }
+.table .mini-image {
+	text-align: center;
+}
 .table .mini-image img {
 	width: 40px;
 	height: 40px;
 }
 .table .mini-image {
 	width: 140px;
+}
+.img-center {
+	text-align: center;
+}
+.moderator-content-table.publication .col-id {
+	width: 5%;
+}
+.moderator-content-table.publication .col-text {
+	width: 25%;
+}
+.moderator-content-table.publication .col-author {
+	width: 10%;
+}
+.moderator-content-table.publication .col-img {
+	width: 15%;
+}
+.moderator-content-table.publication .col-video {
+	width: 15%;
+}
+.moderator-content-table.publication .col-time {
+	width: 10%;
+}
+.moderator-content-table.publication .col-do {
+	width: 10%;
+}
+.moderator-content-table.groups .col-id {
+	width: 5%;
+}
+.moderator-content-table.groups .col-title {
+	width: 20%;
+}
+.moderator-content-table.groups .col-cover {
+	width: 10%;
+}
+.moderator-content-table.groups .col-author {
+	width: 20%;
+}
+.moderator-content-table.groups .col-count {
+	width: 10%;
+}
+.moderator-content-table.groups .col-time {
+	width: 10%;
+}
+.moderator-content-table.groups .col-do {
+	width: 10%;
 }
