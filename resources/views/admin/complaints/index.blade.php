@@ -3,15 +3,22 @@
 @section('content')
 
 	<div class="x_content">
+        <div class="complains-menu">
+            <ul class="row admin-settings-menu">
+                <li class="col-md-3 col-md-offset-3 active"><a href="#">Публикации (<span>10</span>)</a></li>
+                <li class="col-md-3"><a href="#">Комментарии (<span>10</span>)</a></li>
+            </ul>
+        </div>
         <div class="moderator-complaints">
             <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th>id</th>
-                    <th>Сущность</th>
+                    <th>Текст</th>
                     <th>Автор</th>
+                    <th>Картинки</th>
                     <th>Кто пожаловался</th>
-                    <th>Тип жалобы</th>
+                    <th>Жалобы</th>
                     <th>Действия</th>
                   </tr>
                 </thead>
