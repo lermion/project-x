@@ -57,7 +57,7 @@
 		</div>
 		<a href class="comments-count" ng-if="singlePublication.comment_count > 0">{{singlePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments" ng-if="singlePublication.comments.length !== singlePublication.comment_count">
+	<div class="more-comments" ng-show="singlePublication.comments.length !== singlePublication.comment_count && singlePublication.comments.length <= 3">
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
