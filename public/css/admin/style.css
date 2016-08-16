@@ -454,7 +454,7 @@ div table.table>tbody>tr:hover {
 	width: 5%;
 }
 .moderator-content-table.publication .col-text {
-	width: 25%;
+	width: 20%;
 }
 .moderator-content-table.publication .col-author {
 	width: 10%;
@@ -466,31 +466,34 @@ div table.table>tbody>tr:hover {
 	width: 15%;
 }
 .moderator-content-table.publication .col-time {
-	width: 10%;
+	width: 9%;
 }
 .moderator-content-table.publication .col-do {
-	width: 10%;
+	width: 30%;
+}
+.moderator-content-table.publication tbody tr button {
+	margin-bottom: 5px;
 }
 .moderator-content-table.groups .col-id {
-	width: 5%;
+	width: 4%;
 }
 .moderator-content-table.groups .col-title {
-	width: 20%;
+	width: 14%;
 }
 .moderator-content-table.groups .col-cover {
-	width: 10%;
+	width: 5%;
 }
 .moderator-content-table.groups .col-author {
-	width: 20%;
+	width: 10%;
 }
 .moderator-content-table.groups .col-count {
-	width: 10%;
+	width: 7%;
 }
 .moderator-content-table.groups .col-time {
-	width: 10%;
+	width: 7%;
 }
 .moderator-content-table.groups .col-do {
-	width: 10%;
+	width: 22%;
 }
 .moderator-complaints .col-id {
 	width: 4%;
@@ -635,7 +638,8 @@ table.admin-users .col-do {
 .user-groups .col-time {
 	width: 10%;
 }
-.admin-user-menu li a {
+.admin-user-menu li a,
+.admin-settings-menu li a {
 	display: block;
 	width: 100%;
 }
