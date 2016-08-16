@@ -30,8 +30,12 @@
                 <div class="group-menu" ng-if="!vm.isMobile">
                     <div class="group-menu-item">
                         <div class="place-publication-menu" ng-if="vm.showPubSwitch && $root.isAuthorized">
-                            <a href class="place-publication-menu-table active"></a>
-                            <a href class="place-publication-menu-list"></a>
+                            <a href class="place-publication-menu-table"
+                               ng-class="vm.photosGrid ? 'active' : ''"
+                               ng-click="vm.pubViewStyleChange(true);"></a>
+                            <a href class="place-publication-menu-list"
+                               ng-class="!vm.photosGrid ? 'active' : ''"
+                               ng-click="vm.pubViewStyleChange(false);"></a>
                         </div>
                         <div class="counts">
                             <a ui-sref="group.publications" eat-click-if="!$root.isAuthorized" ui-sref-active="active"

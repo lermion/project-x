@@ -111,8 +111,6 @@ angular.module('placePeopleApp')
 					return;
 				}
 				if(toState.name !== 'auth'
-					&& toState.name !== 'group.publications'
-					&& toState.name !== 'place.publications'
 					&& toState.name !== 'restore'
 					&& toState.name !== 'reg'
 					&& toState.name !== 'place'
@@ -137,7 +135,8 @@ angular.module('placePeopleApp')
 				function(error){
 					console.log(error);
 				});
-					
+
+				if ($rootScope.isAuthorized) {
 					// Header counters
 					groupsService.getCounterNewGroups().then(function (data) {
 						$rootScope.counters.groupsNew = data;
@@ -148,6 +147,8 @@ angular.module('placePeopleApp')
 					UserService.getCounterNewSubscribers().then(function (data) {
 						$rootScope.counters.subscribersNew = data.confirmed;
 					});
+				}
+
 
 
 					if (toState.name !== 'search' &&
