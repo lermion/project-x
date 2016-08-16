@@ -268,10 +268,25 @@
 		};
 
 		vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+			newFiles.forEach(function(image) {
+				resizeImage(image);
+			});
 			if (vm.files.length > 4 || files > 4) {
 				$scope.$broadcast('rebuild:me');
 			}
 		};
+		function resizeImage(image) {
+			Upload.imageDimensions(image).then(function (dimensions) {
+				console.info('Place publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+			});
+
+			Upload.resize(image, 700, 395).then(function (resizedFile) {
+				Upload.imageDimensions(resizedFile).then(function (dimensions) {
+					console.info('Place publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+				});
+				vm.files.push(resizedFile);
+			});
+		}
 
 		vm.addNewComment = function (flag, pub, pubText, files) {
 			vm.commentForm.$setSubmitted();

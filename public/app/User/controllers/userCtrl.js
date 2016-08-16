@@ -428,7 +428,10 @@ angular.module('placePeopleApp')
 
 			};
 
-			$scope.pubFiles = function (files, event, flow) {
+			$scope.pubFiles = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+				newFiles.forEach(function(image) {
+					resizeImage(image);
+				});
 				if (files.length > 4) {
 					$scope.pubFilesNeedScroll = true;
 				} else if (files.length > 100) {
@@ -436,6 +439,23 @@ angular.module('placePeopleApp')
 				}
 				$scope.$broadcast('rebuild:me');
 			};
+
+			$scope.pubNew = {
+				files: []
+			};
+
+			function resizeImage(image) {
+				Upload.imageDimensions(image).then(function (dimensions) {
+					console.info('User publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+				});
+
+				Upload.resize(image, 700, 395).then(function (resizedFile) {
+					Upload.imageDimensions(resizedFile).then(function (dimensions) {
+						console.info('User publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+					});
+					$scope.pubNew.files.push(resizedFile);
+				});
+			}
 
 			$scope.fileTypeCheck = function (filetype) {
 				var type = filetype.split('/')[0];
@@ -518,9 +538,9 @@ angular.module('placePeopleApp')
 					$(".emoji-button").text("");
 				}
 			});
-			$scope.publishNewPub = function (files, pubText) {
+			$scope.publishNewPub = function (pubText) {
 				var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
-				if (files === undefined || files.length == 0) {
+				if ($scope.pubNew.files === undefined || $scope.pubNew.files.length == 0) {
 					$scope.publishNewPubErr = true;
 					return;
 				}
@@ -537,7 +557,7 @@ angular.module('placePeopleApp')
 				} else {
 					isMain = 0;
 				}
-				files.forEach(function (file) {
+				$scope.pubNew.files.forEach(function (file) {
 					var type = file.type.split('/')[0];
 					if (type === 'image') {
 						images.push(file);
