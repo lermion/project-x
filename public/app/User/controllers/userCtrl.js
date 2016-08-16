@@ -1120,6 +1120,7 @@ angular.module('placePeopleApp')
 				UserService.confirmSubscriber(subscriber.id)
 					.then(function (status) {
 						subscriber.is_confirmed = status;
+						$rootScope.counters.subscribersNew--;
 					});
 			};
 		}]);
