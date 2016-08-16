@@ -45,19 +45,19 @@
                             </a>
                         </div>
                         <div class="counts">
-                            <a ui-sref="place.publications" ui-sref-active="active" class="counter">
+                            <a ui-sref="place.publications" eat-click-if="!$root.isAuthorized" ui-sref-active="active" class="counter">
                                 <p>Публикации</p>
                                 <span ng-if="vm.place.count_publications > 0">{{vm.place.count_publications}}</span>
                             </a>
-                            <a ui-sref="place.chat" ui-sref-active="active" class="counter">
+                            <a ui-sref="place.chat" eat-click-if="!$root.isAuthorized" ui-sref-active="active" class="counter">
                                 <p>Чат</p>
                                 <span ng-if="vm.place.count_chat_message > 0">{{vm.place.count_chat_message}}</span>
                             </a>
-                            <a ui-sref="place.people" ui-sref-active="active" class="counter">
+                            <a ui-sref="place.people" eat-click-if="!$root.isAuthorized" ui-sref-active="active" class="counter">
                                 <p>Люди</p>
                                 <span ng-if="vm.place.count_users > 0">{{vm.place.count_users}}</span>
                             </a>
-                            <a ui-sref="place.files()" ui-sref-active="active" class="counter">
+                            <a ui-sref="place.files()" eat-click-if="!$root.isAuthorized" ui-sref-active="active" class="counter">
                                 <p>Файлы</p>
                                 <span ng-if="vm.place.count_chat_files > 0">{{vm.place.count_chat_files}}</span>
                             </a>
@@ -78,8 +78,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button ng-if="!vm.place.is_sub" ng-click="vm.subscribe()">Подписаться</button>
-                        <button ng-if="vm.place.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+                        <button ng-if="!vm.place.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Подписаться</button>
+                        <button ng-if="vm.place.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Отписаться</button>
                     </div>
 
 				</div>
@@ -90,7 +90,9 @@
 			<div class="group-page">
 
 
-				<div ui-view></div>
+				<div ui-view>
+                    <h4 class="text-center" ng-if="!$root.isAutorized">Для просмотра места следует авторизоваться</h4>
+                </div>
 			</div>
 		</div>
 	</div>

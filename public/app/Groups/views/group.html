@@ -29,24 +29,28 @@
                 </div>
                 <div class="group-menu" ng-if="!vm.isMobile">
                     <div class="group-menu-item">
-                        <div class="place-publication-menu" ng-if="vm.showPubSwitch">
+                        <div class="place-publication-menu" ng-if="vm.showPubSwitch && $root.isAuthorized">
                             <a href class="place-publication-menu-table active"></a>
                             <a href class="place-publication-menu-list"></a>
                         </div>
                         <div class="counts">
-                            <a ui-sref="group.publications" ui-sref-active="active" class="counter">
+                            <a ui-sref="group.publications" eat-click-if="!$root.isAuthorized" ui-sref-active="active"
+                               class="counter">
                                 <p>Публикации</p>
                                 <span ng-if="vm.group.count_publications > 0">{{vm.group.count_publications}}</span>
                             </a>
-                            <a ui-sref="group.chat" ui-sref-active="active" class="counter">
+                            <a ui-sref="group.chat" eat-click-if="!$root.isAuthorized" ui-sref-active="active"
+                               class="counter">
                                 <p>Чат</p>
                                 <span ng-if="vm.group.count_chat_message > 0">{{vm.group.count_chat_message}}</span>
                             </a>
-                            <a ui-sref="group.people" ui-sref-active="active" class="counter">
+                            <a ui-sref="group.people" eat-click-if="!$root.isAuthorized" ui-sref-active="active"
+                               class="counter">
                                 <p>Люди</p>
                                 <span ng-if="vm.group.count_users > 0">{{vm.group.count_users}}</span>
                             </a>
-                            <a ui-sref="group.files" ui-sref-active="active" class="counter">
+                            <a ui-sref="group.files" eat-click-if="!$root.isAuthorized" ui-sref-active="active"
+                               class="counter">
                                 <p>Файлы</p>
                                 <span ng-if="vm.group.count_chat_files > 0">{{vm.group.count_chat_files}}</span>
                             </a>
@@ -67,13 +71,16 @@
                             </div>
                         </div>
                     </div>
-                    <button ng-if="!vm.group.is_sub" ng-click="vm.subscribe()">Подписаться</button>
-                    <button ng-if="vm.group.is_sub" ng-click="vm.subscribe()">Отписаться</button>
+                    <button ng-if="!vm.group.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Подписаться
+                    </button>
+                    <button ng-if="vm.group.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Отписаться</button>
                 </div>
                 <div class="group-header"></div>
 
-				<div ui-view></div>
-			</div>
-		</div>
-	</div>
+                <div ui-view>
+                    <h4 class="text-center" ng-if="!$root.isAuthorized">Для просмотра группы следует авторизоваться</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

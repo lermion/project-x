@@ -1,33 +1,13 @@
 @extends('admin.layout')
 @section('content')
-    <div style="width:100%; height:auto;">
+    <div style="width:100%; height:auto; margin-bottom: 20px;">
 
-<<<<<<< HEAD
-        <h3>Модераторы</h3>
-
-        <div style="width:100%; height:auto; margin-bottom:20px;">
-            <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
-                <tr>
-                    <td width="100%">
-                        <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
-                            <tr>
-                                <td><div> <a href="{{action('Admin\ModeratorController@index')}}" type="button" class="btn btn-primary" div class="daosn2" style="background-color:#999;">Действующие</a></div></td>
-                                <td><div> <a href="{{action('Admin\ModeratorController@stopped')}}" type="button" class="btn btn-primary" div class="daosn2" style="background-color:#999;">Приостановлено</a></div></td>
-                                <td width="100%"></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td><p><a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary">Добавить</a></p></td>
-                </tr>
-            </table>
-=======
         <div class="x_content admin-settings">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 active"><a href="">Действующие</a></li>
-                <li class="col-md-3"><a href="">Приостановлено</a></li>
+                <li class="col-md-3 active"><a href="{{action('Admin\ModeratorController@index')}}">Действующие</a></li>
+                <li class="col-md-3"><a href="{{action('Admin\ModeratorController@stopped')}}">Приостановлено</a></li>
             </ul>
             <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
->>>>>>> 442890942c252503c8355b30829be8fbd828e5f8
         </div>
 
         <table class="table table-bordered admin-moderators">
@@ -66,12 +46,11 @@
                         <p>Присутствие: <b>17/19</b></p>
                     </td>
                     <td>
-<<<<<<< HEAD
-                        <p style="margin-top:20px;"><a href="/admin/moderator/stop/{{$mod->id}}"button type="button" class="btn btn-warning"> @if ($mod->is_stop == false) Остановить  @else   Востановить @endif </a></p>
-=======
-                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-warning btn-xs">Остановить</button></p>
-                        <p class="text-center" style="margin-top:10px;"><button type="button" class="btn btn-info btn-xs">Редактировать</button></p>
->>>>>>> 442890942c252503c8355b30829be8fbd828e5f8
+                        <p class="text-center" style="margin-top:10px;">
+                            <a href="/admin/moderator/stop/{{$mod->id}}">
+                                <button type="button" class="btn btn-warning"> @if ($mod->is_stop == false) Остановить  @else   Востановить @endif </button>
+                            </a>
+                        </p>
                     </td>
                 </tr>
             @endforeach

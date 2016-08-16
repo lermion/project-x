@@ -5,10 +5,10 @@
 		.module('app.places')
 		.controller('PlaceCtrl', PlaceCtrl);
 
-	PlaceCtrl.$inject = ['$q', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
+	PlaceCtrl.$inject = ['$q', '$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
 		'$http', '$window', 'Upload', 'amMoment', 'socket', '$location', 'groupsService'];
 
-	function PlaceCtrl($q, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
+	function PlaceCtrl($q, $rootScope, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
 					   $http, $window, Upload, amMoment, socket, $location, groupsService) {
 
 		var vm = this;
@@ -94,7 +94,7 @@
 			if (state === 'place' && fromState.name === 'place.publications') {
 				$state.go(toParams.prevState);
 			}
-			if (state === 'place' && fromState.name !== 'place.publications') {
+			if (state === 'place' && fromState.name !== 'place.publications' && $rootScope.isAuthorized) {
 				$state.go('place.publications');
 			}
 			if (state === 'place.edit') {

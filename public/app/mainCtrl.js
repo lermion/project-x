@@ -110,12 +110,13 @@ angular.module('placePeopleApp')
 					$scope.preloader = false;
 					return;
 				}
-				console.log(toState.name);
 				if(toState.name !== 'auth'
 					&& toState.name !== 'group.publications'
 					&& toState.name !== 'place.publications'
 					&& toState.name !== 'restore'
-					&& toState.name !== 'reg'){
+					&& toState.name !== 'reg'
+					&& toState.name !== 'place'
+					&& toState.name !== 'group'){
 					event.preventDefault();
 				}
 				storageService.isUserAuthorized().then(function(response){
