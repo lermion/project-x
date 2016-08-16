@@ -137,6 +137,7 @@
 	<script src="../../app/Search/services/search.srv.js"></script>
 	<script src="../../app/common/components/index.js"></script>
 	<script src="../../app/common/components/publication/index.js"></script>
+	<script src="../../app/common/components/publication-list-item/index.js"></script>
 	<script src="../../app/common/components/media-file/index.js"></script>
 	<footer>
 		<div class="footer">
