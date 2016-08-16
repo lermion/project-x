@@ -523,7 +523,8 @@ angular.module('placePeopleApp')
                 }
             };
 
-            $scope.pubFiles = function (files) {
+            $scope.pubFiles = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+                resizeImage(file);
                 if (files.length > 4) {
                     $scope.pubFilesNeedScroll = true;
                 } else if (files.length > 100) {
@@ -532,6 +533,19 @@ angular.module('placePeopleApp')
                 }
                 $scope.$broadcast('rebuild:me');
             };
+
+            function resizeImage(image) {
+                Upload.imageDimensions(image).then(function (dimensions) {
+                    console.info('Feed publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+
+                Upload.resize(file, 700, 395).then(function (resizedFile) {
+                    Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                        console.info('Group: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                    });
+                    $scope.newGroup.avatar = resizedFile;
+                });
+            }
 
             $scope.showMoreImages = function (images, currImg) {
                 if (currImg != null) {
@@ -593,9 +607,10 @@ angular.module('placePeopleApp')
 
             // }
 
-            $scope.publishNewPub = function (isAnon, files, pubText) {
+            $scope.publishNewPub = function (isAnon, pubText) {
                 var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
-                if (files === undefined || files.length == 0) {
+
+                if ($scope.files === undefined || $scope.files.length == 0) {
                     $scope.publishNewPubErr = true;
                     return;
                 }
@@ -609,7 +624,7 @@ angular.module('placePeopleApp')
                 // 	images[0] = '';
                 // }
 
-                files.forEach(function (file) {
+                $scope.files.forEach(function (file) {
                     var type = file.type.split('/')[0];
                     if (type === 'image') {
                         images.push(file);
