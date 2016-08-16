@@ -32,7 +32,7 @@
                           <tr>
                             <th></th>
                             <th>День недели</th>
-                            <th>От</th>
+                            <th>С</th>
                             <th>До</th>
                           </tr>
                         </thead>
