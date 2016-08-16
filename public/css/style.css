@@ -87,7 +87,8 @@ body.main-page {
 }
 @media (max-width: 900px) {
             .main-up-button {
-            	display: none;            }
+            	display: none;
+            }
         }
 .check-in .form {
 	display: flex;
