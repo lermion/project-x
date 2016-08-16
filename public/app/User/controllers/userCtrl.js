@@ -457,7 +457,7 @@ angular.module('placePeopleApp')
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
 						console.log("open next publication");
-						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication + 1];
+						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication += 1];
 						if($scope.singlePublication.images[0] !== undefined){
 							$scope.mainImage = $scope.singlePublication.images[0].url;
 							$scope.indexCurrentImage = 0;
