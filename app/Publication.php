@@ -56,7 +56,7 @@ class Publication extends Model
 
     public static function getMainPublication($offset,$limit,$userId = null)
     {
-        $publications = Publication::with(['user', 'videos', 'group', 'images'])
+        $publications = Publication::with(['user', 'videos', 'group', 'images', 'place', 'group'])
             ->where(function ($query) use ($userId) {
                 $query->where(['is_main'=> true,'is_moderate'=>true])
                     ->orWhere(function ($query) use ($userId) {
