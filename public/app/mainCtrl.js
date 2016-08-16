@@ -107,13 +107,17 @@ angular.module('placePeopleApp')
 			$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
 				if($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
 					$rootScope.stateChangeBypass = false;
-		            $scope.preloader = false;
-		            return;
-        		}
-        		console.log(toState.name);
-        		if(toState.name !== 'auth' && toState.name !== 'group.publications' && toState.name !== 'place.publications'){
-        			event.preventDefault();
-        		}
+					$scope.preloader = false;
+					return;
+				}
+				console.log(toState.name);
+				if(toState.name !== 'auth'
+					&& toState.name !== 'group.publications'
+					&& toState.name !== 'place.publications'
+					&& toState.name !== 'restore'
+					&& toState.name !== 'reg'){
+					event.preventDefault();
+				}
 				storageService.isUserAuthorized().then(function(response){
 					var storage = storageService.getStorage();
 					if(response.is_authorization){
