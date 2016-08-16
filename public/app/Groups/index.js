@@ -28,44 +28,75 @@
                     prevState: null
                 },
                 resolve: {
-                    group: ['groupsService', '$stateParams', '$state', '$q', 'ngDialog', function (groupsService, $stateParams, $state, $q, ngDialog) {
+                    group: ['$rootScope', 'groupsService', '$stateParams', '$state', '$q', 'ngDialog', function ($rootScope, groupsService, $stateParams, $state, $q, ngDialog) {
                         var deferred = $q.defer();
                         var group;
-                        groupsService.getGroup($stateParams.groupName)
-                            .then(function (data) {
 
-                                if (data.id) {
-                                    groupsService.getPublications(data.id)
-                                        .then(function (publications) {
-                                            if (publications) {
-                                                data.publications = publications;
+                        if ($rootScope.userLogged) {
+                            groupsService.getGroup($stateParams.groupName)
+                                .then(function (data) {
+
+                                    if (data.id) {
+                                        groupsService.getPublications(data.id)
+                                            .then(function (publications) {
+                                                if (publications) {
+                                                    data.publications = publications;
+                                                }
+                                                deferred.resolve(data);
+                                            });
+                                    } else if (!data.status && data.error.code === '8') {
+                                        deferred.reject();
+                                        ngDialog.open({
+                                            template: '../app/Groups/views/popup-closed-group.html',
+                                            name: 'modal-notfound-group',
+                                            className: 'popup-delete-group ngdialog-theme-default',
+                                            preCloseCallback: function () {
+                                                $state.go('groups');
                                             }
-                                            deferred.resolve(data);
                                         });
-                                } else if (!data.status && data.error.code === '8') {
-                                    deferred.reject();
-                                    ngDialog.open({
-                                        template: '../app/Groups/views/popup-closed-group.html',
-                                        name: 'modal-notfound-group',
-                                        className: 'popup-delete-group ngdialog-theme-default',
-                                        preCloseCallback: function () {
-                                            $state.go('groups');
-                                        }
-                                    });
-                                } else if (!data.status && data.error.code === '6') {
-                                    deferred.reject();
-                                    ngDialog.open({
-                                        template: '../app/Groups/views/popup-notfound-group.html',
-                                        name: 'modal-notfound-group',
-                                        className: 'popup-delete-group ngdialog-theme-default',
-                                        preCloseCallback: function () {
-                                            $state.go('groups');
-                                        }
-                                    });
-                                } else {
-                                    deferred.resolve(data);
-                                }
-                            });
+                                    } else if (!data.status && data.error.code === '6') {
+                                        deferred.reject();
+                                        ngDialog.open({
+                                            template: '../app/Groups/views/popup-notfound-group.html',
+                                            name: 'modal-notfound-group',
+                                            className: 'popup-delete-group ngdialog-theme-default',
+                                            preCloseCallback: function () {
+                                                $state.go('groups');
+                                            }
+                                        });
+                                    }
+
+                                });
+                        } else {
+                            groupsService.getGroupForUnauthorizedUser($stateParams.groupName)
+                                .then(function (data) {
+                                    if (data.id) {
+
+                                        deferred.resolve(data);
+                                    } else if (!data.status && data.error.code === '8') {
+                                        deferred.reject();
+                                        ngDialog.open({
+                                            template: '../app/Groups/views/popup-closed-group.html',
+                                            name: 'modal-notfound-group',
+                                            className: 'popup-delete-group ngdialog-theme-default',
+                                            preCloseCallback: function () {
+                                                $state.go('groups');
+                                            }
+                                        });
+                                    } else if (!data.status && data.error.code === '6') {
+                                        deferred.reject();
+                                        ngDialog.open({
+                                            template: '../app/Groups/views/popup-notfound-group.html',
+                                            name: 'modal-notfound-group',
+                                            className: 'popup-delete-group ngdialog-theme-default',
+                                            preCloseCallback: function () {
+                                                $state.go('groups');
+                                            }
+                                        });
+                                    }
+                                });
+                        }
+
 
                         return deferred.promise;
                     }]

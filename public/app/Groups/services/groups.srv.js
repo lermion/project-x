@@ -13,6 +13,7 @@
         return {
             getGroupList: getGroupList,
             getGroup: getGroup,
+            getGroupForUnauthorizedUser: getGroupForUnauthorizedUser,
             getPublications: getPublications,
             getCounterNewGroups: getCounterNewGroups,
             addGroup: addGroup,
@@ -67,6 +68,28 @@
 
             function getGroupFailed(error) {
                 console.error('XHR Failed for getGroup. ' + error.data);
+            }
+        }
+
+
+        function getGroupForUnauthorizedUser(groupUrlName) {
+
+            return $http({
+                method: 'GET',
+                url: 'group/' + groupUrlName,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getGroupForUnauthorizedUserComplete)
+                .catch(getGroupForUnauthorizedUserFailed);
+
+            function getGroupForUnauthorizedUserComplete(response) {
+                return response.data;
+            }
+
+            function getGroupForUnauthorizedUserFailed(error, status) {
+                console.error('XHR Failed for getGroupForUnauthorizedUser. ' + status);
             }
         }
 

@@ -90,30 +90,48 @@
                     prevState: null
                 },
                 resolve: {
-                    place: ['placesService', '$state', '$stateParams', '$q', 'ngDialog', function (placesService, $state, $stateParams, $q, ngDialog) {
+                    place: ['$rootScope', 'placesService', '$state', '$stateParams', '$q', 'ngDialog', function ($rootScope, placesService, $state, $stateParams, $q, ngDialog) {
                         var deferred = $q.defer();
 
-                        placesService.getPlace($stateParams.placeName)
-                            .then(function (data) {
-                                if (data.id) {
-                                    placesService.getPublications(data.id)
-                                        .then(function (publications) {
-                                            if (publications) {
-                                                data.publications = publications;
-                                            }
-                                            deferred.resolve(data);
+                        if ($rootScope.userLogged) {
+                            placesService.getPlace($stateParams.placeName)
+                                .then(function (data) {
+                                    if (data.id) {
+                                        placesService.getPublications(data.id)
+                                            .then(function (publications) {
+                                                if (publications) {
+                                                    data.publications = publications;
+                                                }
+                                                deferred.resolve(data);
+                                            });
+                                    } else if (!data.status && data.error.code === '15') {
+                                        deferred.resolve(data);
+                                    } else if (!data.status && data.error.code === '6') {
+                                        deferred.reject();
+                                        ngDialog.open({
+                                            template: '../app/Place/views/popup-notfound-place.html',
+                                            name: 'modal-notfound-group',
+                                            className: 'popup-delete-group ngdialog-theme-default'
                                         });
-                                } else if (!data.status && data.error.code === '15') {
-                                    deferred.resolve(data);
-                                } else if (!data.status && data.error.code === '6') {
-                                    deferred.reject();
-                                    ngDialog.open({
-                                        template: '../app/Place/views/popup-notfound-place.html',
-                                        name: 'modal-notfound-group',
-                                        className: 'popup-delete-group ngdialog-theme-default'
-                                    });
-                                }
-                            });
+                                    }
+                                });
+                        } else {
+                            placesService.getPlaceForUnauthorizedUser($stateParams.placeName)
+                                .then(function (data) {
+                                    if (data.id) {
+                                        deferred.resolve(data);
+                                    } else if (!data.status && data.error.code === '15') {
+                                        deferred.resolve(data);
+                                    } else if (!data.status && data.error.code === '6') {
+                                        deferred.reject();
+                                        ngDialog.open({
+                                            template: '../app/Place/views/popup-notfound-place.html',
+                                            name: 'modal-notfound-group',
+                                            className: 'popup-delete-group ngdialog-theme-default'
+                                        });
+                                    }
+                                });
+                        }
 
                         return deferred.promise;
                     }]
