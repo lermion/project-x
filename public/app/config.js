@@ -131,7 +131,7 @@ angular.module('placePeopleApp')
                     controller: 'userCtrl'
                 })
                 .state('desktop-pub-view', {
-                    url: '/:username/publication/:id',
+                    url: '/:username/publication/:id/:hash',
                     templateUrl: '../../app/User/views/user.html',
                     controller: 'userCtrl'
                 })
