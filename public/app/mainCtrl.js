@@ -105,11 +105,12 @@ angular.module('placePeopleApp')
 				$scope.bodyClass = 'public user';
 			});
 			$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
-				if($rootScope.stateChangeBypass || toState.name === 'login') {
+				if($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
 					$rootScope.stateChangeBypass = false;
 		            $scope.preloader = false;
 		            return;
         		}
+        		console.log(toState.name);
         		if(toState.name !== 'auth' && toState.name !== 'group.publications' && toState.name !== 'place.publications'){
         			event.preventDefault();
         		}

@@ -440,18 +440,22 @@ angular.module('placePeopleApp')
 			};
 			$scope.indexCurrentImage = 0;
 			$scope.openPreviousInfo = function(images){
-				if(images.length > 1){
+				if(images.length >= 1){
 					$scope.indexCurrentImage--;
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
-						console.log("open previous publication");
+						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication -= 1];
+						if($scope.singlePublication.images[0] !== undefined){
+							$scope.mainImage = $scope.singlePublication.images[0].url;
+							$scope.indexCurrentImage = 0;
+						}
 					}
 				}
 			};
 
 			$scope.openNextInfo = function(images){
-				if(images.length > 1){
+				if(images.length >= 1){
 					$scope.indexCurrentImage++;
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
