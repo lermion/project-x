@@ -598,3 +598,21 @@ table.admin-users .col-status {
 table.admin-users .col-do {
 	width: 20%;
 }
+.admin-user-menu {
+	list-style: none;
+	padding-right: 100px;
+}
+.admin-user-menu li {
+	line-height: 34px;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+.admin-user-menu li a {
+	text-decoration: none;
+}
+.admin-user-menu li.active {
+	background-color: #f1f1f1;
+ }
+.admin-user-menu li:hover {
+	background-color: #f1f1f1;
+ }

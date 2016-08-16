@@ -3,6 +3,18 @@
 @section('content')
 
 	<div class="x_content admin-user-page">
+
+        <div>
+            <ul class="row admin-user-menu">
+                <li class="col-md-2 active"><a href="">Информация (<span>10</span>)</a></li>
+                <li class="col-md-2"><a href="">Публикации (<span>10</span>)</a></li>
+                <li class="col-md-2"><a href="">Группы (<span>10</span>)</a></li>
+                <li class="col-md-2"><a href="">Места (<span>10</span>)</a></li>
+                <li class="col-md-2"><a href="">Подписчики (<span>10</span>)</a></li>
+                <li class="col-md-2"><a href="">Подписки (<span>10</span>)</a></li>
+            </ul>
+            <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <img class="admin-user-page-ava img-responsive" src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
