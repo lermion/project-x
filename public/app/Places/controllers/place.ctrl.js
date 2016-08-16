@@ -938,6 +938,16 @@
 			vm.showGroupMenu = false;
 		};
 
+		vm.pubViewStyleChange = function(flag) {
+			if (flag) {
+				vm.photosGrid = true;
+				storageService.setStorageItem('pubView', 'greed');
+			} else {
+				vm.photosGrid = false;
+				storageService.setStorageItem('pubView', 'list');
+			}
+		};
+
 		function activate() {
 			init();
 			getCountries();
