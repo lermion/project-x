@@ -1,4 +1,4 @@
-<div class="user-publication-bg"></div>
+<div class="user-publication-bg" ng-click="openPreviousInfo(singlePublication.images)"></div>
 <div class="user-publication">
 	<div class="user-publication-header">
 		<div class="user-function">
@@ -26,7 +26,7 @@
 		<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 	</div>
 	<div class="user-publication-content">
-		<div class="publication-ava">
+		<div ng-click="openNextInfo(singlePublication.images)" class="publication-ava">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 		</div>				
