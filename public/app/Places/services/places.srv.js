@@ -14,6 +14,7 @@
         return {
             getPlaces: getPlaces,
             getPlace: getPlace,
+            getPlaceForUnauthorizedUser: getPlaceForUnauthorizedUser,
             getPlaceNearMe: getPlaceNearMe,
             addPlace: addPlace,
             getPublications: getPublications,
@@ -78,6 +79,27 @@
 
             function getPlaceFailed(error) {
                 console.error('XHR Failed for getPlace. ' + error.data);
+            }
+        }
+
+        function getPlaceForUnauthorizedUser(placeUrlName) {
+
+            return $http({
+                method: 'GET',
+                url: 'place/' + placeUrlName,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null
+            })
+                .then(getPlaceForUnauthorizedUserComplete)
+                .catch(getPlaceForUnauthorizedUserFailed);
+
+            function getPlaceForUnauthorizedUserComplete(response) {
+                return response.data;
+            }
+
+            function getPlaceForUnauthorizedUserFailed(error, status) {
+                console.error('XHR Failed for getPlaceForUnauthorizedUser. ' + status);
             }
         }
 
