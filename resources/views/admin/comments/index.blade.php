@@ -13,46 +13,50 @@
 	      </tr>
 	    </thead>
 	    <tbody>
+        @foreach($comments as $comment)
 	      <tr>
-	        <td>Название</td>
-	        <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-	        <td>Елена Новикова</td>
+<<<<<<< HEAD
+	        <td>{{$comment->publications}}</td>
+	        <td>{{$comment->text}} </td>
+	        <td>{{$comment->login}}</td>
 	        <td>
-	        	<p>
-	        		<button class="btn btn-danger">Удалить</button>
-	        	</p>
+                <p><a href="/admin/comments/delete_comment/{{$comment->id}}"><button class="btn btn-danger">Удалить</button></p>
+	        </td>
+	      </tr>
+        @endforeach
+=======
+	        <td><a href="">Название</a></td>
+	        <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
+	        <td><a href="">Елена Новикова</a></td>
+	        <td class="text-center">
+	        	<button class="btn btn-danger btn-xs">Удалить</button>
 	        </td>
 	      </tr>
           <tr>
-            <td>Название</td>
+            <td><a href="">Название</a></td>
             <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-            <td>Елена Новикова</td>
-            <td>
-                <p>
-                    <button class="btn btn-danger">Удалить</button>
-                </p>
+            <td><a href="">Елена Новикова</a></td>
+            <td class="text-center">
+                <button class="btn btn-danger btn-xs">Удалить</button>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="">Название</a></td>
+            <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
+            <td><a href="">Елена Новикова</a></td>
+            <td class="text-center">
+                <button class="btn btn-danger btn-xs">Удалить</button>
             </td>
           </tr>
           <tr>
             <td>Название</td>
             <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
             <td>Елена Новикова</td>
-            <td>
-                <p>
-                    <button class="btn btn-danger">Удалить</button>
-                </p>
+            <td class="text-center">
+                <button class="btn btn-danger btn-xs">Удалить</button>
             </td>
           </tr>
-          <tr>
-            <td>Название</td>
-            <td>Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария Текст комментария текст комментария </td>
-            <td>Елена Новикова</td>
-            <td>
-                <p>
-                    <button class="btn btn-danger">Удалить</button>
-                </p>
-            </td>
-          </tr>
+>>>>>>> a33b68350c3f23497d2a469ed001f87d7acc58d9
 	    </tbody>
 	  </table>
 	</div>

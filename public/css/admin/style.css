@@ -131,10 +131,9 @@
 .admin-user-content-table table {
 	width: 100%;
 }
-.table img,
 .table img {
-	height: 70px;
-	width: 70px;
+	height: 50px;
+	width: 50px;
 	margin-bottom: 3px;
 }
 .admin-user-content-table table thead th {
@@ -387,9 +386,6 @@ input.cmn-toggle-round:checked + label:after {
 .moderator-comments .col-comments-action {
 	width: 10%;
 }
-.moderator-complaints table p {
-	margin-bottom: 0px;
-}
 .moderator-time-to-work p {
 	margin: 0 5px;
 }
@@ -491,4 +487,62 @@ table.admin-moderators .photo {
 }
 .moderator-content-table.groups .col-do {
 	width: 10%;
+}
+.moderator-complaints .col-id {
+	width: 4%;
+}
+.moderator-complaints .col-text {
+	width: 15%;
+}
+.moderator-complaints .col-author {
+	width: 10%;
+}
+.moderator-complaints .col-img {
+	width: 15%;
+}
+.moderator-complaints .col-who {
+	width: 10%;
+}
+.moderator-complaints .col-complains {
+	width: 10%;
+}
+.moderator-complaints .col-do {
+	width: 35%;
+}
+.moderator-complaints table tbody tr td,
+.moderator-comments table tbody tr td,
+.admin-mail-to table tbody tr td {
+	vertical-align: middle;
+}
+table tbody tr td:first-child {
+	text-align: center;
+}
+.buttons, button, .btn {
+     margin-bottom: 0px; 
+    margin-right: 5px;
+}
+.admin-settings-menu > li > a {
+	display: block;
+	width: 100%;
+}
+.admin-mail-to .col-id {
+	width: 4%;
+}
+.admin-mail-to .col-ava {
+	width: 6%;
+}
+.admin-mail-to .col-name {
+	width: 10%;
+}
+.admin-mail-to .col-mail {
+	width: 10%;
+}
+.admin-mail-to .col-message {
+	width: 25%;
+}
+.admin-mail-to .col-registration {
+	width: 10%;
+}
+.admin-mail-to .col-type {
+	width: 20%;
 }

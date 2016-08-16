@@ -1,11 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService',
 		'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment',
-		'$q', '$timeout', 'Upload', 'socket',
-		'groupsService', 'placesService', '$location',
+		'$q', '$timeout', 'Upload', 'socket', 'groupsService', 'placesService', '$location', 'md5',
 		function ($scope, $rootScope, $state, $stateParams, StaticService, AuthService,
 				  UserService, $window, $http, storageService, ngDialog, PublicationService, amMoment,
-				  $q, $timeout, Upload, socket, groupsService, placesService, $location) {
+				  $q, $timeout, Upload, socket, groupsService, placesService, $location, md5) {
 			/* Service info*/
 			amMoment.changeLocale('ru');
 			$scope.$emit('userPoint', 'user');
@@ -102,8 +101,16 @@ angular.module('placePeopleApp')
 			};
 			$scope.change = function (data, active) {
 				if (active) {
+					$scope.isChecked = function(id){
+						return id === data.id;
+					}
 					$scope.shareData.push(data);
 				} else {
+					$scope.isChecked = function(id){
+						if(id !== data.id){
+							return false;
+						}
+					}
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
 				}
 			};
@@ -1010,7 +1017,8 @@ angular.module('placePeopleApp')
 			}
 
 			$scope.getPubLink = function (pubId) {
-				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId;
+				var hashPubId = md5.createHash(pubId + "");
+				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId + "/" + hashPubId;
 				ngDialog.open({
 					template: '../app/User/views/get-link-publication.html',
 					className: 'link-publication ngdialog-theme-default',
