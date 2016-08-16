@@ -98,7 +98,7 @@
                             <a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
                         </div>
                         <div class="more-comments"
-                             ng-if="pub.comment_count >= 3 && pub.comments.length !== pub.comment_count">
+                             ng-show="pub.comments.length !== pub.comment_count && pub.comments.length <= 3">
                             <a href="javascript:void(0);" ng-click="getAllCommentsPublication('feedPage', pub, true)"
                                class="all-comments">Еще {{pub.comment_count - 3}} комментариев</a>
                         </div>

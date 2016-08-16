@@ -729,7 +729,6 @@ angular.module('placePeopleApp')
 							if (flag === "userPage") {
 								pub.comments = pub.comments.reverse();
 								pub.comments.splice(index, 1);
-								pub.comment_count--;
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
 							}
