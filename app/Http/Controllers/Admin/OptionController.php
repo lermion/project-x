@@ -12,15 +12,15 @@ class OptionController extends Controller
 {
     public function index()
     {
-//        $options = Option::all();
-        return view('admin.option.index');
+        $option = Option::first();
+        return view('admin.option.index')->with('option', $option);
     }
 
     public function create(Request $request)
     {
         try {
             $this->validate($request, [
-                'copyright_link' => 'url',
+                //'copyright_link' => 'url',
                 'mail' => 'email',
                 'time_chat_message' => 'integer',
                 'users_chat_message' => 'integer',
@@ -34,38 +34,39 @@ class OptionController extends Controller
                     'code' => '1'
                 ]
             ];
-            return response()->json($result);
+            return redirect('admin/option/')->with('message', 'РћС€РёР±РєР°!!! РќРµ СЃРѕС…СЂР°РЅРµРЅРЅРѕ');
         }
         $optionData = $request->all();
-        $option = Option::create($optionData);
-//        return response()->json(["status" => true, 'option' => $option]);
-        return redirect('admin.option.index')->with('message', 'Настройки сохраненны');
+        $option = Option::first();
+        dd($request->all());
+        $option->update($optionData);
+        return redirect('admin/option/')->with('message', 'РЎРѕС…СЂР°РЅРµРЅРЅРѕ');
     }
 
-    public function update(Request $request, $id)
-    {
-        try {
-            $this->validate($request, [
-                'copyright_link' => 'url',
-                'mail' => 'email',
-                'time_chat_message' => 'integer',
-                'users_chat_message' => 'integer',
-                'user_foto_bloc' => 'boolean'
-            ]);
-        } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return response()->json($result);
-        }
-        $optionData = $request->all();
-        $option = Option::find($id);
-        $option->update($optionData);
-//        return response()->json(["status" => true, 'option' => $option]);
-        return redirect('admin.option.index')->with('message', 'Настройки измененны');
-    }
+//    public function update(Request $request, $id)
+//    {
+//        try {
+//            $this->validate($request, [
+//                'copyright_link' => 'url',
+//                'mail' => 'email',
+//                'time_chat_message' => 'integer',
+//                'users_chat_message' => 'integer',
+//                'user_foto_bloc' => 'boolean'
+//            ]);
+//        } catch (\Exception $ex) {
+//            $result = [
+//                "status" => false,
+//                "error" => [
+//                    'message' => $ex->validator->errors(),
+//                    'code' => '1'
+//                ]
+//            ];
+//            return response()->json($result);
+//        }
+//        $optionData = $request->all();
+//        $option = Option::find($id);
+//        $option->update($optionData);
+////        return response()->json(["status" => true, 'option' => $option]);
+//        return redirect('admin.option.index')->with('message', 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
+//    }
 }
