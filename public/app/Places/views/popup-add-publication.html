@@ -29,7 +29,7 @@
         <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
              style="max-height: 250px; overflow:hidden; position:relative;">
 
-            <div class="new-img" ng-repeat="file in vm.files" ng-click="showMoreImages(files, file)">
+            <div class="new-img" ng-repeat="file in vm.filesPreview" ng-click="showMoreImages(files, file)">
                 <div class="inner">
                     <div class="close" ng-click="vm.removeAttachFile($index)">
                         <div class="close-inner">
@@ -56,8 +56,8 @@
                        ngf-select
                        ngf-accept="'image/*, video/*'"
                        ngf-pattern="'image/*, video/*'"
-                       ng-model="vm.files"
-                       ngf-before-model-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       ng-model="vm.filesPreview"
+                       ngf-change="vm.beforeAttachFileToPublication($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        ngf-multiple="true"
                        ngf-keep="true"
                        required>

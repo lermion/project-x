@@ -34,7 +34,7 @@
 	</div>
 		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
 
-			<div class="new-img" ng-repeat="file in files" ng-click="showMoreImages(files, file)">		  
+			<div class="new-img" ng-repeat="file in filesPreview" ng-click="showMoreImages(files, file)">
 				<div class="inner">
 					<div class="close" ng-click="deletePubFile(files, $index)">
 						<div class="close-inner">
@@ -54,7 +54,12 @@
 		</div>
 	<div class="publication-footer">
 		<div class="add-objects"> 
-			<input id="add-main-pub-object" style="display: none;" ngf-select ng-model="files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)" ngf-keep="true">
+			<input id="add-main-pub-object" style="display: none;"
+				   ngf-select
+				   ng-model="filesPreview"
+				   ngf-multiple="true"
+				   ngf-change="pubFiles($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+				   ngf-keep="true">
 			<label for="add-main-pub-object" ng-click="openPublicationPreviewBlock(picFile); publishNewPubErr=false;">
 			<span class="add"></span>
 				Добавить фото или видео*
@@ -62,7 +67,7 @@
 		</div>
 		<div class="publication-footer-button">
 			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>			
-			<button class="publication-button" ng-click="publishNewPub(isAnonPub, files, emojiMessage);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>   
+			<button class="publication-button" ng-click="publishNewPub(isAnonPub, emojiMessage);" ladda="newPubLoader" ng-disabled="newPubLoader">Опубликовать</button>
 		</div>       
 	</div>
 	<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
