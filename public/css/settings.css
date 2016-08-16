@@ -5499,7 +5499,7 @@ input.cmn-toggle-round:checked + label:after {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: 0 auto 10px;
     position: relative;
 }
 .place-menu-wrap .group-menu .group-menu-item {
@@ -5546,7 +5546,7 @@ input.cmn-toggle-round:checked + label:after {
     border-bottom: 2px solid #495b79;
 }
 .place-menu-wrap {
-    border-bottom: 2px solid rgb(224, 225, 228)
+    /*border-bottom: 2px solid rgb(224, 225, 228)*/
 }
 .places-place-menu-avatar {
     position: absolute;
