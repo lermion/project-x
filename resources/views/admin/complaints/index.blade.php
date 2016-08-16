@@ -23,7 +23,18 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($complaints as $complaint)
                   <tr>
+<<<<<<< HEAD
+                    <td>{{$complaint->id}}</td>
+                    <td>{{$complaint->comment}}</td>
+                    <td>{{$complaint->user_to_login}}</td>
+                    <td>{{$complaint->user_which_login}}</td>
+                    <td>{{$complaint->complaint}}</td>
+                    <td class="admin-user-contacts-action">
+                        <p><a href="/admin/complaints/delete_complaint_comment/{{$complaint->id}}"><button class="btn btn-success btn-xs">Отменить жалобу</button></p>
+                        <p><a href="/admin/complaints/delete_comment/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Блокировать контент</button></p>
+=======
                     <td>1</td>
                     <td>Публикация 123</td>
                     <td>Елена Новикова</td>
@@ -144,8 +155,10 @@
                     <td class="admin-user-contacts-action">
                         <button class="btn btn-success btn-xs">Отменить жалобу</button>
                         <button class="btn btn-danger btn-xs">Блокировать контент</button>
+>>>>>>> a33b68350c3f23497d2a469ed001f87d7acc58d9
                     </td>
                   </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

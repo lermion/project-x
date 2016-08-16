@@ -66,6 +66,15 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('create_option', 'Admin\OptionController@create');
                 Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
+            Route::group(['prefix' => 'complaints'], function () {
+                Route::get('/', 'Admin\ComplaintsController@index');
+                Route::get('delete_complaint_comment/{id}', 'Admin\ComplaintsController@delete_complaint_comment');
+                Route::get('delete_comment/{id}', 'Admin\ComplaintsController@delete_comment');
+            });
+            Route::group(['prefix' => 'comments'], function () {
+                Route::get('/', 'Admin\CommentsController@index');
+                Route::get('delete_comment/{id}', 'Admin\CommentsController@delete_comment');
+            });
             Route::group(['prefix' => 'lock'], function () {
                 Route::get('/', 'Admin\LockContentController@index');
                 Route::get('places', 'Admin\LockContentController@getLockPlaces');
@@ -85,14 +94,15 @@ Route::group(['middleware' => ['web']], function () {
             });
             Route::group(['prefix' => 'base'], function () {
                 Route::get('/', 'Admin\CountryController@index');
-                Route::post('/', 'Admin\CountryController@create');
+                Route::get('district', 'Admin\CountryController@district');
+                Route::get('region', 'Admin\CountryController@region');
+                Route::get('settlement', 'Admin\CountryController@settlement');
+                //Route::post('/', 'Admin\CountryController@create');
                 Route::get('destroy/{id}', 'Admin\CountryController@destroy');
                 Route::post('/', 'Admin\CityController@create');
                 Route::get('destroy/{id}', 'Admin\CityController@destroy');
             });
             Route::get('/moderation', 'Admin\ModerationController@index');
-            Route::get('/complaints', 'Admin\ComplaintsController@index');
-            Route::get('/comments', 'Admin\CommentsController@index');
         });
         Route::get('login', 'Admin\AuthController@login');
         Route::post('auth', 'Admin\AuthController@auth');

@@ -137,8 +137,8 @@ class ModeratorController extends Controller
         $moderator = Moderator::find($id);
         $moderator->is_stop = !$moderator->is_stop;
         $moderator->save();
-        $moderators = Moderator::where('is_stop',true)->get();
-        return view('admin.moderator.index')->with('moderators', $moderators);
+
+        return redirect('admin/moderator/');
     }
 
     public function stopped()

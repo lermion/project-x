@@ -49,7 +49,6 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <?php echo $moderator['is_admin']; ?>
                         <?php if($moderator['is_admin'] == false){ ?>
                             <h3>Moderator</h3>
                         <ul class="nav side-menu">
@@ -63,8 +62,10 @@
 
                             <li><a><i class="fa fa-database"></i> База <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" style="display: none">
-                                    <li><a href="#">Страны</a></li>
-                                    <li><a href="#">Города</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@index')}}">Страны</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@region')}}">Области</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@district')}}">Районы</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@settlement')}}">Населенные пункты</a></li>
                                 </ul>
                             </li>
 
@@ -86,8 +87,10 @@
                             <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-comments-o"></i> Комментарии</a></li>
                             <li><a><i class="fa fa-database"></i> База <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" style="display: none">
-                                    <li><a href="#">Страны</a></li>
-                                    <li><a href="#">Города</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@index')}}">Страны</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@region')}}">Области</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@district')}}">Районы</a></li>
+                                    <li><a href="{{ action('Admin\CountryController@settlement')}}">Населенные пункты</a></li>
                                 </ul>
                             </li>
                         </ul>
