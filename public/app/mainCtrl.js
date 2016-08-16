@@ -107,17 +107,18 @@ angular.module('placePeopleApp')
 			$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
 				if($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
 					$rootScope.stateChangeBypass = false;
-		            $scope.preloader = false;
-		            return;
-        		}
-        		console.log(toState.name);
-        		if(toState.name !== 'auth' &&
-						toState.name !== 'group.publications' &&
-						toState.name !== 'group' &&
-						toState.name !== 'place.publications' &&
-						toState.name !== 'place'){
-        			event.preventDefault();
-        		}
+					$scope.preloader = false;
+					return;
+				}
+				if(toState.name !== 'auth'
+					&& toState.name !== 'group.publications'
+					&& toState.name !== 'place.publications'
+					&& toState.name !== 'restore'
+					&& toState.name !== 'reg'
+					&& toState.name !== 'place'
+					&& toState.name !== 'group'){
+					event.preventDefault();
+				}
 				storageService.isUserAuthorized().then(function(response){
 					var storage = storageService.getStorage();
 					if(response.is_authorization){
@@ -138,7 +139,6 @@ angular.module('placePeopleApp')
 				});
 					
 					// Header counters
-				if ($rootScope.isAuthorized) {
 					groupsService.getCounterNewGroups().then(function (data) {
 						$rootScope.counters.groupsNew = data;
 					});
@@ -148,8 +148,6 @@ angular.module('placePeopleApp')
 					UserService.getCounterNewSubscribers().then(function (data) {
 						$rootScope.counters.subscribersNew = data.confirmed;
 					});
-				}
-
 
 
 					if (toState.name !== 'search' &&

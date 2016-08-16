@@ -462,9 +462,11 @@ angular.module('placePeopleApp')
 					}else{
 						console.log("open next publication");
 						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication += 1];
-						if($scope.singlePublication.images[0] !== undefined){
-							$scope.mainImage = $scope.singlePublication.images[0].url;
-							$scope.indexCurrentImage = 0;
+						if($scope.userPublications[$scope.indexCurrentPublication] !== undefined){
+							if($scope.singlePublication.images[0] !== undefined){
+								$scope.mainImage = $scope.singlePublication.images[0].url;
+								$scope.indexCurrentImage = 0;
+							}
 						}
 					}
 				}
@@ -1120,6 +1122,7 @@ angular.module('placePeopleApp')
 				UserService.confirmSubscriber(subscriber.id)
 					.then(function (status) {
 						subscriber.is_confirmed = status;
+						$rootScope.counters.subscribersNew--;
 					});
 			};
 		}]);
