@@ -515,7 +515,8 @@ div table.table>tbody>tr:hover {
 .moderator-complaints table tbody tr td,
 .moderator-comments table tbody tr td,
 .admin-mail-to table tbody tr td,
-.admin-moderators tbody tr td {
+.admin-moderators tbody tr td,
+.admin-users tbody tr td {
 	vertical-align: middle;
 }
 table tbody tr td:first-child {
@@ -558,4 +559,42 @@ table tbody tr td:first-child {
 }
 table tbody tr td {
 	    word-break: break-word;
+}
+.daosn3.age {
+	width: 100px;
+}
+.daosn3.avatar label {
+	margin-bottom: 0px;
+}
+.daosn3.gender {
+	margin-left: 5px;
+}
+.admin-info {
+	background-color: #dedede;
+	color: #111;
+	border-radius: 4px;
+}
+table.admin-users .col-id {
+	width: 5%;
+}
+table.admin-users .col-ava {
+	width: 7%;
+}
+table.admin-users .col-name {
+	width: 10%;
+}
+table.admin-users .col-gender {
+	width: 7%;
+}
+table.admin-users .col-age {
+	width: 7%;
+}
+table.admin-users .col-date {
+	width: 10%;
+}
+table.admin-users .col-status {
+	width: 10%;
+}
+table.admin-users .col-do {
+	width: 20%;
 }
