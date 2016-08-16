@@ -731,4 +731,15 @@ angular.module('placePeopleApp')
                     // 		});
                 }
             };
+
+
+            $scope.pubViewStyleChange = function (flag) {
+                if (flag) {
+                    $scope.photosGrid = true;
+                    storageService.setStorageItem('pubView', 'greed');
+                } else {
+                    $scope.photosGrid = false;
+                    storageService.setStorageItem('pubView', 'list');
+                }
+            }
         }]);
