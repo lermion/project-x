@@ -102,8 +102,16 @@ angular.module('placePeopleApp')
 			};
 			$scope.change = function (data, active) {
 				if (active) {
+					$scope.isChecked = function(id){
+						return id === data.id;
+					}
 					$scope.shareData.push(data);
 				} else {
+					$scope.isChecked = function(id){
+						if(id !== data.id){
+							return false;
+						}
+					}
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
 				}
 			};
