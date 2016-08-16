@@ -15,80 +15,87 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('group/{name}', 'GroupController@show');
+    Route::get('place/{name}', 'PlaceController@show');
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/', 'Admin\HomeController@index');
-        Route::group(['prefix' => 'user'], function () {
-            Route::get('/', 'Admin\UserController@index');
-            Route::get('confirm/{id}', 'Admin\UserController@confirm');
-            Route::get('review/{id}', 'Admin\UserController@review');
-            Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
-            Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
-            Route::get('show/{id}', 'Admin\UserController@show');
-            Route::get('get_confirm', 'Admin\UserController@getConfirm');
-            Route::get('get_review', 'Admin\UserController@getReview');
-            Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
-            Route::post('main_picture', 'Admin\UserController@mainPicture');
-        });
-        Route::group(['prefix' => 'moderator'], function () {
-            Route::get('/', 'Admin\ModeratorController@index');
-            Route::get('create', 'Admin\ModeratorController@create');
-            Route::get('stop/{id}', 'Admin\ModeratorController@stop');
-            Route::get('update/{id}', 'Admin\ModeratorController@update');
-            Route::post('store', 'Admin\ModeratorController@store');
-        });
-        Route::group(['prefix' => 'static_page'], function () {
-            Route::get('/', 'Admin\StaticPageController@index');
-            Route::get('show/{id}', 'Admin\StaticPageController@show');
-            Route::get('create', 'Admin\StaticPageController@create');
-            Route::post('store', 'Admin\StaticPageController@store');
-            Route::get('destroy/{id}', 'Admin\StaticPageController@destroy');
-            Route::get('edit/{id}', 'Admin\StaticPageController@edit');
-            Route::post('update/{id}', 'Admin\StaticPageController@update');
-        });
+        Route::group(['middleware' => 'moderator'], function () {
+            Route::get('/', 'Admin\HomeController@index');
+            Route::get('logout', 'Admin\AuthController@logout');
+            Route::group(['prefix' => 'user'], function () {
+                Route::get('/', 'Admin\UserController@index');
+                Route::get('confirm/{id}', 'Admin\UserController@confirm');
+                Route::get('review/{id}', 'Admin\UserController@review');
+                Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
+                Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
+                Route::get('show/{id}', 'Admin\UserController@show');
+                Route::get('get_confirm', 'Admin\UserController@getConfirm');
+                Route::get('get_review', 'Admin\UserController@getReview');
+                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
+                Route::post('main_picture', 'Admin\UserController@mainPicture');
+            });
+            Route::group(['prefix' => 'moderator'], function () {
+                Route::get('/', 'Admin\ModeratorController@index');
+                Route::get('create', 'Admin\ModeratorController@create');
+                Route::get('stop/{id}', 'Admin\ModeratorController@stop');
+                Route::get('stopped', 'Admin\ModeratorController@stopped');
+                Route::get('update/{id}', 'Admin\ModeratorController@update');
+                Route::post('store', 'Admin\ModeratorController@store');
+            });
+            Route::group(['prefix' => 'static_page'], function () {
+                Route::get('/', 'Admin\StaticPageController@index');
+                Route::get('show/{id}', 'Admin\StaticPageController@show');
+                Route::get('create', 'Admin\StaticPageController@create');
+                Route::post('store', 'Admin\StaticPageController@store');
+                Route::get('destroy/{id}', 'Admin\StaticPageController@destroy');
+                Route::get('edit/{id}', 'Admin\StaticPageController@edit');
+                Route::post('update/{id}', 'Admin\StaticPageController@update');
+            });
 
-        Route::group(['prefix' => 'mail'], function () {
-            Route::get('/', 'Admin\MailController@index');
-            Route::get('get_review', 'Admin\MailController@get_review');
-            Route::get('get_closed', 'Admin\MailController@get_closed');
-            Route::post('create', 'Admin\MailController@create');
-            Route::get('destroy/{id}', 'Admin\MailController@destroy');
-            Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
-            Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
+            Route::group(['prefix' => 'mail'], function () {
+                Route::get('/', 'Admin\MailController@index');
+                Route::get('get_review', 'Admin\MailController@get_review');
+                Route::get('get_closed', 'Admin\MailController@get_closed');
+                Route::post('create', 'Admin\MailController@create');
+                Route::get('destroy/{id}', 'Admin\MailController@destroy');
+                Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
+                Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
+            });
+            Route::group(['prefix' => 'option'], function () {
+                Route::get('/', 'Admin\OptionController@index');
+                Route::post('create_option', 'Admin\OptionController@create');
+                Route::post('update_option/{id}', 'Admin\OptionController@update');
+            });
+            Route::group(['prefix' => 'lock'], function () {
+                Route::get('/', 'Admin\LockContentController@index');
+                Route::get('places', 'Admin\LockContentController@getLockPlaces');
+                Route::get('unlock_place/{id}', 'Admin\LockContentController@unlockPlace');
+                Route::get('destroy_place/{id}', 'Admin\LockContentController@destroyPlace');
+                Route::get('groups', 'Admin\LockContentController@getLockGroups');
+                Route::get('unlock_group/{id}', 'Admin\LockContentController@unlockGroup');
+                Route::get('destroy_group/{id}', 'Admin\LockContentController@destroyGroup');
+                Route::get('publications', 'Admin\LockContentController@getLockPublications');
+                Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
+                Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
+            });
+            Route::group(['prefix' => 'count'], function () {
+                Route::get('users', 'Admin\CountController@users');
+                Route::get('mails', 'Admin\CountController@mails');
+                Route::get('to_remove', 'Admin\CountController@to_remove');
+            });
+            Route::group(['prefix' => 'base'], function () {
+                Route::get('/', 'Admin\CountryController@index');
+                Route::post('/', 'Admin\CountryController@create');
+                Route::get('destroy/{id}', 'Admin\CountryController@destroy');
+                Route::post('/', 'Admin\CityController@create');
+                Route::get('destroy/{id}', 'Admin\CityController@destroy');
+            });
+            Route::get('/moderation', 'Admin\ModerationController@index');
+            Route::get('/complaints', 'Admin\ComplaintsController@index');
+            Route::get('/comments', 'Admin\CommentsController@index');
         });
-        Route::group(['prefix' => 'option'], function () {
-            Route::get('/', 'Admin\OptionController@index');
-            Route::post('create_option', 'Admin\OptionController@create');
-            Route::post('update_option/{id}', 'Admin\OptionController@update');
-        });
-        Route::group(['prefix' => 'lock'], function () {
-            Route::get('/', 'Admin\LockContentController@index');
-            Route::get('places', 'Admin\LockContentController@getLockPlaces');
-            Route::get('unlock_place/{id}', 'Admin\LockContentController@unlockPlace');
-            Route::get('destroy_place/{id}', 'Admin\LockContentController@destroyPlace');
-            Route::get('groups', 'Admin\LockContentController@getLockGroups');
-            Route::get('unlock_group/{id}', 'Admin\LockContentController@unlockGroup');
-            Route::get('destroy_group/{id}', 'Admin\LockContentController@destroyGroup');
-            Route::get('publications', 'Admin\LockContentController@getLockPublications');
-            Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
-            Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
-        });
-        Route::group(['prefix' => 'count'], function () {
-            Route::get('users', 'Admin\CountController@users');
-            Route::get('mails', 'Admin\CountController@mails');
-            Route::get('to_remove', 'Admin\CountController@to_remove');
-        });
-        Route::group(['prefix' => 'base'], function () {
-            Route::get('/', 'Admin\CountryController@index');
-            Route::post('/', 'Admin\CountryController@create');
-            Route::get('destroy/{id}', 'Admin\CountryController@destroy');
-            Route::post('/', 'Admin\CityController@create');
-            Route::get('destroy/{id}', 'Admin\CityController@destroy');
-        });
-        Route::get('/moderation', 'Admin\ModerationController@index');
-        Route::get('/complaints', 'Admin\ComplaintsController@index');
-        Route::get('/comments', 'Admin\CommentsController@index');
-
+        Route::get('login', 'Admin\AuthController@login');
+        Route::post('auth', 'Admin\AuthController@auth');
     });
     Route::group(['prefix' => 'auth'], function () {
         Route::post('/', 'AuthController@auth');
@@ -143,53 +150,53 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
-    Route::group(['prefix' => 'moderator'], function () {
-        Route::group(['middleware' => 'moderator'], function () {
-            Route::get('/', 'Moderator\IndexController@index');
-            Route::get('edit', 'Moderator\IndexController@edit');
-            Route::post('update', 'Moderator\IndexController@update');
-            Route::get('logout', 'Moderator\AuthController@logout');
-            Route::get('comments', 'Moderator\ModerateController@comments');
-            Route::get('delete_comment/{id}', 'Moderator\ModerateController@delete_comment');
-            Route::get('comment_complaints', 'Moderator\ModerateController@comment_complaints');
-            Route::get('delete_complaint_comment/{id}', 'Moderator\ModerateController@delete_complaint_comment');
-            Route::get('publication_complaints', 'Moderator\ModerateController@publication_complaints');
-            Route::get('delete_complaint_publication/{id}', 'Moderator\ModerateController@delete_complaint_publication');
-            Route::get('getPublication', 'Moderator\ModerateController@getPublication');
-            Route::get('getGroups', 'Moderator\ModerateController@getGroups');
-            Route::post('blockGroup/{id}', 'Moderator\ModerateController@blockGroup');
-            Route::get('confirmGroup/{id}', 'Moderator\ModerateController@confirmGroup');
-            Route::get('getPlaces', 'Moderator\ModerateController@getPlaces');
-            Route::post('blockPlace/{id}', 'Moderator\ModerateController@blockPlace');
-            Route::get('confirmPlace/{id}', 'Moderator\ModerateController@confirmPlace');
-            Route::get('topic/{id}', 'Moderator\ModerateController@topic');
-            Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
-            Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
-            Route::get('count_complaint_comment', 'Moderator\ModerateController@count_complaint_comment');
-            Route::get('count_complaint_publication', 'Moderator\ModerateController@count_complaint_publication');
-            Route::group(['prefix' => 'moderate'], function () {
-                Route::get('/', 'Moderator\ModerateController@index');
-                Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
-                Route::get('topic/{id}', 'Moderator\ModerateController@topic');
-                Route::post('block/{id}', 'Moderator\ModerateController@block');
-            });
-            Route::group(['prefix' => 'users'], function () {
-                Route::get('/', 'Moderator\UserController@index');
-                Route::get('confirm/{id}', 'Moderator\UserController@confirm');
-                Route::get('review/{id}', 'Moderator\UserController@review');
-                Route::get('suspicious/{id}', 'Moderator\UserController@suspicious');
-                Route::get('delete/{id}', 'Moderator\UserController@destroy');
-                Route::get('show/{id}', 'Moderator\UserController@show');
-                Route::get('get_confirm', 'Moderator\UserController@getConfirm');
-                Route::get('get_review', 'Moderator\UserController@getReview');
-                Route::get('get_suspicious', 'Moderator\UserController@getSuspicious');
-                Route::get('new_count_users', 'Moderator\UserController@newCountUsers');
-            });
-        });
-        Route::get('login', 'Moderator\AuthController@login');
-        Route::post('auth', 'Moderator\AuthController@auth');
-
-    });
+//    Route::group(['prefix' => 'moderator'], function () {
+//        Route::group(['middleware' => 'moderator'], function () {
+//            Route::get('/', 'Moderator\IndexController@index');
+//            Route::get('edit', 'Moderator\IndexController@edit');
+//            Route::post('update', 'Moderator\IndexController@update');
+//            Route::get('logout', 'Moderator\AuthController@logout');
+//            Route::get('comments', 'Moderator\ModerateController@comments');
+//            Route::get('delete_comment/{id}', 'Moderator\ModerateController@delete_comment');
+//            Route::get('comment_complaints', 'Moderator\ModerateController@comment_complaints');
+//            Route::get('delete_complaint_comment/{id}', 'Moderator\ModerateController@delete_complaint_comment');
+//            Route::get('publication_complaints', 'Moderator\ModerateController@publication_complaints');
+//            Route::get('delete_complaint_publication/{id}', 'Moderator\ModerateController@delete_complaint_publication');
+//            Route::get('getPublication', 'Moderator\ModerateController@getPublication');
+//            Route::get('getGroups', 'Moderator\ModerateController@getGroups');
+//            Route::post('blockGroup/{id}', 'Moderator\ModerateController@blockGroup');
+//            Route::get('confirmGroup/{id}', 'Moderator\ModerateController@confirmGroup');
+//            Route::get('getPlaces', 'Moderator\ModerateController@getPlaces');
+//            Route::post('blockPlace/{id}', 'Moderator\ModerateController@blockPlace');
+//            Route::get('confirmPlace/{id}', 'Moderator\ModerateController@confirmPlace');
+//            Route::get('topic/{id}', 'Moderator\ModerateController@topic');
+//            Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
+//            Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
+//            Route::get('count_complaint_comment', 'Moderator\ModerateController@count_complaint_comment');
+//            Route::get('count_complaint_publication', 'Moderator\ModerateController@count_complaint_publication');
+//            Route::group(['prefix' => 'moderate'], function () {
+//                Route::get('/', 'Moderator\ModerateController@index');
+//                Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
+//                Route::get('topic/{id}', 'Moderator\ModerateController@topic');
+//                Route::post('block/{id}', 'Moderator\ModerateController@block');
+//            });
+//            Route::group(['prefix' => 'users'], function () {
+//                Route::get('/', 'Moderator\UserController@index');
+//                Route::get('confirm/{id}', 'Moderator\UserController@confirm');
+//                Route::get('review/{id}', 'Moderator\UserController@review');
+//                Route::get('suspicious/{id}', 'Moderator\UserController@suspicious');
+//                Route::get('delete/{id}', 'Moderator\UserController@destroy');
+//                Route::get('show/{id}', 'Moderator\UserController@show');
+//                Route::get('get_confirm', 'Moderator\UserController@getConfirm');
+//                Route::get('get_review', 'Moderator\UserController@getReview');
+//                Route::get('get_suspicious', 'Moderator\UserController@getSuspicious');
+//                Route::get('new_count_users', 'Moderator\UserController@newCountUsers');
+//            });
+//        });
+//        Route::get('login', 'Moderator\AuthController@login');
+//        Route::post('auth', 'Moderator\AuthController@auth');
+//
+//    });
 
     Route::group(['prefix' => 'publication'], function () {
         Route::post('/', 'PublicationController@index');
@@ -282,10 +289,18 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/authorization\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='ur_id' value='175'><br>
-            <input type='text' name='limit' value='10'><br>
+        echo "<form action=\"http://pp.dev/admin/moderator/store\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='first_name' value='test'><br>
+            <input type='text' name='last_name' value='test'><br>
             <input type='file' name='avatar'><br>
+            <input type='password' name='password' value='111111'><br>
+            <input type='checkbox' name='weekday[1]'><br>
+            <input type='time' name='from_time[1]' ><br>
+            <input type='time' name='to_time[1]' ><br>
+            <input type='checkbox' name='weekday[2]'><br>
+            <input type='time' name='from_time[2]' ><br>
+            <input type='time' name='to_time[2]' ><br>
+
 
 
             <input type=\"submit\">
