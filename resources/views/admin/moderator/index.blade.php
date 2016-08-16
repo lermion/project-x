@@ -55,9 +55,6 @@
                                 <p>18:00</p>
                             </div>
                         </div>
-                        <div class="col-md-12 text-center">
-                            <a href="/admin/moderator/update/{{$mod->id}}" style="text-decoration:underline; font-size:12px;">Изменить</a>
-                        </div>
                     </td>
                     <td class="moderators-process">
                         <p>Модераций: <b>173</b></p>
@@ -68,6 +65,7 @@
                         <p class="text-center" style="margin-top:10px;">
                             <a href="/admin/moderator/stop/{{$mod->id}}">
                                 <button type="button" class="btn btn-warning btn-xs"> @if ($mod->is_stop == false) Остановить  @else   Восстановить @endif </button>
+                                <a class="btn btn-info btn-xs" href="/admin/moderator/update/{{$mod->id}}">Изменить</a>
                             </a>
                         </p>
                     </td>

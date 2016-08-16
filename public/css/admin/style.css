@@ -553,3 +553,6 @@ table tbody tr td:first-child {
 .moderators-process p {
 	margin: 0;
 }
+.admin-moderators a.btn {
+	margin-top: 5px;
+}
