@@ -85,7 +85,6 @@
             </div>
             <input class="btn btn-primary" type="submit" value="Добавить">
             <a href="/admin/moderator" class="btn btn-default">Отменить</a>
-            <a href="#" class="btn btn-danger">Удалить</a>
         </form>
     </div>
 @stop
