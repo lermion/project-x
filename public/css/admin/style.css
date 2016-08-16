@@ -510,7 +510,8 @@ table.admin-moderators .photo {
 .moderator-complaints .col-do {
 	width: 35%;
 }
-.moderator-complaints table tbody tr td {
+.moderator-complaints table tbody tr td,
+.moderator-comments table tbody tr td {
 	vertical-align: middle;
 }
 .buttons, button, .btn {
