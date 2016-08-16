@@ -516,7 +516,8 @@ div table.table>tbody>tr:hover {
 .moderator-comments table tbody tr td,
 .admin-mail-to table tbody tr td,
 .admin-moderators tbody tr td,
-.admin-users tbody tr td {
+.admin-users tbody tr td,
+.moderator-content-table table tbody tr td {
 	vertical-align: middle;
 }
 table tbody tr td:first-child {
@@ -600,7 +601,6 @@ table.admin-users .col-do {
 }
 .admin-user-menu {
 	list-style: none;
-	padding-right: 100px;
 }
 .admin-user-menu li {
 	line-height: 34px;
@@ -616,3 +616,21 @@ table.admin-users .col-do {
 .admin-user-menu li:hover {
 	background-color: #f1f1f1;
  }
+.user-groups .col-id {
+	width: 5%;
+}
+.user-groups .col-title {
+	width: 15%;
+}
+.user-groups .col-cover {
+	width: 10%;
+}
+.user-groups .col-author {
+	width: 20%;
+}
+.user-groups .col-count {
+	width: 5%;
+}
+.user-groups .col-time {
+	width: 10%;
+}
