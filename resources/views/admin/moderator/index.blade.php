@@ -65,8 +65,9 @@
                         <p class="text-center" style="margin-top:10px;">
                             <a href="/admin/moderator/stop/{{$mod->id}}">
                                 <button type="button" class="btn btn-warning btn-xs"> @if ($mod->is_stop == false) Остановить  @else   Восстановить @endif </button>
-                                <a class="btn btn-info btn-xs" href="/admin/moderator/update/{{$mod->id}}">Изменить</a>
                             </a>
+                            <a class="btn btn-info btn-xs" href="/admin/moderator/update/{{$mod->id}}">Изменить</a>
+                            <a class="btn btn-danger btn-xs" href="">Удалить</a>
                         </p>
                     </td>
                 </tr>
