@@ -209,7 +209,8 @@
             }
 
             function getCounterNewPlacesFailed(error) {
-                console.error('XHR Failed for getCounterNewPlaces. ' + error.data);
+
+                console.error('XHR Failed for getCounterNewPlaces. ' + error.statusText);
             }
         }
 

@@ -68,7 +68,7 @@
 
                                 });
                         } else {
-                            groupsService.getGroupForUnauthorizedUser($stateParass.groupName)
+                            groupsService.getGroupForUnauthorizedUser($stateParams.groupName)
                                 .then(function (data) {
                                     if (data.id) {
 

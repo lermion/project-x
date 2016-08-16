@@ -111,7 +111,11 @@ angular.module('placePeopleApp')
 		            return;
         		}
         		console.log(toState.name);
-        		if(toState.name !== 'auth' && toState.name !== 'group.publications' && toState.name !== 'place.publications'){
+        		if(toState.name !== 'auth' &&
+						toState.name !== 'group.publications' &&
+						toState.name !== 'group' &&
+						toState.name !== 'place.publications' &&
+						toState.name !== 'place'){
         			event.preventDefault();
         		}
 				storageService.isUserAuthorized().then(function(response){
@@ -134,6 +138,7 @@ angular.module('placePeopleApp')
 				});
 					
 					// Header counters
+				if ($rootScope.isAuthorized) {
 					groupsService.getCounterNewGroups().then(function (data) {
 						$rootScope.counters.groupsNew = data;
 					});
@@ -143,6 +148,8 @@ angular.module('placePeopleApp')
 					UserService.getCounterNewSubscribers().then(function (data) {
 						$rootScope.counters.subscribersNew = data.confirmed;
 					});
+				}
+
 
 
 					if (toState.name !== 'search' &&
