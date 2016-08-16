@@ -61,22 +61,13 @@ class SubscriberController extends Controller
 
     public function confirm($id)
     {
-        $sub = Subscriber::find($id);
+        $sub = Subscriber::where(['user_id_sub' => $id, 'user_id' => Auth::id()])->first();
         if (!$sub) {
             $result = [
                 "status" => false,
                 "error" => [
                     'message' => "Incorrect id",
                     'code' => '6'
-                ]
-            ];
-            return response()->json($result);
-        } elseif ($sub->user_id != Auth::id()) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => "Permission denied",
-                    'code' => '8'
                 ]
             ];
             return response()->json($result);

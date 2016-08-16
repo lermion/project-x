@@ -5,11 +5,11 @@
         .module('app.groups')
         .controller('GroupCtrl', GroupCtrl);
 
-    GroupCtrl.$inject = ['$filter', '$timeout', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
+    GroupCtrl.$inject = ['$filter', '$timeout', '$rootScope', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
         'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService',
         'Upload', 'amMoment', 'socket', '$q', '$location', 'placesService'];
 
-    function GroupCtrl($filter, $timeout, $scope, $state, $stateParams, group, $http, $window,
+    function GroupCtrl($filter, $timeout, $rootScope, $scope, $state, $stateParams, group, $http, $window,
                        AuthService, storageService, ngDialog, groupsService, UserService, PublicationService,
                        Upload, amMoment, socket, $q, $location, placesService) {
 
@@ -174,7 +174,7 @@
             if (state === 'group' && fromState.name === 'group.publications') {
                 $state.go(toParams.prevState);
             }
-            if (state === 'group' && fromState.name !== 'group.publications') {
+            if (state === 'group' && fromState.name !== 'group.publications' && $rootScope.isAuthorized) {
                 $state.go('group.publications');
             }
 
