@@ -634,3 +634,7 @@ table.admin-users .col-do {
 .user-groups .col-time {
 	width: 10%;
 }
+.admin-user-menu li a {
+	display: block;
+	width: 100%;
+}
