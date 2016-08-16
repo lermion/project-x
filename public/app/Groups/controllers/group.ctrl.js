@@ -396,7 +396,6 @@
             PublicationService.deleteCommentPublication(comment.id).then(function (response) {
                     if (response.status) {
                         pub.comments.splice(index, 1);
-                        pub.comment_count--;
                     }
                 },
                 function (error) {
@@ -937,6 +936,16 @@
 
         vm.closeThis = function () {
             vm.showGroupMenu = false;
+        };
+
+        vm.pubViewStyleChange = function(flag) {
+            if (flag) {
+                vm.photosGrid = true;
+                storageService.setStorageItem('pubView', 'greed');
+            } else {
+                vm.photosGrid = false;
+                storageService.setStorageItem('pubView', 'list');
+            }
         };
 
 

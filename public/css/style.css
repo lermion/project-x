@@ -3832,7 +3832,7 @@ body.ngdialog-open {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 auto;
+	margin: 0 auto 10px;
 	position: relative;
 }
 .group-page button {

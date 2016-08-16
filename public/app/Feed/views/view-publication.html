@@ -1,4 +1,4 @@
-<div class="user-publication-bg"></div>
+<div class="user-publication-bg" ng-click="openPreviousInfo(singlePublication.images)"></div>
 <div class="user-publication">
 	<div class="user-publication-header">
 		<div class="user-function">
@@ -26,7 +26,7 @@
 		<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 	</div>
 	<div class="user-publication-content">
-		<div class="publication-ava">
+		<div ng-click="openNextInfo(singlePublication.images)" class="publication-ava">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 		</div>				
@@ -56,7 +56,7 @@
 		</div>
 		<a href class="comments-count" ng-if="singlePublication.comment_count > 0">{{singlePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments" ng-if="singlePublication.comments.length !== singlePublication.comment_count">
+	<div class="more-comments" ng-show="singlePublication.comments.length !== singlePublication.comment_count && singlePublication.comments.length <= 3">
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('feedPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">

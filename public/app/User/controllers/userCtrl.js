@@ -445,9 +445,13 @@ angular.module('placePeopleApp')
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
-						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication -= 1];
-						if($scope.singlePublication.images[0] !== undefined){
-							$scope.mainImage = $scope.singlePublication.images[0].url;
+						if($scope.indexCurrentPublication !== 0){
+							$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication -= 1];
+							if($scope.singlePublication.images[0] !== undefined){
+								$scope.mainImage = $scope.singlePublication.images[0].url;
+								$scope.indexCurrentImage = 0;
+							}
+						}else{
 							$scope.indexCurrentImage = 0;
 						}
 					}
@@ -460,11 +464,12 @@ angular.module('placePeopleApp')
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
-						console.log("open next publication");
-						$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication += 1];
-						if($scope.singlePublication.images[0] !== undefined){
-							$scope.mainImage = $scope.singlePublication.images[0].url;
-							$scope.indexCurrentImage = 0;
+						if($scope.indexCurrentPublication + 1 !== $scope.userPublications.length){
+							$scope.singlePublication = $scope.userPublications[$scope.indexCurrentPublication += 1];
+							if($scope.singlePublication.images[0] !== undefined){
+								$scope.mainImage = $scope.singlePublication.images[0].url;
+								$scope.indexCurrentImage = 0;
+							}
 						}
 					}
 				}
@@ -724,7 +729,6 @@ angular.module('placePeopleApp')
 							if (flag === "userPage") {
 								pub.comments = pub.comments.reverse();
 								pub.comments.splice(index, 1);
-								pub.comment_count--;
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
 							}
