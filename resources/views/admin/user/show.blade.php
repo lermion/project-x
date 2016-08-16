@@ -6,7 +6,7 @@
 
     <div id="user-tabs" class="x_content">
         <ul class="row admin-user-menu">
-            <li class="col-md-2 active"><a href="#user-tabs-info">Информация (<span>10</span>)</a></li>
+            <li class="col-md-2"><a href="#user-tabs-info">Информация</a></li>
             <li class="col-md-2"><a href="#user-tabs-publ">Публикации (<span>10</span>)</a></li>
             <li class="col-md-2"><a href="#user-tabs-groups">Группы (<span>10</span>)</a></li>
             <li class="col-md-2"><a href="#user-tabs-places">Места (<span>10</span>)</a></li>
