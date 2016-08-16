@@ -28,11 +28,16 @@
                     prevState: null
                 },
                 resolve: {
-                    group: ['$rootScope', 'groupsService', '$stateParams', '$state', '$q', 'ngDialog', function ($rootScope, groupsService, $stateParams, $state, $q, ngDialog) {
+                    auth: function($rootScope, storageService) {
+                        return storageService.isUserAuthorized().then(function (resp) {
+                            $rootScope.isAuthorized = resp.is_authorization;
+                        });
+                    },
+                    group: ['$rootScope', 'groupsService', '$stateParams', '$state', '$q', 'ngDialog', 'auth', function ($rootScope, groupsService, $stateParams, $state, $q, ngDialog, auth) {
                         var deferred = $q.defer();
                         var group;
 
-                        if ($rootScope.userLogged) {
+                        if ($rootScope.isAuthorized) {
                             groupsService.getGroup($stateParams.groupName)
                                 .then(function (data) {
 

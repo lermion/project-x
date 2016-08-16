@@ -90,10 +90,15 @@
                     prevState: null
                 },
                 resolve: {
-                    place: ['$rootScope', 'placesService', '$state', '$stateParams', '$q', 'ngDialog', function ($rootScope, placesService, $state, $stateParams, $q, ngDialog) {
+                    auth: function($rootScope, storageService) {
+                        return storageService.isUserAuthorized().then(function (resp) {
+                            $rootScope.isAuthorized = resp.is_authorization;
+                        });
+                    },
+                    place: ['$rootScope', 'placesService', '$state', '$stateParams', '$q', 'ngDialog', 'auth', function ($rootScope, placesService, $state, $stateParams, $q, ngDialog, auth) {
                         var deferred = $q.defer();
 
-                        if ($rootScope.userLogged) {
+                        if ($rootScope.isAuthorized) {
                             placesService.getPlace($stateParams.placeName)
                                 .then(function (data) {
                                     if (data.id) {
