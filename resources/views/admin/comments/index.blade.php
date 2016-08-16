@@ -19,7 +19,7 @@
             <td>{{$comment->text}}</td>
             <td><a href="">{{$comment->login}}</a></td>
             <td class="text-center">
-                <p><a href="/admin/comments/delete_comment/{{$comment->id}}"><button class="btn btn-danger">Удалить</button></p>
+                <p><a href="/admin/comments/delete_comment/{{$comment->id}}"><button class="btn btn-danger btn-xs">Удалить</button></p>
             </td>
           </tr>
         @endforeach

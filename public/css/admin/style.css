@@ -1,4 +1,4 @@
-
+photo
 .cp{cursor:pointer}
 .m0{margin:0px;}
 .p0{padding:0px;}
@@ -415,20 +415,23 @@ div table.table>thead>tr>th {
 div table.table>tbody>tr:hover {
 	background-color: #f1f1f1;
 }
-table.admin-moderators .photo {
-	width: 10%;
+.admin-moderators .id {
+	width: 4%;
+}
+.admin-moderators .photo {
+	width: 6%;
 }
 .admin-moderators .name {
-	width: 20%;
+	width: 14%;
 }
 .admin-moderators .time {
-	width: 20%;
+	width: 40%;
 }
 .admin-moderators .process {
-	width: 25%;
+	width: 20%;
 }
 .admin-moderators .do {
-	width: 20%;
+	width: 10%;
 }
 .btn.btn-success.save {
 	margin-bottom: 15px;
@@ -511,7 +514,8 @@ table.admin-moderators .photo {
 }
 .moderator-complaints table tbody tr td,
 .moderator-comments table tbody tr td,
-.admin-mail-to table tbody tr td {
+.admin-mail-to table tbody tr td,
+.admin-moderators tbody tr td {
 	vertical-align: middle;
 }
 table tbody tr td:first-child {
@@ -545,4 +549,7 @@ table tbody tr td:first-child {
 }
 .admin-mail-to .col-type {
 	width: 20%;
+}
+.moderators-process p {
+	margin: 0;
 }
