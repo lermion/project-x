@@ -91,6 +91,8 @@ class Publication extends Model
     public static function getUserPublication($offset,$limit,$userId)
     {
         $publications = Publication::with(['videos', 'images', 'user'])
+//            ->where('user_id', $userId)
+//            ->where('is_anonym', false)->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
             ->where('publications.user_id', $userId)
             ->where('publications.is_anonym', false)
             ->where(function($query){
