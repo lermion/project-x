@@ -11,6 +11,18 @@ angular.module('placePeopleApp')
 			$scope.emojiMessage = {};
 			$scope.shareData = [];
 			$scope.loggedUserAva = storage.loggedUserAva;
+
+			if (!storage.pubView) {
+				storageService.setStorageItem('pubView', 'greed');
+				storage = storageService.getStorage();
+			} else {
+				if (storage.pubView === 'greed') {
+					$scope.photosGrid = true;
+				} else if (storage.pubView === 'list') {
+					$scope.photosGrid = false;
+				}
+			}
+
 			$http.get('/static_page/get/name').success(function (response) {
 					$scope.staticPages = response;
 				})
