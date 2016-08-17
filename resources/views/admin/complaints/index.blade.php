@@ -5,8 +5,8 @@
 	<div class="x_content">
         <div class="complains-menu">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 col-md-offset-3 active"><a href="#">Публикации (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="#">Комментарии (<span>10</span>)</a></li>
+                <li class="col-md-3 col-md-offset-3 active"><a href="{{action('Admin\ComplaintsController@index')}}">Публикации</a></li>
+                <li class="col-md-3"><a href="{{action('Admin\ComplaintsController@comments')}}">Комментарии</a></li>
             </ul>
         </div>
         <div class="moderator-complaints">
@@ -23,42 +23,37 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($complaints as $complaint)
                   <tr>
-                    <td>1</td>
-                    <td>Публикация 123</td>
-                    <td>Елена Новикова</td>
+                    <td>{{$complaint->id}}</td>
+                      @if ($complaint->comment)
+                          <td><p>Комментарий:</p>{{$complaint->comment}}</td>
+                      @else
+                          <td><p>Публикация:</p>{{$complaint->publication}}</td>
+                      @endif
+                    <td>{{$complaint->user_to_login}}</td>
                     <td class="mini-image">
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     </td>
-                    <td>John Doe</td>
-                    <td>Спам</td>
-                    <td class="admin-user-contacts-action">
-                        <button class="btn btn-success btn-xs">Отменить жалобу</button>
-                        <button class="btn btn-danger btn-xs">Блокировать контент</button>
-                    </td>
-                  </tr>
-                <!--  @foreach($complaints as $complaint)
-                  <tr>
-                    <td>{{$complaint->id}}</td>
-                    <td>{{$complaint->comment}}</td>
-                    <td>{{$complaint->user_to_login}}</td>
                     <td>{{$complaint->user_which_login}}</td>
                     <td>{{$complaint->complaint}}</td>
                     <td class="admin-user-contacts-action">
-                        <p>
+                        @if ($complaint->comment)
                             <a href="/admin/complaints/delete_complaint_comment/{{$complaint->id}}"><button class="btn btn-success btn-xs">Отменить жалобу</button></a>
-                        </p>
-                        <p>
-                            <a href="/admin/complaints/delete_comment/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Блокировать контент</button></a>
-                        </p>
-                        </td>
+                            <a href="/admin/complaints/delete_comment/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Удалить комментарий</button></a>
+                        @else
+                            <a href="/admin/complaints/delete_complaint_publication/{{$complaint->id}}"><button class="btn btn-success btn-xs">Отменить жалобу</button></a>
+                            <a href="#"><button class="btn btn-danger btn-xs">Блокировать контент</button></a>
+                        @endif
+                    </td>
                   </tr>
-                @endforeach -->
+
+                @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
+    {!! $complaints->render() !!}
 @stop
