@@ -4105,7 +4105,7 @@ span.users-today-time-time.early {
     height: 100%;
 }
 .chat-main-container {
-    height: 73vh;
+    height: 76vh;
 }
 @media (max-width: 1024px) {
     .chat-right-chat-inner {
@@ -4130,7 +4130,7 @@ span.users-today-time-time.early {
     }
     .chat-main-container {
         margin-top: 0px;
-        height: 76vh;
+        height: 78vh;
     }
     .chat-link-back {
         position: absolute;
