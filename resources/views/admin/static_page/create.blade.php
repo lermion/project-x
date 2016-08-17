@@ -32,16 +32,17 @@
         TableManageButtons.init();
     </script>
 
-    <div class="x_content">
+    <div class="x_content promo-create">
         <h3>Создание статической страницы</h3>
         <form action="/admin/static_page/store" method="post">
             <label for="description">Название</label><br>
-            <input type="text" name="description" placeholder="Название" id="description" required><br>
+            <input class="form-control" type="text" name="description" placeholder="Название" id="description" required><br>
             <label for="name">Внутреннее название</label><br>
-            <input type="text" name="name" placeholder="Внутреннее название" id="name" required><br>
+            <input class="form-control" type="text" name="name" placeholder="Внутреннее название" id="name" required><br>
             <label for="text">Содержимое</label><br>
             <textarea name="text" placeholder="Содержимое" id="text" required></textarea><br><br>
             <input type="submit" value="Сохранить" class="btn btn-primary">
+            <a href="/admin/static_page" class="btn btn-default">Отменить</a>
         </form>
         <br>
 

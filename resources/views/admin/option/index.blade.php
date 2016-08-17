@@ -8,7 +8,8 @@
 	            <li class="col-md-3"><a href="">Ограничения</a></li>
 	        </ul>
 	    </div>
-    
+
+        <form action="{{action('Admin\OptionController@create')}}" method="post" enctype="multipart/form-data">
     <div class="x_content admin-settings-data">
         <div class="row">
             <div class="col-md-6">
@@ -17,9 +18,7 @@
                         <label for="contacts">Контакты:</label>
                     </div>
                     <div class="col-md-7">
-                        <textarea class="form-control" rows="5" id="contacts">ООО "Интерфинити"
-+7 (495) 120-33-78
-interfiniti.ltd@gmail.com
+                        <textarea class="form-control" rows="5" id="contacts">{{$option->contacts}}
                         </textarea>
                     </div>
                 </div>
@@ -29,7 +28,7 @@ interfiniti.ltd@gmail.com
                         <label for="сopyright">Copyright:</label>
                     </div>
                     <div class="col-md-7">
-                        <input class="form-control" id="сopyright" type="text" value="interfiniti">
+                        <input class="form-control" id="сopyright" type="text" value="{{$option->copyright}}">
                     </div>
                 </div>
 
@@ -38,15 +37,9 @@ interfiniti.ltd@gmail.com
                         <label for="message-to-admin">Письмо админу:</label>
                     </div>
                     <div class="col-md-7">
-                        <input class="form-control" id="message-to-admin" type="text" value="xmugutdin@gmail.com">
+                        <input class="form-control" id="message-to-admin" type="text" value="{{$option->mail}}">
                     </div>
                 </div>
-
-                <p>
-                    <button class="btn btn-primary">
-                        Сохранить
-                    </button>
-                </p>
             </div>
         </div>
     </div>
@@ -55,16 +48,15 @@ interfiniti.ltd@gmail.com
 
     <div class="x_content admin-settings-limit">
         <div class="row">
-            <p>Пользователь за <input type="text" class="miniText form-control" value="60"> мин. может написать не более <input type="text" class="miniText form-control" value="50"> новым юзерам.</p>
+            <p>Пользователь за <input type="text" class="miniText form-control" value="{{$option->users_chat_message}}"> мин. может написать не более <input type="text" class="miniText form-control" value="{{$option->time_chat_message}}"> новым юзерам.</p>
             <div class="admin-settings-limit-toggle-btn"><span>Пользователь, не загрузивший свое фото, не может просматривать фото других пользователей</span>
                 <div class="switch">
                   <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
                   <label for="cmn-toggle-1"></label>
                 </div>
             </div>
-            
-            <p><button type="button" class="btn btn-primary">Сохранить</button></p>
+            <p><input class="btn btn-primary" type="submit" value="Сохранить"></p>
         </div>
     </div>
-
+        </form>
 @stop

@@ -1,4 +1,4 @@
-
+photo
 .cp{cursor:pointer}
 .m0{margin:0px;}
 .p0{padding:0px;}
@@ -162,7 +162,8 @@
 	font-weight: bold;
 	list-style: none;
 }
-.admin-settings-menu li.active {
+.admin-settings-menu li.active,
+.ui-tabs-active  {
 	background-color: #f1f1f1;
 }
 .admin-settings-menu li:hover {
@@ -415,20 +416,23 @@ div table.table>thead>tr>th {
 div table.table>tbody>tr:hover {
 	background-color: #f1f1f1;
 }
-table.admin-moderators .photo {
-	width: 10%;
+.admin-moderators .id {
+	width: 4%;
+}
+.admin-moderators .photo {
+	width: 6%;
 }
 .admin-moderators .name {
-	width: 20%;
+	width: 14%;
 }
 .admin-moderators .time {
-	width: 20%;
+	width: 40%;
 }
 .admin-moderators .process {
-	width: 25%;
+	width: 20%;
 }
 .admin-moderators .do {
-	width: 20%;
+	width: 10%;
 }
 .btn.btn-success.save {
 	margin-bottom: 15px;
@@ -450,7 +454,7 @@ table.admin-moderators .photo {
 	width: 5%;
 }
 .moderator-content-table.publication .col-text {
-	width: 25%;
+	width: 20%;
 }
 .moderator-content-table.publication .col-author {
 	width: 10%;
@@ -462,31 +466,34 @@ table.admin-moderators .photo {
 	width: 15%;
 }
 .moderator-content-table.publication .col-time {
-	width: 10%;
+	width: 9%;
 }
 .moderator-content-table.publication .col-do {
-	width: 10%;
+	width: 30%;
+}
+.moderator-content-table.publication tbody tr button {
+	margin-bottom: 5px;
 }
 .moderator-content-table.groups .col-id {
-	width: 5%;
+	width: 4%;
 }
 .moderator-content-table.groups .col-title {
-	width: 20%;
+	width: 14%;
 }
 .moderator-content-table.groups .col-cover {
-	width: 10%;
+	width: 5%;
 }
 .moderator-content-table.groups .col-author {
-	width: 20%;
+	width: 10%;
 }
 .moderator-content-table.groups .col-count {
-	width: 10%;
+	width: 7%;
 }
 .moderator-content-table.groups .col-time {
-	width: 10%;
+	width: 7%;
 }
 .moderator-content-table.groups .col-do {
-	width: 10%;
+	width: 22%;
 }
 .moderator-complaints .col-id {
 	width: 4%;
@@ -511,17 +518,26 @@ table.admin-moderators .photo {
 }
 .moderator-complaints table tbody tr td,
 .moderator-comments table tbody tr td,
-.admin-mail-to table tbody tr td {
+.admin-mail-to table tbody tr td,
+.admin-moderators tbody tr td,
+.admin-users tbody tr td,
+.moderator-content-table table tbody tr td,
+.to-delete table tbody tr td,
+.to-delete-groups table tbody tr td,
+.country table tbody tr td {
 	vertical-align: middle;
 }
 table tbody tr td:first-child {
 	text-align: center;
 }
+.moderator-comments table tbody tr td:first-child {
+	text-align: left;
+}
 .buttons, button, .btn {
      margin-bottom: 0px; 
     margin-right: 5px;
 }
-.admin-settings-menu > li > a {
+.admin-settings-menu li a {
 	display: block;
 	width: 100%;
 }
@@ -544,5 +560,182 @@ table tbody tr td:first-child {
 	width: 10%;
 }
 .admin-mail-to .col-type {
+	width: 20%;
+}
+.moderators-process p {
+	margin: 0;
+}
+.admin-moderators a.btn {
+	margin-top: 5px;
+}
+table tbody tr td {
+	    word-break: break-word;
+}
+.daosn3.age {
+	width: 100px;
+}
+.daosn3.avatar label {
+	margin-bottom: 0px;
+}
+.daosn3.gender {
+	margin-left: 5px;
+}
+.admin-info {
+	background-color: #dedede;
+	color: #111;
+	border-radius: 4px;
+}
+table.admin-users .col-id {
+	width: 5%;
+}
+table.admin-users .col-ava {
+	width: 7%;
+}
+table.admin-users .col-name {
+	width: 10%;
+}
+table.admin-users .col-gender {
+	width: 7%;
+}
+table.admin-users .col-age {
+	width: 7%;
+}
+table.admin-users .col-date {
+	width: 10%;
+}
+table.admin-users .col-status {
+	width: 10%;
+}
+table.admin-users .col-do {
+	width: 20%;
+}
+.admin-user-menu {
+	list-style: none;
+}
+.admin-user-menu li {
+	line-height: 34px;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+.admin-user-menu li a {
+	text-decoration: none;
+}
+.admin-user-menu li.active {
+	background-color: #f1f1f1;
+ }
+.admin-user-menu li:hover {
+	background-color: #f1f1f1;
+ }
+.user-groups .col-id {
+	width: 5%;
+}
+.user-groups .col-title {
+	width: 15%;
+}
+.user-groups .col-cover {
+	width: 10%;
+}
+.user-groups .col-author {
+	width: 20%;
+}
+.user-groups .col-count {
+	width: 5%;
+}
+.user-groups .col-time {
+	width: 10%;
+}
+.admin-user-menu li a,
+.admin-settings-menu li a {
+	display: block;
+	width: 100%;
+}
+.promo li {
+	margin-bottom: 5px;
+}
+.promo-create form label {
+	margin-bottom: 5px;
+}
+.promo-create form .form-control {
+	width: 300px;
+}
+.to-delete .col-id 	{
+	width: 4%;
+}
+.to-delete .col-ava 	{
+	width: 6%;
+}
+.to-delete .col-name 	{
+	width: 15%;
+}
+.to-delete .col-gender 	{
+	width: 9%;
+}
+.to-delete .col-age 	{
+	width: 9%;
+}
+.to-delete .col-registration 	{
+	width: 9%;
+}
+.to-delete .col-action 	{
+	width: 15%;
+}
+.to-del-publ .col-id {
+	width: 5%;
+}
+.to-del-publ .col-text {
+	width: 17%;
+}
+.to-del-publ .col-author {
+	width: 10%;
+}
+.to-del-publ .col-img {
+	width: 17%;
+}
+.to-del-publ .col-video {
+	width: 17%;
+}
+.to-del-publ .col-time {
+	width: 10%;
+}
+.to-del-publ .col-action {
+	width: 20%;
+}
+.to-delete-groups .col-id {
+	width: 5%;
+}
+.to-delete-groups .col-description {
+	width: 16%;
+}
+.to-delete-groups .col-author {
+	width: 10%;
+}
+.to-delete-groups .col-name {
+	width: 10%;
+}
+.to-delete-groups .col-img {
+	width: 17%;
+}
+.to-delete-groups .col-video {
+	width: 10%;
+}
+.to-delete-groups .col-time {
+	width: 8%;
+}
+.to-delete-groups .col-action {
+	width: 20%;
+}
+.to-del-places .col-id {
+	width: 15%;
+}
+.base.country {
+	width: 60%;
+}
+.country .col-id {
+	width: 5%;
+}
+.country .col-title {
+	width: 50%;
+}
+.country .col-do {
 	width: 20%;
 }

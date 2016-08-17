@@ -26,7 +26,7 @@
                     <label for="last_name">Фамилия</label><br>
                     <input class="form-control"  type="text" name="last_name" id="last_name" required><br>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 col-md-offset-1">
                     <table class="table table-bordered">
                         <thead>
                           <tr>
@@ -39,52 +39,52 @@
                         <tbody>
                           <tr>
                             <td><input type="checkbox" name="weekday[1]" id="weekday[1]"></td>
-                            <td>Понедельник</td>
-                            <td><input type="time" name="from_time[1]" id="from_time[1]"></td>
-                            <td><input type="time" name="to_time[1]" id="to_time[1]"></td>
+                            <td><label for="weekday[1]">Понедельник</label></td>
+                            <td class="text-center"><input type="time" name="from_time[1]" id="from_time[1]"></td>
+                            <td class="text-center"><input type="time" name="to_time[1]" id="to_time[1]"></td>
                           </tr>
                           <tr>
                             <td><input type="checkbox" name="weekday[2]" id="weekday[2]"></td>
-                            <td>Вторник</td>
-                            <td><input type="time" name="from_time[2]" id="from_time[2]"></td>
-                            <td><input type="time" name="to_time[2]" id="to_time[2]"></td>
+                            <td><label for="weekday[2]">Вторник</label></td>
+                            <td class="text-center"><input type="time" name="from_time[2]" id="from_time[2]"></td>
+                            <td class="text-center"><input type="time" name="to_time[2]" id="to_time[2]"></td>
                           </tr>
                           <tr>
                             <td><input type="checkbox" name="weekday[3]" id="weekday[3]"></td>
-                            <td>Среда</td>
-                            <td><input type="time" name="from_time[3]" id="from_time[3]"></td>
-                            <td><input type="time" name="to_time[3]" id="to_time[3]"></td>
+                            <td><label for="weekday[3]">Среда</label></td>
+                            <td class="text-center"><input type="time" name="from_time[3]" id="from_time[3]"></td>
+                            <td class="text-center"><input type="time" name="to_time[3]" id="to_time[3]"></td>
                           </tr>
                           <tr>
                             <td><input type="checkbox" name="weekday[4]" id="weekday[4]"></td>
-                            <td>Четверг</td>
-                            <td><input type="time" name="from_time[4]" id="from_time[4]"></td>
-                            <td><input type="time" name="to_time[4]" id="to_time[4]"></td>
+                            <td><label for="weekday[4]">Четверг</label></td>
+                            <td class="text-center"><input type="time" name="from_time[4]" id="from_time[4]"></td>
+                            <td class="text-center"><input type="time" name="to_time[4]" id="to_time[4]"></td>
                           </tr>
                           <tr>
                             <td><input type="checkbox" name="weekday[5]" id="weekday[5]"></td>
-                            <td>Пятница</td>
-                            <td><input type="time" name="from_time[5]" id="from_time[5]"></td>
-                            <td><input type="time" name="to_time[5]" id="to_time[5]"></td>
+                            <td><label for="weekday[5]">Пятница</label></td>
+                            <td class="text-center"><input type="time" name="from_time[5]" id="from_time[5]"></td>
+                            <td class="text-center"><input type="time" name="to_time[5]" id="to_time[5]"></td>
                           </tr>
                           <tr>
                             <td><input type="checkbox" name="weekday[6]" id="weekday[6]"></td>
-                            <td>Суббота</td>
-                            <td><input type="time" name="from_time[6]" id="from_time[6]"></td>
-                            <td><input type="time" name="to_time[6]" id="to_time[6]"></td>
+                            <td><label for="weekday[6]">Суббота</label></td>
+                            <td class="text-center"><input type="time" name="from_time[6]" id="from_time[6]"></td>
+                            <td class="text-center"><input type="time" name="to_time[6]" id="to_time[6]"></td>
                           </tr>
                           <tr>
                             <td><input type="checkbox" name="weekday[7]" id="weekday[7]"></td>
-                            <td>Воскресенье</td>
-                            <td><input type="time" name="from_time[7]" id="from_time[7]"></td>
-                            <td><input type="time" name="to_time[7]" id="to_time[7]"></td>
+                            <td><label for="weekday[7]">Воскресенье</label></td>
+                            <td class="text-center"><input type="time" name="from_time[7]" id="from_time[7]"></td>
+                            <td class="text-center"><input type="time" name="to_time[7]" id="to_time[7]"></td>
                           </tr>
                         </tbody>
                       </table>
                 </div>
             </div>
             <input class="btn btn-primary" type="submit" value="Добавить">
-            <button class="btn btn-default">Отменить</button>
+            <a href="/admin/moderator" class="btn btn-default">Отменить</a>
         </form>
     </div>
 @stop
