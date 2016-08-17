@@ -156,9 +156,8 @@
 						 ng-init="showBottomMenu=true;">
 				<a class="drop-menu" href="javascript:void(0)"></a>
 
-				<div class="menu-item" ng-show="showBottomMenu">
-					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})"
-							   ng-click="closePopup()">@{{staticPage.description}}</a>
+				<div class="menu-item">
+				<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">@{{staticPage.description}}</a>
 				</div>
 			</div>
 		</div>
