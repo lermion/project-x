@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/', 'Admin\HomeController@index');
             Route::get('logout', 'Admin\AuthController@logout');
             Route::group(['prefix' => 'user'], function () {
-                Route::get('/', 'Admin\UserController@index');
+                Route::post('/', 'Admin\UserController@index');
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
                 Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
@@ -299,17 +299,15 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/publication\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='text' name='offset' value='0'><br>
-            <input type='text' name='limit' value='10'><br>
-            <input type='file' name='avatar'><br>
-            <input type='password' name='password' value='111111'><br>
-            <input type='checkbox' name='weekday[1]'><br>
-            <input type='time' name='from_time[1]' ><br>
-            <input type='time' name='to_time[1]' ><br>
-            <input type='checkbox' name='weekday[2]'><br>
-            <input type='time' name='from_time[2]' ><br>
-            <input type='time' name='to_time[2]' ><br>
+        echo "<form action=\"http://pp.dev/admin/user\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='gender' value='1'><br>
+            <input type='text' name='is_avatar' value='1'><br>
+            <input type='text' name='num_records' value='10'>
+            <input type='text' name='reg_range_from' value='2016-07-25'>
+            <input type='text' name='reg_range_to' value='2016-08-01'>
+            <input type='text' name='keywords' value='f'>
+            <input type='text' name='age_range_from' value='1'>
+            <input type='text' name='age_range_to' value='28'>
 
 
 
