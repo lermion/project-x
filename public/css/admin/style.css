@@ -175,7 +175,8 @@ photo
 .admin-settings-data h2 {
 	margin: 30px 0 30px 0px;
 }
-.admin-settings-data div.col-md-3 {
+.admin-settings-data div.col-md-3,
+.admin-settings-data div.col-md-4 {
 	line-height: 34px;
 }
 .admin-settings-data .row {
