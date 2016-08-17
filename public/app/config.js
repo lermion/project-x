@@ -16,9 +16,8 @@ angular.module('placePeopleApp')
 
             $stateProvider
                 .state('404', {
-                    url: '/404/',
-                    templateUrl: '../../app/404.html',
-                    controller: 'Four04Controller',
+                    url: '/404',
+                    templateUrl: '../../app/Auth/views/404.html',
                     isLogin: true
                 })
                 .state('auth', {
