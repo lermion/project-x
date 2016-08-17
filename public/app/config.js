@@ -8,13 +8,19 @@ angular.module('placePeopleApp')
                 spinnerColor: '#ffffff'
             });
 
-            $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/404');
 
             $locationProvider.html5Mode(true);
 
             $metrikaProvider.configureCounter({id: 38912545, webvisor: true});
 
             $stateProvider
+                .state('404', {
+                    url: '/404/',
+                    templateUrl: '../../app/404.html',
+                    controller: 'Four04Controller',
+                    isLogin: true
+                })
                 .state('auth', {
                     url: '/',
                     templateUrl: '../../app/Auth/views/auth.html',
