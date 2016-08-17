@@ -530,6 +530,9 @@ div table.table>tbody>tr:hover {
 table tbody tr td:first-child {
 	text-align: center;
 }
+.moderator-comments table tbody tr td:first-child {
+	text-align: left;
+}
 .buttons, button, .btn {
      margin-bottom: 0px; 
     margin-right: 5px;
