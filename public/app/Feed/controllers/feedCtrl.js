@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService',
 		'AuthService', 'FeedService', '$window', '$http', 'storageService', 'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-		'socket', 'groupsService', 'placesService', '$location',
+		'socket', 'groupsService', 'placesService', '$location', '$q',
 		function ($scope, $state, $stateParams, StaticService, PublicationService, AuthService,
 				  FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout,
-				  UserService, socket, groupsService, placesService, $location) {
+				  UserService, socket, groupsService, placesService, $location, $q) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
 			$scope.loggedUser = storage.username;
@@ -522,12 +522,16 @@ angular.module('placePeopleApp')
 				ngDialog.open({
 					template: '../app/Feed/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					preCloseCallback: function() {
+						$scope.pubNew.files = [];
+					}
 				});
 			};
 
-			$scope.deletePubFile = function (files, index) {
-				files.splice(index, 1);
+			$scope.deletePubFile = function (index) {
+				$scope.pubNew.files.splice(index, 1);
+				$scope.$broadcast('rebuild:me');
 			};
 
 			$scope.openPublicationPreviewBlock = function (files) {
@@ -537,17 +541,14 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.pubFiles = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+				var defer = $q.defer();
+				var prom = [];
 				newFiles.forEach(function(image) {
-					resizeImage(image);
+					prom.push(resizeImage(image));
 				});
-
-				if (files.length > 4) {
-					$scope.pubFilesNeedScroll = true;
-				} else if (files.length > 100) {
-					console.log('too much files');
-					return;
-				}
-				$scope.$broadcast('rebuild:me');
+				$q.all(prom).then(function() {
+					$scope.$broadcast('rebuild:me');
+				});
 			};
 
 			function resizeImage(image) {
@@ -555,7 +556,7 @@ angular.module('placePeopleApp')
 					console.info('Feed publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 				});
 
-				Upload.resize(image, 700, 395).then(function (resizedFile) {
+				return Upload.resize(image, 700, 395).then(function (resizedFile) {
 					Upload.imageDimensions(resizedFile).then(function (dimensions) {
 						console.info('Feed publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 					});

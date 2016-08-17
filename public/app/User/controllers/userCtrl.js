@@ -415,7 +415,10 @@ angular.module('placePeopleApp')
 					template: '../app/User/views/create-publication.html',
 					className: 'user-publication ngdialog-theme-default',
 					scope: $scope,
-					name: "create-publication"
+					name: "create-publication",
+					preCloseCallback: function() {
+						$scope.pubNew.files = [];
+					}
 				});
 			};
 
@@ -431,15 +434,14 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.pubFiles = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+				var defer = $q.defer();
+				var prom = [];
 				newFiles.forEach(function(image) {
-					resizeImage(image);
+					prom.push(resizeImage(image));
 				});
-				if (files.length > 4) {
-					$scope.pubFilesNeedScroll = true;
-				} else if (files.length > 100) {
-					console.log('too much files');
-				}
-				$scope.$broadcast('rebuild:me');
+				$q.all(prom).then(function() {
+					$scope.$broadcast('rebuild:me');
+				});
 			};
 
 			$scope.pubNew = {
@@ -451,7 +453,7 @@ angular.module('placePeopleApp')
 					console.info('User publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 				});
 
-				Upload.resize(image, 700, 395).then(function (resizedFile) {
+				return Upload.resize(image, 700, 395).then(function (resizedFile) {
 					Upload.imageDimensions(resizedFile).then(function (dimensions) {
 						console.info('User publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 					});
@@ -508,8 +510,9 @@ angular.module('placePeopleApp')
 				$scope.mainPubPhoto = target.file.name;
 			};
 
-			$scope.deletePubFile = function (files, index) {
-				files.splice(index, 1);
+			$scope.deletePubFile = function (index) {
+				$scope.pubNew.files.splice(index, 1);
+				$scope.$broadcast('rebuild:me');
 			};
 			$scope.emojiMessage = {};
 			$scope.$on('ngDialog.opened', function (e, $dialog) {

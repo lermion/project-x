@@ -335,12 +335,14 @@
 		};
 
 		vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+			var defer = $q.defer();
+			var prom = [];
 			newFiles.forEach(function(image) {
-				resizeImage(image);
+				prom.push(resizeImage(image));
 			});
-			if (vm.files.length > 4 || vm.editedPubFilesArray.length > 4 || files.length > 4) {
+			$q.all(prom).then(function() {
 				$scope.$broadcast('rebuild:me');
-			}
+			});
 		};
 
 		function resizeImage(image) {
@@ -348,7 +350,7 @@
 				console.info('Group publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 			});
 
-			Upload.resize(image, 700, 395).then(function (resizedFile) {
+			return Upload.resize(image, 700, 395).then(function (resizedFile) {
 				Upload.imageDimensions(resizedFile).then(function (dimensions) {
 					console.info('Group publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 				});
@@ -1045,7 +1047,6 @@
 			vm.newPublication = angular.copy(newPublicationObj);
 			vm.emoji.emojiMessage.messagetext = '';
 			vm.files = [];
-			vm.filesPreview = [];
 		}
 
 		function resetFormEditPublication() {
