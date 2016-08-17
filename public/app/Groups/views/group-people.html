@@ -9,6 +9,7 @@
                     <a ui-sref="user({username: user.login})">
                         <img ng-src="{{::user.avatar_path}}" alt="User avatar">
                     </a>
+                    <span class="peoples-item__delete" ng-if="vm.group.is_admin && vm.myId !== user.id && !user.is_admin || vm.group.is_creator && vm.myId !== user.id" ng-click="vm.removeUser(user)">✖</span>
                 </div>
                 <div class="peoples-item-name-content">
                     <a class="peoples-item-name-family" ui-sref="user({username: user.login})"><span>{{::user.first_name}} {{::user.last_name}}</span></a>
@@ -36,7 +37,7 @@
             >Удалить из администраторов
             </div>
 
-            <span class="peoples-item__delete" ng-if="vm.group.is_admin && vm.myId !== user.id && !user.is_admin || vm.group.is_creator && vm.myId !== user.id" ng-click="vm.removeUser(user)">✖</span>
+            
         </div>
     </div>
 </div>
