@@ -69,22 +69,22 @@ class Publication extends Model
                         });
                     });
             })
-            ->where(function($query){
-                $query->whereNotExists(function($query)
-                {
-                    $query->select(DB::raw('id'))
-                        ->from('place_publications')
-                        ->whereRaw('place_publications.publication_id = publications.id');
-                });
-            })
-            ->where(function($query){
-                $query->whereNotExists(function($query)
-                {
-                    $query->select(DB::raw('id'))
-                        ->from('group_publications')
-                        ->whereRaw('group_publications.publication_id = publications.id');
-                });
-            })
+//            ->where(function($query){
+//                $query->whereNotExists(function($query)
+//                {
+//                    $query->select(DB::raw('id'))
+//                        ->from('place_publications')
+//                        ->whereRaw('place_publications.publication_id = publications.id');
+//                });
+//            })
+//            ->where(function($query){
+//                $query->whereNotExists(function($query)
+//                {
+//                    $query->select(DB::raw('id'))
+//                        ->from('group_publications')
+//                        ->whereRaw('group_publications.publication_id = publications.id');
+//                });
+//            })
             ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
             //$publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->toArray();
