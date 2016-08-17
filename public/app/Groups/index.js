@@ -51,6 +51,7 @@
                                             });
                                     } else if (!data.status && data.error.code === '8') {
                                         deferred.reject();
+                                        $rootScope.$broadcast('preloader:off');
                                         ngDialog.open({
                                             template: '../app/Groups/views/popup-closed-group.html',
                                             name: 'modal-notfound-group',
@@ -61,6 +62,7 @@
                                         });
                                     } else if (!data.status && data.error.code === '6') {
                                         deferred.reject();
+                                        $rootScope.$broadcast('preloader:off');
                                         ngDialog.open({
                                             template: '../app/Groups/views/popup-notfound-group.html',
                                             name: 'modal-notfound-group',
@@ -80,6 +82,7 @@
                                         deferred.resolve(data);
                                     } else if (!data.status && data.error.code === '8') {
                                         deferred.reject();
+                                        $rootScope.$broadcast('preloader:off');
                                         ngDialog.open({
                                             template: '../app/Groups/views/popup-closed-group.html',
                                             name: 'modal-notfound-group',
@@ -90,6 +93,7 @@
                                         });
                                     } else if (!data.status && data.error.code === '6') {
                                         deferred.reject();
+                                        $rootScope.$broadcast('preloader:off');
                                         ngDialog.open({
                                             template: '../app/Groups/views/popup-notfound-group.html',
                                             name: 'modal-notfound-group',
