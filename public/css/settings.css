@@ -2888,8 +2888,8 @@ span.users-today-time-time.early {
 }
 .chat-contact-selected-ava {
     display: flex;
-    width: 250px;
-    height: 250px;
+    width: 290px;
+    height: 290px;
     box-sizing: border-box;
     overflow: hidden;
     align-items: center;
