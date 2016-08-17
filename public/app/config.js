@@ -15,25 +15,48 @@ angular.module('placePeopleApp')
                     url: '/',
                     templateUrl: '../../app/Auth/views/auth.html',
                     controller: 'authCtrl',
-                    isLogin: true
+                    isLogin: true,
+                    resolve: {
+                        countries: function () {
+                            return [];
+                        }
+                    }
                 })
                 .state('reg', {
                     url: '/auth/registration',
                     templateUrl: '../../app/Auth/views/reg.html',
                     controller: 'authCtrl',
-                     isLogin: true
+                    isLogin: true,
+                    resolve: {
+                        countries: function ($rootScope, AuthService) {
+                            return AuthService.getCountries()
+                                .then(function (countries) {
+                                    return countries;
+                                });
+                        }
+                    }
                 })
                 .state('restore', {
                     url: '/auth/restore',
                     templateUrl: '../../app/Auth/views/restore.html',
                     controller: 'authCtrl',
-                     isLogin: true
+                    isLogin: true,
+                    resolve: {
+                        countries: function () {
+                            return [];
+                        }
+                    }
                 })
                 .state('login', {
                     url: '/auth/login',
                     templateUrl: '../../app/Auth/views/login.html',
                     controller: 'authCtrl',
-                     isLogin: true
+                    isLogin: true,
+                    resolve: {
+                        countries: function () {
+                            return [];
+                        }
+                    }
                 })
                 .state('static', {
                     url: '/static/:pageName',
@@ -138,15 +161,40 @@ angular.module('placePeopleApp')
                 })
 
 
-
         }])
-    .run(['$rootScope', function($rootScope) {
+    .run(['$rootScope', function ($rootScope) {
+
+        // Header counters
         $rootScope.counters = {
             groupsNew: null,
             placesNew: null,
             subscribersNew: null
         };
+
+        // Search
         $rootScope.showSearch = false;
+
+        // User menu (for publication, chats, groups, places
         $rootScope.showUserMenu = false;
         $rootScope.showUserMenuSecondary = false;
+
+        // User geolocation
+        ymaps.ready(getUserGeolocation);
+
+        function getUserGeolocation() {
+            ymaps.geolocation.get({
+                provider: 'auto'
+            }).then(function (result) {
+                var metaData = result.geoObjects.get(0).properties.get('metaDataProperty');
+
+                $rootScope.countryName = metaData.GeocoderMetaData.AddressDetails.Country.CountryName;
+
+                //$scope.countries.forEach(function (elem) {
+                //    if (elem.name === countryName) {
+                //        $scope.newUserCountryId = +elem.id;
+                //        console.log($scope.newUserCountryId);
+                //    }
+                //});
+            });
+        }
     }]);

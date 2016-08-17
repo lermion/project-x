@@ -2196,6 +2196,9 @@ body.public.user {
 }
 .publication-footer-button {
 	display: flex;
+	    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 .publication-footer-button a,
 .publication-footer-button button {
@@ -2213,6 +2216,11 @@ body.public.user {
 	margin-left: 5px;
 	border: 1px solid #495b79;
 	transition: all .3s ease-in-out .1s;
+}
+.publication-footer-button .publication-button.ladda-button {
+	position: static;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 .publication-footer-button .publication-button:hover  {
 	background-color: #fff;
@@ -3292,7 +3300,7 @@ body.public.user {
 		padding: 0;
 	}
 	.add-comment .publication-footer-button {
-		width: auto;
+		width: 100%;
 		margin-top: 0;
 	}
 	.user-publication .add-comment .user-ava {
