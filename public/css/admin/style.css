@@ -523,7 +523,8 @@ div table.table>tbody>tr:hover {
 .admin-users tbody tr td,
 .moderator-content-table table tbody tr td,
 .to-delete table tbody tr td,
-.to-delete-groups table tbody tr td {
+.to-delete-groups table tbody tr td,
+.country table tbody tr td {
 	vertical-align: middle;
 }
 table tbody tr td:first-child {
@@ -533,7 +534,7 @@ table tbody tr td:first-child {
      margin-bottom: 0px; 
     margin-right: 5px;
 }
-.admin-settings-menu > li > a {
+.admin-settings-menu li a {
 	display: block;
 	width: 100%;
 }
@@ -722,4 +723,16 @@ table.admin-users .col-do {
 }
 .to-del-places .col-id {
 	width: 15%;
+}
+.base.country {
+	width: 60%;
+}
+.country .col-id {
+	width: 5%;
+}
+.country .col-title {
+	width: 50%;
+}
+.country .col-do {
+	width: 20%;
 }
