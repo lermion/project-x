@@ -195,8 +195,9 @@ angular.module('placePeopleApp')
 						$scope.userData = res;
 						getUserPubs(res.id, counter);
 					},
-					function (err) {
-						console.log(err);
+					function (error) {
+						$state.go("404");
+						console.log(error);
 					}
 				);
 
