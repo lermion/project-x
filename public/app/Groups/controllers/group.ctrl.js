@@ -251,7 +251,8 @@
             });
         };
 
-        vm.openModalReviewPublication = function (id) {
+        vm.openModalReviewPublication = function (id, index) {
+        	$scope.indexCurrentPublication = index;
             getPublication(id).then(function () {
                 var screenWidth = $window.innerWidth;
                 if (screenWidth < 768) {
@@ -1179,6 +1180,43 @@
 
             return result.length > 0;
         }
+
+        $scope.indexCurrentImage = 0;
+		$scope.openPreviousInfo = function(images){
+			if(images.length >= 1){
+				$scope.indexCurrentImage--;
+				if(images[$scope.indexCurrentImage] !== undefined){
+					vm.mainImage = images[$scope.indexCurrentImage].url;
+				}else{
+					if($scope.indexCurrentPublication !== 0){
+						vm.activePublication = vm.group.publications[$scope.indexCurrentPublication -= 1];
+						if(vm.activePublication.images[0] !== undefined){
+							vm.mainImage = vm.activePublication.images[0].url;
+							$scope.indexCurrentImage = 0;
+						}
+					}else{
+						$scope.indexCurrentImage = 0;
+					}
+				}
+			}
+		};
+
+		$scope.openNextInfo = function(images){
+			if(images.length >= 1){
+				$scope.indexCurrentImage++;
+				if(images[$scope.indexCurrentImage] !== undefined){
+					vm.mainImage = images[$scope.indexCurrentImage].url;
+				}else{
+					if($scope.indexCurrentPublication + 1 !== vm.group.publications.length){
+						vm.activePublication = vm.group.publications[$scope.indexCurrentPublication += 1];
+						if(vm.activePublication.images[0] !== undefined){
+							vm.mainImage = vm.activePublication.images[0].url;
+							$scope.indexCurrentImage = 0;
+						}
+					}
+				}
+			}
+		};
 
         //Chat
 
