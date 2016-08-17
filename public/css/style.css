@@ -2196,7 +2196,10 @@ body.public.user {
 }
 .publication-footer-button {
 	display: flex;
-	    align-items: center;
+}
+.group-page .publication-footer-button {
+	display: flex;
+	align-items: center;
     justify-content: space-between;
     width: 100%;
 }
