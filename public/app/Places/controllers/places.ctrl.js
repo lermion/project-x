@@ -663,6 +663,23 @@
             }
         };
 
+        vm.citySelected = function (city) {
+            if (city) {
+                var cityObj = {
+                    countryId: vm.placeNew.country.id,
+                    name: city.title
+                };
+                placesService.addCity(cityObj)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.placeNew.city = {};
+                            vm.placeNew.city.id = data.city_id;
+                            vm.placeNew.city.name = city.title;
+                        }
+                    });
+            }
+        };
+
         vm.searchAPI = function (inputStr, timeoutPromise) {
 
             return $http({
@@ -689,7 +706,7 @@
         function getCity(str) {
             return $http({
                 method: 'GET',
-                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + vm.placeNew.country.name + ', ' + str,
+                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + vm.placeNew.country.name + ', ' + str,
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
                 data: null,
@@ -723,14 +740,18 @@
             if (matches.length === 0) {
                 getCity(str)
                     .then(function (data) {
-                        console.log(data);
-                        var city = data.response.GeoObjectCollection.featureMember[0];
-                        if (city) {
-                            var obj = city.GeoObject.name;
-                            matches.push({
-                                name: obj
-                            });
-                        }
+
+                        var arr = data.response.GeoObjectCollection.featureMember;
+
+                        arr.forEach(function (item) {
+                            var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+                            if (data.kind === 'locality') {
+                                var cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
+                                matches.push({
+                                    name: cityName
+                                });
+                            }
+                        });
 
                         def.resolve(matches);
                     })
@@ -742,29 +763,6 @@
 
 
         };
-
-        vm.citySelected = {};
-
-
-        //vm.beforeInit = function () {
-        //    var geolocation = ymaps.geolocation;
-        //    geolocation.get({
-        //        provider: 'yandex',
-        //        mapStateAutoApply: true
-        //    }).then(function (result) {
-        //        vm.geoObject.geometry.coordinates = result.geoObjects.position;
-        //        vm.center = result.geoObjects.position;
-        //        $scope.$digest();
-        //    });
-        //    geolocation.get({
-        //        provider: 'browser',
-        //        mapStateAutoApply: true
-        //    }).then(function (result) {
-        //        vm.geoObject.geometry.coordinates = result.geoObjects.position;
-        //        vm.center = result.geoObjects.position;
-        //        $scope.$digest();
-        //    });
-        //};
 
 
     }

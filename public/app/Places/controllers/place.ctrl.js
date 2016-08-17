@@ -1292,6 +1292,84 @@
 			return result.length > 0;
 		}
 
+		vm.citySelected = function (city) {
+			if (city) {
+				var cityObj = {
+					countryId: vm.placeEdited.country.id,
+					name: city.title
+				};
+				placesService.addCity(cityObj)
+						.then(function (data) {
+							if (data.status) {
+								vm.placeEdited.city = {};
+								vm.placeEdited.city.id = data.city_id;
+								vm.placeEdited.city.name = city.title;
+							}
+						});
+			}
+		};
+
+		function getCity(str) {
+			return $http({
+				method: 'GET',
+				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + vm.placeEdited.country.name + ', ' + str,
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: null,
+				timeout: 1000
+			})
+					.then(getPublicationsComplete)
+					.catch(getPublicationsFailed);
+
+			function getPublicationsComplete(response) {
+				return response.data;
+			}
+
+			function getPublicationsFailed(error) {
+				console.error('XHR Failed for getPublications. ' + error.data);
+			}
+		}
+
+
+		vm.searchCity = function (str) {
+
+			var def = $q.defer();
+
+			var matches = [];
+
+			vm.cities.forEach(function (city) {
+				if ((city.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {
+					matches.push(city);
+				}
+			});
+
+			if (matches.length === 0) {
+				getCity(str)
+						.then(function (data) {
+
+							var arr = data.response.GeoObjectCollection.featureMember;
+
+							arr.forEach(function (item) {
+								var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+								if (data.kind === 'locality') {
+									var cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
+									matches.push({
+										name: cityName
+									});
+								}
+							});
+
+							def.resolve(matches);
+						})
+			} else {
+				def.resolve(matches);
+			}
+
+			return def.promise;
+
+
+		};
+
 		$scope.indexCurrentImage = 0;
 		$scope.openPreviousInfo = function(images){
 			if(images.length >= 1){

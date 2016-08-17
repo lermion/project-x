@@ -21,6 +21,7 @@
             getCounterNewPlaces: getCounterNewPlaces,
             getCountries: getCountries,
             getCities: getCities,
+            addCity: addCity,
             inviteUsers: inviteUsers,
             setAdmin: setAdmin,
             getPlaceTypeStatic: getPlaceTypeStatic,
@@ -260,6 +261,38 @@
             }
 
 
+        }
+
+        /**
+         * Returns the identifier of the city. If the city is not in the database, then create a new.
+         * @param cityObj
+         * @returns {*}
+         */
+        function addCity(cityObj) {
+
+            var fd = new FormData();
+
+            fd.append('country_id', cityObj.countryId);
+            fd.append('name', cityObj.name);
+
+
+            return $http({
+                method: 'POST',
+                url: 'place/add_city',
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: fd
+            })
+                .then(addCityComplete)
+                .catch(addCityFailed);
+
+            function addCityComplete(response) {
+                return response.data;
+            }
+
+            function addCityFailed(error) {
+                console.error('XHR Failed for addCity. ' + error.data);
+            }
         }
 
         function inviteUsers(placeId, users) {
