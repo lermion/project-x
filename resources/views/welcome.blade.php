@@ -7,6 +7,7 @@
 	<meta name="description" content="">
 	<link href="../../css/style.css" rel="stylesheet">
 	<link href="../../css/settings.css" rel="stylesheet">
+	<base href="/">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
 	<back-top class="main-up-button">Наверх</back-top>
