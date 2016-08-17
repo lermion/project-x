@@ -1405,10 +1405,12 @@ label span.add {
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Описание группы ...';
     color: #999;
+        font-family: "SFUIDisplayLight";
 }
 .group-pub.ngdialog-theme-default .emoji-wysiwyg-editor:empty:after {
     content: 'Текст публикации ...';
     color: #999;
+        font-family: "SFUIDisplayLight";
 }
 .popup-add-group.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
@@ -4413,6 +4415,7 @@ span.users-today-time-time.early {
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:empty:after {
     content: 'Статус чата...';
         color: #999;
+            font-family: "SFUIDisplayLight";
 }
 .popup-group-chat.ngdialog-theme-default .add_newgroup .text-field .emoji-wysiwyg-editor:after {
     content: '';
