@@ -141,7 +141,7 @@ class ModerateController extends Controller
             ->join('users','complaint_comments.user_to_id','=','users.id')
             ->join('users as u','complaint_comments.user_which_id','=','u.id')
             ->join('complaint_categories','complaint_comments.complaint_category_id','=','complaint_categories.id')
-            ->get();
+            ->paginate(25);
             return response()->json(['status' => true, 'complaints' => $complaints]);
     }
 
@@ -151,7 +151,7 @@ class ModerateController extends Controller
             ->join('users','complaint_publications.user_to_id','=','users.id')
             ->join('users as u','complaint_publications.user_which_id','=','u.id')
             ->join('complaint_categories','complaint_publications.complaint_category_id','=','complaint_categories.id')
-            ->get();
+            ->paginate(25);
             return response()->json(['status' => true, 'complaints' => $complaints]);
     }
 
