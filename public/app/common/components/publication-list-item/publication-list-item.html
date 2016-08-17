@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <a href ng-click="returnToBack()" class="return">Назад</a>
+        <!-- <a href ng-click="returnToBack()" class="return">Назад</a> -->
     </div>
 
     <div class="user-publication-content">
@@ -172,23 +172,23 @@
                                 ng-click="$ctrl.addNewComment('feedPage', $ctrl.pub, emojiMessage, $ctrl.newComment.files)"
                                 class="publication-button">Отправить
                         </button>
+                        <div class="add-objects">
+                            <input id="{{addFileObjId}}" style="display: none;"
+                                   name="files"
+                                   ngf-keep="true"
+                                   ngf-accept="'image/*, video/*'"
+                                   ngf-pattern="'image/*, video/*'"
+                                   ngf-select
+                                   ng-model="$ctrl.newComment.files"
+                                   ngf-multiple="true"
+                                   ngf-change="$ctrl.attachFileToComment($files)">
+                            <label for="{{addFileObjId}}">
+                                Прикрепить
+                                <span class="add"></span>
+                            </label>
+                        </div>
                     </div>
-                    <div class="add-objects">
-                        <input id="{{addFileObjId}}" style="display: none;"
-                               name="files"
-                               ngf-keep="true"
-                               ngf-accept="'image/*, video/*'"
-                               ngf-pattern="'image/*, video/*'"
-                               ngf-select
-                               ng-model="$ctrl.newComment.files"
-                               ngf-multiple="true"
-                               ngf-change="$ctrl.attachFileToComment($files)">
-                        <label for="{{addFileObjId}}">
-                            Прикрепить
-                            <span class="add"></span>
-                        </label>
-
-                    </div>
+                    
                 </div>
             </div>
         </form>
