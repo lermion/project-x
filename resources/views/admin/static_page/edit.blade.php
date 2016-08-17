@@ -42,18 +42,25 @@
             <textarea type="text" name="text" placeholder="Содержимое" id="text" required>{{$page->text}}</textarea><br><br>
             <input type="submit" value="Сохранить" class="btn btn-primary">
             <a href="/admin/static_page" class="btn btn-default">Отменить</a>
-            <a type="button" class="btn btn-danger" href="/admin/static_page/destroy/{{$page->id}}">Удалить</a>
+            <a type="button" class="btn btn-danger deleteConfirm-promo" href="/admin/static_page/destroy/{{$page->id}}">Удалить</a>
         </form>
 
-        <br>
-
-        <br>
         <script>
             var txt = $('textarea');
 
             if (txt) {
                 CKEDITOR.replace('text');
-            }
+            };
+            $(".deleteConfirm-promo").click(function(event) {
+                var c = confirm("Вы действительно хотите удалить?");
+                console.log(c);
+                if(!c) {
+                    event.preventDefault();
+                    return false;
+                }
+            })
+
+
         </script>
 
     </div>

@@ -109,6 +109,8 @@ angular.module('placePeopleApp')
 					$rootScope.stateChangeBypass = false;
 					$scope.preloader = false;
 					return;
+				}else{
+					$scope.preloader = true;
 				}
 				if(toState.name !== 'auth'
 					&& toState.name !== 'restore'
