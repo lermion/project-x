@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+<form action="">
     <div class="row country">
       <div class="col-md-12"><h3>Добавление населенного пункта</h3></div>
       <div class="col-md-3">
@@ -50,7 +50,7 @@
       <p>
         <button class="btn btn-primary">Добавить</button>
       </p>
-
+</form>
 
     <div class="base">
         <table class="table table-bordered">

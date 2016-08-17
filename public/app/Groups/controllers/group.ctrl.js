@@ -1032,6 +1032,7 @@
             vm.newPublication = angular.copy(newPublicationObj);
             vm.emoji.emojiMessage.messagetext = '';
             vm.files = [];
+            vm.filesPreview = [];
         }
 
         function resetFormEditPublication() {

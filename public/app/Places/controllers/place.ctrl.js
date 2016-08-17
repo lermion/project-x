@@ -1108,6 +1108,7 @@
 		function resetFormNewPublication() {
 			vm.newPublication = {};
 			vm.files = [];
+			vm.filesPreview = [];
 		}
 
 		function getPublication(id) {
