@@ -521,7 +521,9 @@ div table.table>tbody>tr:hover {
 .admin-mail-to table tbody tr td,
 .admin-moderators tbody tr td,
 .admin-users tbody tr td,
-.moderator-content-table table tbody tr td {
+.moderator-content-table table tbody tr td,
+.to-delete table tbody tr td,
+.to-delete-groups table tbody tr td {
 	vertical-align: middle;
 }
 table tbody tr td:first-child {
@@ -651,4 +653,73 @@ table.admin-users .col-do {
 }
 .promo-create form .form-control {
 	width: 300px;
+}
+.to-delete .col-id 	{
+	width: 4%;
+}
+.to-delete .col-ava 	{
+	width: 6%;
+}
+.to-delete .col-name 	{
+	width: 15%;
+}
+.to-delete .col-gender 	{
+	width: 9%;
+}
+.to-delete .col-age 	{
+	width: 9%;
+}
+.to-delete .col-registration 	{
+	width: 9%;
+}
+.to-delete .col-action 	{
+	width: 15%;
+}
+.to-del-publ .col-id {
+	width: 5%;
+}
+.to-del-publ .col-text {
+	width: 17%;
+}
+.to-del-publ .col-author {
+	width: 10%;
+}
+.to-del-publ .col-img {
+	width: 17%;
+}
+.to-del-publ .col-video {
+	width: 17%;
+}
+.to-del-publ .col-time {
+	width: 10%;
+}
+.to-del-publ .col-action {
+	width: 20%;
+}
+.to-delete-groups .col-id {
+	width: 5%;
+}
+.to-delete-groups .col-description {
+	width: 16%;
+}
+.to-delete-groups .col-author {
+	width: 10%;
+}
+.to-delete-groups .col-name {
+	width: 10%;
+}
+.to-delete-groups .col-img {
+	width: 17%;
+}
+.to-delete-groups .col-video {
+	width: 10%;
+}
+.to-delete-groups .col-time {
+	width: 8%;
+}
+.to-delete-groups .col-action {
+	width: 20%;
+}
+.to-del-places .col-id {
+	width: 15%;
 }
