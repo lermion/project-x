@@ -33,17 +33,27 @@
             <div class="create-places-select-country">
                 <div class="select-country-country">Выберите город</div>
                 <div class="select-country-name">
-                    <select name="city"
-                            ng-options="option.name for option in vm.cities"
-                            ng-model="vm.placeNew.city"
-                            required>
-                        <option value="">---</option>
-                    </select>
+                    <angucomplete-alt id="ex2"
+                                      placeholder="Название..."
+                                      text-searching="Поиск города ..."
+                                      text-no-results="Не найден. Проверьте вводимый город."
+                                      pause="1000"
+                                      selected-object="vm.citySelected"
+                                      remote-api-handler="vm.searchCity"
+                                      title-field="name"
+                                      input-class="form-control form-control-small"
+                                      match-class="highlight"></angucomplete-alt>
+                    <!--<select name="city"-->
+                            <!--ng-options="option.name for option in vm.cities"-->
+                            <!--ng-model="vm.placeNew.city"-->
+                            <!--required>-->
+                        <!--<option value="">-&#45;&#45;</option>-->
+                    <!--</select>-->
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.city.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не выбрали город</div>
-                    </div>
+                    <!--<div class="error-messages" ng-messages="vm.form.placeNew.city.$error"-->
+                         <!--ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">-->
+                        <!--<div ng-message="required">Вы не выбрали город</div>-->
+                    <!--</div>-->
                 </div>
             </div>
             <div class="create-places-select-street">

@@ -8,12 +8,12 @@
     PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
         '$anchorScroll', 'AuthService', 'storageService',
         'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService',
-        'UserService', 'Upload'];
+        'UserService', 'Upload', '$q'];
 
     function PlacesCtrl($scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
                         $anchorScroll, AuthService, storageService,
                         placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService,
-                        UserService, Upload) {
+                        UserService, Upload, $q) {
 
         var LIMIT_PLACE = 3;
 
@@ -104,6 +104,8 @@
         vm.showAllPlaces = false;
 
         vm.subForm = false;
+
+        vm.cities = [];
 
         activate();
 
@@ -683,6 +685,65 @@
             }
 
         };
+
+        function getCity(str) {
+            return $http({
+                method: 'GET',
+                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + vm.placeNew.country.name + ', ' + str,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null,
+                timeout: 1000
+            })
+                .then(getPublicationsComplete)
+                .catch(getPublicationsFailed);
+
+            function getPublicationsComplete(response) {
+                return response.data;
+            }
+
+            function getPublicationsFailed(error) {
+                console.error('XHR Failed for getPublications. ' + error.data);
+            }
+        }
+
+
+        vm.searchCity = function (str) {
+
+            var def = $q.defer();
+
+            var matches = [];
+
+            vm.cities.forEach(function (city) {
+                if ((city.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {
+                    matches.push(city);
+                }
+            });
+
+            if (matches.length === 0) {
+                getCity(str)
+                    .then(function (data) {
+                        console.log(data);
+                        var city = data.response.GeoObjectCollection.featureMember[0];
+                        if (city) {
+                            var obj = city.GeoObject.name;
+                            matches.push({
+                                name: obj
+                            });
+                        }
+
+                        def.resolve(matches);
+                    })
+            } else {
+                def.resolve(matches);
+            }
+
+            return def.promise;
+
+
+        };
+
+        vm.citySelected = {};
 
 
         //vm.beforeInit = function () {
