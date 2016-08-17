@@ -1892,6 +1892,9 @@ div.my_profilll.photo-list div:last-child {
     justify-content: flex-start;
     align-items: center;
 }
+.peoples-item-photo {
+    position: relative;
+}
 .peoples-item-photo a {
     margin: 0;
     padding: 0;

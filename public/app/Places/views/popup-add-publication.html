@@ -29,7 +29,7 @@
         <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
              style="max-height: 250px; overflow:hidden; position:relative;">
 
-            <div class="new-img" ng-repeat="file in vm.filesPreview" ng-click="showMoreImages(files, file)">
+            <div class="new-img" ng-repeat="file in vm.files">
                 <div class="inner">
                     <div class="close" ng-click="vm.removeAttachFile($index)">
                         <div class="close-inner">
