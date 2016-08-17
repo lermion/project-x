@@ -1929,12 +1929,13 @@ body.public.user {
 .visible-comments .comment .user-name  {
 	color: #495b79;
 	font-size: 15.6px;
-	font-family: "SFUIDisplayMedium";
+	font-family: "SFUIDisplayLight";
 	margin: 0 0 0 15px;
 	max-width: 200px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	font-weight: bold;
 }
 .user-function .user .user-name,
 .visible-comments .comment .user-name {
@@ -2476,7 +2477,7 @@ body.public.user {
 }
 .user-publication-header .user-function {
 	display: flex;
-	width: 55%;
+	width: 52.5%;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -2696,6 +2697,9 @@ body.public.user {
 	background-size: 20%;
 	font-size: 14px;
 	transition: all .3s ease-in-out .1s;
+	    font-family: Tahoma;
+    font-weight: bold;
+    font-size: 13.6px;
 }
 .user-publication .likes-item .like:hover {
 	background-color: #495b79;
@@ -4039,10 +4043,13 @@ body.ngdialog-open {
 .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after {
 	content: 'Текст комментария...';
 	    color: #999;
+	        font-family: "SFUIDisplayLight";
+
 }
 .user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:empty:after {
 	content: 'Текст публикации...';
 	    color: #999;
+	        font-family: "SFUIDisplayLight";
 }
 .posFixedPopup{
 	position: fixed !important;
