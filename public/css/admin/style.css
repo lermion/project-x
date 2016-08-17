@@ -749,3 +749,12 @@ table.admin-users .col-do {
 #settings-tab-limit .row {
 	margin-left: 20px;
 }
+.form.delete_user button {
+	margin-bottom: 5px;
+}
+.line-h {
+	line-height: 34px;
+}
+.country {
+	margin-bottom: 10px;
+}

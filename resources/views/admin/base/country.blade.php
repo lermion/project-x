@@ -1,7 +1,17 @@
 @extends('admin.layout')
 
 @section('content')
-
+    <div class="row country">
+      <div class="col-md-2">
+        <span class="line-h"><b>Добавить страну</b></span>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" type="text" placeholder="Введите название...">
+      </div>
+    </div>
+      <p>
+        <button class="btn btn-primary">Добавить</button>
+      </p>
     <div class="base country">
         <table class="table table-bordered">
             <thead>

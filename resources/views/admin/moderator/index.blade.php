@@ -67,7 +67,7 @@
                                 <button type="button" class="btn btn-warning btn-xs"> @if ($mod->is_stop == false) Остановить  @else   Восстановить @endif </button>
                             </a>
                             <a class="btn btn-info btn-xs" href="/admin/moderator/update/{{$mod->id}}">Изменить</a>
-                            <a class="btn btn-danger btn-xs" href="">Удалить</a>
+                            <a class="btn btn-danger btn-xs deleteConfirm-mod" href="">Удалить</a>
                         </p>
                     </td>
                 </tr>
@@ -82,4 +82,15 @@
 
 
     </div>
+
+    <script>
+        $(".deleteConfirm-mod").click(function(event) {
+            var c = confirm("Вы действительно хотите удалить?");
+            console.log(c);
+            if(!c) {
+                event.preventDefault();
+                return false;
+            }
+        })
+    </script>
 @stop
