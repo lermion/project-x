@@ -26,7 +26,7 @@
 		<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 	</div>
 	<div class="user-publication-content">
-		<div ng-click="openNextInfo(singlePublication.images)" class="publication-ava">
+		<div tabindex="1" ng-keydown="keyPress($event, singlePublication.images)" ng-click="openNextInfo(singlePublication.images)" class="publication-ava main-image-publication">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 		</div>				

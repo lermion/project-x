@@ -369,6 +369,18 @@ angular.module('placePeopleApp')
             $scope.complainIsSend = false;
 
             $scope.$on('ngDialog.opened', function (e, $dialog) {
+            	var mainImagePublication = $(".main-image-publication");
+            	setTimeout(function(){
+					mainImagePublication.focus();
+				}, 0);
+            	$scope.keyPress = function(event, images){
+            		console.log("gewgew!!");
+					if(event.keyCode === 39){
+						$scope.openNextInfo(images);
+					}else if(event.keyCode === 37){
+						$scope.openPreviousInfo(images);
+					}
+				};
                 window.emojiPicker = new EmojiPicker({
                     emojiable_selector: '[data-emojiable=true]',
                     assetsPath: 'lib/img/',
