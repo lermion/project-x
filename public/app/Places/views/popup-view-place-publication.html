@@ -1,4 +1,4 @@
-<div class="user-publication-bg"></div>
+<div class="user-publication-bg" ng-click="openPreviousInfo(vm.activePublication.images)"></div>
 <div class="user-publication">
 
     <div class="user-publication-header">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="user-publication-content">
-        <div class="publication-ava">
+        <div ng-click="openNextInfo(vm.activePublication.images)" class="publication-ava">
             <img ng-if="vm.mainImage" ng-src="{{vm.mainImage}}">
             <video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
         </div>
