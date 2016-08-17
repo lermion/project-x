@@ -384,7 +384,8 @@ angular.module('placePeopleApp')
                 }
             };
 
-            $scope.changeMainFile = function (file, flag, pub) {
+            $scope.changeMainFile = function (file, flag, pub, index) {
+            	$scope.indexCurrentImage = index;
                 if (file.pivot.video_id) {
                     $scope.mainImage = "";
                     $scope.mainVideo = file.url;
