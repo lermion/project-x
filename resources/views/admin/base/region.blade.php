@@ -2,6 +2,32 @@
 
 
 @section('content')
+    <div class="row country">
+      <div class="col-md-12"><h3>Добавление области</h3></div>
+      <div class="col-md-2">
+        <span class="line-h"><b>Выберите страну</b></span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option>Украина</option>
+          <option>Россия</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row country">
+      <div class="col-md-2">
+        <span class="line-h"><b>Название области</b></span>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" type="text" placeholder="Введите название...">
+      </div>
+    </div>
+
+      <p>
+        <button class="btn btn-primary">Добавить</button>
+      </p>
+
 
     <div class="base">
         <table class="table table-bordered">
