@@ -752,3 +752,9 @@ table.admin-users .col-do {
 .form.delete_user button {
 	margin-bottom: 5px;
 }
+.line-h {
+	line-height: 34px;
+}
+.country {
+	margin-bottom: 10px;
+}
