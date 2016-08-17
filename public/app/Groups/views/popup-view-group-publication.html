@@ -29,7 +29,7 @@
     </div>
 
     <div class="user-publication-content">
-        <div ng-click="openNextInfo(vm.activePublication.images)" class="publication-ava">
+        <div tabindex="1" ng-keydown="keyPress($event, vm.activePublication.images)" ng-click="openNextInfo(vm.activePublication.images)" class="publication-ava main-image-publication">
             <img ng-if="vm.mainImage" ng-src="{{vm.mainImage}}">
             <video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
         </div>
