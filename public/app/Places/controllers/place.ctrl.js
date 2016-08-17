@@ -109,6 +109,19 @@
 		});
 
 		$scope.$on('ngDialog.opened', function (e, $dialog) {
+			if ($dialog.name === "modal-publication-group") {
+				var mainImagePublication = $(".main-image-publication");
+				setTimeout(function(){
+					mainImagePublication.focus();
+				}, 0);
+				$scope.keyPress = function(event, images){
+					if(event.keyCode === 39){
+						$scope.openNextInfo(images);
+					}else if(event.keyCode === 37){
+						$scope.openPreviousInfo(images);
+					}
+				};
+			}
 			if ($dialog.name === "modal-edit-publication") {
 				$(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
 			}
