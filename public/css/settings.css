@@ -2894,10 +2894,8 @@ span.users-today-time-time.early {
     justify-content: center;
 }
 .chat-contact-selected-ava img {
-    max-width: 200%;
-    max-height: 200%;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 .chat-contact-selected-data {
     width: 350px;
@@ -5036,24 +5034,30 @@ input.cmn-toggle-round:checked + label:after {
 }
 .places-item-photo-title {
     width: 100%;
-    position: absolute;
-    bottom: 45px;
-    left: 0;
-    height: 45px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
     box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.1);
+    color: rgb(83,83,83);
+    overflow: hidden;
+    line-height: 22px;
 }
-.places-item-photo-title span {
-    margin-left: 10px;
+.places-item-photo-title-p {
+    margin: 5px 10px 0 5px;
+    width: 100%;
     font-size: 14.6px;
     font-family: "SFUIDisplayLight";
-    color: rgb(247, 247, 247);
+    padding-left: 25px;
+    background-image: url(/images/places-hover.png);
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 20px;
+    line-height: 20px;
 }
 .places-item-description {
     display: flex;
+        flex-wrap: wrap;
     height: 100px;
     background-color: #fff;
     border-bottom: 1px solid rgb(224, 226, 229);
