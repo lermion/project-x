@@ -170,7 +170,10 @@
 					template: '../app/Places/views/popup-view-place-publication.html',
 					name: 'modal-publication-group',
 					className: 'view-publication ngdialog-theme-default',
-					scope: $scope
+					scope: $scope,
+					preCloseCallback: function(){
+                    	vm.place.publications[index] = vm.activePublication;
+                    }
 				});
 			});
 		};
