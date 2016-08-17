@@ -2,6 +2,7 @@
 
 
 @section('content')
+<form action="">
     <div class="row country">
       <div class="col-md-12"><h3>Добавление области</h3></div>
       <div class="col-md-2">
@@ -27,7 +28,7 @@
       <p>
         <button class="btn btn-primary">Добавить</button>
       </p>
-
+</form>
 
     <div class="base">
         <table class="table table-bordered">
