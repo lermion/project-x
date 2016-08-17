@@ -42,7 +42,7 @@
                     <td>02.08.2016</td>
                     <td class="text-center">
                         <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs">Удалить</button>
+                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
                     </td>
                   </tr>
                   <tr>
@@ -59,7 +59,7 @@
                     <td>02.08.2016</td>
                     <td class="text-center">
                         <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs">Удалить</button>
+                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
                     </td>
                   </tr>
                 </tbody>
@@ -68,8 +68,19 @@
 
 
         <div class="admin-delete-btn">
-            <button class="btn btn-danger">Удалить все</button>
+            <button class="btn btn-danger deleteConfirm-del">Удалить все</button>
         </div>
     </div>
+
+    <script>
+        $(".deleteConfirm-del").click(function(event) {
+            var c = confirm("Вы действительно хотите удалить?");
+            console.log(c);
+            if(!c) {
+                event.preventDefault();
+                return false;
+            }
+        })
+    </script>
 
 @stop

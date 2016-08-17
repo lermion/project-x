@@ -264,7 +264,10 @@
                         template: '../app/Groups/views/popup-view-group-publication.html',
                         name: 'modal-publication-group',
                         className: 'view-publication ngdialog-theme-default',
-                        scope: $scope
+                        scope: $scope,
+                        preCloseCallback: function(){
+                        	vm.group.publications[index] = vm.activePublication;
+                        }
                     });
                 }
 
@@ -868,7 +871,8 @@
 
         };
 
-        vm.changeMainFile = function (file, flag, pub) {
+        vm.changeMainFile = function (file, flag, pub, index) {
+        	$scope.indexCurrentImage = index;
             if (file.pivot.video_id) {
                 vm.mainImage = "";
                 vm.mainVideo = file.url;
@@ -1255,17 +1259,6 @@
             });
         };
 
-        $scope.changeMainFile = function (file, flag, pub) {
-            if (flag) {
-                $scope.mainImageInPopup = file.url;
-            } else {
-                $scope.mainVideo = "";
-                $scope.mainImage = file.url;
-            }
-            if (flag === 'list') {
-                pub.mainFile = file;
-            }
-        };
         $scope.statusLoading = true;
         $scope.busyMessages = false;
         $scope.loadMoreMessages = function () {

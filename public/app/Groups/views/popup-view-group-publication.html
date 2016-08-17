@@ -37,7 +37,7 @@
              style="max-height:175px; overflow:hidden; position:relative;"
              ng-hide="vm.activePublication.images.length === 1">
 
-            <div ng-click="vm.changeMainFile(file)"
+            <div ng-click="vm.changeMainFile(file, null, null, $index)"
                  ng-repeat="file in vm.activePublication.images.concat(vm.activePublication.videos) | limitTo: limit as results"
                  class="images-item">
                 <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
@@ -92,7 +92,7 @@
                             {{comment.user.last_name}}</a>
 
                         <p class="time" am-time-ago="comment.created_at"></p>
-                        <a href ng-click="comment.user.id != vm.myId && vm.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+                        <a href ng-click="comment.user.id != vm.myId && vm.addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : '&nbsp;'}}</a>
                     </div>
                     <a href ng-click="vm.openCommentComplainBlock(comment.id)" class="alert alert-text"
                        ng-hide="comment.user.id == vm.myId">Пожаловаться</a>

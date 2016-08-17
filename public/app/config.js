@@ -61,7 +61,8 @@ angular.module('placePeopleApp')
                 .state('static', {
                     url: '/static/:pageName',
                     templateUrl: '../../app/Static/views/static.html',
-                    controller: 'staticCtrl'
+                    controller: 'staticCtrl',
+                    isLogin: true
                 })
                 .state('subscribers', {
                     url: '/:username/subscribers/:id',
@@ -156,7 +157,8 @@ angular.module('placePeopleApp')
                 .state('desktop-pub-view', {
                     url: '/:username/publication/:id/:hash',
                     templateUrl: '../../app/User/views/user.html',
-                    controller: 'userCtrl'
+                    controller: 'userCtrl',
+                    isLogin: false
                 })
 
 

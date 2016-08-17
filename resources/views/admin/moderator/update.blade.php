@@ -88,7 +88,18 @@
             <input type="hidden" name="id" value="{{$moderators->id}}">
             <input class="btn btn-primary" type="submit" value="Добавить">
             <a href="/admin/moderator" class="btn btn-default">Отменить</a>
-            <a href="#" class="btn btn-danger">Удалить</a>
+            <a href="#" class="btn btn-danger deleteConfirm-mod">Удалить</a>
         </form>
     </div>
+
+    <script>
+        $(".deleteConfirm-mod").click(function(event) {
+            var c = confirm("Вы действительно хотите удалить?");
+            console.log(c);
+            if(!c) {
+                event.preventDefault();
+                return false;
+            }
+        })
+    </script>
 @stop
