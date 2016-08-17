@@ -584,9 +584,11 @@ angular.module('placePeopleApp')
 							console.log('Error');
 						}
 						$scope.newPubLoader = false;
+						$scope.pubNew.files = [];
 					},
 					function (err) {
 						console.log(err);
+						$scope.pubNew.files = [];
 					});
 			};
 
