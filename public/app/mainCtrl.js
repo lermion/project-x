@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
 	.controller('mainCtrl', ['$rootScope', '$scope', '$state', 'groupsService', 'placesService', 'UserService',
-		'storageService', 'AuthService', '$location', 'socket', '$http', '$window', 'ngDialog',
+		'storageService', 'AuthService', '$location', 'socket', '$http', '$window', 'ngDialog', 'md5',
 		function ($rootScope, $scope, $state, groupsService, placesService, UserService, storageService,
-				  AuthService, $location, socket, $http, $window, ngDialog) {
+				  AuthService, $location, socket, $http, $window, ngDialog, md5) {
 
 			$scope.currentPath = $location.url();
 			var storage = storageService.getStorage();
@@ -114,8 +114,15 @@ angular.module('placePeopleApp')
 					&& toState.name !== 'restore'
 					&& toState.name !== 'reg'
 					&& toState.name !== 'place'
-					&& toState.name !== 'group'){
+					&& toState.name !== 'group'
+					&& toState.name !== 'desktop-pub-view'){
 					event.preventDefault();
+				}
+				if(toState.name === "desktop-pub-view" && toParams.hash && !$rootScope.isAuthorized){
+					var hashPubId = md5.createHash(toParams.id);
+					if(hashPubId !== toParams.hash){
+						event.preventDefault();
+					}
 				}
 				storageService.isUserAuthorized().then(function(response){
 					var storage = storageService.getStorage();
@@ -127,7 +134,7 @@ angular.module('placePeopleApp')
 					}else{
 						$rootScope.isAuthorized = false;
 					}
-					if(!toState.isLogin && !$rootScope.isAuthorized){
+					if(!toState.isLogin && !$rootScope.isAuthorized && toState.name !== "desktop-pub-view"){
 						storageService.deleteStorage();
 						$state.go('login');
 					}
