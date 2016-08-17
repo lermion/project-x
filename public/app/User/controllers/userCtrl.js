@@ -513,6 +513,17 @@ angular.module('placePeopleApp')
 			$scope.emojiMessage = {};
 			$scope.$on('ngDialog.opened', function (e, $dialog) {
 				if ($dialog.name === "view-publication") {
+					var mainImagePublication = $(".main-image-publication");
+					setTimeout(function(){
+						mainImagePublication.focus();
+					}, 0);
+					$scope.keyPress = function(event, images){
+						if(event.keyCode === 39){
+							$scope.openNextInfo(images);
+						}else if(event.keyCode === 37){
+							$scope.openPreviousInfo(images);
+						}
+					}
 					window.emojiPicker = new EmojiPicker({
 						emojiable_selector: '.view-publication-pub-text',
 						assetsPath: 'lib/img/',
