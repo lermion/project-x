@@ -524,7 +524,7 @@ angular.module('placePeopleApp')
 						}else if(event.keyCode === 37){
 							$scope.openPreviousInfo(images);
 						}
-					}
+					};
 					window.emojiPicker = new EmojiPicker({
 						emojiable_selector: '.view-publication-pub-text',
 						assetsPath: 'lib/img/',
