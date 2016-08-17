@@ -105,6 +105,7 @@ angular.module('placePeopleApp')
 				$scope.bodyClass = 'public user';
 			});
 			$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+				$scope.preloader = true;
 				if($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
 					$rootScope.stateChangeBypass = false;
 					$scope.preloader = false;
@@ -130,7 +131,6 @@ angular.module('placePeopleApp')
 					var storage = storageService.getStorage();
 					if(response.is_authorization){
 						$rootScope.isAuthorized = true;
-						$scope.preloader = true;
 						$rootScope.stateChangeBypass = true;
 						$state.go(toState, toParams);
 					}else{

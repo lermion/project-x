@@ -8,12 +8,12 @@
     PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
         '$anchorScroll', 'AuthService', 'storageService',
         'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService',
-        'UserService', 'Upload'];
+        'UserService', 'Upload', '$q'];
 
     function PlacesCtrl($scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
                         $anchorScroll, AuthService, storageService,
                         placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService,
-                        UserService, Upload) {
+                        UserService, Upload, $q) {
 
         var LIMIT_PLACE = 3;
 
@@ -104,6 +104,8 @@
         vm.showAllPlaces = false;
 
         vm.subForm = false;
+
+        vm.cities = [];
 
         activate();
 
@@ -661,6 +663,23 @@
             }
         };
 
+        vm.citySelected = function (city) {
+            if (city) {
+                var cityObj = {
+                    countryId: vm.placeNew.country.id,
+                    name: city.title
+                };
+                placesService.addCity(cityObj)
+                    .then(function (data) {
+                        if (data.status) {
+                            vm.placeNew.city = {};
+                            vm.placeNew.city.id = data.city_id;
+                            vm.placeNew.city.name = city.title;
+                        }
+                    });
+            }
+        };
+
         vm.searchAPI = function (inputStr, timeoutPromise) {
 
             return $http({
@@ -684,26 +703,66 @@
 
         };
 
+        function getCity(str) {
+            return $http({
+                method: 'GET',
+                url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + vm.placeNew.country.name + ', ' + str,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity,
+                data: null,
+                timeout: 1000
+            })
+                .then(getPublicationsComplete)
+                .catch(getPublicationsFailed);
 
-        //vm.beforeInit = function () {
-        //    var geolocation = ymaps.geolocation;
-        //    geolocation.get({
-        //        provider: 'yandex',
-        //        mapStateAutoApply: true
-        //    }).then(function (result) {
-        //        vm.geoObject.geometry.coordinates = result.geoObjects.position;
-        //        vm.center = result.geoObjects.position;
-        //        $scope.$digest();
-        //    });
-        //    geolocation.get({
-        //        provider: 'browser',
-        //        mapStateAutoApply: true
-        //    }).then(function (result) {
-        //        vm.geoObject.geometry.coordinates = result.geoObjects.position;
-        //        vm.center = result.geoObjects.position;
-        //        $scope.$digest();
-        //    });
-        //};
+            function getPublicationsComplete(response) {
+                return response.data;
+            }
+
+            function getPublicationsFailed(error) {
+                console.error('XHR Failed for getPublications. ' + error.data);
+            }
+        }
+
+
+        vm.searchCity = function (str) {
+
+            var def = $q.defer();
+
+            var matches = [];
+
+            vm.cities.forEach(function (city) {
+                if ((city.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {
+                    matches.push(city);
+                }
+            });
+
+            if (matches.length === 0) {
+                getCity(str)
+                    .then(function (data) {
+
+                        var arr = data.response.GeoObjectCollection.featureMember;
+
+                        arr.forEach(function (item) {
+                            var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+                            if (data.kind === 'locality') {
+                                var cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
+                                matches.push({
+                                    name: cityName
+                                });
+                            }
+                        });
+
+                        def.resolve(matches);
+                    })
+            } else {
+                def.resolve(matches);
+            }
+
+            return def.promise;
+
+
+        };
 
 
     }

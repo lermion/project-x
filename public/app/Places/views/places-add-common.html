@@ -33,16 +33,22 @@
             <div class="create-places-select-country">
                 <div class="select-country-country">Выберите город</div>
                 <div class="select-country-name">
-                    <select name="city"
-                            ng-options="option.name for option in vm.cities"
-                            ng-model="vm.placeNew.city"
-                            required>
-                        <option value="">---</option>
-                    </select>
+                    <angucomplete-alt id="autocomplete-city-place"
+                                      placeholder="Название..."
+                                      text-searching="Поиск города ..."
+                                      text-no-results="Не найден. Проверьте вводимый город."
+                                      pause="1000"
+                                      selected-object="vm.citySelected"
+                                      remote-api-handler="vm.searchCity"
+                                      title-field="name"
+                                      input-class="form-control form-control-small"
+                                      field-required="true"
+                                      input-name="city"
+                                      disable-input="!vm.placeNew.country"></angucomplete-alt>
 
                     <div class="error-messages" ng-messages="vm.form.placeNew.city.$error"
                          ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не выбрали город</div>
+                        <div ng-message="autocomplete-required">Вы не выбрали город</div>
                     </div>
                 </div>
             </div>
