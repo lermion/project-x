@@ -71,7 +71,7 @@
 					<div class="info-item">
 						<a class="user-name" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 						<p class="time" am-time-ago="comment.created_at"></p>
-						<a href="javascript:void(0);" ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+						<a href="javascript:void(0);" ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : '&nbsp;'}}</a>
 					</div>
 					<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
