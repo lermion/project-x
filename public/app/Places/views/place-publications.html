@@ -1,7 +1,7 @@
 <div class="group-publication" ng-init="vm.photosGrid = true">
     <div class="my-photos" ng-if="vm.photosGrid">
-        <div class="photo" ng-repeat="item in vm.place.publications | orderBy: '-created_at'" style="{{resizeSizes}}">
-            <a href="" ng-click="vm.openModalReviewPublication(item.id	)">
+        <div class="photo" ng-repeat="item in vm.place.publications" style="{{resizeSizes}}">
+            <a href="" ng-click="vm.openModalReviewPublication(item.id, $index)">
                 <img ng-src="{{::item.images[0].url}}" alt="">
                 <!-- <span class="video" ng-show="$index==0"></span> -->
             </a>

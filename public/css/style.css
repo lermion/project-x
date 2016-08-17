@@ -3887,10 +3887,13 @@ body.ngdialog-open {
 	order: 1;
 }
 .group-page .group-publication {
-	background: #fff;
+	background: #e9eaed;;
 	width: 700px;
 	margin: 0 auto 20px auto;
 	z-index: 1;
+}
+.group-page .group-publication .user-publication {
+	margin-bottom: 20px;
 }
 .group-header {
 	z-index: -1;
