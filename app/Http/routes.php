@@ -70,6 +70,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\ComplaintsController@index');
                 Route::get('delete_complaint_comment/{id}', 'Admin\ComplaintsController@delete_complaint_comment');
                 Route::get('delete_comment/{id}', 'Admin\ComplaintsController@delete_comment');
+                Route::get('comments', 'Admin\ComplaintsController@comments');
+                Route::get('delete_complaint_publication/{id}', 'Admin\ComplaintsController@delete_complaint_publication');
+                Route::get('delete_publication/{id}', 'Admin\ComplaintsController@delete_publication');
             });
             Route::group(['prefix' => 'comments'], function () {
                 Route::get('/', 'Admin\CommentsController@index');

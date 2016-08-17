@@ -740,3 +740,12 @@ table.admin-users .col-do {
 .country .col-do {
 	width: 20%;
 }
+.settings-tab-common-inner.row {
+	margin-bottom: 0;
+}
+.mg-l {
+	margin-left: 20px;
+}
+#settings-tab-limit .row {
+	margin-left: 20px;
+}
