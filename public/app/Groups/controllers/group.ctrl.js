@@ -264,7 +264,10 @@
                         template: '../app/Groups/views/popup-view-group-publication.html',
                         name: 'modal-publication-group',
                         className: 'view-publication ngdialog-theme-default',
-                        scope: $scope
+                        scope: $scope,
+                        preCloseCallback: function(){
+                        	vm.group.publications[index] = vm.activePublication;
+                        }
                     });
                 }
 
