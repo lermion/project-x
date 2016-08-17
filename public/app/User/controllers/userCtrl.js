@@ -12,6 +12,7 @@ angular.module('placePeopleApp')
 			$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
 			$scope.shareData = [];
+			var deletePublication = null;
 			var sharePublication = null;
 			if (!storage.pubView) {
 				storageService.setStorageItem('pubView', 'greed');
@@ -1124,7 +1125,7 @@ angular.module('placePeopleApp')
 
 			$scope.deletePub = function (pub) {
 				$scope.pubToDelete = pub.id;
-				ngDialog.open({
+				deletePublication = ngDialog.open({
 					template: '../app/User/views/delete-publication.html',
 					className: 'delete-publication ngdialog-theme-default',
 					scope: $scope
@@ -1133,10 +1134,13 @@ angular.module('placePeopleApp')
 
 			$scope.confirmPubDelete = function (pubToDelete) {
 				PublicationService.deletePublication(pubToDelete).then(function (res) {
-						if (res.status) {
+						if(res.status){
 							$scope.userPublications.splice($scope.indexCurrentPublication, 1);
 							$scope.userData.publications_count--;
 							getUserPubs(storage.userId);
+							if($state.current.name === "mobile-pub-view"){
+								$state.go("user", {username: $stateParams.username});
+							}
 						}
 						ngDialog.closeAll();
 					},
@@ -1145,6 +1149,9 @@ angular.module('placePeopleApp')
 					});
 			};
 
+			$scope.cancelPubDelete = function(){
+				deletePublication.close();
+			}
 
 			// Subscribers
 

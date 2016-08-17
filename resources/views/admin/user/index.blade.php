@@ -30,6 +30,8 @@
         });
         TableManageButtons.init();
     </script>
+
+
     <div class="remodal" id="deleteModal">
         <button data-remodal-action="close" class="remodal-close"></button>
         <form class="form delete_user" method='get' action="/admin/user/delete/">
@@ -40,13 +42,103 @@
             <button period="12" class="btn btn-danger btn-xs deletePeriodBnt">Год</button>
         </form>
     </div>
-    <div class="admin-table" style="width:100%; height:auto; margin-bottom:20px;">
+
+
+    <div class="x_content">
+        <div class="complains-menu">
+            <ul class="row admin-settings-menu">
+                <li class="col-md-3 col-md-offset-3 active"><a href="#">Все (<span>10</span>)</a></li>
+                <li class="col-md-3"><a href="#">На заметке (<span>20</span>)</a></li>
+            </ul>
+        </div>
+       <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
+                    <div class="daosn3 gender">
+                        <select class="form-control">
+                            <option>Пол</option>
+                            <option>Мужской</option>
+                            <option>Женский</option>
+                        </select>
+                    </div>
+                    <div class="daosn3">
+                        <p>Регистрация</p>
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="input-prepend input-group">
+                                            <span class="add-on input-group-addon"><i
+                                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                            <input type="text" style="width: 200px" name="reservation" id="reservation"
+                                                   class="form-control" value="03/18/2013 - 03/23/2013"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="daosn3 age">
+                        <input type="text" class="form-control" placeholder="Возраст от">
+                    </div>
+                    <div class="daosn3 age">
+                        <input type="text" class="form-control" placeholder="Возраст до">
+                    </div>
+                    <div class="daosn3 avatar">
+                        <input id="avatar" type="checkbox" checked>
+                        <label for="avatar"><span>&nbsp; с аватаром</span></label>
+                    </div>
+                    <div class="daosn3 key"><input type="text" class="form-control" placeholder="Поиск..."></div>
+        </div>
+    </div>
+
+
+    <div class="x_content">
+
+        <table id="datatable" class="table table-bordered admin-users">
+            <thead>
+            <tr>
+                <th class="col-id">id</th>
+                <th class="col-ava">Аватар</th>
+                <th class="col-name">Имя</th>
+                <th class="col-gender">Пол</th>
+                <th class="col-age">Возраст</th>
+                <th class="col-date">Дата регистрации</th>
+                <th class="col-status">Статус</th>
+                <th class="col-do">Действие</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            @foreach($users as $user)
+            <tr>
+            <td>{{ $user->id }}</td>
+            <td class="text-center"><a href="{{action('Admin\UserController@show', ['id'=>$user->id])}}" ><img src="/images/user.png"></a></td>
+            <td><a href="{{action('Admin\UserController@show', ['id'=>$user->id])}}" >{{ $user->first_name }} {{ $user->last_name }}</a></td>
+            <td>{{ $user->gender }}</td>
+            <td>{{ $user->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($user->birthday), new DateTime())->y }}</td>
+            <td>{{ $user->created_at }}</td>
+            <td>{{ $user->status }}</td>
+            <td class="text-center">
+                    <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
+                    <button type="button" class="btn btn-primary btn-xs">На заметку</button>
+                <!-- <p align="center" class="m0">
+                    <button type="button" class="btn btn-warning btn-xs">Подозрительный</button>
+                </p> -->
+                    <a userId='{{$user->id}}' class="btn btn-danger btn-xs deleteBnt">Удалить</a>
+            </td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+     <!-- <div class="admin-table" style="width:100%; height:auto; margin-bottom:20px;">
         <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
             <tr>
                 <td>
                     <div class="daosn2" style="background-color:#f1f1f1;">Все <b>25689</b></div>
                 </td>
-                <!-- <td>
+                <td>
                     <div class="daosn2">На удалении <b>12</b></div>
                 </td>
                 <td>
@@ -54,20 +146,20 @@
                 </td>
                 <td>
                     <div class="daosn2">Удалились сами <b>3</b></div>
-                </td> -->
+                </td>
                 <td>
                     <div class="daosn2">На заметке <b>127</b></div>
                 </td>
-                <!-- <td>
+                <td>
                     <div class="daosn2">Подозрительные <b>32</b></div>
                 </td>
                 <td>
                     <div class="daosn2" style="border-right:1px #999 solid;">Срочные <b>5</b></div>
-                </td> -->
-                <!-- <td width="100%"></td> -->
+                </td>
+                <td width="100%"></td>
             </tr>
         </table>
-    </div>
+    </div> -->
 
  <!--    <div style="width:100%; height:auto; margin-bottom:5px;">
         <table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
@@ -130,97 +222,6 @@
             </tr>
         </table>
     </div> -->
-      <h2 class="sort">Сортировка:</h2>
-       <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
-                   
-                    <div class="daosn3">
-                        <select>
-                            <option>Пол</option>
-                            <option>Мужской</option>
-                            <option>Женский</option>
-                        </select>
-                    </div>
-                    <div class="daosn3">
-                        <p>Дата регистрации</p>
-                        <form class="form-horizontal">
-                            <fieldset>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <div class="input-prepend input-group">
-                                            <span class="add-on input-group-addon"><i
-                                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                            <input type="text" style="width: 200px" name="reservation" id="reservation"
-                                                   class="form-control" value="03/18/2013 - 03/23/2013"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="daosn3 age">
-                        <select>
-                            <option>Возраст от</option>
-                            <option>18</option>
-                            <option>19</option>
-                            <option>20</option>
-                            <option>21</option>
-                        </select> - <select>
-                            <option>Возраст до</option>
-                            <option>18</option>
-                            <option>19</option>
-                            <option>20</option>
-                            <option>21</option>
-                        </select>
-                    </div>
-                    <div class="daosn3"><p><input type="checkbox" checked/> с аватаром</p></div>
-                    <div class="daosn3 key"><p>Ключевое слово <input type="text"/></p></div>
-    </div>
-
-    <div class="x_content">
-
-        <table id="datatable" class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>Аватар</th>
-                <th>Имя</th>
-                <th>Пол</th>
-                <th>Возраст</th>
-                <th>Дата регистрации</th>
-                <th>Статус</th>
-                <th>Действие</th>
-            </tr>
-            </thead>
-
-
-            <tbody>
-            @foreach($users as $user)
-            <tr>
-            <td>{{ $user->id }}</td>
-            <td><a href="{{action('Admin\UserController@show', ['id'=>$user->id])}}" ><img style="height: 70px" src="/images/user.png"></a></td>
-            <td><a href="{{action('Admin\UserController@show', ['id'=>$user->id])}}" >{{ $user->first_name }} {{ $user->last_name }}</a></td>
-            <td>{{ $user->gender }}</td>
-            <td>{{ $user->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($user->birthday), new DateTime())->y }}</td>
-            <td>{{ $user->created_at }}</td>
-            <td>{{ $user->status }}</td>
-            <td>
-                <p align="center" class="m0">
-                    <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                </p>
-                <p align="center" class="m0">
-                    <button type="button" class="btn btn-primary btn-xs">На заметку</button>
-                </p>
-                <!-- <p align="center" class="m0">
-                    <button type="button" class="btn btn-warning btn-xs">Подозрительный</button>
-                </p> -->
-                <p align="center" class="m0">
-                    <a userId='{{$user->id}}' class="btn btn-danger btn-xs deleteBnt">Удалить</a>
-            </td>
-            </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
     <script>
         var deleteBtn = $('.deleteBnt');
         var deletePeriodBnt = $('.deletePeriodBnt');

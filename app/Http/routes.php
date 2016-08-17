@@ -64,7 +64,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'option'], function () {
                 Route::get('/', 'Admin\OptionController@index');
                 Route::post('create_option', 'Admin\OptionController@create');
-                Route::post('update_option/{id}', 'Admin\OptionController@update');
+               // Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
             Route::group(['prefix' => 'complaints'], function () {
                 Route::get('/', 'Admin\ComplaintsController@index');
@@ -299,9 +299,9 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/subscribe/confirm/1\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='first_name' value='test'><br>
-            <input type='text' name='last_name' value='test'><br>
+        echo "<form action=\"http://pp.dev/publication\" method=\"post\" enctype=\"multipart/form-data\">
+            <input type='text' name='offset' value='0'><br>
+            <input type='text' name='limit' value='10'><br>
             <input type='file' name='avatar'><br>
             <input type='password' name='password' value='111111'><br>
             <input type='checkbox' name='weekday[1]'><br>

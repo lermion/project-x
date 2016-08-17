@@ -51,13 +51,11 @@ class MailController extends Controller
 
     public function index()
     {
-//        $mails = UserMail::where('status','New')->get();
-//        foreach($mails as &$mail){
-//            if (!UserMail::where('user_id', 'null')->first()) {
-//                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
-//            }
-//        }
-        return view('admin.mail.index');
+        $mails = UserMail::select('user_mails.id as id','user_mails.name as name','user_mails.email as email','user_mails.text as text','user_mails.created_at as date', 'users.avatar_path as avatar', 'users.id as user_id')
+            ->leftJoin('users','user_mails.user_id','=', 'users.id')
+            ->where('user_mails.status','New')
+            ->paginate(25);
+        return view('admin.mail.index')->with('mails',$mails);
     }
 
     public function change_status_closed($id)
@@ -67,7 +65,7 @@ class MailController extends Controller
         if ($mail->status != 'Closed' ) {
             $mail->status = 'Closed';
             $mail->save();
-            return response()->json(['status' => true]);
+            return redirect('/admin/mail/get_closed/')->with('message', 'Статус сообщения изменен');
         } else {
             $result = [
                 "status" => false,
@@ -76,7 +74,7 @@ class MailController extends Controller
                     'code' => '7'
                 ]
             ];
-            return redirect('admin/mail/index')->with('message', '��������� �������');
+            return redirect('/admin/mail/get_closed/')->with('message', 'Ошибка!!! Статус сообщения не изменен');
         }
     }
 
@@ -87,7 +85,7 @@ class MailController extends Controller
         if ($mail->status != 'Review' ) {
             $mail->status = 'Review';
             $mail->save();
-            return response()->json(['status' => true]);
+            return redirect('/admin/mail/get_review/')->with('message', 'Статус сообщения изменен');
         } else {
             $result = [
                 "status" => false,
@@ -96,36 +94,35 @@ class MailController extends Controller
                     'code' => '7'
                 ]
             ];
-            return redirect('admin/mail/index')->with('message', '��������� ������������');
+            return redirect('/admin/mail/get_review/')->with('message', 'Ошибка!!! Статус сообщения не изменен');
         }
     }
 
     public function destroy($id)
     {
-        UserMail::find($id)->delete();
-        return redirect('admin/mail/index')->with('message', '��������� ��������');
+        if (UserMail::find($id)->delete()) {
+            return redirect('/admin/mail/')->with('message', 'Сообщение удаленнно');
+        } else {
+            return redirect('/admin/mail/')->with('message', 'Ошибка!!! Сообщение не удаленнно');
+        }
     }
 
     public function get_closed()
     {
-        $mails = UserMail::where('status','Closed')->get();
-        foreach($mails as &$mail){
-            if (!UserMail::where('user_id', 'null')->first()) {
-                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
-            }
-        }
-        return $mails;
+        $mails = UserMail::select('user_mails.id as id','user_mails.name as name','user_mails.email as email','user_mails.text as text','user_mails.created_at as date', 'users.avatar_path as avatar')
+            ->leftJoin('users','user_mails.user_id','=', 'users.id')
+            ->where('user_mails.status','Closed')
+            ->paginate(25);
+        return view('admin.mail.index')->with('mails',$mails);
     }
 
     public function get_review()
     {
-        $mails = UserMail::where('status','Review')->get();
-        foreach($mails as &$mail){
-            if (!UserMail::where('user_id', 'null')->first()) {
-                $mail->avatar = User::where('id',$mail->user_id)->pluck('avatar_path');
-            }
-        }
-        return $mails;
+        $mails = UserMail::select('user_mails.id as id','user_mails.name as name','user_mails.email as email','user_mails.text as text','user_mails.created_at as date', 'users.avatar_path as avatar')
+            ->leftJoin('users','user_mails.user_id','=', 'users.id')
+            ->where('user_mails.status','Review')
+            ->paginate(25);
+        return view('admin.mail.index')->with('mails',$mails);
     }
 
 }

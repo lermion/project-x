@@ -15,9 +15,9 @@
 	    <tbody>
         @foreach($comments as $comment)
 	      <tr>
-            <td><a href="">{{$comment->publications}}</a></td>
+            <td><p><a href="/publication/show/{{$comment->publication_id}}">Публикация:</a></p>{{$comment->publications}}</td>
             <td>{{$comment->text}}</td>
-            <td><a href="">{{$comment->login}}</a></td>
+            <td><a href="/admin/user/show/{{$comment->user_id}}">{{$comment->login}}</a></td>
             <td class="text-center">
                 <p><a href="/admin/comments/delete_comment/{{$comment->id}}"><button class="btn btn-danger btn-xs">Удалить</button></p>
             </td>
@@ -26,5 +26,5 @@
 	    </tbody>
 	  </table>
 	</div>
-
+	{!! $comments->render() !!}
 @stop
