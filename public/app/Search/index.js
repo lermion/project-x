@@ -27,8 +27,9 @@
                     setActiveTab: false
                 },
                 resolve: {
-                    results: ['searchService', '$state', '$stateParams', function (searchService, $state, $stateParams) {
+                    results: ['$rootScope', 'searchService', '$state', '$stateParams', function ($rootScope, searchService, $state, $stateParams) {
                         console.info('Router: Search resolve');
+                        $rootScope.showSearch = true;
                         if ($stateParams.searchObj.str !== '') {
                             return searchService.search($stateParams.searchObj, $stateParams.restoreSearchResult)
                                 .then(function (data) {
