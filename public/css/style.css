@@ -3164,6 +3164,10 @@ body.public.user {
 		margin: 0 1.5px 1.5px 0;
 		height: 60px;
 	}
+	.group-publication .user-publication {
+		border: 1px solid #dfe1e4;
+		box-sizing: border-box;
+	}
 	.add-comment .new-add .inner,
 	.publication .new-add .inner {
 		margin-right: 0;
@@ -3895,7 +3899,7 @@ body.ngdialog-open {
 	order: 1;
 }
 .group-page .group-publication {
-	background: #e9eaed;;
+	/*background: #e9eaed;;*/
 	width: 700px;
 	margin: 0 auto 20px auto;
 	z-index: 1;
@@ -4061,7 +4065,7 @@ body.ngdialog-open {
 	width: 100%;
 	box-sizing: border-box;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .group-chat-inner {
 	padding: 5px 10px;
