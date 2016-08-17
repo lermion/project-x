@@ -163,7 +163,8 @@
 			});
 		};
 
-		vm.openModalReviewPublication = function (id) {
+		vm.openModalReviewPublication = function (id, index) {
+			$scope.indexCurrentPublication = index;
 			getPublication(id).then(function () {
 				modalReviewPublication = ngDialog.open({
 					template: '../app/Places/views/popup-view-place-publication.html',
@@ -1287,6 +1288,43 @@
 
 			return result.length > 0;
 		}
+
+		$scope.indexCurrentImage = 0;
+		$scope.openPreviousInfo = function(images){
+			if(images.length >= 1){
+				$scope.indexCurrentImage--;
+				if(images[$scope.indexCurrentImage] !== undefined){
+					vm.mainImage = images[$scope.indexCurrentImage].url;
+				}else{
+					if($scope.indexCurrentPublication !== 0){
+						vm.activePublication = vm.place.publications[$scope.indexCurrentPublication -= 1];
+						if(vm.activePublication.images[0] !== undefined){
+							vm.mainImage = vm.activePublication.images[0].url;
+							$scope.indexCurrentImage = 0;
+						}
+					}else{
+						$scope.indexCurrentImage = 0;
+					}
+				}
+			}
+		};
+
+		$scope.openNextInfo = function(images){
+			if(images.length >= 1){
+				$scope.indexCurrentImage++;
+				if(images[$scope.indexCurrentImage] !== undefined){
+					vm.mainImage = images[$scope.indexCurrentImage].url;
+				}else{
+					if($scope.indexCurrentPublication + 1 !== vm.place.publications.length){
+						vm.activePublication = vm.place.publications[$scope.indexCurrentPublication += 1];
+						if(vm.activePublication.images[0] !== undefined){
+							vm.mainImage = vm.activePublication.images[0].url;
+							$scope.indexCurrentImage = 0;
+						}
+					}
+				}
+			}
+		};
 
 		//chat
 
