@@ -1,6 +1,43 @@
 @extends('admin.layout')
 
 @section('content')
+    <div class="row country">
+      <div class="col-md-12"><h3>Добавление района</h3></div>
+      <div class="col-md-2">
+        <span class="line-h"><b>Выберите страну</b></span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option>Украина</option>
+          <option>Россия</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row country">
+      <div class="col-md-2">
+        <span class="line-h"><b>Выберите область</b></span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option>Киевская</option>
+          <option>Днепропетровская</option>
+        </select>
+      </div>
+    </div>
+    <div class="row country">
+      <div class="col-md-2">
+        <span class="line-h"><b>Название района</b></span>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" type="text" placeholder="Введите название...">
+      </div>
+    </div>
+
+      <p>
+        <button class="btn btn-primary">Добавить</button>
+      </p>
+
     <div class="base">
         <table class="table table-bordered">
             <thead>
@@ -15,8 +52,8 @@
             <tbody>
               <tr>
                 <td>1</td>
-                <th>Днепровский район</th>
-                <th>Днепропетровская область</th>
+                <td>Днепровский район</td>
+                <td>Днепропетровская область</td>
                 <td>Украина</td>
                 <td>
                     <p class="text-center">

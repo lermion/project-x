@@ -109,12 +109,16 @@ angular.module('placePeopleApp')
 					$rootScope.stateChangeBypass = false;
 					$scope.preloader = false;
 					return;
+				}else{
+					$scope.preloader = true;
 				}
 				if(toState.name !== 'auth'
 					&& toState.name !== 'restore'
 					&& toState.name !== 'reg'
 					&& toState.name !== 'place'
 					&& toState.name !== 'group'
+					&& toState.name !== 'group.publications'
+					&& toState.name !== 'static'
 					&& toState.name !== 'desktop-pub-view'){
 					event.preventDefault();
 				}

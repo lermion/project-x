@@ -19,7 +19,7 @@
             <td>{{$comment->text}}</td>
             <td><a href="/admin/user/show/{{$comment->user_id}}">{{$comment->login}}</a></td>
             <td class="text-center">
-                <p><a href="/admin/comments/delete_comment/{{$comment->id}}"><button class="btn btn-danger btn-xs">Удалить</button></p>
+                <p><a href="/admin/comments/delete_comment/{{$comment->id}}"><button class="btn btn-danger btn-xs deleteConfirm">Удалить</button></p>
             </td>
           </tr>
         @endforeach
@@ -27,4 +27,14 @@
 	  </table>
 	</div>
 	{!! $comments->render() !!}
+	<script>
+		$(".deleteConfirm").click(function(event) {
+			var c = confirm("Вы действительно хотите удалить комментарий?");
+			console.log(c);
+			if(!c) {
+				event.preventDefault();
+				return false;
+			}
+		})
+	</script>
 @stop

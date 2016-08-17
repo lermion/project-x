@@ -61,7 +61,8 @@ angular.module('placePeopleApp')
                 .state('static', {
                     url: '/static/:pageName',
                     templateUrl: '../../app/Static/views/static.html',
-                    controller: 'staticCtrl'
+                    controller: 'staticCtrl',
+                    isLogin: true
                 })
                 .state('subscribers', {
                     url: '/:username/subscribers/:id',

@@ -3,6 +3,55 @@
 
 @section('content')
 
+    <div class="row country">
+      <div class="col-md-12"><h3>Добавление населенного пункта</h3></div>
+      <div class="col-md-3">
+        <span class="line-h"><b>Выберите страну</b></span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option>Украина</option>
+          <option>Россия</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row country">
+      <div class="col-md-3">
+        <span class="line-h"><b>Выберите область</b></span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option>Киевская</option>
+          <option>Днепропетровская</option>
+        </select>
+      </div>
+    </div>
+    <div class="row country">
+      <div class="col-md-3">
+        <span class="line-h"><b>Выберите район</b></span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control">
+          <option>Киевский</option>
+          <option>Днепровский</option>
+        </select>
+      </div>
+    </div>
+    <div class="row country">
+      <div class="col-md-3">
+        <span class="line-h"><b>Название населенного пункта</b></span>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" type="text" placeholder="Введите название...">
+      </div>
+    </div>
+
+      <p>
+        <button class="btn btn-primary">Добавить</button>
+      </p>
+
+
     <div class="base">
         <table class="table table-bordered">
             <thead>
@@ -18,9 +67,9 @@
             <tbody>
               <tr>
                 <td>1</td>
-                <th>Днепродзержинск</th>
-                <th>Днепровский район</th>
-                <th>Днепропетровская область</th>
+                <td>Днепродзержинск</td>
+                <td>Днепровский район</td>
+                <td>Днепропетровская область</td>
                 <td>Украина</td>
                 <td>
                     <p class="text-center">
