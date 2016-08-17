@@ -10,7 +10,7 @@
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
 	<back-top class="main-up-button">Наверх</back-top>
-	<header ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
+	<header ng-cloak ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
@@ -41,7 +41,7 @@
 			</div>
 		</div>
 	</header>
-	<header ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
+	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
 		<div class="header">
 			<a class="logo" href="javascript:void(0);"></a>
 			<div class="main-menu common">
