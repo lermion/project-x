@@ -76,16 +76,52 @@ body.main-page {
     width: 100%;
     left: 0;
     right: 0;
-    background-color: red;
+    background-color: #f5f5f5;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
  }
 .page-404-inner {
-	width: 50%;
-	height: 40vh;
-	background-color: red;
+	width: 40%;
+	height: 20vh;
+	display: flex;
+	font-family:  "SFUIDisplayMedium";
+}
+.page404-logo {
+	width: 40%;
+	box-sizing: border-box;
+	
+    font-size: 115px;
+    text-align: center;
+}
+.page404-title {
+	width: 60%;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: center;
+}
+.page404-title p {
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	margin-bottom: 5px;
+}
+.page404-title a {
+	margin-top: 5px;
+	background-color: #ec6045;
+	font-size: 14.6px;
+	color: #fff;
+	        border: none;
+    line-height: 40px;
+        width: 130px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+
 }
 .main-up-button {
 	position: fixed;
