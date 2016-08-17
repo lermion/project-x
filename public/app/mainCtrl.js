@@ -115,6 +115,8 @@ angular.module('placePeopleApp')
 					&& toState.name !== 'reg'
 					&& toState.name !== 'place'
 					&& toState.name !== 'group'
+					&& toState.name !== 'group.publications'
+					&& toState.name !== 'static'
 					&& toState.name !== 'desktop-pub-view'){
 					event.preventDefault();
 				}

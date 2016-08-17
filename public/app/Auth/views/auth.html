@@ -1,18 +1,17 @@
-
 <div>
-    <div class="check-in" ng-hide="dataLoaded">
-               <div class="form">
-                        <a class="logo" href=""></a>
-                        <h1 class="slogan">С теми, кто в теме</h1>  
-                </div>
-                <div class="preloader"></div>
-    </div>    
-    <div class="check-in recovery" ng-show="dataLoaded && !hideForm">
-       <div class="form">
-                <a class="logo" href=""></a>
-                <h1>С теми, кто в теме</h1>  
-                <button class="check-in-button" ng-click="loginPage();">Войти</button>
-                <a class="registration-button" ui-sref="reg"><span></span>Регистрация</a>
-       </div>
-    </div>
+	<div class="check-in" ng-hide="dataLoaded">
+		<div class="form">
+			<a class="logo" href="javascript:void(0);"></a>
+			<h1 class="slogan">С теми, кто в теме</h1>  
+		</div>
+		<div class="preloader"></div>
+	</div>    
+	<div class="check-in recovery" ng-show="dataLoaded && !hideForm">
+	   <div class="form">
+			<a class="logo" href="javascript:void(0);"></a>
+			<h1>С теми, кто в теме</h1>  
+			<button class="check-in-button" ng-click="loginPage();">Войти</button>
+			<a class="registration-button" ui-sref="reg"><span></span>Регистрация</a>
+	   </div>
+	</div>
 </div>
