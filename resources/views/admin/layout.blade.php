@@ -24,6 +24,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/nprogress.js"></script>
     <script src="{{ asset('libs/remodal/dist/remodal.min.js') }}"></script>
+    <script src="/js/jquery-ui.js"></script>
 
     <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>

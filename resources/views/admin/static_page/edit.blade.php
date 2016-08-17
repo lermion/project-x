@@ -41,6 +41,8 @@
             <label for="text">Содержимое</label><br>
             <textarea type="text" name="text" placeholder="Содержимое" id="text" required>{{$page->text}}</textarea><br><br>
             <input type="submit" value="Сохранить" class="btn btn-primary">
+            <a href="/admin/static_page" class="btn btn-default">Отменить</a>
+            <a type="button" class="btn btn-danger" href="/admin/static_page/destroy/{{$page->id}}">Удалить</a>
         </form>
 
         <br>
