@@ -94,6 +94,9 @@
 			if (state === 'place' && fromState.name === 'place.publications') {
 				$state.go(toParams.prevState);
 			}
+			if (state === 'place.publications' && !$rootScope.isAuthorized) {
+				$state.go('^');
+			}
 			if (state === 'place' && fromState.name !== 'place.publications' && $rootScope.isAuthorized) {
 				$state.go('place.publications');
 			}

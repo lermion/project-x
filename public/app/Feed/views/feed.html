@@ -67,8 +67,8 @@
                         </div>
                         <div class="user-publication-content"
                              ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-                            <p class="publication-text"
-                               ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>
+                            <!--<p class="publication-text"-->
+                               <!--ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>-->
                             <!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
                             <!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
                             <!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
@@ -93,6 +93,8 @@
                                     <p class="counter">Еще<br> {{pub.images.length - limit}} фото</p>
                                 </div>
                             </div>
+                            <p class="publication-text"
+                               ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>
                         </div>
                         <div class="likes">
                             <div class="likes-item">
