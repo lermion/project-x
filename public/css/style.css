@@ -537,7 +537,7 @@ footer {
 	width: 100%;
 	left: 0;
 	right: 0;
-	background: rgba(0, 0, 0, 0.4);
+	background: #8c8d8f;
 	height: 40px;
 	z-index: 2;
 }
@@ -937,7 +937,8 @@ body.public.user {
 }
 .public header .main-menu .chat {
 	background-image: url(../images/chat.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .2s ease-in-out .1s;
+	padding-left: 22px;
 }
 .public header .main-menu a.chat:hover {
 	background-image: url(../images/chat-hover.png);
@@ -945,8 +946,9 @@ body.public.user {
 }
 .public header .main-menu .settings {
 	background-image: url(../images/settings.png);
-	background-size: 20%;
-	transition: all .2s ease-in-out .1s; 
+	background-size: 18px;
+	transition: all .2s ease-in-out .1s;
+	padding-left: 22px;
 }
 .public header .main-menu a.settings:hover {
 	background-image: url(../images/settings-hover.png); 
@@ -1245,6 +1247,7 @@ body.public.user {
 	.public header .main-menu .places,
 	.public header .main-menu .chat {
 		margin-right: 10px;
+		padding-left: 40px;
 	}
 }
 // @media (max-width: 665px)  {
@@ -1361,7 +1364,7 @@ body.public.user {
 #user-page .status-correct{
 	resize: none;
 	width: 100%;
-	height: 41px;
+	height: 34px;
 	border-radius: 2px;
 	border: 1px solid #e5e7e9;
 	font-size: 13px;
@@ -1370,6 +1373,7 @@ body.public.user {
 	padding: 5px;
 	box-sizing: border-box;
 	font-family: "SFUIDisplayLight";
+	margin-bottom: 7px;
 }
 .my-profile-item textarea.error-status {
 	border: 1px solid #ec6045;
@@ -1417,14 +1421,15 @@ body.public.user {
 .counts .counter p{
 	font-size: 12.5px;
 	font-family: "SFUIDisplayLight";
-	padding-left: 30px;
+	padding-left: 28px;
 	margin: 0 0 10px 0;
 	line-height: 20px;
 	cursor: pointer;
 	background-position: center left;
 	background-repeat: no-repeat;
 	color: #666;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .3s ease-in-out .1s;
+	    background-size: 20px;
 }
 .counts .counter:hover p {
 	color: #333;
@@ -1437,10 +1442,14 @@ body.public.user {
 	background-image: url(../images/contacts.png);	
 }
 .counts .counter p.contacts-off{
-	background-image: url(../images/contacts-off.png);	
+	background-image: url(../images/contacts-off.png);
+	background-size: 26px;
+	padding-left: 32px;
 }
 .counts .counter p.contacts-on{
-	background-image: url(../images/contacts-on.png);	
+	background-image: url(../images/contacts-on.png);
+	background-size: 18px;
+    padding-left: 26px;
 }
 .comunications .create{
 	font-size: 14.6px;
@@ -1505,7 +1514,7 @@ body.public.user {
 	transition: all .3s ease-in-out .1s;  
 }
 .comunications .view {
-	width: 16%;
+	width: 55px;
 	display: flex;
 		justify-content: space-between;
 		align-items:center;
@@ -1541,19 +1550,23 @@ body.public.user {
 .group-publication .my-photos,
 .content-item .my-photos {
 	display: flex;
-		flex-wrap: wrap;
+	flex-wrap: wrap;
+    padding: 3px 3px 0px 3px;
 }
 #user-page .photo,
 .group-publication .photo,
 .content-item .my-photos .photo {
-	width: 231px;
-	height: 231px;
+	width: 229px;
+	height: 229px;
 	margin: 0 3px 3px 0;
-	// width: 33%;
-	// height: 24vh;
-	// margin: 0 .5% .5% 0;
 	overflow: hidden;
-	box-sizing: border-box; 
+	box-sizing: border-box;
+	transition: all .1s ease-in-out .1s;  
+}
+#user-page .photo:hover,
+.group-publication .photo:hover,
+.content-item .my-photos .photo:hover {
+	opacity: .7;
 }
 #user-page .photo:nth-child(3n),
 .group-publication .photo:nth-child(3n),
@@ -1693,8 +1706,8 @@ body.public.user {
 	}
 	.counts .counter{
 		display: flex;
-			flex-direction: column-reverse;
-			margin: 10px 0 10px;
+		flex-direction: column-reverse;
+		margin: 10px 0 10px;
 	}
 	.counts .counter p,
 	.counts .counter p.notes,
@@ -1703,6 +1716,7 @@ body.public.user {
 	.counts .counter p.contacts-on {
 		padding-left: 0;
 		background-image: none;
+		order: 1;
 	}
 	.comunications .create {
 		font-size: 13px;
@@ -1711,13 +1725,10 @@ body.public.user {
 	.comunications .rewrite {
 		font-size: 13px;
 	}
-	.comunications .view {
-		width: 20%;
-	}
 	#user-page .photo,
 	.group-publication .photo {
-		width: 166px;
-		height: 166px;
+		width: 164px;
+		height: 164px;
 		margin: 0 1px 1px 0;
 	}
 	#user-page .photo:nth-child(3n),
@@ -1842,9 +1853,6 @@ body.public.user {
 	.comunications.adaptiv .create {
 		padding: 0 5px;
 		font-size: 13px;
-	}
-	.comunications .view {
-		width: 18%;
 	}
 	#user-page .status-user.adaptiv {
 		padding: 0 5px 15px;
@@ -3461,6 +3469,17 @@ body.public.user {
 	transition: all .3s ease-in-out .1s;
 	text-decoration: none;
 }
+.main-content .groups .place-publication-menu-list {
+	padding-left: 0px;
+}
+.main-content .groups .place-publication-menu-table {
+	padding-left: 0px;
+}
+.main-content .groups .feed-publication-menu {
+ 	display: flex;
+    width: 55px;
+    justify-content: space-between;
+ }
 .main-content .groups a.create-groups {
 	background-image: url(../images/create.png);
 }
@@ -3476,7 +3495,7 @@ body.public.user {
 .main-content .groups a.pub-groups:hover,
 .groups-content .groups-header .pub-groups:hover {
 	background-image: url(../images/groups-hover.png);
-	color: #666;
+    color: #9f9f9f;
 }
 .main-content  .content-item {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
@@ -3711,7 +3730,7 @@ body.ngdialog-open {
 	padding-right: 25px;
 	background-image: url(../images/chat.png);
 	background-position: right center;
-	background-size: 35%;
+	background-size: 15px;
 	background-repeat: no-repeat;
 }
 .group-likes .group-comments:hover {
@@ -3899,6 +3918,7 @@ body.ngdialog-open {
 	background-repeat: no-repeat;
 	background-size: 12%;
 	transition: all .3s ease-in-out .1s;
+	    cursor: default;
 }
 .group-page .group-menu {
 	width: 100%;

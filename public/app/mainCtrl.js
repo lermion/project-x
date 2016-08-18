@@ -152,6 +152,7 @@ angular.module('placePeopleApp')
                     && toState.name !== 'place.publications'
                     && toState.name !== 'user'
                     && toState.name !== 'static'
+                    && toState.name !== '404'
                     && toState.name !== 'desktop-pub-view') {
                     event.preventDefault();
                 }

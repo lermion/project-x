@@ -3278,7 +3278,7 @@ span.users-today-time-time.early {
     color: #333;
     font-family: "SFUIDisplayMedium";
     transition: all .3s ease-in-out .1s;
-    cursor: pointer;
+    cursor: default;
 }
 .places-page-header-title span {
     padding-right: 20px;
@@ -5306,12 +5306,12 @@ input.cmn-toggle-round:checked + label:after {
     }
 }
 .public header .main-menu a.main-header-group {
-    background-image: url(/images/groups-hover1.png);
+    background-image: url(/images/groups.png);
     transition: all .2s ease-in-out .1s;
     background-position: left center;
     background-repeat: no-repeat;
-    background-size: 26%;
-    padding-left: 20px;
+    background-size: 16px;
+    padding-left: 22px;
     cursor: pointer;
 }
 .public header .main-menu a.main-header-group:hover {
@@ -5685,6 +5685,7 @@ input.cmn-toggle-round:checked + label:after {
     height: 15px;
     line-height: 15px;
     text-align: center;
+    color: #fff;
 }
 .item1.add-people.add-people-right {
     max-height: 716px;
@@ -5960,7 +5961,7 @@ input.cmn-toggle-round:checked + label:after {
     padding-right: 25px;
     background-image: url(../images/chat.png);
     background-position: right center;
-    background-size: 30%;
+    background-size: 14px;
     background-repeat: no-repeat;
 }
 .search-page .group .titles {
@@ -6712,10 +6713,6 @@ textarea[type="text"]:focus,
 .animate-if.ng-leave, .animate-if.ng-enter.ng-enter-active {
     opacity:1;
 }
-
-/******************************************
-            Search
-******************************************/
 .search-result__item-publication {
     margin: 15px 0;
 }
@@ -6861,7 +6858,7 @@ textarea[type="text"]:focus,
 }
 .places-page .pub-groups {
     background-size: 15%;
-    background-image: url(/images/place-create2.png);
+    background-image: url(/images/place-create1.png);
     padding-left: 25px;
 }
 .places-page  .pub-groups:hover {
@@ -6910,7 +6907,7 @@ textarea[type="text"]:focus,
     height: 25px;
     overflow: hidden;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 5px;
     transition: all .3s ease-in-out .1s;
     background-repeat: no-repeat;
     background-position: center;
@@ -6919,13 +6916,15 @@ textarea[type="text"]:focus,
 .place-publication-menu-table {
     background-image: url(/images/view-table.png);
 }
-.place-publication-menu-table.active {
+.place-publication-menu-table.active,
+.place-publication-menu-table:hover {
     background-image: url(/images/view-table-hover.png);
 }
 .place-publication-menu-list {
     background-image: url(/images/view-list.png);
 }
-.place-publication-menu-list.active {
+.place-publication-menu-list.active,
+.place-publication-menu-list:hover {
     background-image: url(/images/view-list-hover.png);
 }
 #wrapper .search-result__item-publication .user-publication:hover {
