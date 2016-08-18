@@ -27,6 +27,7 @@
 							 ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups"
 						ng-click="goGroup(group)">
 							<div class="group-cover">
+								<span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
 								<a href class="group-ava">
 									<img ngf-src="group.card_avatar" ngf-as-background="true">
 								</a>
