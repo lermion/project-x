@@ -34,7 +34,7 @@ angular.module('placePeopleApp')
 			}
 			return null;
 		}
-	}).filter('tweetLinky',['$filter',
+	}).filter('linkCheck',['$filter',
 		function($filter) {
 			return function(text, target) {
 				if (!text) return text;

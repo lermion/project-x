@@ -172,7 +172,7 @@
 
 											</div>
 											<p class="publication-text"
-											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley"></p>
+											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
 											<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 										</div>
 										<div class="likes">
@@ -226,7 +226,7 @@
 														   class="alert" ng-show="comment.user.id == loggedUserId"></a>
 													</div>
 													<p class="comment-item"
-													   ng-bind-html="comment.text | colonToSmiley"></p>
+													   ng-bind-html="comment.text | colonToSmiley | linkCheck"></p>
 
 													<div ng-if="comment.images[0]" class="comment-pic">
 														<a ng-repeat="image in comment.images | limitTo: 3 as results"
