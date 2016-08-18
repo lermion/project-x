@@ -52,7 +52,7 @@
             </div>
 
         </div>
-        <p class="publication-text" ng-bind-html="vm.activePublication.text | colonToSmiley | linkCheck"></p>
+        <p ng-click="goToSearch(vm.activePublication.text)" class="publication-text" ng-bind-html="vm.activePublication.text | colonToSmiley | linkCheck"></p>
     </div>
 
     <div class="likes">
@@ -99,7 +99,7 @@
                     <a href ng-click="vm.deleteComment('viewPage', vm.activePublication, comment, $index)" class="alert"
                        ng-show="comment.user.id == vm.myId"></a>
                 </div>
-                <p class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
+                <p ng-click="goToSearch(comment.text)" class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
 
                 <div ng-if="comment.images[0]" class="comment-pic">
                     <a href ng-repeat="image in comment.images | limitTo: 3 as results"
