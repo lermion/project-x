@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('userCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService',
 		'UserService', '$window', '$http', 'storageService', 'ngDialog', 'PublicationService', 'amMoment',
-		'$q', '$timeout', 'Upload', 'socket', 'groupsService', 'placesService', '$location', 'md5',
+		'$q', '$timeout', 'Upload', 'socket', 'groupsService', 'placesService', '$location', 'md5', 'profile', 'publications',
 		function ($scope, $rootScope, $state, $stateParams, StaticService, AuthService,
 				  UserService, $window, $http, storageService, ngDialog, PublicationService, amMoment,
-				  $q, $timeout, Upload, socket, groupsService, placesService, $location, md5) {
+				  $q, $timeout, Upload, socket, groupsService, placesService, $location, md5, profile, publications) {
 			/* Service info*/
 			amMoment.changeLocale('ru');
 			$scope.$emit('userPoint', 'user');
@@ -174,32 +174,27 @@ angular.module('placePeopleApp')
 			/*User info*/
 
 			var counter = 0;
-			UserService.getUserData($stateParams.username)
-				.then(
-					function (res) {
-						if (res.login === storage.username) {
-							$scope.myProfile = true;
-							storageService.setStorageItem('loggedUserAva', res.avatar_path);
-							storageService.setStorageItem('firstName', res.first_name);
-							storageService.setStorageItem('lastName', res.last_name);
-							$scope.loggedUserAva = res.avatar_path;
-						} else {
-							$scope.myProfile = false;
-						}
-						if (!$scope.myProfile) {
-							$scope.isSigned = res.is_sub;
-							if (!res.is_sub && !!res.is_private) {
-								$scope.needToSign = true;
-							}
-						}
-						$scope.userData = res;
-						getUserPubs(res.id, counter);
-					},
-					function (error) {
-						$state.go("404");
-						console.log(error);
-					}
-				);
+
+			$scope.userData = profile;
+			$scope.userPublications = publications;
+			$scope.needToLogin = $stateParams.needToLogin;
+
+			if (profile.login === storage.username) {
+				$scope.myProfile = true;
+				storageService.setStorageItem('loggedUserAva', profile.avatar_path);
+				storageService.setStorageItem('firstName', profile.first_name);
+				storageService.setStorageItem('lastName', profile.last_name);
+				$scope.loggedUserAva = profile.avatar_path;
+			} else {
+				$scope.myProfile = false;
+			}
+			if (!$scope.myProfile) {
+				$scope.isSigned = profile.is_sub;
+				if (!profile.is_sub && !!profile.is_private) {
+					$scope.needToSign = true;
+				}
+			}
+
 
 			function getUserPubs(userId, counter) {
 				PublicationService.getUserPublications(userId, counter)

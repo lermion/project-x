@@ -27,6 +27,7 @@
 							 ng-repeat="group in myGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] |  limitTo: limitMyGroups"
 						ng-click="goGroup(group)">
 							<div class="group-cover">
+								<span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
 								<a href class="group-ava">
 									<img ngf-src="group.card_avatar" ngf-as-background="true">
 								</a>
@@ -40,7 +41,7 @@
 								<a href ng-class="{'groups-locked-icon': !group.is_open}"
 								   class="title">{{::group.name}}</a>
 
-								<p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+								<p ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
 							</div>
 							<button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
 							</button>
@@ -86,7 +87,7 @@
 							<div class="titles">
 								<a href="" class="title">{{::group.name}}</a>
 
-								<p ng-bind-html="group.description | colonToSmiley" class="about"></p>
+								<p ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
 							</div>
 							<button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
 							</button>

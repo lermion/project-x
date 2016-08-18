@@ -42,7 +42,7 @@
 			</div>
 
 		</div> 
-		<p class="publication-text" ng-bind-html="splitText(singlePublication.text) | colonToSmiley"></p>
+		<p class="publication-text" ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
 		<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 	</div>
 	<div class="likes">
@@ -77,7 +77,7 @@
 					<a href="javascript:void(0);" ng-click="alertPubComment(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
 				</div>
-				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley">{{comment.text}}</p>
+				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
 					<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 						<img ng-src="{{image.url}}">
@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="add-comment">
+	<div ng-hide="singlePublication.is_blick_parent" class="add-comment">
 		<div class="user-ava">
 			<a class="ava" ui-sref="user({username: loggedUser})" ng-click="closePopup()">
 				<img ng-src="{{userData.avatar_path}}" alt="">
@@ -120,7 +120,7 @@
 			</div>
 			<div class="publication-footer" ng-init="addFileObjId = 'add-file-to-comment-popup-'+singlePublication.id">
 				<div class="publication-footer-button">
-					<button ng-disabled="disableAddComment" ng-click="!singlePublication.is_blick_parent && addNewComment('userPage', singlePublication, emojiMessage, singlePublication.files)" class="publication-button">Отправить</button>    
+					<button ng-disabled="disableAddComment" ng-click="addNewComment('userPage', singlePublication, emojiMessage, singlePublication.files)" class="publication-button">Отправить</button>    
 				</div>
 				<div class="add-objects">						
 					<input id="{{addFileObjId}}" ngf-keep="true" style="display: none;" ngf-select ng-model="singlePublication.files" ngf-multiple="true" ngf-before-model-change="pubFiles($files)"> 
@@ -130,8 +130,6 @@
 					</label>                                         
 				</div>   
 			</div>
-											
-
 		</div>
 	</div>
 </div>

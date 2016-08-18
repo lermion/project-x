@@ -10,8 +10,8 @@
 	<base href="/">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
-	<back-top class="main-up-button">Наверх</back-top>
-	<header ng-cloak ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
+	<back-top ng-cloak class="main-up-button">Наверх</back-top>
+	<header ng-cloak ng-if="$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
@@ -42,15 +42,9 @@
 			</div>
 		</div>
 	</header>
-	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
+	<header ng-cloak ng-if="!$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header">
 			<a class="logo" href="javascript:void(0);"></a>
-			<div class="main-menu common">
-			   <!--  <a class="drop-menu" href=""></a> -->
-				<div class="menu-item">		            
-					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">@{{staticPage.description}}</a>		            
-				</div>
-			</div>
 			<a class="registration" ui-sref="reg">Регистрация</a>
 			<a class="exit enter"  ui-sref="login"><span></span>Вoйти</a>
 		</div>
@@ -118,6 +112,7 @@
 	<script src="../../app/Publication/models/publicationService.js"></script>
 	<script src="../../app/Auth/models/authService.js"></script>
 	<script src="../../app/Auth/controllers/authCtrl.js"></script>
+	<script src="../../app/Four04Controller.js"></script>
 	<script src="../../app/Static/controllers/staticCtrl.js"></script>
 	<script src="../../app/Static/models/staticService.js"></script>
 	<script src="../../app/User/models/userService.js"></script>
