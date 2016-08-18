@@ -39,12 +39,7 @@
 								        <p class="time" am-time-ago="pub.created_at"></p>
 							        </span>
                                 </a>
-                                <a class="user" ng-if="pub.group.length > 0" ui-sref="group({groupName: pub.group[0].url_name})">
-                                    <p class="user-name">{{pub.group[0].name}}</p>
-                                </a>
-                                <a class="user" ng-if="pub.place.length > 0" ui-sref="place({placeName: pub.place[0].url_name})">
-                                    <p class="user-name" >{{pub.place[0].name}}</p>
-                                </a>
+
 
                                 <div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
                                 <div href="" class="user-menu" ng-class="'pub{{pub.id}}'"
@@ -60,6 +55,14 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="user-function">
+                                <a class="user" ng-if="pub.group.length > 0" ui-sref="group({groupName: pub.group[0].url_name})">
+                                    <p class="user-name">{{pub.group[0].name}}</p>
+                                </a>
+                                <a class="user" ng-if="pub.place.length > 0" ui-sref="place({placeName: pub.place[0].url_name})">
+                                    <p class="user-name" >{{pub.place[0].name}}</p>
+                                </a>
                             </div>
                         </div>
                         <div class="user-publication-content"
