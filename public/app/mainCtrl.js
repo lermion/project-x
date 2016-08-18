@@ -245,6 +245,9 @@ angular.module('placePeopleApp')
             var originalSearch = angular.copy($scope.search);
 
             $scope.submitSearch = function () {
+                if ($scope.search.str === '') {
+                    return false;
+                }
                 if ($state.current.name === 'search' ||
                     $state.current.name === 'search.people' ||
                     $state.current.name === 'search.publications' ||
