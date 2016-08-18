@@ -937,7 +937,8 @@ body.public.user {
 }
 .public header .main-menu .chat {
 	background-image: url(../images/chat.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .2s ease-in-out .1s;
+	padding-left: 22px;
 }
 .public header .main-menu a.chat:hover {
 	background-image: url(../images/chat-hover.png);
@@ -945,8 +946,9 @@ body.public.user {
 }
 .public header .main-menu .settings {
 	background-image: url(../images/settings.png);
-	background-size: 20%;
-	transition: all .2s ease-in-out .1s; 
+	background-size: 18px;
+	transition: all .2s ease-in-out .1s;
+	padding-left: 22px;
 }
 .public header .main-menu a.settings:hover {
 	background-image: url(../images/settings-hover.png); 
@@ -1245,6 +1247,7 @@ body.public.user {
 	.public header .main-menu .places,
 	.public header .main-menu .chat {
 		margin-right: 10px;
+		padding-left: 40px;
 	}
 }
 // @media (max-width: 665px)  {
@@ -1551,7 +1554,13 @@ body.public.user {
 	height: 229px;
 	margin: 0 3px 3px 0;
 	overflow: hidden;
-	box-sizing: border-box; 
+	box-sizing: border-box;
+	transition: all .1s ease-in-out .1s;  
+}
+#user-page .photo:hover,
+.group-publication .photo:hover,
+.content-item .my-photos .photo:hover {
+	opacity: .7;
 }
 #user-page .photo:nth-child(3n),
 .group-publication .photo:nth-child(3n),
@@ -3474,7 +3483,7 @@ body.public.user {
 .main-content .groups a.pub-groups:hover,
 .groups-content .groups-header .pub-groups:hover {
 	background-image: url(../images/groups-hover.png);
-	color: #666;
+    color: #9f9f9f;
 }
 .main-content  .content-item {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
@@ -3709,7 +3718,7 @@ body.ngdialog-open {
 	padding-right: 25px;
 	background-image: url(../images/chat.png);
 	background-position: right center;
-	background-size: 35%;
+	background-size: 15px;
 	background-repeat: no-repeat;
 }
 .group-likes .group-comments:hover {
