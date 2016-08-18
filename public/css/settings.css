@@ -6907,7 +6907,7 @@ textarea[type="text"]:focus,
     height: 25px;
     overflow: hidden;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 5px;
     transition: all .3s ease-in-out .1s;
     background-repeat: no-repeat;
     background-position: center;
@@ -6916,13 +6916,15 @@ textarea[type="text"]:focus,
 .place-publication-menu-table {
     background-image: url(/images/view-table.png);
 }
-.place-publication-menu-table.active {
+.place-publication-menu-table.active,
+.place-publication-menu-table:hover {
     background-image: url(/images/view-table-hover.png);
 }
 .place-publication-menu-list {
     background-image: url(/images/view-list.png);
 }
-.place-publication-menu-list.active {
+.place-publication-menu-list.active,
+.place-publication-menu-list:hover {
     background-image: url(/images/view-list-hover.png);
 }
 #wrapper .search-result__item-publication .user-publication:hover {
