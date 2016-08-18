@@ -1541,17 +1541,15 @@ body.public.user {
 .group-publication .my-photos,
 .content-item .my-photos {
 	display: flex;
-		flex-wrap: wrap;
+	flex-wrap: wrap;
+    padding: 3px 3px 0px 3px;
 }
 #user-page .photo,
 .group-publication .photo,
 .content-item .my-photos .photo {
-	width: 231px;
-	height: 231px;
+	width: 229px;
+	height: 229px;
 	margin: 0 3px 3px 0;
-	// width: 33%;
-	// height: 24vh;
-	// margin: 0 .5% .5% 0;
 	overflow: hidden;
 	box-sizing: border-box; 
 }
@@ -1716,8 +1714,8 @@ body.public.user {
 	}
 	#user-page .photo,
 	.group-publication .photo {
-		width: 166px;
-		height: 166px;
+		width: 164px;
+		height: 164px;
 		margin: 0 1px 1px 0;
 	}
 	#user-page .photo:nth-child(3n),
@@ -3899,6 +3897,7 @@ body.ngdialog-open {
 	background-repeat: no-repeat;
 	background-size: 12%;
 	transition: all .3s ease-in-out .1s;
+	    cursor: default;
 }
 .group-page .group-menu {
 	width: 100%;
