@@ -15,6 +15,7 @@
                 templateUrl: '../../app/Search/views/search.html',
                 controller: 'SearchCtrl',
                 controllerAs: 'vm',
+                showHeader: true,
                 params: {
                     searchObj: {
                         str: '',
@@ -42,19 +43,23 @@
             })
             .state('search.people', {
                 url: '/people',
-                templateUrl: '../../app/Search/views/search-people.html'
+                templateUrl: '../../app/Search/views/search-people.html',
+                showHeader: true
             })
             .state('search.publications', {
                 url: '/publications',
-                templateUrl: '../../app/Search/views/search-publications.html'
+                templateUrl: '../../app/Search/views/search-publications.html',
+                showHeader: true
             })
             .state('search.places', {
                 url: '/places',
-                templateUrl: '../../app/Search/views/search-places.html'
+                templateUrl: '../../app/Search/views/search-places.html',
+                showHeader: true
             })
             .state('search.groups', {
                 url: '/groups',
-                templateUrl: '../../app/Search/views/search-groups.html'
+                templateUrl: '../../app/Search/views/search-groups.html',
+                showHeader: true
             });
     }
 
