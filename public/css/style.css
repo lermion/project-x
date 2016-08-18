@@ -528,8 +528,7 @@ body.main-page {
 .add-ava label .add-photo:hover {
 	width: 12vh;
 	height: 12vh;
-	box-shadow: inset 5px 5px 35px 8px rgba(225,225,225,1), inset -5px -5px 35px 8px rgba(225,225,225,1);
-	transition: all .1s ease-in-out .1s;
+	transition: all .2s ease-in-out .1s;
 }
 footer {
 	position: absolute;
