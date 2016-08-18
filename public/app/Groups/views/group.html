@@ -13,7 +13,7 @@
                             <a href="" class="publication-place" title="{{vm.group.name}}">{{vm.group.name}}</a>
                             <a href class="publication-place"
                                ng-click="vm.showFullDescription = !vm.showFullDescription"
-                               ng-bind-html="vm.group.description | colonToSmiley"></a>
+                               ng-bind-html="vm.group.description | colonToSmiley | linkCheck"></a>
 
 
                             <p class="like-item">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
-                    <p ng-bind-html="vm.group.description | colonToSmiley"></p>
+                    <p ng-bind-html="vm.group.description | colonToSmiley | linkCheck"></p>
                 </div>
                 <div class="group-menu" ng-if="!vm.isMobile">
                     <div class="group-menu-item">
