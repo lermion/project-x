@@ -1451,6 +1451,10 @@ body.public.user {
 	background-size: 18px;
     padding-left: 26px;
 }
+.counts .counter p.contacts-off + span,
+.counts .counter p.contacts-on + span {
+	cursor: pointer;
+}
 .comunications .create{
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
@@ -3485,7 +3489,7 @@ body.public.user {
 }
 .main-content .groups a.pub-groups,
 .groups-content .groups-header .pub-groups {
-	background-image: url(../images/groups.png);
+	background-image: url(../images/groups-create.png);
 	background-size: 16%;
 }
 .main-content .groups a.create-groups:hover {

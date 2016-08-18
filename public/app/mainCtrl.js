@@ -11,6 +11,9 @@ angular.module('placePeopleApp')
             $scope.currentPath = $location.url();
 
 
+            $rootScope.showHeader = false;
+
+
             activate();
 
             /////////////////////////////////
@@ -111,6 +114,9 @@ angular.module('placePeopleApp')
                 ngDialog.closeAll();
                 $scope.currentPath = $location.url();
                 console.log('Current path - ' + $scope.currentPath);
+
+                $rootScope.showHeader = $state.current.showHeader === true;
+
             });
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -161,12 +167,14 @@ angular.module('placePeopleApp')
                         var storage = storageService.getStorage();
                         if (response.is_authorization) {
                             $rootScope.isAuthorized = true;
+
                             $rootScope.stateChangeBypass = true;
                             if (toState.name !== 'user' && toState.name !== 'group' && toState.name !== 'group.publications') {
                                 $state.go(toState, toParams);
                             }
                         } else {
                             $rootScope.isAuthorized = false;
+                            $scope.preloader = false;
                         }
                         if (!toState.isLogin && !$rootScope.isAuthorized && toState.name !== "desktop-pub-view") {
                             storageService.deleteStorage();
@@ -200,6 +208,10 @@ angular.module('placePeopleApp')
                     resetSearch();
 
                 }
+
+
+
+
 
             });
 
