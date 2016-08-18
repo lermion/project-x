@@ -171,7 +171,7 @@
 												</div>
 
 											</div>
-											<p class="publication-text"
+											<p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
 											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
 											<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 										</div>
@@ -225,7 +225,7 @@
 														   ng-click="deleteComment('userPage', singlePublication, comment, $index)"
 														   class="alert" ng-show="comment.user.id == loggedUserId"></a>
 													</div>
-													<p class="comment-item"
+													<p class="comment-item" ng-click="goToSearch(comment.text)"
 													   ng-bind-html="comment.text | colonToSmiley | linkCheck"></p>
 
 													<div ng-if="comment.images[0]" class="comment-pic">
