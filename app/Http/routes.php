@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/', 'Admin\HomeController@index');
             Route::get('logout', 'Admin\AuthController@logout');
             Route::group(['prefix' => 'user'], function () {
-                Route::post('/', 'Admin\UserController@index');
+                Route::get('/', 'Admin\UserController@index');
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
                 Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
@@ -80,15 +80,19 @@ Route::group(['middleware' => ['web']], function () {
             });
             Route::group(['prefix' => 'lock'], function () {
                 Route::get('/', 'Admin\LockContentController@index');
+                Route::get('unlock_user/{id}', 'Admin\LockContentController@unlockUser');
                 Route::get('places', 'Admin\LockContentController@getLockPlaces');
                 Route::get('unlock_place/{id}', 'Admin\LockContentController@unlockPlace');
                 Route::get('destroy_place/{id}', 'Admin\LockContentController@destroyPlace');
+                Route::get('delete_places', 'Admin\LockContentController@deletePlaces');
                 Route::get('groups', 'Admin\LockContentController@getLockGroups');
                 Route::get('unlock_group/{id}', 'Admin\LockContentController@unlockGroup');
                 Route::get('destroy_group/{id}', 'Admin\LockContentController@destroyGroup');
+                Route::get('delete_groups', 'Admin\LockContentController@deleteGroups');
                 Route::get('publications', 'Admin\LockContentController@getLockPublications');
                 Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
                 Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
+                Route::get('delete_publications', 'Admin\LockContentController@deletePublications');
             });
             Route::group(['prefix' => 'count'], function () {
                 Route::get('users', 'Admin\CountController@users');
@@ -288,22 +292,19 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('authorization', 'AuthorizationController@index');
 
     Route::post('search','SphinxSearchController@search');
-    Route::get('test', function () { 
-        echo "<form action=\"http://pp.dev/publication/show/74\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='gender' value='1'><br>
-            <input type='text' name='is_avatar' value='1'><br>
-            <input type='text' name='num_records' value='10'>
-            <input type='text' name='reg_range_from' value='2016-07-25'>
-            <input type='text' name='reg_range_to' value='2016-08-01'>
-            <input type='text' name='keywords' value='f'>
-            <input type='text' name='age_range_from' value='1'>
-            <input type='text' name='age_range_to' value='28'>
+     Route::get('searchsphinx', function () {
 
+       // echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
 
-
-            <input type=\"submit\">
-            </form>";
-    });
+         echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='name'><br>
+             <input type=\"checkbox\" name=\"usersearch\">РџРѕ СЋР·РµСЂР°Рј<br>
+             <input type=\"checkbox\" name=\"publicationsearch\">РџРѕ РїСѓР±Р»РёРєР°С†РёСЏРј<br>
+             <input type=\"checkbox\" name=\"placesearch\">РџРѕ РјРµСЃС‚Р°Рј Рё РїСѓР±Р»РёРєР°С†РёСЏРј<br>
+             <input type=\"checkbox\" name=\"groupsearch\">РџРѕ РіСЂСѓРїРїР°Рј Рё РїСѓР±Р»РёРєР°С†РёСЏРј<br>
+             <input type=\"submit\">
+             </form>";
+     });
     Route::post('searchgeo','SphinxSearchController@geosearch');
     Route::any( '{angularjs}', function ( $page ) {
         return view('welcome');

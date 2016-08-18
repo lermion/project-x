@@ -55,7 +55,7 @@
                         <ul class="nav side-menu">
                             <li><a href="/admin/"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>
                             <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li> <!-- Публикации, места, публичные группы -->
-                            <li><a href="/admin/user"><i class="fa fa-child"></i> Пользователи</a></li> <!-- адекватность [блокирует] -->
+                            <li><a href="/admin/user/"><i class="fa fa-child"></i> Пользователи</a></li> <!-- адекватность [блокирует] -->
                             <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
                             <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-comments-o"></i> Комментарии</a></li>
 
@@ -75,7 +75,7 @@
                         <h3>Admin</h3>
                         <ul class="nav side-menu">
                             <li><a href="/admin/"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>
-                            <li><a href="/admin/user"><i class="fa fa-male"></i>Пользователи</a></li>
+                            <li><a href="/admin/user/"><i class="fa fa-male"></i>Пользователи</a></li>
                             <li><a href="{{ action('Admin\ModeratorController@index') }}"><i class="fa fa-mortar-board"></i> Модераторы</a></li>
                             <!--<li><a href="#"><i class="fa fa-rouble"></i> Финансы</a></li>-->
                             <li><a href="/admin/static_page"><i class="fa fa-desktop"></i> Промо</a></li>

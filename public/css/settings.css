@@ -212,7 +212,7 @@
 .contacts_list .user-info,
 .user-info {
     padding-top: 4px;
-    padding-left: 14px;
+    padding-left: 0px;
     overflow: hidden;
     line-height: 1;
 }
@@ -5610,7 +5610,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 @media (max-width: 978px) {
     .place-menu-wrap button {
-        right: 0;
+        right: 10px;
         top: -95px;
     }
     .places-place-menu-avatar {
@@ -7011,4 +7011,7 @@ button.settings-btn {
  button.settings-btn:hover {
         background-color: #fff;
     color: #495b79;
+ }
+ .group-sign-button {
+    width: 110px;
  }

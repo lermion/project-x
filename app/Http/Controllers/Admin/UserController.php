@@ -21,6 +21,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $users = User::where(['status' => ''])->paginate(25);
+        return view('admin.user.index')->with('users',$users);
         $query = DB::table('users');
         if ($request->has('gender')) {
             $query->where('gender', $request->input('gender'));
