@@ -7,10 +7,10 @@
 	<div class="x_content">
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 active"><a href="">Пользователи (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Публикации (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Группы (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Места (<span>10</span>)</a></li>
+                <li class="col-md-3 active"><a href="/admin/lock/">Пользователи </a></li>
+                <li class="col-md-3"><a href="/admin/lock/publications/">Публикации </a></li>
+                <li class="col-md-3"><a href="/admin/lock/groups/">Группы </a></li>
+                <li class="col-md-3"><a href="/admin/lock/places/">Места </a></li>
             </ul>
         </div>
 
@@ -29,23 +29,25 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($groups as $group)
                   <tr>
-                    <td><a href="">1</a></td>
-                    <td>Описание группы Описание группы Описание </td>
-                    <td>Елена Новикова</td>
-                    <td>Название группы</td>
+                    <td><a href="">{{$group->id}}</a></td>
+                    <td>{{$group->description}}</td>
+                    <td>{{$group->user_id}}</td>
+                    <td>{{$group->name}}</td>
                     <td>
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                     </td>
                     <td>видео</td>
-                    <td>02.08.2016</td>
+                    <td>{{$group->created_at}}</td>
                     <td class="text-center">
                         <button class="btn btn-success btn-xs">Восстановить</button>
                         <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
                     </td>
                   </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -65,4 +67,5 @@
             }
         })
     </script>
+    {!! $groups->render() !!}
 @stop

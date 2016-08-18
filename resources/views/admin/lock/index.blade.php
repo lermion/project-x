@@ -8,10 +8,10 @@
 	<div class="x_content">
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 active"><a href="">Пользователи (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Публикации (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Группы (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Места (<span>10</span>)</a></li>
+                <li class="col-md-3 active"><a href="/admin/lock/">Пользователи </a></li>
+                <li class="col-md-3"><a href="/admin/lock/publications/">Публикации </a></li>
+                <li class="col-md-3"><a href="/admin/lock/groups/">Группы </a></li>
+                <li class="col-md-3"><a href="/admin/lock/places/">Места </a></li>
             </ul>
         </div>
 
@@ -23,54 +23,37 @@
                     <th class="col-ava">Аватар</th>
                     <th class="col-name">Имя</th>
                     <th class="col-gender">Пол</th>
-                    <th class="col-age">Возраст</th>
+                    <th class="col-age">Дата рождения</th>
                     <th class="col-registration">Дата регистрации</th>
                     <th class="col-action">Действие</th>
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($users as $user)
                   <tr>
-                    <td>1</td>
+                    <td>{{$user->id}}</td>
                     <td class="text-center">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        @if ($user->avatar_path)
+                            <img src="{{$user->avatar_path}}" alt="{{$user->avatar_path}}">
+                        @else
+                            <img src="/img/ava/moderator.png" alt="/img/ava/moderator.png">
+                        @endif
                     </td>
-                    <td><a href="">Елена Новикова</a></td>
-                    <td>Женский</td>
-                    <td>35 лет</td>
-                    <td>02.08.2016</td>
+                    <td><a href="/admin/user/show/{{$user->user_id}}">{{ $user->first_name.' '.$user->last_name }}</a></td>
+                    <td>@if ($user->gender == true)
+                            Мужской
+                        @else
+                            Женский
+                        @endif
+                    </td>
+                    <td>{{$user->birthday}}</td>
+                    <td>{{$user->created_at}}</td>
                     <td class="text-center">
                         <button class="btn btn-success btn-xs">Восстановить</button>
                         <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td class="text-center">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                    </td>
-                    <td><a href="">Елена Новикова</a></td>
-                    <td>Женский</td>
-                    <td>35 лет</td>
-                    <td>02.08.2016</td>
-                    <td class="text-center">
-                        <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td class="text-center">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                    </td>
-                    <td><a href="">Елена Новикова</a></td>
-                    <td>Женский</td>
-                    <td>35 лет</td>
-                    <td>02.08.2016</td>
-                    <td class="text-center">
-                        <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
-                    </td>
-                  </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -90,4 +73,5 @@
             }
         })
     </script>
+    {!! $users->render() !!}
 @stop
