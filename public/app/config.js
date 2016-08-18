@@ -159,7 +159,8 @@ angular.module('placePeopleApp')
                     controller: 'userCtrl',
                     isLogin: true,
                     params: {
-                        userId: null
+                        userId: null,
+                        needToLogin: false
                     },
                     resolve: {
                         profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
@@ -191,7 +192,8 @@ angular.module('placePeopleApp')
                                             if (res.error.code === "8") {
 
                                             } else if (res.error.code === "15") {
-                                                //$scope.needToLogin = true;
+                                                $stateParams.needToLogin = true;
+                                                deferred.resolve();
                                             }
                                         }
                                     },
