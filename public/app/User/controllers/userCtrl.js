@@ -772,6 +772,7 @@ angular.module('placePeopleApp')
 								pub.comments.splice(index, 1);
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
+								$scope.singlePublication.comment_count--;
 							}
 						}
 					},
