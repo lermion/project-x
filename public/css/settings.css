@@ -85,10 +85,8 @@
     padding: 0 5px 0 5px;
 }
 .settingsss .text p input[type="text"] {
-/ / border-radius: 3 px 3 px 0 0;
-/ / border: 1 px solid #999;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 7px;
     box-sizing: border-box;
     line-height: 37px;
     height: 37px;
@@ -104,12 +102,10 @@
     border-radius: 0;
 }
 .settingsss .text p input[type="text"].last_name_set {
-/ / border-radius: 0 0 3 px 3 px;
-/ / border: 1 px solid #999;
     border: none;
     border-bottom: 1px solid #999;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 7px;
     box-sizing: border-box;
     line-height: 37px;
     height: 37px;
@@ -164,7 +160,7 @@
     margin: 0 0 20px 0;
     height: 70px;
     resize: none;
-    padding: 5px 15px;
+    padding: 5px 7px;
     font-family: "SFUIDisplayLight";
     color: #999;
     outline: none;
