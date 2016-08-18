@@ -1445,7 +1445,7 @@ body.public.user {
 .comunications .create{
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
-	padding-left: 35px;
+	padding-left: 26px;
 	margin: 0;
 	line-height: 22px;
 	background-position: center left;
@@ -3452,7 +3452,7 @@ body.public.user {
 .places-page .pub-groups {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
-	padding-left: 35px;
+	padding-left: 26px;
 	margin: 0;
 	line-height: 30px;
 	background-position: center left;
