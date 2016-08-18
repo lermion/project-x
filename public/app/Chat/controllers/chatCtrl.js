@@ -645,7 +645,7 @@ angular.module('placePeopleApp')
 						$scope.mainImage = response.images[0].url;
 					}
 					ngDialog.open({
-						template: '../app/User/views/view-publication.html',
+						template: '../app/Chat/views/popup-view-chat-publication.html',
 						className: 'view-publication ngdialog-theme-default',
 						scope: $scope,
 						name: "view-publication"
