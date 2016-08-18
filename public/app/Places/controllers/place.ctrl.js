@@ -598,6 +598,24 @@
 			$scope.$broadcast('loadPubFiles');
 		};
 
+		$scope.goToSearch = function(searchParam){
+			console.log(searchParam.indexOf("#"));
+			if(searchParam.indexOf("#") === 0){
+				$scope.search = {
+					str: searchParam,
+					byUsers: true,
+					byPublications: true,
+					byPlaces: true,
+					byGroups: true
+				};
+				$state.go('search', {
+					'searchObj': angular.copy($scope.search),
+					'restoreSearchResult': false,
+					'setActiveTab': true
+				});
+			}
+		};
+
 		vm.saveEditedPub = function (pubId, pubText, files) {
 			vm.pubEdited.description = vm.emojiMessage.messagetext;
 			vm.updatePubLoader = true;
