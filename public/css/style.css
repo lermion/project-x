@@ -850,7 +850,7 @@ body.public {
 	width: 100%;
 	height: 100%;
 	min-height: 100vh;
-	padding-bottom: 75px;
+	padding-bottom: 40px;
 	position: relative;
 	box-sizing: border-box;
 }
@@ -1119,7 +1119,18 @@ body.public.user {
 	.form h1 {
 		text-shadow: none;
 	}
-} 
+}
+.public header .header.header-user .logo.logo-in-menu {
+	    background-image: url(../images/logotip.png);
+	    background-position: left center;
+	    background-repeat: no-repeat;
+	    background-size: 163px;
+	    width: auto;
+	    height: 25px;
+	    z-index: 1;
+	    margin-bottom: 25px;
+	    display: none;
+	}
 @media (max-width: 800px) {
 	.public header .header {
 		position: relative;
@@ -1130,12 +1141,15 @@ body.public.user {
 	}
 	.public header .header.header-user {
 		justify-content: space-between;
-		padding: 0 10px 0 70px;
+		padding: 0 10px 0 45px;
 	}
 	.public header .main-menu .search {
 		display: block;
 		width: 100%;
-		margin: 30px 0;
+		margin: 20px 0;
+	}
+	.public header .header.header-user .logo.logo-in-menu {
+	    display: block;
 	}
 	.public header .main-menu .search input{
 		background: #495b79;
@@ -1181,7 +1195,7 @@ body.public.user {
 	}
 	.public header .main-menu .drop-menu {
 		display: block;
-		width: 55px;
+		width: 45px;
 		height: 55px;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
@@ -1208,7 +1222,7 @@ body.public.user {
 			margin-right: 0;
 	}
 	.public header .main-menu.show-menu {
-		width: 200px;
+		width: 210px;
 		height: 100vh;
 		box-sizing: border-box;
 		z-index: 9999999999;
@@ -1226,10 +1240,10 @@ body.public.user {
 	}
 	.public header .main-menu.show-menu .menu-item  {
 		display: block;
-		width: auto;
+		width: 100%;
 		padding: 10px;
 		text-align: left; 
-		padding-top: 75px; 
+		padding-top: 60px; 
 	} 
 	.public header .main-menu.common a {
 		line-height: 46px;

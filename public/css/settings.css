@@ -5542,6 +5542,7 @@ input.cmn-toggle-round:checked + label:after {
     margin-top: -14px;
     right: -130px;
     z-index: 0;
+    widows: 115px;
 }
 .place-menu-wrap .group-menu-item .counts .counter {
     margin: 0 0;
@@ -5644,6 +5645,7 @@ input.cmn-toggle-round:checked + label:after {
     .place-menu-wrap button {
         font-size: .8em;
         padding: 0px 2px;
+        width: 100px;
     }
     .place-top-ava-wrap .group-ava {
         height: 190px;

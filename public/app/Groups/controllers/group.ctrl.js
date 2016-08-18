@@ -434,6 +434,7 @@
 			PublicationService.deleteCommentPublication(comment.id).then(function (response) {
 					if (response.status) {
 						pub.comments.splice(index, 1);
+						pub.comment_count--;
 					}
 				},
 				function (error) {

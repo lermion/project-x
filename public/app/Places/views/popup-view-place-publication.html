@@ -52,7 +52,7 @@
             </div>
 
         </div>
-        <p class="publication-text" ng-bind-html="vm.activePublication.text | colonToSmiley | linkCheck"></p>
+        <p class="publication-text" ng-click="goToSearch(vm.activePublication.text)" ng-bind-html="vm.activePublication.text | colonToSmiley | linkCheck"></p>
     </div>
 
     <div class="likes">
@@ -72,7 +72,7 @@
         <a href class="comments-count" ng-if="vm.activePublication.comment_count > 0">{{vm.activePublication.comment_count}}</a>
     </div>
 
-    <div class="more-comments" ng-if="vm.activePublication.comments.length !== vm.activePublication.comment_count && vm.activePublication.comments.length <= 3">
+    <div class="more-comments" ng-if="vm.activePublication.comments.length !== vm.activePublication.comment_count">
         <a href ng-click="vm.getAllCommentsPublication('feedPage', vm.activePublication, true)" class="all-comments">Еще
             {{vm.activePublication.comment_count - 3}} комментариев</a>
     </div>
@@ -99,7 +99,7 @@
                     <a href ng-click="vm.deleteComment('viewPage', vm.activePublication, comment, $index)" class="alert"
                        ng-show="comment.user.id == vm.myId"></a>
                 </div>
-                <p class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
+                <p class="comment-item" ng-click="goToSearch(comment.text)" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
 
                 <div ng-if="comment.images[0]" class="comment-pic">
                     <a href ng-repeat="image in comment.images | limitTo: 3 as results"
