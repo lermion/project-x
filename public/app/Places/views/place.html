@@ -14,7 +14,7 @@
                             <a href="" class="publication-place publication-place-img1" title="{{vm.place.name}}">{{vm.place.name}}</a>
                             <a href class="publication-place"
                                ng-click="vm.showFullDescription = !vm.showFullDescription"
-                               ng-bind-html="vm.place.description | colonToSmiley"></a>
+                               ng-bind-html="vm.place.description | colonToSmiley | linkCheck"></a>
 
 
                             <p class="like-item">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
-                <p ng-bind-html="vm.place.description | colonToSmiley"></p>
+                <p ng-bind-html="vm.place.description | colonToSmiley | linkCheck"></p>
             </div>
 
             <div class="place-menu-wrap">
