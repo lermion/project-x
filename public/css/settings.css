@@ -1723,6 +1723,7 @@ div.my_profilll.photo-list div:last-child {
     appearance: none;
     font-size: 14.6px;
     padding-left: 30px;
+    padding-right: 30px;
     background-image: url(/images/filter.png);
     background-position: left center;
     background-size: 12%;
