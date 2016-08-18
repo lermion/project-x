@@ -5676,7 +5676,7 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
 }
 .places-count-span {
-    background-color: #ec8e45;
+    background-color: #ec6045;
     border-radius: 50%;
     font-size: 10.6px;
     padding: 2px;

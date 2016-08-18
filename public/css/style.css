@@ -209,7 +209,7 @@ body.main-page {
 	border: none;
 	margin-bottom: 10px;
 	border: 1px solid transparent;
-	transition: all .3s ease-in-out .2s; 
+	transition: all .1s ease-in-out .2s; 
 	min-width: 250px;
 }
 .check-in.recovery .tel-field {
@@ -236,7 +236,7 @@ body.main-page {
 .form-item form input:focus,
 .text-field:focus {
 	border: 1px solid #c24f39;
-	transition: all .3s ease-in-out .2s; 
+	transition: all .1s ease-in-out .2s; 
 	outline: none;
 }
 .form-item form select {
@@ -252,7 +252,7 @@ body.main-page {
 }
 .form-item form .city-field:focus {
 	border: 1px solid #c24f39;
-	transition: all .3s ease-in-out .2s; 
+	transition: all .1s ease-in-out .2s; 
 	outline: none;
 }
 .form-item form select {
@@ -376,7 +376,7 @@ body.main-page {
 	background-size: 45%;
 	width: 45px;
 	height: 37px; 
-	transition: all .3s ease-in-out .1s;  
+	transition: all .1s ease-in-out .1s;  
 	border-radius: 0 2px 2px 0; 
 	display: none;
 }
@@ -438,7 +438,7 @@ body.main-page {
 	color: #fff;
 	font-family:  "SFUIDisplayMedium";
 	cursor: pointer;
-	transition: all .3s ease-in-out .3s; 
+	transition: all .1s ease-in-out .3s; 
 	border: none;
 	line-height: 40px;
 }
@@ -516,7 +516,7 @@ body.main-page {
 .add-ava label .add-photo {
 	cursor: pointer;
 	background-image: url(../images/add-file.png); 
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	overflow: hidden;
 	width: 15vh;
 	height: 15vh;
@@ -529,7 +529,7 @@ body.main-page {
 	width: 12vh;
 	height: 12vh;
 	box-shadow: inset 5px 5px 35px 8px rgba(225,225,225,1), inset -5px -5px 35px 8px rgba(225,225,225,1);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 footer {
 	position: absolute;
@@ -562,11 +562,11 @@ footer {
 	font-size: 14.6px;
 	color: #fff;
 	text-decoration: none;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .footer-item a:hover {
 	color: #999;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .footer-item a:hover span {
 	color: #fff;
@@ -610,11 +610,11 @@ footer {
 	font-size: 14.6px;
 	color: #fff;
 	text-decoration: none;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .footer .menu-item a:hover {
 	color: #999;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .drop-menu {
 	display: none;
@@ -769,7 +769,7 @@ footer {
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 24px;
-		transition: all .3s ease-in-out .1s; 
+		transition: all .1s ease-in-out .1s; 
 	}
 	.footer .menu {
 		width: 72px;
@@ -906,7 +906,7 @@ body.public.user {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 18px;
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .main-menu.common a,
 .public header  .exit {
@@ -916,43 +916,43 @@ body.public.user {
 .public header  .exit:hover,
 .public header  .registration:hover {
 	color: #999;
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .main-menu .profile {
 	background-image: url(../images/profile.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 	background-size: 15%;
 }
 .public header .main-menu a.profile:hover {
 	background-image: url(../images/profile-hover.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .main-menu .places {
 	background-image: url(../images/places.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .main-menu a.places:hover {
 	background-image: url(../images/places-hover.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .main-menu .chat {
 	background-image: url(../images/chat.png);
-	transition: all .2s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	padding-left: 22px;
 }
 .public header .main-menu a.chat:hover {
 	background-image: url(../images/chat-hover.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .main-menu .settings {
 	background-image: url(../images/settings.png);
 	background-size: 18px;
-	transition: all .2s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	padding-left: 22px;
 }
 .public header .main-menu a.settings:hover {
 	background-image: url(../images/settings-hover.png); 
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .main-menu .menu-item {
 	width: 100%;
@@ -964,7 +964,7 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 60%;
 	/*background-image: url(../images/enter.png);*/
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 	width: 35px;
 	height: 35px;
 	display: inline-block;
@@ -976,20 +976,20 @@ body.public.user {
 }
 .public header .exit:hover span {
 	/*background-image: url(../images/enter-hover.png);*/
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .exit.enter:hover span {
 	background-image: url(../images/exite-hover.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .registration {
 	background-image: url(../images/key.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 	background-size: 15%;
 }
 .public header .registration:hover {
 	background-image: url(../images/key-hover.png);
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .public header .search {
 	width: 160px;
@@ -1001,7 +1001,7 @@ body.public.user {
 	padding: 0 35px 0 10px;
 	color: #fff;
 	height: 35px;
-	transition: all .4s ease-in-out .1s; 
+	transition: all .3s ease-in-out .1s; 
 	border: none;
 	box-sizing: border-box;
 	width: 100%;
@@ -1011,7 +1011,7 @@ body.public.user {
 	background: #fff;
 	color: #999;
 	outline: none;
-	transition: all .4s ease-in-out .1s; 
+	transition: all .3s ease-in-out .1s; 
 }
 .public header .search span {
 	position: absolute;
@@ -1024,7 +1024,7 @@ body.public.user {
 	background-size: 55%;
 	width: 35px;
 	height: 35px;
-	transition: all .2s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 /*.public header .search:hover span,
 .public header .search:focus span,
@@ -1060,13 +1060,13 @@ body.public.user {
 	border-radius: 2px;
 	text-decoration: none;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .menu-user a:hover,
 .menu-user a.active {
 	border: 1px solid #495b79;
 	color: #495b79;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .info {
 	padding-top: 30px;
@@ -1143,7 +1143,7 @@ body.public.user {
 		border-radius: 2px;
 		padding: 0 35px 0 10px;
 		color: #fff;
-		transition: all .4s ease-in-out .1s;
+		transition: all .3s ease-in-out .1s;
 		border: none;
 		box-sizing: border-box;
 	}
@@ -1151,7 +1151,7 @@ body.public.user {
 		background: #fff;
 		color: #999;
 		outline: none;
-		transition: all .4s ease-in-out .1s;
+		transition: all .3s ease-in-out .1s;
 	}
 	.public header .main-menu .search input:focus + span.button {
 		    background-image: url(/images/search-hover.png);
@@ -1163,7 +1163,7 @@ body.public.user {
 		width: 55px;
 		height: 55px;
 		display: block;
-		transition: width .3s ease-in-out .1s;
+		transition: width .1s ease-in-out .1s;
 	}
 	.public header .main-menu.common {
 		display: none;
@@ -1328,7 +1328,7 @@ body.public.user {
 	font-weight: 500;
 	line-height: 20px;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	max-width: 190px;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -1349,7 +1349,7 @@ body.public.user {
 	 font-family: "SFUIDisplayLight";
 }
 .my-profile-item .user-name:hover {
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 	color: #666
 }
 .rewrite-fields input {
@@ -1359,7 +1359,7 @@ body.public.user {
 	width: 110px;
 	font-size: 15px;
 	border-bottom: 1px solid #f1f1f1;
-	transition: all .4s ease-in-out .1s; 
+	transition: all .3s ease-in-out .1s; 
 }
 #user-page .status-correct{
 	resize: none;
@@ -1428,12 +1428,12 @@ body.public.user {
 	background-position: center left;
 	background-repeat: no-repeat;
 	color: #666;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	    background-size: 20px;
 }
 .counts .counter:hover p {
 	color: #333;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .counts .counter p.notes{
 	background-image: url(../images/notes.png);		
@@ -1465,13 +1465,13 @@ body.public.user {
 	background-repeat: no-repeat;
 	color: #ec6045;
 	background-image: url(../images/create.png);
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 	text-decoration: none;
 }
 .comunications .create:hover {
 	color: #666; 
 	background-image: url(../images/create-hover.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .comunications .rewrite,
 .comunications .reread,
@@ -1486,7 +1486,7 @@ body.public.user {
 	margin: 0;
 	line-height: 27px;
 	color: #495b79;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 	text-decoration: none;
 }
 .comunications .reread,
@@ -1515,7 +1515,7 @@ body.public.user {
 .contacts-off-container  .subscriber .read:hover,
 .contacts-off-container  .subscriber .read:hover{
 	border: 1px solid #77849b;
-	transition: all .3s ease-in-out .1s;  
+	transition: all .1s ease-in-out .1s;  
 }
 .comunications .view {
 	width: 55px;
@@ -1534,21 +1534,21 @@ body.public.user {
 }
 .comunications .view a.table {
 	background-image: url(../images/view-table.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .comunications .view a.table:hover,
 .comunications .view a.table.active {
 	background-image: url(../images/view-table-hover.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .comunications .view a.list {
 	background-image: url(../images/view-list.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .comunications .view a.list:hover,
 .comunications .view a.list.active {
 	background-image: url(../images/view-list-hover.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 #user-page .my-photos,
 .group-publication .my-photos,
@@ -1605,7 +1605,7 @@ body.public.user {
 	margin-top: -40px;
 	margin-left: -40px;
 	background-image: url(../images/play.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	background-position: center;
 	background-repeat: no-repeat; 
 }
@@ -1621,7 +1621,7 @@ body.public.user {
 .group-publication a:hover .video {
 	background-color: rgba(0,0,0,.6);
 	background-size: 40%;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	width: 70px;
 	height: 70px;
 	margin-top: -35px;
@@ -1821,7 +1821,7 @@ body.public.user {
 		margin: 0;
 		line-height: 27px;
 		color: #495b79;
-		transition: all .3s ease-in-out .1s;
+		transition: all .1s ease-in-out .1s;
 		text-decoration: none;
 		background-image: none;
 	}
@@ -1905,7 +1905,7 @@ body.public.user {
 	height: 300px;
 	margin-left: -323px;
 	margin-top: -150px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	padding: 0;
 	top: 40%;
 		height: auto;
@@ -1945,12 +1945,12 @@ body.public.user {
 	text-align:center;
 	top:0;
 	width:30px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content .ngdialog-close:active:before,
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content .ngdialog-close:hover:before{
 	color: #999;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .user-publication.ngdialog-theme-default .publication {
 	padding: 15px;
@@ -1963,7 +1963,7 @@ body.public.user {
 	align-items: center;
 	text-decoration: none;
 	opacity: 1;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .user-publication.ngdialog-theme-default .publication-item .user:hover,
 .user-function .user:hover,
@@ -1971,7 +1971,7 @@ body.public.user {
 .visible-comments .user-comment .ava:hover,
 .user-publication .add-comment .ava:hover {
 	opacity: .8;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .user-publication.ngdialog-theme-default .publication-item .user .ava,
 .user-function .user .ava,
@@ -2095,7 +2095,7 @@ body.public.user {
 .user-publication .add-comment .add  .text-field .smiles  .smiles-item{
 	display: block;
 	background-image: url(../images/smil.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	background-position: left bottom 6px;
 	background-repeat: no-repeat;
 	background-size: 65%;
@@ -2116,14 +2116,14 @@ body.public.user {
 	height: 200px;
 		z-index: 9;
 		padding-bottom: 15px;
-		transition: all .3s ease-in-out .1s;
+		transition: all .1s ease-in-out .1s;
 }
 .emoji-chat-block a.emoji-button{
 	width: 45px;
 	height: 40px;
 	display: block;
 	background-image: url(../images/smil.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	background-position: left bottom 6px;
 	background-repeat: no-repeat;
 	background-size: 50%;
@@ -2168,7 +2168,7 @@ body.public.user {
 	right: 0;
 	display: block;
 	background-image: url(../images/smil.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	background-position: left bottom 6px;
 	background-repeat: no-repeat;
 	background-size: 65%;
@@ -2250,7 +2250,7 @@ body.public.user {
 .publication-footer .add-objects label span {
 	display: block;
 	background-image: url(../images/camera.png);
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 65%;
@@ -2279,7 +2279,7 @@ body.public.user {
 	font-family: "SFUIDisplayMedium";
 	line-height: 30px;
 	padding: 0 10px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .publication-footer-button .publication-button {
 	color: #fff;
@@ -2287,7 +2287,7 @@ body.public.user {
 	border-radius: 3px;
 	margin-left: 5px;
 	border: 1px solid #495b79;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .publication-footer-button .publication-button.ladda-button {
 	position: static;
@@ -2380,7 +2380,7 @@ body.public.user {
 	height: 25px;
 	border-radius: 50%;
 	cursor: pointer;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	display: none;
 }
 .publication .new-add .inner .close,
@@ -2528,7 +2528,7 @@ body.public.user {
 		right: 0;
 		top: 0;
 		line-height: 30px;
-		transition: all .3s ease-in-out .1s;
+		transition: all .1s ease-in-out .1s;
 }
 .ngdialog.view-publication.ngdialog-theme-default .user-publication-header,
 #wrapper .user-publication-header {
@@ -2561,7 +2561,7 @@ body.public.user {
 	right: 0;
 	top: 0;
 	line-height: 30px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	text-decoration: none;
 	display: none;
 }
@@ -2586,7 +2586,7 @@ body.public.user {
 	background-size: 22px;
 	background-position: center;
 	cursor: pointer;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .user-publication-header .user-menu:hover {
 	background-image: url(../images/user-menu-hover.png);
@@ -2680,7 +2680,7 @@ body.public.user {
 .publication-images .images-item.more:hover {
 	background-color: #fff;
 	color: #495b79;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .images-item.more p {
 	margin: 0;
@@ -2764,7 +2764,7 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 20%;
 	font-size: 14px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	    font-family: Tahoma;
     font-weight: bold;
     font-size: 13.6px;
@@ -2803,7 +2803,7 @@ body.public.user {
 	background-position: right; center;
 	background-repeat: no-repeat;
 	background-size: contain;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .user-publication .comments-count:hover  {
 	color: #495b79;
@@ -2821,7 +2821,7 @@ body.public.user {
 	font-family: "SFUIDisplayMedium";
 	color: #495b79;
 	line-height: 50px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .user-publication .more-comments a:hover {
 	color: #333;
@@ -2885,7 +2885,7 @@ body.public.user {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: contain;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	display: none;
 }
 .visible-comments .comment .like-counter:hover {
@@ -2899,7 +2899,7 @@ body.public.user {
 	padding-right: 20px;
 	position: relative;
 	font-family: "SFUIDisplayLight";
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	display: none;
 	width: 20px;
 	height: 20px;
@@ -2922,7 +2922,7 @@ body.public.user {
 	text-align: center;
 	top: 0;
 	width: 15px;
-	transition: all .3s ease-in-out .1s; 
+	transition: all .1s ease-in-out .1s; 
 }
 .visible-comments .comment .alert-text:before {	
 	content: '';	
@@ -2979,7 +2979,7 @@ body.public.user {
 	font-family: "SFUIDisplayMedium";
 	line-height: 30px;
 	padding: 0 10px;
-	transition: all .3s ease-in-out .1s!important;
+	transition: all .1s ease-in-out .1s!important;
 	color: #fff;
 	background-color: #495b79;
 	border-radius: 3px;
@@ -3045,7 +3045,7 @@ body.public.user {
 	border: none;
 	margin-bottom: 10px;
 	border: 1px solid transparent;
-	transition: all .3s ease-in-out .2s;
+	transition: all .1s ease-in-out .2s;
 	min-width: 250px;
 }
 .comment .comment-pic{
@@ -3116,7 +3116,7 @@ body.public.user {
 	width: 50px;
 	height: 50px;
 	opacity: 1;
-	transition: all .3s ease-in-out .2s;
+	transition: all .1s ease-in-out .2s;
 	cursor: pointer;
 }
 .contacts-off-container .subscriber-item .user-ava .ava:hover {
@@ -3134,7 +3134,7 @@ body.public.user {
 	font-weight: 500;
 	line-height: 20px;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	max-width: 210px;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -3470,7 +3470,7 @@ body.public.user {
 	background-position: center left;
 	background-repeat: no-repeat;
 	color: #ec6045;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	text-decoration: none;
 }
 .main-content .groups .place-publication-menu-list {
@@ -3632,7 +3632,7 @@ body.ngdialog-open {
 	color: #333;
 	padding-left: 30px;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	background-image: url(../images/public-groups.png);
 	background-position: left center;
 	background-size: 7%;
@@ -3658,7 +3658,7 @@ body.ngdialog-open {
 	background-size: 16%;
 	background-repeat: no-repeat;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	cursor: pointer;
 	height: 30px;
 }
@@ -3704,7 +3704,7 @@ body.ngdialog-open {
 	box-sizing: border-box;
 	padding: 15px 10px 0;
 	opacity: 0;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .group-cover:hover .group-likes {
 	opacity: 1;
@@ -3753,7 +3753,7 @@ body.ngdialog-open {
 	color: #495b79;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	cursor: pointer;
 	line-height: 30px;
 	padding-left: 25px;
@@ -3793,7 +3793,7 @@ body.ngdialog-open {
 	color: #333;
 	font-family: "SFUIDisplayMedium";
 	background: #d7dade;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .group button:hover {
 	outline: none;
@@ -3883,7 +3883,7 @@ body.ngdialog-open {
 	box-sizing: border-box;
 	padding: 30px 10px 0;
 	/* opacity: 0; */
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 }
 .group-ava .group-likes .group-info {
 	width: 700px;
@@ -3921,7 +3921,7 @@ body.ngdialog-open {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-size: 12%;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	    cursor: default;
 }
 .group-page .group-menu {
@@ -3943,7 +3943,7 @@ body.ngdialog-open {
 	padding: 0 10px;
 	margin: 0;
 	line-height: 27px;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	text-decoration: none;
 	color: #fff;
 	background: #495b79;
@@ -4610,7 +4610,7 @@ body.ngdialog-open {
 	height: 25px;
 	border-radius: 50%;
 	cursor: pointer;
-	transition: all .3s ease-in-out .1s;
+	transition: all .1s ease-in-out .1s;
 	display: none; 
 }
 .group-comments .pictures .pic .close:before {
