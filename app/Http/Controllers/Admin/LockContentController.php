@@ -19,11 +19,31 @@ class LockContentController extends Controller
         return view('admin.lock.index')->with('users',$users);
     }
 
+    public function unlockUser($id)
+    {
+        $place = User::find($id);
+        $place->is_block = false;
+        $place->save();
+        return redirect('/admin/lock/')->with('message', 'Пользователь восстановлен');
+    }
+
+
     public function getLockPlaces()
     {
         $places = Place::with('users')
             ->where('is_block',true)
             ->paginate(25);
+        $places->each(function($item){
+            $item->user_count = $item->users->count();
+        });
+        $places->each(function($item){
+            $item->users->each(function($a)use ($item){
+               if($a->pivot->is_creator){
+                   $item->is_creator = $a->first_name;
+                   $item->is_creator .= ' '.$a->last_name;
+               }
+            });
+        });
         return view('admin.lock.places')->with('places',$places);
     }
 
@@ -36,10 +56,16 @@ class LockContentController extends Controller
         return redirect('/admin/lock/places/')->with('message', 'Место восстановленно');
     }
 
+    public function deletePlaces()
+    {
+        Place::where('is_block',true)->delete();
+        return redirect('/admin/lock/places/')->with('message', 'Все удаленно');
+    }
+
     public function destroyPlace($id)
     {
         Place::destroy($id);
-        return response()->json(['status' => true]);
+        return redirect('/admin/lock/places/')->with('message', 'Место удаленно');
     }
 
     public function getLockGroups()
@@ -63,7 +89,13 @@ class LockContentController extends Controller
     public function destroyGroup($id)
     {
         Group::destroy($id);
-        return response()->json(['status' => true]);
+        return redirect('/admin/lock/groups/')->with('message', 'Группа удаленна');
+    }
+
+    public function deleteGroups()
+    {
+        Group::where('is_block',true)->delete();
+        return redirect('/admin/lock/groups/')->with('message', 'Все удаленно');
     }
 
     public function getLockPublications()
@@ -87,5 +119,11 @@ class LockContentController extends Controller
     {
         Publication::destroy($id);
         return redirect('/admin/lock/publications/')->with('message', 'Публикация удаленна');
+    }
+
+    public function deletePublications()
+    {
+        Publication::where('is_block',true)->delete();
+        return redirect('/admin/lock/publications/')->with('message', 'Все удаленно');
     }
 }

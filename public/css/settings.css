@@ -212,7 +212,7 @@
 .contacts_list .user-info,
 .user-info {
     padding-top: 4px;
-    padding-left: 14px;
+    padding-left: 0px;
     overflow: hidden;
     line-height: 1;
 }
