@@ -31,13 +31,19 @@
                         <div class="user-publication-header">
                             <div class="user-function">
                                 <a class="user" ui-sref="user({username: pub.user.login})">
-							<span class="ava">
-								<img ng-src="{{pub.user.avatar_path}}" alt="">
-							</span>
-							<span class="block-info">
-								<p class="user-name">{{pub.user.first_name}} {{pub.user.last_name}}</p>
-								<p class="time" am-time-ago="pub.created_at"></p>
-							</span>
+							        <span class="ava">
+								        <img ng-src="{{pub.user.avatar_path}}" alt="">
+							        </span>
+							        <span class="block-info">
+								        <p class="user-name">{{pub.user.first_name}} {{pub.user.last_name}}</p>
+								        <p class="time" am-time-ago="pub.created_at"></p>
+							        </span>
+                                </a>
+                                <a class="user" ng-if="pub.group.length > 0" ui-sref="group({groupName: pub.group[0].url_name})">
+                                    <p class="user-name">{{pub.group[0].name}}</p>
+                                </a>
+                                <a class="user" ng-if="pub.place.length > 0" ui-sref="place({placeName: pub.place[0].url_name})">
+                                    <p class="user-name" >{{pub.place[0].name}}</p>
                                 </a>
 
                                 <div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
@@ -58,7 +64,8 @@
                         </div>
                         <div class="user-publication-content"
                              ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-                            <p class="publication-text" ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>
+                            <p class="publication-text"
+                               ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>
                             <!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
                             <!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
                             <!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
