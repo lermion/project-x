@@ -2,11 +2,11 @@
 <div class="user-publication">
 	<div class="user-publication-header">
 		<div class="user-function">
-			<a class="user" ui-sref="user({username: userData.login})" ng-click="closePopup()">
+			<a class="user" ui-sref="user({username: singlePublication.user.login})" ng-click="closePopup()">
 				<span class="ava">
-					<img ng-src="{{userData.avatar_path}}" alt="">
+					<img ng-src="{{singlePublication.user.avatar_path}}" alt="">
 				</span>
-				<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
+				<p class="user-name">{{singlePublication.user.first_name}} {{singlePublication.user.last_name}}</p>
 			</a>
 			<div class="topic" ng-show="!!singlePublication.is_topic">Тема дня</div>
 			<div class="user-menu" ng-click="$root.showUserMenu=!$root.showUserMenu"
@@ -26,7 +26,7 @@
 		<a href="javascript:void(0);" ng-click="returnToBack()" class="return">Назад</a>
 	</div>
 	<div class="user-publication-content">
-		<div ng-click="openNextInfo(singlePublication.images)" class="publication-ava">
+		<div tabindex="1" ng-keydown="keyPress($event, singlePublication.images)" ng-click="openNextInfo(singlePublication.images)" class="publication-ava main-image-publication">
 			<img ng-if="mainImage" ng-src="{{mainImage}}">
 			<video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
 		</div>				

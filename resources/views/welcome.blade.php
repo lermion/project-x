@@ -7,10 +7,11 @@
 	<meta name="description" content="">
 	<link href="../../css/style.css" rel="stylesheet">
 	<link href="../../css/settings.css" rel="stylesheet">
+	<base href="/">
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
 	<back-top class="main-up-button">Наверх</back-top>
-	<header ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
+	<header ng-cloak ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
@@ -41,7 +42,7 @@
 			</div>
 		</div>
 	</header>
-	<header ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
+	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
 		<div class="header">
 			<a class="logo" href="javascript:void(0);"></a>
 			<div class="main-menu common">
@@ -101,6 +102,7 @@
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>
 	<script src="../../app/libs/angucomplete-alt.min.js"></script>
 	<script src="../../app/libs/socket.min.js"></script>
+	<script src="../../app/libs/metrika.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>
 	<link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />
@@ -156,9 +158,8 @@
 						 ng-init="showBottomMenu=true;">
 				<a class="drop-menu" href="javascript:void(0)"></a>
 
-				<div class="menu-item" ng-show="showBottomMenu">
-					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})"
-							   ng-click="closePopup()">@{{staticPage.description}}</a>
+				<div class="menu-item">
+				<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">@{{staticPage.description}}</a>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 angular.module('placePeopleApp')
-    .config(['$urlRouterProvider', '$stateProvider', 'laddaProvider',
-        function ($urlRouterProvider, $stateProvider, laddaProvider) {
+    .config(['$urlRouterProvider', '$stateProvider', 'laddaProvider', '$metrikaProvider', '$locationProvider',
+        function ($urlRouterProvider, $stateProvider, laddaProvider, $metrikaProvider, $locationProvider) {
 
             laddaProvider.setOption({
                 style: 'expand-right',
@@ -8,9 +8,18 @@ angular.module('placePeopleApp')
                 spinnerColor: '#ffffff'
             });
 
-            $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/404');
+
+            $locationProvider.html5Mode(true);
+
+            $metrikaProvider.configureCounter({id: 38912545, webvisor: true});
 
             $stateProvider
+                .state('404', {
+                    url: '/404',
+                    templateUrl: '../../app/Auth/views/404.html',
+                    isLogin: true
+                })
                 .state('auth', {
                     url: '/',
                     templateUrl: '../../app/Auth/views/auth.html',

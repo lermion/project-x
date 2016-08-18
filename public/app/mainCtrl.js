@@ -77,6 +77,11 @@ angular.module('placePeopleApp')
 				socket.emit("get user rooms", $scope.loggedUserId);
 			});
 
+
+			$rootScope.$on('preloader:off', function() {
+				$scope.preloader = false;
+			});
+
 			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 				$scope.preloader = false;
 				ngDialog.closeAll();
@@ -105,6 +110,7 @@ angular.module('placePeopleApp')
 				$scope.bodyClass = 'public user';
 			});
 			$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+				$scope.preloader = true;
 				if($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
 					$rootScope.stateChangeBypass = false;
 					$scope.preloader = false;
@@ -113,9 +119,10 @@ angular.module('placePeopleApp')
 				if(toState.name !== 'auth'
 					&& toState.name !== 'restore'
 					&& toState.name !== 'reg'
-					&& toState.name !== 'place'
-					&& toState.name !== 'group'
-					&& toState.name !== 'group.publications'
+						&& toState.name !== 'group'
+						&& toState.name !== 'group.publications'
+						&& toState.name !== 'place'
+						&& toState.name !== 'place.publications'
 					&& toState.name !== 'static'
 					&& toState.name !== 'desktop-pub-view'){
 					event.preventDefault();
@@ -130,7 +137,6 @@ angular.module('placePeopleApp')
 					var storage = storageService.getStorage();
 					if(response.is_authorization){
 						$rootScope.isAuthorized = true;
-						$scope.preloader = true;
 						$rootScope.stateChangeBypass = true;
 						$state.go(toState, toParams);
 					}else{

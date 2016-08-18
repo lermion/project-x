@@ -325,6 +325,8 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
 
-
-
+    Route::any( '{angularjs}', function ( $page ) {
+        return view('welcome');
+        
+    } )->where('angularjs', '(.*)');
 });

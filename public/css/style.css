@@ -69,6 +69,64 @@ body.main-page {
                 height: 50px;
             }
         }
+.page404-wrap {
+ 	position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-color: #f5f5f5;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+.page-404-inner {
+	width: 50%;
+	height: 20vh;
+	display: flex;
+	font-family:  "SFUIDisplayMedium";
+	color: #61687e;
+}
+.page404-logo {
+	width: 40%;
+	box-sizing: border-box;
+	color: #61687e;
+    font-size: 125px;
+    text-align: center;
+}
+.page404-title {
+	width: 60%;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: center;
+}
+.page404-title p {
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	margin-bottom: 5px;
+	font-size: 30px;
+}
+.page404-title a {
+	margin-top: 5px;
+	background-color: #ec6045;
+	font-size: 14.6px;
+	color: #fff;
+	        border: none;
+    line-height: 40px;
+        width: 150px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+.page404-title a:hover {
+	background: #DA5036;
+}
 .main-up-button {
 	position: fixed;
 	top: 45px;
@@ -1929,12 +1987,13 @@ body.public.user {
 .visible-comments .comment .user-name  {
 	color: #495b79;
 	font-size: 15.6px;
-	font-family: "SFUIDisplayMedium";
+	font-family: "SFUIDisplayLight";
 	margin: 0 0 0 15px;
 	max-width: 200px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	font-weight: bold;
 }
 .user-function .user .user-name,
 .visible-comments .comment .user-name {
@@ -2476,7 +2535,7 @@ body.public.user {
 }
 .user-publication-header .user-function {
 	display: flex;
-	width: 55%;
+	width: 52.5%;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -2514,7 +2573,7 @@ body.public.user {
 	height: 30px;
 	background-image: url(../images/user-menu.png);
 	background-repeat: no-repeat;
-	background-size: 99%;
+	background-size: 22px;
 	background-position: center;
 	cursor: pointer;
 	transition: all .3s ease-in-out .1s;
@@ -2696,6 +2755,9 @@ body.public.user {
 	background-size: 20%;
 	font-size: 14px;
 	transition: all .3s ease-in-out .1s;
+	    font-family: Tahoma;
+    font-weight: bold;
+    font-size: 13.6px;
 }
 .user-publication .likes-item .like:hover {
 	background-color: #495b79;
@@ -4039,10 +4101,13 @@ body.ngdialog-open {
 .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after {
 	content: 'Текст комментария...';
 	    color: #999;
+	        font-family: "SFUIDisplayLight";
+
 }
 .user-publication.ngdialog-theme-default .publication .text-field .emoji-wysiwyg-editor:empty:after {
 	content: 'Текст публикации...';
 	    color: #999;
+	        font-family: "SFUIDisplayLight";
 }
 .posFixedPopup{
 	position: fixed !important;
@@ -4601,4 +4666,7 @@ input#chat-add-file-file{
 .stop-scrolling{
   height: 100%;
   overflow: hidden;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }

@@ -23,10 +23,10 @@
 			</a>
 		</div>		
 	</div>		
-		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;">
-			<div class="new-img" ng-repeat="file in filesPreview"  ng-click="showMoreImages(files)">
+		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize style="max-height: 250px; overflow:hidden; position:relative;">
+			<div class="new-img" ng-repeat="file in pubNew.files">
 				<div class="inner">
-					<div class="close" ng-click="deletePubFile(files, $index)">
+					<div class="close" ng-click="deletePubFile($index)">
 						<div class="close-inner">
 							<p>Удалить</p>
 						</div>

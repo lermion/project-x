@@ -109,6 +109,19 @@
 		});
 
 		$scope.$on('ngDialog.opened', function (e, $dialog) {
+			if ($dialog.name === "modal-publication-group") {
+				var mainImagePublication = $(".main-image-publication");
+				setTimeout(function(){
+					mainImagePublication.focus();
+				}, 0);
+				$scope.keyPress = function(event, images){
+					if(event.keyCode === 39){
+						$scope.openNextInfo(images);
+					}else if(event.keyCode === 37){
+						$scope.openPreviousInfo(images);
+					}
+				};
+			}
 			if ($dialog.name === "modal-edit-publication") {
 				$(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
 			}
@@ -272,19 +285,22 @@
 		};
 
 		vm.beforeAttachFileToPublication = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+			var defer = $q.defer();
+			var prom = [];
 			newFiles.forEach(function(image) {
-				resizeImage(image);
+				prom.push(resizeImage(image));
 			});
-			if (vm.files.length > 4 || files > 4) {
+			$q.all(prom).then(function() {
 				$scope.$broadcast('rebuild:me');
-			}
+			});
+
 		};
 		function resizeImage(image) {
 			Upload.imageDimensions(image).then(function (dimensions) {
 				console.info('Place publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 			});
 
-			Upload.resize(image, 700, 395).then(function (resizedFile) {
+			return Upload.resize(image, 700, 395).then(function (resizedFile) {
 				Upload.imageDimensions(resizedFile).then(function (dimensions) {
 					console.info('Place publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 				});
@@ -1292,6 +1308,84 @@
 
 			return result.length > 0;
 		}
+
+		vm.citySelected = function (city) {
+			if (city) {
+				var cityObj = {
+					countryId: vm.placeEdited.country.id,
+					name: city.title
+				};
+				placesService.addCity(cityObj)
+						.then(function (data) {
+							if (data.status) {
+								vm.placeEdited.city = {};
+								vm.placeEdited.city.id = data.city_id;
+								vm.placeEdited.city.name = city.title;
+							}
+						});
+			}
+		};
+
+		function getCity(str) {
+			return $http({
+				method: 'GET',
+				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + vm.placeEdited.country.name + ', ' + str,
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: null,
+				timeout: 1000
+			})
+					.then(getPublicationsComplete)
+					.catch(getPublicationsFailed);
+
+			function getPublicationsComplete(response) {
+				return response.data;
+			}
+
+			function getPublicationsFailed(error) {
+				console.error('XHR Failed for getPublications. ' + error.data);
+			}
+		}
+
+
+		vm.searchCity = function (str) {
+
+			var def = $q.defer();
+
+			var matches = [];
+
+			vm.cities.forEach(function (city) {
+				if ((city.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {
+					matches.push(city);
+				}
+			});
+
+			if (matches.length === 0) {
+				getCity(str)
+						.then(function (data) {
+
+							var arr = data.response.GeoObjectCollection.featureMember;
+
+							arr.forEach(function (item) {
+								var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+								if (data.kind === 'locality') {
+									var cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
+									matches.push({
+										name: cityName
+									});
+								}
+							});
+
+							def.resolve(matches);
+						})
+			} else {
+				def.resolve(matches);
+			}
+
+			return def.promise;
+
+
+		};
 
 		$scope.indexCurrentImage = 0;
 		$scope.openPreviousInfo = function(images){
