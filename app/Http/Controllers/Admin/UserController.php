@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\BlackList;
 use App\User;
 use App\Comment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -20,9 +21,38 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $count = $request->input('count') ? $request->input('count') : 10;
-        $users = User::all();
-        return view('admin.user.index')->with('users', $users);
+        $query = DB::table('users');
+        if ($request->has('gender')) {
+            $query->where('gender', $request->input('gender'));
+        }
+        if ($request->has('is_avatar')) {
+            $query->where('is_avatar', $request->input('is_avatar'));
+        }
+        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
+            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
+        }
+        if ($request->has('keywords')) {
+            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+        }
+//        if ($request->has('keywords')) {
+//            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+//        }
+//        if ($request->has('keywords')) {
+//            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+//        }
+//        if ($request->has('keywords')) {
+//            $query->where('login', 'like', '%'.$request->input('keywords').'%');
+//        }
+        if ($request->has('num_records')) {
+            $query->take($request->input('num_records'));
+        }
+        if ($request->has('age_range_from') and $request->has('age_range_to')) {
+            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
+            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
+            $query->whereBetween('birthday', [$to,$from]);
+        }
+        $users = $query->get();
+        return response()->json($users);
     }
 
     /**

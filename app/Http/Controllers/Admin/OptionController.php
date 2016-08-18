@@ -38,7 +38,7 @@ class OptionController extends Controller
         }
         $optionData = $request->all();
         $option = Option::first();
-        dd($request->all());
+        dd($request);
         $option->update($optionData);
         return redirect('admin/option/')->with('message', 'Сохраненно');
     }

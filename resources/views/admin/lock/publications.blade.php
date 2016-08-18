@@ -5,13 +5,13 @@
 
 
 	<div class="x_content">
-        <div class="admin-delete-menu">
-            <div class="admin-delete-menu-inner">
-                <div class="item active">Пользователи</div>
-                <div class="item">Публикации</div>
-                <div class="item">Группы</div>
-                <div class="item">Места</div>
-            </div>
+        <div class="admin-settings">
+            <ul class="col-md-12 admin-settings-menu">
+                <li class="col-md-3 active"><a href="/admin/lock/">Пользователи </a></li>
+                <li class="col-md-3"><a href="/admin/lock/publications/">Публикации </a></li>
+                <li class="col-md-3"><a href="/admin/lock/groups/">Группы </a></li>
+                <li class="col-md-3"><a href="/admin/lock/places/">Места </a></li>
+            </ul>
         </div>
 
         <div class="admin-user-content-publication to-del-publ">
@@ -28,10 +28,11 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($publications as $publication)
                   <tr>
-                    <td><a href="">123</a></td>
-                    <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
-                    <td>Елена Новикова</td>
+                    <td><a href="">{{$publication->id}}</a></td>
+                    <td>{{$publication->text}}</td>
+                    <td>{{$publication->user_id}}</td>
                     <td>
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
                         <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
@@ -39,29 +40,13 @@
 
                     </td>
                     <td>видео</td>
-                    <td>02.08.2016</td>
+                    <td>{{$publication->created_at}}</td>
                     <td class="text-center">
-                        <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
+                        <a href="/admin/lock/unlock_publication/{{$publication->id}}"><button class="btn btn-success btn-xs">Восстановить</button></a>
+                        <a href="/admin/lock/destroy_publication/{{$publication->id}}"><button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button></a>
                     </td>
                   </tr>
-                  <tr>
-                    <td><a href="">123</a></td>
-                    <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
-                    <td>Елена Новикова</td>
-                    <td>
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-
-                    </td>
-                    <td>видео</td>
-                    <td>02.08.2016</td>
-                    <td class="text-center">
-                        <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
-                    </td>
-                  </tr>
+                  @endforeach
                 </tbody>
             </table>
         </div>
@@ -82,5 +67,5 @@
             }
         })
     </script>
-
+    {!! $publications->render() !!}
 @stop

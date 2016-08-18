@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Group;
 use App\Place;
 use App\Publication;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,15 +15,16 @@ class LockContentController extends Controller
 {
     public function index()
     {
-        return view('admin.lock.index');
+        $users = User::where('is_block',true)->paginate(25);
+        return view('admin.lock.index')->with('users',$users);
     }
 
     public function getLockPlaces()
     {
-        $places = Place::with('users','publications')
+        $places = Place::with('users')
             ->where('is_block',true)
-            ->get();
-        return response()->json(['status' => true, 'places'=>$places]);
+            ->paginate(25);
+        return view('admin.lock.places')->with('places',$places);
     }
 
     public function unlockPlace($id)
@@ -31,7 +33,7 @@ class LockContentController extends Controller
         $place->is_block = false;
         $place->block_message = '';
         $place->save();
-        return response()->json(['status' => true]);
+        return redirect('/admin/lock/places/')->with('message', 'Место восстановленно');
     }
 
     public function destroyPlace($id)
@@ -42,10 +44,10 @@ class LockContentController extends Controller
 
     public function getLockGroups()
     {
-        $group = Group::with('users','publications')
+        $groups = Group::with('users')
             ->where('is_block',true)
-            ->get();
-        return response()->json(['status' => true, 'groups'=>$group]);
+            ->paginate(25);
+        return view('admin.lock.groups')->with('groups',$groups);
     }
 
 
@@ -55,7 +57,7 @@ class LockContentController extends Controller
         $group->is_block = false;
         $group->block_message = '';
         $group->save();
-        return response()->json(['status' => true]);
+        return redirect('/admin/lock/groups/')->with('message', 'Группа восстановленна');
     }
 
     public function destroyGroup($id)
@@ -68,8 +70,8 @@ class LockContentController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where('is_block',true)
-            ->get();
-        return response()->json(['status' => true, 'publications'=>$publications]);
+            ->paginate(25);
+        return view('admin.lock.publications')->with('publications',$publications);
     }
 
     public function unlockPublication($id)
@@ -78,12 +80,12 @@ class LockContentController extends Controller
         $publication->is_block = false;
         $publication->block_message = '';
         $publication->save();
-        return response()->json(['status' => true]);
+        return redirect('/admin/lock/publications/')->with('message', 'Публикация восстановленна');
     }
 
     public function destroyPublication($id)
     {
         Publication::destroy($id);
-        return response()->json(['status' => true]);
+        return redirect('/admin/lock/publications/')->with('message', 'Публикация удаленна');
     }
 }
