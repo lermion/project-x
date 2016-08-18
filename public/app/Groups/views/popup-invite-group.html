@@ -6,6 +6,7 @@ ng-class="{'flex-content-center': !vm.canInviteUsers}">
         <input type="text" id="" ng-model="searchString" placeholder="Пригласить в группу...">
         <ul class="contacts_list">
             <p ng-if="subscription.length > 0">Подписки</p>
+
             <li ng-repeat="user in vm.subscription | filter: vm.showUsersForInvite | searchFor:searchString as subscription"
                 ng-click="vm.onItemSelected(user)" class="user_block">
                 <div class="popup-invite-place-people-name1 user-block">
@@ -24,6 +25,7 @@ ng-class="{'flex-content-center': !vm.canInviteUsers}">
                     </div>
                 </div>
             </li>
+
             <p ng-if="subscribers.length > 0">Подписчики</p>
             <li ng-repeat="user in vm.subscribers | filter: vm.showUsersForInvite | searchFor:searchString as subscribers"
                 ng-click="vm.onItemSelected(user)" class="user_block">
@@ -44,6 +46,7 @@ ng-class="{'flex-content-center': !vm.canInviteUsers}">
                 </div>
             </li>
         </ul>
+        <h4 ng-if="subscription.length === 0 && subscribers.length === 0">Пользователь не найден</h4>
     </div>
     <div class="alerts-container flex-content-center" ng-if="!vm.canInviteUsers">
         <h4 class="text-center">
