@@ -15,8 +15,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('group/{name}', 'GroupController@show');
-    Route::get('place/{name}', 'PlaceController@show');
+    Route::get('one_group/{name}', 'GroupController@show');
+    Route::get('one_place/{name}', 'PlaceController@show');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'moderator'], function () {
@@ -288,6 +288,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('authorization', 'AuthorizationController@index');
 
     Route::post('search','SphinxSearchController@search');
+<<<<<<< HEAD
     Route::get('search', function () {
 
 //        echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
@@ -301,6 +302,18 @@ Route::group(['middleware' => ['web']], function () {
             <input type=\"submit\">
             </form>";
     });
+=======
+//    Route::get('search', function () {
+//        echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
+//            <input type='text' name='name'><br>
+//            <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
+//            <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
+//            <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
+//            <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
+//            <input type=\"submit\">
+//            </form>";
+//    });
+>>>>>>> 09a5712e44e130b278140459a4fd0449b9fc6b58
     Route::get('test', function () {
         echo "<form action=\"http://pp.dev/publication/show/74\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='gender' value='1'><br>

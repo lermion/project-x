@@ -2538,7 +2538,7 @@ p.top-person-status {
     height: 30px;
     background-image: url(../images/user-menu.png);
     background-repeat: no-repeat;
-    background-size: 99%;
+    background-size: 22px;
     background-position: center;
     cursor: pointer;
     transition: all .3s ease-in-out .1s;
