@@ -166,10 +166,10 @@ body.main-page {
 }
 .form h1 {
 	// margin: 70px 0 0;
-	font-family:  "SFUIDisplayMedium"; 
+	font-family:  "SFUIDisplayLight"; 
 	font-size: 33.3px;
 	line-height: 35px;
-	text-shadow: 3px 3px 1px #000;
+	text-shadow: 0px 2px 3px #000;
 	margin: 1vh 0 0;
 }
 .form-item {
@@ -606,7 +606,7 @@ footer {
 	color: #fff;
 }
 .footer .menu-item a {
-	font-family: "SFUIDisplayLight";
+	font-family: "SFUIDisplayMedium";
 	font-size: 14.6px;
 	color: #fff;
 	text-decoration: none;
@@ -664,13 +664,11 @@ footer {
 .registration .check-in-button {
 	line-height: 28px;
 }
-
-
 .recovery {
 	height: 100vh;
 }
 .recovery .form h1{
-	margin: 21vh 0 0;
+	margin: 18vh 0 0;
 }
 .recovery .check-in-button {
 	margin-top: 5vh;
