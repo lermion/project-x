@@ -765,7 +765,6 @@ angular.module('placePeopleApp')
 					});
 			}
 			$scope.deleteComment = function (flag, pub, comment, index) {
-				console.log(pub);
 				PublicationService.deleteCommentPublication(comment.id).then(function (response) {
 						if (response.status) {
 							if (flag === "userPage") {
