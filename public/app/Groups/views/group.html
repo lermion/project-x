@@ -75,9 +75,9 @@
                             </div>
                         </div>
                     </div>
-                    <button ng-if="!vm.group.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Подписаться
+                    <button class="group-sign-button" ng-if="!vm.group.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Подписаться
                     </button>
-                    <button ng-if="vm.group.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Отписаться</button>
+                    <button class="group-sign-button" ng-if="vm.group.is_sub && $root.isAuthorized" ng-click="vm.subscribe()">Отписаться</button>
                 </div>
                 <div class="group-header"></div>
 
