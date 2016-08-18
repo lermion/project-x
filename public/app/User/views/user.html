@@ -195,7 +195,7 @@
 											 ng-if="singlePublication.comments.length !== singlePublication.comment_count">
 											<a href="javascript:void(0);"
 											   ng-click="getAllCommentsPublication('userPage', singlePublication, true)"
-											   class="all-comments">Еще {{singlePublication.comment_count - 3}}
+											   class="all-comments">Еще {{singlePublication.comment_count - singlePublication.comments.length}}
 												комментариев</a>
 										</div>
 										<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
