@@ -772,13 +772,30 @@ angular.module('placePeopleApp')
 								pub.comments.splice(index, 1);
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
+								$scope.singlePublication.comment_count--;
 							}
 						}
 					},
 					function (error) {
 						console.log(error);
 					});
-			}
+			};
+			$scope.goToSearch = function(searchParam){
+				if(searchParam.indexOf("#") === 0){
+					$scope.search = {
+						str: searchParam,
+						byUsers: true,
+						byPublications: true,
+						byPlaces: true,
+						byGroups: true
+					};
+					$state.go('search', {
+						'searchObj': angular.copy($scope.search),
+						'restoreSearchResult': false,
+						'setActiveTab': true
+					});
+				}
+			};
 			$scope.getAllCommentsPublication = function (flag, pub, showAllComments) {
 				getAllCommentsPublication(flag, pub, showAllComments);
 			}

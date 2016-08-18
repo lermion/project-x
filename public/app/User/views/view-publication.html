@@ -57,7 +57,7 @@
 		</div>
 		<a href class="comments-count" ng-if="singlePublication.comment_count > 0">{{singlePublication.comment_count}}</a>
 	</div>
-	<div class="more-comments" ng-show="singlePublication.comments.length !== singlePublication.comment_count && singlePublication.comments.length <= 3">
+	<div class="more-comments" ng-show="singlePublication.comments.length !== singlePublication.comment_count">
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - 3}} комментариев</a>
 	</div>
 	<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
@@ -77,7 +77,7 @@
 					<a href="javascript:void(0);" ng-click="alertPubComment(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
 				</div>
-				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
+				<p class="comment-item" ng-click="goToSearch(comment.text)" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
 					<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 						<img ng-src="{{image.url}}">

@@ -174,6 +174,9 @@
 			if (state === 'group' && fromState.name === 'group.publications') {
 				$state.go(toParams.prevState);
 			}
+			if (state === 'group.publications' && !$rootScope.isAuthorized) {
+				$state.go('^');
+			}
 			if (state === 'group' && fromState.name !== 'group.publications' && $rootScope.isAuthorized) {
 				$state.go('group.publications');
 			}
@@ -644,6 +647,23 @@
 
 		vm.rebuildScroll = function () {
 			$scope.$broadcast('loadPubFiles');
+		};
+
+		$scope.goToSearch = function(searchParam){
+			if(searchParam.indexOf("#") === 0){
+				$scope.search = {
+					str: searchParam,
+					byUsers: true,
+					byPublications: true,
+					byPlaces: true,
+					byGroups: true
+				};
+				$state.go('search', {
+					'searchObj': angular.copy($scope.search),
+					'restoreSearchResult': false,
+					'setActiveTab': true
+				});
+			}
 		};
 
 		vm.saveEditedPub = function (pubId, pubText, files) {
