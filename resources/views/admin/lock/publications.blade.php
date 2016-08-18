@@ -42,8 +42,8 @@
                     <td>видео</td>
                     <td>{{$publication->created_at}}</td>
                     <td class="text-center">
-                        <a href="/admin/lock/unlock_publication/{{$publication->id}}"><button class="btn btn-success btn-xs">Восстановить</button></a>
-                        <a href="/admin/lock/destroy_publication/{{$publication->id}}"><button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button></a>
+                        <a class="btn btn-success btn-xs" href="/admin/lock/unlock_publication/{{$publication->id}}">Восстановить</a>
+                        <a class="btn btn-danger btn-xs deleteConfirm-del" href="/admin/lock/destroy_publication/{{$publication->id}}">Удалить</a>
                     </td>
                   </tr>
                   @endforeach
@@ -53,7 +53,7 @@
 
 
         <div class="admin-delete-btn">
-            <button class="btn btn-danger deleteConfirm-del">Удалить все</button>
+            <a class="btn btn-danger deleteConfirm-del" href="/admin/lock/delete_publications/">Удалить все</a>
         </div>
     </div>
 
