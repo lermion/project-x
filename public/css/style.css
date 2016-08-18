@@ -1514,7 +1514,7 @@ body.public.user {
 	transition: all .3s ease-in-out .1s;  
 }
 .comunications .view {
-	width: 16%;
+	width: 55px;
 	display: flex;
 		justify-content: space-between;
 		align-items:center;
@@ -1725,9 +1725,6 @@ body.public.user {
 	.comunications .rewrite {
 		font-size: 13px;
 	}
-	.comunications .view {
-		width: 20%;
-	}
 	#user-page .photo,
 	.group-publication .photo {
 		width: 164px;
@@ -1856,9 +1853,6 @@ body.public.user {
 	.comunications.adaptiv .create {
 		padding: 0 5px;
 		font-size: 13px;
-	}
-	.comunications .view {
-		width: 18%;
 	}
 	#user-page .status-user.adaptiv {
 		padding: 0 5px 15px;
@@ -3475,6 +3469,17 @@ body.public.user {
 	transition: all .3s ease-in-out .1s;
 	text-decoration: none;
 }
+.main-content .groups .place-publication-menu-list {
+	padding-left: 0px;
+}
+.main-content .groups .place-publication-menu-table {
+	padding-left: 0px;
+}
+.main-content .groups .feed-publication-menu {
+ 	display: flex;
+    width: 55px;
+    justify-content: space-between;
+ }
 .main-content .groups a.create-groups {
 	background-image: url(../images/create.png);
 }
