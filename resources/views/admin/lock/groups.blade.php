@@ -43,8 +43,8 @@
                     <td>видео</td>
                     <td>{{$group->created_at}}</td>
                     <td class="text-center">
-                        <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
+                        <a class="btn btn-success btn-xs" href="/admin/lock/unlock_group/{{$group->id}}">Восстановить</a>
+                        <a class="btn btn-danger btn-xs deleteConfirm-del" href="/admin/lock/destroy_group/{{$group->id}}">Удалить</a>
                     </td>
                   </tr>
                     @endforeach
@@ -53,7 +53,7 @@
         </div>
 
         <div class="admin-delete-btn">
-            <button class="btn btn-danger  deleteConfirm-del">Удалить все</button>
+            <a class="btn btn-danger deleteConfirm-del" href="/admin/lock/delete_groups/">Удалить все</a>
         </div>
     </div>
 

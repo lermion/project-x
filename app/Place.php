@@ -12,7 +12,7 @@ class Place extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'place_users')->withTimestamps();
+        return $this->belongsToMany('App\User', 'place_users')->withTimestamps()->withPivot('is_creator');
     }
 
     public function publications()
@@ -34,4 +34,5 @@ class Place extends Model
         $count = $image+$video;
         return $count;
     }
+
 }

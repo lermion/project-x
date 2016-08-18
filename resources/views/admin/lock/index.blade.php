@@ -49,8 +49,8 @@
                     <td>{{$user->birthday}}</td>
                     <td>{{$user->created_at}}</td>
                     <td class="text-center">
-                        <button class="btn btn-success btn-xs">Восстановить</button>
-                        <button class="btn btn-danger btn-xs deleteConfirm-del">Удалить</button>
+                        <a class="btn btn-success btn-xs" href="/admin/lock/unlock_user/{{$user->id}}">Восстановить</a>
+                        <a class="btn btn-danger btn-xs deleteConfirm-del" href="/admin/user/delete/{{$user->id}}">Удалить</a>
                     </td>
                   </tr>
                     @endforeach
@@ -59,7 +59,7 @@
         </div>
         
         <div class="admin-delete-btn">
-            <button class="btn btn-danger  deleteConfirm-del">Удалить все</button>
+           <!-- <button class="btn btn-danger  deleteConfirm-del">Удалить все</button> -->
         </div>
     </div>
 

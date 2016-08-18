@@ -87,7 +87,7 @@
 
             return $http({
                 method: 'GET',
-                url: 'place/' + placeUrlName,
+                url: 'one_place/' + placeUrlName,
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
                 data: null
