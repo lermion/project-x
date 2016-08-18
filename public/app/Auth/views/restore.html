@@ -1,7 +1,7 @@
 <div>  
 	<div class="check-in recovery" ng-show="!smsSend">
 				 <div class="form">
-									<a class="logo" href=""></a>
+									<div class="logo"></div>
 									<div class="tel-field">
 															<span class="plus">+</span>
 															<input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;" ng-change="ruphErr=false;">
@@ -15,7 +15,7 @@
 
 	<div class="check-in recovery" ng-show="smsSend && !smsConfirmed">
 				 <div class="form">
-									<a class="logo" href=""></a>
+									<div class="logo"></div>
 									<input class="text-field" type="text" name="" placeholder="Введите код..." ng-model="restoreUserSms" ng-click="rusError=false;" ng-change="rusError=false;">                  
 									<p>Введите код, полученный SMS сообщением на указанный номер телефона</p>
 									<p ng-show="rusError" class="capcha">{{rusError}}</p>
@@ -26,7 +26,7 @@
 
 	 <div class="check-in recovery" ng-show="smsConfirmed">
 				 <div class="form">
-									<a class="logo" href=""></a>
+									<div class="logo"></div>
 									<input class="password-field-first" type="password" name="" placeholder="Придумайте новый пароль..." ng-model="restoreUserPwd" ng-click="rupErr=false;" ng-change="rupErr=false;">
 									<input class="password-field-second" type="password" name="" placeholder="Повторите пароль..." ng-model="restoreUserPwdConf" ng-click="rupErr=false;" ng-change="rupErr=false;">
 									<p ng-show="rupErr" class="capcha">{{rupErr}}</p>
