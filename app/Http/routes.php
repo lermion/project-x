@@ -63,7 +63,7 @@ Route::group(['middleware' => ['web']], function () {
             });
             Route::group(['prefix' => 'option'], function () {
                 Route::get('/', 'Admin\OptionController@index');
-                Route::post('create_option', 'Admin\OptionController@create');
+                Route::post('create', 'Admin\OptionController@create');
                // Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
             Route::group(['prefix' => 'complaints'], function () {
@@ -299,7 +299,7 @@ Route::group(['middleware' => ['web']], function () {
             </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/user\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/publication/show/74\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='gender' value='1'><br>
             <input type='text' name='is_avatar' value='1'><br>
             <input type='text' name='num_records' value='10'>

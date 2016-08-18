@@ -149,6 +149,20 @@ class Publication extends Model
         $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
         $publication->comment_count = $publication->comments()->count();
         $publication->like_count = $publication->likes()->count();
+        $group = $publication->group->toArray();
+        $user = $publication->user->toArray();
+        $publication->is_blick_parent = false;
+        if ( !$group == []) {
+            $grou = $group[0];
+            if ($grou['is_open'] == false) {
+                $publication->is_blick_parent = true;
+            }
+        }
+        if (!$user == []) {
+            if ($user['is_private'] == true) {
+                $publication->is_blick_parent = true;
+            }
+        }
         if(!$publication->is_anonym){
             $publication->user;
         }
