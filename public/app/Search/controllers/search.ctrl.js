@@ -26,7 +26,10 @@
             byPlaces: true,
             byGroups: true
         };
-
+        if($stateParams.params){
+            $scope.search.str = $stateParams.params;
+        }
+        
         amMoment.changeLocale('ru');
 
         activate();

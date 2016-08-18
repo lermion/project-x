@@ -11,7 +11,7 @@
     function routes($stateProvider) {
         $stateProvider
             .state('search', {
-                url: '/search',
+                url: '/search/:params',
                 templateUrl: '../../app/Search/views/search.html',
                 controller: 'SearchCtrl',
                 controllerAs: 'vm',

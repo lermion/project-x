@@ -93,6 +93,7 @@ angular.module('placePeopleApp')
             $scope.logOut = function () {
                 AuthService.userLogOut().then(function (response) {
                         storageService.deleteStorage();
+                    $rootScope.userLogged = false;
                         $state.go('login');
                     },
                     function (error) {
@@ -108,6 +109,12 @@ angular.module('placePeopleApp')
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 $scope.preloader = false;
                 ngDialog.closeAll();
+                $scope.currentPath = $location.url();
+                console.log('Current path - ' + $scope.currentPath);
+            });
+
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
                 var storage = storageService.getStorage();
                 if (storage.userId !== undefined) {
                     $rootScope.userLogged = true;
@@ -116,12 +123,11 @@ angular.module('placePeopleApp')
                 }
                 $scope.loggedUser = storage.username;
                 $scope.currentPath = $location.url();
+                console.log('Current path - ' + $scope.currentPath);
                 if ($window.innerWidth <= 800) {
                     $scope.showMenu = false;
                 }
-            });
 
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 $scope.preloader = true;
                 if ($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
                     $rootScope.stateChangeBypass = false;
@@ -155,7 +161,7 @@ angular.module('placePeopleApp')
                         if (response.is_authorization) {
                             $rootScope.isAuthorized = true;
                             $rootScope.stateChangeBypass = true;
-                            if (toState.name !== 'user') {
+                            if (toState.name !== 'user' && toState.name !== 'group' && toState.name !== 'group.publications') {
                                 $state.go(toState, toParams);
                             }
                         } else {

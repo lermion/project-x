@@ -11,7 +11,7 @@
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
 	<back-top class="main-up-button">Наверх</back-top>
-	<header ng-cloak ng-if="userLogged" ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'">
+	<header ng-cloak ng-if="$root.userLogged && !(currentPath == '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
@@ -42,15 +42,9 @@
 			</div>
 		</div>
 	</header>
-	<header ng-cloak ng-hide="currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration'" ng-if="!userLogged">
+	<header ng-cloak ng-if="!$root.userLogged && !(currentPath == '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header">
 			<a class="logo" href="javascript:void(0);"></a>
-			<div class="main-menu common">
-			   <!--  <a class="drop-menu" href=""></a> -->
-				<div class="menu-item">		            
-					<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">@{{staticPage.description}}</a>		            
-				</div>
-			</div>
 			<a class="registration" ui-sref="reg">Регистрация</a>
 			<a class="exit enter"  ui-sref="login"><span></span>Вoйти</a>
 		</div>
