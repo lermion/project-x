@@ -288,49 +288,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('authorization', 'AuthorizationController@index');
 
     Route::post('search','SphinxSearchController@search');
-<<<<<<< HEAD
-<<<<<<< HEAD
-    Route::get('search', function () {
-
-//        echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
-
-        echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='text' name='name'><br>
-            <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
-            <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
-            <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
-            <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
-            <input type=\"submit\">
-            </form>";
-    });
-=======
-//    Route::get('search', function () {
-//        echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
-//            <input type='text' name='name'><br>
-//            <input type=\"checkbox\" name=\"usersearch\">По юзерам<br>
-//            <input type=\"checkbox\" name=\"publicationsearch\">По публикациям<br>
-//            <input type=\"checkbox\" name=\"placesearch\">По местам и публикациям<br>
-//            <input type=\"checkbox\" name=\"groupsearch\">По группам и публикациям<br>
-//            <input type=\"submit\">
-//            </form>";
-//    });
->>>>>>> 09a5712e44e130b278140459a4fd0449b9fc6b58
-=======
-    // Route::get('search', function () {
-
-    //     echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
-
-    //     echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
-    //         <input type='text' name='name'><br>
-    //         <input type=\"checkbox\" name=\"usersearch\">РџРѕ СЋР·РµСЂР°Рј<br>
-    //         <input type=\"checkbox\" name=\"publicationsearch\">РџРѕ РїСѓР±Р»РёРєР°С†РёСЏРј<br>
-    //         <input type=\"checkbox\" name=\"placesearch\">РџРѕ РјРµСЃС‚Р°Рј Рё РїСѓР±Р»РёРєР°С†РёСЏРј<br>
-    //         <input type=\"checkbox\" name=\"groupsearch\">РџРѕ РіСЂСѓРїРїР°Рј Рё РїСѓР±Р»РёРєР°С†РёСЏРј<br>
-    //         <input type=\"submit\">
-    //         </form>";
-    // });
->>>>>>> 676157a0cb21abff2eac45e3307096927932fefb
-    Route::get('test', function () {
+    Route::get('test', function () { 
         echo "<form action=\"http://pp.dev/publication/show/74\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='gender' value='1'><br>
             <input type='text' name='is_avatar' value='1'><br>
