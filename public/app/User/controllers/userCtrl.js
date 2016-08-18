@@ -795,7 +795,7 @@ angular.module('placePeopleApp')
 						'setActiveTab': true
 					});
 				}
-			}
+			};
 			$scope.getAllCommentsPublication = function (flag, pub, showAllComments) {
 				getAllCommentsPublication(flag, pub, showAllComments);
 			}
