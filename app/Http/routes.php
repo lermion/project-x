@@ -64,7 +64,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'option'], function () {
                 Route::get('/', 'Admin\OptionController@index');
                 Route::post('create', 'Admin\OptionController@create');
-               // Route::post('update_option/{id}', 'Admin\OptionController@update');
+                // Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
             Route::group(['prefix' => 'complaints'], function () {
                 Route::get('/', 'Admin\ComplaintsController@index');
@@ -292,11 +292,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('authorization', 'AuthorizationController@index');
 
     Route::post('search','SphinxSearchController@search');
-     Route::get('searchsphinx', function () {
+    Route::get('searchsphinx', function () {
 
-       // echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
+        // echo "<form action=\"http://pp.hqsale.com/search\" method=\"post\" enctype=\"multipart/form-data\">
 
-         echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/search\" method=\"post\" enctype=\"multipart/form-data\">
              <input type='text' name='name'><br>
              <input type=\"checkbox\" name=\"usersearch\">РџРѕ СЋР·РµСЂР°Рј<br>
              <input type=\"checkbox\" name=\"publicationsearch\">РџРѕ РїСѓР±Р»РёРєР°С†РёСЏРј<br>
@@ -304,7 +304,7 @@ Route::group(['middleware' => ['web']], function () {
              <input type=\"checkbox\" name=\"groupsearch\">РџРѕ РіСЂСѓРїРїР°Рј Рё РїСѓР±Р»РёРєР°С†РёСЏРј<br>
              <input type=\"submit\">
              </form>";
-     });
+    });
     Route::get('test', function () {
         echo "<form action=\"http://pp.dev/publication/show/74\" method=\"get\" enctype=\"multipart/form-data\">
             <input type='text' name='gender' value='1'><br>
@@ -334,6 +334,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::any( '{angularjs}', function ( $page ) {
         return view('welcome');
-        
+
     } )->where('angularjs', '(.*)');
 });
