@@ -50,7 +50,7 @@
     align-items: center;
     display: flex;
     opacity: 0;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     border-radius: 50%;
 }
 .settingsss .set_1 .img:hover .change {
@@ -97,7 +97,7 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    transition: all .3s ease-in-out .2s;
+    transition: all .1s ease-in-out .2s;
     border: none;
     border-bottom: 1px solid #999;
     color: #999;
@@ -118,7 +118,7 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    transition: all .3s ease-in-out .2s;
+    transition: all .1s ease-in-out .2s;
     margin-bottom: 0;
     color: #999;
     border-top: 0;
@@ -314,7 +314,7 @@
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -328,7 +328,7 @@
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     color: #495b79;
 }
 
@@ -361,7 +361,7 @@
     width: 700px;
     margin-left: -350px;
     margin-top: 60px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     padding: 0;
     top: 1%;
     height: auto;
@@ -458,7 +458,7 @@
     width: 700px;
     margin-left: -350px;
     margin-top: 0;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     padding: 0;
     top: 10%;
     height: auto;
@@ -831,7 +831,7 @@
     width: 700px;
     margin-left: -350px;
     margin-top: -150px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     padding: 0;
     top: 26.5%;
     height: auto;
@@ -864,7 +864,7 @@
     align-items: center;
     text-decoration: none;
     opacity: 1;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .popupgroup_function .user .ava {
     width: 30px;
@@ -895,7 +895,7 @@
     background-size: 99%;
     background-position: center;
     cursor: pointer;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .popupgroups_head .menu-item {
     position: absolute;
@@ -904,7 +904,7 @@
     left: 50%;
     margin-left: -78px;
     padding-top: 20px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .popupgroups_head .menu-item .inner {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
@@ -934,7 +934,7 @@
     right: 0;
     top: 0;
     line-height: 30px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     text-decoration: none;
     display: none;
 }
@@ -958,7 +958,7 @@
 .popup_grouppublication_1.popupgroup .publication-images .images-item.more {
     background-color: #495b79;
     color: #fff;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .publication-images .images-item {
     width: 97px;
@@ -1000,7 +1000,7 @@
     background-image: url(../images/public-place.png);
     background-position: left center;
     background-repeat: no-repeat;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .likes-item .like {
     line-height: 26px;
@@ -1017,7 +1017,7 @@
     background-repeat: no-repeat;
     background-size: 20%;
     font-size: 14px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .likes-item .like-item {
     color: #333;
@@ -1055,7 +1055,7 @@
     background-position: right;
     background-repeat: no-repeat;
     background-size: 50%;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .visible-comments {
     border-bottom: 1px solid #dfe1e4;
@@ -1107,7 +1107,7 @@
     border: none;
     margin-bottom: 10px;
     border: 1px solid transparent;
-    transition: all .3s ease-in-out .2s;
+    transition: all .1s ease-in-out .2s;
     min-width: 250px;
 }
 .popup_grouppublication_1.popupgroup .add-comment_group .add .text-field textarea {
@@ -1143,7 +1143,7 @@
     border-radius: 3px;
     margin-left: 0;
     border: 1px solid #495b79;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .publication-footer-button a {
     text-decoration: none;
@@ -1151,7 +1151,7 @@
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup_grouppublication_1.popupgroup .publication-footer #add-object {
     opacity: 0;
@@ -1182,7 +1182,7 @@ label span.add {
     height: 40px;
     display: block;
     background-repeat: no-repeat;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 /
 /
@@ -1270,7 +1270,7 @@ label span.add {
     width: 700px;
     margin-left: -350px;
     margin-top: 0;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     padding: 0;
     top: 15%;
     height: auto;
@@ -1425,7 +1425,7 @@ label span.add {
 .popup-add-group .smiles .smiles-item {
     display: block;
     background-image: url(../images/smil.png);
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     background-position: left bottom 6px;
     background-repeat: no-repeat;
     background-size: 65%;
@@ -1441,7 +1441,7 @@ label span.add {
     height: 200px;
     z-index: 9;
     padding-bottom: 15px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup-add-group .smiles .smile .smile-item {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
@@ -1729,7 +1729,7 @@ div.my_profilll.photo-list div:last-child {
     background-position: left center;
     background-size: 12%;
     background-repeat: no-repeat;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     cursor: pointer;
     height: 30px;
 }
@@ -1884,7 +1884,7 @@ div.my_profilll.photo-list div:last-child {
 }
 .group-peoples-inner-item:hover {
     background: #e4e4e4;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .peoples-inner-item-data {
     display: flex;
@@ -1907,7 +1907,7 @@ div.my_profilll.photo-list div:last-child {
     opacity: 1;
     text-decoration: none;
     cursor: pointer;
-    transition: all .3s ease-in-out .2s;
+    transition: all .1s ease-in-out .2s;
 }
 .peoples-item-photo a:hover {
     opacity: .8;
@@ -1915,7 +1915,7 @@ div.my_profilll.photo-list div:last-child {
 .peoples-item-photo a img {
     width: 100%;
     border: 0px;
-    transition: all .3s ease-in-out .2s;
+    transition: all .1s ease-in-out .2s;
 }
 .peoples-item-name-content {
     margin-left: 10px;
@@ -1938,7 +1938,7 @@ div.my_profilll.photo-list div:last-child {
 .peoples-item-name-family span {
     display: block;
     color: #333;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .peoples-item-name-comment {
     margin: 0;
@@ -2100,7 +2100,7 @@ div.my_profilll.photo-list div:last-child {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -2118,7 +2118,7 @@ div.my_profilll.photo-list div:last-child {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     color: #495b79;
 }
 .add_newgroup .button .cansel:hover {
@@ -2431,7 +2431,7 @@ div.my_profilll.photo-list div:last-child {
     background-size: 99%;
     background-position: center;
     cursor: pointer;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .group-menu .user-menu:hover {
     background-image: url(../images/user-menu-hover.png);
@@ -2541,7 +2541,7 @@ p.top-person-status {
     background-size: 22px;
     background-position: center;
     cursor: pointer;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .user-menu-top:hover {
     background-image: url(../images/user-menu-hover.png);
@@ -3045,7 +3045,7 @@ span.users-today-time-time.early {
     padding: 0 10px;
     margin: 0;
     line-height: 27px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     text-decoration: none;
     color: #fff;
     background: #495b79;
@@ -3094,7 +3094,7 @@ span.users-today-time-time.early {
     color: #333;
     padding-left: 20px;
     font-family: "SFUIDisplayMedium";
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     background-image: url(/images/public-groups.png);
     background-position: left center;
     background-size: 8%;
@@ -3224,7 +3224,7 @@ span.users-today-time-time.early {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -3277,7 +3277,7 @@ span.users-today-time-time.early {
     text-decoration: none;
     color: #333;
     font-family: "SFUIDisplayMedium";
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     cursor: default;
 }
 .places-page-header-title span {
@@ -3307,7 +3307,7 @@ span.users-today-time-time.early {
     background-position: left center;
     background-size: 18px;
     background-repeat: no-repeat;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     cursor: pointer;
     height: 30px;
 }
@@ -3735,7 +3735,7 @@ span.users-today-time-time.early {
     border: 1px solid transparent;
     border-radius: 3px;
     font-size: 14.6px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .chat-send-btn:hover {
     border: 1px solid #495b79;
@@ -3785,7 +3785,7 @@ span.users-today-time-time.early {
     height: 25px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     display: block;
 }
 .send-wrap-bottom .pic .close-inner {
@@ -3952,7 +3952,7 @@ span.users-today-time-time.early {
     border-bottom: 1px solid #e0e2e5;
     padding: 15px;
     color: #495b79;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .chat-menu-wrap-inner:hover {
     padding: 15px;
@@ -4276,7 +4276,7 @@ span.users-today-time-time.early {
     width: 700px;
     margin-left: -350px;
     margin-top: 0;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     padding: 0;
     top: 15%;
     height: auto;
@@ -4433,7 +4433,7 @@ span.users-today-time-time.early {
 .popup-group-chat .smiles .smiles-item {
     display: block;
     background-image: url(../images/smil.png);
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     background-position: left bottom 6px;
     background-repeat: no-repeat;
     background-size: 65%;
@@ -4449,7 +4449,7 @@ span.users-today-time-time.early {
     height: 200px;
     z-index: 9;
     padding-bottom: 15px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .popup-group-chat .smiles .smile .smile-item {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, .3);
@@ -4834,14 +4834,14 @@ input.cmn-toggle-round + label:before {
     right: 1px;
     background-color: #f1f1f1;
     border-radius: 20px;
-    transition: background 0.4s;
+    transition: background 0.3s;
 }
 input.cmn-toggle-round + label:after {
     width: 25px;
     background-color: #fff;
     border-radius: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: margin 0.4s;
+    transition: margin 0.3s;
 }
 input.cmn-toggle-round:checked + label:before {
     background-color: #8ce196;
@@ -5307,7 +5307,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 .public header .main-menu a.main-header-group {
     background-image: url(/images/groups.png);
-    transition: all .2s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 16px;
@@ -5316,7 +5316,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 .public header .main-menu a.main-header-group:hover {
     background-image: url(/images/groups-hover.png);
-    transition: all .2s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .public header .search.main-header-search {
     position: relative;
@@ -5327,7 +5327,7 @@ input.cmn-toggle-round:checked + label:after {
     background-size: 52%;
     width: 35px;
     height: 35px;
-    transition: all .2s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     width: 40px;
     cursor: pointer;
 }
@@ -5343,7 +5343,7 @@ input.cmn-toggle-round:checked + label:after {
     }
     .public header .main-menu .main-header-group {
         background-image: url(/images/groups-hover.png);
-        transition: all .2s ease-in-out .1s;
+        transition: all .1s ease-in-out .1s;
     }
     .public header .main-menu a.main-header-group {
         display: block;
@@ -5534,7 +5534,7 @@ input.cmn-toggle-round:checked + label:after {
     padding: 0 10px;
     margin: 0;
     line-height: 27px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     text-decoration: none;
     color: #fff;
     background: #495b79;
@@ -5547,7 +5547,7 @@ input.cmn-toggle-round:checked + label:after {
 .place-menu-wrap .group-menu-item .counts .counter {
     margin: 0 0;
     border-bottom: 2px solid transparent;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     font-size: 14px;
     width: 25%;
 }
@@ -5767,7 +5767,7 @@ input.cmn-toggle-round:checked + label:after {
     border-radius: 3px;
     padding: 5px 35px 5px 10px;
     color: #fff;
-    transition: all .4s ease-in-out .1s;
+    transition: all .3s ease-in-out .1s;
     border: none;
     box-sizing: border-box;
     height: 35px;
@@ -5792,7 +5792,7 @@ input.cmn-toggle-round:checked + label:after {
     background-image: url(/images/search.png);
     background-repeat: no-repeat;
     background-position: center;
-    transition: all .2s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     cursor: pointer;
 }
 .header-search-input-wrap-span:hover {
@@ -5939,7 +5939,7 @@ input.cmn-toggle-round:checked + label:after {
     box-sizing: border-box;
     padding: 15px 10px 0;
     opacity: 0;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .search-page .group-likes .group-like {
     padding-left: 25px;
@@ -5953,7 +5953,7 @@ input.cmn-toggle-round:checked + label:after {
     color: #fff;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     cursor: pointer;
     line-height: 30px;
 }
@@ -5976,7 +5976,7 @@ input.cmn-toggle-round:checked + label:after {
     color: #495b79;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     cursor: pointer;
     line-height: 30px;
     padding-left: 25px;
@@ -6015,7 +6015,7 @@ input.cmn-toggle-round:checked + label:after {
     color: #333;
     font-family: "SFUIDisplayMedium";
     background: #d7dade;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
 }
 .search-page .group button.wright:hover {
     color: #333;
@@ -6071,7 +6071,7 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     border-radius: 3px;
     outline: none;
     cursor: pointer;
@@ -6087,7 +6087,7 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -6136,7 +6136,7 @@ input.cmn-toggle-round:checked + label:after {
     width: 700px;
     margin-left: -350px;
     margin-top: 0;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     padding: 0;
     top: 15%;
     height: auto;
@@ -6184,7 +6184,7 @@ input.cmn-toggle-round:checked + label:after {
     width: 25%;
     box-sizing: border-box;
     border-bottom: 2px solid transparent;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     color: #777;
  }
  a.share-publication-menu-item.active {
@@ -6205,7 +6205,7 @@ input.cmn-toggle-round:checked + label:after {
     width: 98%;
     border-radius: 3px;
     padding: 5px 35px 5px 10px;
-    transition: all .4s ease-in-out .1s;
+    transition: all .3s ease-in-out .1s;
     border: none;
     box-sizing: border-box;
     border: 1px solid rgb(224, 226, 229);
@@ -6274,7 +6274,7 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     color: #495b79;
     margin-right: 5px;
     cursor: pointer;
@@ -6288,7 +6288,7 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -6355,7 +6355,7 @@ input.cmn-toggle-round:checked + label:after {
  }
  .ngdialog.share-publication.ngdialog-theme-default .ngdialog-close:before {
     color: #333;
-        transition: all .3s ease-in-out .1s;
+        transition: all .1s ease-in-out .1s;
  }
  .ngdialog.share-publication.ngdialog-theme-default .ngdialog-close:hover:before {
     color: rgb(153,153,153);
@@ -6366,7 +6366,7 @@ input.cmn-toggle-round:checked + label:after {
     font-family: "SFUIDisplayMedium";
     line-height: 40px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s!important;
+    transition: all .1s ease-in-out .1s!important;
     color: #fff;
     background-color: #ec6045;
     border: 0px solid #495b79;
@@ -6378,7 +6378,7 @@ input.cmn-toggle-round:checked + label:after {
     background-color: #DA5036;
 }
 .ngdialog.delete-publication.place.ngdialog-theme-default .ngdialog-content div button.cansel {
-    transition: all .3s ease-in-out .1s!important;
+    transition: all .1s ease-in-out .1s!important;
 }
 
 
@@ -6774,7 +6774,7 @@ textarea[type="text"]:focus,
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .3s ease-in-out .1s !important;
+    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -6883,7 +6883,7 @@ textarea[type="text"]:focus,
     color: #fff;
     font-family: "SFUIDisplayMedium";
     cursor: pointer;
-    transition: all .3s ease-in-out .3s;
+    transition: all .1s ease-in-out .3s;
     border: none;
     line-height: 40px;
 }
@@ -6908,7 +6908,7 @@ textarea[type="text"]:focus,
     overflow: hidden;
     display: inline-block;
     margin-right: 5px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
@@ -6978,7 +6978,7 @@ textarea[type="text"]:focus,
     overflow: hidden;
     display: inline-block;
     margin-right: 10px;
-    transition: all .3s ease-in-out .1s;
+    transition: all .1s ease-in-out .1s;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
