@@ -99,7 +99,7 @@
 	<script src="../../app/libs/metrika.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/emoji.min.js"></script>
-	<link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" />
+	<!-- <link type="text/stylesheet" rel="stylesheet" href="../../app/libs/emoji/emoji.min.css" /> -->
 	<script src="../../app/app.js"></script>
 	<script src="../../app/config.js"></script>
 	<script src="../../app/mainCtrl.js"></script>

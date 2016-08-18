@@ -41,7 +41,7 @@
 								<a href ng-class="{'groups-locked-icon': !group.is_open}"
 								   class="title">{{::group.name}}</a>
 
-								<p ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
+								<p ng-click="goToSearch(group.description)" ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
 							</div>
 							<button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
 							</button>
@@ -87,7 +87,7 @@
 							<div class="titles">
 								<a href="" class="title">{{::group.name}}</a>
 
-								<p ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
+								<p ng-click="goToSearch(group.description)" ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
 							</div>
 							<button class="wright" ng-if="!group.is_sub" ng-click="subscribe(group); $event.stopPropagation();">Подписаться
 							</button>

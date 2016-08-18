@@ -42,7 +42,7 @@
 			</div>
 
 		</div> 
-		<p class="publication-text" ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
+		<p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))" ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
 	</div>
 	<div class="likes">
 		<div class="likes-item">
@@ -76,7 +76,7 @@
 					<a href="javascript:void(0);" ng-click="openCommentComplainBlock(comment.id)" class="alert alert-text" ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
 					<a href="javascript:void(0);" ng-click="deleteComment('viewPage', singlePublication, comment, $index)" class="alert" ng-show="comment.user.id == loggedUserId"></a>
 				</div>
-				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
+				<p class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck" ng-click="goToSearch(comment.text)">{{comment.text}}</p>
 				<div ng-if="comment.images[0]" class="comment-pic">
 					<a ng-repeat="image in comment.images | limitTo: 3 as results" ng-click="showMoreImages(comment.images)" href="javascript:void(0);" class="comment-pic-item">
 						<img ng-src="{{image.url}}">
