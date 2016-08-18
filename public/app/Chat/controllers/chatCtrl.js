@@ -656,6 +656,25 @@ angular.module('placePeopleApp')
 				});
 			}
 
+			$scope.getAllCommentsPublication = function (flag, pub, showAllComments) {
+				getAllCommentsPublication(flag, pub, showAllComments);
+			}
+			function getAllCommentsPublication(flag, pub, showAllComments) {
+				PublicationService.getAllCommentsPublication(pub.id).then(function (response) {
+					if(showAllComments === true){
+						if (flag === "userPage") {
+							pub.comments = response;
+						} else {
+							$scope.singlePublication.comments = response;
+						}
+					}
+					$scope.lengthAllComments = response.length;
+				},
+				function (error) {
+					console.log(error);
+				});
+			}
+
 			$scope.addNewComment = function (flag, pub, pubText, files) {
 				$scope.disableAddComment = true;
 				var images = [];
