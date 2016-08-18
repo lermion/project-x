@@ -44,6 +44,7 @@
                 </div>
             </li>
         </ul>
+        <h4 ng-if="subscription.length === 0 && subscribers.length === 0">Пользователь не найден</h4>
     </div>
     <div class="alerts-container flex-content-center" ng-if="!vm.canInviteUsers">
         <h4 class="text-center">

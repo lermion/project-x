@@ -203,9 +203,9 @@
             <div class="item1-container">
                 <input type="text" ng-model="searchString" placeholder="Быстрый поиск...">
 
-                <p>Я подписан</p>
                 <ul class="item1 contacts_list">
-                    <li ng-repeat="user in vm.subscription | searchFor:searchString" class="user_block"
+                    <p ng-if="subscription.length > 0">Я подписан</p>
+                    <li ng-repeat="user in vm.subscription | searchFor:searchString as subscription" class="user_block"
                         ng-click="vm.onItemSelected(user)">
                         <div class="popup-invite-place-people-name1 user-block">
                             <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
@@ -224,10 +224,8 @@
                         </div>
                     </li>
 
-                </ul>
-                <p>Подписчики</p>
-                <ul class="item1 contacts_list">
-                    <li ng-repeat="user in vm.subscribers | searchFor:searchString" class="user_block"
+                    <p ng-if="subscribers.length > 0">Подписчики</p>
+                    <li ng-repeat="user in vm.subscribers | searchFor:searchString as subscribers" class="user_block"
                         ng-click="vm.onItemSelected(user)">
                         <div class="popup-invite-place-people-name1 user-block">
                             <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
@@ -246,6 +244,7 @@
                         </div>
                     </li>
                 </ul>
+                <h4 ng-if="subscription.length === 0 && subscribers.length === 0">Пользователь не найден</h4>
             </div>
             <div class="item1-add-people-container">
                 <p class="item1-add-people-title" ng-if="vm.placeNew.users.length > 0">Список пользователей</p>

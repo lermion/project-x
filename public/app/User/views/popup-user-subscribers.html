@@ -19,9 +19,13 @@
             </div>
         </div>
         <a href class="read"
-           ng-if="!subscriber.is_confirmed"
+           ng-if="!subscriber.is_confirmed && myProfile"
            ng-click="confirmSubscriber(subscriber)">Подтвердить</a>
-        <a href="javascript:void(0);" class="read"
+        <a href class="read"
+           ng-if="myProfile"
+           ng-click="subscribe(subscriber)">{{subscriber.is_sub ? 'Отписаться' : 'Подписаться'}}</a>
+
+        <a href class="read"
            ng-if="!myProfile"
            ng-click="subscribe(subscriber)"
            ng-hide="loggedUserId == subscriber.id">{{subscriber.is_sub ? 'Отписаться' : 'Подписаться'}}</a>

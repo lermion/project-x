@@ -22,11 +22,14 @@ class SphinxSearchController extends Controller
         $result[3]=[];
         if(!empty($Data['usersearch']) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            foreach(sphinx_raw($query) as $res){
-                $res['online'] = Online::isOnline($res['id']);
-                $user[] = $res;
+            $res=(sphinx_raw($query));
+            $r = $res->toArray();
+            $user = $r;
+            if ($r){
+                $user = $user[0];
+                $user['online'] = Online::isOnline($user['id']);
             }
-            $result[0]=($user);
+            $result[0] = $user;
         }
 
         if (!empty($Data['publicationsearch'])){
