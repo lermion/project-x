@@ -193,7 +193,7 @@
         }), function (array) {
 
             vm.myPlaces = array.filter(function (place) {
-                return place.is_admin === true;
+                return place.is_admin === true || place.is_sub;
             });
 
             vm.popularPlaces = array.filter(function (place) {
