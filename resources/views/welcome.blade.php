@@ -11,7 +11,7 @@
 </head>
 <body ng-controller="mainCtrl" ng-class="bodyClass">
 	<back-top class="main-up-button">Наверх</back-top>
-	<header ng-cloak ng-if="$root.userLogged && !(currentPath == '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
+	<header ng-cloak ng-if="$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	</header>
-	<header ng-cloak ng-if="!$root.userLogged && !(currentPath == '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
+	<header ng-cloak ng-if="!$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header">
 			<a class="logo" href="javascript:void(0);"></a>
 			<a class="registration" ui-sref="reg">Регистрация</a>

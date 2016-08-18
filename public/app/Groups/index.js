@@ -13,7 +13,8 @@
             .state('groups', {
                 url: '/groups',
                 templateUrl: '../../app/Groups/views/groups.html',
-                controller: 'groupsCtrl'
+                controller: 'groupsCtrl',
+                showHeader: true
             })
             .state('group', {
                 url: '/group/:groupName',
@@ -21,6 +22,7 @@
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
                 isLogin: true,
+                showHeader: true,
                 params: {
                     groupId: null,
                     modalId: null,
@@ -114,15 +116,18 @@
             .state('group.publications', {
                 url: '/publications',
                 templateUrl: '../../app/Groups/views/group-publications.html',
-                isLogin: true
+                isLogin: true,
+                showHeader: true
             })
             .state('group.chat', {
                 url: '/chat',
-                templateUrl: '../../app/Groups/views/group-chat.html'
+                templateUrl: '../../app/Groups/views/group-chat.html',
+                showHeader: true
             })
             .state('group.people', {
                 url: '/people',
-                templateUrl: '../../app/Groups/views/group-people.html'
+                templateUrl: '../../app/Groups/views/group-people.html',
+                showHeader: true
             })
             .state('group.files', {
                 url: '/files',
@@ -131,6 +136,7 @@
                     chatRoomId: null,
                     chatFiles: []
                 },
+                showHeader: true,
                 resolve: {
                     chatFiles1: ['ChatService', '$q', '$stateParams', 'group', function (ChatService, $q, $stateParams, group) {
                         var deferred = $q.defer();
@@ -150,20 +156,25 @@
             })
             .state('group.mob-pub', {
                 url: '/m/:pubId',
-                templateUrl: '../app/Groups/views/popup-view-group-publication.html'
+                templateUrl: '../app/Groups/views/popup-view-group-publication.html',
+                showHeader: true,
             })
             .state('view-group-publication', {
                 url: '/group/:groupId/publication/:pubId',
                 templateUrl: '../../app/Groups/views/group.html',
-                controller: 'groupsCtrl'
+                controller: 'groupsCtrl',
+                showHeader: true
             })
             .state('mobile-view-group-publication', {
                 url: '/group/:groupId/pub/:pubId',
                 templateUrl: '../app/Groups/views/popup-view-group-publication.html',
-                controller: 'groupsCtrl'
+                controller: 'groupsCtrl',
+                showHeader: true
             })
             .state("Modal.confirmAddToCart", {
-                templateUrl: "modals/confirm.html"
+                templateUrl: "modals/confirm.html",
+
+                showHeader: true
             });
     }
 

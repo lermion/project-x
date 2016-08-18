@@ -16,6 +16,7 @@
                 templateUrl: '../../app/Places/views/places.html',
                 controller: 'PlacesCtrl',
                 controllerAs: 'vm',
+                showHeader: true,
                 resolve: {
                     places: ['placesService', '$stateParams', '$state', '$q', 'ngDialog', function (placesService, $stateParams, $state, $q, ngDialog) {
                         var deferred = $q.defer();
@@ -85,6 +86,7 @@
                 controller: 'PlaceCtrl',
                 controllerAs: 'vm',
                 isLogin: true,
+                showHeader: true,
                 params: {
                     placeId: null,
                     prevState: null
@@ -147,6 +149,7 @@
                 params: {
                     isDynamicPlace: null
                 },
+                showHeader: true,
                 templateUrl: function (stateParams) {
                     if (stateParams.isDynamicPlace) {
                         return '../../app/Places/views/place-edit-dynamic.html'
@@ -158,19 +161,23 @@
             .state('place.publications', {
                 url: '/publications',
                 templateUrl: '../../app/Places/views/place-publications.html',
-                isLogin: true
+                isLogin: true,
+                showHeader: true
             })
             .state('place.chat', {
                 url: '/chat',
-                templateUrl: '../../app/Places/views/place-chat.html'
+                templateUrl: '../../app/Places/views/place-chat.html',
+                showHeader: true
             })
             .state('place.people', {
                 url: '/people',
-                templateUrl: '../../app/Places/views/place-people.html'
+                templateUrl: '../../app/Places/views/place-people.html',
+                showHeader: true
             })
             .state('place.files', {
                 url: '/files',
                 templateUrl: '../../app/Places/views/place-files.html',
+                showHeader: true,
                 params: {
                     chatRoomId: null,
                     chatFiles: []
@@ -194,18 +201,21 @@
             })
             .state('places.add', {
                 url: '/add',
-                templateUrl: '../../app/Places/views/places-presets.html'
+                templateUrl: '../../app/Places/views/places-presets.html',
+                showHeader: true
             })
             .state('places.add.common', {
                 url: '/common',
                 templateUrl: '../../app/Places/views/places-add-common.html',
+                showHeader: true,
                 params: {
                     activeTypePlaceId: null
                 }
             })
             .state('places.add.dynamic', {
                 url: '/dynamic',
-                templateUrl: '../../app/Places/views/places-add-dynamic.html'
+                templateUrl: '../../app/Places/views/places-add-dynamic.html',
+                showHeader: true
 
             });
     }
