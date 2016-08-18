@@ -138,6 +138,7 @@ angular.module('placePeopleApp')
                     && toState.name !== 'group.publications'
                     && toState.name !== 'place'
                     && toState.name !== 'place.publications'
+                    && toState.name !== 'user'
                     && toState.name !== 'static'
                     && toState.name !== 'desktop-pub-view') {
                     event.preventDefault();
@@ -154,7 +155,9 @@ angular.module('placePeopleApp')
                         if (response.is_authorization) {
                             $rootScope.isAuthorized = true;
                             $rootScope.stateChangeBypass = true;
-                            $state.go(toState, toParams);
+                            if (toState.name !== 'user') {
+                                $state.go(toState, toParams);
+                            }
                         } else {
                             $rootScope.isAuthorized = false;
                         }
