@@ -76,7 +76,7 @@
 
             return $http({
                 method: 'GET',
-                url: 'group/' + groupUrlName,
+                url: 'one_group/' + groupUrlName,
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
                 data: null
