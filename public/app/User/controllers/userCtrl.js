@@ -290,6 +290,9 @@ angular.module('placePeopleApp')
 					.then(function (data) {
 						if (data.status) {
 							user.is_sub = data.is_sub;
+							if ($scope.myProfile) {
+								data.is_sub ? $scope.userData.subscription_count++ :  $scope.userData.subscription_count--;
+							}
 						}
 					});
 			};
