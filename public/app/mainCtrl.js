@@ -93,6 +93,7 @@ angular.module('placePeopleApp')
             $scope.logOut = function () {
                 AuthService.userLogOut().then(function (response) {
                         storageService.deleteStorage();
+                    $rootScope.userLogged = false;
                         $state.go('login');
                     },
                     function (error) {
@@ -160,7 +161,7 @@ angular.module('placePeopleApp')
                         if (response.is_authorization) {
                             $rootScope.isAuthorized = true;
                             $rootScope.stateChangeBypass = true;
-                            if (toState.name !== 'user') {
+                            if (toState.name !== 'user' && toState.name !== 'group' && toState.name !== 'group.publications') {
                                 $state.go(toState, toParams);
                             }
                         } else {
