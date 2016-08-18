@@ -157,7 +157,54 @@ angular.module('placePeopleApp')
                     url: '/:username',
                     templateUrl: '../../app/User/views/user.html',
                     controller: 'userCtrl',
-                    isLogin: true
+                    isLogin: true,
+                    params: {
+                        userId: null,
+                        needToLogin: false
+                    },
+                    resolve: {
+                        profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($stateParams.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }],
+                        publications: ['$q', '$stateParams', 'PublicationService', 'profile', function ($q, $stateParams, PublicationService, profile) {
+                            var deferred = $q.defer();
+
+                            PublicationService.getUserPublications($stateParams.userId, 0)
+                                .then(
+                                    function (res) {
+                                        if (res.status) {
+                                            deferred.resolve(res.publications);
+                                        } else {
+                                            if (res.error.code === "8") {
+
+                                            } else if (res.error.code === "15") {
+                                                $stateParams.needToLogin = true;
+                                                deferred.resolve();
+                                            }
+                                        }
+                                    },
+                                    function (err) {
+                                        console.log(err);
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }]
+                    }
                 })
                 .state('mobile-pub-view', {
                     url: '/:username/pub/:id',

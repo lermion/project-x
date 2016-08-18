@@ -108,6 +108,12 @@ angular.module('placePeopleApp')
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 $scope.preloader = false;
                 ngDialog.closeAll();
+                $scope.currentPath = $location.url();
+                console.log('Current path - ' + $scope.currentPath);
+            });
+
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
                 var storage = storageService.getStorage();
                 if (storage.userId !== undefined) {
                     $rootScope.userLogged = true;
@@ -116,12 +122,11 @@ angular.module('placePeopleApp')
                 }
                 $scope.loggedUser = storage.username;
                 $scope.currentPath = $location.url();
+                console.log('Current path - ' + $scope.currentPath);
                 if ($window.innerWidth <= 800) {
                     $scope.showMenu = false;
                 }
-            });
 
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 $scope.preloader = true;
                 if ($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
                     $rootScope.stateChangeBypass = false;
@@ -138,6 +143,7 @@ angular.module('placePeopleApp')
                     && toState.name !== 'group.publications'
                     && toState.name !== 'place'
                     && toState.name !== 'place.publications'
+                    && toState.name !== 'user'
                     && toState.name !== 'static'
                     && toState.name !== 'desktop-pub-view') {
                     event.preventDefault();
@@ -154,7 +160,9 @@ angular.module('placePeopleApp')
                         if (response.is_authorization) {
                             $rootScope.isAuthorized = true;
                             $rootScope.stateChangeBypass = true;
-                            $state.go(toState, toParams);
+                            if (toState.name !== 'user') {
+                                $state.go(toState, toParams);
+                            }
                         } else {
                             $rootScope.isAuthorized = false;
                         }
