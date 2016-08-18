@@ -1560,8 +1560,8 @@ body.public.user {
 #user-page .photo,
 .group-publication .photo,
 .content-item .my-photos .photo {
-	width: 229px;
-	height: 229px;
+	width: 229.3px;
+	height: 229.3px;
 	margin: 0 3px 3px 0;
 	overflow: hidden;
 	box-sizing: border-box;
