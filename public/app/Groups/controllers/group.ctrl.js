@@ -174,6 +174,9 @@
 			if (state === 'group' && fromState.name === 'group.publications') {
 				$state.go(toParams.prevState);
 			}
+			if (state === 'group.publications' && !$rootScope.isAuthorized) {
+				$state.go('^');
+			}
 			if (state === 'group' && fromState.name !== 'group.publications' && $rootScope.isAuthorized) {
 				$state.go('group.publications');
 			}
