@@ -2528,6 +2528,8 @@ div.my_profilll.photo-list div:last-child {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #000;
+    text-decoration: none;
 }
 p.top-person-users {
     display: flex;
