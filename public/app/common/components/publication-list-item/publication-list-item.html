@@ -3,7 +3,7 @@
 
     <div class="user-publication-header">
         <div class="user-function">
-            <a href class="user" ui-sref="place({placeName: $ctrl.place.url_name})" ng-click="closeThisDialog()">
+            <a href class="user" ui-sref="user({username: $ctrl.pub.user.login})" ng-click="closeThisDialog()">
 				<span class="ava">
 					<img ng-src="{{$ctrl.avatar}}" alt="">
 				</span>
@@ -27,7 +27,15 @@
                 </div>
             </div>
         </div>
-        <!-- <a href ng-click="returnToBack()" class="return">Назад</a> -->
+        <div class="user-function">
+            <a class="user" ng-if="$ctrl.pub.group.length > 0" ui-sref="group({groupName: $ctrl.pub.group[0].url_name})">
+                <p class="user-name">{{$ctrl.pub.group[0].name}}</p>
+            </a>
+            <a class="user" ng-if="$ctrl.pub.place.length > 0" ui-sref="place({placeName: $ctrl.pub.place[0].url_name})">
+                <p class="user-name" >{{$ctrl.pub.place[0].name}}</p>
+            </a>
+        </div>
+         <a href ng-if="$ctrl.prevState" ng-click="$ctrl.goPrevState()" class="return">Назад</a>
     </div>
 
     <div class="user-publication-content">

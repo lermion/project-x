@@ -157,7 +157,7 @@
             .state('group.mob-pub', {
                 url: '/m/:pubId',
                 templateUrl: '../app/Groups/views/popup-view-group-publication.html',
-                showHeader: true,
+                showHeader: true
             })
             .state('view-group-publication', {
                 url: '/group/:groupId/publication/:pubId',

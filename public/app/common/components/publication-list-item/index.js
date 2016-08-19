@@ -11,10 +11,11 @@
                 isPlace: '=',
                 authorName: '<',
                 avatar: '<',
-                index: '<'
+                index: '<',
+                prevState: '<'
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
-            controller: function ($scope, PublicationService, storageService, ngDialog, amMoment) {
+            controller: function ($scope, $state, PublicationService, storageService, ngDialog, amMoment) {
                 var ctrl = this;
                 var modal;
 
@@ -38,6 +39,9 @@
                 // Lifecycle hooks
                 ctrl.$onInit = function (args) {
                     ctrl.pub = ctrl.pubData;
+                    ctrl.avatar = getAvatarPath();
+                    ctrl.authorName = getAuthorName();
+
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -227,25 +231,24 @@
                     });
                 };
 
-                //ctrl.getAuthorName = function() {
-                //  if (ctrl.isGroup || ctrl.isPlace) {
-                //      return ctrl.authorName;
-                //  }
-                //};
-                //
-                //
-                //function getAuthor() {
-                //    var name, avatar;
-                //    if (ctrl.isGroup) {
-                //        name = ctrl.authorName;
-                //        avatar = ctrl.avatar;
-                //    }
-                //
-                //    return {
-                //        name: name,
-                //        avatar: avatar
-                //    }
-                //}
+                ctrl.goPrevState = function() {
+                  $state.go(ctrl.prevState.name, ctrl.prevState.params);
+                };
+
+
+                function getAvatarPath() {
+                    if (!ctrl.pub.is_anonym) {
+                        return ctrl.pub.user.avatar_path;
+                    }
+                }
+
+                function getAuthorName() {
+                    if (!ctrl.pub.is_anonym) {
+                        return ctrl.pub.user.first_name + ' ' + ctrl.pub.user.last_name;
+                    } else {
+                        return 'Анонимная публикация';
+                    }
+                }
 
             }
         });
