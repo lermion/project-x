@@ -3818,7 +3818,8 @@ body.ngdialog-open {
 	color: #fff;
 	background: #495b79;
 }
-.group button.wright:hover {
+.group button.wright:hover,
+.group button.wright.btn--hover {
 	color: #333;
 	background: #d7dade;
 }
