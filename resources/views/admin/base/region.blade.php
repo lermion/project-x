@@ -41,9 +41,11 @@
               </tr>
             </thead>
             <tbody>
+            @foreach($regions as $region)
+                @foreach($regions as $region)
               <tr>
-                <td>1</td>
-                <td>Днепропетровская область</td>
+                <td>{{$region->id}}</td>
+                <td>{{$region->name}}</td>
                 <td>Украина</td>
                 <td>
                     <p class="text-center">
@@ -51,18 +53,10 @@
                     </p>
                 </td>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>Московская область</td>
-                <td>Россия</td>
-                <td>
-                    <p class="text-center">
-                        <button class="btn btn-warning btn-xs">Редактировать</button>
-                    </p>
-                </td>
-              </tr>
+                @endforeach
+            @endforeach
             </tbody>
           </table>
     </div>
-
+{!! $regions->render() !!}
 @stop

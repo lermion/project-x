@@ -34,12 +34,11 @@
                     <td>{{$publication->text}}</td>
                     <td>{{$publication->user_id}}</td>
                     <td>
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-
+                        <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
                     </td>
-                    <td>видео</td>
+                    <td>
+                            Нет видео
+                    </td>
                     <td>{{$publication->created_at}}</td>
                     <td class="text-center">
                         <a class="btn btn-success btn-xs" href="/admin/lock/unlock_publication/{{$publication->id}}">Восстановить</a>

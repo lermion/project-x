@@ -19,8 +19,8 @@
             <div class="col-md-4">
                 <img class="admin-user-page-ava img-responsive" src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
             </div>
+            @foreach()
             <div class="col-md-6">
-                <?php dd($publication);?>
                 <h2>Елена Новикова</h2>
                 <p>Пол: <span>Женский</span></p>
                 <p>Возраст: <span>20 лет</span></p>

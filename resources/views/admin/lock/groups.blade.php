@@ -38,7 +38,7 @@
                         <img src="{{$group->avatar}}" alt="{{$group->avatar}}">
                     </td>
                     <td>{{$group->creator->first()->first_name}} {{$group->creator->first()->last_name}}</td>
-                    <td>100500</td>
+                    <td>{{$group->users()->count()}}</td>
                     <td>{{$group->created_at}}</td>
                     <td class="text-center">
                         <a class="btn btn-success btn-xs" href="/admin/lock/unlock_group/{{$group->id}}">Восстановить</a>
