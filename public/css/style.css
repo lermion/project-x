@@ -536,9 +536,12 @@ footer {
 	width: 100%;
 	left: 0;
 	right: 0;
-	background: rgba(0,0,0, 0.3);
+	background: #a4a5a7;
 	height: 40px;
 	z-index: 2;
+}
+.main-page footer {
+	background: rgba(0,0,0, 0.3);
 }
 .footer {
 	width: 1025px; 
