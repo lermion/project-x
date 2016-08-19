@@ -121,7 +121,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="chat-publication-description" ng-bind-html="getPubText(message.pub.text) | colonToSmiley"></div>
+				<div ng-show="getPubText(message.pub.text) !== 'undefined'" class="chat-publication-description" ng-bind-html="getPubText(message.pub.text) | colonToSmiley"></div>
 				<div class="chat-publication-adress">
 					<!-- <span class="publication-adress-span">Школа №209, </span>
 					<span> г. Санкт-Петербург</span> -->
