@@ -170,7 +170,7 @@
 												</div>
 
 											</div>
-											<p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
+											<p ng-show="splitText(singlePublication.text)" class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
 											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
 											<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 										</div>
