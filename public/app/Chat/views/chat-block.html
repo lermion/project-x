@@ -131,7 +131,8 @@
 				</div>
 				<div class="chat-publication-relations">
 					<div class="publication-relations-left">
-						<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)">Тема</span>    					
+						<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)"
+						ng-class="message.pub.user_like ? 'active': ''">Тема</span>
 						<span>В теме</span>
 						<span ng-show="message.pub.user_like">Вы</span>
 						<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
