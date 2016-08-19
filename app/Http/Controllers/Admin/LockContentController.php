@@ -30,20 +30,10 @@ class LockContentController extends Controller
 
     public function getLockPlaces()
     {
-        $places = Place::with('users')
+        $places = Place::with('users', 'creator')
             ->where('is_block',true)
             ->paginate(25);
-        $places->each(function($item){
-            $item->user_count = $item->users->count();
-        });
-        $places->each(function($item){
-            $item->users->each(function($a)use ($item){
-               if($a->pivot->is_creator){
-                   $item->is_creator = $a->first_name;
-                   $item->is_creator .= ' '.$a->last_name;
-               }
-            });
-        });
+
         return view('admin.lock.places')->with('places',$places);
     }
 
@@ -70,7 +60,7 @@ class LockContentController extends Controller
 
     public function getLockGroups()
     {
-        $groups = Group::with('users')
+        $groups = Group::with('users', 'creator')
             ->where('is_block',true)
             ->paginate(25);
         return view('admin.lock.groups')->with('groups',$groups);

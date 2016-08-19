@@ -12,7 +12,12 @@ class Place extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'place_users')->withTimestamps()->withPivot('is_creator');
+        return $this->belongsToMany('App\User', 'place_users')->withPivot('is_creator');
+    }
+
+    public function creator()
+    {
+        return $this->belongsToMany('App\User', 'place_users')->wherePivot('is_creator', true);
     }
 
     public function publications()
