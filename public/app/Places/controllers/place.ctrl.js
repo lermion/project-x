@@ -92,12 +92,15 @@
             var state = $state.current.name;
 
             if (state === 'place' && fromState.name === 'place.publications') {
-                $state.go(toParams.prevState);
+                $state.go($rootScope.previousState, $rootScope.previousStateParams);
             }
             if (state === 'place.publications' && !$rootScope.isAuthorized) {
                 $state.go('^');
             }
             if (state === 'place' && fromState.name !== 'place.publications' && $rootScope.isAuthorized) {
+                $rootScope.previousState = fromState.name;
+                $rootScope.currentState = toState.name;
+                $rootScope.previousStateParams = fromParams;
                 $state.go('place.publications');
             }
             if (state === 'place.edit') {

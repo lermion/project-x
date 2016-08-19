@@ -1,4 +1,4 @@
-<div class="group-publication" ng-init="vm.photosGrid = true">
+<div class="group-publication">
     <div class="my-photos" ng-if="vm.photosGrid">
         <div class="photo" ng-repeat="item in vm.group.publications" style="{{resizeSizes}}">
             <a href="" ng-click="vm.openModalReviewPublication(item.id, $index)">
@@ -11,10 +11,7 @@
     <div class="content-item" ng-if="!vm.photosGrid" ng-repeat="item in vm.group.publications | orderBy: '-created_at'">
         <pub-list-item pub-data="item"
                        index="$index"
-                       is-group="true"
-                       is-place="false"
-                       author-name="vm.group.name"
-                       avatar="vm.group.card_avatar"></pub-list-item>
+                       when-click="vm.openModalPublication(item, $index)"></pub-list-item>
     </div>
 </div>
 <h4 class="text-center" ng-if="vm.group.publications.length === 0">Список публикаций пуст</h4>
