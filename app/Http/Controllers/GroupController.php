@@ -105,6 +105,7 @@ class GroupController extends Controller
         }
         $publicationData['room_id'] = $room->id;
         $group = Group::create($publicationData);
+        NewGroup::create(['user_id' => Auth::id(), 'group_id' => $group->id,]);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'group' => $group]);
     }

@@ -52,19 +52,21 @@
               </tr>
             </thead>
             <tbody>
+            @foreach($areas as $area)
               <tr>
-                <td>1</td>
-                <td>Днепровский район</td>
-                <td>Днепропетровская область</td>
-                <td>Украина</td>
+                <td>{{$area->id}}</td>
+                <td>{{$area->name}}</td>
+                <td>{{$regions->where('id',$area->region_id)->first()->name}}</td>
+                <td>{{$countries->where('id',$regions->where('id',$area->region_id)->first()->country_id)->first()->name}}</td>
                 <td>
                     <p class="text-center">
                         <button class="btn btn-warning btn-xs">Редактировать</button>
                     </p>
                 </td>
               </tr>
+              @endforeach
             </tbody>
           </table>
     </div>
-
+{!! $areas->render() !!}
     @stop
