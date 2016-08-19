@@ -9,6 +9,7 @@ angular.module('placePeopleApp')
 			amMoment.changeLocale('ru');
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
+			$scope.loggedUserAvatar = storage.loggedUserAva;
 			$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
 			$scope.shareData = [];
