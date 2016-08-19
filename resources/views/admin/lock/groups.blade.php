@@ -22,7 +22,7 @@
                     <th class="col-description">Описание группы</th>
                     <th class="col-author">Имя автора</th>
                     <th class="col-name">Название группы</th>
-                    <th class="col-img">Картинки</th>
+                    <th class="col-img">Аватарка</th>
                     <th class="col-video">Видео</th>
                     <th class="col-time">Время создания</th>
                     <th class="col-action">Действия</th>
@@ -33,12 +33,10 @@
                   <tr>
                     <td><a href="">{{$group->id}}</a></td>
                     <td>{{$group->description}}</td>
-                    <td>{{$group->user_id}}</td>
+                    <td>{{$group->creator->first()->first_name}} {{$group->creator->first()->last_name}}</td>
                     <td>{{$group->name}}</td>
                     <td>
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        <img src="{{$group->avatar}}" alt="{{$group->avatar}}">
                     </td>
                     <td>видео</td>
                     <td>{{$group->created_at}}</td>

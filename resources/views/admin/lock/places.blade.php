@@ -39,9 +39,9 @@
                     <td class="img-center">
                         <img src="{{$place->avatar}}" alt="{{$place->avatar}}">
                     </td>
-                    <td>{{$place->is_creator}}</td>
+                    <td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>
                     </td>
-                    <td>{{$place->user_count}}</td>
+                    <td>{{$place->users()->count()}}</td>
                     <td>{{$place->created_at}}</td>
                     <td class="text-center">
 
