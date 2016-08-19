@@ -2844,7 +2844,8 @@ p.top-person-status {
     right: 0px;
     align-items: center;
     align-content: center;
-    width: 50px;
+    width: 54px;
+    overflow: hidden;
     text-align: center;
 }
 span.users-today-time-time {
@@ -2859,18 +2860,18 @@ span.users-today-time-count {
     background-color: rgb(236, 96, 69);
     color: #fff;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 10.6px;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    font-size: 9.6px;
     text-align: center;
-    margin-left: 14px;
+    margin-left: 15px;
 }
 span.users-today-time-time.early {
-    font-size: 10.6px;
+    font-size: 9.6px;
     color: #999;
     display: block;
-    width: 50px;
+    width: 54px;
     text-align: center;
     margin-top: 0px;
 }
