@@ -12,11 +12,7 @@
                 authorName: '<',
                 avatar: '<',
                 index: '<',
-                prevState: '<',
-
-                // метод контроллера, который будет вызван при клике на компоненте
-                // нужен для модального окна
-                whenClick: '<'
+                prevState: '<'
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($scope, $state, PublicationService, storageService, ngDialog, amMoment) {
@@ -45,7 +41,6 @@
                     ctrl.pub = ctrl.pubData;
                     ctrl.avatar = getAvatarPath();
                     ctrl.authorName = getAuthorName();
-                    conssole.log(ctrl.whenClick);
                 };
 
                 ctrl.$onChanges = function (args) {

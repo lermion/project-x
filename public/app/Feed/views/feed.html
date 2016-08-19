@@ -108,7 +108,7 @@
                                     <span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>
                                 </p>
                             </div>
-                            <a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
+                            <a href ng-if="pub.comment_count > 0" class="comments-count">{{pub.comment_count}}</a>
                         </div>
                         <div class="more-comments"
                              ng-show="pub.comments.length !== pub.comment_count">
