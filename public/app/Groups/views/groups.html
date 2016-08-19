@@ -46,10 +46,12 @@
                                 <p ng-click="goToSearch(group.description)"
                                    ng-bind-html="group.description | colonToSmiley | linkCheck" class="about"></p>
                             </div>
-                            <button class="wright" ng-if="!group.is_sub"
-                                    ng-click="subscribe(group); $event.stopPropagation();">Подписаться
+                            <button class="wright"
+                                    ng-class="{'btn--hover': group.is_sub}"
+                                    ng-click="subscribe(group); $event.stopPropagation();"
+                                    ng-disabled="group.is_sub">
+                                {{group.is_sub ? 'Вы подписаны' : 'Подписаться'}}
                             </button>
-                            <div class="wright" ng-if="group.is_sub">Вы подписаны</div>
                             <!--<button class="wright" ng-if="group.is_sub && group.is_creator" ng-click="openModalUnsubscribeCreator()">Отписаться</button>-->
                         </div>
                     </div>

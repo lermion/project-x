@@ -2518,7 +2518,7 @@ div.my_profilll.photo-list div:last-child {
     white-space: nowrap;
 }
 .chat-person-top-info a {
-    width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     line-height: 20px;
