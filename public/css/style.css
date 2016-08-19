@@ -3861,13 +3861,15 @@ body.ngdialog-open {
 		flex-direction:column;
 	}
 }
-
-
 .group-page {
 	width: 700px;
 	margin: 0 auto;
 	position: relative;
 	font-family: "SFUIDisplayLight";
+}
+.group-content-container-wrap1,
+.place-content-container-wrap2 {
+	margin-bottom: 10px;
 }
 .group-page .group-ava {
 	height: 240px;

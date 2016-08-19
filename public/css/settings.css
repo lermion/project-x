@@ -1756,7 +1756,7 @@ div.my_profilll.photo-list div:last-child {
     margin: 0 auto 0px auto;
 }
 .group-files:last-child {
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
 .group-files-title {
     display: flex;
