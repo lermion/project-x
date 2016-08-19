@@ -2518,6 +2518,19 @@ div.my_profilll.photo-list div:last-child {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.chat-person-top-info a {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000;
+    text-decoration: none;
+}
 p.top-person-users {
     display: flex;
     flex-wrap: nowrap;
