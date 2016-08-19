@@ -116,9 +116,10 @@ angular.module('placePeopleApp')
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
 				}
 			};
+			
 			$scope.showFullComment = function(comment){
 				comment.commentLength = comment.text.length;
-			}
+			};
 
 			$scope.openMenu = function () {
 				if ($window.innerWidth <= 800) {

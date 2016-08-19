@@ -227,7 +227,7 @@
 													</div>
 													<p class="comment-item" ng-click="goToSearch(comment.text)"
 													   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck"></p>
-													<a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>   
+													<a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>
 
 													<div ng-if="comment.images[0]" class="comment-pic">
 														<a ng-repeat="image in comment.images | limitTo: 3 as results"
