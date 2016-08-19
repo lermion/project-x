@@ -48,7 +48,7 @@ angular.module('placePeopleApp')
 
 				// replace #hashtags and send them to twitter
 				var replacePattern1 = /(^|\s)#(\w*[a-zA-Z_]+\w*)/gim;
-				replacedText = text.replace(replacePattern1, "$1<a href='javascript:void(0);'" + targetAttr + ">#$2</a>");
+				replacedText = text.replace(replacePattern1, "$1<a href='javascript:void(0);' class='link-at-hashtag'" + targetAttr + ">#$2</a>");
 
 				// replace @mentions but keep them to our site
 				var replacePattern2 = /(^|\s)\@(\w*[a-zA-Z_]+\w*)/gim;
