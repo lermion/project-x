@@ -162,8 +162,13 @@ photo
 	font-weight: bold;
 	list-style: none;
 }
-.admin-settings-menu li.active,
+/*.admin-settings-menu li.active,*/
 .ui-tabs-active  {
+	background-color: #f1f1f1;
+}
+.admin-settings li a:active,
+.admin-settings li a:visited,
+.admin-settings li a:hover {
 	background-color: #f1f1f1;
 }
 .admin-settings-menu li:hover {
