@@ -116,6 +116,10 @@ angular.module('placePeopleApp')
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
 				}
 			};
+			
+			$scope.showFullComment = function(comment){
+				comment.commentLength = comment.text.length;
+			};
 
 			$scope.openMenu = function () {
 				if ($window.innerWidth <= 800) {
@@ -177,7 +181,7 @@ angular.module('placePeopleApp')
 			var counter = 0;
 
 			$scope.userData = profile;
-			$scope.userPublications = publications;
+			$scope.userPublications = publications || [];
 			$scope.needToLogin = $stateParams.needToLogin;
 
 			if (profile.login === storage.username) {

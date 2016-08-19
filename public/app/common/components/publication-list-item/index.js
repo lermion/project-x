@@ -41,7 +41,6 @@
                     ctrl.pub = ctrl.pubData;
                     ctrl.avatar = getAvatarPath();
                     ctrl.authorName = getAuthorName();
-
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -107,6 +106,10 @@
                         function (error) {
                             console.log(error);
                         });
+                };
+
+                ctrl.showFullComment = function(comment){
+                    comment.commentLength = comment.text.length;
                 };
 
                 ctrl.addCommentLike = function (comment) {

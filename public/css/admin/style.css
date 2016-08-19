@@ -769,8 +769,6 @@ table.admin-users .col-do {
 	margin-bottom: 10px;
 }
 .admin-settings-menu li a:active,
-.admin-settings-menu li a:visited,
-.admin-settings-menu li a:hover,
-.admin-settings-menu li a:focus {
+.admin-settings-menu li a:hover {
 	background-color: #ddd;
 }

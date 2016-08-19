@@ -133,7 +133,7 @@ body.main-page {
 	bottom: 45px;
 	left: 0;
 	height: 100%;
-	width: 81px;
+	width: 80px;
 	font-family:  "SFUIDisplayMedium";
 	font-size: 14.6px;
 	z-index: 1;
@@ -2955,6 +2955,7 @@ body.public.user {
 	color: #333;
 	font-family: "SFUIDisplayLight";
 	line-height: 18px;
+	word-break: break-all;
 }
 .user-publication .add-comment {
 	border-bottom: none;
@@ -3860,13 +3861,15 @@ body.ngdialog-open {
 		flex-direction:column;
 	}
 }
-
-
 .group-page {
 	width: 700px;
 	margin: 0 auto;
 	position: relative;
 	font-family: "SFUIDisplayLight";
+}
+.group-content-container-wrap1,
+.place-content-container-wrap2 {
+	margin-bottom: 10px;
 }
 .group-page .group-ava {
 	height: 240px;
@@ -4128,7 +4131,8 @@ body.ngdialog-open {
 }
 .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor {
 	box-sizing: border-box;
-		height: 75px;
+	height: 75px;
+	word-break: break-all;
 }
 // .user-publication .add-comment .add  .text-field .emoji-wysiwyg-editor:empty:after {
 // 	content: 'Текст комментария...';

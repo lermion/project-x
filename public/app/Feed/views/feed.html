@@ -108,7 +108,7 @@
                                     <span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>
                                 </p>
                             </div>
-                            <a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
+                            <a href ng-if="pub.comment_count > 0" class="comments-count">{{pub.comment_count}}</a>
                         </div>
                         <div class="more-comments"
                              ng-show="pub.comments.length !== pub.comment_count">
@@ -116,7 +116,7 @@
                                class="all-comments">Еще {{pub.comment_count - pub.comments.length}} комментариев</a>
                         </div>
                         <div ng-hide="pub.comments.length === 0" class="visible-comments">
-                            <div ng-repeat="comment in pub.comments" class="user-comment">
+                            <div ng-repeat="comment in pub.comments" class="user-comment" ng-init="comment.commentLength = 250;">
                                 <div class="user-ava">
                                     <a class="ava" ui-sref="user({username: loggedUser})">
                                         <img ng-src="{{comment.user.avatar_path}}" alt="">
@@ -138,7 +138,8 @@
                                            ng-click="deleteComment('feedPage', pub, comment, $index)" class="alert"
                                            ng-show="comment.user.id == loggedUserId"></a>
                                     </div>
-                                    <p ng-click="goToSearch(comment.text)" ng-bind-html="comment.text | colonToSmiley | linkCheck" class="comment-item"></p>
+                                    <p ng-click="goToSearch(comment.text)" ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck" class="comment-item"></p>
+                                    <a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>
 
                                     <div ng-if="comment.images[0]" class="comment-pic">
                                         <a ng-repeat="image in comment.images | limitTo: 3 as results"
