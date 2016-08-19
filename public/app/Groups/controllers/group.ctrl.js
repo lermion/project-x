@@ -457,6 +457,10 @@
 			});
 		};
 
+		$scope.showFullComment = function(comment){
+			comment.commentLength = comment.text.length;
+		};
+
 		vm.showMoreImages = function (images, currImg) {
 			if (currImg != null) {
 				vm.mainImageInPopup = currImg.url;

@@ -109,6 +109,10 @@
                         });
                 };
 
+                ctrl.showFullComment = function(comment){
+                    comment.commentLength = comment.text.length;
+                };
+
                 ctrl.addCommentLike = function (comment) {
                     PublicationService.addCommentLike(comment.id).then(function (response) {
                             comment.like_count = response.like_count;

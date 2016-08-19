@@ -78,7 +78,7 @@
     </div>
 
     <div class="visible-comments" ng-hide="vm.activePublication.comments.length === 0">
-        <div ng-repeat="comment in vm.activePublication.comments | orderBy: 'comment.created_at'" class="user-comment">
+        <div ng-repeat="comment in vm.activePublication.comments | orderBy: 'comment.created_at'" class="user-comment" ng-init="comment.commentLength = 250;">
             <div class="user-ava">
                 <a href class="ava" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">
                     <img ng-src="{{comment.user.avatar_path}}" alt="">
@@ -99,7 +99,8 @@
                     <a href ng-click="vm.deleteComment('viewPage', vm.activePublication, comment, $index)" class="alert"
                        ng-show="comment.user.id == vm.myId"></a>
                 </div>
-                <p ng-click="goToSearch(comment.text)" class="comment-item" ng-bind-html="comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
+                <p ng-click="goToSearch(comment.text)" class="comment-item" ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
+                <a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>
 
                 <div ng-if="comment.images[0]" class="comment-pic">
                     <a href ng-repeat="image in comment.images | limitTo: 3 as results"

@@ -401,6 +401,10 @@
                 });
         };
 
+        $scope.showFullComment = function(comment){
+			comment.commentLength = comment.text.length;
+		};
+
         vm.deleteComment = function (flag, pub, comment, index) {
             PublicationService.deleteCommentPublication(comment.id).then(function (response) {
                     if (response.status) {
