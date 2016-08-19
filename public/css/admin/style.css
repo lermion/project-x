@@ -166,10 +166,10 @@ photo
 .ui-tabs-active  {
 	background-color: #f1f1f1;
 }
-.admin-settings li a:active,
-.admin-settings li a:visited,
-.admin-settings li a:hover {
-	background-color: #f1f1f1;
+.admin-settings-menu li a:active,
+.admin-settings-menu li a:visited,
+.admin-settings-menu  li a:hover {
+	background-color: gray;
 }
 .admin-settings-menu li:hover {
 	background-color: #f1f1f1;

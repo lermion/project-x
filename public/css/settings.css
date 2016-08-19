@@ -1674,6 +1674,8 @@ div.my_profilll.photo-list div:last-child {
     right: 0;
     bottom: 0;
     border-radius: 50%;
+}
+.set_1 .add-ava label .add:hover {
     background: rgba(0, 0, 0, 0.5);
 }
 .set_1 .add-ava label .ava {
