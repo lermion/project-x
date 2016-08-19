@@ -766,7 +766,7 @@ footer {
 	.drop-menu {
 		display: block;
 		width: 72px;
-		height: 70px;
+		height: 40px;
 		background-image: url(../images/drop-menu.png);
 		background-position: center;
 		background-repeat: no-repeat;
@@ -775,7 +775,7 @@ footer {
 	}
 	.footer .menu {
 		width: 72px;
-		height: 72px;
+		height: 40px;
 		margin-right: -13px;
 		position: relative;
 	}
