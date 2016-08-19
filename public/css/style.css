@@ -516,7 +516,7 @@ body.main-page {
 .add-ava label .add-photo {
 	cursor: pointer;
 	background-image: url(../images/add-file.png); 
-	transition: all .1s ease-in-out .1s;
+	transition: all .2s ease-in-out .1s;
 	overflow: hidden;
 	width: 15vh;
 	height: 15vh;
@@ -536,9 +536,12 @@ footer {
 	width: 100%;
 	left: 0;
 	right: 0;
-	background: rgba(0,0,0, 0.3);
+	background: #a4a5a7;
 	height: 40px;
 	z-index: 2;
+}
+.main-page footer {
+	background: rgba(0,0,0, 0.3);
 }
 .footer {
 	width: 1025px; 
@@ -1244,7 +1247,6 @@ body.public.user {
 		width: 100%;
 		padding: 10px;
 		text-align: left; 
-		padding-top: 60px; 
 	} 
 	.public header .main-menu.common a {
 		line-height: 46px;

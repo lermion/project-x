@@ -86,39 +86,39 @@
 }
 .settingsss .text p input[type="text"] {
     width: 100%;
+    border: 1px solid #e5e7e9;
     padding: 0 7px;
     box-sizing: border-box;
     line-height: 37px;
     height: 37px;
     font-size: 14.6px;
-    font-family: Tahoma;
+    /*font-family: Tahoma;*/
+    font-family: "SFUIDisplayLight";
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
     transition: all .1s ease-in-out .2s;
-    border: none;
-    border-bottom: 1px solid #999;
     color: #999;
-    border-radius: 0;
+    border-radius: 2px;
 }
 .settingsss .text p input[type="text"].last_name_set {
-    border: none;
-    border-bottom: 1px solid #999;
+    border: 1px solid #e5e7e9;
     width: 100%;
     padding: 0 7px;
     box-sizing: border-box;
     line-height: 37px;
     height: 37px;
     font-size: 14.6px;
-    font-family: Tahoma;
+    font-size: 14.6px;
+    /*font-family: Tahoma;*/
+    font-family: "SFUIDisplayLight";
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
     transition: all .1s ease-in-out .2s;
     margin-bottom: 0;
     color: #999;
-    border-top: 0;
-    border-radius: 0;
+    border-radius: 2px;
 }
 .settingsss .text p input[type="submit"] {
     width: 30%;
@@ -151,7 +151,7 @@
     background: #DA5036;
 }
 .settingsss .text p textarea {
-    border: 1px solid #999;
+    border: 1px solid #e5e7e9;
     width: 100%;
     box-sizing: border-box;
     border-radius: 2px;
@@ -211,6 +211,9 @@
     padding-left: 0px;
     overflow: hidden;
     line-height: 1;
+}
+.ngdialog.popup-invite-group .contacts_list .user-info {
+    padding-left: 10px;
 }
 .contacts_list .user-info__user,
 .user-info__user {
@@ -1674,6 +1677,7 @@ div.my_profilll.photo-list div:last-child {
     right: 0;
     bottom: 0;
     border-radius: 50%;
+    transition: all .2s ease-in-out .1s;
 }
 .set_1 .add-ava label .add:hover {
     background: rgba(0, 0, 0, 0.5);
@@ -2513,6 +2517,19 @@ div.my_profilll.photo-list div:last-child {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.chat-person-top-info a {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000;
+    text-decoration: none;
+}
 p.top-person-users {
     display: flex;
     flex-wrap: nowrap;
@@ -2801,7 +2818,7 @@ p.top-person-status {
 .chat-users-today-info {
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    width: 76%;
     margin: 0;
     padding: 0;
 }
@@ -2826,7 +2843,8 @@ p.top-person-status {
     right: 0px;
     align-items: center;
     align-content: center;
-    width: 50px;
+    width: 54px;
+    overflow: hidden;
     text-align: center;
 }
 span.users-today-time-time {
@@ -2841,18 +2859,18 @@ span.users-today-time-count {
     background-color: rgb(236, 96, 69);
     color: #fff;
     border-radius: 50%;
-    width: 21px;
-    height: 21px;
-    line-height: 21px;
-    font-size: 11.6px;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    font-size: 9.6px;
     text-align: center;
-    margin-left: 14px;
+    margin-left: 15px;
 }
 span.users-today-time-time.early {
-    font-size: 12.6px;
+    font-size: 9.6px;
     color: #999;
     display: block;
-    width: 50px;
+    width: 54px;
     text-align: center;
     margin-top: 0px;
 }
@@ -3059,7 +3077,7 @@ span.users-today-time-time.early {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    align-items: center;
+    align-items: flex-start;
     padding: 15px;
     color: #495b79;
     border-bottom: 1px solid #e0e2e5;
@@ -4000,7 +4018,7 @@ span.users-today-time-time.early {
         font-size: .85em;
     }
     .chat-users-today-data {
-        width: 80%;
+        width: 78%;
     }
     .chat-left-users-users-today {
         height: 50px;
@@ -7019,3 +7037,6 @@ button.settings-btn {
  .group-sign-button {
     width: 110px;
  }
+.link-at-hashtag {
+    color: #495b79;
+  }
