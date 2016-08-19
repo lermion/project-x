@@ -34,8 +34,8 @@
                   <tr>
                     <td><a href="">{{$place->id}}</a></td>
                     <td>{{$place->name}}</td>
-                    <td>Описание</td>
-                    <td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>
+                    <td>{{$place->description}}</td>
+                    <td>{{$place->creator->first()->first_name.' '.$place->creator->first()->last_name}}</td>
                     <td class="img-center">
                         <img src="{{$place->cover}}" alt="{{$place->cover}}">
                     </td>
