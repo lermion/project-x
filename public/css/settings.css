@@ -212,8 +212,7 @@
     overflow: hidden;
     line-height: 1;
 }
-.ngdialog.popup-invite-group .contacts_list .user-info,
-.user-info {
+.ngdialog.popup-invite-group .contacts_list .user-info {
     padding-left: 10px;
 }
 .contacts_list .user-info__user,
@@ -7038,3 +7037,6 @@ button.settings-btn {
  .group-sign-button {
     width: 110px;
  }
+.link-at-hashtag {
+    color: #495b79;
+  }
