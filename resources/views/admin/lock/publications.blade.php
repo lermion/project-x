@@ -32,7 +32,7 @@
                   <tr>
                     <td><a href="">{{$publication->id}}</a></td>
                     <td>{{$publication->text}}</td>
-                    <td>{{$publication->user_id}}</td>
+                    <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                     <td>
                         <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
                     </td>

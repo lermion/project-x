@@ -223,12 +223,34 @@ angular.module('placePeopleApp')
                         }]
                     }
                 })
-                //.state('mobile-pub-view', {
-                //    url: '/:username/pub/:id',
-                //    templateUrl: '../../app/User/views/view-publication.html',
-                //    showHeader: true,
-                //    controller: 'userCtrl'
-                //})
+                .state('mobile-pub-view', {
+                    url: '/:username/pub/:id',
+                    templateUrl: '../../app/User/views/view-publication.html',
+                    showHeader: true,
+                    controller: 'userCtrl',
+                    resolve: {
+                        profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($stateParams.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }],
+                        publications: function() {
+
+                        }
+                    }
+                })
                 .state('mobile-pub-view-test', {
                     url: '/m/pub/:id',
                     templateUrl: '../../app/common/views/pub-list-item.html',
@@ -264,7 +286,11 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/User/views/user.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false
+                    isLogin: false,
+                    resolve: {
+                        profile: null,
+                        publications: null
+                    }
                 })
 
 

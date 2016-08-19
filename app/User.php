@@ -75,6 +75,18 @@ class User extends Authenticatable
         return $publications;
     }
 
+    public static function getGroup($id)
+    {
+        $groups = Group::with(['users', 'publications', 'creator'])->orderBy('id', 'desc')->get();
+        return $groups;
+    }
+
+    public static function getPlace($id)
+    {
+        $places = Place::with(['users', 'publications', 'creator'])->orderBy('id', 'desc')->get();
+        return $places;
+    }
+
     public static function getSubscription($userId)
     {
         $user = User::find($userId);

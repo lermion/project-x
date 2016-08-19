@@ -117,7 +117,7 @@
             <td>{{ $user->gender }}</td>
             <td>{{ $user->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($user->birthday), new DateTime())->y }}</td>
             <td>{{ $user->created_at }}</td>
-            <td>{{ $user->status }}</td>
+            <td>{{ $user->user_quote }}</td>
             <td class="text-center">
                     <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
                     <button type="button" class="btn btn-primary btn-xs">На заметку</button>

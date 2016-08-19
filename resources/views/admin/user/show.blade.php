@@ -7,25 +7,36 @@
     <div id="user-tabs" class="x_content">
         <ul class="row admin-user-menu">
             <li class="col-md-2"><a href="#user-tabs-info">Информация</a></li>
-            <li class="col-md-2"><a href="#user-tabs-publ">Публикации (<span>10</span>)</a></li>
-            <li class="col-md-2"><a href="#user-tabs-groups">Группы (<span>10</span>)</a></li>
-            <li class="col-md-2"><a href="#user-tabs-places">Места (<span>10</span>)</a></li>
-            <li class="col-md-2"><a href="#user-tabs-subscr">Подписчики (<span>10</span>)</a></li>
-            <li class="col-md-2"><a href="#user-tabs-mysubscr">Подписки (<span>10</span>)</a></li>
+            <li class="col-md-2"><a href="#user-tabs-publ">Публикации </a></li>
+            <li class="col-md-2"><a href="#user-tabs-groups">Группы </a></li>
+            <li class="col-md-2"><a href="#user-tabs-places">Места </a></li>
+            <li class="col-md-2"><a href="#user-tabs-subscr">Подписчики </a></li>
+            <li class="col-md-2"><a href="#user-tabs-mysubscr">Подписки </a></li>
         </ul>
 
 
         <div id="user-tabs-info" class="row">
             <div class="col-md-4">
-                <img class="admin-user-page-ava img-responsive" src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                @if ($user->avatar_path)
+                    <img class="admin-user-page-ava img-responsive" src="{{$user->avatar_path}}" alt="{{$user->avatar_path}}">
+                @else
+                    <img class="admin-user-page-ava img-responsive" src="/img/ava/moderator.png" alt="/img/ava/moderator.png">
+                @endif
             </div>
-            @foreach()
             <div class="col-md-6">
-                <h2>Елена Новикова</h2>
-                <p>Пол: <span>Женский</span></p>
-                <p>Возраст: <span>20 лет</span></p>
-                <p>Дата регистрации: <span>02.08.2016</span></p>
-                <p>Статус: <span>Солнце, море и вода </span></p>
+                <h2>{{ $user->first_name.' '.$user->last_name }}</h2>
+                <p>Пол:
+                    <span>
+                        @if ($user->gender == true)
+                            Мужской
+                        @else
+                            Женский
+                        @endif
+                    </span>
+                </p>
+                <p>Возраст: <span>{{ $user->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($user->birthday), new DateTime())->y }}</span></p>
+                <p>Дата регистрации: <span>{{ $user->created_at }}</span></p>
+                <p>Статус: <span>{{ $user->user_quote }}</span></p>
             </div>
         </div>
 
@@ -44,30 +55,19 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($publications as $publication)
                       <tr>
-                        <td><a href="">1</a></td>
-                        <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
-                        <td>Елена Новикова</td>
+                        <td><a href="">{{$publication->id}}</a></td>
+                        <td>{{$publication->text}}</td>
+                        <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                         <td class="mini-image">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                            <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
                         </td>
-                        <td>видео</td>
-                        <td>02.08.2016</td>
+                        <td>Нет видео</td>
+                        <td>{{$publication->created_at}}</td>
                       </tr>
                       <tr>
-                        <td><a href="">1</a></td>
-                        <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации </td>
-                        <td>Елена Новикова</td>
-                        <td class="mini-image">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        </td>
-                        <td>видео</td>
-                        <td>02.08.2016</td>
-                      </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -88,36 +88,18 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($groups as $group)
                       <tr>
-                        <td><a href="">1</a></td>
-                        <td>Группа 123</td>
+                        <td><a href="">{{$group->id}}</a></td>
+                        <td>{{$group->name}}</td>
                         <td class="img-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                            <img src="{{$group->avatar}}" alt="{{$group->avatar}}">
                         </td>
-                        <td>Елена Новикова</td>
-                        <td>100500</td>
-                        <td>02.08.2016</td>
-    <!--                     <td>
-                            <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                            <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                            <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        </td> -->
+                        <td>{{$group->creator->first()->first_name}} {{$group->creator->first()->last_name}}</td>
+                        <td>{{$group->users()->count()}}</td>
+                        <td>{{$group->created_at}}</td>
                       </tr>
-                      <tr>
-                        <td><a href="">1</a></td>
-                        <td>Группа 123</td>
-                        <td class="img-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        </td>
-                        <td>Елена Новикова</td>
-                        <td>100500</td>
-                        <td>02.08.2016</td>
-    <!--                     <td>
-                            <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                            <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                            <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        </td> -->
-                      </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>   
@@ -138,36 +120,18 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($places as $place)
                       <tr>
-                        <td><a href="">1</a></td>
-                        <td>Место 123</td>
+                        <td><a href="">{{$place->id}}</a></td>
+                        <td>{{$place->name}}</td>
                         <td class="img-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                            <img src="{{$place->cover}}" alt="{{$place->cover}}">
                         </td>
-                        <td>Елена Новикова</td>
-                        <td>100500</td>
-                        <td>02.08.2016</td>
-    <!--                     <td>
-                            <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                            <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                            <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        </td> -->
+                        {{--<td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>--}}
+                        <td>{{$place->users()->count()}}</td>
+                        <td>{{$place->created_at}}</td>
                       </tr>
-                      <tr>
-                        <td><a href="">1</a></td>
-                        <td>Место 123</td>
-                        <td class="img-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        </td>
-                        <td>Елена Новикова</td>
-                        <td>100500</td>
-                        <td>02.08.2016</td>
-    <!--                     <td>
-                            <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                            <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                            <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        </td> -->
-                      </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>   
@@ -186,40 +150,31 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($subscriptions as $subscription)
                       <tr>
-                        <td>1</td>
+                        <td>{{$subscription->id}}</td>
                         <td class="text-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                            @if ($subscription->avatar_path)
+                                <img  src="{{$subscription->avatar_path}}" alt="{{$subscription->avatar_path}}">
+                            @else
+                                <img  src="/img/ava/moderator.png" alt="/img/ava/moderator.png">
+                            @endif
                         </td>
-                        <td>Елена Новикова</td>
-                        <td>Женский</td>
-                        <td>35 лет</td>
-                        <td>02.08.2016</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td class="text-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        <td>{{ $subscription->first_name.' '.$subscription->last_name }}</td>
+                        <td>
+                            @if ($subscription->gender == true)
+                                Мужской
+                            @else
+                                Женский
+                            @endif
                         </td>
-                        <td>Елена Новикова</td>
-                        <td>Женский</td>
-                        <td>35 лет</td>
-                        <td>02.08.2016</td>
+                        <td>{{ $subscription->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($user->birthday), new DateTime())->y }}</td>
+                        <td>{{ $subscription->created_at }}</td>
                       </tr>
+                      @endforeach
                     </tbody>
                 </table>
             </div>
-            <!-- <div class="row admin-user-contacts-pagination">
-                <ul class="pagination">
-                  <li class="disabled"><a href="">&laquo;</a></li>
-                  <li class="active"><a href="">1</a></li>
-                  <li><a href="">2</a></li>
-                  <li><a href="">3</a></li>
-                  <li><a href="">4</a></li>
-                  <li><a href="">5</a></li>
-                  <li><a href="">&raquo;</a></li>
-                </ul>
-            </div> -->
         </div>
 
 
@@ -237,40 +192,31 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($subscribers as $subscriber)
                       <tr>
-                        <td>1</td>
+                        <td>{{$subscriber->id}}</td>
                         <td class="text-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                            @if ($subscriber->avatar_path)
+                                <img  src="{{$subscriber->avatar_path}}" alt="{{$subscriber->avatar_path}}">
+                            @else
+                                <img  src="/img/ava/moderator.png" alt="/img/ava/moderator.png">
+                            @endif
                         </td>
-                        <td>Елена Новикова</td>
-                        <td>Женский</td>
-                        <td>35 лет</td>
-                        <td>02.08.2016</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td class="text-center">
-                            <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        <td>{{ $subscriber->first_name.' '.$subscriber->last_name }}</td>
+                        <td>
+                            @if ($subscriber->gender == true)
+                                Мужской
+                            @else
+                                Женский
+                            @endif
                         </td>
-                        <td>Елена Новикова</td>
-                        <td>Женский</td>
-                        <td>35 лет</td>
-                        <td>02.08.2016</td>
+                        <td>{{ $subscriber->birthday=='0000-00-00' ? '---' : date_diff(new DateTime($subscriber->birthday), new DateTime())->y }}</td>
+                        <td>{{ $subscriber->created_at }}</td>
                       </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
-            <!-- <div class="row admin-user-contacts-pagination">
-                <ul class="pagination">
-                  <li class="disabled"><a href="">&laquo;</a></li>
-                  <li class="active"><a href="">1</a></li>
-                  <li><a href="">2</a></li>
-                  <li><a href="">3</a></li>
-                  <li><a href="">4</a></li>
-                  <li><a href="">5</a></li>
-                  <li><a href="">&raquo;</a></li>
-                </ul>
-            </div> -->
         </div>
     </div>
 

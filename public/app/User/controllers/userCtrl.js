@@ -181,7 +181,7 @@ angular.module('placePeopleApp')
 			var counter = 0;
 
 			$scope.userData = profile;
-			$scope.userPublications = publications;
+			$scope.userPublications = publications || [];
 			$scope.needToLogin = $stateParams.needToLogin;
 
 			if (profile.login === storage.username) {
