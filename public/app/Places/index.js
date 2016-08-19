@@ -164,6 +164,11 @@
                 isLogin: true,
                 showHeader: true
             })
+            .state('place.mob-pub', {
+                url: '/m/:pubId',
+                templateUrl: '../app/Places/views/popup-view-place-publication.html',
+                showHeader: true
+            })
             .state('place.chat', {
                 url: '/chat',
                 templateUrl: '../../app/Places/views/place-chat.html',

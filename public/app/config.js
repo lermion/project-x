@@ -223,11 +223,41 @@ angular.module('placePeopleApp')
                         }]
                     }
                 })
-                .state('mobile-pub-view', {
-                    url: '/:username/pub/:id',
-                    templateUrl: '../../app/User/views/view-publication.html',
+                //.state('mobile-pub-view', {
+                //    url: '/:username/pub/:id',
+                //    templateUrl: '../../app/User/views/view-publication.html',
+                //    showHeader: true,
+                //    controller: 'userCtrl'
+                //})
+                .state('mobile-pub-view-test', {
+                    url: '/m/pub/:id',
+                    templateUrl: '../../app/common/views/pub-list-item.html',
                     showHeader: true,
-                    controller: 'userCtrl'
+                    params: {
+                      prevState: {
+                          name: null,
+                          params: null
+                      }
+                    },
+                    controller: function(publication, $stateParams) {
+                        this.title = '111';
+                        this.publication = publication;
+                        this.prevState = $stateParams.prevState;
+                    },
+                    controllerAs: 'vm',
+                    resolve: {
+                        publication: ['$q', '$stateParams', 'PublicationService', function($q, $stateParams, PublicationService) {
+                            var defer = $q.defer();
+
+                            PublicationService.getSinglePublication($stateParams.id)
+                                .then(function(data) {
+                                    defer.resolve(data);
+                                });
+
+                            return defer.promise;
+                        }]
+                    }
+
                 })
                 .state('desktop-pub-view', {
                     url: '/:username/publication/:id/:hash',
