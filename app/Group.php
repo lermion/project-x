@@ -15,6 +15,11 @@ class Group extends Model
         return $this->belongsToMany('App\User', 'group_users')->withTimestamps();
     }
 
+    public function creator()
+    {
+        return $this->belongsToMany('App\User', 'group_users')->wherePivot('is_creator', true);;
+    }
+
     public function publications()
     {
         return $this->belongsToMany('App\Publication', 'group_publications')->withTimestamps();
