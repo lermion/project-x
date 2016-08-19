@@ -24335,7 +24335,7 @@
     });
 
     test('fromNow', function (assert) {
-        assert.equal(moment().add({s: 30}).fromNow(), 'через несколько секунд', 'in seconds');
+        assert.equal(moment().add({s: 30}).fromNow(), 'только что', 'in seconds');
         assert.equal(moment().add({d: 5}).fromNow(), 'через 5 дней', 'in 5 days');
         assert.equal(moment().add({m: 31}).fromNow(), 'через 31 минуту', 'in 31 minutes = in 31 minutes');
         assert.equal(moment().subtract({m: 31}).fromNow(), '31 минуту назад', '31 minutes ago = 31 minutes ago');
