@@ -8,7 +8,7 @@
 				</a>
 			</div>	    	
 			<div class="chat-person-top-info">
-				<p class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</p>
+				<a ui-sref="user({username: Model.opponent.login})" class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</a>
 				<p class="top-person-users">
 					<span ng-if="Model.opponent.is_group && Model.opponent.members.length > 0">участники: </span>
 					<a ng-repeat="member in Model.opponent.members" ui-sref="user({username: member.login})" ng-if="Model.opponent.is_group" href="javascript:void(0);">{{member.first_name}}{{$last ? '' : ', '}}</a>
