@@ -42,18 +42,16 @@
             </thead>
             <tbody>
             @foreach($regions as $region)
-                @foreach($regions as $region)
               <tr>
                 <td>{{$region->id}}</td>
                 <td>{{$region->name}}</td>
-                <td>Украина</td>
+                <td>{{$countries->where('id',$region->country_id)->first()->name}}</td>
                 <td>
                     <p class="text-center">
                         <button class="btn btn-warning btn-xs">Редактировать</button>
                     </p>
                 </td>
               </tr>
-                @endforeach
             @endforeach
             </tbody>
           </table>
