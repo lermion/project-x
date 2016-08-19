@@ -494,6 +494,10 @@ angular.module('placePeopleApp')
 				files.splice(index, 1);
 			};
 
+			$scope.showFullComment = function(comment){
+				comment.commentLength = comment.text.length;
+			};
+
 			$scope.addNewComment = function (flag, pub, pubText, files) {
 				$scope.disableAddComment = true;
 				var images = [];
