@@ -170,8 +170,8 @@
 												</div>
 
 											</div>
-											<p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
-											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
+											<div ng-show="splitText(singlePublication.text) !== 'undefined'"><p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
+											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p></div>
 											<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 										</div>
 										<div class="likes">
@@ -251,7 +251,7 @@
 										<div class="add-comment" ng-show="singlePublication.showAddComment">
 											<div class="user-ava">
 												<a class="ava" ui-sref="user({username: loggedUser})">
-													<img ng-src="{{loggedUserAva}}" alt="">
+													<img ng-src="{{loggedUserAvatar}}" alt="">
 												</a>
 											</div>
 											<div style="position:relative;" class="add">

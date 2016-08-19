@@ -24,7 +24,7 @@ class OptionController extends Controller
                 'mail' => 'email',
                 'time_chat_message' => 'integer',
                 'users_chat_message' => 'integer',
-                'user_foto_bloc' => 'boolean'
+                //'user_foto_bloc' => 'boolean'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -37,8 +37,13 @@ class OptionController extends Controller
             return redirect('admin/option/')->with('message', 'Ошибка!!! Не сохраненно');
         }
         $optionData = $request->all();
+        if ($request->input('user_foto_bloc') == 'on'){
+            $optionData['user_foto_bloc'] = true;
+        } else {
+            $optionData['user_foto_bloc'] = false;
+        }
         $option = Option::first();
-        dd($request);
+
         $option->update($optionData);
         return redirect('admin/option/')->with('message', 'Сохраненно');
     }

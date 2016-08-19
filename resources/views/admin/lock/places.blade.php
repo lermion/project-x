@@ -20,9 +20,10 @@
                   <tr>
                     <th class="col-id">id</th>
                     <th class="col-title">Название места</th>
+                    <th class="col-description">Описание</th>
+                    <th class="col-author">Создатель</th>
                     <th class="col-cover">Обложка</th>
                     <th class="col-cover">Аватар</th>
-                    <th class="col-author">Создатель</th>
                     <th class="col-count">Количество участников</th>
                     <th class="col-time">Время создания</th>
                     <th class="col-do">Действия</th>
@@ -33,18 +34,17 @@
                   <tr>
                     <td><a href="">{{$place->id}}</a></td>
                     <td>{{$place->name}}</td>
+                    <td>Описание</td>
+                    <td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>
                     <td class="img-center">
                         <img src="{{$place->cover}}" alt="{{$place->cover}}">
                     </td>
                     <td class="img-center">
                         <img src="{{$place->avatar}}" alt="{{$place->avatar}}">
                     </td>
-                    <td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>
-                    </td>
                     <td>{{$place->users()->count()}}</td>
                     <td>{{$place->created_at}}</td>
                     <td class="text-center">
-
                         <a class="btn btn-success btn-xs" href="/admin/lock/unlock_place/{{$place->id}}">Восстановить</a>
                         <a class="btn btn-danger btn-xs deleteConfirm-del" href="/admin/lock/destroy_place/{{$place->id}}">Удалить</a>
                     </td>

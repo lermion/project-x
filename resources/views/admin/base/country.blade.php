@@ -26,42 +26,17 @@
               </tr>
             </thead>
             <tbody>
+            @foreach($countries as $country)
               <tr>
-                <td>1</td>
-                <td>Украина</td>
+                <td>{{$country->id}}</td>
+                <td>{{$country->name}}</td>
                 <td class="text-center">
                     <button class="btn btn-warning btn-xs">Редактировать</button>
                 </td>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>Россия</td>
-                <td>
-                    <p class="text-center">
-                        <button class="btn btn-warning btn-xs">Редактировать</button>
-                    </p>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Польша</td>
-                <td>
-                    <p class="text-center">
-                        <button class="btn btn-warning btn-xs">Редактировать</button>
-                    </p>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Беларусь</td>
-                <td>
-                    <p class="text-center">
-                        <button class="btn btn-warning btn-xs">Редактировать</button>
-                    </p>
-                </td>
-              </tr>
+            @endforeach
             </tbody>
           </table>
     </div>
-
+  {!! $countries->render() !!}
 @stop

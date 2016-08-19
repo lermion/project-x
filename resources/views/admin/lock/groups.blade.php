@@ -19,11 +19,11 @@
                 <thead>
                   <tr>
                     <th class="col-id">id</th>
-                    <th class="col-description">Описание группы</th>
-                    <th class="col-author">Имя автора</th>
                     <th class="col-name">Название группы</th>
-                    <th class="col-img">Аватарка</th>
-                    <th class="col-video">Видео</th>
+                    <th class="col-description">Описание группы</th>
+                    <th class="col-img">Обложка</th>
+                    <th class="col-author">Создатель</th>                    
+                    <th class="col-video">Количество участников</th>
                     <th class="col-time">Время создания</th>
                     <th class="col-action">Действия</th>
                   </tr>
@@ -32,13 +32,13 @@
                 @foreach($groups as $group)
                   <tr>
                     <td><a href="">{{$group->id}}</a></td>
-                    <td>{{$group->description}}</td>
-                    <td>{{$group->creator->first()->first_name}} {{$group->creator->first()->last_name}}</td>
                     <td>{{$group->name}}</td>
+                    <td>{{$group->description}}</td>
                     <td>
                         <img src="{{$group->avatar}}" alt="{{$group->avatar}}">
                     </td>
-                    <td>видео</td>
+                    <td>{{$group->creator->first()->first_name}} {{$group->creator->first()->last_name}}</td>
+                    <td>{{$group->users()->count()}}</td>
                     <td>{{$group->created_at}}</td>
                     <td class="text-center">
                         <a class="btn btn-success btn-xs" href="/admin/lock/unlock_group/{{$group->id}}">Восстановить</a>
