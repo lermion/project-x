@@ -24331,7 +24331,7 @@
 
     test('suffix', function (assert) {
         assert.equal(moment(30000).from(0), 'через несколько секунд', 'prefix');
-        assert.equal(moment(0).from(30000), 'несколько секунд назад', 'suffix');
+        assert.equal(moment(0).from(30000), 'только что', 'suffix');
     });
 
     test('fromNow', function (assert) {
