@@ -479,10 +479,13 @@ div table.table>tbody>tr:hover {
 	width: 4%;
 }
 .moderator-content-table.groups .col-title {
+	width: 12%;
+}
+.moderator-content-table.groups .col-description {
 	width: 14%;
 }
 .moderator-content-table.groups .col-cover {
-	width: 5%;
+	width: 6%;
 }
 .moderator-content-table.groups .col-author {
 	width: 10%;
@@ -491,7 +494,7 @@ div table.table>tbody>tr:hover {
 	width: 7%;
 }
 .moderator-content-table.groups .col-time {
-	width: 7%;
+	width: 9%;
 }
 .moderator-content-table.groups .col-do {
 	width: 22%;
