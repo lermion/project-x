@@ -606,7 +606,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.splitText = function (text) {
-				console.log(text);
 				if (text != undefined) {
 					var mes = text.split(' messagetext: ');
 					return mes[1];
