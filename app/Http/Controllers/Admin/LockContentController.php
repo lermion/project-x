@@ -93,6 +93,7 @@ class LockContentController extends Controller
         $publications = Publication::with('user','images','videos','group')
             ->where('is_block',true)
             ->paginate(25);
+        return $publications;
         return view('admin.lock.publications')->with('publications',$publications);
     }
 

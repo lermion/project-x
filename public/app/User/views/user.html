@@ -170,8 +170,8 @@
 												</div>
 
 											</div>
-											<p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
-											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p>
+											<div ng-show="splitText(singlePublication.text) !== 'undefined'"><p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
+											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p></div>
 											<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 										</div>
 										<div class="likes">
