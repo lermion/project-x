@@ -536,7 +536,7 @@ footer {
 	width: 100%;
 	left: 0;
 	right: 0;
-	background: #8c8d8f;
+	background: rgba(0,0,0, 0.3);
 	height: 40px;
 	z-index: 2;
 }
