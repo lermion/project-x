@@ -52,7 +52,7 @@ angular.module('placePeopleApp')
 
 				// replace @mentions but keep them to our site
 				var replacePattern2 = /(^|\s)\@(\w*[a-zA-Z_]+\w*)/gim;
-				replacedText = replacedText.replace(replacePattern2, '$1<a href="$2"' + targetAttr + '>@$2</a>');
+				replacedText = replacedText.replace(replacePattern2, '$1<a href="$2" class="link-at-hashtag"' + targetAttr + '>@$2</a>');
 
 				return replacedText;
 			};
