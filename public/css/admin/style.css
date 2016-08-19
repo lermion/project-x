@@ -162,8 +162,13 @@ photo
 	font-weight: bold;
 	list-style: none;
 }
-.admin-settings-menu li.active,
+/*.admin-settings-menu li.active,*/
 .ui-tabs-active  {
+	background-color: #f1f1f1;
+}
+.admin-settings li a:active,
+.admin-settings li a:visited,
+.admin-settings li a:hover {
 	background-color: #f1f1f1;
 }
 .admin-settings-menu li:hover {
@@ -479,10 +484,13 @@ div table.table>tbody>tr:hover {
 	width: 4%;
 }
 .moderator-content-table.groups .col-title {
+	width: 12%;
+}
+.moderator-content-table.groups .col-description {
 	width: 14%;
 }
 .moderator-content-table.groups .col-cover {
-	width: 5%;
+	width: 6%;
 }
 .moderator-content-table.groups .col-author {
 	width: 10%;
@@ -491,7 +499,7 @@ div table.table>tbody>tr:hover {
 	width: 7%;
 }
 .moderator-content-table.groups .col-time {
-	width: 7%;
+	width: 9%;
 }
 .moderator-content-table.groups .col-do {
 	width: 22%;
