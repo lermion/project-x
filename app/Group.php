@@ -17,7 +17,7 @@ class Group extends Model
 
     public function creator()
     {
-        return $this->belongsToMany('App\User', 'group_users')->wherePivot('is_creator', true);;
+        return $this->belongsToMany('App\User', 'group_users')->wherePivot('is_creator', true);
     }
 
     public function publications()

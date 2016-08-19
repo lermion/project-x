@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Area;
+use App\City;
 use App\Country;
 use App\Region;
 use Illuminate\Http\Request;
@@ -19,7 +21,10 @@ class CountryController extends Controller
 
     public function district()
     {
-        return view('admin.base.district');
+        $countries = Country::get();
+        $regions = Region::get();
+        $areas = Area::paginate(25);
+        return view('admin.base.district',['areas'=>$areas,'regions'=>$regions,'countries'=>$countries]);
     }
 
 
@@ -27,13 +32,17 @@ class CountryController extends Controller
     {
         $countries = Country::get();
         $regions = Region::paginate(25);
-        return view('admin.base.region')->with('regions',$regions);
+        return view('admin.base.region',['regions'=>$regions,'countries'=>$countries]);
     }
 
 
     public function settlement()
     {
-        return view('admin.base.settlement');
+        $countries = Country::get();
+        $regions = Region::get();
+        $areas = Area::get();
+        $cities = City::paginate(25);
+        return view('admin.base.settlement',['cities'=>$cities,'areas'=>$areas,'regions'=>$regions,'countries'=>$countries]);
     }
 
 
