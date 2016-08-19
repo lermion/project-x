@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Country;
+use App\Region;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,7 +13,8 @@ class CountryController extends Controller
 {
     public function index()
     {
-        return view('admin.base.country');
+        $countries = Country::paginate(25);
+        return view('admin.base.country')->with('countries',$countries);
     }
 
     public function district()
@@ -23,7 +25,9 @@ class CountryController extends Controller
 
     public function region()
     {
-        return view('admin.base.region');
+        $countries = Country::get();
+        $regions = Region::paginate(25);
+        return view('admin.base.region')->with('regions',$regions);
     }
 
 
