@@ -200,7 +200,7 @@
 												комментариев</a>
 										</div>
 										<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
-											<div ng-repeat="comment in singlePublication.comments" class="user-comment">
+											<div ng-repeat="comment in singlePublication.comments" class="user-comment" ng-init="comment.commentLength = 250;">
 												<div class="user-ava">
 													<a class="ava" ui-sref="user({username: comment.user.login})">
 														<img ng-src="{{comment.user.avatar_path}}" alt="">
@@ -226,7 +226,8 @@
 														   class="alert" ng-show="comment.user.id == loggedUserId"></a>
 													</div>
 													<p class="comment-item" ng-click="goToSearch(comment.text)"
-													   ng-bind-html="comment.text | colonToSmiley | linkCheck"></p>
+													   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck"></p>
+													<a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>   
 
 													<div ng-if="comment.images[0]" class="comment-pic">
 														<a ng-repeat="image in comment.images | limitTo: 3 as results"
