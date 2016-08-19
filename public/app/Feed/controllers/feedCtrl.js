@@ -478,8 +478,10 @@ angular.module('placePeopleApp')
 							if (flag === "feedPage") {
 								pub.comments = pub.comments.reverse();
 								pub.comments.splice(index, 1);
+								pub.comment_count--;
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
+								$scope.singlePublication.comment_count--;
 							}
 						}
 					},

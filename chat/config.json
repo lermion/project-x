@@ -1,7 +1,7 @@
 {
 	"port": 3000,
 	"host": "localhost",
-	"user": "root",
-	"password": "",
+	"user": "dev_pphqsale",
+	"password": "zjmrChSq",
 	"database": "pp2"
-} 
+}

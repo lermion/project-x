@@ -305,33 +305,7 @@ Route::group(['middleware' => ['web']], function () {
              <input type=\"submit\">
              </form>";
     });
-    Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/publication/show/74\" method=\"get\" enctype=\"multipart/form-data\">
-            <input type='text' name='gender' value='1'><br>
-            <input type='text' name='is_avatar' value='1'><br>
-            <input type='text' name='num_records' value='10'>
-            <input type='text' name='reg_range_from' value='2016-07-25'>
-            <input type='text' name='reg_range_to' value='2016-08-01'>
-            <input type='text' name='keywords' value='f'>
-            <input type='text' name='age_range_from' value='1'>
-            <input type='text' name='age_range_to' value='28'>
-
-
-
-            <input type=\"submit\">
-            </form>";
-    });
     Route::post('searchgeo','SphinxSearchController@geosearch');
-
-    Route::get('searchgeo', function () {
-        echo "<form action=\"http://".$_SERVER['SERVER_NAME']."/searchgeo\" method=\"post\" enctype=\"multipart/form-data\">
-            <input type='text' name='coordinate_x'><br>
-             <input type='text' name='coordinate_y'><br>
-            
-            <input type=\"submit\">
-            </form>";
-    });
-
     Route::any( '{angularjs}', function ( $page ) {
         return view('welcome');
 

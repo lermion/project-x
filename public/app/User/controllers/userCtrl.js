@@ -290,6 +290,9 @@ angular.module('placePeopleApp')
 					.then(function (data) {
 						if (data.status) {
 							user.is_sub = data.is_sub;
+							if ($scope.myProfile) {
+								data.is_sub ? $scope.userData.subscription_count++ :  $scope.userData.subscription_count--;
+							}
 						}
 					});
 			};
@@ -770,6 +773,7 @@ angular.module('placePeopleApp')
 							if (flag === "userPage") {
 								pub.comments = pub.comments.reverse();
 								pub.comments.splice(index, 1);
+								pub.comment_count--;
 							} else {
 								$scope.singlePublication.comments.splice(index, 1);
 								$scope.singlePublication.comment_count--;

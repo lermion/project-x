@@ -28,7 +28,7 @@
             </div>
 
             <div class="group-description-container1 animate-if" ng-if="vm.showFullDescription">
-                <p ng-bind-html="vm.place.description | colonToSmiley | linkCheck"></p>
+                <p ng-bind-html="vm.place.description | colonToSmiley | linkCheck" ng-click="goToSearch(vm.place.description)"></p>
             </div>
 
             <div class="place-menu-wrap">

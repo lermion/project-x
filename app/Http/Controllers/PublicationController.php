@@ -197,12 +197,13 @@ class PublicationController extends Controller
                     continue;
                 }
 
-                try {
+               // try {
                     $f_name = $video->getClientOriginalName();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
                     Video::makeFrame($f_name, $f_path, $new_fname);
+		    Video::makeVideo($f_name, $f_path, $new_fname);
                     $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
                     if (substr(php_uname(), 0, 7) == "Windows"){
                         pclose(popen("start /B ". $cmd, "r"));
@@ -210,7 +211,7 @@ class PublicationController extends Controller
                     else {
                         exec($cmd . " > /dev/null &");
                     }
-                }
+               /* }
                 catch (\Exception $e) {
                     $result = [
                         "status" => false,
@@ -220,7 +221,7 @@ class PublicationController extends Controller
                         ]
                     ];
                     return response()->json($result);
-                }
+                }*/
 
                 $publication->videos()->create([
                     'url' => $new_fname . '.webm',

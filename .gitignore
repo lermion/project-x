@@ -8,3 +8,4 @@ Homestead.json
 /storage/tmp
 /public/video
 public/node_modules/
+chat/config.json

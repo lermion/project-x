@@ -55,7 +55,7 @@ angular.module('app.groups')
             $scope.limitMyGroups = LIMIT_MY_GROUPS;
             $scope.limitAllPublicGroups = LIMIT_ALL_PUBLIC_GROUPS;
             $scope.filterGroups = {
-                value: ['-is_new_group', '-created_at']
+                value: '-count_user'
             };
             $scope.onItemSelected = function (user) {
 

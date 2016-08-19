@@ -353,6 +353,7 @@
     align-items: center;
 }
 .ngdialog.popup-invite-group.ngdialog-theme-default .ngdialog-content {
+    font-family: SFUIDisplayLight, Arial, sans-serif;
     background: #fff;
     width: 700px;
     margin-left: -350px;
@@ -1262,6 +1263,7 @@ label span.add {
     font-weight: bold;
 }
 .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
+    font-family: SFUIDisplayLight, Arial, sans-serif;
     background: #fff;
     width: 700px;
     margin-left: -350px;
@@ -1525,7 +1527,7 @@ label span.add {
 }
 .popup-add-group .fifth_item .item1 {
     padding: 0;
-    margin: 10px 0 0 0;
+    /*margin: 10px 0 0 0;*/
 }
 .popup-add-group .fifth_item .item1 li {
     position: relative;
@@ -1721,6 +1723,7 @@ div.my_profilll.photo-list div:last-child {
     appearance: none;
     font-size: 14.6px;
     padding-left: 30px;
+    padding-right: 30px;
     background-image: url(/images/filter.png);
     background-position: left center;
     background-size: 12%;
@@ -2240,7 +2243,7 @@ div.my_profilll.photo-list div:last-child {
 }
 .popup-add-group .fifth_item .item1 {
     padding: 0;
-    margin: 10px 0 10px 0;
+    /*margin: 10px 0 10px 0;*/
 }
 .item1-add-people-container {
     display: flex;
@@ -3098,6 +3101,7 @@ span.users-today-time-time.early {
     box-sizing: border-box;
 }
 .create-places-common-inner {
+    font-family: SFUIDisplayLight, Arial, sans-serif;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -5180,7 +5184,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 .create-places-common-inner .fifth_item .item1 {
     padding: 0;
-    margin: 10px 0 10px 0;
+    /*margin: 10px 0 10px 0;*/
 }
 .create-places-common-inner .fifth_item .item1 {
     width: 100%;
@@ -5190,7 +5194,7 @@ input.cmn-toggle-round:checked + label:after {
 }
 .create-places-common-inner .fifth_item .item1 {
     padding: 0;
-    margin: 10px 0 10px 0;
+    /*margin: 10px 0 10px 0;*/
 }
 @media (max-width: 720px) {
     .create-places-common {

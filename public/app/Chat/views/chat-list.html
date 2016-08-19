@@ -22,7 +22,7 @@
 		</div>
 	</div> -->
 	<div class="chat-left-users-i-sign" ng-show="Model.chatRooms.length === 0">Список чатов пуст</div>
-	<div ng-class="{active:isSelected($index)}" class="chat-left-users-users-today" ng-repeat="chat in Model.chatRooms | filter:{$:query}" ng-class="Model.currRoute ? '' : Model.opponent.id === chat.members[0].id ? 'active' : ''">
+	<div ng-class="{active:isSelected($index)}" class="chat-left-users-users-today" ng-repeat="chat in Model.chatRooms | filter:{$:query} | orderBy: '-last_message_created_at'" ng-class="Model.currRoute ? '' : Model.opponent.id === chat.members[0].id ? 'active' : ''">
 		<div class="chat-users-today-ava" ng-init="!!chat.is_group ? chat.sref = 'chat.list' : chat.sref = 'user({username: chat.members[0].login})'">
 			<a ui-sref="{{chat.sref}}">
 				<img ng-src="{{!!chat.is_group ? chat.avatar ? chat.avatar : '/images/user.png' : chat.members[0].avatar_path ? chat.members[0].avatar_path : '/images/user.png'}}" alt="">
