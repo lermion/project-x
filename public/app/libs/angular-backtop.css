@@ -25,10 +25,12 @@
     width: 80px;
     position: relative;
     background-color: #e0e0e0;
-    transition:all .2s ease-out
+    transition:all .2s ease-out;
+    color: #586883;
 }
 #backtop button:hover{cursor:pointer;
 	background-color: #cbcbcb;
+	color: #878787;
 }
 .show{display:block !important}
 @media (max-width: 900px) {
@@ -39,7 +41,6 @@
 }
 #backtop > button > div {
 	font-family: "SFUIDisplayMedium";
-    color: #586883;
     padding: 0 0 0 25px;
     background: url(/images/up-icon.png) no-repeat left 5px center;
     background-size: 14px;
