@@ -68,7 +68,7 @@
                     <span class="add"></span>
                     Добавить фото или видео *
                 </label>
-                <div class="error-messages" ng-messages="vm.newPublicationForm.files1.$error" ng-if="vm.newPublicationForm.$invalid && vm.newPublicationForm.$submitted || vm.newPublicationForm.$dirty">
+                <div class="error-messages" ng-messages="vm.newPublicationForm.files1.$error" ng-if="vm.newPublicationForm.$invalid && vm.newPublicationForm.$submitted">
                     <div ng-message="required">Вы не выбрали медиафайл</div>
                     <div ng-message="pattern">Выбранный файл не является фото или видео</div>
                 </div>

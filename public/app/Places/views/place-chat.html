@@ -57,7 +57,8 @@
 						</div>
 						<div class="likes">
 							<div class="likes-item">
-								<a href="javascript:void(0);" ng-click="addPublicationLike(message.pub)" class="like">Тема</a>
+								<a href="javascript:void(0);" ng-click="addPublicationLike(message.pub)" class="like"
+								ng-class="message.pub.user_like ? 'active': ''">Тема</a>
 								<p class="like-item" ng-if="message.pub.like_count > 0">
 									В теме 
 									<span ng-if="message.pub.user_like" class="you"> Вы </span>

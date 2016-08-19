@@ -37,7 +37,7 @@
 
                 <div class="likes">
                     <div class="likes-item">
-                        <a href class="like">Тема</a>
+                        <a href class="like" ng-class="pub.user_like ? 'active': ''">Тема</a>
 
                         <p class="like-item">
                             <span class="count-like" ng-if="+pub.cnt_likes > 0">В теме {{::+pub.cnt_likes}} чел.</span>

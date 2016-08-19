@@ -178,7 +178,8 @@
 											<div class="likes-item">
 												<a href="javascript:void(0);"
 												   ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)"
-												   class="like">Тема</a>
+												   class="like"
+												ng-class="singlePublication.user_like ? 'active': ''">Тема</a>
 
 												<p class="like-item" ng-if="singlePublication.like_count > 0">
 													В теме
@@ -213,8 +214,8 @@
 																{{comment.user.last_name}}</a>
 
 															<p class="time" am-time-ago="comment.created_at"></p>
-															<a href="javascript:void(0);"
-															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : '&nbsp;'}}</a>
+															<a ng-hide="comment.like_count === 0 && comment.user.id === loggedUserId" href="javascript:void(0);"
+															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
 														</div>
 														<a href="javascript:void(0);"
 														   ng-click="alertPubComment(comment.id)"

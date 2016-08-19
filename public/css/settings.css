@@ -97,7 +97,6 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    transition: all .1s ease-in-out .2s;
     color: #999;
     border-radius: 2px;
 }
@@ -115,7 +114,6 @@
     font-weight: 400;
     background: #fff;
     margin-bottom: 10px;
-    transition: all .1s ease-in-out .2s;
     margin-bottom: 0;
     color: #999;
     border-radius: 2px;
@@ -2518,7 +2516,7 @@ div.my_profilll.photo-list div:last-child {
     white-space: nowrap;
 }
 .chat-person-top-info a {
-    width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     line-height: 20px;
@@ -7022,7 +7020,6 @@ button.settings-btn {
     font-family: "SFUIDisplayMedium";
     line-height: 30px;
     padding: 0 10px;
-    transition: all .1s ease-in-out .1s !important;
     color: #fff;
     background-color: #495b79;
     border-radius: 3px;
@@ -7039,4 +7036,5 @@ button.settings-btn {
  }
 .link-at-hashtag {
     color: #495b79;
+    font-family: "SFUIDisplayLight";
   }
