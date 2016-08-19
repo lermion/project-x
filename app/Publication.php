@@ -109,6 +109,7 @@ class Publication extends Model
     {
         $publications = Publication::with(['videos', 'images', 'user'])
             ->where('publications.user_id', $userId)
+            ->where('publications.is_main', false)
             ->where('publications.is_anonym', false)
             ->where(function($query){
                 $query->whereNotExists(function($query)

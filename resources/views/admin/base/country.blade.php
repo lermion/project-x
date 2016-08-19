@@ -1,13 +1,13 @@
 @extends('admin.layout')
 
 @section('content')
-  <form action="">
+  <form action="{{action('Admin\OptionController@create')}}" method="post">
     <div class="row country">
       <div class="col-md-2">
         <span class="line-h"><b>Добавить страну</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" placeholder="Введите название...">
+        <input class="form-control" type="text" name="name" placeholder="Введите название...">
       </div>
     </div>
       <p>

@@ -65,20 +65,23 @@
               </tr>
             </thead>
             <tbody>
+            @foreach($cities as $city)
               <tr>
-                <td>1</td>
-                <td>Днепродзержинск</td>
-                <td>Днепровский район</td>
-                <td>Днепропетровская область</td>
-                <td>Украина</td>
+                <td>{{$city->id}}</td>
+                <td>{{$city->name}}</td>
+                <td></td>
+                <td></td>
+                <td>{{$countries->where('id',$city->country_id)->first()->name}}</td>
                 <td>
+                    {{--{{$area->where('id',$city->area_id)->first()->name}}--}}
                     <p class="text-center">
                         <button class="btn btn-warning btn-xs">Редактировать</button>
                     </p>
                 </td>
               </tr>
             </tbody>
+            @endforeach
           </table>
     </div>
-
+{!! $cities->render() !!}
 @stop
