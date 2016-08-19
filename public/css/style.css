@@ -4056,8 +4056,8 @@ body.ngdialog-open {
 		width: 500px;
 	}
 	.group-publication .photo {
-		width: 166px;
-		height: 166px;
+		width: 164px;
+		height: 164px;
 		margin: 0 1px 1px 0;
 	}
 	.group-publication .photo:nth-child(3n) {
