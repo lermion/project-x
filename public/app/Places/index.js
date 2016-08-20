@@ -85,7 +85,7 @@
                 templateUrl: '../../app/Places/views/place.html',
                 controller: 'PlaceCtrl',
                 controllerAs: 'vm',
-                isLogin: true,
+                isLogin: false,
                 showHeader: true,
                 params: {
                     placeId: null,

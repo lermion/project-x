@@ -14,14 +14,15 @@
                 url: '/groups',
                 templateUrl: '../../app/Groups/views/groups.html',
                 controller: 'groupsCtrl',
-                showHeader: true
+                showHeader: true,
+                isLogin: true
             })
             .state('group', {
                 url: '/group/:groupName',
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
-                isLogin: true,
+                isLogin: false,
                 showHeader: true,
                 params: {
                     groupId: null,

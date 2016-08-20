@@ -24,7 +24,7 @@
 						<span class="button" ng-click="submitSearch()"></span>
 					</form>
 				</div>
-				<a class="profile" ui-sref="user({username: loggedUser})">Мой профиль <span class="places-count-span" ng-if="counters.subscribersNew > 0">@{{counters.subscribersNew}}</span></a>
+				<a class="profile" ui-sref="user({username: $root.user.username})">Мой профиль <span class="places-count-span" ng-if="counters.subscribersNew > 0">@{{counters.subscribersNew}}</span></a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
 				<a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span" ng-if="counters.groupsNew > 0">@{{counters.groupsNew}}</span></a>
 				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
@@ -45,7 +45,7 @@
 	</header>
 	<header ng-cloak ng-if="!$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
 		<div class="header">
-			<a class="logo" href="javascript:void(0);"></a>
+			<a class="logo" ui-sref="auth"></a>
 			<a class="registration" ui-sref="reg">Регистрация</a>
 			<a class="exit enter"  ui-sref="login"><span></span>Вoйти</a>
 		</div>
@@ -142,7 +142,7 @@
 		<div class="footer">
 			<div class="footer-item">
 				<div class="footer-place">
-					<a href="javascript:void(0)">Place People </a>
+					<a ui-sref="auth">Place People </a>
 					<span>© 2016</span>
 				</div>
 				<!-- <div class="payment">

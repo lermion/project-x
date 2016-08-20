@@ -3,7 +3,7 @@
 		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div> -->
-		<div ng-init="checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === vm.loggedUser ? 'my-messege' : 'users-messege'">
+		<div ng-init="checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === $root.user.username ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
 					<img ng-src="{{message.avatar_path}}" alt="">
@@ -73,7 +73,7 @@
 				</div>
 				<div ng-hide="message.type === 'pub'" class="user-messege">
 					<div class="messege">
-						<a ng-hide="messages[$index - 1].login == vm.loggedUser" class="user-name">{{message.first_name}} {{message.last_name}}</a>
+						<a ng-hide="messages[$index - 1].login == $root.user.username" class="user-name">{{message.first_name}} {{message.last_name}}</a>
 						<div class="messege-text">
 							<p ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
