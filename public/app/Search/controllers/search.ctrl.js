@@ -90,7 +90,7 @@
         function init() {
             $scope.$emit('userPoint', 'user');
             var storage = storageService.getStorage();
-            vm.loggedUser = storage.username;
+            //vm.loggedUser = storage.username;
 
             $http.get('/static_page/get/name')
                 .success(function (response) {

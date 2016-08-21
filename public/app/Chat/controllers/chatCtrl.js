@@ -8,7 +8,7 @@ angular.module('placePeopleApp')
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
-			$scope.loggedUser = storage.username;
+			//$scope.loggedUser = storage.username;
 			$scope.showFileAddMenu = false;
 			$scope.myCroppedImage = null;
 			$scope.counter = 10;

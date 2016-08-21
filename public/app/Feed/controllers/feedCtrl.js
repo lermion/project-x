@@ -1,13 +1,13 @@
 angular.module('placePeopleApp')
 	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService',
 		'AuthService', 'FeedService', '$window', '$http', 'storageService', 'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-		'socket', 'groupsService', 'placesService', '$location', '$q',
+		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope',
 		function ($scope, $state, $stateParams, StaticService, PublicationService, AuthService,
 				  FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout,
-				  UserService, socket, groupsService, placesService, $location, $q) {
+				  UserService, socket, groupsService, placesService, $location, $q, $rootScope) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
-			$scope.loggedUser = storage.username;
+			//$scope.loggedUser = storage.username;
 			$scope.emojiMessage = {};
 			$scope.shareData = [];
 			$scope.loggedUserAva = storage.loggedUserAva;
@@ -362,17 +362,17 @@ angular.module('placePeopleApp')
 					});
 			}
 
-			UserService.getUserData($scope.loggedUser).then(function (res) {
-				$scope.userData = res;
-				if (res.login === storage.username) {
-					$scope.myProfile = true;
-					storageService.setStorageItem('loggedUserAva', res.avatar_path);
-					$scope.loggedUserAva = res.avatar_path;
-				}
-			},
-			function (err) {
-				console.log(err);
-			});
+			//UserService.getUserData($rootScope.user.username).then(function (res) {
+			//	$scope.userData = res;
+			//	if (res.login === storage.username) {
+			//		$scope.myProfile = true;
+			//		storageService.setStorageItem('loggedUserAva', res.avatar_path);
+			//		$scope.loggedUserAva = res.avatar_path;
+			//	}
+			//},
+			//function (err) {
+			//	console.log(err);
+			//});
 
 
 			$scope.complainIsSend = false;

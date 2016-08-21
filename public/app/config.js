@@ -25,7 +25,7 @@ angular.module('placePeopleApp')
                     url: '/',
                     templateUrl: '../../app/Auth/views/auth.html',
                     controller: 'authCtrl',
-                    isLogin: true,
+                    isLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function () {
@@ -37,7 +37,7 @@ angular.module('placePeopleApp')
                     url: '/auth/registration',
                     templateUrl: '../../app/Auth/views/reg.html',
                     controller: 'authCtrl',
-                    isLogin: true,
+                    isLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function ($rootScope, AuthService) {
@@ -52,7 +52,7 @@ angular.module('placePeopleApp')
                     url: '/auth/restore',
                     templateUrl: '../../app/Auth/views/restore.html',
                     controller: 'authCtrl',
-                    isLogin: true,
+                    isLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function () {
@@ -77,7 +77,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Static/views/static.html',
                     controller: 'staticCtrl',
                     showHeader: true,
-                    isLogin: true
+                    isLogin: false
                 })
                 .state('subscribers', {
                     url: '/:username/subscribers/:id',
@@ -223,34 +223,56 @@ angular.module('placePeopleApp')
                         }]
                     }
                 })
-                //.state('mobile-pub-view', {
-                //    url: '/:username/pub/:id',
-                //    templateUrl: '../../app/User/views/view-publication.html',
-                //    showHeader: true,
-                //    controller: 'userCtrl'
-                //})
+                .state('mobile-pub-view', {
+                    url: '/:username/pub/:id',
+                    templateUrl: '../../app/User/views/view-publication.html',
+                    showHeader: true,
+                    controller: 'userCtrl',
+                    resolve: {
+                        profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($stateParams.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }],
+                        publications: function () {
+
+                        }
+                    }
+                })
                 .state('mobile-pub-view-test', {
                     url: '/m/pub/:id',
                     templateUrl: '../../app/common/views/pub-list-item.html',
                     showHeader: true,
                     params: {
-                      prevState: {
-                          name: null,
-                          params: null
-                      }
+                        prevState: {
+                            name: null,
+                            params: null
+                        }
                     },
-                    controller: function(publication, $stateParams) {
+                    controller: function (publication, $stateParams) {
                         this.title = '111';
                         this.publication = publication;
                         this.prevState = $stateParams.prevState;
                     },
                     controllerAs: 'vm',
                     resolve: {
-                        publication: ['$q', '$stateParams', 'PublicationService', function($q, $stateParams, PublicationService) {
+                        publication: ['$q', '$stateParams', 'PublicationService', function ($q, $stateParams, PublicationService) {
                             var defer = $q.defer();
 
                             PublicationService.getSinglePublication($stateParams.id)
-                                .then(function(data) {
+                                .then(function (data) {
                                     defer.resolve(data);
                                 });
 
@@ -264,12 +286,16 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/User/views/user.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false
+                    isLogin: false,
+                    resolve: {
+                        profile: null,
+                        publications: null
+                    }
                 })
 
 
         }])
-    .run(['$rootScope', function ($rootScope) {
+    .run(['$rootScope', 'storageService', function ($rootScope, storageService) {
 
         // Header counters
         $rootScope.counters = {

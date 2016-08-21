@@ -34,8 +34,8 @@
                   <tr>
                     <td><a href="">{{$place->id}}</a></td>
                     <td>{{$place->name}}</td>
-                    <td>Описание</td>
-                    <td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>
+                    <td>{{$place->description}}</td>
+                    <td>{{$place->creator->first()->first_name.' '.$place->creator->first()->last_name}}</td>
                     <td class="img-center">
                         <img src="{{$place->cover}}" alt="{{$place->cover}}">
                     </td>
@@ -67,7 +67,17 @@
                 event.preventDefault();
                 return false;
             }
-        })
+        });
+        $('.admin-settings-menu li a').each(function () {
+            var location = window.location.href;
+            var link = this.href;
+            location += "/";
+            var index = location.indexOf(link);
+            console.log(index);
+            if(location == link) {
+                $(this).addClass('active');
+            }
+        });
     </script>
     {!! $places->render() !!}
 @stop

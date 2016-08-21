@@ -249,7 +249,7 @@
 										</div>
 										<div class="add-comment" ng-show="singlePublication.showAddComment">
 											<div class="user-ava">
-												<a class="ava" ui-sref="user({username: loggedUser})">
+												<a class="ava" ui-sref="user({username: $root.user.username})">
 													<img ng-src="{{loggedUserAvatar}}" alt="">
 												</a>
 											</div>

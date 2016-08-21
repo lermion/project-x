@@ -41,7 +41,6 @@
                     ctrl.pub = ctrl.pubData;
                     ctrl.avatar = getAvatarPath();
                     ctrl.authorName = getAuthorName();
-
                 };
 
                 ctrl.$onChanges = function (args) {

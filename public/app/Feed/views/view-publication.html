@@ -91,8 +91,8 @@
 	</div>
 	<div class="add-comment">
 		<div class="user-ava">
-			<a class="ava" ui-sref="user({username: loggedUser})" ng-click="closePopup()">
-				<img ng-src="{{userData.avatar_path}}" alt="">
+			<a class="ava" ui-sref="user({username: $root.user.username})" ng-click="closePopup()">
+				<img ng-src="{{$root.user.loggedUserAva}}" alt="">
 			</a>
 		</div>
 		<div flow-init style="position:relative;" class="add">

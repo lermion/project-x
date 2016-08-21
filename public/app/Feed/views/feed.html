@@ -108,7 +108,7 @@
                                     <span class="count-like" ng-hide="pub.user_like && pub.like_count == 1">{{pub.user_like ? pub.like_count - 1 : pub.like_count}} чел.</span>
                                 </p>
                             </div>
-                            <a href="javascript:void(0);" class="comments-count">{{pub.comment_count}}</a>
+                            <a href ng-if="pub.comment_count > 0" class="comments-count">{{pub.comment_count}}</a>
                         </div>
                         <div class="more-comments"
                              ng-show="pub.comments.length !== pub.comment_count">
@@ -118,7 +118,7 @@
                         <div ng-hide="pub.comments.length === 0" class="visible-comments">
                             <div ng-repeat="comment in pub.comments" class="user-comment" ng-init="comment.commentLength = 250;">
                                 <div class="user-ava">
-                                    <a class="ava" ui-sref="user({username: loggedUser})">
+                                    <a class="ava" ui-sref="user({username: $root.user.username})">
                                         <img ng-src="{{comment.user.avatar_path}}" alt="">
                                     </a>
                                 </div>
@@ -163,8 +163,8 @@
 
                         <div class="add-comment" ng-show="pub.showAddComment" ng-init="pub.commentModel = commentModel">
                             <div class="user-ava">
-                                <a class="ava" ui-sref="user({username: loggedUser})">
-                                    <img ng-src="{{userData.avatar_path}}" alt="">
+                                <a class="ava" ui-sref="user({username: $root.user.username})">
+                                    <img ng-src="{{$root.user.loggedUserAva}}" alt="">
                                 </a>
                             </div>
                             <div style="position:relative;" class="add">

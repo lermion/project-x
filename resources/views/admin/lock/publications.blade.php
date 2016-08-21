@@ -32,7 +32,7 @@
                   <tr>
                     <td><a href="">{{$publication->id}}</a></td>
                     <td>{{$publication->text}}</td>
-                    <td>{{$publication->user_id}}</td>
+                    <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                     <td>
                         <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
                     </td>
@@ -64,7 +64,17 @@
                 event.preventDefault();
                 return false;
             }
-        })
+        });
+        $('.admin-settings-menu li a').each(function () {
+            var location = window.location.href;
+            var link = this.href;
+            location += "/";
+            var index = location.indexOf(link);
+            console.log(index);
+            if(location == link) {
+                $(this).addClass('active');
+            }
+        });
     </script>
     {!! $publications->render() !!}
 @stop

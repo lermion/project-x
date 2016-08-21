@@ -1,7 +1,7 @@
 <h5>Редактировать публикацию</h5>
 <div class="publication">
 	<div class="publication-item">
-		<a class="user" ui-sref="user({username: loggedUser})"  ng-click="closePopup()">
+		<a class="user" ui-sref="user({username: $root.user.username})"  ng-click="closePopup()">
 			<span class="ava">
 				<img ng-src="{{currPub.user.avatar_path}}" alt="">				
 			</span>

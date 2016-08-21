@@ -1,11 +1,11 @@
 <h5>Новая публикация</h5>
 <div class="publication">
 	<div class="publication-item">
-		<a class="user" ui-sref="user({username: loggedUser})">
+		<a class="user" ui-sref="user({username: $root.user.username})">
 			<span class="ava">
-				<img src="{{userData.avatar_path}}" alt="">
+				<img src="{{$root.user.loggedUserAva}}" alt="">
 			</span>
-			<p class="user-name">{{userData.first_name}} {{userData.last_name}}</p>
+			<p class="user-name">{{$root.user.firstName}} {{$root.user.lastName}}</p>
 		</a>
 		<form action="">
 			<input type="checkbox" id="anon" ng-model="isAnonPub">

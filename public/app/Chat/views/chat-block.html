@@ -73,32 +73,32 @@
 			<span>Вчера</span>
 		</div> -->
 		<div ng-hide="message.text == '' && message.images.length === 0" ng-repeat="message in Model.Chat" ng-init="checkMessageType(message)">
-		<div ng-class="message.login === loggedUser ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
+		<div ng-class="message.login ===$root.user.username ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
 			<div class="chat-main-user-sender-ava">
 				<a href="">
 					<img ng-src="{{message.avatar_path}}" alt="">
 				</a>
 			</div>
-			<div ng-class="message.login === loggedUser ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
+			<div ng-class="message.login ===$root.user.username ? 'right-chat-my-msg' : 'right-chat-to-my-msg'" >
 
-				<div ng-class="message.login === loggedUser ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
+				<div ng-class="message.login ===$root.user.username ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
 					<div ng-hide="Model.Chat[$index - 1].login == Model.Chat[Model.Chat.length - 1].login" class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
-					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login === loggedUser ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
+					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login ===$root.user.username ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 					<div ng-if="message.images" class="to-my-msg-inner-photo">
 						<span ng-click="showPopupWithFiles(message.images)" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
 							<img ng-src="{{image.url}}" alt="">
 						</span>
 					</div>
 				</div>
-				<div ng-class="(message.login === loggedUser ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (isReadRoom ? 'done' : 'no-done')">
+				<div ng-class="(message.login ===$root.user.username ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (isReadRoom ? 'done' : 'no-done')">
 					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 				</div>
 			</div>
 		</div>
-		<div ng-class="message.login === loggedUser ? 'chat-right-inner-publication-my' : 'chat-right-inner-publication-to-my'" ng-show="message.type==='pub'" ng-init="loadPubIntoChat(message, message.pub.id)">
-			<div class="chat-publication-wrap" ng-class="message.login === loggedUser ? '' : 'to-my-msg'">
+		<div ng-class="message.login ===$root.user.username ? 'chat-right-inner-publication-my' : 'chat-right-inner-publication-to-my'" ng-show="message.type==='pub'" ng-init="loadPubIntoChat(message, message.pub.id)">
+			<div class="chat-publication-wrap" ng-class="message.login ===$root.user.username ? '' : 'to-my-msg'">
 				<div class="chat-publication-data">
-					<div class="chat-right-top-person" ng-class="message.login === loggedUser ? 'my-msg' : 'chat-my-msg'">
+					<div class="chat-right-top-person" ng-class="message.login ===$root.user.username ? 'my-msg' : 'chat-my-msg'">
 						<div class="chat-top-person-data">	
 							<div class="chat-person-top-ava">
 								<a ui-sref="user({username: message.pub.user.login})">

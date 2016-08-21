@@ -92,12 +92,13 @@
 		function activate() {
 			init();
 			checkSearch();
+			checkPublicationsView();
 		}
 
 		function init() {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
-			vm.loggedUser = storage.username;
+			//vm.loggedUser = storage.username;
 
 			$http.get('/static_page/get/name')
 				.success(function (response) {
@@ -288,6 +289,34 @@
 				}
 
 			});
+		};
+
+		vm.openModalPublication = function(pub, index) {
+			if (isMobile()) {
+
+				$state.go('mobile-pub-view-test', {
+					id: pub.id,
+					prevState: {
+						name: 'group',
+						params: {
+							groupName: vm.group.url_name
+						}
+					}
+				});
+
+			} else {
+				ngDialog.open({
+					templateUrl: '../app/common/components/publication/publication-modal.html',
+					name: 'modal-publication-group',
+					className: 'view-publication ngdialog-theme-default',
+					data: {
+						pub: pub
+					},
+					preCloseCallback: function () {
+						vm.group.publications[index] = vm.activePublication;
+					}
+				});
+			}
 		};
 
 		vm.openModalMediaFile = function (file) {
@@ -1096,6 +1125,10 @@
 			window.location = newPathname.substring(0, newPathname.length - 1);
 		}
 
+			function isMobile() {
+				var screenWidth = $window.innerWidth;
+				return screenWidth < 768;
+			}
 
 		function removeUser(user) {
 			var arr = [];
@@ -1223,6 +1256,19 @@
 			}
 
 			return result.length > 0;
+		}
+
+		function checkPublicationsView() {
+			if (!storage.pubView) {
+				storageService.setStorageItem('pubView', 'greed');
+				storage = storageService.getStorage();
+			} else {
+				if (storage.pubView === 'greed') {
+					vm.photosGrid = true;
+				} else if (storage.pubView === 'list') {
+					vm.photosGrid = false;
+				}
+			}
 		}
 
 		$scope.indexCurrentImage = 0;

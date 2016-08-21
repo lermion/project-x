@@ -8,10 +8,15 @@ angular.module('placePeopleApp')
 			/* Service info*/
 			amMoment.changeLocale('ru');
 			$scope.$emit('userPoint', 'user');
+
+
 			var storage = storageService.getStorage();
+
 			$scope.loggedUserAvatar = storage.loggedUserAva;
-			$scope.loggedUser = storage.username;
+			//$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
+
+
 			$scope.shareData = [];
 			var deletePublication = null;
 			var sharePublication = null;
@@ -181,7 +186,7 @@ angular.module('placePeopleApp')
 			var counter = 0;
 
 			$scope.userData = profile;
-			$scope.userPublications = publications;
+			$scope.userPublications = publications || [];
 			$scope.needToLogin = $stateParams.needToLogin;
 
 			if (profile.login === storage.username) {
