@@ -2442,7 +2442,7 @@ div.my_profilll.photo-list div:last-child {
     position: absolute;
     width: 156px;
     top: 20px;
-    left: -120px;
+    left: -125px;
     padding-top: 20px;
     z-index: 10;
 }
@@ -6713,8 +6713,9 @@ textarea[type="text"]:focus,
             left: 40px;
     }
     .group-peoples-inner-item .peoples-item__delete {
-    	left: 40px;
-    }
+    	left: 30px;
+	    top: 0px;
+	    }
     .group-description-container1 {
         font-size: .9em;
     }
