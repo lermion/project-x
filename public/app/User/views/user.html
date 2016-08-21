@@ -11,13 +11,10 @@
 						</div>
 						<div class="my-profile-item">
 							<div class="user-status">
-								<div ng-hide="profileEdition"><a class="user-name" href="javascript:void(0)">{{userData.first_name}}
-									{{userData.last_name}}</a></div>
+								<div ng-hide="profileEdition"><a class="user-name" href="javascript:void(0)">{{userData.first_name}} {{userData.last_name}}</a></div>
 								<div ng-show="profileEdition" class="rewrite-fields">
-									<input type="text" placeholder="Имя"
-										   ng-model="userData.first_name">
-									<input type="text" placeholder="Фамилия"
-										   ng-model="userData.last_name">
+									<input type="text" placeholder="Имя" ng-model="userData.first_name">
+									<input type="text" placeholder="Фамилия" ng-model="userData.last_name">
 								</div>
 								<p>{{userData.is_online ? 'В сети' : 'Не в сети'}}</p>
 							</div>
@@ -215,7 +212,7 @@
 
 															<p class="time" am-time-ago="comment.created_at"></p>
 															<a ng-hide="comment.like_count === 0 && comment.user.id === loggedUserId" href="javascript:void(0);"
-															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : '&nbsp;'}}</a>
 														</div>
 														<a href="javascript:void(0);"
 														   ng-click="alertPubComment(comment.id)"
