@@ -1178,19 +1178,19 @@ angular.module('placePeopleApp')
 
 			$scope.confirmPubDelete = function (pubToDelete) {
 				PublicationService.deletePublication(pubToDelete).then(function (res) {
-						if(res.status){
-							$scope.userPublications.splice($scope.indexCurrentPublication, 1);
-							$scope.userData.publications_count--;
-							getUserPubs(storage.userId);
-							if($state.current.name === "mobile-pub-view"){
-								$state.go("user", {username: $stateParams.username});
-							}
-						}
+					if(res.status){
 						ngDialog.closeAll();
-					},
-					function (err) {
-						console.log(err);
-					});
+						$scope.userPublications.splice($scope.indexCurrentPublication, 1);
+						$scope.userData.publications_count--;
+						getUserPubs(storage.userId);
+						if($state.current.name === "mobile-pub-view"){
+							$state.go("user", {username: $stateParams.username});
+						}
+					}
+				},
+				function (error) {
+					console.log(error);
+				});
 			};
 
 			$scope.cancelPubDelete = function(){
