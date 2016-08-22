@@ -216,6 +216,34 @@
 
         };
 
+        vm.openModalPublication = function(pub, index) {
+            if (isMobile()) {
+
+                $state.go('mobile-pub-view-test', {
+                    id: pub.id,
+                    prevState: {
+                        name: 'place',
+                        params: {
+                            placeName: vm.place.url_name
+                        }
+                    }
+                });
+
+            } else {
+                ngDialog.open({
+                    templateUrl: '../app/common/views/pub-item-modal.html',
+                    name: 'modal-publication-group',
+                    className: 'view-publication ngdialog-theme-default',
+                    data: {
+                        pub: pub
+                    },
+                    preCloseCallback: function () {
+                        vm.place.publications[index] = vm.activePublication;
+                    }
+                });
+            }
+        };
+
         vm.openModalMediaFile = function (file) {
             ngDialog.open({
                 templateUrl: '../app/common/components/media-file/modal-media-file.html',
