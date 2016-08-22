@@ -290,7 +290,8 @@ angular.module('placePeopleApp')
                     $state.go('search', {
                         'searchObj': angular.copy($scope.search),
                         'restoreSearchResult': false,
-                        'setActiveTab': true
+                        'setActiveTab': true,
+                        'params': $scope.search.str
                     });
                 }
             };
