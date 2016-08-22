@@ -71,6 +71,8 @@
                 };
 
                 ctrl.addPublicationLike = function () {
+                    ctrl.pub.user_like = !ctrl.pub.user_like;
+                    ctrl.pub.like_count = ctrl.pub.user_like ? ++ctrl.pub.like_count : --ctrl.pub.like_count;
                     PublicationService.addPublicationLike(ctrl.pub.id).then(function (response) {
                             ctrl.pub.user_like = response.user_like;
                             ctrl.pub.like_count = response.like_count;
