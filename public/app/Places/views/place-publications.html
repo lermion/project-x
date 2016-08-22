@@ -1,6 +1,6 @@
 <div class="group-publication" ng-init="vm.photosGrid = true">
     <div class="my-photos" ng-if="vm.photosGrid">
-        <div class="photo" ng-repeat="item in vm.place.publications" style="{{pubSize}}">
+        <div class="photo" ng-repeat="item in vm.place.publications | orderBy: '-created_at'" style="{{pubSize}}">
             <a href="" ng-click="vm.openModalReviewPublication(item.id, $index)">
                 <img ng-src="{{::item.images[0].url}}" alt="">
                 <!-- <span class="video" ng-show="$index==0"></span> -->
@@ -8,8 +8,7 @@
         </div>
     </div>
 
-    <div class="content-item" ng-if="!vm.photosGrid"
-         ng-repeat="item in vm.place.publications | orderBy: '-created_at'">
+    <div class="content-item" ng-if="!vm.photosGrid" ng-repeat="item in vm.place.publications | orderBy: '-created_at'">
         <pub-list-item pub-data="item"
                        index="$index"
                        is-group="false"
