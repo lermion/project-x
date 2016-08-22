@@ -66,8 +66,37 @@ class CountryController extends Controller
     public function editCountrySave(Request $request)
     {
         $country = Country::find($request->input('id'));
-        $countryData = $request->all();
-        $country->update($countryData);
+        $country->name = $request->input('name');
+        $country->code = $request->input('code');
+        $country->save();
+        //$country->update('name',$request->input('name'));
         return redirect('/admin/base/')->with('message', 'Странна изменинна');
+    }
+
+    public function createRegion(Request $request)
+    {
+        if (Region::where(['name'=>$request->input('name'),'country_id'=>$request->input('country_id')])->first()){
+            return redirect('/admin/base/')->with('message', 'Ошибка!!! Такая область уже есть в базе');
+        }
+        $data = $request->all();
+        Region::create($data);
+        return redirect('/admin/base/region')->with('message', 'Область добавленна');
+
+    }
+
+    public function editRegion($id)
+    {
+        $countries = Country::get();
+        $region = Region::find($id);
+        return view('admin.base.regionEdit',['region'=>$region,'countries'=>$countries]);
+    }
+
+    public function editRegionSave(Request $request)
+    {
+        dd();
+        $region = Region::find($request->input('id'));
+        $region->name = $request->input('name');
+        $region->save();
+        return redirect('/admin/base/region')->with('message', 'Область изменинна');
     }
 }
