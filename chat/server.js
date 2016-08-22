@@ -21,6 +21,14 @@ io.sockets.on('connection', function(socket){
 				if(data.share){
 					callback(response[0]);
 				}else{
+					var result = {
+						roomId: data.room_id,
+						userId: data.members[0],
+						isRead: {
+							isReadMessage: true
+						}
+					};
+					io.sockets.in(data.room_id).emit('updatechat', result);
 					queries.changeRoom(data, currentRoom).then(function(response){
 						queries.getUserDialogue(data).then(function(response){
 							socket.emit('updatechat', response);
