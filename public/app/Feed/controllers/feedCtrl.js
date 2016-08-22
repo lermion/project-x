@@ -131,6 +131,17 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.indexCurrentImage = 0;
+			function dynamicSort(property){
+				var sortOrder = 1;
+				if(property[0] === "-") {
+					sortOrder = -1;
+					property = property.substr(1);
+				}
+				return function (a,b) {
+					var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+					return result * sortOrder;
+				}
+			}
 			$scope.openPreviousInfo = function(images){
 				if(images.length >= 1){
 					$scope.indexCurrentImage--;
@@ -138,6 +149,7 @@ angular.module('placePeopleApp')
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
 						if($scope.indexCurrentPublication !== 0){
+							$scope.publications.sort(dynamicSort("created_at"));
 							$scope.singlePublication = $scope.publications[$scope.indexCurrentPublication -= 1];
 							if($scope.singlePublication.images[0] !== undefined){
 								$scope.mainImage = $scope.singlePublication.images[0].url;
@@ -151,12 +163,20 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.openNextInfo = function(images){
+				Array.prototype.next = function() {
+					return this[++this.current];
+				};
+				Array.prototype.prev = function() {
+					return this[--this.current];
+				};
+				Array.prototype.current = 0;
 				if(images.length >= 1){
 					$scope.indexCurrentImage++;
 					if(images[$scope.indexCurrentImage] !== undefined){
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
 						if($scope.indexCurrentPublication + 1 !== $scope.publications.length){
+							$scope.publications.sort(dynamicSort("created_at"));
 							$scope.singlePublication = $scope.publications[$scope.indexCurrentPublication += 1];
 							if($scope.singlePublication.images[0] !== undefined){
 								$scope.mainImage = $scope.singlePublication.images[0].url;
@@ -714,7 +734,10 @@ angular.module('placePeopleApp')
 							ngDialog.open({
 								template: '../app/Feed/views/view-publication.html',
 								className: 'view-publication ngdialog-theme-default',
-								scope: $scope
+								scope: $scope,
+								preCloseCallback: function(){
+									$scope.indexCurrentImage = 0;
+								}
 							});
 						}
 						// }
