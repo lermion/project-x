@@ -114,6 +114,7 @@
 	<script src="../../app/Auth/models/authService.js"></script>
 	<script src="../../app/Auth/controllers/authCtrl.js"></script>
 	<script src="../../app/Four04Controller.js"></script>
+	<script src="../../app/HiddenPubContoller.js"></script>
 	<script src="../../app/Static/controllers/staticCtrl.js"></script>
 	<script src="../../app/Static/models/staticService.js"></script>
 	<script src="../../app/User/models/userService.js"></script>

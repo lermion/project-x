@@ -135,7 +135,7 @@ angular.module('placePeopleApp')
 
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-                console.info('state SUCCESS');
+                //console.info('state SUCCESS');
 
                 $scope.preloader = false;
                 ngDialog.closeAll();
@@ -147,7 +147,7 @@ angular.module('placePeopleApp')
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-                console.info('state START');
+                //console.info('state START - ' + toState.name);
                 $scope.preloader = true;
                 $scope.currentPath = $location.url();
                 if ($window.innerWidth <= 800) {
