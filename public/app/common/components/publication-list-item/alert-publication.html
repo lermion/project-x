@@ -1,0 +1,58 @@
+<div>
+    <form action="" ng-if="!$ctrl.complainIsSend">
+        <div class="spam-item">
+            <input type="checkbox" id="spam" ng-model="$ctrl.alerts.alertPub1">
+            <label for="spam">
+                <span></span>
+                Спам
+            </label>
+        </div>
+        <div class="spam-item">
+            <input type="checkbox" id="anon" ng-model="$ctrl.alerts.alertPub2">
+            <label for="anon">
+                <span></span>
+                Оскорбление
+            </label>
+        </div>
+        <div class="spam-item">
+            <input type="checkbox" id="adult" ng-model="$ctrl.alerts.alertPub3">
+            <label for="adult">
+                <span></span>
+                Материал для взрослых
+            </label>
+        </div>
+        <div class="spam-item">
+            <input type="checkbox" id="narcotic" ng-model="$ctrl.alerts.alertPub4">
+            <label for="narcotic">
+                <span></span>
+                Пропаганда наркотиков
+            </label>
+        </div>
+        <div class="spam-item">
+            <input type="checkbox" id="child" ng-model="$ctrl.alerts.alertPub5">
+            <label for="child">
+                <span></span>
+                Детская порнография
+            </label>
+        </div>
+        <div class="spam-item">
+            <input type="checkbox" id="extremism" ng-model="$ctrl.alerts.alertPub6">
+            <label for="extremism">
+                <span></span>
+                Экстремизм
+            </label>
+        </div>
+        <div class="spam-item">
+            <input type="checkbox" id="wiolense" ng-model="$ctrl.alerts.alertPub7">
+            <label for="wiolense">
+                <span></span>
+                Насилие
+            </label>
+        </div>
+    </form>
+    <button ng-if="!$ctrl.complainIsSend"
+            ng-click="$ctrl.sendComplain(ngDialogData.id, ngDialogData.flag, $ctrl.alerts.alertPub1, $ctrl.alerts.alertPub2, $ctrl.alerts.alertPub3, $ctrl.alerts.alertPub4, $ctrl.alerts.alertPub5, $ctrl.alerts.alertPub6, $ctrl.alerts.alertPub7)">
+        Отправить
+    </button>
+    <p class="publication-alert-done" ng-if="$ctrl.complainIsSend">Жалоба отправлена</p>
+</div>

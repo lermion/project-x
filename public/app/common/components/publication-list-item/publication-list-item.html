@@ -20,7 +20,7 @@
                     <div class="inner">
                         <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.editPub($ctrl.pub)">Редактировать</a>
                         <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
-                        <a href ng-click="$ctrl.getPubLink($ctrl.pub)">Получить ссылку</a>
+                        <a href ng-click="$ctrl.getPubLink($ctrl.pub.id)">Получить ссылку</a>
                         <a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
                         <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.deletePub($ctrl.pub)">Удалить</a>
                     </div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="user-publication-content">
-        <div class="publication-ava">
+        <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
             <img ng-init="$ctrl.mainImage = $ctrl.pub.images[0].url" ng-src="{{$ctrl.mainImage}}">
             <video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
         </div>

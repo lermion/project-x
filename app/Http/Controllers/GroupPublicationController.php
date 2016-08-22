@@ -29,6 +29,7 @@ class GroupPublicationController extends Controller
         $publications = $group->publications;
         foreach ($publications as &$publication) {
             $publication->like_count = $publication->likes()->count();
+            $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
             $publication->comment_count = $publication->comments()->count();
             if (!$publication->is_anonym) {
                 $publication->user;

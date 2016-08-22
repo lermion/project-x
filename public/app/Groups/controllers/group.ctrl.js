@@ -306,7 +306,7 @@
 
 			} else {
 				ngDialog.open({
-					templateUrl: '../app/common/components/publication/publication-modal.html',
+					templateUrl: '../app/common/views/pub-item-modal.html',
 					name: 'modal-publication-group',
 					className: 'view-publication ngdialog-theme-default',
 					data: {
@@ -1031,6 +1031,10 @@
 				storageService.setStorageItem('pubView', 'list');
 			}
 		};
+
+		vm.clickclick = function() {
+			alert(1);
+		}
 
 
 		$scope.saveCropp = function (croppedDataURL) {
