@@ -108,6 +108,13 @@ angular.module('placePeopleApp')
                     showHeader: true,
                     isLogin: false
                 })
+                .state('p', {
+                    url: '/p/:pubId/:hash',
+                    templateUrl: '../../app/hidden-publication.html',
+                    controller: 'HiddenPubContoller',
+                    showHeader: true,
+                    isLogin: false
+                })
                 // .state('feed-mobile', {
                 //   url: 'feed/:pubId',
                 //   templateUrl: '../../app/Feed/views/view-publication.html',
@@ -293,6 +300,7 @@ angular.module('placePeopleApp')
                         publications: null
                     }
                 })
+                
 
 
         }])
