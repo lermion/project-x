@@ -43,7 +43,6 @@ class OptionController extends Controller
             $optionData['user_foto_bloc'] = false;
         }
         $option = Option::first();
-
         $option->update($optionData);
         return redirect('admin/option/')->with('message', 'Сохраненно');
     }

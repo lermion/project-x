@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class Publication extends Model
 {
     protected $fillable = ['block_message','is_block', 'text', 'is_anonym', 'is_main', 'user_id', 'is_block', 'block_message', 'cover', 'is_moderate'];
-                                                             app/Publication.php:12
+
     public function images()
     {
         return $this->belongsToMany('App\Image', 'publication_images')->withTimestamps();

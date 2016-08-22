@@ -57,11 +57,17 @@ class CountryController extends Controller
 
     }
 
-    public function destroy($id)
+    public function editCountry($id)
     {
-        Country::where('id',$id)->delete();
-        $result = [
-            "status" => true];
-        return response()->json($result);
+        $country = Country::find($id);
+        return view('admin.base.countryEdit')->with('country',$country);
+    }
+
+    public function editCountrySave(Request $request)
+    {
+        $country = Country::find($request->input('id'));
+        $countryData = $request->all();
+        $country->update($countryData);
+        return redirect('/admin/base/')->with('message', 'Странна изменинна');
     }
 }

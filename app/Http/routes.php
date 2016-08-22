@@ -104,10 +104,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('district', 'Admin\CountryController@district');
                 Route::get('region', 'Admin\CountryController@region');
                 Route::get('settlement', 'Admin\CountryController@settlement');
-                //Route::post('/', 'Admin\CountryController@create');
-                Route::get('destroy/{id}', 'Admin\CountryController@destroy');
-                Route::post('/', 'Admin\CityController@create');
-                Route::get('destroy/{id}', 'Admin\CityController@destroy');
+                Route::post('create_сountry', 'Admin\CountryController@createCountry');
+                Route::get('edit_сountry/{id}', 'Admin\CountryController@editCountry');
+                Route::post('edit_country_save', 'Admin\CountryController@editCountrySave');
             });
             Route::group(['prefix' => 'moderation'], function () {
                 Route::get('/', 'Admin\ModerationController@index');
