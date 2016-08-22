@@ -11,7 +11,7 @@
 	<div ng-if="members()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Я подписан</div>
 		<div ng-init="subscription.type = 'members'" ng-repeat="subscription in subscriptions | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input ng-checked="isChecked(subscription.id)" class="share-publication-checkbox" ng-model="active" ng-change="change(subscription, active)" type="checkbox"></span>
+			<span><input ng-checked="subscription.isChecked" class="share-publication-checkbox" ng-model="active" ng-change="change(subscription, active, 'subscription')" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="user({username: subscription.login})" href="javascript:void(0);">
@@ -23,7 +23,7 @@
 		</div>
 		<div class="share-publication-search-sign">Подписчики</div>
 		<div ng-init="subscriber.type = 'members'" ng-repeat="subscriber in subscribers | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input ng-checked="isChecked(subscriber.id)" class="share-publication-checkbox" ng-model="active" ng-change="change(subscriber, active)" type="checkbox"></span>
+			<span><input ng-checked="subscriber.isChecked" class="share-publication-checkbox" ng-model="active" ng-change="change(subscriber, active, 'subscriber')" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="user({username: subscriber.login})" href="javascript:void(0);">

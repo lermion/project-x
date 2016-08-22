@@ -528,7 +528,7 @@ angular.module('placePeopleApp')
 			};
 			socket.forward('updatechat', $scope);
 			$scope.$on('socket:updatechat', function (event, data) {
-      			if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
+				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
@@ -539,6 +539,10 @@ angular.module('placePeopleApp')
 						}
 					};
 					$scope.Model.Chat = data.messages.reverse();
+				}else if(data.isRead){
+					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId && data.userId !== $scope.loggedUserId){
+						$scope.isReadRoom = data.isRead.isReadMessage;
+					}
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);

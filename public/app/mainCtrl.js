@@ -106,8 +106,12 @@ angular.module('placePeopleApp')
                         var blockThirdthLength = (parseInt(w[0].innerWidth) - 21) / 4;
                         $scope.resizeSizes = 'width:' + blockThirdthLength + 'px;height:' + blockThirdthLength + 'px;';
                         $scope.resizeHeight = 'height:' + blockThirdthLength + 'px;';
+
+                        // для публикаций
+                        var pubSize = (parseInt(w[0].innerWidth) - 12) / 3;
+                        $scope.pubSize = 'width:' + pubSize + 'px;height:' + pubSize + 'px;';
                     } else {
-                        $scope.resizeSizes = '';
+                        $scope.pubSize = '';
                         $scope.resizeHeight = '';
                     }
                 }, true);
@@ -290,7 +294,8 @@ angular.module('placePeopleApp')
                     $state.go('search', {
                         'searchObj': angular.copy($scope.search),
                         'restoreSearchResult': false,
-                        'setActiveTab': true
+                        'setActiveTab': true,
+                        'params': $scope.search.str
                     });
                 }
             };
@@ -322,6 +327,11 @@ angular.module('placePeopleApp')
 
                 // TODO: заменить во всех представлениях
                 $scope.loggedUserId = $rootScope.user.userId;
+            }
+
+            function isMobile() {
+                var screenWidth = $window.innerWidth;
+                return screenWidth < 768;
             }
 
 

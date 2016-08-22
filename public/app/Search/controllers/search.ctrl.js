@@ -161,6 +161,7 @@
         }
 
         function search(searchObj) {
+            console.log($stateParams.params);
             searchService.search(searchObj)
                 .then(function (data) {
                     vm.results = data;

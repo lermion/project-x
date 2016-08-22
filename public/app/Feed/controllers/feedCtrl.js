@@ -1,13 +1,13 @@
 angular.module('placePeopleApp')
 	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService',
 		'AuthService', 'FeedService', '$window', '$http', 'storageService', 'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope',
+		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope', 'md5',
 		function ($scope, $state, $stateParams, StaticService, PublicationService, AuthService,
 				  FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout,
-				  UserService, socket, groupsService, placesService, $location, $q, $rootScope) {
+				  UserService, socket, groupsService, placesService, $location, $q, $rootScope, md5) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
-			//$scope.loggedUser = storage.username;
+
 			$scope.emojiMessage = {};
 			$scope.shareData = [];
 			$scope.loggedUserAva = storage.loggedUserAva;
@@ -122,7 +122,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.getPubLink = function (pubId) {
-				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId;
+				var hashPubId = md5.createHash(pubId + "");
+				$scope.linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
 				ngDialog.open({
 					template: '../app/User/views/get-link-publication.html',
 					className: 'link-publication ngdialog-theme-default',
@@ -163,13 +164,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.openNextInfo = function(images){
-				Array.prototype.next = function() {
-					return this[++this.current];
-				};
-				Array.prototype.prev = function() {
-					return this[--this.current];
-				};
-				Array.prototype.current = 0;
 				if(images.length >= 1){
 					$scope.indexCurrentImage++;
 					if(images[$scope.indexCurrentImage] !== undefined){
@@ -748,8 +742,21 @@ angular.module('placePeopleApp')
 			}
 
 			$scope.showPublication = function (pub, index) {
-				$scope.indexCurrentPublication = index;
-				getSinglePublication(pub.id);
+				if (isMobile()) {
+
+					$state.go('mobile-pub-view-test', {
+						id: pub.id,
+						prevState: {
+							name: 'feed',
+							params: null
+						}
+					});
+
+				} else {
+					$scope.indexCurrentPublication = index;
+					getSinglePublication(pub.id);
+				}
+
 			};
 
 			$scope.goToSearch = function(searchParam){
@@ -875,4 +882,10 @@ angular.module('placePeopleApp')
 					storageService.setStorageItem('pubView', 'list');
 				}
 			}
+
+			function isMobile() {
+				var screenWidth = $window.innerWidth;
+				return screenWidth < 768;
+			}
+
 		}]);

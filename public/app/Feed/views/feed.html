@@ -17,7 +17,7 @@
 
                 <div class="content-item" ng-if="photosGrid">
                     <div class="my-photos">
-                        <div class="photo" ng-repeat="pub in publications | orderBy: 'created_at'">
+                        <div class="photo" ng-repeat="pub in publications | orderBy: 'created_at'" style="{{pubSize}}">
                             <a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
                                 <img ng-src="{{pub.images[0].url}}" alt="">
                             </a>

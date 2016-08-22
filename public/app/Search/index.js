@@ -24,13 +24,16 @@
                         byPlaces: true,
                         byGroups: true
                     },
-                    restoreSearchResult: true,
-                    setActiveTab: false
+                    restoreSearchResult: false,
+                    setActiveTab: true
                 },
                 resolve: {
                     results: ['$rootScope', 'searchService', '$state', '$stateParams', function ($rootScope, searchService, $state, $stateParams) {
                         console.info('Router: Search resolve');
                         $rootScope.showSearch = true;
+
+                        $stateParams.searchObj.str = $stateParams.params;
+
                         if ($stateParams.searchObj.str !== '') {
                             return searchService.search($stateParams.searchObj, $stateParams.restoreSearchResult)
                                 .then(function (data) {
