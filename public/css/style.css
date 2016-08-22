@@ -2777,9 +2777,15 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 20%;
 	font-size: 14px;
-	    font-family: Tahoma;
+	font-family: Tahoma;
     font-weight: bold;
     font-size: 13.6px;
+}
+.user-publication .likes-item .like.hidden-publication:hover{
+	cursor: not-allowed;
+	color: #495b79;
+	background-color: transparent;
+	background-image: url(../images/like.png);
 }
 .user-publication .likes-item .like:hover {
 	background-color: #495b79;

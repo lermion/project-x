@@ -32,6 +32,16 @@
 		<div ng-show="splitText(singlePublication.text) !== 'undefined'"><p class="publication-text" ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p></div>
 		<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
 	</div>
+	<div class="likes">
+		<div class="likes-item">
+			<a href="javascript:void(0);" class="like hidden-publication">Тема</a>
+			<p class="like-item" ng-if="singlePublication.like_count > 0">
+				В теме 
+				<span class="count-like" ng-hide="singlePublication.user_like && singlePublication.like_count == 1">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}} чел.</span>		
+			</p>
+		</div>
+		<a href class="comments-count" ng-if="singlePublication.comment_count > 0">{{singlePublication.comment_count}}</a>
+	</div>
 	<div class="more-comments" ng-show="singlePublication.comments.length < singlePublication.comment_count">
 		<a href="javascript:void(0);" ng-click="getAllCommentsPublication('viewPage', singlePublication, true)" class="all-comments">Еще {{singlePublication.comment_count - singlePublication.comments.length}} комментариев</a>
 	</div>
