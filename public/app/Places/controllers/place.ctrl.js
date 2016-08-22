@@ -6,10 +6,10 @@
         .controller('PlaceCtrl', PlaceCtrl);
 
     PlaceCtrl.$inject = ['$q', '$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$filter', 'place', 'storageService', 'placesService', 'UserService', 'PublicationService', 'ngDialog',
-        '$http', '$window', 'Upload', 'amMoment', 'socket', '$location', 'groupsService'];
+        '$http', '$window', 'Upload', 'amMoment', 'socket', '$location', 'groupsService', 'md5'];
 
     function PlaceCtrl($q, $rootScope, $scope, $state, $stateParams, $timeout, $filter, place, storageService, placesService, UserService, PublicationService, ngDialog,
-                       $http, $window, Upload, amMoment, socket, $location, groupsService) {
+                       $http, $window, Upload, amMoment, socket, $location, groupsService, md5) {
 
         var vm = this;
         var storage = storageService.getStorage();
@@ -546,16 +546,8 @@
         };
 
         vm.getPubLink = function (pub) {
-            var pathArray = window.location.href.split('/');
-            pathArray.splice(pathArray.length - 1, 1, 'publication');
-            pathArray.push(pub.id);
-
-            var newPathname = "";
-            for (var i = 0; i < pathArray.length; i++) {
-                newPathname += "/";
-                newPathname += pathArray[i];
-            }
-            vm.pubLink = newPathname.substring(1);
+            var hashPubId = md5.createHash(pub.id + "");
+            vm.pubLink = "http://" + $location.host() + "/p/" + pub.id + "/" + hashPubId;
             ngDialog.open({
                 template: '../app/Groups/views/get-link-publication.html',
                 className: 'link-publication ngdialog-theme-default',
