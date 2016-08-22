@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService',
 		'AuthService', 'FeedService', '$window', '$http', 'storageService', 'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope', 'md5',
+		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope', 'md5', 'profile',
 		function ($scope, $state, $stateParams, StaticService, PublicationService, AuthService,
 				  FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout,
-				  UserService, socket, groupsService, placesService, $location, $q, $rootScope, md5) {
+				  UserService, socket, groupsService, placesService, $location, $q, $rootScope, md5, profile) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
 
@@ -72,6 +72,10 @@ angular.module('placePeopleApp')
 			/*Page content*/
 
 			var alertPubCommentModal;
+
+			storageService.setStorageItem('loggedUserAva', profile.avatar_path);
+			storageService.setStorageItem('firstName', profile.first_name);
+			storageService.setStorageItem('lastName', profile.last_name);
 
 			$scope.pubNew = {
 				files: []
