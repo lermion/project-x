@@ -1,16 +1,17 @@
 @extends('admin.layout')
 
 @section('content')
-<form action="">
+<form action="{{action('Admin\CountryController@createDistrict')}}" method="post">
     <div class="row country">
       <div class="col-md-12"><h3>Добавление района</h3></div>
       <div class="col-md-2">
         <span class="line-h"><b>Выберите страну</b></span>
       </div>
       <div class="col-md-3">
-        <select class="form-control">
-          <option>Украина</option>
-          <option>Россия</option>
+        <select class="form-control" name="country_id">
+            @foreach($countries as $country)
+                <option value="{{$country->id}}">{{$country->name}}</option>
+            @endforeach
         </select>
       </div>
     </div>
@@ -20,9 +21,10 @@
         <span class="line-h"><b>Выберите область</b></span>
       </div>
       <div class="col-md-3">
-        <select class="form-control">
-          <option>Киевская</option>
-          <option>Днепропетровская</option>
+        <select class="form-control" name="region_id">
+            @foreach($regions as $region)
+                <option value="{{$region->id}}">{{$region->name}}</option>
+            @endforeach
         </select>
       </div>
     </div>
@@ -31,7 +33,7 @@
         <span class="line-h"><b>Название района</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" placeholder="Введите название...">
+        <input class="form-control" type="text" name="name" placeholder="Введите название...">
       </div>
     </div>
 
@@ -60,7 +62,7 @@
                 <td>{{$countries->where('id',$regions->where('id',$area->region_id)->first()->country_id)->first()->name}}</td>
                 <td>
                     <p class="text-center">
-                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                        <a class="btn btn-warning btn-xs" href="/admin/base/edit_district/{{$area->id}}">Редактировать</a>
                     </p>
                 </td>
               </tr>

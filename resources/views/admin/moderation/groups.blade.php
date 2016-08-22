@@ -14,9 +14,9 @@
 
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 col-md-offset-1 active"><a href="">Новые (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">На заметке (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Заблокированные (<span>10</span>)</a></li>
+                <li class="col-md-3 col-md-offset-1 active"><a href="/admin/moderation/groups">Новые </a></li>
+                <li class="col-md-3"><a href="">На заметке </a></li>
+                <li class="col-md-3"><a href="/admin/moderation/groups_is_block">Заблокированные </a></li>
             </ul>
         </div>
 
@@ -34,39 +34,26 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($groups as $group)
                   <tr>
-                    <td><a href="">1</a></td>
-                    <td>Группа 123</td>
+                    <td><a href="">{{$group->id}}</a></td>
+                    <td>{{$group->name}}</td>
                     <td class="img-center">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        <img src="{{$group->avatar}}" alt="{{$group->avatar}}">
                     </td>
-                    <td>Елена Новикова</td>
-                    <td>100500</td>
-                    <td>02.08.2016</td>
+                    <td>{{$group->creator->first()->first_name}} {{$group->creator->first()->last_name}}</td>
+                    <td>{{$group->users()->count()}}</td>
+                    <td>{{$group->created_at}}</td>
                     <td class="text-center">
                         <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
                         <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
                         <button type="button" class="btn btn-warning btn-xs">На заметку</button>
                     </td>
                   </tr>
-                  <tr>
-                    <td><a href="">1</a></td>
-                    <td>Группа 123</td>
-                    <td class="img-center">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                    </td>
-                    <td>Елена Новикова</td>
-                    <td>100500</td>
-                    <td>02.08.2016</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                        <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                        <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                    </td>
-                  </tr>
+                  @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
+    {!! $groups->render() !!}
 @stop

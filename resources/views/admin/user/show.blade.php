@@ -127,7 +127,7 @@
                         <td class="img-center">
                             <img src="{{$place->cover}}" alt="{{$place->cover}}">
                         </td>
-                        {{--<td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>--}}
+                        <td>{{$place->creator->first()->first_name}} {{$place->creator->first()->last_name}}</td>
                         <td>{{$place->users()->count()}}</td>
                         <td>{{$place->created_at}}</td>
                       </tr>
