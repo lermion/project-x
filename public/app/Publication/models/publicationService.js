@@ -14,6 +14,7 @@ angular.module('placePeopleApp')
 			addCommentLike: addCommentLike,
 			addPublicationLike: addPublicationLike,
 			getSinglePublication: getSinglePublication,
+			getHiddenPublication: getHiddenPublication,
 			getSubscribers: getSubscribers,
 			getSubscription: getSubscription,
 			complaintCommentAuthor:	complaintCommentAuthor,
@@ -102,6 +103,18 @@ angular.module('placePeopleApp')
 		}
 
 		function getSinglePublication(pubId){
+			var defer = $q.defer();
+			$http.get("publication/show/" + pubId)
+				.success(function (response){
+					defer.resolve(response);
+				})
+				.error(function (error){
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function getHiddenPublication(pubId){
 			var defer = $q.defer();
 			$http.get("publication/show/" + pubId)
 				.success(function (response){
