@@ -252,7 +252,7 @@ angular.module('placePeopleApp')
                     }
                 })
                 .state('mobile-pub-view-test', {
-                    url: '/m/pub/:id',
+                    url: '/m/publication/:id',
                     templateUrl: '../../app/common/views/pub-list-item.html',
                     showHeader: true,
                     params: {
@@ -261,10 +261,11 @@ angular.module('placePeopleApp')
                             params: null
                         }
                     },
-                    controller: function (publication, $stateParams) {
+                    controller: function ($scope, publication, $stateParams) {
                         this.title = '111';
                         this.publication = publication;
                         this.prevState = $stateParams.prevState;
+                        $scope.$emit('userPoint', 'user');
                     },
                     controllerAs: 'vm',
                     resolve: {
