@@ -3,7 +3,7 @@ angular.module('placePeopleApp')
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
 		$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
-		$scope.loggedUser = storage.username;
+		//$scope.loggedUser = storage.username;
 
 		$http.get('/static_page/get/name')
 					.success(function (response){            	

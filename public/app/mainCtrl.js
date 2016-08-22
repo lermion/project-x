@@ -4,11 +4,34 @@ angular.module('placePeopleApp')
         function ($rootScope, $scope, $state, groupsService, placesService, UserService, storageService,
                   AuthService, $location, socket, $http, $window, ngDialog, md5) {
 
-            var storage = storageService.getStorage();
 
-            $scope.loggedUserId = parseInt(storage.userId);
+
 
             $scope.currentPath = $location.url();
+
+            // данные текущего авторизированного пользователя, которые доступны в любом месте приложения
+            $rootScope.user = {
+                firstName: '',
+                lastName: '',
+                fullName: '',
+                loggedUserAva: null,
+                pubView: '',
+                userId: null,
+                username: ''
+            };
+
+            var originalUser = angular.copy($rootScope.user);
+
+
+
+            // при каждом обновлении значений в localStorage обновим данные текущего пользователя
+            $rootScope.$on('storage:update', function () {
+                updateCurrentUserProfile();
+            });
+
+            $rootScope.$on('storage:deleted', function () {
+                $rootScope.user = angular.copy(originalUser);
+            });
 
 
             $rootScope.showHeader = false;
@@ -20,6 +43,7 @@ angular.module('placePeopleApp')
 
             function activate() {
                 setStaticPages();
+                updateCurrentUserProfile();
             }
 
             $scope.$emit('userPoint', 'user');
@@ -96,7 +120,7 @@ angular.module('placePeopleApp')
             $scope.logOut = function () {
                 AuthService.userLogOut().then(function (response) {
                         storageService.deleteStorage();
-                    $rootScope.userLogged = false;
+                        $rootScope.userLogged = false;
                         $state.go('login');
                     },
                     function (error) {
@@ -110,10 +134,12 @@ angular.module('placePeopleApp')
             });
 
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
+                console.info('state SUCCESS');
+
                 $scope.preloader = false;
                 ngDialog.closeAll();
                 $scope.currentPath = $location.url();
-                console.log('Current path - ' + $scope.currentPath);
 
                 $rootScope.showHeader = $state.current.showHeader === true;
 
@@ -121,85 +147,12 @@ angular.module('placePeopleApp')
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-                var storage = storageService.getStorage();
-                if (storage.userId !== undefined) {
-                    $rootScope.userLogged = true;
-                } else {
-                    $rootScope.userLogged = false;
-                }
-                $scope.loggedUser = storage.username;
+                console.info('state START');
+                $scope.preloader = true;
                 $scope.currentPath = $location.url();
-                console.log('Current path - ' + $scope.currentPath);
                 if ($window.innerWidth <= 800) {
                     $scope.showMenu = false;
                 }
-
-                $scope.preloader = true;
-                if ($rootScope.stateChangeBypass || toState.name === 'login' || toState.name === "auth") {
-                    $rootScope.stateChangeBypass = false;
-                    $scope.preloader = false;
-                    return;
-                }
-
-                // роуты, не указанные в условии, обрабатывается "вручную".
-                // переход по роуту отменяется.
-                if (toState.name !== 'auth'
-                    && toState.name !== 'restore'
-                    && toState.name !== 'reg'
-                    && toState.name !== 'group'
-                    && toState.name !== 'group.publications'
-                    && toState.name !== 'place'
-                    && toState.name !== 'place.publications'
-                    && toState.name !== 'user'
-                    && toState.name !== 'static'
-                    && toState.name !== '404'
-                    && toState.name !== 'desktop-pub-view') {
-                    event.preventDefault();
-                }
-
-                if (toState.name === "desktop-pub-view" && toParams.hash && !$rootScope.isAuthorized) {
-                    var hashPubId = md5.createHash(toParams.id);
-                    if (hashPubId !== toParams.hash) {
-                        event.preventDefault();
-                    }
-                }
-                storageService.isUserAuthorized().then(function (response) {
-                        var storage = storageService.getStorage();
-                        if (response.is_authorization) {
-                            $rootScope.isAuthorized = true;
-
-                            $rootScope.stateChangeBypass = true;
-                            if (toState.name !== 'user' && toState.name !== 'group' && toState.name !== 'group.publications' &&
-                                toState.name !== 'place' && toState.name !== 'place.publications') {
-                                $state.go(toState, toParams);
-                            }
-                        } else {
-                            $rootScope.isAuthorized = false;
-                            $scope.preloader = false;
-                        }
-                        if (!toState.isLogin && !$rootScope.isAuthorized && toState.name !== "desktop-pub-view") {
-                            storageService.deleteStorage();
-                            $state.go('login');
-                        }
-                    },
-                    function (error) {
-                        console.log(error);
-                    });
-
-                if ($rootScope.isAuthorized) {
-                    // Header counters
-                    groupsService.getCounterNewGroups().then(function (data) {
-                        $rootScope.counters.groupsNew = data;
-                    });
-                    placesService.getCounterNewPlaces().then(function (data) {
-                        $rootScope.counters.placesNew = data;
-                    });
-                    UserService.getCounterNewSubscribers().then(function (data) {
-                        $rootScope.counters.subscribersNew = data.confirmed;
-                    });
-                }
-
-
                 if (toState.name !== 'search' &&
                     toState.name !== 'search.people' &&
                     toState.name !== 'search.publications' &&
@@ -210,9 +163,83 @@ angular.module('placePeopleApp')
 
                 }
 
+                // продолжим переход на state если не нужно выполнять проверку авторизации
+                // такая проверка не нужна, если она была выполнена на предыдущем stateChangeStart
+                if (fromParams.skipAuthCheck) {
+                    return;
+                }
 
+                // отменим переход на state
+                event.preventDefault();
 
+                // выполним проверку авторизации
+                storageService.isUserAuthorized().then(continueNavigation);
 
+                function continueNavigation(response) {
+                    $rootScope.isAuthorized = response.is_authorization;
+
+                    // параметры для последующего перехода на state
+                    var params = angular.copy(toParams);
+
+                    // при "повторном" переходе на tate не прерывать такой переход и не выполнять проверку авторизации
+                    fromParams.skipAuthCheck = true;
+
+                    // если пользователь авторизирован (есть сессия на сервере)
+                    if ($rootScope.isAuthorized) {
+                        // получим счетчики для header
+                        getCounters();
+
+                        // если авторизированы и переходим на страницы авторизации, то перенаправляем на Главную
+                        // в других случаях - переход на state без ограничений
+                        if (toState.name === 'login' || toState.name === 'auth') {
+                            $state.go('feed');
+                        } else {
+                            $state.go(toState.name, params);
+                        }
+
+                        // если пользователь не авторизирован (нет сессии на сервере)
+                    } else {
+                        // если state требует авторизации, то перенаправляем на страницу авторизации
+                        // очистим локальное хранилище, т. к. в нем могут оставаться неактуальные данные
+                        if (toState.isLogin) {
+                            storageService.deleteStorage();
+                            $rootScope.user = {};
+                            $state.go('login');
+
+                            // если state не требует авторизации (т. е. некоторые страницы доступны для
+                            // неавторизированных пользователей), то переход без ограничений
+                        } else {
+                            if (toState.name === "desktop-pub-view" && toParams.hash) {
+                                var hashPubId = md5.createHash(toParams.id);
+                                if (hashPubId === toParams.hash) {
+                                    $state.go('desktop-pub-view', toParams);
+                                }
+                            }
+                            $state.go(toState, toParams);
+                        }
+                    }
+                }
+
+                function getCounters() {
+                    //Header counters
+                    groupsService.getCounterNewGroups().then(function (data) {
+                        $rootScope.counters.groupsNew = data;
+                    });
+                    placesService.getCounterNewPlaces().then(function (data) {
+                        $rootScope.counters.placesNew = data;
+                    });
+                    UserService.getCounterNewSubscribers().then(function (data) {
+                        $rootScope.counters.subscribersNew = data.confirmed;
+                    });
+
+                    if (toState.name !== 'search' &&
+                        toState.name !== 'search.people' &&
+                        toState.name !== 'search.publications' &&
+                        toState.name !== 'search.places' &&
+                        toState.name !== 'search.groups') {
+                        resetSearch();
+                    }
+                }
 
             });
 
@@ -280,6 +307,22 @@ angular.module('placePeopleApp')
                 $rootScope.showUserMenuSecondary = false;
 
             };
+
+            function updateCurrentUserProfile() {
+                var storage = storageService.getStorage();
+
+
+                $rootScope.user.username = storage.username || '';
+                $rootScope.user.firstName = storage.firstName || '';
+                $rootScope.user.lastName = storage.lastName || '';
+                $rootScope.user.fullName = (storage.firstName || '') + ' ' + (storage.lastName || '');
+                $rootScope.user.loggedUserAva = storage.loggedUserAva || '';
+                $rootScope.user.userId = +storage.userId || '';
+                $rootScope.user.pubView = storage.pubView || '';
+
+                // TODO: заменить во всех представлениях
+                $scope.loggedUserId = $rootScope.user.userId;
+            }
 
 
         }]);

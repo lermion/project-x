@@ -1,5 +1,5 @@
 angular.module('placePeopleApp')
-	.factory('storageService', ['$window', '$q', '$http', function($window, $q, $http){
+	.factory('storageService', ['$rootScope', '$window', '$q', '$http', function($rootScope, $window, $q, $http){
 		return{
 			setStorageItem: setStorageItem,			
 			getStorage: getStorage,			
@@ -8,7 +8,10 @@ angular.module('placePeopleApp')
 		}
 
 		function setStorageItem(key, value){
-			$window.localStorage.setItem(key, value);			
+			$window.localStorage.setItem(key, value);
+
+			$rootScope.$broadcast('storage:update');
+			console.info('localStorage updated - ' + key + ' ' + value);
 		}
 		function isUserAuthorized(){
 			var defer = $q.defer();
@@ -29,5 +32,9 @@ angular.module('placePeopleApp')
 			$window.localStorage.removeItem("loggedUserAva");
 			$window.localStorage.removeItem("userId");
 			$window.localStorage.removeItem("username");
+			$window.localStorage.removeItem("pubView");
+
+			$rootScope.$broadcast('storage:delete');
+			console.info('localStorage deleted');
 		}
 }]);

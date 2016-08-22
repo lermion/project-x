@@ -189,11 +189,6 @@ angular.module('placePeopleApp')
             };
             angular.element(document.querySelector('#avatarImg')).on('change', handleFileSelect);
 
-            // 	function blobToFile(blob){
-            // 	blob.lastModifiedDate = new Date();
-            // 	blob.name = 'image';
-            // 	return blob;
-            // }
 
             $scope.saveCropp = function (img, cropped) {
                 $scope.croppedImg = img;
@@ -271,6 +266,14 @@ angular.module('placePeopleApp')
                         if (res.status) {
                             storageService.setStorageItem('username', res.login);
                             storageService.setStorageItem('userId', res.user_id);
+
+                            $rootScope.isAuthorized = true;
+
+                            $rootScope.user.userId = res.user_id;
+                            $rootScope.user.username = res.login;
+
+                            console.log(res);
+
                             $state.go('user', {username: res.login});
                         } else {
                             $scope.loginError = 'Неверный логин или пароль';
