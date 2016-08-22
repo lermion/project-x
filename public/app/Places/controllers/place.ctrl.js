@@ -1067,6 +1067,7 @@
 
         function activate() {
             init();
+            checkPublicationsView();
             getCountries();
             getCities(vm.place.country.id).then(saveOriginalCities);
             getDynamicPlaceType();
@@ -1394,6 +1395,18 @@
         function isMobile() {
             var screenWidth = $window.innerWidth;
             return screenWidth < 768;
+        }
+        function checkPublicationsView() {
+            if (!storage.pubView) {
+                storageService.setStorageItem('pubView', 'greed');
+                storage = storageService.getStorage();
+            } else {
+                if (storage.pubView === 'greed') {
+                    vm.photosGrid = true;
+                } else if (storage.pubView === 'list') {
+                    vm.photosGrid = false;
+                }
+            }
         }
 
         vm.citySelected = function (city) {

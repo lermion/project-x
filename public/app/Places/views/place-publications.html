@@ -1,4 +1,4 @@
-<div class="group-publication" ng-init="vm.photosGrid = true">
+<div class="group-publication">
     <div class="my-photos" ng-if="vm.photosGrid">
         <div class="photo" ng-repeat="item in vm.place.publications | orderBy: '-created_at'" style="{{pubSize}}">
             <a href="" ng-click="vm.openModalReviewPublication(item.id, $index)">
