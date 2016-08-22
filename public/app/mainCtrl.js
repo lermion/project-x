@@ -324,5 +324,10 @@ angular.module('placePeopleApp')
                 $scope.loggedUserId = $rootScope.user.userId;
             }
 
+            function isMobile() {
+                var screenWidth = $window.innerWidth;
+                return screenWidth < 768;
+            }
+
 
         }]);

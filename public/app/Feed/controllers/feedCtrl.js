@@ -748,8 +748,21 @@ angular.module('placePeopleApp')
 			}
 
 			$scope.showPublication = function (pub, index) {
-				$scope.indexCurrentPublication = index;
-				getSinglePublication(pub.id);
+				if (isMobile()) {
+
+					$state.go('mobile-pub-view-test', {
+						id: pub.id,
+						prevState: {
+							name: 'feed',
+							params: null
+						}
+					});
+
+				} else {
+					$scope.indexCurrentPublication = index;
+					getSinglePublication(pub.id);
+				}
+
 			};
 
 			$scope.goToSearch = function(searchParam){
@@ -875,4 +888,10 @@ angular.module('placePeopleApp')
 					storageService.setStorageItem('pubView', 'list');
 				}
 			}
+
+			function isMobile() {
+				var screenWidth = $window.innerWidth;
+				return screenWidth < 768;
+			}
+
 		}]);
