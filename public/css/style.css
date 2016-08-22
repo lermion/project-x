@@ -2278,11 +2278,9 @@ body.public.user {
 }
 .publication-footer-button {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
 }
-.group-page .publication-footer-button {
+.group-page .publication-footer-button,
+pub-list-item .publication-footer-button {
 	display: flex;
 	align-items: center;
     justify-content: space-between;
