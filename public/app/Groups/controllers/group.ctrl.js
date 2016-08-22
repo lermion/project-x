@@ -692,6 +692,18 @@
 			}
 		};
 
+		function dynamicSort(property){
+			var sortOrder = 1;
+			if(property[0] === "-") {
+				sortOrder = -1;
+				property = property.substr(1);
+			}
+			return function (a,b) {
+				var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+				return result * sortOrder;
+			}
+		}
+
 		vm.saveEditedPub = function (pubId, pubText, files) {
 			vm.pubEdited.description = vm.emoji.emojiMessage.messagetext;
 			vm.updatePubLoader = true;
@@ -1277,6 +1289,7 @@
 					vm.mainImage = images[$scope.indexCurrentImage].url;
 				}else{
 					if($scope.indexCurrentPublication !== 0){
+						vm.group.publications.sort(dynamicSort("created_at"));
 						vm.activePublication = vm.group.publications[$scope.indexCurrentPublication -= 1];
 						if(vm.activePublication.images[0] !== undefined){
 							vm.mainImage = vm.activePublication.images[0].url;
@@ -1296,6 +1309,7 @@
 					vm.mainImage = images[$scope.indexCurrentImage].url;
 				}else{
 					if($scope.indexCurrentPublication + 1 !== vm.group.publications.length){
+						vm.group.publications.sort(dynamicSort("created_at"));
 						vm.activePublication = vm.group.publications[$scope.indexCurrentPublication += 1];
 						if(vm.activePublication.images[0] !== undefined){
 							vm.mainImage = vm.activePublication.images[0].url;

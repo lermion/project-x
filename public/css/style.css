@@ -2780,7 +2780,7 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 20%;
 	font-size: 14px;
-	    font-family: Tahoma;
+	font-family: Tahoma;
     font-weight: bold;
     font-size: 13.6px;
 }
@@ -2902,6 +2902,13 @@ body.public.user {
 	background-size: contain;
 	transition: all .1s ease-in-out .1s;
 	display: none;
+}
+.visible-comments .comment .like-counter.hidden-publication{
+	cursor: default;
+}
+.visible-comments .comment .like-counter.hidden-publication:hover{
+	color: #333;
+	background-image: url(../images/comment-like.png);
 }
 .visible-comments .comment .like-counter:hover {
 	color: #495b79;

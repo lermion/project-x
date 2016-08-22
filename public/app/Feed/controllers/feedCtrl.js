@@ -164,13 +164,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.openNextInfo = function(images){
-				Array.prototype.next = function() {
-					return this[++this.current];
-				};
-				Array.prototype.prev = function() {
-					return this[--this.current];
-				};
-				Array.prototype.current = 0;
 				if(images.length >= 1){
 					$scope.indexCurrentImage++;
 					if(images[$scope.indexCurrentImage] !== undefined){
