@@ -49,6 +49,9 @@ function HiddenPubContoller($scope, $state, md5, ngDialog, PublicationService, a
 		if (flag === 'list') {
 			pub.mainFile = file;
 		}
-	}
+	};
+	$scope.showFullComment = function(comment){
+		comment.commentLength = comment.text.length;
+	};
 	$scope.$emit('userPoint', 'user');
 };
