@@ -7,7 +7,7 @@ angular.module('placePeopleApp')
 				  UserService, socket, groupsService, placesService, $location, $q, $rootScope) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
-			//$scope.loggedUser = storage.username;
+
 			$scope.emojiMessage = {};
 			$scope.shareData = [];
 			$scope.loggedUserAva = storage.loggedUserAva;

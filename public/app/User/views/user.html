@@ -121,7 +121,7 @@
 					<div ng-hide="needToAddAvatar && !isSigned" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 						<!-- unit grid-->
 						<div class="my-photos" ng-show="photosGrid">
-							<div class="photo" ng-repeat="pub in userPublications" style="{{resizeSizes}}">
+							<div class="photo" ng-repeat="pub in userPublications" style="{{pubSize}}">
 								<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
 									<img ng-src="{{pub.images[0].url}}" alt="">
 								</a>
