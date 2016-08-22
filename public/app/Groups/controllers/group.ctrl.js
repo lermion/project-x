@@ -7,11 +7,11 @@
 
 	GroupCtrl.$inject = ['$filter', '$timeout', '$rootScope', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
 		'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService',
-		'Upload', 'amMoment', 'socket', '$q', '$location', 'placesService'];
+		'Upload', 'amMoment', 'socket', '$q', '$location', 'placesService', 'md5'];
 
 	function GroupCtrl($filter, $timeout, $rootScope, $scope, $state, $stateParams, group, $http, $window,
 					   AuthService, storageService, ngDialog, groupsService, UserService, PublicationService,
-					   Upload, amMoment, socket, $q, $location, placesService) {
+					   Upload, amMoment, socket, $q, $location, placesService, md5) {
 
 		var vm = this;
 		var storage = storageService.getStorage();
@@ -603,16 +603,8 @@
 		};
 
 		vm.getPubLink = function (pub) {
-			var pathArray = window.location.href.split('/');
-			pathArray.splice(pathArray.length - 1, 1, 'publication');
-			pathArray.push(pub.id);
-
-			var newPathname = "";
-			for (var i = 0; i < pathArray.length; i++) {
-				newPathname += "/";
-				newPathname += pathArray[i];
-			}
-			vm.pubLink = newPathname.substring(1);
+			var hashPubId = md5.createHash(pub.id + "");
+			vm.pubLink = "http://" + $location.host() + "/p/" + pub.id + "/" + hashPubId;
 			ngDialog.open({
 				template: '../app/Groups/views/get-link-publication.html',
 				className: 'link-publication ngdialog-theme-default',

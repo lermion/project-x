@@ -122,7 +122,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.getPubLink = function (pubId) {
-				console.log(pubId);
 				var hashPubId = md5.createHash(pubId + "");
 				$scope.linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
 				ngDialog.open({
