@@ -1082,10 +1082,9 @@ angular.module('placePeopleApp')
 						console.log(error);
 					});
 			}
-
 			$scope.getPubLink = function (pubId) {
 				var hashPubId = md5.createHash(pubId + "");
-				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId + "/" + hashPubId;
+				$scope.linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
 				ngDialog.open({
 					template: '../app/User/views/get-link-publication.html',
 					className: 'link-publication ngdialog-theme-default',
