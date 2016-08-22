@@ -2,16 +2,17 @@
 
 
 @section('content')
-<form action="">
+<form action="{{action('Admin\CountryController@createRegion')}}" method="post">
     <div class="row country">
       <div class="col-md-12"><h3>Добавление области</h3></div>
       <div class="col-md-2">
         <span class="line-h"><b>Выберите страну</b></span>
       </div>
       <div class="col-md-3">
-        <select class="form-control">
-          <option>Украина</option>
-          <option>Россия</option>
+        <select class="form-control" name="country_id">
+            @foreach($countries as $country)
+          <option  value="{{$country->id}}">{{$country->name}} </option>
+            @endforeach
         </select>
       </div>
     </div>
@@ -21,7 +22,7 @@
         <span class="line-h"><b>Название области</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" placeholder="Введите название...">
+        <input class="form-control" type="text" name="name" placeholder="Введите название...">
       </div>
     </div>
 
@@ -48,7 +49,7 @@
                 <td>{{$countries->where('id',$region->country_id)->first()->name}}</td>
                 <td>
                     <p class="text-center">
-                        <button class="btn btn-warning btn-xs">Редактировать</button>
+                        <a class="btn btn-warning btn-xs" href="/admin/base/edit_region/{{$region->id}}">Редактировать</a>
                     </p>
                 </td>
               </tr>

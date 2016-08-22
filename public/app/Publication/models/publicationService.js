@@ -116,7 +116,7 @@ angular.module('placePeopleApp')
 
 		function getHiddenPublication(pubId){
 			var defer = $q.defer();
-			$http.get("publication/show/" + pubId)
+			$http.get("one_publication/" + pubId)
 				.success(function (response){
 					defer.resolve(response);
 				})

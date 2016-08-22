@@ -17,6 +17,7 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::get('one_group/{name}', 'GroupController@show');
     Route::get('one_place/{name}', 'PlaceController@show');
+    Route::get('one_publication/{id}', 'PublicationController@show');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'moderator'], function () {
@@ -103,6 +104,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\CountryController@index');
                 Route::get('district', 'Admin\CountryController@district');
                 Route::get('region', 'Admin\CountryController@region');
+                Route::post('create_region', 'Admin\CountryController@createRegion');
+                Route::get('edit_region/{id}', 'Admin\CountryController@editRegion');
+                Route::post('edit_region_save', 'Admin\CountryController@editRegionSave');
                 Route::get('settlement', 'Admin\CountryController@settlement');
                 Route::post('create_сountry', 'Admin\CountryController@createCountry');
                 Route::get('edit_сountry/{id}', 'Admin\CountryController@editCountry');
