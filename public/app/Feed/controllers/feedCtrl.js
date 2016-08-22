@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService',
 		'AuthService', 'FeedService', '$window', '$http', 'storageService', 'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope',
+		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope', 'md5',
 		function ($scope, $state, $stateParams, StaticService, PublicationService, AuthService,
 				  FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout,
-				  UserService, socket, groupsService, placesService, $location, $q, $rootScope) {
+				  UserService, socket, groupsService, placesService, $location, $q, $rootScope, md5) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
 			//$scope.loggedUser = storage.username;
@@ -122,7 +122,9 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.getPubLink = function (pubId) {
-				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId;
+				console.log(pubId);
+				var hashPubId = md5.createHash(pubId + "");
+				$scope.linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
 				ngDialog.open({
 					template: '../app/User/views/get-link-publication.html',
 					className: 'link-publication ngdialog-theme-default',
