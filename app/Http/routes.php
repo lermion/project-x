@@ -109,7 +109,12 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('/', 'Admin\CityController@create');
                 Route::get('destroy/{id}', 'Admin\CityController@destroy');
             });
-            Route::get('/moderation', 'Admin\ModerationController@index');
+            Route::group(['prefix' => 'moderation'], function () {
+                Route::get('/', 'Admin\ModerationController@index');
+                Route::get('groups', 'Admin\ModerationController@groups');
+                Route::get('places', 'Admin\ModerationController@places');
+            });
+
         });
         Route::get('login', 'Admin\AuthController@login');
         Route::post('auth', 'Admin\AuthController@auth');

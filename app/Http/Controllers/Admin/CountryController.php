@@ -46,16 +46,14 @@ class CountryController extends Controller
     }
 
 
-    public function create(Request $request)
+    public function createCountry(Request $request)
     {
         if (Country::where('name',$request->input('name'))->first()){
-            return view('admin.country.create',['error'=>'����� ������ ��� ����']);
+            return redirect('/admin/base/')->with('message', 'Ошибка!!! Такая странна уже есть в базе');
         }
         $data = $request->all();
         Country::create($data);
-        $result = [
-            "status" => true];
-        return response()->json($result);
+        return redirect('/admin/base/')->with('message', 'Странна добавленна');
 
     }
 
