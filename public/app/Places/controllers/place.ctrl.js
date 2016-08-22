@@ -941,6 +941,8 @@
         };
 
         vm.addPublicationLike = function () {
+            vm.activePublication.user_like = !vm.activePublication.user_like;
+            vm.activePublication.like_count = vm.activePublication.user_like ? ++vm.activePublication.like_count : --vm.activePublication.like_count;
             PublicationService.addPublicationLike(vm.activePublication.id).then(function (response) {
                     vm.activePublication.user_like = response.user_like;
                     vm.activePublication.like_count = response.like_count;

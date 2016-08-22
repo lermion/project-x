@@ -31,7 +31,7 @@
         </div>
         <img ngf-src="cropImageTest" ngf-no-object-url="true">
         <div class="error-messages" ng-messages="forms.newGroup.avatar.$error"
-             ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
+             ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted || forms.newGroup.avatar.$dirty">
             <div ng-message="pattern">Выбранный файл не является изображением</div>
             <div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
             <div ng-message="required">Вы не выбрали обложку для группы</div>

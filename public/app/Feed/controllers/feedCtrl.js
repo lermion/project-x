@@ -439,6 +439,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.addPublicationLike = function (pub) {
+				pub.user_like = !pub.user_like ;
+				pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
 				PublicationService.addPublicationLike(pub.id).then(function (response) {
 						pub.user_like = response.user_like;
 						pub.like_count = response.like_count;
