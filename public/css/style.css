@@ -2781,12 +2781,6 @@ body.public.user {
     font-weight: bold;
     font-size: 13.6px;
 }
-.user-publication .likes-item .like.hidden-publication:hover{
-	cursor: not-allowed;
-	color: #495b79;
-	background-color: transparent;
-	background-image: url(../images/like.png);
-}
 .user-publication .likes-item .like:hover {
 	background-color: #495b79;
 	color: #fff;
