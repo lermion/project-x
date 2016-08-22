@@ -7,12 +7,12 @@ angular.module('placePeopleApp').controller('HiddenPubContoller', ['$scope', '$s
 			scope: $scope,
 			name: "view-publication"
 		});
-		getSinglePublication($state.params.pubId);
+		getHiddenPublication($state.params.pubId);
 	}else{
 		$state.go("login");
 	}
-	function getSinglePublication(pubId){
-		PublicationService.getSinglePublication(pubId).then(function(response){
+	function getHiddenPublication(pubId){
+		PublicationService.getHiddenPublication(pubId).then(function(response){
 			console.log(response);
 			$scope.limit = 7;
 			$scope.singlePublication = response;
