@@ -149,7 +149,7 @@
 											<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
 												 style="max-height:175px; overflow:hidden; position:relative;"
 												 ng-hide="(singlePublication.images.length + singlePublication.videos.length) === 1"
-												 ng-init="singlePublication.limit = 6">
+												 ng-init="singlePublication.limit = 7">
 												<div ng-click="changeMainFile(file, 'list', singlePublication)"
 													 ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: singlePublication.limit as results"
 													 class="images-item">
