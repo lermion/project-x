@@ -1,49 +1,106 @@
 <div>
-	<div class="content">
-		<div class="menu-user" ng-show="userLogged">			
-			<a ng-class="page==staticPage.name ? 'active' : ''" ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a> 
-		</div>
-		<!-- <div class="info">
-		<h1>{{page}}</h1>
-			<h3>О сервисе Place People</h3>
-			<p>Информация хранится в системе в виде объектов.</p>
-			<p>Объект состоит из "заголовка", "текста" и может содержать в себе файл или несколько файлов. Так же в нем есть другая системная информация, например время создания, изменения, доступ и тому подобное...</p>
-			<p>Если в объект загружена картинка, она показывается при просмотре данного объекта и в краткой информации о объекте. Для создания объекта можно использовать кнопку "создать" на "моей страница", при этом созданный объект отобразиться еще и на самом "столе".</p>
-			<p>Так же создание доступно при просмотре объектов "написать отзыв", "добавить статью в раздел", "добавить файлы в раздел", если для этого есть необходимые права доступа.</p>
-			<p class="bold">При просмотре объекта могут быть доступны следующие действия:</p>
-			<ul>
-				<li>"написать отзыв";</li>
-				<li>"добавить статью в раздел" - просматриваемый объект будет использоваться как раздел и созданный объект появится в нем;</li>
-				<li>"добавить файлы в раздел" - просматриваемый объект будет использоваться как раздел, для каждого загруженного файла будет создан объект с этим    файлом, который появится в разделе;</li>
-				<li>"добавить из запомненных" - возможность вставлять уже созданные ранее объекты в раздел, можно вставлять любые объекты, которые доступны для просмотра, объекты выбираются из "запомненных";</li>
-				<li>"запомнить" - добавления текущего объекта в список "запомненных", для последующей вставки в раздел;</li>
-				<li>"в моё" - добавление объекта в "запомненные", на "мою страницу", в "аватары" и тому подобные действия;</li>
-				<li>"редактировать" - правка объекта;</li>
-				<li>"удалить" - полное удаление объекта и всех его связей, без возможности восстановления; </li>
-			</ul>
-		</div> -->
-		<div class="info" ng-bind-html="sce.trustAsHtml(staticText)"><!-- {{staticText}} --></div>
-		 <div ng-show="currentPath === '/static/help' && staticText" class="static-admin-question">
-			<div class="static-admin-question-inner">
-				<div class="static-admin-question-inner-item">
-					<p>Письмо админу:</p>
-				</div>
-				<div class="static-admin-question-inner-item">
-					<span>Имя: </span>
-					<input type="text" placeholder="Введите имя...">
-				</div>
-				<div class="static-admin-question-inner-item">
-					<span>Email: </span>
-					<input type="text" placeholder="Введите email...">
-				</div>
-				<div class="static-admin-question-inner-item item-message">
-					<span>Сообщение: </span>
-					<textarea name="" id="" cols="40" rows="5" placeholder="Введите сообщение..."></textarea>
-				</div>
-				<div class="static-admin-question-inner-item item-button">
-					<button>Отправить</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="content">
+        <div class="menu-user" ng-show="userLogged">
+            <a ng-class="page==staticPage.name ? 'active' : ''" ng-repeat="staticPage in staticPages"
+               ui-sref="static({ pageName: staticPage.name})">{{staticPage.description}}</a>
+        </div>
+        <!-- <div class="info">
+        <h1>{{page}}</h1>
+            <h3>О сервисе Place People</h3>
+            <p>Информация хранится в системе в виде объектов.</p>
+            <p>Объект состоит из "заголовка", "текста" и может содержать в себе файл или несколько файлов. Так же в нем есть другая системная информация, например время создания, изменения, доступ и тому подобное...</p>
+            <p>Если в объект загружена картинка, она показывается при просмотре данного объекта и в краткой информации о объекте. Для создания объекта можно использовать кнопку "создать" на "моей страница", при этом созданный объект отобразиться еще и на самом "столе".</p>
+            <p>Так же создание доступно при просмотре объектов "написать отзыв", "добавить статью в раздел", "добавить файлы в раздел", если для этого есть необходимые права доступа.</p>
+            <p class="bold">При просмотре объекта могут быть доступны следующие действия:</p>
+            <ul>
+                <li>"написать отзыв";</li>
+                <li>"добавить статью в раздел" - просматриваемый объект будет использоваться как раздел и созданный объект появится в нем;</li>
+                <li>"добавить файлы в раздел" - просматриваемый объект будет использоваться как раздел, для каждого загруженного файла будет создан объект с этим    файлом, который появится в разделе;</li>
+                <li>"добавить из запомненных" - возможность вставлять уже созданные ранее объекты в раздел, можно вставлять любые объекты, которые доступны для просмотра, объекты выбираются из "запомненных";</li>
+                <li>"запомнить" - добавления текущего объекта в список "запомненных", для последующей вставки в раздел;</li>
+                <li>"в моё" - добавление объекта в "запомненные", на "мою страницу", в "аватары" и тому подобные действия;</li>
+                <li>"редактировать" - правка объекта;</li>
+                <li>"удалить" - полное удаление объекта и всех его связей, без возможности восстановления; </li>
+            </ul>
+        </div> -->
+        <div class="info" ng-bind-html="sce.trustAsHtml(staticText)"><!-- {{staticText}} --></div>
+        <div ng-show="currentPath === '/static/help' && staticText" class="static-admin-question">
+
+            <form name="mailForm" novalidate ng-submit="submitMail()">
+                <div class="static-admin-question-inner">
+                    <div class="static-admin-question-inner-item">
+                        <p>Письмо админу:</p>
+                    </div>
+
+                    <div class="static-admin-question-inner-item">
+                        <span>Имя: </span>
+
+                        <div class="static__list-item">
+                            <input type="text" name="name" ng-model="mail.name" placeholder="Введите имя..." required>
+
+                            <div class="error-messages" ng-messages="mailForm.name.$error"
+                                 ng-if="mailForm.name.$invalid && mailForm.$submitted">
+                                <div ng-message="required">Укажите имя</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="static-admin-question-inner-item">
+                        <span>Email: </span>
+
+                        <div class="static__list-item">
+                            <input type="email" name="email" ng-model="mail.email" placeholder="Введите email..."
+                                   required>
+
+                            <div class="error-messages" ng-messages="mailForm.email.$error"
+                                 ng-if="mailForm.email.$invalid && mailForm.$submitted">
+                                <div ng-message="required">Укажите e-mail</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="static-admin-question-inner-item">
+                        <span>Сообщение: </span>
+
+                        <div class="static__list-item">
+                            <textarea name="text" id="" ng-model="mail.text" cols="40" rows="5"
+                                      placeholder="Введите сообщение..." required></textarea>
+
+                            <div class="error-messages" ng-messages="mailForm.text.$error"
+                                 ng-if="mailForm.text.$invalid && mailForm.$submitted">
+                                <div ng-message="required">Заполните текст сообщения</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="static-admin-question-inner-item item-button">
+                        <button type="submit">Отправить</button>
+                    </div>
+                </div>
+            </form>
+
+            <!--<form action="">-->
+            <!--<ul class="flex-outer">-->
+            <!--<li>-->
+            <!--<label for="last-name">Last Name</label>-->
+            <!--<input type="text" id="last-name" placeholder="Enter your last name here">-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<label for="email">Email</label>-->
+            <!--<input type="email" id="email" placeholder="Enter your email here">-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<label for="phone">Phone</label>-->
+            <!--<input type="tel" id="phone" placeholder="Enter your phone here">-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</form>-->
+
+        </div>
+    </div>
 </div>

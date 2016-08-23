@@ -365,7 +365,7 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
-				$scope.currentIndex = index;
+				$scope.currentRoomId = chat.room_id;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
@@ -523,8 +523,8 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.isSelected = function (index) {
-				return index === $scope.currentIndex;
+			$scope.isSelected = function (roomId) {
+				return roomId === $scope.currentRoomId;
 			};
 			socket.forward('updatechat', $scope);
 			$scope.$on('socket:updatechat', function (event, data) {
