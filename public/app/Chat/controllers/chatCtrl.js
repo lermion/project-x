@@ -655,7 +655,7 @@ angular.module('placePeopleApp')
 						$scope.mainImage = response.images[0].url;
 					}
 					if($window.innerWidth <= 700){
-						$state.go('mobile-pub-view', {username: $scope.loggedUser, id: pubId});
+						$state.go('mobile-pub-view', {username: $scope.loggedUser, id: pubId, fromChat: true});
 					}else{
 						ngDialog.open({
 							template: '../app/Chat/views/popup-view-chat-publication.html',

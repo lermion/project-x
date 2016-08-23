@@ -641,10 +641,16 @@ angular.module('placePeopleApp')
 				}
 			};
 			if ($state.current.name === "mobile-pub-view" && $stateParams.id) {
-				getSinglePublication($stateParams.id);
-				$scope.returnToBack = function () {
-					$state.go("user", {username: $stateParams.username});
+				if($stateParams.fromChat){
+					$scope.returnToBack = function () {
+						$state.go("chat");
+					}
+				}else{
+					$scope.returnToBack = function () {
+						$state.go("user", {username: $stateParams.username});
+					}
 				}
+				getSinglePublication($stateParams.id);
 			}
 
 			if (!$stateParams.pubView) {
