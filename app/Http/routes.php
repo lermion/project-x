@@ -336,6 +336,15 @@ Route::group(['middleware' => ['web']], function () {
              <input type=\"submit\">
              </form>";
     });
+    Route::get('test', function () {
+        echo "<form action=\"http://pp.dev/user/14/publication\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='offset' value='0'><br>
+             <input type='text' name='limit' value='10'><br>
+             <input type='text' name='text' value='text'><br>
+             <input type='file' name='avatar'><br>
+             <input type=\"submit\">
+              </form>";
+    });
     Route::post('searchgeo','SphinxSearchController@geosearch');
     Route::any( '{angularjs}', function ( $page ) {
         return view('welcome');
