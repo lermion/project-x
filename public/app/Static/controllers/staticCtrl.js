@@ -30,11 +30,12 @@ angular.module('placePeopleApp')
                 StaticService.sendMailToAdmin($scope.mail).then(function (data) {
                        if (data.status) {
                            $scope.mail = angular.copy(originalMail);
+                           $scope.mailForm.$setPristine();
                            $scope.alerts.sendMessageToAdmin = true;
 
                            $timeout(function() {
                                $scope.alerts.sendMessageToAdmin = false;
-                           }, 1000);
+                           }, 1500);
                        }
                 });
             };

@@ -5,12 +5,12 @@
         .module('app.places')
         .controller('PlacesCtrl', PlacesCtrl);
 
-    PlacesCtrl.$inject = ['$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
+    PlacesCtrl.$inject = ['$rootScope', '$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
         '$anchorScroll', 'AuthService', 'storageService',
         'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService',
         'UserService', 'Upload', '$q'];
 
-    function PlacesCtrl($scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
+    function PlacesCtrl($rootScope, $scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
                         $anchorScroll, AuthService, storageService,
                         placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService,
                         UserService, Upload, $q) {
@@ -69,6 +69,10 @@
             // invited users
             users: []
         };
+
+        vm.placeNew.country = vm.countries.filter(function(item) {
+            return item.name === $rootScope.countryName;
+        })[0] || null;
         var originalPlaceNew = angular.copy(vm.placeNew);
 
         vm.location = {
