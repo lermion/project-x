@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('logout', 'Admin\AuthController@logout');
             Route::group(['prefix' => 'user'], function () {
                 Route::get('/', 'Admin\UserController@index');
+                Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
                 Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
@@ -57,7 +58,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\MailController@index');
                 Route::get('get_review', 'Admin\MailController@get_review');
                 Route::get('get_closed', 'Admin\MailController@get_closed');
-                Route::post('create', 'Admin\MailController@create');
                 Route::get('destroy/{id}', 'Admin\MailController@destroy');
                 Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
                 Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
@@ -102,20 +102,31 @@ Route::group(['middleware' => ['web']], function () {
             });
             Route::group(['prefix' => 'base'], function () {
                 Route::get('/', 'Admin\CountryController@index');
-                Route::get('district', 'Admin\CountryController@district');
+                Route::post('create_сountry', 'Admin\CountryController@createCountry');
+                Route::get('edit_сountry/{id}', 'Admin\CountryController@editCountry');
+                Route::post('edit_country_save', 'Admin\CountryController@editCountrySave');
                 Route::get('region', 'Admin\CountryController@region');
                 Route::post('create_region', 'Admin\CountryController@createRegion');
                 Route::get('edit_region/{id}', 'Admin\CountryController@editRegion');
                 Route::post('edit_region_save', 'Admin\CountryController@editRegionSave');
+                Route::get('district', 'Admin\CountryController@district');
+                Route::post('create_district', 'Admin\CountryController@createDistrict');
+                Route::get('edit_district/{id}', 'Admin\CountryController@editDistrict');
+                Route::post('edit_district_save', 'Admin\CountryController@editDistrictSave');
                 Route::get('settlement', 'Admin\CountryController@settlement');
-                Route::post('create_сountry', 'Admin\CountryController@createCountry');
-                Route::get('edit_сountry/{id}', 'Admin\CountryController@editCountry');
-                Route::post('edit_country_save', 'Admin\CountryController@editCountrySave');
             });
             Route::group(['prefix' => 'moderation'], function () {
                 Route::get('/', 'Admin\ModerationController@index');
+                Route::get('publications_is_topic', 'Admin\ModerationController@getIsTopicPublications');
+                Route::get('publications_is_block', 'Admin\ModerationController@getIsBlockPublications');
+                Route::get('publications_is_main', 'Admin\ModerationController@getIsMainPublications');
+                Route::get('publications_is_moderate', 'Admin\ModerationController@getIsModeratePublications');
+                Route::get('publications_main/{id}', 'Admin\ModerationController@mainPublications');
+                Route::get('publications_topic/{id}', 'Admin\ModerationController@topic');
                 Route::get('groups', 'Admin\ModerationController@groups');
+                Route::get('groups_is_block', 'Admin\ModerationController@getIsBlockGroups');
                 Route::get('places', 'Admin\ModerationController@places');
+                Route::get('places_is_block', 'Admin\ModerationController@getIsBlockPlaces');
             });
 
         });
@@ -289,12 +300,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'mail'], function () {
         Route::get('/', 'MailController@index');
-        Route::get('get_review', 'MailController@get_review');
-        Route::get('get_closed', 'MailController@get_closed');
-        Route::post('create', 'MailController@create');
-        Route::get('destroy/{id}', 'MailController@destroy');
-        Route::get('status_closed/{id}', 'MailController@change_status_closed');
-        Route::get('status_review/{id}', 'MailController@change_status_review');
+//        Route::get('get_review', 'MailController@get_review');
+//        Route::get('get_closed', 'MailController@get_closed');
+//        Route::post('create', 'MailController@create');
+//        Route::get('destroy/{id}', 'MailController@destroy');
+//        Route::get('status_closed/{id}', 'MailController@change_status_closed');
+//        Route::get('status_review/{id}', 'MailController@change_status_review');
     });
 
     Route::get('authorization', 'AuthorizationController@index');

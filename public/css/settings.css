@@ -6761,6 +6761,12 @@ textarea[type="text"]:focus,
     margin-bottom: 10px;
     justify-content: space-between;
 }
+.static__list-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 70%;
+}
 .static-admin-question-inner-item.item-message {
     align-items: flex-start;
 }
@@ -6769,7 +6775,7 @@ textarea[type="text"]:focus,
 }
 .static-admin-question-inner-item input {
     padding: 5px;
-    width: 70%;
+    width: 100%;
     border: 1px solid #d2dbe3;
     border-radius: 2px;
     line-height: 20px;
@@ -6778,7 +6784,7 @@ textarea[type="text"]:focus,
 }
 .static-admin-question-inner-item textarea {
     padding: 5px;
-    width: 70%;
+    width: 100%;
     border: 1px solid #d2dbe3;
     border-radius: 2px;
     line-height: 20px;

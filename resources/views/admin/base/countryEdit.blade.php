@@ -9,8 +9,13 @@
       <div class="col-md-3">
           <input type="hidden" name="id" value="{{$country->id}}">
           <input class="form-control" type="text" name="name" value="{{$country->name}}">
-          <input class="form-control" type="text" name="code" value="{{$country->code}}">
       </div>
+        <div class="col-md-2">
+            <span class="line-h"><b>Изменить код страны</b></span>
+        </div>
+        <div class="col-md-3">
+            <input class="form-control" type="text" name="code" value="{{$country->code}}">
+        </div>
     </div>
       <p>
         <button class="btn btn-primary">Изменить</button>
