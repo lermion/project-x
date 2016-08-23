@@ -211,7 +211,7 @@
 																{{comment.user.last_name}}</a>
 
 															<p class="time" am-time-ago="comment.created_at"></p>
-															<a ng-hide="comment.user.id == loggedUserId" href="javascript:void(0);"
+															<a ng-hide="comment.user.id == loggedUserId && comment.like_count < 0" href="javascript:void(0);"
 															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : '&nbsp;'}}</a>
 														</div>
 														<a href="javascript:void(0);"
