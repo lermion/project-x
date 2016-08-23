@@ -14,7 +14,7 @@
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
                 <li class="col-md-3 col-md-offset-1 active"><a href="/admin/moderation/places">Новые </a></li>
-                <li class="col-md-3"><a href="">На заметке </a></li>
+                <li class="col-md-3"><a href="/admin/moderation/places_to_note">На заметке </a></li>
                 <li class="col-md-3"><a href="/admin/moderation/places_is_block">Заблокированные</a></li>
             </ul>
         </div>
@@ -51,9 +51,15 @@
                     <td>{{$place->created_at}}</td>
 
                     <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                        <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                        <button type="button" class="btn btn-warning btn-xs">На заметку</button>
+                        @if ($place->is_block == false)
+                            <a type="button" class="btn btn-danger btn-xs" href="/admin/moderation/block_place/{{$place->id}}">Блокировать</a>
+                        @endif
+                        @if ($place->is_moderate == false)
+                            <a type="button" class="btn btn-success btn-xs" href="/admin/moderation/confirm_place/{{$place->id}}">Подтвердить</a>
+                        @endif
+                        @if ($place->to_note == false)
+                            <a type="button" class="btn btn-warning btn-xs" href="/admin/moderation/note_place/{{$place->id}}">На заметку</a>
+                        @endif
                     </td>
                   </tr>
                   @endforeach
