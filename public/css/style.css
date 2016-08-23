@@ -2899,6 +2899,7 @@ pub-list-item .publication-footer-button {
 	background-repeat: no-repeat;
 	background-size: 12px;
 	transition: all .1s ease-in-out .1s;
+	min-width: 20px;
 	display: none;
 }
 .visible-comments .comment .like-counter.hidden-publication{
