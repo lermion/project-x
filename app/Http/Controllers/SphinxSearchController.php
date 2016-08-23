@@ -22,14 +22,15 @@ class SphinxSearchController extends Controller
         $result[3]=[];
         if(!empty($Data['usersearch']) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            $res=(sphinx_raw($query));
-            $r = $res->toArray();
-            $user = $r;
-            if ($r){
-                $user = $user[0];
-                $user['online'] = Online::isOnline($user['id']);
+            $r=(sphinx_raw($query));
+            $user = array();
+            if ($r) {
+                foreach ($r as $res) {
+                    $res['online'] = Online::isOnline($res['id']);
+                    $user[] = $res;
+                }
             }
-            $result[0] = $user;
+                $result[0]=$user;
         }
 
         if (!empty($Data['publicationsearch'])){
@@ -49,11 +50,15 @@ class SphinxSearchController extends Controller
         if((empty($Data['usersearch'])) && (empty($Data['publicationsearch'])) &&
             (empty($Data['groupsearch'])) && (empty($Data['placesearch'])) ){
             $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-            foreach(sphinx_raw($query) as $res){
-                $res['online'] = Online::isOnline($res['id']);
-                $user[] = $res;
+            $r=(sphinx_raw($query));
+            $user = array();
+            if ($r) {
+                foreach ($r as $res) {
+                    $res['online'] = Online::isOnline($res['id']);
+                    $user[] = $res;
+                }
             }
-            $result[0]=($user);
+            $result[0]=$user;
             $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
             $result[1]=(sphinx_raw($query));
             $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
@@ -88,8 +93,4 @@ class SphinxSearchController extends Controller
             return response()->json($result);
 
     }
-
-
-        
-    
 }

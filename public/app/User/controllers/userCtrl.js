@@ -13,6 +13,9 @@ angular.module('placePeopleApp')
 			var storage = storageService.getStorage();
 
 			$scope.loggedUserAvatar = storage.loggedUserAva;
+			$scope.groupsChecked = [];
+			$scope.placesChecked = [];
+			$scope.groupsChatArray = [];
 			//$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
 
@@ -122,6 +125,12 @@ angular.module('placePeopleApp')
 								value.isChecked = true;
 							}
 						});
+					}else if(type === "group"){
+						$scope.groupsChecked.push(data.id);
+					}else if(type === "place"){
+						$scope.placesChecked.push(data.id);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.push(data.id);
 					}
 				}else{
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
@@ -137,10 +146,16 @@ angular.module('placePeopleApp')
 								value.isChecked = false;
 							}
 						});
+					}else if(type === "group"){
+						$scope.groupsChecked.splice($scope.groupsChecked.indexOf(data.id), 1);
+					}else if(type === "place"){
+						$scope.placesChecked.splice($scope.placesChecked.indexOf(data.id), 1);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.splice($scope.groupsChatArray.indexOf(data.id), 1);
 					}
 				}
 			};
-			
+
 			$scope.showFullComment = function(comment){
 				comment.commentLength = comment.text.length;
 			};
@@ -641,10 +656,16 @@ angular.module('placePeopleApp')
 				}
 			};
 			if ($state.current.name === "mobile-pub-view" && $stateParams.id) {
-				getSinglePublication($stateParams.id);
-				$scope.returnToBack = function () {
-					$state.go("user", {username: $stateParams.username});
+				if($stateParams.fromChat){
+					$scope.returnToBack = function () {
+						$state.go("chat");
+					}
+				}else{
+					$scope.returnToBack = function () {
+						$state.go("user", {username: $stateParams.username});
+					}
 				}
+				getSinglePublication($stateParams.id);
 			}
 
 			if (!$stateParams.pubView) {
@@ -985,7 +1006,13 @@ angular.module('placePeopleApp')
 					template: '../app/User/views/share-publication.html',
 					className: 'share-publication ngdialog-theme-default',
 					scope: $scope,
-					data: {pubId: pubId}
+					data: {pubId: pubId},
+					preCloseCallback: function(){
+						$scope.groupsChecked = [];
+						$scope.placesChecked = [];
+						$scope.groupsChatArray = [];
+						$scope.shareData = [];
+					}
 				});
 				loadUserContacts();
 			};
@@ -1030,10 +1057,6 @@ angular.module('placePeopleApp')
 						return false;
 					}
 				} else if (value === "groups-chat") {
-					socket.emit("get user rooms", $scope.loggedUserId);
-					socket.on("get user rooms", function (response) {
-						$scope.groupsChatArr = response;
-					});
 					$scope.groupsChat = function () {
 						return true;
 					}
@@ -1059,12 +1082,6 @@ angular.module('placePeopleApp')
 					$scope.showPlaces = function () {
 						return false;
 					}
-					groupsService.getGroupList().then(function (response) {
-							$scope.groups = response;
-						},
-						function (error) {
-							console.log(error);
-						});
 				} else if (value === "places") {
 					$scope.showPlaces = function () {
 						return true;
@@ -1078,28 +1095,37 @@ angular.module('placePeopleApp')
 					$scope.members = function () {
 						return false;
 					}
-					placesService.getPlaces().then(function (response) {
-							console.log(response);
-							$scope.places = response;
-						},
-						function (error) {
-							console.log(error);
-						});
 				}
 			};
 			function loadUserContacts() {
 				PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
-						$scope.subscribers = response;
-					},
-					function (error) {
-						console.log(error);
-					});
+					$scope.subscribers = response;
+				},
+				function (error) {
+					console.log(error);
+				});
 				PublicationService.getSubscription($scope.loggedUserId).then(function (response) {
-						$scope.subscriptions = response;
-					},
-					function (error) {
-						console.log(error);
-					});
+					$scope.subscriptions = response;
+				},
+				function (error) {
+					console.log(error);
+				});
+				socket.emit("get user rooms", $scope.loggedUserId);
+				socket.on("get user rooms", function (response) {
+					$scope.groupsChatArr = response;
+				});
+				groupsService.getGroupList().then(function (response) {
+					$scope.groups = response;
+				},
+				function (error) {
+					console.log(error);
+				});
+				placesService.getPlaces().then(function (response) {
+					$scope.places = response;
+				},
+				function (error) {
+					console.log(error);
+				});
 			}
 			$scope.getPubLink = function (pubId) {
 				var hashPubId = md5.createHash(pubId + "");
