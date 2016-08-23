@@ -15,7 +15,7 @@ class ModerationController extends Controller
     public function index()
     {
         $publications = Publication::with('user','images','videos','group')
-            ->where(['is_block'=>false,'is_topic'=>false,'is_moderate'=>false,'is_main'=>false,'to_note'=>false])
+            ->where(['is_block'=>false,'is_topic'=>false,'is_moderate'=>false,'to_note'=>false])
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -39,7 +39,7 @@ class ModerationController extends Controller
     public function getIsMainPublications()
     {
         $publications = Publication::with('user','images','videos','group')
-            ->where('is_main',true)
+            ->where(['is_main'=>true,'is_moderate'=>true])
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
