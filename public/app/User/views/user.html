@@ -187,7 +187,7 @@
 														  ng-hide="singlePublication.user_like && singlePublication.like_count == 1">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}} чел.</span>
 												</p>
 											</div>
-											<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
+											<a href ng-if="singlePublication.comment_count > 0" class="comments-count">{{singlePublication.comment_count}}</a>
 										</div>
 										<div class="more-comments"
 											 ng-if="singlePublication.comments.length !== singlePublication.comment_count">
