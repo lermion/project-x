@@ -1,8 +1,8 @@
 angular.module('placePeopleApp')
     .controller('staticCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'StaticService', 'AuthService',
-        '$window', '$http', 'storageService', '$sce', '$location', '$timeout',
+        '$window', '$http', 'storageService', '$sce', '$location', '$timeout', 'ngDialog',
         function ($scope, $rootScope, $state, $stateParams, StaticService, AuthService, $window, $http,
-                  storageService, $sce, $location, $timeout) {
+                  storageService, $sce, $location, $timeout, ngDialog) {
 
             $scope.mailForm = {};
 
@@ -33,9 +33,14 @@ angular.module('placePeopleApp')
                            $scope.mailForm.$setPristine();
                            $scope.alerts.sendMessageToAdmin = true;
 
-                           $timeout(function() {
-                               $scope.alerts.sendMessageToAdmin = false;
-                           }, 1500);
+                           ngDialog.open({
+                               template: '../app/Static/views/popup-notification.html',
+                               className: 'popup-delete-group ngdialog-theme-default',
+                               scope: $scope
+                           });
+                           setTimeout(function () {
+                               ngDialog.closeAll();
+                           }, 2000);
                        }
                 });
             };
