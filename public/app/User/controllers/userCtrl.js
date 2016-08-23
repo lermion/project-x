@@ -16,6 +16,8 @@ angular.module('placePeopleApp')
 			$scope.groupsChecked = [];
 			$scope.placesChecked = [];
 			$scope.groupsChatArray = [];
+			$scope.subscribersArray = [];
+			$scope.subscriptionsArray = [];
 			//$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
 
@@ -114,15 +116,17 @@ angular.module('placePeopleApp')
 				if(active){
 					$scope.shareData.push(data);
 					if(type === "subscription"){
+						$scope.subscriptionsArray.push(data.id);
 						$scope.subscribers.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = true;
+								$scope.subscribersArray.push(value.id);
 							}
 						});
 					}else if(type === "subscriber"){
+						$scope.subscribersArray.push(data.id);
 						$scope.subscriptions.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = true;
+								$scope.subscriptionsArray.push(value.id);
 							}
 						});
 					}else if(type === "group"){
@@ -135,15 +139,17 @@ angular.module('placePeopleApp')
 				}else{
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
 					if(type === "subscription"){
+						$scope.subscriptionsArray.splice($scope.subscriptionsArray.indexOf(data.id), 1);
 						$scope.subscribers.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = false;
+								$scope.subscribersArray.splice($scope.subscribersArray.indexOf(value.id), 1);
 							}
 						});
 					}else if(type === "subscriber"){
+						$scope.subscribersArray.splice($scope.subscribersArray.indexOf(data.id), 1);
 						$scope.subscriptions.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = false;
+								$scope.subscriptionsArray.splice($scope.subscriptionsArray.indexOf(value.id), 1);
 							}
 						});
 					}else if(type === "group"){
@@ -1010,6 +1016,8 @@ angular.module('placePeopleApp')
 						$scope.groupsChecked = [];
 						$scope.placesChecked = [];
 						$scope.groupsChatArray = [];
+						$scope.subscribersArray = [];
+						$scope.subscriptionsArray = [];
 						$scope.shareData = [];
 					}
 				});
