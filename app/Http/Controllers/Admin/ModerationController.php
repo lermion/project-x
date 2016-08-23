@@ -16,6 +16,7 @@ class ModerationController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where(['is_block'=>false,'is_topic'=>false,'is_moderate'=>false,'to_note'=>false])
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -24,6 +25,7 @@ class ModerationController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where('is_topic',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -32,6 +34,7 @@ class ModerationController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where('is_block',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -40,6 +43,7 @@ class ModerationController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where(['is_main'=>true,'is_moderate'=>true])
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -48,6 +52,7 @@ class ModerationController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where('is_moderate',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -56,6 +61,7 @@ class ModerationController extends Controller
     {
         $publications = Publication::with('user','images','videos','group')
             ->where('to_note',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -109,6 +115,7 @@ class ModerationController extends Controller
     {
         $groups = Group::with('users','creator')
             ->where(['is_block'=>false,'is_moderate'=>false,'to_note'=>false])
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.groups')->with('groups',$groups);
     }
@@ -117,6 +124,7 @@ class ModerationController extends Controller
     {
         $groups = Group::with('users','creator')
             ->where('is_block',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.groups')->with('groups',$groups);
     }
@@ -125,6 +133,7 @@ class ModerationController extends Controller
     {
         $groups = Group::with('users','creator')
             ->where('to_note',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.groups')->with('groups',$groups);
     }
@@ -156,6 +165,7 @@ class ModerationController extends Controller
     {
         $places = Place::with('users','creator')
             ->where(['is_block'=>false,'is_moderate'=>false,'to_note'=>false])
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.places')->with('places',$places);
     }
@@ -164,6 +174,7 @@ class ModerationController extends Controller
     {
         $places = Place::with('users','creator')
             ->where('is_block',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.places')->with('places',$places);
     }
@@ -172,6 +183,7 @@ class ModerationController extends Controller
     {
         $places = Place::with('users','creator')
             ->where('to_note',true)
+            ->orderBy('created_at', 'desc')
             ->paginate(25);
         return view('admin.moderation.places')->with('places',$places);
     }
