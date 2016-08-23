@@ -14,6 +14,8 @@ angular.module('placePeopleApp')
 
 			$scope.loggedUserAvatar = storage.loggedUserAva;
 			$scope.groupsChecked = [];
+			$scope.placesChecked = [];
+			$scope.groupsChatArray = [];
 			//$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
 
@@ -125,6 +127,10 @@ angular.module('placePeopleApp')
 						});
 					}else if(type === "group"){
 						$scope.groupsChecked.push(data.id);
+					}else if(type === "place"){
+						$scope.placesChecked.push(data.id);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.push(data.id);
 					}
 				}else{
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
@@ -142,6 +148,10 @@ angular.module('placePeopleApp')
 						});
 					}else if(type === "group"){
 						$scope.groupsChecked.splice($scope.groupsChecked.indexOf(data.id), 1);
+					}else if(type === "place"){
+						$scope.placesChecked.splice($scope.placesChecked.indexOf(data.id), 1);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.splice($scope.groupsChatArray.indexOf(data.id), 1);
 					}
 				}
 			};
@@ -996,7 +1006,13 @@ angular.module('placePeopleApp')
 					template: '../app/User/views/share-publication.html',
 					className: 'share-publication ngdialog-theme-default',
 					scope: $scope,
-					data: {pubId: pubId}
+					data: {pubId: pubId},
+					preCloseCallback: function(){
+						$scope.groupsChecked = [];
+						$scope.placesChecked = [];
+						$scope.groupsChatArray = [];
+						$scope.shareData = [];
+					}
 				});
 				loadUserContacts();
 			};

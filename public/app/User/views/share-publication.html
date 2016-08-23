@@ -37,7 +37,7 @@
 	<div ng-if="groupsChat()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Групповые чаты</div>
 		<div ng-repeat="groupChat in groupsChatArr | filter:{$:query}" ng-if="groupChat.is_group" class="share-publication-search-data-item">
-			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active)" type="checkbox"></span>
+			<span><input ng-checked="groupsChatArray.indexOf(groupChat.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active, 'group-chat')" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
@@ -65,7 +65,7 @@
 	<div ng-if="showPlaces()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Места</div>
 		<div ng-show="place.is_sub" ng-repeat="place in places | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(place, active)" type="checkbox"></span>
+			<span><input ng-checked="placesChecked.indexOf(place.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(place, active, 'place')" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="place({placeName: place.url_name, placeId: place.id})" href="javascript:void(0);">
