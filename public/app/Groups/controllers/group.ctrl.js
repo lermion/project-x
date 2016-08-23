@@ -7,11 +7,11 @@
 
 	GroupCtrl.$inject = ['$filter', '$timeout', '$rootScope', '$scope', '$state', '$stateParams', 'group', '$http', '$window',
 		'AuthService', 'storageService', 'ngDialog', 'groupsService', 'UserService', 'PublicationService',
-		'Upload', 'amMoment', 'socket', '$q', '$location', 'placesService'];
+		'Upload', 'amMoment', 'socket', '$q', '$location', 'placesService', 'md5'];
 
 	function GroupCtrl($filter, $timeout, $rootScope, $scope, $state, $stateParams, group, $http, $window,
 					   AuthService, storageService, ngDialog, groupsService, UserService, PublicationService,
-					   Upload, amMoment, socket, $q, $location, placesService) {
+					   Upload, amMoment, socket, $q, $location, placesService, md5) {
 
 		var vm = this;
 		var storage = storageService.getStorage();
@@ -306,7 +306,7 @@
 
 			} else {
 				ngDialog.open({
-					templateUrl: '../app/common/components/publication/publication-modal.html',
+					templateUrl: '../app/common/views/pub-item-modal.html',
 					name: 'modal-publication-group',
 					className: 'view-publication ngdialog-theme-default',
 					data: {
@@ -603,16 +603,8 @@
 		};
 
 		vm.getPubLink = function (pub) {
-			var pathArray = window.location.href.split('/');
-			pathArray.splice(pathArray.length - 1, 1, 'publication');
-			pathArray.push(pub.id);
-
-			var newPathname = "";
-			for (var i = 0; i < pathArray.length; i++) {
-				newPathname += "/";
-				newPathname += pathArray[i];
-			}
-			vm.pubLink = newPathname.substring(1);
+			var hashPubId = md5.createHash(pub.id + "");
+			vm.pubLink = "http://" + $location.host() + "/p/" + pub.id + "/" + hashPubId;
 			ngDialog.open({
 				template: '../app/Groups/views/get-link-publication.html',
 				className: 'link-publication ngdialog-theme-default',
@@ -699,6 +691,18 @@
 				});
 			}
 		};
+
+		function dynamicSort(property){
+			var sortOrder = 1;
+			if(property[0] === "-") {
+				sortOrder = -1;
+				property = property.substr(1);
+			}
+			return function (a,b) {
+				var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+				return result * sortOrder;
+			}
+		}
 
 		vm.saveEditedPub = function (pubId, pubText, files) {
 			vm.pubEdited.description = vm.emoji.emojiMessage.messagetext;
@@ -956,6 +960,8 @@
 		};
 
 		vm.addPublicationLike = function (pub) {
+			pub.user_like = !pub.user_like ;
+			pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
 			PublicationService.addPublicationLike(pub.id).then(function (response) {
 					pub.user_like = response.user_like;
 					pub.like_count = response.like_count;
@@ -1037,6 +1043,10 @@
 				storageService.setStorageItem('pubView', 'list');
 			}
 		};
+
+		vm.clickclick = function() {
+			alert(1);
+		}
 
 
 		$scope.saveCropp = function (croppedDataURL) {
@@ -1279,6 +1289,7 @@
 					vm.mainImage = images[$scope.indexCurrentImage].url;
 				}else{
 					if($scope.indexCurrentPublication !== 0){
+						vm.group.publications.sort(dynamicSort("created_at"));
 						vm.activePublication = vm.group.publications[$scope.indexCurrentPublication -= 1];
 						if(vm.activePublication.images[0] !== undefined){
 							vm.mainImage = vm.activePublication.images[0].url;
@@ -1298,6 +1309,7 @@
 					vm.mainImage = images[$scope.indexCurrentImage].url;
 				}else{
 					if($scope.indexCurrentPublication + 1 !== vm.group.publications.length){
+						vm.group.publications.sort(dynamicSort("created_at"));
 						vm.activePublication = vm.group.publications[$scope.indexCurrentPublication += 1];
 						if(vm.activePublication.images[0] !== undefined){
 							vm.mainImage = vm.activePublication.images[0].url;

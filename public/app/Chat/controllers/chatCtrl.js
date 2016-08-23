@@ -184,6 +184,9 @@ angular.module('placePeopleApp')
 			$scope.statusLoading = true;
 			$scope.busyMessages = false;
 			$scope.loadMoreMessages = function(roomId){
+				$scope.isNeededScroll = function(){
+					return false;
+				}
 				if(!roomId){
 					for (var i = 0; i < $scope.Model.chatRooms.length; i++) {
 						for (var j = 0; j < $scope.Model.chatRooms[i].members.length; j++) {
@@ -424,7 +427,10 @@ angular.module('placePeopleApp')
 					$scope.Model.mobile.hideContent	= true;								
 					$state.go('chat.mobile');
 				}
-			};			
+				$scope.isNeededScroll = function(){
+					return $scope.Model.Chat;
+				}
+			};
 			socket.on("get user rooms", function(response){
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
@@ -522,7 +528,7 @@ angular.module('placePeopleApp')
 			};
 			socket.forward('updatechat', $scope);
 			$scope.$on('socket:updatechat', function (event, data) {
-      			if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
+				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
@@ -533,6 +539,10 @@ angular.module('placePeopleApp')
 						}
 					};
 					$scope.Model.Chat = data.messages.reverse();
+				}else if(data.isRead){
+					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId && data.userId !== $scope.loggedUserId){
+						$scope.isReadRoom = data.isRead.isReadMessage;
+					}
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);
@@ -928,6 +938,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.Model.addPublicationLike = function(pub){
+				pub.user_like = !pub.user_like ;
+				pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
 				PublicationService.addPublicationLike(pub.id).then(function(response){
 					pub.user_like = response.user_like;
 					pub.like_count = response.like_count;
@@ -938,6 +950,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.addPublicationLike = function(pub, isCurrentUser){
+				pub.user_like = !pub.user_like ;
+				pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
 				PublicationService.addPublicationLike(pub.id).then(function(response){
 					pub.user_like = response.user_like;
 					pub.like_count = response.like_count;

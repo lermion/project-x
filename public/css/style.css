@@ -2279,7 +2279,8 @@ body.public.user {
 .publication-footer-button {
 	display: flex;
 }
-.group-page .publication-footer-button {
+.group-page .publication-footer-button,
+pub-list-item .publication-footer-button {
 	display: flex;
 	align-items: center;
     justify-content: space-between;
@@ -2777,8 +2778,7 @@ body.public.user {
 	background-repeat: no-repeat;
 	background-size: 20%;
 	font-size: 14px;
-	transition: all .1s ease-in-out .1s;
-	    font-family: Tahoma;
+	font-family: Tahoma;
     font-weight: bold;
     font-size: 13.6px;
 }
@@ -2900,6 +2900,13 @@ body.public.user {
 	background-size: 12px;
 	transition: all .1s ease-in-out .1s;
 	display: none;
+}
+.visible-comments .comment .like-counter.hidden-publication{
+	cursor: default;
+}
+.visible-comments .comment .like-counter.hidden-publication:hover{
+	color: #333;
+	background-image: url(../images/comment-like.png);
 }
 .visible-comments .comment .like-counter:hover {
 	color: #495b79;

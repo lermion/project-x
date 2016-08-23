@@ -106,6 +106,33 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Feed/views/feed.html',
                     controller: 'feedCtrl',
                     showHeader: true,
+                    isLogin: false,
+                    resolve: {
+                        profile: ['$rootScope', '$q', '$state', '$stateParams', 'UserService', function ($rootScope, $q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($rootScope.user.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }]
+                    }
+
+                })
+                .state('p', {
+                    url: '/p/:pubId/:hash',
+                    templateUrl: '../../app/hidden-publication.html',
+                    controller: 'HiddenPubContoller',
+                    showHeader: true,
                     isLogin: false
                 })
                 // .state('feed-mobile', {
@@ -252,7 +279,7 @@ angular.module('placePeopleApp')
                     }
                 })
                 .state('mobile-pub-view-test', {
-                    url: '/m/pub/:id',
+                    url: '/m/publication/:id',
                     templateUrl: '../../app/common/views/pub-list-item.html',
                     showHeader: true,
                     params: {
@@ -261,10 +288,11 @@ angular.module('placePeopleApp')
                             params: null
                         }
                     },
-                    controller: function (publication, $stateParams) {
+                    controller: function ($scope, publication, $stateParams) {
                         this.title = '111';
                         this.publication = publication;
                         this.prevState = $stateParams.prevState;
+                        $scope.$emit('userPoint', 'user');
                     },
                     controllerAs: 'vm',
                     resolve: {
@@ -292,6 +320,7 @@ angular.module('placePeopleApp')
                         publications: null
                     }
                 })
+                
 
 
         }])

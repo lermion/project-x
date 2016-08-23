@@ -14,4 +14,16 @@ class ModerationController extends Controller
 
         return view('admin.moderation.index');
     }
+
+    public function groups()
+    {
+
+        return view('admin.moderation.groups');
+    }
+
+    public function places()
+    {
+
+        return view('admin.moderation.places');
+    }
 }

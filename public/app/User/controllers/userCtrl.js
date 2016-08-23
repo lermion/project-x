@@ -106,19 +106,38 @@ angular.module('placePeopleApp')
 					});
 				}
 			};
-			$scope.change = function (data, active) {
-				if (active) {
-					$scope.isChecked = function(id){
-						return id === data.id;
-					}
+
+			$scope.change = function(data, active, type){
+				if(active){
 					$scope.shareData.push(data);
-				} else {
-					$scope.isChecked = function(id){
-						if(id !== data.id){
-							return false;
-						}
+					if(type === "subscription"){
+						$scope.subscribers.forEach(function(value){
+							if(value.id === data.id){
+								value.isChecked = true;
+							}
+						});
+					}else if(type === "subscriber"){
+						$scope.subscriptions.forEach(function(value){
+							if(value.id === data.id){
+								value.isChecked = true;
+							}
+						});
 					}
+				}else{
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
+					if(type === "subscription"){
+						$scope.subscribers.forEach(function(value){
+							if(value.id === data.id){
+								value.isChecked = false;
+							}
+						});
+					}else if(type === "subscriber"){
+						$scope.subscriptions.forEach(function(value){
+							if(value.id === data.id){
+								value.isChecked = false;
+							}
+						});
+					}
 				}
 			};
 			
@@ -769,6 +788,8 @@ angular.module('placePeopleApp')
 					});
 			}
 			$scope.addPublicationLike = function (pub, isCurrentUser) {
+				pub.user_like = !pub.user_like ;
+				pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
 				PublicationService.addPublicationLike(pub.id).then(function (response) {
 						pub.user_like = response.user_like;
 						pub.like_count = response.like_count;
@@ -1080,10 +1101,9 @@ angular.module('placePeopleApp')
 						console.log(error);
 					});
 			}
-
 			$scope.getPubLink = function (pubId) {
 				var hashPubId = md5.createHash(pubId + "");
-				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId + "/" + hashPubId;
+				$scope.linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
 				ngDialog.open({
 					template: '../app/User/views/get-link-publication.html',
 					className: 'link-publication ngdialog-theme-default',

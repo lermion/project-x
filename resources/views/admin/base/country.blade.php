@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-  <form action="{{action('Admin\OptionController@create')}}" method="post">
+  <form action="{{action('Admin\CountryController@createCountry')}}" method="post">
     <div class="row country">
       <div class="col-md-2">
         <span class="line-h"><b>Добавить страну</b></span>
@@ -31,7 +31,7 @@
                 <td>{{$country->id}}</td>
                 <td>{{$country->name}}</td>
                 <td class="text-center">
-                    <button class="btn btn-warning btn-xs">Редактировать</button>
+                    <a class="btn btn-warning btn-xs" href="/admin/base/edit_сountry/{{$country->id}}">Редактировать</a>
                 </td>
               </tr>
             @endforeach

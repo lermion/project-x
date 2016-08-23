@@ -1,13 +1,13 @@
 angular.module('placePeopleApp')
 	.controller('feedCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'PublicationService',
 		'AuthService', 'FeedService', '$window', '$http', 'storageService', 'ngDialog', 'amMoment', 'Upload', '$timeout', 'UserService',
-		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope',
+		'socket', 'groupsService', 'placesService', '$location', '$q', '$rootScope', 'md5', 'profile',
 		function ($scope, $state, $stateParams, StaticService, PublicationService, AuthService,
 				  FeedService, $window, $http, storageService, ngDialog, amMoment, Upload, $timeout,
-				  UserService, socket, groupsService, placesService, $location, $q, $rootScope) {
+				  UserService, socket, groupsService, placesService, $location, $q, $rootScope, md5, profile) {
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
-			//$scope.loggedUser = storage.username;
+
 			$scope.emojiMessage = {};
 			$scope.shareData = [];
 			$scope.loggedUserAva = storage.loggedUserAva;
@@ -73,6 +73,10 @@ angular.module('placePeopleApp')
 
 			var alertPubCommentModal;
 
+			storageService.setStorageItem('loggedUserAva', profile.avatar_path);
+			storageService.setStorageItem('firstName', profile.first_name);
+			storageService.setStorageItem('lastName', profile.last_name);
+
 			$scope.pubNew = {
 				files: []
 			};
@@ -122,7 +126,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.getPubLink = function (pubId) {
-				$scope.linkToPublication = $location.absUrl() + "/publication/" + pubId;
+				var hashPubId = md5.createHash(pubId + "");
+				$scope.linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
 				ngDialog.open({
 					template: '../app/User/views/get-link-publication.html',
 					className: 'link-publication ngdialog-theme-default',
@@ -131,6 +136,17 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.indexCurrentImage = 0;
+			function dynamicSort(property){
+				var sortOrder = 1;
+				if(property[0] === "-") {
+					sortOrder = -1;
+					property = property.substr(1);
+				}
+				return function (a,b) {
+					var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+					return result * sortOrder;
+				}
+			}
 			$scope.openPreviousInfo = function(images){
 				if(images.length >= 1){
 					$scope.indexCurrentImage--;
@@ -138,6 +154,7 @@ angular.module('placePeopleApp')
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
 						if($scope.indexCurrentPublication !== 0){
+							$scope.publications.sort(dynamicSort("created_at"));
 							$scope.singlePublication = $scope.publications[$scope.indexCurrentPublication -= 1];
 							if($scope.singlePublication.images[0] !== undefined){
 								$scope.mainImage = $scope.singlePublication.images[0].url;
@@ -157,6 +174,7 @@ angular.module('placePeopleApp')
 						$scope.mainImage = images[$scope.indexCurrentImage].url;
 					}else{
 						if($scope.indexCurrentPublication + 1 !== $scope.publications.length){
+							$scope.publications.sort(dynamicSort("created_at"));
 							$scope.singlePublication = $scope.publications[$scope.indexCurrentPublication += 1];
 							if($scope.singlePublication.images[0] !== undefined){
 								$scope.mainImage = $scope.singlePublication.images[0].url;
@@ -439,6 +457,8 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.addPublicationLike = function (pub) {
+				pub.user_like = !pub.user_like ;
+				pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
 				PublicationService.addPublicationLike(pub.id).then(function (response) {
 						pub.user_like = response.user_like;
 						pub.like_count = response.like_count;
@@ -712,7 +732,10 @@ angular.module('placePeopleApp')
 							ngDialog.open({
 								template: '../app/Feed/views/view-publication.html',
 								className: 'view-publication ngdialog-theme-default',
-								scope: $scope
+								scope: $scope,
+								preCloseCallback: function(){
+									$scope.indexCurrentImage = 0;
+								}
 							});
 						}
 						// }
@@ -723,8 +746,21 @@ angular.module('placePeopleApp')
 			}
 
 			$scope.showPublication = function (pub, index) {
-				$scope.indexCurrentPublication = index;
-				getSinglePublication(pub.id);
+				if (isMobile()) {
+
+					$state.go('mobile-pub-view-test', {
+						id: pub.id,
+						prevState: {
+							name: 'feed',
+							params: null
+						}
+					});
+
+				} else {
+					$scope.indexCurrentPublication = index;
+					getSinglePublication(pub.id);
+				}
+
 			};
 
 			$scope.goToSearch = function(searchParam){
@@ -850,4 +886,10 @@ angular.module('placePeopleApp')
 					storageService.setStorageItem('pubView', 'list');
 				}
 			}
+
+			function isMobile() {
+				var screenWidth = $window.innerWidth;
+				return screenWidth < 768;
+			}
+
 		}]);
