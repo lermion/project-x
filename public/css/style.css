@@ -2897,9 +2897,12 @@ pub-list-item .publication-footer-button {
 	background-image: url(../images/comment-like.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: 12px;
 	transition: all .1s ease-in-out .1s;
+	min-width: 20px;
 	display: none;
+	min-height: 16px;
+	line-height: 16px;
 }
 .visible-comments .comment .like-counter.hidden-publication{
 	cursor: default;

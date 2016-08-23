@@ -13,10 +13,12 @@
 
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 active"><a href="">Новые (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Тема дня (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">На заметке (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="">Заблокированные (<span>10</span>)</a></li>
+                <li class="col-md-2 active"><a href="/admin/moderation/">Новые </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_topic">Тема дня </a></li>
+                <li class="col-md-2"><a href="">На заметке </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_block">Заблокированные </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_moderate">Подтвержденные </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_main">На главной </a></li>
             </ul>
         </div>
 
@@ -34,49 +36,51 @@
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($publications as $publication)
                   <tr>
-                    <td><a href="">1</a></td>
-                    <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст </td>
-                    <td>Елена Новикова</td>
+                    <td><a href="">{{$publication->id}}</a></td>
+                    <td>{{$publication->text}}</td>
+                    <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                     <td class="mini-image">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
                         <!-- <a href="">Ещё</a> -->
                     </td>
-                    <td>видео</td>
-                    <td>02.08.2016</td>
+                    <td>Нет видео</td>
+                    <td>{{$publication->created_at}}</td>
                     <td class="text-center">
+                            @if ($publication->is_block == false)
                         <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
+                            @endif
+                            @if ($publication->is_moderate == false)
                         <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                        <button type="button" class="btn btn-primary btn-xs">Тема дня</button>
+                            @endif
+                            @if ($publication->is_topic == false)
+                        <a type="button" class="btn btn-primary btn-xs" href="/admin/moderation/publications_topic/{{$publication->id}}">Тема дня</a>
+                            @endif
+                                @if ($publication->is_topic == false)
                         <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        <button type="button" class="btn btn-info btn-xs">На главную</button>
+                                @endif
+                            @if ($publication->is_main == false)
+                        <a type="button" class="btn btn-info btn-xs" href="/admin/moderation/publications_main/{{$publication->id}}">На главную</a>
+                            @endif
                     </td>
                   </tr>
-                  <tr>
-                    <td><a href="">1</a></td>
-                    <td>Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст публикации Текст </td>
-                    <td>Елена Новикова</td>
-                    <td class="mini-image">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <!-- <a href="">Ещё</a> -->
-                    </td>
-                    <td>видео</td>
-                    <td>02.08.2016</td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                        <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                        <button type="button" class="btn btn-primary btn-xs">Тема дня</button>
-                        <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        <button type="button" class="btn btn-info btn-xs">На главную</button>
-                    </td>
-                  </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
+    <script>
+        $('.admin-settings-menu li a').each(function () {
+            var location = window.location.href;
+            var link = this.href;
+            location += "/";
+            var index = location.indexOf(link);
+            console.log(index);
+            if(location == link) {
+                $(this).addClass('active');
+            }
+        });
+    </script>
+    {!! $publications->render() !!}
 @stop

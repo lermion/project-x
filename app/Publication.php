@@ -146,42 +146,51 @@ class Publication extends Model
 
     public static function show($id)
     {
-        $publication = Publication::with(['videos', 'group', 'images', 'place'])
-            ->find($id);
-        $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
-        $publication->comment_count = $publication->comments()->count();
-        $publication->like_count = $publication->likes()->count();
-        $group = $publication->group->toArray();
-        $user = $publication->user->toArray();
-        $publication->is_blick_parent = false;
-        if ( !$group == []) {
-            $grou = $group[0];
-            if ($grou['is_open'] == false) {
-                $publication->is_blick_parent = true;
+        if ($publication = Publication::with(['videos', 'group', 'images', 'place'])->find($id)) {
+            $publication->user_like = $publication->likes()->where('user_id', Auth::id())->first() != null;
+            $publication->comment_count = $publication->comments()->count();
+            $publication->like_count = $publication->likes()->count();
+            $group = $publication->group->toArray();
+            $user = $publication->user->toArray();
+            $publication->is_blick_parent = false;
+            if (!$group == []) {
+                $grou = $group[0];
+                if ($grou['is_open'] == false) {
+                    $publication->is_blick_parent = true;
+                }
             }
-        }
-        if (!$user == []) {
-            if ($user['is_private'] == true) {
-                $publication->is_blick_parent = true;
+            if (!$user == []) {
+                if ($user['is_private'] == true) {
+                    $publication->is_blick_parent = true;
+                }
             }
+            if (!$publication->is_anonym) {
+                $publication->user;
+            }
+
+            $publication_comments = $publication->comments()
+                ->with(['images', 'videos', 'user'])
+                ->orderBy('id', 'desc')
+                ->take(3)
+                ->get();
+
+            foreach ($publication_comments as &$comment) {
+                $comment->like_count = $comment->likes()->count();
+            }
+
+            $publication_comments = $publication_comments->toArray();
+            $publication->comments = array_reverse($publication_comments);
+            return $publication;
+        } else {
+            $Data = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Incorrect id',
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($Data);
         }
-        if(!$publication->is_anonym){
-            $publication->user;
-        }
-
-        $publication_comments = $publication->comments()
-            ->with(['images', 'videos', 'user'])
-            ->orderBy('id', 'desc')
-            ->take(3)
-            ->get();
-
-       foreach ($publication_comments as &$comment) {
-            $comment->like_count = $comment->likes()->count();
-       }
-
-        $publication_comments = $publication_comments->toArray();
-        $publication->comments = array_reverse($publication_comments);
-        return $publication;
     }
 
     public static function getCountUserPublication($userId)
