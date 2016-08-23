@@ -79,10 +79,12 @@
 
 
                     <div class="static-admin-question-inner-item item-button">
-                        <button type="submit">Отправить</button>
+                        <h4 ng-if="alerts.sendMessageToAdmin">Сообщение отправлено</h4>
+                        <button type="submit" ng-if="!alerts.sendMessageToAdmin">Отправить</button>
                     </div>
                 </div>
             </form>
+
 
             <!--<form action="">-->
             <!--<ul class="flex-outer">-->
