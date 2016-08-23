@@ -15,7 +15,7 @@
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
                 <li class="col-md-3 col-md-offset-1 active"><a href="/admin/moderation/groups">Новые </a></li>
-                <li class="col-md-3"><a href="">На заметке </a></li>
+                <li class="col-md-3"><a href="/admin/moderation/groups_to_note">На заметке </a></li>
                 <li class="col-md-3"><a href="/admin/moderation/groups_is_block">Заблокированные </a></li>
             </ul>
         </div>
@@ -45,9 +45,15 @@
                     <td>{{$group->users()->count()}}</td>
                     <td>{{$group->created_at}}</td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
-                        <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
-                        <button type="button" class="btn btn-warning btn-xs">На заметку</button>
+                        @if ($group->is_block == false)
+                        <a type="button" class="btn btn-danger btn-xs" href="/admin/moderation/block_group/{{$group->id}}">Блокировать</a>
+                        @endif
+                        @if ($group->is_moderate == false)
+                        <a type="button" class="btn btn-success btn-xs" href="/admin/moderation/confirm_group/{{$group->id}}">Подтвердить</a>
+                            @endif
+                            @if ($group->to_note == false)
+                        <a type="button" class="btn btn-warning btn-xs" href="/admin/moderation/note_group/{{$group->id}}">На заметку</a>
+                            @endif
                     </td>
                   </tr>
                   @endforeach

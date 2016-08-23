@@ -38,7 +38,7 @@ class ModerateController extends Controller
         return response()->json(['status' => true, 'publications'=>$data]);
     }
 
-    public function blockPublication(Request $request,$id)
+    public function blockPublication($id)
     {
         $publication = Publication::find($id);
         $publication->is_block = true;

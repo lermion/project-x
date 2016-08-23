@@ -121,12 +121,24 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('publications_is_block', 'Admin\ModerationController@getIsBlockPublications');
                 Route::get('publications_is_main', 'Admin\ModerationController@getIsMainPublications');
                 Route::get('publications_is_moderate', 'Admin\ModerationController@getIsModeratePublications');
+                Route::get('publications_to_note', 'Admin\ModerationController@getToNotePublications');
                 Route::get('publications_main/{id}', 'Admin\ModerationController@mainPublications');
                 Route::get('publications_topic/{id}', 'Admin\ModerationController@topic');
+                Route::get('block_publication/{id}', 'Admin\ModerationController@blockPublication');
+                Route::get('confirm_publication/{id}', 'Admin\ModerationController@confirmPublication');
+                Route::get('note_publication/{id}', 'Admin\ModerationController@notePublication');
                 Route::get('groups', 'Admin\ModerationController@groups');
                 Route::get('groups_is_block', 'Admin\ModerationController@getIsBlockGroups');
+                Route::get('groups_to_note', 'Admin\ModerationController@getToNoteGroups');
+                Route::get('block_group/{id}', 'Admin\ModerationController@blockGroup');
+                Route::get('confirm_group/{id}', 'Admin\ModerationController@confirmGroup');
+                Route::get('note_group/{id}', 'Admin\ModerationController@noteGroup');
                 Route::get('places', 'Admin\ModerationController@places');
                 Route::get('places_is_block', 'Admin\ModerationController@getIsBlockPlaces');
+                Route::get('places_to_note', 'Admin\ModerationController@getToNotePlaces');
+                Route::get('block_place/{id}', 'Admin\ModerationController@blockPlace');
+                Route::get('confirm_place/{id}', 'Admin\ModerationController@confirmPlace');
+                Route::get('note_place/{id}', 'Admin\ModerationController@notePlace');
             });
 
         });
