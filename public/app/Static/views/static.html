@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="static-admin-question-inner-item">
-                        <span>Email: </span>
+                        <span>E-mail: </span>
 
                         <div class="static__list-item">
                             <input type="email" name="email" ng-model="mail.email" placeholder="Введите email..."
@@ -56,6 +56,7 @@
                             <div class="error-messages" ng-messages="mailForm.email.$error"
                                  ng-if="mailForm.email.$invalid && mailForm.$submitted">
                                 <div ng-message="required">Укажите e-mail</div>
+                                <div ng-message="email">Введите корректный адрес</div>
                             </div>
                         </div>
 
