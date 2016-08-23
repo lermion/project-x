@@ -455,7 +455,7 @@
                 }
                 vm.categories[index].show = true;
                 vm.limitPlace = 'Infinity';
-                $location.hash('wrapper');
+                //$location.hash('wrapper');
                 $anchorScroll();
             }
 

@@ -219,7 +219,7 @@ angular.module('placePeopleApp')
                                     $state.go('desktop-pub-view', toParams);
                                 }
                             }
-                            $state.go(toState, toParams);
+                            $state.go(toState.name, toParams);
                         }
                     }
                 }
