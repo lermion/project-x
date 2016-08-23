@@ -30,7 +30,7 @@ angular.module('placePeopleApp')
 
             return $http({
                 method: 'POST',
-                url: '/mail/create',
+                url: '/mail',
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity,
                 data: fd

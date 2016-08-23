@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::group(['prefix' => 'mail'], function () {
-                Route::get('/', 'Admin\MailController@index');
+                Route::post('/', 'Admin\MailController@index');
                 Route::get('get_review', 'Admin\MailController@get_review');
                 Route::get('get_closed', 'Admin\MailController@get_closed');
                 Route::get('destroy/{id}', 'Admin\MailController@destroy');
@@ -311,7 +311,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'mail'], function () {
-        Route::get('/', 'MailController@index');
+        Route::post('/', 'MailController@index');
 //        Route::get('get_review', 'MailController@get_review');
 //        Route::get('get_closed', 'MailController@get_closed');
 //        Route::post('create', 'MailController@create');

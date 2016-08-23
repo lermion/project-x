@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\UserMail;
+
+use Mail;
+
+use Illuminate\Support\Facades\Auth;
+
+
 class MailController extends Controller
 {
     public function index(Request $request)

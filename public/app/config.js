@@ -251,10 +251,11 @@ angular.module('placePeopleApp')
                     }
                 })
                 .state('mobile-pub-view', {
-                    url: '/:username/pub/:id',
+                    url: '/:username/pub/:id/',
                     templateUrl: '../../app/User/views/view-publication.html',
                     showHeader: true,
                     controller: 'userCtrl',
+                    params : {fromChat: null},
                     resolve: {
                         profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
                             var deferred = $q.defer();

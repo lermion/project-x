@@ -8,7 +8,7 @@ angular.module('placePeopleApp')
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
-			//$scope.loggedUser = storage.username;
+			$scope.loggedUser = storage.username;
 			$scope.showFileAddMenu = false;
 			$scope.myCroppedImage = null;
 			$scope.counter = 10;
@@ -654,12 +654,16 @@ angular.module('placePeopleApp')
 					if(response.images[0] !== undefined){
 						$scope.mainImage = response.images[0].url;
 					}
-					ngDialog.open({
-						template: '../app/Chat/views/popup-view-chat-publication.html',
-						className: 'view-publication ngdialog-theme-default',
-						scope: $scope,
-						name: "view-publication"
-					});
+					if($window.innerWidth <= 700){
+						$state.go('mobile-pub-view', {username: $scope.loggedUser, id: pubId, fromChat: true});
+					}else{
+						ngDialog.open({
+							template: '../app/Chat/views/popup-view-chat-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope,
+							name: "view-publication"
+						});
+					}
 				},
 				function(error){
 					console.log(error);

@@ -51,7 +51,7 @@
 	<div ng-if="showGroups()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Группы</div>
 		<div ng-show="group.is_sub" ng-repeat="group in groups | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input class="share-publication-checkbox" ng-model="active" ng-change="change(group, active)" type="checkbox"></span>
+			<span><input ng-checked="groupsChecked.indexOf(group.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(group, active, 'group')" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
