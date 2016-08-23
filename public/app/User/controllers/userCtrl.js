@@ -134,7 +134,7 @@ angular.module('placePeopleApp')
 					}else if(type === "place"){
 						$scope.placesChecked.push(data.id);
 					}else if(type === "group-chat"){
-						$scope.groupsChatArray.push(data.id);
+						$scope.groupsChatArray.push(data.room_id);
 					}
 				}else{
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
@@ -157,7 +157,7 @@ angular.module('placePeopleApp')
 					}else if(type === "place"){
 						$scope.placesChecked.splice($scope.placesChecked.indexOf(data.id), 1);
 					}else if(type === "group-chat"){
-						$scope.groupsChatArray.splice($scope.groupsChatArray.indexOf(data.id), 1);
+						$scope.groupsChatArray.splice($scope.groupsChatArray.indexOf(data.room_id), 1);
 					}
 				}
 			};
@@ -1119,6 +1119,7 @@ angular.module('placePeopleApp')
 				});
 				socket.emit("get user rooms", $scope.loggedUserId);
 				socket.on("get user rooms", function (response) {
+					console.log(response);
 					$scope.groupsChatArr = response;
 				});
 				groupsService.getGroupList().then(function (response) {

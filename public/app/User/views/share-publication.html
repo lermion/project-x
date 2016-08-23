@@ -37,7 +37,7 @@
 	<div ng-if="groupsChat()" class="share-publication-search-data">
 		<div class="share-publication-search-sign">Групповые чаты</div>
 		<div ng-repeat="groupChat in groupsChatArr | filter:{$:query}" ng-if="groupChat.is_group" class="share-publication-search-data-item">
-			<span><input ng-checked="groupsChatArray.indexOf(groupChat.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active, 'group-chat')" type="checkbox"></span>
+			<span><input ng-checked="groupsChatArray.indexOf(groupChat.room_id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active, 'group-chat')" type="checkbox"></span>
 			<div class="share-publication-search-data-info">
 				<div class="share-publication-search-data-ava">
 					<a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
