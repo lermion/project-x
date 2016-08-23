@@ -92,12 +92,7 @@
                     prevState: null
                 },
                 resolve: {
-                    auth: function($rootScope, storageService) {
-                        return storageService.isUserAuthorized().then(function (resp) {
-                            $rootScope.isAuthorized = resp.is_authorization;
-                        });
-                    },
-                    place: ['$rootScope', 'placesService', '$state', '$stateParams', '$q', 'ngDialog', 'auth', function ($rootScope, placesService, $state, $stateParams, $q, ngDialog, auth) {
+                    place: ['$rootScope', 'placesService', '$state', '$stateParams', '$q', 'ngDialog', function ($rootScope, placesService, $state, $stateParams, $q, ngDialog) {
                         var deferred = $q.defer();
 
                         if ($rootScope.isAuthorized) {

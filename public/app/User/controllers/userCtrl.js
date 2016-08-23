@@ -823,7 +823,6 @@ angular.module('placePeopleApp')
 				PublicationService.deleteCommentPublication(comment.id).then(function (response) {
 						if (response.status) {
 							if (flag === "userPage") {
-								pub.comments = pub.comments.reverse();
 								pub.comments.splice(index, 1);
 								pub.comment_count--;
 							} else {

@@ -546,6 +546,9 @@ angular.module('placePeopleApp')
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						$scope.Model.Chat.push(data);
+						$scope.isNeededScroll = function(){
+							return $scope.Model.Chat;
+						}
 					}else{
 						socket.emit("get user rooms", $scope.loggedUserId);
 						// $scope.getLastMessage = function(chat){
