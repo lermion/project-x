@@ -4,7 +4,10 @@
                   result-image="vm.myCroppedImage"
                   chargement="'Загрузка...'"
                   area-type="square"
-                  area-min-relative-size="220"
+                  area-min-size="220"
+                  area-init-size="220"
+                  area-init-coords="220"
+                  area-init-is-relative-to-image="true"
                   result-image-size="220"></img-crop>
     </div>
     <button ng-click="vm.saveCropp(vm.myCroppedImage, false);" class="check-in-button">Выбрать</button>
