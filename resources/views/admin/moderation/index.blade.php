@@ -15,7 +15,7 @@
             <ul class="col-md-12 admin-settings-menu">
                 <li class="col-md-2 active"><a href="/admin/moderation/">Новые </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/publications_is_topic">Тема дня </a></li>
-                <li class="col-md-2"><a href="">На заметке </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_to_note">На заметке </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/publications_is_block">Заблокированные </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/publications_is_moderate">Подтвержденные </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/publications_is_main">На главной </a></li>
@@ -49,19 +49,19 @@
                     <td>{{$publication->created_at}}</td>
                     <td class="text-center">
                             @if ($publication->is_block == false)
-                        <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
+                            <a type="button" class="btn btn-danger btn-xs" href="/admin/moderation/block_publication/{{$publication->id}}">Блокировать</a>
                             @endif
                             @if ($publication->is_moderate == false)
-                        <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
+                                    <a type="button" class="btn btn-success btn-xs" href="/admin/moderation/confirm_publication/{{$publication->id}}">Подтвердить</a>
                             @endif
                             @if ($publication->is_topic == false)
-                        <a type="button" class="btn btn-primary btn-xs" href="/admin/moderation/publications_topic/{{$publication->id}}">Тема дня</a>
+                                    <a type="button" class="btn btn-primary btn-xs" href="/admin/moderation/publications_topic/{{$publication->id}}">Тема дня</a>
                             @endif
-                                @if ($publication->is_topic == false)
-                        <button type="button" class="btn btn-warning btn-xs">На заметку</button>
+                                @if ($publication->to_note == false)
+                                    <a type="button" class="btn btn-warning btn-xs" href="/admin/moderation/note_publication/{{$publication->id}}">На заметку</a>
                                 @endif
                             @if ($publication->is_main == false)
-                        <a type="button" class="btn btn-info btn-xs" href="/admin/moderation/publications_main/{{$publication->id}}">На главную</a>
+                                    <a type="button" class="btn btn-info btn-xs" href="/admin/moderation/publications_main/{{$publication->id}}">На главную</a>
                             @endif
                     </td>
                   </tr>
