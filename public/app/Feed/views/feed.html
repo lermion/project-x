@@ -28,7 +28,6 @@
                 <div class="content-item" ng-if="!photosGrid" ng-init="$last ? ngRepeatHasRendered() : null"
                      ng-repeat="pub in publications | orderBy: '-created_at'">
                     <div class="user-publication">
-                        {{pub.created_at | date}}
                         <div class="user-publication-header">
                             <div class="user-function">
                                 <a class="user" ui-sref="user({username: pub.user.login})">
