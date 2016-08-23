@@ -56,7 +56,7 @@
                             <div class="error-messages" ng-messages="mailForm.email.$error"
                                  ng-if="mailForm.email.$invalid && mailForm.$submitted">
                                 <div ng-message="required">Укажите e-mail</div>
-                                <div ng-message="email">Введите корректный адрес</div>
+                                <div ng-message="email">Введите корректный email</div>
                             </div>
                         </div>
 
@@ -80,8 +80,7 @@
 
 
                     <div class="static-admin-question-inner-item item-button">
-                        <h4 ng-if="alerts.sendMessageToAdmin">Сообщение отправлено</h4>
-                        <button type="submit" ng-if="!alerts.sendMessageToAdmin">Отправить</button>
+                        <button type="submit">Отправить</button>
                     </div>
                 </div>
             </form>
