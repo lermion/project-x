@@ -106,7 +106,27 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Feed/views/feed.html',
                     controller: 'feedCtrl',
                     showHeader: true,
-                    isLogin: false
+                    isLogin: false,
+                    resolve: {
+                        profile: ['$rootScope', '$q', '$state', '$stateParams', 'UserService', function ($rootScope, $q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($rootScope.user.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }]
+                    }
+
                 })
                 .state('p', {
                     url: '/p/:pubId/:hash',

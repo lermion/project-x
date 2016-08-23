@@ -17,7 +17,7 @@
 
                 <div class="content-item" ng-if="photosGrid">
                     <div class="my-photos">
-                        <div class="photo" ng-repeat="pub in publications | orderBy: 'created_at'" style="{{pubSize}}">
+                        <div class="photo" ng-repeat="pub in publications | orderBy: '-created_at'" style="{{pubSize}}">
                             <a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
                                 <img ng-src="{{pub.images[0].url}}" alt="">
                             </a>
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="content-item" ng-if="!photosGrid" ng-init="$last ? ngRepeatHasRendered() : null"
-                     ng-repeat="pub in publications | orderBy: 'created_at'">
+                     ng-repeat="pub in publications | orderBy: '-created_at'">
                     <div class="user-publication">
                         <div class="user-publication-header">
                             <div class="user-function">
@@ -42,6 +42,7 @@
 
 
                                 <div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
+                                <div class="topic" ng-if="!pub.is_moderate">На модерации</div>
                                 <div href="" class="user-menu" ng-class="'pub{{pub.id}}'"
                                      ng-click="pubs[pub.id].showUserMenu=!pubs[pub.id].showUserMenu"
                                      click-outside="pubs[pub.id].showUserMenu = false"

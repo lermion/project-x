@@ -216,6 +216,34 @@
 
         };
 
+        vm.openModalPublication = function(pub, index) {
+            if (isMobile()) {
+
+                $state.go('mobile-pub-view-test', {
+                    id: pub.id,
+                    prevState: {
+                        name: 'place',
+                        params: {
+                            placeName: vm.place.url_name
+                        }
+                    }
+                });
+
+            } else {
+                ngDialog.open({
+                    templateUrl: '../app/common/views/pub-item-modal.html',
+                    name: 'modal-publication-group',
+                    className: 'view-publication ngdialog-theme-default',
+                    data: {
+                        pub: pub
+                    },
+                    preCloseCallback: function () {
+                        vm.place.publications[index] = vm.activePublication;
+                    }
+                });
+            }
+        };
+
         vm.openModalMediaFile = function (file) {
             ngDialog.open({
                 templateUrl: '../app/common/components/media-file/modal-media-file.html',
@@ -671,6 +699,18 @@
                     });
         };
 
+        function dynamicSort(property){
+            var sortOrder = 1;
+            if(property[0] === "-") {
+                sortOrder = -1;
+                property = property.substr(1);
+            }
+            return function (a,b) {
+                var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+                return result * sortOrder;
+            }
+        }
+
         vm.deletePlace = function () {
             placesService.deletePlace(vm.place.id)
                 .then(function (data) {
@@ -1027,6 +1067,7 @@
 
         function activate() {
             init();
+            checkPublicationsView();
             getCountries();
             getCities(vm.place.country.id).then(saveOriginalCities);
             getDynamicPlaceType();
@@ -1355,6 +1396,18 @@
             var screenWidth = $window.innerWidth;
             return screenWidth < 768;
         }
+        function checkPublicationsView() {
+            if (!storage.pubView) {
+                storageService.setStorageItem('pubView', 'greed');
+                storage = storageService.getStorage();
+            } else {
+                if (storage.pubView === 'greed') {
+                    vm.photosGrid = true;
+                } else if (storage.pubView === 'list') {
+                    vm.photosGrid = false;
+                }
+            }
+        }
 
         vm.citySelected = function (city) {
             if (city) {
@@ -1442,6 +1495,7 @@
                     vm.mainImage = images[$scope.indexCurrentImage].url;
                 } else {
                     if ($scope.indexCurrentPublication !== 0) {
+                        vm.place.publications.sort(dynamicSort("created_at"));
                         vm.activePublication = vm.place.publications[$scope.indexCurrentPublication -= 1];
                         if (vm.activePublication.images[0] !== undefined) {
                             vm.mainImage = vm.activePublication.images[0].url;
@@ -1461,6 +1515,7 @@
                     vm.mainImage = images[$scope.indexCurrentImage].url;
                 } else {
                     if ($scope.indexCurrentPublication + 1 !== vm.place.publications.length) {
+                        vm.place.publications.sort(dynamicSort("created_at"));
                         vm.activePublication = vm.place.publications[$scope.indexCurrentPublication += 1];
                         if (vm.activePublication.images[0] !== undefined) {
                             vm.mainImage = vm.activePublication.images[0].url;

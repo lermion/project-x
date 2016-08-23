@@ -274,7 +274,8 @@ angular.module('placePeopleApp')
 
                             console.log(res);
 
-                            $state.go('user', {username: res.login});
+                            //$state.go('user', {username: res.login});
+                            $state.go('feed');
                         } else {
                             $scope.loginError = 'Неверный логин или пароль';
                         }
