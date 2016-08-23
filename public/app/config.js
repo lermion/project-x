@@ -84,14 +84,58 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/User/views/popup-user-subscribers.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false
+                    isLogin: false,
+                    resolve: {
+                        profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($stateParams.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }],
+                        publications: function () {
+                            return [];
+                        }
+                    }
                 })
                 .state('subscribes', {
                     url: '/:username/subscribes/:id',
                     templateUrl: '../../app/User/views/popup-user-subscribe.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false
+                    isLogin: false,
+                    resolve: {
+                        profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
+                            var deferred = $q.defer();
+
+                            UserService.getUserData($stateParams.username)
+                                .then(
+                                    function (data) {
+                                        $stateParams.userId = data.id;
+                                        deferred.resolve(data);
+                                    },
+                                    function (error) {
+                                        deferred.reject();
+                                        $state.go("404");
+                                    }
+                                );
+
+                            return deferred.promise;
+                        }],
+                        publications: function () {
+                            return [];
+                        }
+                    }
                 })
                 .state('settings', {
                     url: '/settings',
