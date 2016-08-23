@@ -15,7 +15,7 @@ class ModerationController extends Controller
     public function index()
     {
         $publications = Publication::with('user','images','videos','group')
-            ->where(['is_block'=>false,'is_topic'=>false,'is_moderate'=>false])
+            ->where(['is_block'=>false,'is_topic'=>false,'is_moderate'=>false,'is_main'=>false])
             ->paginate(25);
         return view('admin.moderation.index')->with('publications',$publications);
     }
@@ -36,6 +36,30 @@ class ModerationController extends Controller
         return view('admin.moderation.index')->with('publications',$publications);
     }
 
+    public function getIsMainPublications()
+    {
+        $publications = Publication::with('user','images','videos','group')
+            ->where('is_main',true)
+            ->paginate(25);
+        return view('admin.moderation.index')->with('publications',$publications);
+    }
+
+    public function getIsModeratePublications()
+    {
+        $publications = Publication::with('user','images','videos','group')
+            ->where('is_moderate',true)
+            ->paginate(25);
+        return view('admin.moderation.index')->with('publications',$publications);
+    }
+
+    public function mainPublications($id)
+    {
+        $publication = Publication::find($id);
+        $publication->is_main = true;
+        $publication->save();
+        return redirect('/admin/moderation/')->with('message', 'Публикация на главной');
+    }
+
     public function topic($id){
         $publications = Publication::where('is_topic',true)->get();
         if ($publications) {
@@ -47,7 +71,7 @@ class ModerationController extends Controller
         $publication = Publication::find($id);
         $publication->is_topic = true;
         $publication->save();
-        return redirect('/admin/moderation/')->with('message', 'Публикация на главной');
+        return redirect('/admin/moderation/')->with('message', 'Публикация в топе');
     }
 
     public function groups()

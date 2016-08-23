@@ -12,7 +12,8 @@
           <select class="form-control" name="country_id">
               @foreach($countries as $country)
                   <option value="{{$country->id}}">{{$country->name}}</option>
-          @endforeach
+              @endforeach
+          </select>
       </div>
     </div>
 
@@ -45,7 +46,7 @@
         <span class="line-h"><b>Название населенного пункта</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" placeholder="Введите название...">
+        <input class="form-control" type="text" placeholder="Введите название..." required>
       </div>
     </div>
 

@@ -23,7 +23,7 @@
       <div class="col-md-3">
         <select class="form-control" name="region_id">
             @foreach($regions as $region)
-                <option value="{{$region->id}}">{{$region->name}}</option>
+                <option @if ($region->country_id == $country->id) selected @endif  value="{{$region->id}}">{{$region->name}}</option>
             @endforeach
         </select>
       </div>
@@ -33,7 +33,7 @@
         <span class="line-h"><b>Название района</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" name="name" placeholder="Введите название...">
+        <input class="form-control" type="text" name="name" placeholder="Введите название..." required>
       </div>
     </div>
 

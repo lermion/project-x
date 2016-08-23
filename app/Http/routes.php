@@ -58,7 +58,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\MailController@index');
                 Route::get('get_review', 'Admin\MailController@get_review');
                 Route::get('get_closed', 'Admin\MailController@get_closed');
-                Route::post('create', 'Admin\MailController@create');
                 Route::get('destroy/{id}', 'Admin\MailController@destroy');
                 Route::get('status_closed/{id}', 'Admin\MailController@change_status_closed');
                 Route::get('status_review/{id}', 'Admin\MailController@change_status_review');
@@ -120,6 +119,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\ModerationController@index');
                 Route::get('publications_is_topic', 'Admin\ModerationController@getIsTopicPublications');
                 Route::get('publications_is_block', 'Admin\ModerationController@getIsBlockPublications');
+                Route::get('publications_is_main', 'Admin\ModerationController@getIsMainPublications');
+                Route::get('publications_is_moderate', 'Admin\ModerationController@getIsModeratePublications');
+                Route::get('publications_main/{id}', 'Admin\ModerationController@mainPublications');
                 Route::get('publications_topic/{id}', 'Admin\ModerationController@topic');
                 Route::get('groups', 'Admin\ModerationController@groups');
                 Route::get('groups_is_block', 'Admin\ModerationController@getIsBlockGroups');
@@ -298,12 +300,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'mail'], function () {
         Route::get('/', 'MailController@index');
-        Route::get('get_review', 'MailController@get_review');
-        Route::get('get_closed', 'MailController@get_closed');
-        Route::post('create', 'MailController@create');
-        Route::get('destroy/{id}', 'MailController@destroy');
-        Route::get('status_closed/{id}', 'MailController@change_status_closed');
-        Route::get('status_review/{id}', 'MailController@change_status_review');
+//        Route::get('get_review', 'MailController@get_review');
+//        Route::get('get_closed', 'MailController@get_closed');
+//        Route::post('create', 'MailController@create');
+//        Route::get('destroy/{id}', 'MailController@destroy');
+//        Route::get('status_closed/{id}', 'MailController@change_status_closed');
+//        Route::get('status_review/{id}', 'MailController@change_status_review');
     });
 
     Route::get('authorization', 'AuthorizationController@index');

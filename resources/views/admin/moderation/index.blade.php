@@ -13,10 +13,12 @@
 
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 active"><a href="/admin/moderation/">Новые </a></li>
-                <li class="col-md-3"><a href="/admin/moderation/publications_is_topic">Тема дня </a></li>
-                <li class="col-md-3"><a href="">На заметке </a></li>
-                <li class="col-md-3"><a href="/admin/moderation/publications_is_block">Заблокированные </a></li>
+                <li class="col-md-2 active"><a href="/admin/moderation/">Новые </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_topic">Тема дня </a></li>
+                <li class="col-md-2"><a href="">На заметке </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_block">Заблокированные </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_moderate">Подтвержденные </a></li>
+                <li class="col-md-2"><a href="/admin/moderation/publications_is_main">На главной </a></li>
             </ul>
         </div>
 
@@ -46,11 +48,21 @@
                     <td>Нет видео</td>
                     <td>{{$publication->created_at}}</td>
                     <td class="text-center">
+                            @if ($publication->is_block == false)
                         <button type="button" class="btn btn-danger btn-xs">Блокировать</button>
+                            @endif
+                            @if ($publication->is_moderate == false)
                         <button type="button" class="btn btn-success btn-xs">Подтвердить</button>
+                            @endif
+                            @if ($publication->is_topic == false)
                         <a type="button" class="btn btn-primary btn-xs" href="/admin/moderation/publications_topic/{{$publication->id}}">Тема дня</a>
+                            @endif
+                                @if ($publication->is_topic == false)
                         <button type="button" class="btn btn-warning btn-xs">На заметку</button>
-                        <button type="button" class="btn btn-info btn-xs">На главную</button>
+                                @endif
+                            @if ($publication->is_main == false)
+                        <a type="button" class="btn btn-info btn-xs" href="/admin/moderation/publications_main/{{$publication->id}}">На главную</a>
+                            @endif
                     </td>
                   </tr>
                 @endforeach
@@ -58,5 +70,17 @@
             </table>
         </div>
     </div>
+    <script>
+        $('.admin-settings-menu li a').each(function () {
+            var location = window.location.href;
+            var link = this.href;
+            location += "/";
+            var index = location.indexOf(link);
+            console.log(index);
+            if(location == link) {
+                $(this).addClass('active');
+            }
+        });
+    </script>
     {!! $publications->render() !!}
 @stop

@@ -20,7 +20,6 @@
             <div class="col-md-2">
                 <span class="line-h"><b>Выберите область</b></span>
             </div>
-            {{dd($regions)}}
             <div class="col-md-3">
                 <select class="form-control" name="region_id">
                     @foreach($regions as $region)
