@@ -58,9 +58,13 @@ class Publication extends Model
     {
         $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
             ->where(function ($query) use ($userId) {
-                $query->where(['is_main'=> true,'is_moderate'=>true])
-                    ->where(['is_main'=> true,'is_moderate'=>false,'user_id'=>Auth::id()])
-                    ->orWhere(function ($query) use ($userId) {
+                $query->where(function($q){
+                    $q->where(['is_main'=> true]);
+                    $q->where(function($quer){
+                        $quer->where('is_moderate',true);
+                        $quer->orWhere('user_id',Auth::id());
+                    });
+                })->orWhere(function ($query) use ($userId) {
                         $query->whereExists(function ($query) use ($userId) {
                             $query->select(DB::raw('subscribers.user_id'))
                                 ->from('subscribers')
