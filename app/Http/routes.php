@@ -42,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('stop/{id}', 'Admin\ModeratorController@stop');
                 Route::get('stopped', 'Admin\ModeratorController@stopped');
                 Route::get('update/{id}', 'Admin\ModeratorController@update');
+                Route::post('update_save', 'Admin\ModeratorController@updateSave');
                 Route::post('store', 'Admin\ModeratorController@store');
             });
             Route::group(['prefix' => 'static_page'], function () {
@@ -55,7 +56,7 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::group(['prefix' => 'mail'], function () {
-                Route::post('/', 'Admin\MailController@index');
+                Route::get('/', 'Admin\MailController@index');
                 Route::get('get_review', 'Admin\MailController@get_review');
                 Route::get('get_closed', 'Admin\MailController@get_closed');
                 Route::get('destroy/{id}', 'Admin\MailController@destroy');

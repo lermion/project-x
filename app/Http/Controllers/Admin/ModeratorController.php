@@ -19,7 +19,8 @@ class ModeratorController extends Controller
     public function index()
     {
         $moderators = Moderator::where('is_stop',false)->get();
-        return view('admin.moderator.index')->with('moderators', $moderators);
+        $working_hours = WorkingHoursModerator::all();
+        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours]);
     }
 
     /**
@@ -114,7 +115,7 @@ class ModeratorController extends Controller
 
 //        return response()->json($data);
 
-        return redirect('admin/moderator/');
+        return redirect('admin/moderator/')->with('message', 'Модератор добавленн');
     }
 
     private function getAvatarPath($photo)
@@ -138,7 +139,7 @@ class ModeratorController extends Controller
         $moderator->is_stop = !$moderator->is_stop;
         $moderator->save();
 
-        return redirect('admin/moderator/');
+        return redirect('admin/moderator/')->with('message', 'Модератор остановлен');
     }
 
     public function stopped()
@@ -170,6 +171,27 @@ class ModeratorController extends Controller
         $moderators = Moderator::find($id);
         $moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id);
         return view('admin.moderator.update')->with('moderators', $moderators);
+    }
+
+    public function updateSave(Request $request)
+    {
+        $data = $request->all();
+        $moderator = Moderator::find($data['id']);
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $path = $this->getAvatarPath($photo);
+            $data['photo'] = $path;
+            $moderator->photo = $data['photo'];
+        }
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        $moderator->password = $data['password'];
+        $moderator->first_name = $data['first_name'];
+        $moderator->last_name = $data['last_name'];
+        $moderator->email = $data['email'];
+        $moderator->save();
+
+        //$moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id);
+        return redirect('/admin/moderator/')->with('message', 'Модератор изменен');
     }
 
     /**

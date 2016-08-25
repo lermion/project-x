@@ -31,6 +31,42 @@ class Image extends Model
         return $path . $fileName;
     }
 
+    public static function getAvatarGroupPath($avatar)
+    {
+        $path = '/upload/group/avatars/';
+        $fileName = str_random(8) . $avatar->getClientOriginalName();
+        $fullPath = public_path() . $path;
+
+        // Avatar
+        $avatar->move($fullPath, $fileName);
+
+        return $path . $fileName;
+    }
+
+    public static function getCardGroupPath($avatar)
+    {
+        $path = '/upload/group/card/';
+        $fileName = str_random(8) . $avatar->getClientOriginalName();
+        $fullPath = public_path() . $path;
+
+        // Avatar
+        $avatar->move($fullPath, $fileName);
+
+        return $path . $fileName;
+    }
+
+    public static function getOriginalAvatarGroupPath($avatar)
+    {
+        $path = '/upload/group/original_avatars/';
+        $fileName = str_random(8) . $avatar->getClientOriginalName();
+        $fullPath = public_path() . $path;
+
+        // Avatar
+        $avatar->move($fullPath, $fileName);
+
+        return $path . $fileName;
+    }
+
     public static function getCoverPath($cover)
     {
         $path = '/upload/covers/';
