@@ -139,7 +139,7 @@
 						<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>    					
 					</div>
 					<div class="publication-relations-right">
-						<span class="relations-right-img ">{{message.pub.comment_count}}</span>
+						<span class="relations-right-img " ng-if="message.pub.comment_count > 0">{{message.pub.comment_count}}</span>
 					</div>
 				</div>
 			</div>
