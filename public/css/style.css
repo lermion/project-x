@@ -4216,7 +4216,7 @@ body.ngdialog-open {
 .group-chat-inner {
 	padding: 5px 10px;
 	overflow-x: auto;
-	max-height: 385px;
+	max-height: 60vh;
 	min-height: 150px;
 	height: auto;
 	background: url(../images/chat-bg.png) repeat;
