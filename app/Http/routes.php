@@ -338,8 +338,8 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/14/publication\" method=\"post\" enctype=\"multipart/form-data\">
-             <input type='text' name='offset' value='0'><br>
+        echo "<form action=\"http://pp.dev/user/update\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='avatar' value='0'><br>
              <input type='text' name='limit' value='10'><br>
              <input type='text' name='text' value='text'><br>
              <input type='file' name='avatar'><br>

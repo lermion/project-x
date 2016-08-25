@@ -54,6 +54,8 @@ class GroupPublicationController extends Controller
                 'text' => 'min:1',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
+                'cover' => 'file',
+                'original_cover' => 'file',
                 'videos' => 'array',
                 'images' => 'array'
             ]);
@@ -112,6 +114,16 @@ class GroupPublicationController extends Controller
             return response()->json($responseData);
         }
         $publicationData = $request->all();
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $path = Image::getCoverPath($cover);
+            $publicationData['cover'] = $path;
+        }
+        if ($request->hasFile('original_cover')) {
+            $cover = $request->file('original_cover');
+            $path = Image::getOriginalCoverPath($cover);
+            $publicationData['original_cover'] = $path;
+        }
         $publicationData['user_id'] = Auth::id();
 //        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $group = Group::find($id);
@@ -162,6 +174,8 @@ class GroupPublicationController extends Controller
                         'text' => 'required|min:1',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',
+                        'cover' => 'file',
+                        'original_cover' => 'file',
                         'videos' => 'array',
                         'images' => 'array',
                         'delete_videos' => 'array',
@@ -178,6 +192,16 @@ class GroupPublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
+                if ($request->hasFile('cover')) {
+                    $cover = $request->file('cover');
+                    $path = Image::getCoverPath($cover);
+                    $publicationData['cover'] = $path;
+                }
+                if ($request->hasFile('original_cover')) {
+                    $cover = $request->file('original_cover');
+                    $path = Image::getOriginalCoverPath($cover);
+                    $publicationData['original_cover'] = $path;
+                }
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
