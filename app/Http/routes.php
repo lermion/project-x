@@ -29,12 +29,12 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
                 Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
-                Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
+//                Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
                 Route::get('show/{id}', 'Admin\UserController@show');
-                Route::get('get_confirm', 'Admin\UserController@getConfirm');
-                Route::get('get_review', 'Admin\UserController@getReview');
-                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
-                Route::post('main_picture', 'Admin\UserController@mainPicture');
+                Route::post('get_confirm', 'Admin\UserController@getConfirm');
+                Route::post('get_review', 'Admin\UserController@getReview');
+//                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
+//                Route::post('main_picture', 'Admin\UserController@mainPicture');
             });
             Route::group(['prefix' => 'moderator'], function () {
                 Route::get('/', 'Admin\ModeratorController@index');
@@ -95,6 +95,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
                 Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
                 Route::get('delete_publications', 'Admin\LockContentController@deletePublications');
+                Route::get('delete_user/{id}/{month}', 'Admin\LockContentController@destroy');
             });
             Route::group(['prefix' => 'count'], function () {
                 Route::get('users', 'Admin\CountController@users');

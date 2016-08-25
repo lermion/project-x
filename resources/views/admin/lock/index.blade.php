@@ -50,7 +50,7 @@
                     <td>{{$user->created_at}}</td>
                     <td class="text-center">
                         <a class="btn btn-success btn-xs" href="/admin/lock/unlock_user/{{$user->id}}">Восстановить</a>
-                        <a class="btn btn-danger btn-xs deleteConfirm-del" href="/admin/user/delete/{{$user->id}}">Удалить</a>
+                        <a class="btn btn-danger btn-xs deleteConfirm-del" href="/admin/lock/delete_user/{{$user->id}}">Удалить</a>
                     </td>
                   </tr>
                     @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\BlackList;
 use App\Group;
 use App\Place;
 use App\Publication;
@@ -115,5 +116,25 @@ class LockContentController extends Controller
     {
         Publication::where('is_block',true)->delete();
         return redirect('/admin/lock/publications/')->with('message', 'Все удаленно');
+    }
+
+    public function destroy($id, $month)
+    {
+        $user = User::find($id);
+        $timestamp = strtotime('+' . $month . ' month');
+        $date = date('Y:m:d', $timestamp);
+        BlackList::create(['phone' => $user->phone, 'date' => $date]);
+//        $user->first_name = 'Пользователь';
+//        $user->last_name = 'удален';
+//        //$user->login = str_random(8);
+//        //$user->phone = '';
+//        $user->password = str_random(8);
+//        $user->avatar_path = '/upload/avatars/no-avatar';
+//        $user->status = 'Удален';
+//        $user->original_avatar_path = '/upload/avatars/no-avatar';
+//        $user->user_quote = '';
+//        $user->is_private = true;
+        $user->delete();
+        return redirect('/admin/lock/')->with('message', 'Пользователь удален');
     }
 }

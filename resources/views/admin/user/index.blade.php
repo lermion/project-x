@@ -47,8 +47,8 @@
     <div class="x_content">
         <div class="complains-menu">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 col-md-offset-3 active"><a href="#">Все (<span>10</span>)</a></li>
-                <li class="col-md-3"><a href="#">На заметке (<span>20</span>)</a></li>
+                <li class="col-md-3 col-md-offset-3 active"><a href="#">Все </a></li>
+                <li class="col-md-3"><a href="#">На заметке </a></li>
             </ul>
         </div>
        <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
