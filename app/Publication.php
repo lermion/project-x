@@ -57,7 +57,8 @@ class Publication extends Model
     public static function getMainPublication($offset,$limit,$userId = null)
     {
         $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
-            ->where(function ($query) use ($userId) {
+            ->where(['is_topic'=> true])
+            ->orWhere(function ($query) use ($userId) {
                 $query->where(function($q){
                     $q->where(['is_main'=> true]);
                     $q->where(function($quer){
@@ -71,7 +72,8 @@ class Publication extends Model
                                 ->from('subscribers')
                                 ->where('subscribers.user_id_sub', $userId)
                                 ->where('subscribers.is_confirmed', true)
-                                ->where(['publications.is_main'=>true,'publications.is_moderate'=>true])
+                                ->where('publications.is_main',false)
+                                ->where('publications.is_topic',false)
                                 ->whereRaw('subscribers.user_id = publications.user_id');
                         });
                     });

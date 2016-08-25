@@ -28,19 +28,19 @@
              style="max-height: 250px; overflow:hidden; position:relative;">
 
             <div class="new-img" ng-repeat="file in vm.files">
-                <div class="inner">
+                <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
                     <div class="close" ng-click="vm.removeAttachFile($index)">
                         <div class="close-inner">
                             <p>Удалить</p>
                         </div>
                     </div>
                     <img ngf-thumbnail="file || '/thumb.jpg'">
-                    <!--<video width="200px" controls ngf-src="file"></video>-->
-                    <!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">
+                    <video width="200px" controls ngf-src="file"></video>
+                    <div class="check" ng-click="vm.setMainPubPhoto($index)" ng-if="file.showIsCover || file.isCover">
                         <div class="check-inner">
-                            <p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                            <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <p class="img-name">{{file.name}}</p>
             </div>

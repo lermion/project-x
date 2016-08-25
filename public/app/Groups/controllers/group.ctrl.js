@@ -1051,6 +1051,13 @@
 			}
 		};
 
+		vm.setMainPubPhoto = function (index) {
+			angular.forEach(vm.files, function(item) {
+				item.isCover = false;
+			});
+			vm.files[index].isCover = true;
+		};
+
 		vm.clickclick = function() {
 			alert(1);
 		}
