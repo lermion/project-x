@@ -206,7 +206,8 @@
                         className: 'view-publication ngdialog-theme-default',
                         scope: $scope,
                         preCloseCallback: function () {
-                            vm.place.publications[index] = vm.activePublication;
+                            // TODO: появляется дополнительная публикация и сразу пропадает
+                            //vm.place.publications[index] = vm.activePublication;
                         }
                     });
                 });
