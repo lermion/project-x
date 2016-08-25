@@ -206,7 +206,8 @@
                         className: 'view-publication ngdialog-theme-default',
                         scope: $scope,
                         preCloseCallback: function () {
-                            vm.place.publications[index] = vm.activePublication;
+                            // TODO: появляется дополнительная публикация и сразу пропадает
+                            //vm.place.publications[index] = vm.activePublication;
                         }
                     });
                 });
@@ -267,9 +268,9 @@
             vm.newPublication.files = filterAttachFilesByType();
             vm.newPublication.placeId = vm.place.id;
 
-            if (!$scope.pubNew.cover) {
+            if (!vm.newPublication.cover) {
                 //TODO: separate files by type
-                $scope.pubNew.cover = $scope.pubNew.files[0];
+                vm.newPublication.cover = vm.files[0];
             }
 
             placesService.addPublication(vm.newPublication)
@@ -1236,11 +1237,14 @@
             return PublicationService.getSinglePublication(id)
                 .then(function (data) {
                     vm.activePublication = data;
-                    if (data.images[0] !== undefined) {
+                    if (data.cover !== undefined) {
+                        vm.mainImage = data.cover;
+                    } else {
                         vm.mainImage = data.images[0].url;
                     }
                 });
         }
+
 
         function removeUser(user) {
             var arr = [];

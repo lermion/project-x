@@ -725,7 +725,9 @@ angular.module('placePeopleApp')
                 PublicationService.getSinglePublication(pubId).then(function (response) {
                         $scope.limit = 6;
                         $scope.singlePublication = response;
-                        if (response.images[0] !== undefined) {
+                        if (response.cover !== undefined) {
+                            $scope.mainImage = response.cover;
+                        } else {
                             $scope.mainImage = response.images[0].url;
                         }
                         // if ($window.innerWidth <= 700) {
