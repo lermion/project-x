@@ -1392,6 +1392,7 @@
 				response.messages.forEach(function (value) {
 					$scope.messages.unshift(value);
 				});
+				$scope.returnToBack(response.messages[0].id);
 				$scope.counter += 10;
 			}
 		});
@@ -1402,6 +1403,9 @@
 		};
 		$scope.beforeChange = function (files) {
 			$scope.files = files;
+		};
+		$scope.returnToBack = function(messageId){
+			$location.hash(messageId + "");
 		};
 		$scope.deleteChatFiles = function (files, index) {
 			files.splice(index, 1);

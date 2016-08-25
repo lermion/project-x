@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload', '$q', '$timeout', '$location',
+		'PublicationService', 'Upload', '$q', '$timeout', '$location', '$anchorScroll',
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload, $q, $timeout, $location){
+			PublicationService, Upload, $q, $timeout, $location, $anchorScroll){
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
@@ -225,6 +225,7 @@ angular.module('placePeopleApp')
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
+					$scope.returnToBack(response.messages[0].id);
 					$scope.counter += 10;
 				}
 			});
@@ -430,7 +431,12 @@ angular.module('placePeopleApp')
 				$scope.isNeededScroll = function(){
 					return $scope.Model.Chat;
 				}
+				$rootScope.currentChat = chat;
 			};
+			
+			if($stateParams.fromMobile && $rootScope.currentChat !== undefined){
+				$scope.Model.openChatWith($rootScope.currentChat);
+			}
 			socket.on("get user rooms", function(response){
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
@@ -526,6 +532,9 @@ angular.module('placePeopleApp')
 			$scope.isSelected = function (roomId) {
 				return roomId === $scope.currentRoomId;
 			};
+			$scope.returnToBack = function(messageId){
+				$location.hash(messageId + "");
+			}
 			socket.forward('updatechat', $scope);
 			$scope.$on('socket:updatechat', function (event, data) {
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
