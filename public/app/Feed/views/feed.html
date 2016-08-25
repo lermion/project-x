@@ -18,8 +18,8 @@
                 <div class="content-item" ng-if="photosGrid">
                     <div class="my-photos">
                         <div class="photo" ng-repeat="pub in publications | orderBy: '-created_at'" style="{{pubSize}}">
-                            <a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
-                                <img ng-src="{{pub.images[0].url}}" alt="">
+                            <a href ng-click="showPublication(pub, $index)">
+                                <img ng-src="{{pub.cover || pub.images[0].url}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -68,11 +68,6 @@
                         </div>
                         <div class="user-publication-content"
                              ng-init="pub.cover ? pub.mainFile.url = pub.cover : pub.mainFile.url = pub.images[0].url">
-                            <!--<p class="publication-text"-->
-                               <!--ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>-->
-                            <!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-                            <!-- <a href="javascript:void(0);" class="publication-place school">г. Лондон</a> -->
-                            <!-- <a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
                             <div class="publication-ava" ng-click="showPublication(pub, $index)">
                                 <a href="javascript:void(0);">
                                     <img ng-src="{{pub.mainFile.url}}">

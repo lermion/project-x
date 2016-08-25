@@ -562,8 +562,11 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.setMainPubPhoto = function (target) {
-				$scope.mainPubPhoto = target.file.name;
+			$scope.setMainPubPhoto = function (index) {
+				angular.forEach($scope.pubNew.files, function(item) {
+					item.isCover = false;
+				});
+				$scope.pubNew.files[index].isCover = true;
 			};
 
 			$scope.deletePubFile = function (index) {
