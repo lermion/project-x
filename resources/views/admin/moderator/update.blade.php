@@ -3,10 +3,7 @@
     <div style="width:100%; height:auto;">
 
         <h3>Редактирование модератора</h3>
-        @if(isset($error))
-            {{ $error }}
-        @endif
-        <form action="{{ action('Admin\ModeratorController@store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ action('Admin\ModeratorController@updateSave') }}" method="post" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-md-3 admin-moderator-avatar">
@@ -18,6 +15,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
+                    <input type="hidden" name="id" value="{{$moderators->id}}">
                     <label for="email" >Email</label><br>
                     <input class="form-control" type="email" name="email" id="email" value="{{$moderators->email}}" required><br>
                     <label for="password">Пароль</label><br>

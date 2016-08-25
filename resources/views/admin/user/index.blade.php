@@ -77,10 +77,10 @@
                         </form>
                     </div>
                     <div class="daosn3 age">
-                        <input type="text" class="form-control" placeholder="Возраст от">
+                        <input type="number" class="form-control" placeholder="Возраст от">
                     </div>
                     <div class="daosn3 age">
-                        <input type="text" class="form-control" placeholder="Возраст до">
+                        <input type="number" class="form-control" placeholder="Возраст до">
                     </div>
                     <div class="daosn3 avatar">
                         <input id="avatar" type="checkbox" checked>
