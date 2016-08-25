@@ -1104,7 +1104,9 @@
 			return PublicationService.getSinglePublication(id)
 				.then(function (data) {
 					vm.activePublication = data;
-					if (data.images[0] !== undefined) {
+					if (data.cover !== undefined) {
+						vm.mainImage = data.cover;
+					} else {
 						vm.mainImage = data.images[0].url;
 					}
 				});

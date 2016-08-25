@@ -724,7 +724,9 @@ angular.module('placePeopleApp')
 						//getAllCommentsPublication(pubId);
 						$scope.limit = 7;
 						$scope.singlePublication = response;
-						if (response.images[0] !== undefined) {
+						if (response.cover !== undefined) {
+							$scope.mainImage = response.cover;
+						} else {
 							$scope.mainImage = response.images[0].url;
 						}
 						if ($window.innerWidth <= 700) {
@@ -737,7 +739,7 @@ angular.module('placePeopleApp')
 									scope: $scope,
 									name: "view-publication",
 									preCloseCallback: function () {
-										$scope.userPublications[index] = response;
+										//$scope.userPublications[index] = response;
 										$scope.indexCurrentImage = 0;
 									}
 								});
