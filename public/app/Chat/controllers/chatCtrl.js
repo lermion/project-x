@@ -541,7 +541,6 @@ angular.module('placePeopleApp')
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
-					$scope.isReadRoom = data.isRead;
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
 							return chat.countMessages = 0;
@@ -550,7 +549,9 @@ angular.module('placePeopleApp')
 					$scope.Model.Chat = data.messages.reverse();
 				}else if(data.isRead){
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId && data.userId !== $scope.loggedUserId){
-						$scope.isReadRoom = data.isRead.isReadMessage;
+						$scope.Model.Chat.forEach(function(value){
+							value.isRead = false;
+						});
 					}
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
