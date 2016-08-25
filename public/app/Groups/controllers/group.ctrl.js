@@ -340,6 +340,12 @@
 			}
 			vm.newPublication.text = vm.emoji.emojiMessage.messagetext;
 			vm.newPublication.files = filterAttachFilesByType();
+
+			if (!vm.newPublication.cover) {
+				//TODO: separate files by type
+				vm.newPublication.cover = vm.files[0];
+			}
+
 			groupsService.addPublication(vm.newPublication)
 				.then(function (data) {
 					if (data.status) {

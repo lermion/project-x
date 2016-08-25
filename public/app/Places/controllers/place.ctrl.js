@@ -267,9 +267,9 @@
             vm.newPublication.files = filterAttachFilesByType();
             vm.newPublication.placeId = vm.place.id;
 
-            if (!$scope.pubNew.cover) {
+            if (!vm.newPublication.cover) {
                 //TODO: separate files by type
-                $scope.pubNew.cover = $scope.pubNew.files[0];
+                vm.newPublication.cover = vm.files[0];
             }
 
             placesService.addPublication(vm.newPublication)
