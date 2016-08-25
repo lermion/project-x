@@ -31,6 +31,8 @@ angular.module('app.groups')
                 description: '',
                 isOpen: true,
                 avatar: null,
+                originalAvatar: null,
+                avatarCard: null,
                 users: []
             };
             $scope.editGroup = {
@@ -46,7 +48,6 @@ angular.module('app.groups')
             $scope.myImage = null;
             $scope.myCroppedImage = null;
             $scope.blobImg = null;
-            //$scope.groupCoverFile = null;
             $scope.subscribers = [];
             $scope.strSearch = '';
             $scope.showAllGroups = true;
@@ -179,6 +180,61 @@ angular.module('app.groups')
                 $scope.emojiMessage.rawhtml = args;
             });
 
+
+            // Submit
+            $scope.addGroup = function () {
+
+                if ($scope.subForm) {
+                    return false;
+                }
+                $scope.isGroupNameExist = false;
+                validateEmojiArea();
+                $scope.forms.newGroup.$setSubmitted();
+
+                if ($scope.forms.newGroup.$invalid) {
+                    return false;
+                }
+                $scope.submFormGroup = true;
+                $scope.subForm = true;
+
+                $scope.newGroup.description = $scope.emojiMessage.messagetext;
+
+                groupsService.addGroup($scope.newGroup)
+                    .then(function (data) {
+                        if (data.status) {
+                            data.group.users = [{id: myId}];
+                            $scope.groupList.unshift(data.group);
+
+                            if ($scope.newGroup.users.length > 0) {
+                                //TODO: push new group object instead getting all groups
+                                inviteUsers(data.group.id)
+                                    .then(getGroupList)
+                                    .then(function () {
+                                        var users = $scope.newGroup.users.filter(function (item, i, arr) {
+                                            return item.isAdmin === true;
+                                        });
+                                        setAdmins(users, data.group.id);
+                                    });
+                            } else {
+                                resetFormNewGroup();
+                                getGroupList();
+                                $scope.subForm = false;
+                                modalNewGroup.close();
+                            }
+                        } else {
+                            if (+data.error.code === 1) {
+                                $scope.subForm = false;
+                                $scope.isGroupNameExist = true;
+                            }
+                        }
+                    }, function () {
+                        console.log('Add group failed');
+                        $scope.subForm = false;
+                    });
+            };
+
+
+
             $scope.goGroup = function (group) {
                 $state.go('group', {
                     groupId: group.id,
@@ -241,55 +297,7 @@ angular.module('app.groups')
             };
 
 
-            $scope.addGroup = function () {
 
-                if ($scope.subForm) {
-                    return false;
-                }
-                $scope.isGroupNameExist = false;
-                validateEmojiArea();
-                $scope.forms.newGroup.$setSubmitted();
-
-                if ($scope.forms.newGroup.$invalid) {
-                    return false;
-                }
-                $scope.submFormGroup = true;
-                $scope.subForm = true;
-
-                $scope.newGroup.description = $scope.emojiMessage.messagetext;
-                groupsService.addGroup($scope.newGroup)
-                    .then(function (data) {
-                        if (data.status) {
-                            data.group.users = [{id: myId}];
-                            $scope.groupList.unshift(data.group);
-
-                            if ($scope.newGroup.users.length > 0) {
-                                //TODO: push new group object instead getting all groups
-                                inviteUsers(data.group.id)
-                                    .then(getGroupList)
-                                    .then(function () {
-                                        var users = $scope.newGroup.users.filter(function (item, i, arr) {
-                                            return item.isAdmin === true;
-                                        });
-                                        setAdmins(users, data.group.id);
-                                    });
-                            } else {
-                                resetFormNewGroup();
-                                getGroupList();
-                                $scope.subForm = false;
-                                modalNewGroup.close();
-                            }
-                        } else {
-                            if (+data.error.code === 1) {
-                                $scope.subForm = false;
-                                $scope.isGroupNameExist = true;
-                            }
-                        }
-                    }, function () {
-                        console.log('Add group failed');
-                        $scope.subForm = false;
-                    });
-            };
 
 
             $scope.cancelNewGroup = function () {
@@ -340,6 +348,7 @@ angular.module('app.groups')
                 var originalFile;
                 if (file) {
                     originalFile = event.currentTarget.files[0];
+                    $scope.newGroup.originalAvatar = file;
 
                     Upload.imageDimensions(file).then(function (dimensions) {
                         console.info('Group: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);

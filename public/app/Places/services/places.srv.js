@@ -148,9 +148,11 @@
 
             if (place.cover) {
                 fd.append('cover', place.cover);
+                fd.append('original_cover', place.originalCover, place.originalCover.name);
             }
             if (place.logo) {
                 fd.append('avatar', place.logo);
+                fd.append('original_avatar', place.originalLogo, place.originalLogo.name);
             }
 
             return $http({
