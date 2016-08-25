@@ -2,6 +2,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
+var striptags = require('striptags');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
 var Queries = require('./queries');
@@ -155,6 +156,7 @@ io.sockets.on('connection', function(socket){
 		});
 	});
 	socket.on('send message', function(data, callback){
+		data.message = striptags(data.message);
 		if(data.imagesObj !== undefined){
 			var imagesPath = [];
 			for(var i = 0; i < data.imagesObj.images.length; i++){
