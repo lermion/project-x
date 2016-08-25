@@ -48,6 +48,8 @@ angular.module('placePeopleApp')
 				sharePublication.close();
 			};
 			$scope.sendSharePublication = function (pubId) {
+				var isMembers = false;
+				var isAnotherPlace = false;
 				if ($scope.shareData.length > 0) {
 					var membersLength = [];
 					$scope.shareData.forEach(function (value) {
@@ -79,15 +81,18 @@ angular.module('placePeopleApp')
 										room_id: response.room_id,
 										message: $location.absUrl() + "/publication/" + pubId
 									};
-									socket.emit('send message', data, function () {
-										var popupNotification = ngDialog.open({
-											template: '../app/User/views/popup-notification.html',
-											className: 'popup-delete-group ngdialog-theme-default',
-											scope: $scope
-										});
-										setTimeout(function () {
-											ngDialog.closeAll();
-										}, 2000);
+									socket.emit('send message', data, function(){
+										isMembers = true;
+										if(!isAnotherPlace){
+											var popupNotification = ngDialog.open({
+												template: '../app/User/views/popup-notification.html',
+												className: 'popup-delete-group ngdialog-theme-default',
+												scope: $scope
+											});
+											setTimeout(function(){
+												ngDialog.closeAll();
+											}, 2000);
+										}
 									});
 								}
 							});
@@ -97,15 +102,18 @@ angular.module('placePeopleApp')
 								room_id: value.room_id,
 								message: $location.absUrl() + "/publication/" + pubId
 							};
-							socket.emit('send message', data, function () {
-								var popupNotification = ngDialog.open({
-									template: '../app/User/views/popup-notification.html',
-									className: 'popup-delete-group ngdialog-theme-default',
-									scope: $scope
-								});
-								setTimeout(function () {
-									ngDialog.closeAll();
-								}, 2000);
+							socket.emit('send message', data, function(){
+								isAnotherPlace = true;
+								if(!isMembers){
+									var popupNotification = ngDialog.open({
+										template: '../app/User/views/popup-notification.html',
+										className: 'popup-delete-group ngdialog-theme-default',
+										scope: $scope
+									});
+									setTimeout(function(){
+										ngDialog.closeAll();
+									}, 2000);
+								}
 							});
 						}
 					});
@@ -664,7 +672,7 @@ angular.module('placePeopleApp')
 			if ($state.current.name === "mobile-pub-view" && $stateParams.id) {
 				if($stateParams.fromChat){
 					$scope.returnToBack = function () {
-						$state.go("chat");
+						$state.go("chat", {fromMobile: true});
 					}
 				}else{
 					$scope.returnToBack = function () {

@@ -430,7 +430,12 @@ angular.module('placePeopleApp')
 				$scope.isNeededScroll = function(){
 					return $scope.Model.Chat;
 				}
+				$rootScope.currentChat = chat;
 			};
+			
+			if($stateParams.fromMobile && $rootScope.currentChat !== undefined){
+				$scope.Model.openChatWith($rootScope.currentChat);
+			}
 			socket.on("get user rooms", function(response){
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
