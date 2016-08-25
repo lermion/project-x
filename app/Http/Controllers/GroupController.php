@@ -78,7 +78,8 @@ class GroupController extends Controller
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
-                'card_avatar' => 'image'
+                'card_avatar' => 'image',
+                'original_avatar' => 'image'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -95,12 +96,17 @@ class GroupController extends Controller
         $publicationData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $path = Image::getAvatarPath($avatar);
+            $path = Image::getAvatarGroupPath($avatar);
             $publicationData['avatar'] = $path;
+        }
+        if ($request->hasFile('original_avatar')) {
+            $avatar = $request->file('original_avatar');
+            $path = Image::getOriginalAvatarGroupPath($avatar);
+            $groupData['original_avatar'] = $path;
         }
         if ($request->hasFile('card_avatar')) {
             $card_avatar = $request->file('card_avatar');
-            $path = Image::getAvatarPath($card_avatar);
+            $path = Image::getCardGroupPath($card_avatar);
             $publicationData['card_avatar'] = $path;
         }
         $publicationData['room_id'] = $room->id;
@@ -181,7 +187,8 @@ class GroupController extends Controller
                 'description' => 'required',
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
-                'card_avatar' => 'image'
+                'card_avatar' => 'image',
+                'original_avatar' => 'image'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -209,12 +216,19 @@ class GroupController extends Controller
         }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $path = Image::getAvatarPath($avatar);
+            $path = Image::getAvatarGroupPath($avatar);
             $groupData['avatar'] = $path;
         }
+
+        if ($request->hasFile('original_avatar')) {
+            $avatar = $request->file('original_avatar');
+            $path = Image::getOriginalAvatarGroupPath($avatar);
+            $groupData['original_avatar'] = $path;
+        }
+
         if ($request->hasFile('card_avatar')) {
             $card_avatar = $request->file('card_avatar');
-            $path = Image::getAvatarPath($card_avatar);
+            $path = Image::getCardGroupPath($card_avatar);
             $groupData['card_avatar'] = $path;
         }
         $group = Group::find($id);

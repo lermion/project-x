@@ -76,7 +76,7 @@ class CountryController extends Controller
     public function createRegion(Request $request)
     {
         if (Region::where(['name'=>$request->input('name'),'country_id'=>$request->input('country_id')])->first()){
-            return redirect('/admin/base/')->with('message', 'Ошибка!!! Такая область уже есть в базе');
+            return redirect('/admin/base/region')->with('message', 'Ошибка!!! Такая область уже есть в базе');
         }
         $data = $request->all();
         Region::create($data);
@@ -93,10 +93,47 @@ class CountryController extends Controller
 
     public function editRegionSave(Request $request)
     {
-        dd();
         $region = Region::find($request->input('id'));
         $region->name = $request->input('name');
+        $region->country_id = $request->input('country_id');
         $region->save();
         return redirect('/admin/base/region')->with('message', 'Область изменинна');
+    }
+
+    public function createDistrict(Request $request)
+    {
+        if (Area::where(['name'=>$request->input('name'),'region_id'=>$request->input('region_id')])->first()){
+            return redirect('/admin/base/district')->with('message', 'Ошибка!!! Такая область уже есть в базе');
+        }
+        $data = $request->all();
+        Area::create($data);
+        return redirect('/admin/base/district')->with('message', 'Район добавленн');
+    }
+
+    public function editDistrict($id)
+    {
+        $countries = Country::get();
+        $regions = Region::get();
+        $district = Area::find($id);
+        return view('admin.base.districtEdit',['district'=>$district,'region'=>$regions,'countries'=>$countries]);
+    }
+
+    public function editDistrictSave(Request $request)
+    {
+        $district = Area::find($request->input('id'));
+        $district->name = $request->input('name');
+        $district->region_id = $request->input('region_id');
+        $district->save();
+        return redirect('/admin/base/region')->with('message', 'Район измененн');
+    }
+
+    public function createSettlement(Request $request)
+    {
+        if (City::where(['name'=>$request->input('name'),'area_id'=>$request->input('area_id')])->first()){
+            return redirect('/admin/base/settlement')->with('message', 'Ошибка!!! Такой населенный пункт уже есть в базе');
+        }
+        $data = $request->all();
+        City::create($data);
+        return redirect('/admin/base/settlement')->with('message', 'Населенный пункт добавленн');
     }
 }

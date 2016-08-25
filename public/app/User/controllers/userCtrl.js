@@ -13,6 +13,11 @@ angular.module('placePeopleApp')
 			var storage = storageService.getStorage();
 
 			$scope.loggedUserAvatar = storage.loggedUserAva;
+			$scope.groupsChecked = [];
+			$scope.placesChecked = [];
+			$scope.groupsChatArray = [];
+			$scope.subscribersArray = [];
+			$scope.subscriptionsArray = [];
 			//$scope.loggedUser = storage.username;
 			$scope.loggedUserId = +storage.userId;
 
@@ -43,6 +48,8 @@ angular.module('placePeopleApp')
 				sharePublication.close();
 			};
 			$scope.sendSharePublication = function (pubId) {
+				var isMembers = false;
+				var isAnotherPlace = false;
 				if ($scope.shareData.length > 0) {
 					var membersLength = [];
 					$scope.shareData.forEach(function (value) {
@@ -74,15 +81,18 @@ angular.module('placePeopleApp')
 										room_id: response.room_id,
 										message: $location.absUrl() + "/publication/" + pubId
 									};
-									socket.emit('send message', data, function () {
-										var popupNotification = ngDialog.open({
-											template: '../app/User/views/popup-notification.html',
-											className: 'popup-delete-group ngdialog-theme-default',
-											scope: $scope
-										});
-										setTimeout(function () {
-											ngDialog.closeAll();
-										}, 2000);
+									socket.emit('send message', data, function(){
+										isMembers = true;
+										if(!isAnotherPlace){
+											var popupNotification = ngDialog.open({
+												template: '../app/User/views/popup-notification.html',
+												className: 'popup-delete-group ngdialog-theme-default',
+												scope: $scope
+											});
+											setTimeout(function(){
+												ngDialog.closeAll();
+											}, 2000);
+										}
 									});
 								}
 							});
@@ -92,15 +102,18 @@ angular.module('placePeopleApp')
 								room_id: value.room_id,
 								message: $location.absUrl() + "/publication/" + pubId
 							};
-							socket.emit('send message', data, function () {
-								var popupNotification = ngDialog.open({
-									template: '../app/User/views/popup-notification.html',
-									className: 'popup-delete-group ngdialog-theme-default',
-									scope: $scope
-								});
-								setTimeout(function () {
-									ngDialog.closeAll();
-								}, 2000);
+							socket.emit('send message', data, function(){
+								isAnotherPlace = true;
+								if(!isMembers){
+									var popupNotification = ngDialog.open({
+										template: '../app/User/views/popup-notification.html',
+										className: 'popup-delete-group ngdialog-theme-default',
+										scope: $scope
+									});
+									setTimeout(function(){
+										ngDialog.closeAll();
+									}, 2000);
+								}
 							});
 						}
 					});
@@ -111,36 +124,52 @@ angular.module('placePeopleApp')
 				if(active){
 					$scope.shareData.push(data);
 					if(type === "subscription"){
+						$scope.subscriptionsArray.push(data.id);
 						$scope.subscribers.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = true;
+								$scope.subscribersArray.push(value.id);
 							}
 						});
 					}else if(type === "subscriber"){
+						$scope.subscribersArray.push(data.id);
 						$scope.subscriptions.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = true;
+								$scope.subscriptionsArray.push(value.id);
 							}
 						});
+					}else if(type === "group"){
+						$scope.groupsChecked.push(data.id);
+					}else if(type === "place"){
+						$scope.placesChecked.push(data.id);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.push(data.room_id);
 					}
 				}else{
 					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
 					if(type === "subscription"){
+						$scope.subscriptionsArray.splice($scope.subscriptionsArray.indexOf(data.id), 1);
 						$scope.subscribers.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = false;
+								$scope.subscribersArray.splice($scope.subscribersArray.indexOf(value.id), 1);
 							}
 						});
 					}else if(type === "subscriber"){
+						$scope.subscribersArray.splice($scope.subscribersArray.indexOf(data.id), 1);
 						$scope.subscriptions.forEach(function(value){
 							if(value.id === data.id){
-								value.isChecked = false;
+								$scope.subscriptionsArray.splice($scope.subscriptionsArray.indexOf(value.id), 1);
 							}
 						});
+					}else if(type === "group"){
+						$scope.groupsChecked.splice($scope.groupsChecked.indexOf(data.id), 1);
+					}else if(type === "place"){
+						$scope.placesChecked.splice($scope.placesChecked.indexOf(data.id), 1);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.splice($scope.groupsChatArray.indexOf(data.room_id), 1);
 					}
 				}
 			};
-			
+
 			$scope.showFullComment = function(comment){
 				comment.commentLength = comment.text.length;
 			};
@@ -152,6 +181,19 @@ angular.module('placePeopleApp')
 					$scope.showMenu = true;
 				}
 			};
+
+			$scope.showFullAvatar = function(originalAvatar){
+				$scope.mainImageInPopup = originalAvatar;
+				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+				ngDialog.open({
+					template: '../app/User/views/popup-comment-images.html',
+					className: 'popup-comment-images ngdialog-theme-default',
+					scope: $scope,
+					preCloseCallback: function (value) {
+						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+					}
+				});
+			}
 
 			$scope.openBottomMenu = function () {
 				if ($window.innerWidth <= 650) {
@@ -533,8 +575,11 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.setMainPubPhoto = function (target) {
-				$scope.mainPubPhoto = target.file.name;
+			$scope.setMainPubPhoto = function (index) {
+				angular.forEach($scope.pubNew.files, function(item) {
+					item.isCover = false;
+				});
+				$scope.pubNew.files[index].isCover = true;
 			};
 
 			$scope.deletePubFile = function (index) {
@@ -600,6 +645,12 @@ angular.module('placePeopleApp')
 				} else {
 					isMain = 0;
 				}
+
+				if (!$scope.pubNew.cover) {
+					//TODO: separate files by type
+					$scope.pubNew.cover = $scope.pubNew.files[0];
+				}
+
 				$scope.pubNew.files.forEach(function (file) {
 					var type = file.type.split('/')[0];
 					if (type === 'image') {
@@ -617,7 +668,7 @@ angular.module('placePeopleApp')
 						}
 					}
 				}
-				PublicationService.createPublication(textToSave, 0, isMain, videos, images).then(function (res) {
+				PublicationService.createPublication(textToSave, 0, isMain, videos, images, $scope.pubNew).then(function (res) {
 						if (res.status) {
 							$scope.userPublications.unshift(res.publication);
 							$scope.userData.publications_count++;
@@ -641,10 +692,16 @@ angular.module('placePeopleApp')
 				}
 			};
 			if ($state.current.name === "mobile-pub-view" && $stateParams.id) {
-				getSinglePublication($stateParams.id);
-				$scope.returnToBack = function () {
-					$state.go("user", {username: $stateParams.username});
+				if($stateParams.fromChat){
+					$scope.returnToBack = function () {
+						$state.go("chat", {fromMobile: true});
+					}
+				}else{
+					$scope.returnToBack = function () {
+						$state.go("user", {username: $stateParams.username});
+					}
 				}
+				getSinglePublication($stateParams.id);
 			}
 
 			if (!$stateParams.pubView) {
@@ -802,7 +859,6 @@ angular.module('placePeopleApp')
 				PublicationService.deleteCommentPublication(comment.id).then(function (response) {
 						if (response.status) {
 							if (flag === "userPage") {
-								pub.comments = pub.comments.reverse();
 								pub.comments.splice(index, 1);
 								pub.comment_count--;
 							} else {
@@ -985,7 +1041,15 @@ angular.module('placePeopleApp')
 					template: '../app/User/views/share-publication.html',
 					className: 'share-publication ngdialog-theme-default',
 					scope: $scope,
-					data: {pubId: pubId}
+					data: {pubId: pubId},
+					preCloseCallback: function(){
+						$scope.groupsChecked = [];
+						$scope.placesChecked = [];
+						$scope.groupsChatArray = [];
+						$scope.subscribersArray = [];
+						$scope.subscriptionsArray = [];
+						$scope.shareData = [];
+					}
 				});
 				loadUserContacts();
 			};
@@ -1030,10 +1094,6 @@ angular.module('placePeopleApp')
 						return false;
 					}
 				} else if (value === "groups-chat") {
-					socket.emit("get user rooms", $scope.loggedUserId);
-					socket.on("get user rooms", function (response) {
-						$scope.groupsChatArr = response;
-					});
 					$scope.groupsChat = function () {
 						return true;
 					}
@@ -1059,12 +1119,6 @@ angular.module('placePeopleApp')
 					$scope.showPlaces = function () {
 						return false;
 					}
-					groupsService.getGroupList().then(function (response) {
-							$scope.groups = response;
-						},
-						function (error) {
-							console.log(error);
-						});
 				} else if (value === "places") {
 					$scope.showPlaces = function () {
 						return true;
@@ -1078,28 +1132,37 @@ angular.module('placePeopleApp')
 					$scope.members = function () {
 						return false;
 					}
-					placesService.getPlaces().then(function (response) {
-							console.log(response);
-							$scope.places = response;
-						},
-						function (error) {
-							console.log(error);
-						});
 				}
 			};
 			function loadUserContacts() {
 				PublicationService.getSubscribers($scope.loggedUserId).then(function (response) {
-						$scope.subscribers = response;
-					},
-					function (error) {
-						console.log(error);
-					});
+					$scope.subscribers = response;
+				},
+				function (error) {
+					console.log(error);
+				});
 				PublicationService.getSubscription($scope.loggedUserId).then(function (response) {
-						$scope.subscriptions = response;
-					},
-					function (error) {
-						console.log(error);
-					});
+					$scope.subscriptions = response;
+				},
+				function (error) {
+					console.log(error);
+				});
+				socket.emit("get user rooms", $scope.loggedUserId);
+				socket.on("get user rooms", function (response) {
+					$scope.groupsChatArr = response;
+				});
+				groupsService.getGroupList().then(function (response) {
+					$scope.groups = response;
+				},
+				function (error) {
+					console.log(error);
+				});
+				placesService.getPlaces().then(function (response) {
+					$scope.places = response;
+				},
+				function (error) {
+					console.log(error);
+				});
 			}
 			$scope.getPubLink = function (pubId) {
 				var hashPubId = md5.createHash(pubId + "");

@@ -9,10 +9,11 @@
         <span class="line-h"><b>Выберите страну</b></span>
       </div>
       <div class="col-md-3">
-        <select class="form-control">
-          <option>Украина</option>
-          <option>Россия</option>
-        </select>
+          <select class="form-control" name="country_id">
+              @foreach($countries as $country)
+                  <option value="{{$country->id}}">{{$country->name}}</option>
+              @endforeach
+          </select>
       </div>
     </div>
 
@@ -21,10 +22,11 @@
         <span class="line-h"><b>Выберите область</b></span>
       </div>
       <div class="col-md-3">
-        <select class="form-control">
-          <option>Киевская</option>
-          <option>Днепропетровская</option>
-        </select>
+          <select class="form-control" name="region_id">
+              @foreach($regions as $region)
+                  <option value="{{$region->id}}">{{$region->name}}</option>
+              @endforeach
+          </select>
       </div>
     </div>
     <div class="row country">
@@ -32,10 +34,11 @@
         <span class="line-h"><b>Выберите район</b></span>
       </div>
       <div class="col-md-3">
-        <select class="form-control">
-          <option>Киевский</option>
-          <option>Днепровский</option>
-        </select>
+          <select class="form-control" name="area_id">
+              @foreach($areas as $area)
+                  <option value="{{$area->id}}">{{$area->name}}</option>
+              @endforeach
+          </select>
       </div>
     </div>
     <div class="row country">
@@ -43,7 +46,7 @@
         <span class="line-h"><b>Название населенного пункта</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" placeholder="Введите название...">
+        <input class="form-control" type="text" placeholder="Введите название..." required>
       </div>
     </div>
 

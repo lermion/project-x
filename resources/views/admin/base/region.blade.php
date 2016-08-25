@@ -22,7 +22,7 @@
         <span class="line-h"><b>Название области</b></span>
       </div>
       <div class="col-md-3">
-        <input class="form-control" type="text" name="name" placeholder="Введите название...">
+        <input class="form-control" type="text" name="name" placeholder="Введите название..." required>
       </div>
     </div>
 

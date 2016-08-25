@@ -213,16 +213,20 @@ Queries.prototype.getUserDialogue = function(data){
 				for(var i = 0; i < result.length; i++){
 					result[i].images = response[i];
 				}
-				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND (select max(user_rooms_messages.message_id)FROM user_rooms_messages where user_rooms_messages.room_id = " + data.room_id + ") = (SELECT max(message_id) FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND NOT user_id = " + data.members[0] + ")", function(err, isRead) {
-					if(isRead[0]['COUNT(message_id)'] === 0){
-						isRead = false;
-					}else{
+				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND message_id > (SELECT MAX( message_id) FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND NOT user_id = " + data.members[0] + ")", function(err, isRead) {
+					if(isRead !== undefined){
+						if(isRead[0]['COUNT(message_id)'] === 0){
 						isRead = true;
+						}else{
+							for(var i = 0; i < isRead[0]['COUNT(message_id)']; i++){
+								result[i].isRead = true;
+							}
+						}
 					}
 					var res = {
 						room_id: data.room_id,
 						messages: result,
-						isRead: isRead
+						isRead: true
 					};
 					deferred.resolve(res);
 				});

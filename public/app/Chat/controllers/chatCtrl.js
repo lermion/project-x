@@ -1,14 +1,14 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload', '$q', '$timeout', '$location',
+		'PublicationService', 'Upload', '$q', '$timeout', '$location', '$anchorScroll',
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload, $q, $timeout, $location){
+			PublicationService, Upload, $q, $timeout, $location, $anchorScroll){
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
-			//$scope.loggedUser = storage.username;
+			$scope.loggedUser = storage.username;
 			$scope.showFileAddMenu = false;
 			$scope.myCroppedImage = null;
 			$scope.counter = 10;
@@ -225,6 +225,7 @@ angular.module('placePeopleApp')
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
+					$scope.returnToBack(response.messages[0].id);
 					$scope.counter += 10;
 				}
 			});
@@ -365,7 +366,7 @@ angular.module('placePeopleApp')
 				});
 			};
 			$scope.Model.openChatWith = function(chat, index){
-				$scope.currentIndex = index;
+				$scope.currentRoomId = chat.room_id;
 				if($scope.files !== undefined){
 					$scope.files.length = 0;
 				}
@@ -430,7 +431,12 @@ angular.module('placePeopleApp')
 				$scope.isNeededScroll = function(){
 					return $scope.Model.Chat;
 				}
+				$rootScope.currentChat = chat;
 			};
+			
+			if($stateParams.fromMobile && $rootScope.currentChat !== undefined){
+				$scope.Model.openChatWith($rootScope.currentChat);
+			}
 			socket.on("get user rooms", function(response){
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
@@ -523,16 +529,18 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			$scope.isSelected = function (index) {
-				return index === $scope.currentIndex;
+			$scope.isSelected = function (roomId) {
+				return roomId === $scope.currentRoomId;
 			};
+			$scope.returnToBack = function(messageId){
+				$location.hash(messageId + "");
+			}
 			socket.forward('updatechat', $scope);
 			$scope.$on('socket:updatechat', function (event, data) {
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
-					$scope.isReadRoom = data.isRead;
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
 							return chat.countMessages = 0;
@@ -541,11 +549,23 @@ angular.module('placePeopleApp')
 					$scope.Model.Chat = data.messages.reverse();
 				}else if(data.isRead){
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId && data.userId !== $scope.loggedUserId){
-						$scope.isReadRoom = data.isRead.isReadMessage;
+						$scope.Model.Chat.forEach(function(value){
+							value.isRead = false;
+						});
 					}
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
+						if(data.login === $scope.loggedUser){
+							data.isRead = true;
+						}else{
+							$scope.Model.Chat.forEach(function(value){
+								value.isRead = false;
+							});
+						}
 						$scope.Model.Chat.push(data);
+						$scope.isNeededScroll = function(){
+							return $scope.Model.Chat;
+						}
 					}else{
 						socket.emit("get user rooms", $scope.loggedUserId);
 						// $scope.getLastMessage = function(chat){
@@ -654,12 +674,16 @@ angular.module('placePeopleApp')
 					if(response.images[0] !== undefined){
 						$scope.mainImage = response.images[0].url;
 					}
-					ngDialog.open({
-						template: '../app/Chat/views/popup-view-chat-publication.html',
-						className: 'view-publication ngdialog-theme-default',
-						scope: $scope,
-						name: "view-publication"
-					});
+					if($window.innerWidth <= 700){
+						$state.go('mobile-pub-view', {username: $scope.loggedUser, id: pubId, fromChat: true});
+					}else{
+						ngDialog.open({
+							template: '../app/Chat/views/popup-view-chat-publication.html',
+							className: 'view-publication ngdialog-theme-default',
+							scope: $scope,
+							name: "view-publication"
+						});
+					}
 				},
 				function(error){
 					console.log(error);

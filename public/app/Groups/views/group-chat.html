@@ -36,7 +36,7 @@
 							</div>
 						</div>
 						<div class="user-publication-content" ng-init="message.pub.cover ? message.pub.mainFile.url = message.pub.cover : message.pub.mainFile.url = message.pub.images[0].url">
-							<p ng-click="goToSearch(message.pub.text)" class="publication-text" ng-bind-html="message.pub.text | colonToSmiley | linkCheck"></p>
+							<p ng-show="getPubText(message.pub.text) !== 'undefined'" ng-click="goToSearch(message.pub.text)" class="publication-text" ng-bind-html="getPubText(message.pub.text) | colonToSmiley | linkCheck"></p>
 							<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 							<a href="javascript:void(0);" class="publication-place school">г. Лондон</a>
 							<a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->
@@ -68,15 +68,15 @@
 									чел.
 								</p>
 							</div>
-							<a href="javascript:void(0);" class="comments-count">{{message.pub.comment_count}}</a>
+							<a href="javascript:void(0);" ng-if="message.pub.comment_count > 0" class="comments-count">{{message.pub.comment_count}}</a>
 						</div> 
 					</div>
 				</div>
 				<div ng-hide="message.type === 'pub'" class="user-messege">
 					<div class="messege">
-						<a ng-hide="messages[$index - 1].login == $root.user.username" class="user-name">{{message.first_name}} {{message.last_name}}</a>
+						<a ng-hide="messages[$index - 1].login == messages[messages.length - 1].login" class="user-name">{{message.first_name}} {{message.last_name}}</a>
 						<div class="messege-text">
-							<p ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
+							<p id="{{message.id}}" ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
 								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images">
 									<img ng-src="{{image.url}}" alt="">

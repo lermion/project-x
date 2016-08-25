@@ -83,14 +83,14 @@
 
 				<div ng-class="message.login ===$root.user.username ? 'right-chat-my-msg-inner' : 'right-chat-to-my-msg-inner'">
 					<div ng-hide="Model.Chat[$index - 1].login == Model.Chat[Model.Chat.length - 1].login" class="chat-main-user-sender-name">{{message.first_name}} {{message.last_name}}</div>
-					<div ng-bind-html="message.text | colonToSmiley" ng-class="message.login ===$root.user.username ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
+					<div id="{{message.id}}" ng-bind-html="message.text | colonToSmiley" ng-class="message.login ===$root.user.username ? 'my-msg-inner-text' : 'to-my-msg-inner-text'"></div>
 					<div ng-if="message.images" class="to-my-msg-inner-photo">
 						<span ng-click="showPopupWithFiles(message.images)" ng-repeat="image in message.images" class="to-my-img-inner-photo-pict">
 							<img ng-src="{{image.url}}" alt="">
 						</span>
 					</div>
 				</div>
-				<div ng-class="(message.login ===$root.user.username ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (isReadRoom ? 'done' : 'no-done')">
+				<div ng-class="(message.login ===$root.user.username ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (!message.isRead ? 'done' : 'no-done')">
 					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 				</div>
 			</div>
@@ -133,13 +133,16 @@
 					<div class="publication-relations-left">
 						<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)"
 						ng-class="message.pub.user_like ? 'active': ''">Тема</span>
-						<span>В теме</span>
-						<span ng-show="message.pub.user_like">Вы</span>
-						<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
-						<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>    					
+						<!--TODO: refact! -->
+						<span class="like-item" ng-if="message.pub.like_count > 0">
+							<span ng-if="message.pub.like_count > 0">В теме</span>
+							<span ng-show="message.pub.user_like">Вы</span>
+							<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
+							<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>
+						</span>
 					</div>
 					<div class="publication-relations-right">
-						<span class="relations-right-img ">{{message.pub.comment_count}}</span>
+						<span class="relations-right-img " ng-if="message.pub.comment_count > 0">{{message.pub.comment_count}}</span>
 					</div>
 				</div>
 			</div>

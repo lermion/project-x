@@ -1326,7 +1326,7 @@ body.public.user {
 	overflow: hidden;
 	width: 140px;
 	height: 140px;
-	cursor: default;
+	cursor: pointer;
 }
 .my-profile .ava a img {
 	width: 100%;
@@ -1582,6 +1582,34 @@ body.public.user {
 	box-sizing: border-box;
 	transition: all .1s ease-in-out .1s;  
 }
+
+.content-item .my-photos .photo.thumbnail,
+.group-publication .my-photos .photo.thumbnail,
+#user-page .my-photos .photo.thumbnail {
+	position: relative;
+	width: 229px;
+	height: 229px;
+	overflow: hidden;
+}
+.content-item .my-photos .photo.thumbnail img,
+.group-publication .my-photos .photo.thumbnail img,
+#user-page .my-photos .photo.thumbnail img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 100%;
+	width: auto;
+	-webkit-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.content-item .my-photos .photo.thumbnail img.portrait,
+.group-publication .my-photos .photo.thumbnail img.portrait,
+#user-page .my-photos .photo.thumbnail img.portrait{
+	width: 100%;
+	height: auto;
+}
+
 #user-page .photo:hover,
 .group-publication .photo:hover,
 .content-item .my-photos .photo:hover {
@@ -4190,7 +4218,7 @@ body.ngdialog-open {
 .group-chat-inner {
 	padding: 5px 10px;
 	overflow-x: auto;
-	max-height: 385px;
+	max-height: 60vh;
 	min-height: 150px;
 	height: auto;
 	background: url(../images/chat-bg.png) repeat;

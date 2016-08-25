@@ -5,7 +5,7 @@
 				<div id="user-page" ng-class="photosGrid ? '' : 'list-style'">
 					<div class="my-profile">
 						<div class="ava">
-							<a href="javascript:void(0)">
+							<a ng-click="showFullAvatar(userData.original_avatar_path)" href="javascript:void(0)">
 								<img ng-src="{{userData.avatar_path ? userData.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
 							</a>
 						</div>
@@ -120,13 +120,16 @@
 
 					<div ng-hide="needToAddAvatar && !isSigned" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
 						<!-- unit grid-->
-						<div class="my-photos" ng-show="photosGrid">
-							<div class="photo" ng-repeat="pub in userPublications" style="{{pubSize}}">
-								<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
-									<img ng-src="{{pub.images[0].url}}" alt="">
-								</a>
+						<div class="content-item" ng-if="photosGrid">
+							<div class="my-photos">
+								<div class="photo thumbnail" ng-repeat="pub in userPublications" style="{{pubSize}}">
+									<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
+										<img ng-src="{{pub.cover || pub.images[0].url}}" alt="">
+									</a>
+								</div>
 							</div>
 						</div>
+
 						<!-- single unit -->
 						<div class="my-photos-list" ng-show="!photosGrid">
 							<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications"
@@ -149,7 +152,7 @@
 											<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
 												 style="max-height:175px; overflow:hidden; position:relative;"
 												 ng-hide="(singlePublication.images.length + singlePublication.videos.length) === 1"
-												 ng-init="singlePublication.limit = 6">
+												 ng-init="singlePublication.limit = 7">
 												<div ng-click="changeMainFile(file, 'list', singlePublication)"
 													 ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: singlePublication.limit as results"
 													 class="images-item">
@@ -187,7 +190,7 @@
 														  ng-hide="singlePublication.user_like && singlePublication.like_count == 1">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}} чел.</span>
 												</p>
 											</div>
-											<a href="javascript:void(0);" class="comments-count">{{singlePublication.comment_count}}</a>
+											<a href ng-if="singlePublication.comment_count > 0" class="comments-count">{{singlePublication.comment_count}}</a>
 										</div>
 										<div class="more-comments"
 											 ng-if="singlePublication.comments.length !== singlePublication.comment_count">
@@ -211,8 +214,8 @@
 																{{comment.user.last_name}}</a>
 
 															<p class="time" am-time-ago="comment.created_at"></p>
-															<a ng-hide="comment.like_count === 0 && comment.user.id == loggedUserId" href="javascript:void(0);"
-															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : '&nbsp;'}}</a>
+															<a ng-hide="comment.user.id == loggedUserId && comment.like_count == ''" href="javascript:void(0);"
+															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : ''}}</a>
 														</div>
 														<a href="javascript:void(0);"
 														   ng-click="alertPubComment(comment.id)"

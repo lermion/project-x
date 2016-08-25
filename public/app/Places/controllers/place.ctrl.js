@@ -206,7 +206,8 @@
                         className: 'view-publication ngdialog-theme-default',
                         scope: $scope,
                         preCloseCallback: function () {
-                            vm.place.publications[index] = vm.activePublication;
+                            // TODO: появляется дополнительная публикация и сразу пропадает
+                            //vm.place.publications[index] = vm.activePublication;
                         }
                     });
                 });
@@ -266,6 +267,11 @@
             vm.newPublication.text = vm.emojiMessage.messagetext;
             vm.newPublication.files = filterAttachFilesByType();
             vm.newPublication.placeId = vm.place.id;
+
+            if (!vm.newPublication.cover) {
+                //TODO: separate files by type
+                vm.newPublication.cover = vm.files[0];
+            }
 
             placesService.addPublication(vm.newPublication)
                 .then(function (data) {
@@ -435,6 +441,13 @@
         $scope.showFullComment = function(comment){
 			comment.commentLength = comment.text.length;
 		};
+
+        $scope.getPubText = function(text){
+            if(text != undefined){
+                var mes = text.split(' messagetext: ');
+                return mes[1];
+            }
+        };
 
         vm.deleteComment = function (flag, pub, comment, index) {
             PublicationService.deleteCommentPublication(comment.id).then(function (response) {
@@ -1065,6 +1078,17 @@
             }
         };
 
+        vm.setMainPubPhoto = function (index) {
+            angular.forEach(vm.files, function(item) {
+                item.isCover = false;
+            });
+            vm.files[index].isCover = true;
+            vm.newPublication.cover = vm.files[index];
+            //resizePubCoverImage(vm.files[index]).then(function (image) {
+            //    vm.newPublication.cover = image;
+            //});
+        };
+
         function activate() {
             init();
             checkPublicationsView();
@@ -1409,6 +1433,19 @@
             }
         }
 
+        function resizePubCoverImage(image) {
+            Upload.imageDimensions(image).then(function (dimensions) {
+                console.info('Feed publication cover: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+            });
+
+            return Upload.resize(image, 395, 395, null, null, null, true).then(function (resizedFile) {
+                Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                    console.info('Feed publication cover: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                return resizedFile;
+            });
+        }
+
         vm.citySelected = function (city) {
             if (city) {
                 var cityObj = {
@@ -1591,6 +1628,7 @@
                 response.messages.forEach(function (value) {
                     $scope.messages.unshift(value);
                 });
+                $scope.returnToBack(response.messages[0].id);
                 $scope.counter += 10;
             }
         });
@@ -1601,6 +1639,9 @@
         };
         $scope.beforeChange = function (files) {
             $scope.files = files;
+        };
+        $scope.returnToBack = function(messageId){
+            $location.hash(messageId + "");
         };
         $scope.deleteChatFiles = function (files, index) {
             files.splice(index, 1);
