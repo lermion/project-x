@@ -103,6 +103,10 @@ angular.module('placePeopleApp')
                 files: []
             };
 
+            $scope.setMainPubPhoto = function (index) {
+                $scope.pubNew.files[index].isCover = true;
+            };
+
             $scope.ngRepeatHasRendered = function () {
                 window.emojiPicker = new EmojiPicker({
                     emojiable_selector: '[data-emojiable=true]',
