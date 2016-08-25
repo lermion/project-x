@@ -64,12 +64,14 @@ class Publication extends Model
                         $quer->where('is_moderate',true);
                         $quer->orWhere('user_id',Auth::id());
                     });
-                })->orWhere(function ($query) use ($userId) {
+                })
+                    ->orWhere(function ($query) use ($userId) {
                         $query->whereExists(function ($query) use ($userId) {
                             $query->select(DB::raw('subscribers.user_id'))
                                 ->from('subscribers')
                                 ->where('subscribers.user_id_sub', $userId)
                                 ->where('subscribers.is_confirmed', true)
+                                ->where(['publications.is_main'=>true,'publications.is_moderate'=>true])
                                 ->whereRaw('subscribers.user_id = publications.user_id');
                         });
                     });
