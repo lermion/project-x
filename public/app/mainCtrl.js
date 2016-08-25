@@ -180,22 +180,6 @@ angular.module('placePeopleApp')
                 storageService.isUserAuthorized().then(continueNavigation);
 
                 function continueNavigation(response) {
-                    if(response.is_authorization){
-                        // Chat
-                        socket.emit("get user rooms", $scope.loggedUserId);
-                        socket.on("get user rooms", function (response) {
-                            var chatRoomsArray = [];
-                            for (var i = 0; i < response.length; i++) {
-                                if (response[i].countMessages > 0) {
-                                    chatRoomsArray.push(response[i].countMessages);
-                                }
-                            }
-                            $rootScope.countChatMessages = chatRoomsArray.length;
-                        });
-                        socket.on('updatechat', function (data) {
-                            socket.emit("get user rooms", $scope.loggedUserId);
-                        });
-                    }
                     $rootScope.isAuthorized = response.is_authorization;
 
                     // параметры для последующего перехода на state
@@ -262,6 +246,23 @@ angular.module('placePeopleApp')
                 }
 
             });
+
+            // Chat
+            if($scope.loggedUserId !== ""){
+                socket.emit("get user rooms", $scope.loggedUserId);
+                socket.on("get user rooms", function (response) {
+                    var chatRoomsArray = [];
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].countMessages > 0) {
+                            chatRoomsArray.push(response[i].countMessages);
+                         }
+                    }
+                    $rootScope.countChatMessages = chatRoomsArray.length;
+                });
+                socket.on('updatechat', function (data) {
+                    socket.emit("get user rooms", $scope.loggedUserId);
+                });
+            }
 
             // Search
             $scope.search = {
