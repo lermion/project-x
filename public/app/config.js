@@ -194,7 +194,10 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Chat/views/chat-main.html',
                     controller: 'chatCtrl',
                     showHeader: true,
-                    isLogin: false
+                    isLogin: false,
+                    params: {
+                        fromMobile: null
+                    }
                 })
                 .state('chat.list', {
                     url: '/list',

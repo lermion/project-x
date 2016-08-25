@@ -76,7 +76,7 @@
 					<div class="messege">
 						<a ng-hide="messages[$index - 1].login == messages[messages.length - 1].login" class="user-name">{{message.first_name}} {{message.last_name}}</a>
 						<div class="messege-text">
-							<p ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
+							<p id="{{message.id}}" ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
 								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images">
 									<img ng-src="{{image.url}}" alt="">
