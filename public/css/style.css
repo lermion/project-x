@@ -1121,16 +1121,18 @@ body.public.user {
 	}
 }
 .public header .header.header-user .logo.logo-in-menu {
-	    background-image: url(../images/logotip.png);
-	    background-position: left center;
-	    background-repeat: no-repeat;
-	    background-size: 163px;
-	    width: auto;
-	    height: 25px;
-	    z-index: 1;
-	    margin-bottom: 25px;
-	    display: none;
-	}
+    background-image: url(../images/logotip.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 163px;
+    height: 25px;
+    padding: 0;
+    z-index: 1;
+    margin: 0;
+    margin-bottom: 25px;
+    display: none;
+}
 @media (max-width: 800px) {
 	.public header .header {
 		position: relative;
@@ -4216,7 +4218,7 @@ body.ngdialog-open {
 .group-chat-inner {
 	padding: 5px 10px;
 	overflow-x: auto;
-	max-height: 385px;
+	max-height: 60vh;
 	min-height: 150px;
 	height: auto;
 	background: url(../images/chat-bg.png) repeat;
