@@ -103,6 +103,61 @@ angular.module('placePeopleApp')
                 files: []
             };
 
+
+
+
+            // Submit
+            $scope.publishNewPub = function (isAnon, pubText) {
+                var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
+
+                if ($scope.pubNew.files === undefined || $scope.pubNew.files.length == 0) {
+                    $scope.publishNewPubErr = true;
+                    return;
+                }
+
+                $scope.newPubLoader = true;
+                var images = [];
+                var videos = [];
+                var isMain = 1;
+
+                // if ($scope.mainPubPhoto) {
+                // 	images[0] = '';
+                // }
+
+                $scope.pubNew.files.forEach(function (file) {
+                    var type = file.type.split('/')[0];
+                    if (type === 'image') {
+                        images.push(file);
+                    } else if (type === 'video') {
+                        videos.push(file);
+                    }
+                });
+
+                PublicationService.createPublication(textToSave, !!isAnon ? 1 : 0, isMain, videos, images)
+                    .then(
+                        function (res) {
+                            if (res.status) {
+                                ngDialog.closeAll();
+                            } else {
+                                console.log('Error');
+                            }
+                            $scope.newPubLoader = false;
+                            $scope.pubNew.files = [];
+                        },
+                        function (err) {
+                            console.log(err);
+                            $scope.pubNew.files = [];
+                        });
+
+            };
+
+            $scope.setMainPubPhoto = function (index) {
+                angular.forEach($scope.pubNew.files, function(item) {
+                    item.isCover = false;
+                });
+                $scope.pubNew.files[index].isCover = true;
+            };
+
             $scope.ngRepeatHasRendered = function () {
                 window.emojiPicker = new EmojiPicker({
                     emojiable_selector: '[data-emojiable=true]',
@@ -403,18 +458,6 @@ angular.module('placePeopleApp')
                     });
             }
 
-            //UserService.getUserData($rootScope.user.username).then(function (res) {
-            //	$scope.userData = res;
-            //	if (res.login === storage.username) {
-            //		$scope.myProfile = true;
-            //		storageService.setStorageItem('loggedUserAva', res.avatar_path);
-            //		$scope.loggedUserAva = res.avatar_path;
-            //	}
-            //},
-            //function (err) {
-            //	console.log(err);
-            //});
-
 
             $scope.complainIsSend = false;
 
@@ -660,85 +703,6 @@ angular.module('placePeopleApp')
 
             $scope.returnToBack = function () {
                 $state.go("feed");
-            };
-
-            // if($state.current.name === "feed-mobile"){
-            // 	var pubId = $stateParams.pubId;
-            // 	if ($window.innerWidth > 700) {
-            // 			$state.go('feed-desktop', {pubId: pubId});
-            // 	}
-            // }
-            // if($state.current.name === "feed-desktop"){
-            // 	var pubId = $stateParams.pubId;
-            // 	if ($window.innerWidth < 700) {
-            // 			console.log(pubId);
-            // 			$state.go('feed-mobile', {pubId: pubId});
-
-            // 	} else {
-            // 		getSinglePublication(pubId);
-            // 		ngDialog.open({
-            // 					template: '../app/Feed/views/view-publication.html',
-            // 					className: 'view-publication ngdialog-theme-default',
-            // 					scope: $scope
-            // 				});
-            // 	}
-
-            // }
-
-            $scope.publishNewPub = function (isAnon, pubText) {
-                var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
-
-                if ($scope.pubNew.files === undefined || $scope.pubNew.files.length == 0) {
-                    $scope.publishNewPubErr = true;
-                    return;
-                }
-
-                $scope.newPubLoader = true;
-                var images = [];
-                var videos = [];
-                var isMain = 1;
-
-                // if ($scope.mainPubPhoto) {
-                // 	images[0] = '';
-                // }
-
-                $scope.pubNew.files.forEach(function (file) {
-                    var type = file.type.split('/')[0];
-                    if (type === 'image') {
-                        images.push(file);
-                    } else if (type === 'video') {
-                        videos.push(file);
-                    }
-                });
-
-
-                // if ($scope.mainPubPhoto) {
-                // 	for(var i=0; i < images.length; i++){
-                // 		if (images[i].name === $scope.mainPubPhoto) {
-                // 			var mainPhoto = images.splice(i, 1);
-                // 			images[0] = mainPhoto[0];
-
-                // 		}
-                // 	}
-                // }
-
-
-                PublicationService.createPublication(textToSave, !!isAnon ? 1 : 0, isMain, videos, images)
-                    .then(
-                        function (res) {
-                            if (res.status) {
-                                ngDialog.closeAll();
-                            } else {
-                                console.log('Error');
-                            }
-                            $scope.newPubLoader = false;
-                            $scope.pubNew.files = [];
-                        },
-                        function (err) {
-                            console.log(err);
-                            $scope.pubNew.files = [];
-                        });
-
             };
 
             function getSinglePublication(pubId, flag) {
