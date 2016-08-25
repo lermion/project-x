@@ -133,10 +133,13 @@
 					<div class="publication-relations-left">
 						<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)"
 						ng-class="message.pub.user_like ? 'active': ''">Тема</span>
-						<span ng-if="message.pub.like_count > 0">В теме</span>
-						<span ng-show="message.pub.user_like">Вы</span>
-						<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
-						<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>    					
+						<!--TODO: refact! -->
+						<span class="like-item" ng-if="message.pub.like_count > 0">
+							<span ng-if="message.pub.like_count > 0">В теме</span>
+							<span ng-show="message.pub.user_like">Вы</span>
+							<span ng-show="message.pub.user_like && message.pub.like_count > 1">и еще </span>
+							<span ng-hide="message.pub.user_like && message.pub.like_count == 1">{{message.pub.user_like ? message.pub.like_count - 1 : message.pub.like_count}} чел.</span>
+						</span>
 					</div>
 					<div class="publication-relations-right">
 						<span class="relations-right-img " ng-if="message.pub.comment_count > 0">{{message.pub.comment_count}}</span>
