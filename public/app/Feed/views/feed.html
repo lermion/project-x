@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="content-item" ng-if="!photosGrid" ng-init="$last ? ngRepeatHasRendered() : null"
-                     ng-repeat="pub in publications | orderBy: '-created_at'">
+                     ng-repeat="pub in publications | orderBy: ['-is_topic', '-created_at']">
                     <div class="user-publication">
                         <div class="user-publication-header">
                             <div class="user-function">
@@ -42,7 +42,7 @@
 
 
                                 <div class="topic" ng-show="!!pub.is_topic">Тема дня</div>
-                                <div class="topic" ng-if="!pub.is_moderate">На модерации</div>
+                                <div class="topic" ng-if="!pub.is_moderate && pub.user.id === $root.user.userId">На модерации</div>
                                 <div href="" class="user-menu" ng-class="'pub{{pub.id}}'"
                                      ng-click="pubs[pub.id].showUserMenu=!pubs[pub.id].showUserMenu"
                                      click-outside="pubs[pub.id].showUserMenu = false"
