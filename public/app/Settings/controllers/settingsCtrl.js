@@ -161,11 +161,13 @@ angular.module('placePeopleApp')
 		}
 
 		var blobFile = blobToFile(cropped, $scope.fileName);
+		$scope.originalImageBlobFile = blobToFile($scope.myImage, $scope.fileName);
+		$scope.originalImageBlobFile.filename = $scope.fileName;
 		blobFile.filename = $scope.fileName;
 		$scope.croppedFile = cropped;
 		$scope.showEditAva = false;
 
-		UserService.updateAvatar(blobFile).then(function(res){
+		UserService.updateAvatar(blobFile, $scope.originalImageBlobFile).then(function(res){
 			$scope.consoleLog = res;
 			if(res.status){
 				$scope.subForm = false;
