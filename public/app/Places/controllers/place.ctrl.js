@@ -1237,7 +1237,7 @@
             return PublicationService.getSinglePublication(id)
                 .then(function (data) {
                     vm.activePublication = data;
-                    if (data.cover !== undefined) {
+                    if (data.cover) {
                         vm.mainImage = data.cover;
                     } else {
                         vm.mainImage = data.images[0].url;

@@ -724,7 +724,7 @@ angular.module('placePeopleApp')
 						//getAllCommentsPublication(pubId);
 						$scope.limit = 7;
 						$scope.singlePublication = response;
-						if (response.cover !== undefined) {
+						if (response.cover) {
 							$scope.mainImage = response.cover;
 						} else {
 							$scope.mainImage = response.images[0].url;
