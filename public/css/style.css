@@ -1324,7 +1324,7 @@ body.public.user {
 	overflow: hidden;
 	width: 140px;
 	height: 140px;
-	cursor: default;
+	cursor: pointer;
 }
 .my-profile .ava a img {
 	width: 100%;

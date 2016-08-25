@@ -182,6 +182,19 @@ angular.module('placePeopleApp')
 				}
 			};
 
+			$scope.showFullAvatar = function(originalAvatar){
+				$scope.mainImageInPopup = originalAvatar;
+				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
+				ngDialog.open({
+					template: '../app/User/views/popup-comment-images.html',
+					className: 'popup-comment-images ngdialog-theme-default',
+					scope: $scope,
+					preCloseCallback: function (value) {
+						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
+					}
+				});
+			}
+
 			$scope.openBottomMenu = function () {
 				if ($window.innerWidth <= 650) {
 					$scope.showBottomMenu = !$scope.showBottomMenu;

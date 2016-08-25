@@ -121,9 +121,10 @@ angular.module('placePeopleApp')
             return defer.promise;           
         }
 
-        function updateAvatar(avatar){
+        function updateAvatar(avatar, originalAvatar){
             var data = new FormData();            
-            data.append('avatar', avatar);                        
+            data.append('avatar', avatar);
+            data.append('original_avatar', originalAvatar);
             var config = {
                     headers: {
                         'Content-Type': undefined,                        
