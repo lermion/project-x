@@ -536,6 +536,8 @@
                 });
             }
 
+            fd.append('cover', publication.cover, publication.cover.name);
+
             return $http({
                 method: 'POST',
                 url: 'place/' + publication.placeId + '/publication/store',

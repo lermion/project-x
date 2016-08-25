@@ -156,7 +156,7 @@ angular.module('placePeopleApp')
             return defer.promise;
         }
 
-        function createPublication(text, isAnon, isMain, videos, images) {
+        function createPublication(text, isAnon, isMain, videos, images, publication) {
             var data = new FormData();
             var cover;
 
@@ -166,15 +166,9 @@ angular.module('placePeopleApp')
 
             images.forEach(function (img) {
                 data.append('images[]', img);
-                if (img.isCover) {
-                    cover = img;
-                }
             });
-            if (cover) {
-                data.append('cover', cover, cover.name);
-            } else {
-                data.append('cover', images[0], images[0].name);
-            }
+
+            data.append('cover', publication.cover, publication.cover.name);
 
             videos.forEach(function (video) {
                 data.append('videos[]', video);

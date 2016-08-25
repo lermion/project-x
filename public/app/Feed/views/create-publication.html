@@ -33,7 +33,6 @@
 		</div> -->
 	</div>
 		<div class="new-add" ng-show="showPubAdd" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize style="max-height: 250px; overflow:hidden; position:relative;">
-
 			<div class="new-img" ng-repeat="file in pubNew.files">
 				<div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
 					<div class="close" ng-click="deletePubFile($index)">
