@@ -436,6 +436,13 @@
 			comment.commentLength = comment.text.length;
 		};
 
+        $scope.getPubText = function(text){
+            if(text != undefined){
+                var mes = text.split(' messagetext: ');
+                return mes[1];
+            }
+        };
+
         vm.deleteComment = function (flag, pub, comment, index) {
             PublicationService.deleteCommentPublication(comment.id).then(function (response) {
                     if (response.status) {

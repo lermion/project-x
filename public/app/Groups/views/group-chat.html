@@ -36,7 +36,7 @@
 							</div>
 						</div>
 						<div class="user-publication-content" ng-init="message.pub.cover ? message.pub.mainFile.url = message.pub.cover : message.pub.mainFile.url = message.pub.images[0].url">
-							<p ng-click="goToSearch(message.pub.text)" class="publication-text" ng-bind-html="message.pub.text | colonToSmiley | linkCheck"></p>
+							<p ng-show="getPubText(message.pub.text) !== 'undefined'" ng-click="goToSearch(message.pub.text)" class="publication-text" ng-bind-html="getPubText(message.pub.text) | colonToSmiley | linkCheck"></p>
 							<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a>
 							<a href="javascript:void(0);" class="publication-place school">г. Лондон</a>
 							<a href="javascript:void(0);" class="publication-place university">г. Лондон</a> -->

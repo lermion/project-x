@@ -490,6 +490,13 @@
 			comment.commentLength = comment.text.length;
 		};
 
+		$scope.getPubText = function(text){
+			if(text != undefined){
+				var mes = text.split(' messagetext: ');
+				return mes[1];
+			}
+		};
+
 		vm.showMoreImages = function (images, currImg) {
 			if (currImg != null) {
 				vm.mainImageInPopup = currImg.url;

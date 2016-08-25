@@ -1119,7 +1119,6 @@ angular.module('placePeopleApp')
 				});
 				socket.emit("get user rooms", $scope.loggedUserId);
 				socket.on("get user rooms", function (response) {
-					console.log(response);
 					$scope.groupsChatArr = response;
 				});
 				groupsService.getGroupList().then(function (response) {
