@@ -54,6 +54,8 @@ class PlacePublicationController extends Controller
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
                 'videos' => 'array',
+                'cover' => 'file',
+                'original_cover' => 'file',
                 'images' => 'array'
             ]);
         } catch (\Exception $ex) {
@@ -111,6 +113,16 @@ class PlacePublicationController extends Controller
             return response()->json($responseData);
         }
         $publicationData = $request->all();
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $path = Image::getCoverPath($cover);
+            $publicationData['cover'] = $path;
+        }
+        if ($request->hasFile('original_cover')) {
+            $cover = $request->file('original_cover');
+            $path = Image::getOriginalCoverPath($cover);
+            $publicationData['original_cover'] = $path;
+        }
         $publicationData['user_id'] = Auth::id();
 //        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $place = Place::find($id);
@@ -177,6 +189,16 @@ class PlacePublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
+                if ($request->hasFile('cover')) {
+                    $cover = $request->file('cover');
+                    $path = Image::getCoverPath($cover);
+                    $publicationData['cover'] = $path;
+                }
+                if ($request->hasFile('original_cover')) {
+                    $cover = $request->file('original_cover');
+                    $path = Image::getOriginalCoverPath($cover);
+                    $publicationData['original_cover'] = $path;
+                }
                 $publication->update($publicationData);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {

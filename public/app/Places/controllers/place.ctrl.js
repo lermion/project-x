@@ -267,6 +267,11 @@
             vm.newPublication.files = filterAttachFilesByType();
             vm.newPublication.placeId = vm.place.id;
 
+            if (!$scope.pubNew.cover) {
+                //TODO: separate files by type
+                $scope.pubNew.cover = $scope.pubNew.files[0];
+            }
+
             placesService.addPublication(vm.newPublication)
                 .then(function (data) {
                     if (data.status) {
@@ -1077,6 +1082,10 @@
                 item.isCover = false;
             });
             vm.files[index].isCover = true;
+            vm.newPublication.cover = vm.files[index];
+            //resizePubCoverImage(vm.files[index]).then(function (image) {
+            //    vm.newPublication.cover = image;
+            //});
         };
 
         function activate() {
@@ -1421,6 +1430,19 @@
                     vm.photosGrid = false;
                 }
             }
+        }
+
+        function resizePubCoverImage(image) {
+            Upload.imageDimensions(image).then(function (dimensions) {
+                console.info('Feed publication cover: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+            });
+
+            return Upload.resize(image, 395, 395, null, null, null, true).then(function (resizedFile) {
+                Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                    console.info('Feed publication cover: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                return resizedFile;
+            });
         }
 
         vm.citySelected = function (city) {

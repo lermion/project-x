@@ -645,6 +645,12 @@ angular.module('placePeopleApp')
 				} else {
 					isMain = 0;
 				}
+
+				if (!$scope.pubNew.cover) {
+					//TODO: separate files by type
+					$scope.pubNew.cover = $scope.pubNew.files[0];
+				}
+
 				$scope.pubNew.files.forEach(function (file) {
 					var type = file.type.split('/')[0];
 					if (type === 'image') {
@@ -662,7 +668,7 @@ angular.module('placePeopleApp')
 						}
 					}
 				}
-				PublicationService.createPublication(textToSave, 0, isMain, videos, images).then(function (res) {
+				PublicationService.createPublication(textToSave, 0, isMain, videos, images, $scope.pubNew).then(function (res) {
 						if (res.status) {
 							$scope.userPublications.unshift(res.publication);
 							$scope.userData.publications_count++;

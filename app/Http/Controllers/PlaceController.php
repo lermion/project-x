@@ -59,7 +59,9 @@ class PlaceController extends Controller
                 'coordinates_x'=> 'required|numeric',
                 'coordinates_y'=> 'required|numeric',
                 'avatar' => 'image',
+                'original_avatar' => 'image',
                 'cover' => 'image',
+                'original_cover' => 'image',
                 'type_place_id' => 'required'
             ]);
         } catch (\Exception $ex) {
@@ -96,13 +98,23 @@ class PlaceController extends Controller
         $placeData['url_name'] = $this->transliterate($request->input('name'));
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $path = Image::getAvatarPath($avatar);
+            $path = Image::getAvatarPlacePath($avatar);
             $placeData['avatar'] = $path;
+        }
+        if ($request->hasFile('original_avatar')) {
+            $avatar = $request->file('original_avatar');
+            $path = Image::getOriginalAvatarPlacePath($avatar);
+            $placeData['original_avatar'] = $path;
         }
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
-            $path = Image::getCoverPath($cover);
+            $path = Image::getCoverPlacePath($cover);
             $placeData['cover'] = $path;
+        }
+        if ($request->hasFile('original_cover')) {
+            $cover = $request->file('original_cover');
+            $path = Image::getOriginalCoverPlacePath($cover);
+            $placeData['original_cover'] = $path;
         }
         $place = Place::create($placeData);
         PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true, 'is_creator' => true]);
@@ -171,6 +183,8 @@ class PlaceController extends Controller
                 'coordinates_y'=> 'required|numeric',
                 'avatar' => 'image',
                 'cover' => 'image',
+                'original_avatar' => 'image',
+                'original_cover' => 'image',
                 'type_place_id' => 'required'
             ]);
         } catch (\Exception $ex) {
@@ -199,13 +213,23 @@ class PlaceController extends Controller
         }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $path = Image::getAvatarPath($avatar);
+            $path = Image::getAvatarPlacePath($avatar);
             $placeData['avatar'] = $path;
+        }
+        if ($request->hasFile('original_avatar')) {
+            $avatar = $request->file('original_avatar');
+            $path = Image::getOriginalAvatarPlacePath($avatar);
+            $placeData['original_avatar'] = $path;
         }
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
-            $path = Image::getAvatarPath($cover);
+            $path = Image::getCoverPlacePath($cover);
             $placeData['cover'] = $path;
+        }
+        if ($request->hasFile('original_cover')) {
+            $cover = $request->file('original_cover');
+            $path = Image::getOriginalCoverPlacePath($cover);
+            $placeData['original_cover'] = $path;
         }
         $place = Place::find($id);
         $place->update($placeData);

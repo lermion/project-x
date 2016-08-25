@@ -77,13 +77,14 @@ class ModerationController extends Controller
     public function topic($id){
         $publications = Publication::where('is_topic',true)->get();
         if ($publications) {
-            foreach ($publications as &$p){
-                $p->is_topic = false;
-                $p->save();
+            foreach ($publications as &$publicat){
+                $publicat->is_topic = false;
+                $publicat->save();
             }
         }
         $publication = Publication::find($id);
         $publication->is_topic = true;
+        $publication->is_moderate = true;
         $publication->save();
         return redirect('/admin/moderation/')->with('message', 'Публикация в топе');
     }

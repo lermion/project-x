@@ -1580,6 +1580,34 @@ body.public.user {
 	box-sizing: border-box;
 	transition: all .1s ease-in-out .1s;  
 }
+
+.content-item .my-photos .photo.thumbnail,
+.group-publication .my-photos .photo.thumbnail,
+#user-page .my-photos .photo.thumbnail {
+	position: relative;
+	width: 229px;
+	height: 229px;
+	overflow: hidden;
+}
+.content-item .my-photos .photo.thumbnail img,
+.group-publication .my-photos .photo.thumbnail img,
+#user-page .my-photos .photo.thumbnail img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 100%;
+	width: auto;
+	-webkit-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.content-item .my-photos .photo.thumbnail img.portrait,
+.group-publication .my-photos .photo.thumbnail img.portrait,
+#user-page .my-photos .photo.thumbnail img.portrait{
+	width: 100%;
+	height: auto;
+}
+
 #user-page .photo:hover,
 .group-publication .photo:hover,
 .content-item .my-photos .photo:hover {

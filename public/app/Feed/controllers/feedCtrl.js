@@ -104,8 +104,6 @@ angular.module('placePeopleApp')
             };
 
 
-
-
             // Submit
             $scope.publishNewPub = function (isAnon, pubText) {
                 var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
@@ -120,9 +118,10 @@ angular.module('placePeopleApp')
                 var videos = [];
                 var isMain = 1;
 
-                // if ($scope.mainPubPhoto) {
-                // 	images[0] = '';
-                // }
+                if (!$scope.pubNew.cover) {
+                    //TODO: separate files by type
+                    $scope.pubNew.cover = $scope.pubNew.files[0];
+                }
 
                 $scope.pubNew.files.forEach(function (file) {
                     var type = file.type.split('/')[0];
@@ -133,7 +132,7 @@ angular.module('placePeopleApp')
                     }
                 });
 
-                PublicationService.createPublication(textToSave, !!isAnon ? 1 : 0, isMain, videos, images)
+                PublicationService.createPublication(textToSave, !!isAnon ? 1 : 0, isMain, videos, images, $scope.pubNew)
                     .then(
                         function (res) {
                             if (res.status) {
@@ -152,10 +151,14 @@ angular.module('placePeopleApp')
             };
 
             $scope.setMainPubPhoto = function (index) {
-                angular.forEach($scope.pubNew.files, function(item) {
+                angular.forEach($scope.pubNew.files, function (item) {
                     item.isCover = false;
                 });
                 $scope.pubNew.files[index].isCover = true;
+                $scope.pubNew.cover = $scope.pubNew.files[index];
+                //resizePubCoverImage($scope.pubNew.files[index]).then(function (image) {
+                //    $scope.pubNew.cover = image;
+                //});
             };
 
             $scope.ngRepeatHasRendered = function () {
@@ -665,6 +668,19 @@ angular.module('placePeopleApp')
                         console.info('Feed publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
                     });
                     $scope.pubNew.files.push(resizedFile);
+                });
+            }
+
+            function resizePubCoverImage(image) {
+                Upload.imageDimensions(image).then(function (dimensions) {
+                    console.info('Feed publication cover: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+
+                return Upload.resize(image, 395, 395, null, null, null, true).then(function (resizedFile) {
+                    Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                        console.info('Feed publication cover: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                    });
+                    return resizedFile;
                 });
             }
 

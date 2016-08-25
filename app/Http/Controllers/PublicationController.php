@@ -124,6 +124,7 @@ class PublicationController extends Controller
             $this->validate($request, [
                 'text' => 'min:1',
                 'cover' => 'file',
+                'original_cover' => 'file',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
                 'videos' => 'array',
@@ -148,7 +149,7 @@ class PublicationController extends Controller
                 $result = [
                     "status" => false,
                     "error" => [
-                        'message' => 'Bad video',
+                        'message' => 'Bad image',
                         'code' => '1'
                     ]
                 ];
@@ -174,8 +175,13 @@ class PublicationController extends Controller
         $publicationData = $request->all();
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
-            $path = Image::getImagePath($cover);
+            $path = Image::getCoverPath($cover);
             $publicationData['cover'] = $path;
+        }
+        if ($request->hasFile('original_cover')) {
+            $cover = $request->file('original_cover');
+            $path = Image::getOriginalCoverPath($cover);
+            $publicationData['original_cover'] = $path;
         }
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
