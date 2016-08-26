@@ -808,6 +808,9 @@ footer {
 	.footer .menu-item {
 		display: none;
 	}
+	.content .menu-user {
+		display: none;
+	}
 	.footer .menu-item a {
 		font-size: 16px;
 		line-height: 40px;
@@ -1122,10 +1125,11 @@ body.public.user {
 }
 .public header .header.header-user .logo.logo-in-menu {
     background-image: url(../images/logotip.png);
-    background-position: left center;
     background-repeat: no-repeat;
-    background-size: 100%;
-    width: 163px;
+    background-size: 163px 25px;
+    background-position: left center;
+    width: 100%;
+    box-sizing: border-box;
     height: 25px;
     padding: 0;
     z-index: 1;
@@ -4223,7 +4227,7 @@ body.ngdialog-open {
 	padding: 5px 10px;
 	overflow-x: auto;
 	max-height: 60vh;
-	min-height: 150px;
+	min-height: 29vh;
 	height: auto;
 	background: url(../images/chat-bg.png) repeat;
 }
@@ -4615,6 +4619,7 @@ body.ngdialog-open {
 	}
 	.group-chat-inner {
 			padding: 0 0;
+		min-height: 36vh;
 	}
 	.chat-user-pulication {
 			width: 96%;
