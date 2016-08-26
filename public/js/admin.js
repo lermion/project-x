@@ -9,10 +9,21 @@ function getRegion(that){
 		}
 	});
 }
+var url = "user/get_users/0";
+function filters(){
+	$.get("user/get_users/0", function(data){
+		console.log(data);
+	});
+}
 
 //handlers
 
 $("select.get-region").change(function(event){
 	var that = this;
 	getRegion(that);
+});
+
+$("select.gender").change(function(event){
+	var that = this;
+	filters();
 });
