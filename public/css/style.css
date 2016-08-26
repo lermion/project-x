@@ -1127,7 +1127,7 @@ body.public.user {
     background-image: url(../images/logotip.png);
     background-repeat: no-repeat;
     background-size: 163px 25px;
-    background-position: center;
+    background-position: left center;
     width: 100%;
     box-sizing: border-box;
     height: 25px;
