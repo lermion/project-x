@@ -56,7 +56,9 @@
             description: null,
 
             cover: null,
+            originalCover: null,
             logo: null,
+            originalLogo: null,
 
             isCreate: null,
             isDynamic: false,
@@ -403,6 +405,8 @@
                     vm.placeNew.coverPreviewToShow = resizedFile;
                 });
 
+                vm.placeNew.originalCover = file;
+
                 var isCoverCropMode = true;
 
                 openModalCropLogoImage(file.name, event, isCoverCropMode);
@@ -411,6 +415,8 @@
         };
         vm.changePlaceLogoFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
             if (file) {
+
+                vm.placeNew.originalLogo = file;
 
                 var isCoverCropMode = false;
 

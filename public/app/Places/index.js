@@ -17,6 +17,7 @@
                 controller: 'PlacesCtrl',
                 controllerAs: 'vm',
                 showHeader: true,
+                requireLogin: true,
                 resolve: {
                     places: ['placesService', '$stateParams', '$state', '$q', 'ngDialog', function (placesService, $stateParams, $state, $q, ngDialog) {
                         var deferred = $q.defer();
@@ -85,7 +86,7 @@
                 templateUrl: '../../app/Places/views/place.html',
                 controller: 'PlaceCtrl',
                 controllerAs: 'vm',
-                isLogin: false,
+                requireLogin: false,
                 showHeader: true,
                 params: {
                     placeId: null,
@@ -156,28 +157,32 @@
             .state('place.publications', {
                 url: '/publications',
                 templateUrl: '../../app/Places/views/place-publications.html',
-                isLogin: true,
+                requireLogin: true,
                 showHeader: true
             })
             .state('place.mob-pub', {
                 url: '/m/:pubId',
                 templateUrl: '../app/Places/views/popup-view-place-publication.html',
-                showHeader: true
+                showHeader: true,
+                requireLogin: true
             })
             .state('place.chat', {
                 url: '/chat',
                 templateUrl: '../../app/Places/views/place-chat.html',
-                showHeader: true
+                showHeader: true,
+                requireLogin: true
             })
             .state('place.people', {
                 url: '/people',
                 templateUrl: '../../app/Places/views/place-people.html',
-                showHeader: true
+                showHeader: true,
+                requireLogin: true
             })
             .state('place.files', {
                 url: '/files',
                 templateUrl: '../../app/Places/views/place-files.html',
                 showHeader: true,
+                requireLogin: true,
                 params: {
                     chatRoomId: null,
                     chatFiles: []
@@ -202,12 +207,14 @@
             .state('places.add', {
                 url: '/add',
                 templateUrl: '../../app/Places/views/places-presets.html',
-                showHeader: true
+                showHeader: true,
+                requireLogin: true
             })
             .state('places.add.common', {
                 url: '/common',
                 templateUrl: '../../app/Places/views/places-add-common.html',
                 showHeader: true,
+                requireLogin: true,
                 params: {
                     activeTypePlaceId: null
                 }
@@ -215,7 +222,8 @@
             .state('places.add.dynamic', {
                 url: '/dynamic',
                 templateUrl: '../../app/Places/views/places-add-dynamic.html',
-                showHeader: true
+                showHeader: true,
+                requireLogin: true
 
             });
     }
