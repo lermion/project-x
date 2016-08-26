@@ -33,7 +33,7 @@
 					</div>
 					<img ngf-thumbnail="file || '/thumb.jpg'">
 					<video width="200px" controls ngf-src="file"></video>
-					<div class="check" ng-click="setMainPubPhoto($index)" ng-if="file.showIsCover || file.isCover">
+					<div class="check" ng-class="{'js-isShow': file.isCover}" ng-click="setMainPubPhoto($index)" ng-show="file.showIsCover || file.isCover">
 						<div class="check-inner">
 							<p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
 						</div>
