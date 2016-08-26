@@ -11,7 +11,11 @@ angular.module('placePeopleApp')
             $scope.emojiMessage = {};
             $scope.shareData = [];
             $scope.loggedUserAva = storage.loggedUserAva;
-
+            $scope.groupsChecked = [];
+			$scope.placesChecked = [];
+			$scope.groupsChatArray = [];
+			$scope.subscribersArray = [];
+			$scope.subscriptionsArray = [];
             if (!storage.pubView) {
                 storageService.setStorageItem('pubView', 'greed');
                 storage = storageService.getStorage();
@@ -272,9 +276,15 @@ angular.module('placePeopleApp')
                     template: '../app/User/views/share-publication.html',
                     className: 'share-publication ngdialog-theme-default',
                     scope: $scope,
-                    data: {
-                        pubId: pubId
-                    }
+                    data: {pubId: pubId},
+                    preCloseCallback: function(){
+						$scope.groupsChecked = [];
+						$scope.placesChecked = [];
+						$scope.groupsChatArray = [];
+						$scope.subscribersArray = [];
+						$scope.subscriptionsArray = [];
+						$scope.shareData = [];
+					}
                 });
                 loadUserContacts();
             };
@@ -342,13 +352,55 @@ angular.module('placePeopleApp')
                     });
                 }
             };
-            $scope.change = function (data, active) {
-                if (active) {
-                    $scope.shareData.push(data);
-                } else {
-                    $scope.shareData.splice($scope.shareData.indexOf(data), 1);
-                }
-            };
+            $scope.change = function(data, active, type){
+				if(active){
+					$scope.shareData.push(data);
+					if(type === "subscription"){
+						$scope.subscriptionsArray.push(data.id);
+						$scope.subscribers.forEach(function(value){
+							if(value.id === data.id){
+								$scope.subscribersArray.push(value.id);
+							}
+						});
+					}else if(type === "subscriber"){
+						$scope.subscribersArray.push(data.id);
+						$scope.subscriptions.forEach(function(value){
+							if(value.id === data.id){
+								$scope.subscriptionsArray.push(value.id);
+							}
+						});
+					}else if(type === "group"){
+						$scope.groupsChecked.push(data.id);
+					}else if(type === "place"){
+						$scope.placesChecked.push(data.id);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.push(data.room_id);
+					}
+				}else{
+					$scope.shareData.splice($scope.shareData.indexOf(data), 1);
+					if(type === "subscription"){
+						$scope.subscriptionsArray.splice($scope.subscriptionsArray.indexOf(data.id), 1);
+						$scope.subscribers.forEach(function(value){
+							if(value.id === data.id){
+								$scope.subscribersArray.splice($scope.subscribersArray.indexOf(value.id), 1);
+							}
+						});
+					}else if(type === "subscriber"){
+						$scope.subscribersArray.splice($scope.subscribersArray.indexOf(data.id), 1);
+						$scope.subscriptions.forEach(function(value){
+							if(value.id === data.id){
+								$scope.subscriptionsArray.splice($scope.subscriptionsArray.indexOf(value.id), 1);
+							}
+						});
+					}else if(type === "group"){
+						$scope.groupsChecked.splice($scope.groupsChecked.indexOf(data.id), 1);
+					}else if(type === "place"){
+						$scope.placesChecked.splice($scope.placesChecked.indexOf(data.id), 1);
+					}else if(type === "group-chat"){
+						$scope.groupsChatArray.splice($scope.groupsChatArray.indexOf(data.room_id), 1);
+					}
+				}
+			};
             $scope.currentIndex = 0;
             $scope.members = function () {
                 return true;
