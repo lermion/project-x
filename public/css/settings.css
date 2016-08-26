@@ -7050,3 +7050,13 @@ button.settings-btn {
     font-family: "SFUIDisplayLight";
   }
 
+
+.place-logo--small {
+    width: 30px;
+    height: 30px;
+    left: 10px;
+    top: 50%;
+    margin-top: -15px;
+    box-shadow: none;
+}
+

@@ -139,21 +139,13 @@ class CountryController extends Controller
 
     public function getRegion($id)
     {
-        $countries = Country::all();
         $regions = Region::where('country_id',$id)->get();
-        return view('admin.base.regions', ['regions' => $regions, 'countries' => $countries]);
+        return response()->json($regions);
     }
 
-    public function getArea(Request $request)
+    public function getArea($id)
     {
-        $query = DB::table('areas');
-        if ($request->has('country_id')) {
-            $query->where('country_id', $request->input('country_id'));
-        }
-        if ($request->has('region_id')) {
-            $query->where('region_id', $request->input('region_id'));
-        }
-        $areas = $query->get();
+        $areas = Area::where('region_id',$id)->get();
         return response()->json($areas);
     }
 
