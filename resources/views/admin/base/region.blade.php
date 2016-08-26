@@ -41,7 +41,7 @@
 				<th>Действия</th>
 			  </tr>
 			</thead>
-			<tbody>
+			<tbody class="regions">
 			@foreach($regions as $region)
 			  <tr>
 				<td>{{$region->id}}</td>
