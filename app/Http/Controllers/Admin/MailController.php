@@ -16,7 +16,7 @@ class MailController extends Controller
 
     public function index()
     {
-        $mails = UserMail::select('user_mails.id as id','user_mails.name as name','user_mails.email as email','user_mails.text as text','user_mails.created_at as date', 'users.avatar_path as avatar', 'users.id as user_id')
+        $mails = UserMail::select('user_mails.st as id', 'user_mails.id as id','user_mails.name as name','user_mails.email as email','user_mails.text as text','user_mails.created_at as date', 'users.avatar_path as avatar', 'users.id as user_id')
             ->leftJoin('users','user_mails.user_id','=', 'users.id')
             ->where('user_mails.status','New')
             ->paginate(25);

@@ -40,7 +40,10 @@
                     <td>{{$mail->date}}</td>
                     <td class="admin-user-contacts-action">
                         <a href="/admin/mail/status_closed/{{$mail->id}}"><button class="btn btn-primary btn-xs">Закрыть</button></a>
-                        <a href="/admin/mail/status_review/{{$mail->id}}"><button class="btn btn-warning btn-xs">На заметку</button></a>
+                        {{dd($mail)}}
+                        @if ($mail->status == 'Review')
+                            <a href="/admin/mail/status_review/{{$mail->id}}"><button class="btn btn-warning btn-xs">На заметку</button></a>
+                        @endif
                         <a href="/admin/mail/destroy/{{$mail->id}}"><button class="btn btn-danger btn-xs">Удалить</button></a>
                     </td>
                   </tr>
