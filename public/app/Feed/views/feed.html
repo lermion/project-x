@@ -89,7 +89,7 @@
                                     <p class="counter">Еще<br> {{pub.images.length - limit}} фото</p>
                                 </div>
                             </div>
-                            <p class="publication-text" ng-click="goToSearch(splitText(pub.text))"
+                            <p ng-show="splitText(singlePublication.text) !== 'undefined'" class="publication-text" ng-click="goToSearch(splitText(pub.text))"
                                ng-bind-html="splitText(pub.text) | colonToSmiley | linkCheck"></p>
                         </div>
                         <div class="likes">
