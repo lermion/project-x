@@ -104,8 +104,10 @@ angular.module('placePeopleApp')
 			storageService.setStorageItem('lastName', profile.last_name);
 
 			$scope.pubNew = {
-				files: []
+				files: [],
+				cover: null
 			};
+			var originalPub = angular.copy($scope.pubNew);
 
 
 			// Submit
@@ -692,7 +694,7 @@ angular.module('placePeopleApp')
 					className: 'user-publication ngdialog-theme-default',
 					scope: $scope,
 					preCloseCallback: function () {
-						$scope.pubNew.files = [];
+						$scope.pubNew = angular.copy(originalPub);
 					}
 				});
 			};
