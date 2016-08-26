@@ -136,4 +136,10 @@ class CountryController extends Controller
         City::create($data);
         return redirect('/admin/base/settlement')->with('message', 'Населенный пункт добавленн');
     }
+
+    public function getRegion($id)
+    {
+        $regions = Region::where('country_id',$id)->get();
+        return response()->json($regions);
+    }
 }

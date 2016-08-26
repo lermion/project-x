@@ -116,6 +116,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit_district/{id}', 'Admin\CountryController@editDistrict');
                 Route::post('edit_district_save', 'Admin\CountryController@editDistrictSave');
                 Route::get('settlement', 'Admin\CountryController@settlement');
+                Route::get('get_region/{id}', 'Admin\CountryController@getRegion');
             });
             Route::group(['prefix' => 'moderation'], function () {
                 Route::get('/', 'Admin\ModerationController@index');
@@ -339,7 +340,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/group/store\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/base/get_region/12\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='name' value='name'><br>
              <input type='text' name='description' value='description'><br>
              <input type='text' name='is_open' value='false'><br>
