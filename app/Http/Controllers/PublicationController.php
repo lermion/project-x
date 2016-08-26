@@ -270,6 +270,7 @@ class PublicationController extends Controller
                     $this->validate($request, [
                         'text' => 'min:1',
                         'cover' => 'file',
+                        'original_cover' => 'file',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',
                         'videos' => 'array',
@@ -293,7 +294,11 @@ class PublicationController extends Controller
                     $path = Image::getImagePath($cover);
                     $publicationData['cover'] = $path;
                 }
-
+                if ($request->hasFile('original_cover')) {
+                    $cover = $request->file('original_cover');
+                    $path = Image::getOriginalCoverPath($cover);
+                    $publicationData['original_cover'] = $path;
+                }
                 if ($publication->is_main == true or $publicationData['is_main'] == true){
                     $publicationData['is_moderate'] = false;
                 } else {

@@ -35,6 +35,87 @@ class UserController extends Controller
         }
         if ($request->has('keywords')) {
             $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+//            ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
+//                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
+//                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
+        }
+//        if ($request->has('keywords')) {
+//            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+//        }
+//        if ($request->has('keywords')) {
+//            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+//        }
+//        if ($request->has('keywords')) {
+//            $query->where('login', 'like', '%'.$request->input('keywords').'%');
+//        }
+        if ($request->has('num_records')) {
+            $query->take($request->input('num_records'));
+        }
+        if ($request->has('age_range_from') and $request->has('age_range_to')) {
+            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
+            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
+            $query->whereBetween('birthday', [$to,$from]);
+        }
+        $users = $query->get();
+        return response()->json($users);
+    }
+
+    public function getConfirm(Request $request)
+    {
+        $query = DB::table('users')->where(['status' => 'Подтвержден']);
+        if ($request->has('gender')) {
+            $query->where('gender', $request->input('gender'));
+        }
+        if ($request->has('is_avatar')) {
+            $query->where('is_avatar', $request->input('is_avatar'));
+        }
+        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
+            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
+        }
+        if ($request->has('keywords')) {
+            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+//                ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
+//                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
+//                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
+        }
+//        if ($request->has('keywords')) {
+//            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+//        }
+//        if ($request->has('keywords')) {
+//            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+//        }
+//        if ($request->has('keywords')) {
+//            $query->where('login', 'like', '%'.$request->input('keywords').'%');
+//        }
+        if ($request->has('num_records')) {
+            $query->take($request->input('num_records'));
+        }
+        if ($request->has('age_range_from') and $request->has('age_range_to')) {
+            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
+            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
+            $query->whereBetween('birthday', [$to,$from]);
+        }
+        $users = $query->get();
+        return response()->json($users);
+    }
+
+    public function getReview(Request $request)
+    {
+        $query = DB::table('users')->where(['status' => 'На заметке']);
+        if ($request->has('gender')) {
+            $query->where('gender', $request->input('gender'));
+        }
+        if ($request->has('is_avatar')) {
+            $query->where('is_avatar', $request->input('is_avatar'));
+        }
+        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
+            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
+        }
+        if ($request->has('keywords')) {
+            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+//                ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
+//                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
+//                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
         }
 //        if ($request->has('keywords')) {
 //            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
@@ -149,7 +230,7 @@ class UserController extends Controller
         }
     }
 
-    public function getConfirm()
+    public function get_Confirm()
     {
         if ($user = User::where(['status' => 'Подтвержден'])->get()->toArray()) {
             return $user;
@@ -175,18 +256,6 @@ class UserController extends Controller
                     'message' => "The user has this status",
                     'code' => '7'
                 ]
-            ];
-            return response()->json($result);
-        }
-    }
-
-    public function getReview()
-    {
-        if ($user = User::where(['status' => 'На заметке'])->get()->toArray()) {
-            return $user;
-        } else {
-            $result = [
-                "status" => false,
             ];
             return response()->json($result);
         }
@@ -221,26 +290,6 @@ class UserController extends Controller
             ];
             return response()->json($result);
         }
-    }
-
-    public function destroy($id, $month)
-    {
-        $user = User::find($id);
-        $timestamp = strtotime('+' . $month . ' month');
-        $date = date('Y:m:d', $timestamp);
-        Blacklist::create(['phone' => $user->phone, 'date' => $date]);
-        $user->first_name = 'Пользователь';
-        $user->last_name = 'удален';
-        //$user->login = str_random(8);
-        //$user->phone = '';
-        $user->password = str_random(8);
-        $user->avatar_path = '/upload/avatars/no-avatar';
-        $user->status = 'Удален';
-        $user->original_avatar_path = '/upload/avatars/no-avatar';
-        $user->user_quote = '';
-        $user->is_private = true;
-        $user->save();
-        return redirect()->action('Admin\UserController@index');
     }
 
     public function mainPicture(Request $request)

@@ -29,12 +29,12 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
                 Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
-                Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
+//                Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
                 Route::get('show/{id}', 'Admin\UserController@show');
-                Route::get('get_confirm', 'Admin\UserController@getConfirm');
-                Route::get('get_review', 'Admin\UserController@getReview');
-                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
-                Route::post('main_picture', 'Admin\UserController@mainPicture');
+                Route::post('get_confirm', 'Admin\UserController@getConfirm');
+                Route::post('get_review', 'Admin\UserController@getReview');
+//                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
+//                Route::post('main_picture', 'Admin\UserController@mainPicture');
             });
             Route::group(['prefix' => 'moderator'], function () {
                 Route::get('/', 'Admin\ModeratorController@index');
@@ -95,6 +95,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('unlock_publication/{id}', 'Admin\LockContentController@unlockPublication');
                 Route::get('destroy_publication/{id}', 'Admin\LockContentController@destroyPublication');
                 Route::get('delete_publications', 'Admin\LockContentController@deletePublications');
+                Route::get('delete_user/{id}/{month}', 'Admin\LockContentController@destroy');
             });
             Route::group(['prefix' => 'count'], function () {
                 Route::get('users', 'Admin\CountController@users');
@@ -115,6 +116,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit_district/{id}', 'Admin\CountryController@editDistrict');
                 Route::post('edit_district_save', 'Admin\CountryController@editDistrictSave');
                 Route::get('settlement', 'Admin\CountryController@settlement');
+                Route::get('get_region/{id}', 'Admin\CountryController@getRegion');
+                Route::get('get_area/{id}', 'Admin\CountryController@getArea');
+                Route::post('get_city', 'Admin\CountryController@getCity');
             });
             Route::group(['prefix' => 'moderation'], function () {
                 Route::get('/', 'Admin\ModerationController@index');
@@ -338,11 +342,11 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/update\" method=\"post\" enctype=\"multipart/form-data\">
-             <input type='text' name='avatar' value='0'><br>
-             <input type='text' name='limit' value='10'><br>
-             <input type='text' name='text' value='text'><br>
-             <input type='file' name='avatar'><br>
+        echo "<form action=\"http://pp.dev/admin/base/get_area\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='country_id' ><br>
+             <input type='text' name='region_id' ><br>
+             <input type='text' name='area_id' ><br>
+             <input type='file' name='original_avatar'><br>
              <input type=\"submit\">
               </form>";
     });
