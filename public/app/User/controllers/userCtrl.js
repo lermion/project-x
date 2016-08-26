@@ -486,7 +486,7 @@ angular.module('placePeopleApp')
 					scope: $scope,
 					name: "create-publication",
 					preCloseCallback: function() {
-						$scope.pubNew.files = [];
+						$scope.pubNew = angular.copy(originalPubNew);
 					}
 				});
 			};
@@ -514,8 +514,11 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.pubNew = {
-				files: []
+				files: [],
+				cover: null
 			};
+
+			var originalPubNew = angular.copy($scope.pubNew);
 
 			function resizeImage(image) {
 				Upload.imageDimensions(image).then(function (dimensions) {
