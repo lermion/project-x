@@ -40,7 +40,7 @@
 
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
-            <img ng-init="$ctrl.mainImage = $ctrl.pub.images[0].url" ng-src="{{$ctrl.mainImage}}">
+            <img ng-init="$ctrl.pub.cover ? $ctrl.mainImage = $ctrl.pub.cover : $ctrl.mainImage = $ctrl.pub.images[0].url" ng-src="{{$ctrl.mainImage}}">
             <video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
