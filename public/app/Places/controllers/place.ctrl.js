@@ -199,7 +199,7 @@
             } else {
 
                 $scope.indexCurrentPublication = index;
-                getPublication(id).then(function() {
+                getPublication(id).then(function () {
                     modalReviewPublication = ngDialog.open({
                         template: '../app/Places/views/popup-view-place-publication.html',
                         name: 'modal-publication-group',
@@ -217,7 +217,7 @@
 
         };
 
-        vm.openModalPublication = function(pub, index) {
+        vm.openModalPublication = function (pub, index) {
             if (isMobile()) {
 
                 $state.go('mobile-pub-view-test', {
@@ -251,6 +251,24 @@
                 className: 'popup-comment-images ngdialog-theme-default',
                 data: {
                     file: file
+                },
+                preCloseCallback: function () {
+                }
+            });
+        };
+
+        vm.openModalImageFullSize = function (url, isCover) {
+
+            if (!url) {
+                url = isCover ? vm.place.cover : vm.place.avatar;
+            }
+            ngDialog.open({
+                templateUrl: '../app/common/views/modal-image-fullsize.html',
+                className: 'popup-comment-images ngdialog-theme-default',
+                data: {
+                    image: {
+                        src: url
+                    }
                 },
                 preCloseCallback: function () {
                 }
@@ -438,12 +456,12 @@
                 });
         };
 
-        $scope.showFullComment = function(comment){
-			comment.commentLength = comment.text.length;
-		};
+        $scope.showFullComment = function (comment) {
+            comment.commentLength = comment.text.length;
+        };
 
-        $scope.getPubText = function(text){
-            if(text != undefined){
+        $scope.getPubText = function (text) {
+            if (text != undefined) {
                 var mes = text.split(' messagetext: ');
                 return mes[1];
             }
@@ -712,13 +730,13 @@
                     });
         };
 
-        function dynamicSort(property){
+        function dynamicSort(property) {
             var sortOrder = 1;
-            if(property[0] === "-") {
+            if (property[0] === "-") {
                 sortOrder = -1;
                 property = property.substr(1);
             }
-            return function (a,b) {
+            return function (a, b) {
                 var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
                 return result * sortOrder;
             }
@@ -1079,7 +1097,7 @@
         };
 
         vm.setMainPubPhoto = function (index) {
-            angular.forEach(vm.files, function(item) {
+            angular.forEach(vm.files, function (item) {
                 item.isCover = false;
             });
             vm.files[index].isCover = true;
@@ -1088,6 +1106,7 @@
             //    vm.newPublication.cover = image;
             //});
         };
+
 
         function activate() {
             init();
@@ -1423,6 +1442,7 @@
             var screenWidth = $window.innerWidth;
             return screenWidth < 768;
         }
+
         function checkPublicationsView() {
             if (!storage.pubView) {
                 storageService.setStorageItem('pubView', 'greed');
@@ -1643,7 +1663,7 @@
         $scope.beforeChange = function (files) {
             $scope.files = files;
         };
-        $scope.returnToBack = function(messageId){
+        $scope.returnToBack = function (messageId) {
             $location.hash(messageId + "");
         };
         $scope.deleteChatFiles = function (files, index) {

@@ -5,7 +5,7 @@
 
             <div class="place-top-ava-wrap">
                 <div class="group-ava">
-                    <a href="" class="ava">
+                    <a href ng-click="vm.openModalImageFullSize(vm.place.original_cover, true)" class="ava">
                         <img ng-src="{{vm.place.cover}}">
                     </a>
 
@@ -35,7 +35,7 @@
                 <div class="group-menu">
                     <div class="group-menu-item">
                         <div class="places-place-menu-avatar" scroll ng-class="{'place-logo--small':boolChangeClass}">
-                            <a href="">
+                            <a href ng-click="vm.openModalImageFullSize(vm.place.original_avatar, false)">
                                 <img ng-src="{{vm.place.avatar}}">
                             </a>
                         </div>

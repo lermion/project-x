@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('logout', 'Admin\AuthController@logout');
             Route::group(['prefix' => 'user'], function () {
                 Route::get('/', 'Admin\UserController@index');
-                Route::get('get_users/{gender?}/{is_avatar?}/{reg_range_from?}/{reg_range_to?}/{keywords?}/{num_records?}/{age_range_from?}/{age_range_to?}', 'Admin\UserController@getUsers');
+                Route::get('get_users/', 'Admin\UserController@getUsers');
                 Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
