@@ -164,7 +164,7 @@ photo
 }
 /*.admin-settings-menu li.active,*/
 .ui-tabs-active  {
-	background-color: #f1f1f1;
+	background-color: #ddd;
 }
 .admin-settings-menu li:hover {
 	background-color: #f1f1f1;
