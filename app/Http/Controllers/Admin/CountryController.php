@@ -7,7 +7,7 @@ use App\City;
 use App\Country;
 use App\Region;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -142,5 +142,34 @@ class CountryController extends Controller
         $countries = Country::all();
         $regions = Region::where('country_id',$id)->get();
         return view('admin.base.regions', ['regions' => $regions, 'countries' => $countries]);
+    }
+
+    public function getArea(Request $request)
+    {
+        $query = DB::table('areas');
+        if ($request->has('country_id')) {
+            $query->where('country_id', $request->input('country_id'));
+        }
+        if ($request->has('region_id')) {
+            $query->where('region_id', $request->input('region_id'));
+        }
+        $areas = $query->get();
+        return response()->json($areas);
+    }
+
+    public function getCity(Request $request)
+    {
+        $query = DB::table('cities');
+        if ($request->has('country_id')) {
+            $query->where('country_id', $request->input('country_id'));
+        }
+        if ($request->has('region_id')) {
+            $query->where('region_id', $request->input('region_id'));
+        }
+        if ($request->has('area_id')) {
+            $query->where('area_id', $request->input('area_id'));
+        }
+        $cities = $query->get();
+        return response()->json($cities);
     }
 }

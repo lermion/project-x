@@ -26,7 +26,8 @@ class AddRegionIdCitiesTable extends Migration
     public function down()
     {
         Schema::table('cities', function (Blueprint $table) {
-            //
+            $table->dropForeign(['region_id']);
+            $table->dropColumn('region_id');
         });
     }
 }
