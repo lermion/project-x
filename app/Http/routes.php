@@ -117,7 +117,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('edit_district_save', 'Admin\CountryController@editDistrictSave');
                 Route::get('settlement', 'Admin\CountryController@settlement');
                 Route::get('get_region/{id}', 'Admin\CountryController@getRegion');
-                Route::post('get_area', 'Admin\CountryController@getArea');
+                Route::get('get_area/{id}', 'Admin\CountryController@getArea');
                 Route::post('get_city', 'Admin\CountryController@getCity');
             });
             Route::group(['prefix' => 'moderation'], function () {
