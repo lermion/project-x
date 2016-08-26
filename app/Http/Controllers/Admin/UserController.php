@@ -19,12 +19,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($gender= null,$is_avatar= null,$reg_range_from= null,$reg_range_to= null,$keywords= null,$num_records= null,$age_range_from= null,$age_range_to= null)
+    public function index ()
     {
-//        dd(intval($gender));
+        $users = User::where(['status' => ''])->paginate(25);
+        return view('admin.user.index')->with('users',$users);
+    }
+    public function getUsers($gender= null,$is_avatar= null,$reg_range_from= null,$reg_range_to= null,$keywords= null,$num_records= null,$age_range_from= null,$age_range_to= null)
+    {
         $query = DB::table('users');
         if ($gender != null) {
-            $query->where('gender', intval($gender));
+            $query->where('gender', $gender);
         }
         if ($is_avatar != null) {
             $query->where('is_avatar', $is_avatar);
