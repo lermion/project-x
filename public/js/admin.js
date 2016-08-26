@@ -1,5 +1,5 @@
-$("select.form-control").change(function(event){
-	$.get("get_region/" + parseInt(this.value), function(data){
+function getRegion(that){
+	$.get("get_region/" + parseInt(that.value), function(data){
 		if(data !== ""){
 			$("tbody.regions").html(data);
 			$("p.no-results").text("");
@@ -8,4 +8,15 @@ $("select.form-control").change(function(event){
 			$("p.no-results").text("нет результатов");
 		}
 	});
+}
+function getCountry(that){
+	console.log(that.value);
+}
+$("select.get-region").change(function(event){
+	var that = this;
+	getRegion(that);
+});
+$("select.get-country").change(function(event){
+	var that = this;
+	getCountry(that);
 });
