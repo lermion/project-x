@@ -1,3 +1,5 @@
+//functions
+
 function getRegion(that){
 	$.get("get_region/" + parseInt(that.value), function(data){
 		if(data !== ""){
@@ -9,13 +11,18 @@ function getRegion(that){
 		}
 	});
 }
+
 function getCountry(that){
-	console.log(that.value);
+	console.log(parseInt(that.value));
 }
+
+//handlers
+
 $("select.get-region").change(function(event){
 	var that = this;
 	getRegion(that);
 });
+
 $("select.get-country").change(function(event){
 	var that = this;
 	getCountry(that);
