@@ -16,6 +16,10 @@ function getCountry(that){
 	console.log(parseInt(that.value));
 }
 
+function genderFilter(that){
+	console.log(parseInt(that.value));
+}
+
 //handlers
 
 $("select.get-region").change(function(event){
@@ -26,4 +30,9 @@ $("select.get-region").change(function(event){
 $("select.get-country").change(function(event){
 	var that = this;
 	getCountry(that);
+});
+
+$("select.gender").change(function(event){
+	var that = this;
+	genderFilter(that);
 });

@@ -53,10 +53,10 @@
         </div>
        <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
                     <div class="daosn3 gender">
-                        <select class="form-control">
+                        <select class="form-control gender">
                             <option>Пол</option>
-                            <option>Мужской</option>
-                            <option>Женский</option>
+                            <option value="1">Мужской</option>
+                            <option value="0">Женский</option>
                         </select>
                     </div>
                     <div class="daosn3">
