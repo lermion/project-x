@@ -1107,6 +1107,10 @@
             //});
         };
 
+        vm.isChatState = function() {
+          return $state.is('place.chat');
+        };
+
 
         function activate() {
             init();

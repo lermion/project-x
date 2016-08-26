@@ -164,7 +164,7 @@ photo
 }
 /*.admin-settings-menu li.active,*/
 .ui-tabs-active  {
-	background-color: #f1f1f1;
+	background-color: #ddd;
 }
 .admin-settings-menu li:hover {
 	background-color: #f1f1f1;
@@ -538,8 +538,10 @@ table tbody tr td:first-child {
 	text-align: left;
 }
 .buttons, button, .btn {
-     margin-bottom: 0px; 
+    margin-bottom: 0px; 
     margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 .admin-settings-menu li a {
 	display: block;
