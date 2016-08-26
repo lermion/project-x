@@ -2502,6 +2502,10 @@ pub-list-item .publication-footer-button {
 .add-comment .new-add .inner .close:hover .close-inner {
 	display: block;
 }
+
+.new-add .inner .check.js-isShow {
+	display: block;
+}
 .publication .new-add .inner .close-inner:after,
 .publication .new-add .inner .check-inner:after,
 .add-comment .new-add .inner .close-inner:after {
