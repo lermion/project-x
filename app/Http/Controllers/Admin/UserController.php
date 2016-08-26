@@ -19,22 +19,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($gender= null,$is_avatar= null,$reg_range_from= null,$reg_range_to= null,$keywords= null,$num_records= null,$age_range_from= null,$age_range_to= null)
     {
-        $users = User::where(['status' => ''])->paginate(25);
-        return view('admin.user.index')->with('users',$users);
         $query = DB::table('users');
-        if ($request->has('gender')) {
-            $query->where('gender', $request->input('gender'));
+        if ($gender) {
+            $query->where('gender', $gender);
         }
-        if ($request->has('is_avatar')) {
-            $query->where('is_avatar', $request->input('is_avatar'));
+        if ($is_avatar) {
+            $query->where('is_avatar', $is_avatar);
         }
-        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
-            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
+        if ($reg_range_from and $reg_range_to) {
+            $query->whereBetween('created_at', [$reg_range_from, $reg_range_to]);
         }
-        if ($request->has('keywords')) {
-            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+        if ($keywords) {
+            $query->where('user_quote', 'like', '%'.$keywords.'%');
 //            ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
 //                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
 //                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
@@ -48,12 +46,12 @@ class UserController extends Controller
 //        if ($request->has('keywords')) {
 //            $query->where('login', 'like', '%'.$request->input('keywords').'%');
 //        }
-        if ($request->has('num_records')) {
-            $query->take($request->input('num_records'));
+        if ($num_records) {
+            $query->take($num_records);
         }
-        if ($request->has('age_range_from') and $request->has('age_range_to')) {
-            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
-            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
+        if ($age_range_from and $age_range_to) {
+            $from = Carbon::now()->subYears($age_range_from)->toDateString();
+            $to = Carbon::now()->subYears($age_range_to)->toDateString();
             $query->whereBetween('birthday', [$to,$from]);
         }
         $users = $query->get();
