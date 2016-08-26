@@ -165,7 +165,7 @@ angular.module('placePeopleApp')
             data.append('is_main', isMain);
 
             images.forEach(function (img) {
-                data.append('images[]', img);
+                data.append('images[]', img, img.name);
             });
 
             data.append('cover', publication.cover, publication.cover.name);

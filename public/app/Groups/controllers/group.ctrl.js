@@ -332,6 +332,23 @@
 			});
 		};
 
+		vm.openModalImageFullSize = function (url) {
+			if (!url) {
+				url = vm.group.avatar;
+			}
+			ngDialog.open({
+				templateUrl: '../app/common/views/modal-image-fullsize.html',
+				className: 'popup-comment-images ngdialog-theme-default',
+				data: {
+					image: {
+						src: url
+					}
+				},
+				preCloseCallback: function () {
+				}
+			});
+		};
+
 
 		// Submit forms
 		vm.submitNewPublication = function () {
