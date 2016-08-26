@@ -4,7 +4,7 @@
 
 	    <div id="settings-tab" class="admin-settings">
 	        <ul class="row admin-settings-menu">
-	            <li class="col-md-3"><a href="#settings-tab-common">Общие настройки</a></li>
+	            <li class="col-md-3 col-md-offset-3"><a href="#settings-tab-common">Общие настройки</a></li>
 	            <li class="col-md-3"><a href="#settings-tab-limit">Ограничения</a></li>
 	        </ul>
             <form action="{{action('Admin\OptionController@create')}}" method="post">

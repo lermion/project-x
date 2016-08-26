@@ -52,7 +52,7 @@
             </div>
 
         </div>
-        <p ng-click="goToSearch(vm.activePublication.text)" class="publication-text" ng-bind-html="vm.activePublication.text | colonToSmiley | linkCheck"></p>
+        <p ng-show="getPubText(vm.activePublication.text) !== 'undefined'" ng-click="goToSearch(vm.activePublication.text)" class="publication-text" ng-bind-html="getPubText(vm.activePublication.text) | colonToSmiley | linkCheck"></p>
     </div>
 
     <div class="likes">
