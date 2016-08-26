@@ -21,11 +21,12 @@ class UserController extends Controller
      */
     public function index($gender= null,$is_avatar= null,$reg_range_from= null,$reg_range_to= null,$keywords= null,$num_records= null,$age_range_from= null,$age_range_to= null)
     {
+//        dd(intval($gender));
         $query = DB::table('users');
-        if ($gender) {
-            $query->where('gender', $gender);
+        if ($gender != null) {
+            $query->where('gender', intval($gender));
         }
-        if ($is_avatar) {
+        if ($is_avatar != null) {
             $query->where('is_avatar', $is_avatar);
         }
         if ($reg_range_from and $reg_range_to) {
