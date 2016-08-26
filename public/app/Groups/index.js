@@ -15,14 +15,14 @@
                 templateUrl: '../../app/Groups/views/groups.html',
                 controller: 'groupsCtrl',
                 showHeader: true,
-                isLogin: true
+                requireLogin: true
             })
             .state('group', {
                 url: '/group/:groupName',
                 templateUrl: '../../app/Groups/views/group.html',
                 controller: 'GroupCtrl',
                 controllerAs: 'vm',
-                isLogin: false,
+                requireLogin: false,
                 showHeader: true,
                 params: {
                     groupId: null,
@@ -117,22 +117,25 @@
             .state('group.publications', {
                 url: '/publications',
                 templateUrl: '../../app/Groups/views/group-publications.html',
-                isLogin: true,
+                requireLogin: true,
                 showHeader: true
             })
             .state('group.chat', {
                 url: '/chat',
                 templateUrl: '../../app/Groups/views/group-chat.html',
+                requireLogin: true,
                 showHeader: true
             })
             .state('group.people', {
                 url: '/people',
                 templateUrl: '../../app/Groups/views/group-people.html',
+                requireLogin: true,
                 showHeader: true
             })
             .state('group.files', {
                 url: '/files',
                 templateUrl: '../../app/Groups/views/group-files.html',
+                requireLogin: true,
                 params: {
                     chatRoomId: null,
                     chatFiles: []
@@ -158,23 +161,26 @@
             .state('group.mob-pub', {
                 url: '/m/:pubId',
                 templateUrl: '../app/Groups/views/popup-view-group-publication.html',
+                requireLogin: true,
                 showHeader: true
             })
             .state('view-group-publication', {
                 url: '/group/:groupId/publication/:pubId',
                 templateUrl: '../../app/Groups/views/group.html',
+                requireLogin: true,
                 controller: 'groupsCtrl',
                 showHeader: true
             })
             .state('mobile-view-group-publication', {
                 url: '/group/:groupId/pub/:pubId',
                 templateUrl: '../app/Groups/views/popup-view-group-publication.html',
+                requireLogin: true,
                 controller: 'groupsCtrl',
                 showHeader: true
             })
             .state("Modal.confirmAddToCart", {
                 templateUrl: "modals/confirm.html",
-
+                requireLogin: true,
                 showHeader: true
             });
     }

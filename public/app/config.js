@@ -19,13 +19,13 @@ angular.module('placePeopleApp')
                     url: '/404',
                     templateUrl: '../../app/404.html',
                     controller: 'Four04Controller',
-                    isLogin: true
+                    requireLogin: false
                 })
                 .state('auth', {
                     url: '/',
                     templateUrl: '../../app/Auth/views/auth.html',
                     controller: 'authCtrl',
-                    isLogin: false,
+                    requireLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function () {
@@ -37,7 +37,7 @@ angular.module('placePeopleApp')
                     url: '/auth/registration',
                     templateUrl: '../../app/Auth/views/reg.html',
                     controller: 'authCtrl',
-                    isLogin: false,
+                    requireLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function ($rootScope, AuthService) {
@@ -52,7 +52,7 @@ angular.module('placePeopleApp')
                     url: '/auth/restore',
                     templateUrl: '../../app/Auth/views/restore.html',
                     controller: 'authCtrl',
-                    isLogin: false,
+                    requireLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function () {
@@ -64,7 +64,7 @@ angular.module('placePeopleApp')
                     url: '/auth/login',
                     templateUrl: '../../app/Auth/views/login.html',
                     controller: 'authCtrl',
-                    isLogin: true,
+                    requireLogin: false,
                     showHeader: true,
                     resolve: {
                         countries: function () {
@@ -77,14 +77,14 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Static/views/static.html',
                     controller: 'staticCtrl',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: false
                 })
                 .state('subscribers', {
                     url: '/:username/subscribers/:id',
                     templateUrl: '../../app/User/views/popup-user-subscribers.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false,
+                    requireLogin: true,
                     resolve: {
                         profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
                             var deferred = $q.defer();
@@ -113,7 +113,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/User/views/popup-user-subscribe.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false,
+                    requireLogin: true,
                     resolve: {
                         profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
                             var deferred = $q.defer();
@@ -142,7 +142,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Settings/views/settings.html',
                     controller: 'settingsCtrl',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
 
                 .state('feed', {
@@ -150,7 +150,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Feed/views/feed.html',
                     controller: 'feedCtrl',
                     showHeader: true,
-                    isLogin: false,
+                    requireLogin: true,
                     resolve: {
                         profile: ['$rootScope', '$q', '$state', '$stateParams', 'UserService', function ($rootScope, $q, $state, $stateParams, UserService) {
                             var deferred = $q.defer();
@@ -177,7 +177,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/hidden-publication.html',
                     controller: 'HiddenPubContoller',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
                 // .state('feed-mobile', {
                 //   url: 'feed/:pubId',
@@ -194,7 +194,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/Chat/views/chat-main.html',
                     controller: 'chatCtrl',
                     showHeader: true,
-                    isLogin: false,
+                    requireLogin: true,
                     params: {
                         fromMobile: null
                     }
@@ -204,42 +204,42 @@ angular.module('placePeopleApp')
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-list.html',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
                 .state('chat.contacts', {
                     url: '/contacts',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-contacts.html',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
                 .state('chat.blocked', {
                     url: '/blocked',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-blocked.html',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
                 .state('chat.notification', {
                     url: '/settings',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-notification.html',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
                 .state('chat.mobile', {
                     url: '/m/',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/chat-block.html',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
                 .state('chat.contact-mobile', {
                     url: '/c/',
                     parent: 'chat',
                     templateUrl: '../../app/Chat/views/contact-block.html',
                     showHeader: true,
-                    isLogin: false
+                    requireLogin: true
                 })
 
                 /*User must be in the end*/
@@ -247,7 +247,7 @@ angular.module('placePeopleApp')
                     url: '/:username',
                     templateUrl: '../../app/User/views/user.html',
                     controller: 'userCtrl',
-                    isLogin: true,
+                    requireLogin: true,
                     showHeader: true,
                     params: {
                         userId: null,
@@ -302,6 +302,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/User/views/view-publication.html',
                     showHeader: true,
                     controller: 'userCtrl',
+                    requireLogin: true,
                     params : {fromChat: null},
                     resolve: {
                         profile: ['$q', '$state', '$stateParams', 'UserService', function ($q, $state, $stateParams, UserService) {
@@ -330,6 +331,7 @@ angular.module('placePeopleApp')
                     url: '/m/publication/:id',
                     templateUrl: '../../app/common/views/pub-list-item.html',
                     showHeader: true,
+                    requireLogin: true,
                     params: {
                         prevState: {
                             name: null,
@@ -362,7 +364,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/User/views/user.html',
                     controller: 'userCtrl',
                     showHeader: true,
-                    isLogin: false,
+                    requireLogin: true,
                     resolve: {
                         profile: null,
                         publications: null

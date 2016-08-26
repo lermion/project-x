@@ -205,7 +205,7 @@ angular.module('placePeopleApp')
                     } else {
                         // если state требует авторизации, то перенаправляем на страницу авторизации
                         // очистим локальное хранилище, т. к. в нем могут оставаться неактуальные данные
-                        if (toState.isLogin) {
+                        if (toState.requireLogin) {
                             storageService.deleteStorage();
                             $rootScope.user = {};
                             $state.go('login');
