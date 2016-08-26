@@ -5,8 +5,8 @@
     <div class="x_content admin-user-page-content">
         <div class="admin-settings">
             <ul class="row admin-settings-menu">
-                <li class="col-md-2 col-md-offset-3 active"><a href="/admin/moderation/">Публикации </a></li>
-                <li class="col-md-2"><a href="/admin/moderation/groups">Группы </a></li>
+                <li class="col-md-2 col-md-offset-3"><a href="/admin/moderation/">Публикации </a></li>
+                <li class="col-md-2 active"><a href="/admin/moderation/groups">Группы </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/places">Места </a></li>
             </ul>
         </div>
@@ -14,9 +14,9 @@
 
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 col-md-offset-1 active"><a href="/admin/moderation/groups">Новые </a></li>
-                <li class="col-md-3"><a href="/admin/moderation/groups_to_note">На заметке </a></li>
-                <li class="col-md-3"><a href="/admin/moderation/groups_is_block">Заблокированные </a></li>
+                <li class="col-md-3 col-md-offset-1 @if ($url == 'New') active @endif"><a href="/admin/moderation/groups">Новые </a></li>
+                <li class="col-md-3 @if ($url == 'Note') active @endif"><a href="/admin/moderation/groups_to_note">На заметке </a></li>
+                <li class="col-md-3 @if ($url == 'Block') active @endif"><a href="/admin/moderation/groups_is_block">Заблокированные </a></li>
             </ul>
         </div>
 
@@ -61,5 +61,17 @@
             </table>
         </div>
     </div>
+    <script>
+        $('.admin-settings-menu li a').each(function () {
+            var location = window.location.href;
+            var link = this.href;
+            location += "/";
+            var index = location.indexOf(link);
+            console.log(index);
+            if(location == link) {
+                $(this).addClass('active');
+            }
+        });
+    </script>
     {!! $groups->render() !!}
 @stop

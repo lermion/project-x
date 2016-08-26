@@ -18,7 +18,7 @@ class ModerationController extends Controller
             ->where(['is_block'=>false,'is_topic'=>false,'is_moderate'=>false,'to_note'=>false])
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.index')->with('publications',$publications);
+        return view('admin.moderation.index',['publications'=>$publications, 'url'=>'New']);
     }
 
     public function getIsTopicPublications()
@@ -27,7 +27,7 @@ class ModerationController extends Controller
             ->where('is_topic',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.index')->with('publications',$publications);
+        return view('admin.moderation.index',['publications'=>$publications, 'url'=>'Topic']);
     }
 
     public function getIsBlockPublications()
@@ -36,7 +36,7 @@ class ModerationController extends Controller
             ->where('is_block',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.index')->with('publications',$publications);
+        return view('admin.moderation.index',['publications'=>$publications, 'url'=>'Block']);
     }
 
     public function getIsMainPublications()
@@ -45,7 +45,7 @@ class ModerationController extends Controller
             ->where(['is_main'=>true,'is_moderate'=>true])
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.index')->with('publications',$publications);
+        return view('admin.moderation.index',['publications'=>$publications, 'url'=>'Main']);
     }
 
     public function getIsModeratePublications()
@@ -54,7 +54,7 @@ class ModerationController extends Controller
             ->where('is_moderate',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.index')->with('publications',$publications);
+        return view('admin.moderation.index',['publications'=>$publications, 'url'=>'Moderate']);
     }
 
     public function getToNotePublications()
@@ -63,13 +63,14 @@ class ModerationController extends Controller
             ->where('to_note',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.index')->with('publications',$publications);
+        return view('admin.moderation.index',['publications'=>$publications, 'url'=>'Note']);
     }
 
     public function mainPublications($id)
     {
         $publication = Publication::find($id);
         $publication->is_main = true;
+        $publication->is_moderate = true;
         $publication->save();
         return redirect('/admin/moderation/')->with('message', 'Публикация на главной');
     }
@@ -118,7 +119,7 @@ class ModerationController extends Controller
             ->where(['is_block'=>false,'is_moderate'=>false,'to_note'=>false])
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.groups')->with('groups',$groups);
+        return view('admin.moderation.groups',['groups'=>$groups, 'url'=>'New']);
     }
 
     public function getIsBlockGroups()
@@ -127,7 +128,7 @@ class ModerationController extends Controller
             ->where('is_block',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.groups')->with('groups',$groups);
+        return view('admin.moderation.groups',['groups'=>$groups, 'url'=>'Block']);
     }
 
     public function getToNoteGroups()
@@ -136,7 +137,7 @@ class ModerationController extends Controller
             ->where('to_note',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.groups')->with('groups',$groups);
+        return view('admin.moderation.groups',['groups'=>$groups, 'url'=>'Note']);
     }
 
     public function blockGroup($id)
@@ -168,7 +169,7 @@ class ModerationController extends Controller
             ->where(['is_block'=>false,'is_moderate'=>false,'to_note'=>false])
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.places')->with('places',$places);
+        return view('admin.moderation.places',['places'=>$places,'url'=>'New']);
     }
 
     public function getIsBlockPlaces()
@@ -177,7 +178,7 @@ class ModerationController extends Controller
             ->where('is_block',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.places')->with('places',$places);
+        return view('admin.moderation.places',['places'=>$places,'url'=>'Block']);
     }
 
     public function getToNotePlaces()
@@ -186,7 +187,7 @@ class ModerationController extends Controller
             ->where('to_note',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.places')->with('places',$places);
+        return view('admin.moderation.places',['places'=>$places,'url'=>'Note']);
     }
 
     public function blockPlace($id)

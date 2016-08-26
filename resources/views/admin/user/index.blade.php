@@ -47,8 +47,12 @@
     <div class="x_content">
         <div class="complains-menu">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 col-md-offset-3 active"><a href="#">Все </a></li>
-                <li class="col-md-3"><a href="#">На заметке </a></li>
+                @if ($moderator['is_admin'] == false)
+                <li class="col-md-3 col-md-offset-3 @if ($url == 'New') active @endif"><a href="/admin/user">Новые</a></li>
+                @else
+                <li class="col-md-3 col-md-offset-3 @if ($url == 'All') active @endif"><a href="/admin/user/get_all">Все</a></li>
+                    @endif
+                <li class="col-md-3 @if ($url == 'Confirm') active @endif"><a href="/admin/user/get_confirm">На заметке </a></li>
             </ul>
         </div>
        <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">

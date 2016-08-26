@@ -4,8 +4,8 @@
 
         <div class="x_content admin-settings">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 col-md-offset-2 active"><a href="{{action('Admin\ModeratorController@index')}}">Действующие</a></li>
-                <li class="col-md-3"><a href="{{action('Admin\ModeratorController@stopped')}}">Приостановлено</a></li>
+                <li class="col-md-3 col-md-offset-2 @if ($url == 'New') active @endif"><a href="{{action('Admin\ModeratorController@index')}}">Действующие</a></li>
+                <li class="col-md-3 @if ($url == 'Stopped') active @endif"><a href="{{action('Admin\ModeratorController@stopped')}}">Приостановлено</a></li>
             </ul>
             <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
         </div>
@@ -22,9 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($working_hours as $working)
             @foreach($moderators as $mod)
-                {{--@foreach ($working_hours as $working)--}}
                 <tr>
                     <td>{{$mod->id}}</td>
                     <td><p align="center" class="m0 cp"><img src="{{$mod->photo?$mod->photo:'/img/ava/moderator.png'}}" height="70" /></p></td>
@@ -32,16 +30,9 @@
                     <td class="moderator-time-to-work">
                         <div class="row text-center">
                             <div class="col-md-2 col-md-offset-1">
-
-                                @if ($working->moderator_id == $mod->id and $working->weekday == 1)
                                 <p>Пн</p>
-                                <p>{{$working->from_time}}</p>
-                                <p>{{$working->to_time}}</p>
-                                    @else
-                                    <p>Пн</p>
-                                    <p>не назначено</p>
-                                    <p>не назначено</p>
-                                @endif
+                                <p>9:00</p>
+                                <p>18:00</p>
                             </div>
                             <div class="col-md-2">
                                 <p>Вт</p>
@@ -65,7 +56,6 @@
                             </div>
                         </div>
                     </td>
-                    {{--@endforeach--}}
                     <td class="moderators-process">
                         <p>Модераций: <b>173</b></p>
                         <p>Долгое ожидание: <b>45 мин.</b></p>
@@ -81,7 +71,6 @@
                         </p>
                     </td>
                 </tr>
-            @endforeach
             @endforeach
             </tbody>
         </table>

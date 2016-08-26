@@ -22,8 +22,21 @@ class UserController extends Controller
     public function index ()
     {
         $users = User::where(['status' => ''])->paginate(25);
-        return view('admin.user.index')->with('users',$users);
+        return view('admin.user.index',['users'=>$users, 'url'=>'New']);
     }
+
+    public function getConfirm()
+    {
+        $users = User::where(['status' => 'На заметке'])->paginate(25);
+        return view('admin.user.index',['users'=>$users, 'url'=>'Confirm']);
+    }
+
+    public function getAll()
+    {
+        $users = User::where('status','!=', 'На заметке')->paginate(25);
+        return view('admin.user.index',['users'=>$users, 'url'=>'All']);
+    }
+
     public function getUsers(Request $request)
     {
         $query = DB::table('users');
@@ -63,83 +76,83 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function getConfirm(Request $request)
-    {
-        $query = DB::table('users')->where(['status' => 'Подтвержден']);
-        if ($request->has('gender')) {
-            $query->where('gender', $request->input('gender'));
-        }
-        if ($request->has('is_avatar')) {
-            $query->where('is_avatar', $request->input('is_avatar'));
-        }
-        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
-            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
-        }
-        if ($request->has('keywords')) {
-            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
-//                ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
-//                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
-//                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
-        }
-//        if ($request->has('keywords')) {
-//            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+//    public function getConfirm(Request $request)
+//    {
+//        $query = DB::table('users')->where(['status' => 'Подтвержден']);
+//        if ($request->has('gender')) {
+//            $query->where('gender', $request->input('gender'));
+//        }
+//        if ($request->has('is_avatar')) {
+//            $query->where('is_avatar', $request->input('is_avatar'));
+//        }
+//        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
+//            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
 //        }
 //        if ($request->has('keywords')) {
-//            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+//            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+////                ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
+////                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
+////                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
+//        }
+////        if ($request->has('keywords')) {
+////            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+////        }
+////        if ($request->has('keywords')) {
+////            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+////        }
+////        if ($request->has('keywords')) {
+////            $query->where('login', 'like', '%'.$request->input('keywords').'%');
+////        }
+//        if ($request->has('num_records')) {
+//            $query->take($request->input('num_records'));
+//        }
+//        if ($request->has('age_range_from') and $request->has('age_range_to')) {
+//            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
+//            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
+//            $query->whereBetween('birthday', [$to,$from]);
+//        }
+//        $users = $query->get();
+//        return response()->json($users);
+//    }
+//
+//    public function getReview(Request $request)
+//    {
+//        $query = DB::table('users')->where(['status' => 'На заметке']);
+//        if ($request->has('gender')) {
+//            $query->where('gender', $request->input('gender'));
+//        }
+//        if ($request->has('is_avatar')) {
+//            $query->where('is_avatar', $request->input('is_avatar'));
+//        }
+//        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
+//            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
 //        }
 //        if ($request->has('keywords')) {
-//            $query->where('login', 'like', '%'.$request->input('keywords').'%');
+//            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+////                ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
+////                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
+////                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
 //        }
-        if ($request->has('num_records')) {
-            $query->take($request->input('num_records'));
-        }
-        if ($request->has('age_range_from') and $request->has('age_range_to')) {
-            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
-            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
-            $query->whereBetween('birthday', [$to,$from]);
-        }
-        $users = $query->get();
-        return response()->json($users);
-    }
-
-    public function getReview(Request $request)
-    {
-        $query = DB::table('users')->where(['status' => 'На заметке']);
-        if ($request->has('gender')) {
-            $query->where('gender', $request->input('gender'));
-        }
-        if ($request->has('is_avatar')) {
-            $query->where('is_avatar', $request->input('is_avatar'));
-        }
-        if ($request->has('reg_range_from') and $request->has('reg_range_to')) {
-            $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
-        }
-        if ($request->has('keywords')) {
-            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
-//                ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
-//                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
-//                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
-        }
-//        if ($request->has('keywords')) {
-//            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+////        if ($request->has('keywords')) {
+////            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+////        }
+////        if ($request->has('keywords')) {
+////            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+////        }
+////        if ($request->has('keywords')) {
+////            $query->where('login', 'like', '%'.$request->input('keywords').'%');
+////        }
+//        if ($request->has('num_records')) {
+//            $query->take($request->input('num_records'));
 //        }
-//        if ($request->has('keywords')) {
-//            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
+//        if ($request->has('age_range_from') and $request->has('age_range_to')) {
+//            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
+//            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
+//            $query->whereBetween('birthday', [$to,$from]);
 //        }
-//        if ($request->has('keywords')) {
-//            $query->where('login', 'like', '%'.$request->input('keywords').'%');
-//        }
-        if ($request->has('num_records')) {
-            $query->take($request->input('num_records'));
-        }
-        if ($request->has('age_range_from') and $request->has('age_range_to')) {
-            $from = Carbon::now()->subYears($request->input('age_range_from'))->toDateString();
-            $to = Carbon::now()->subYears($request->input('age_range_to'))->toDateString();
-            $query->whereBetween('birthday', [$to,$from]);
-        }
-        $users = $query->get();
-        return response()->json($users);
-    }
+//        $users = $query->get();
+//        return response()->json($users);
+//    }
 
     /**
      * Show the form for creating a new resource.
