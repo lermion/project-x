@@ -580,6 +580,7 @@ angular.module('placePeopleApp')
 					item.isCover = false;
 				});
 				$scope.pubNew.files[index].isCover = true;
+				$scope.pubNew.cover = $scope.pubNew.files[index];
 			};
 
 			$scope.deletePubFile = function (index) {
