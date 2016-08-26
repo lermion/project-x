@@ -102,7 +102,7 @@ class GroupController extends Controller
         if ($request->hasFile('original_avatar')) {
             $avatar = $request->file('original_avatar');
             $path = Image::getOriginalAvatarGroupPath($avatar);
-            $groupData['original_avatar'] = $path;
+            $publicationData['original_avatar'] = $path;
         }
         if ($request->hasFile('card_avatar')) {
             $card_avatar = $request->file('card_avatar');
