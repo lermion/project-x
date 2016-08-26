@@ -139,7 +139,8 @@ class CountryController extends Controller
 
     public function getRegion($id)
     {
+        $countries = Country::all();
         $regions = Region::where('country_id',$id)->get();
-        return response()->json($regions);
+        return view('admin.base.regions', ['regions' => $regions, 'countries' => $countries]);
     }
 }

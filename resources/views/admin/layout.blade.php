@@ -161,6 +161,7 @@
 <!-- chart js -->
 <script src="/js/chartjs/chart.min.js"></script>
 <script src="/js/custom.js"></script>
+<script src="/js/admin.js"></script>
 
 <!-- flot js -->
 <!--[if lte IE 8]><script type="text/javascript" src="/js/excanvas.min.js"></script><![endif]-->
