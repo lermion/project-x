@@ -10,7 +10,28 @@
         .directive('focusMe', focusMe, ['$timeout', '$parse'])
         .directive('clickOutside', ['$document', '$parse', '$timeout', clickOutside])
         .directive('schrollBottom', schrollBottom)
-        .directive('eatClickIf', eatClickIf, ['$parse', '$rootScope']);
+        .directive('eatClickIf', eatClickIf, ['$parse', '$rootScope'])
+        .directive("scroll", function ($window) {
+            return function (scope, element, attrs) {
+                angular.element($window).bind("scroll", function () {
+                    var windowHeight = "innerHeight" in window ? window.innerHeight
+                        : document.documentElement.offsetHeight;
+                    var body = document.body, html = document.documentElement;
+                    var docHeight = Math.max(body.scrollHeight,
+                        body.offsetHeight, html.clientHeight,
+                        html.scrollHeight, html.offsetHeight);
+                    var windowBottom = windowHeight + window.pageYOffset;
+                    if (windowBottom >= docHeight) {
+                        //alert('bottom reached');
+                        scope.boolChangeClass = true;
+                        //console.log(scope.boolChangeClass);
+                    } else {
+                        scope.boolChangeClass = false;
+                    }
+                    scope.$apply();
+                });
+            };
+        });
 
     function schrollBottom() {
         return {
