@@ -136,6 +136,7 @@ angular.module('placePeopleApp')
                     .then(
                         function (res) {
                             if (res.status) {
+                                $scope.publications.push(res.publication);
                                 ngDialog.closeAll();
                             } else {
                                 console.log('Error');
