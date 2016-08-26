@@ -117,6 +117,8 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('edit_district_save', 'Admin\CountryController@editDistrictSave');
                 Route::get('settlement', 'Admin\CountryController@settlement');
                 Route::get('get_region/{id}', 'Admin\CountryController@getRegion');
+                Route::post('get_area', 'Admin\CountryController@getArea');
+                Route::post('get_city', 'Admin\CountryController@getCity');
             });
             Route::group(['prefix' => 'moderation'], function () {
                 Route::get('/', 'Admin\ModerationController@index');
@@ -340,10 +342,10 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/base/get_region/12\" method=\"get\" enctype=\"multipart/form-data\">
-             <input type='text' name='name' value='name'><br>
-             <input type='text' name='description' value='description'><br>
-             <input type='text' name='is_open' value='false'><br>
+        echo "<form action=\"http://pp.dev/admin/base/get_area\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='country_id' ><br>
+             <input type='text' name='region_id' ><br>
+             <input type='text' name='area_id' ><br>
              <input type='file' name='original_avatar'><br>
              <input type=\"submit\">
               </form>";
