@@ -34,7 +34,7 @@
             <div class="place-menu-wrap">
                 <div class="group-menu">
                     <div class="group-menu-item">
-                        <div class="places-place-menu-avatar" scroll ng-class="{'place-logo--small':boolChangeClass}">
+                        <div class="places-place-menu-avatar" scroll ng-class="{'place-logo--small':boolChangeClass && vm.isChatState()}">
                             <a href ng-click="vm.openModalImageFullSize(vm.place.original_avatar, false)">
                                 <img ng-src="{{vm.place.avatar}}">
                             </a>
