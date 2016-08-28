@@ -1381,12 +1381,9 @@
 
 		$scope.counter = 10;
 		$scope.loadMorePubFiles = function (key, flag, pub) {
-			console.log(key);
-			console.log(flag);
-			console.log(pub);
 			if (flag === 'list') {
 					if (key === false) {
-						$scope.limit = pub.images.length;
+						$scope.limit = pub.images.length + pub.videos.length;
 					} else {
 						$scope.limit = 7;
 					}

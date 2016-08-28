@@ -1593,6 +1593,25 @@
         //chat
 
         $scope.counter = 10;
+        $scope.loadMorePubFiles = function (key, flag, pub) {
+            if (flag === 'list') {
+                    if (key === false) {
+                        $scope.limit = pub.images.length + pub.videos.length;
+                    } else {
+                        $scope.limit = 7;
+                    }
+                    // pub.morePubFiles = true;
+                    $scope.$broadcast('loadPubFiles');
+                } else {
+                    if (key === false) {
+                        $scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+                    } else {
+                        $scope.limit = 7;
+                    }
+                    $scope.morePubFiles = true;
+                    $scope.$broadcast('loadPubFiles');
+                }
+        };
         $scope.showFileAdd = function () {
             if ($scope.showFileAddMenu) {
                 $scope.showFileAddMenu = false;
@@ -1667,6 +1686,7 @@
         $scope.beforeChange = function (files) {
             $scope.files = files;
         };
+        $scope.limit = 6;
         $scope.returnToBack = function (messageId) {
             $location.hash(messageId + "");
         };
