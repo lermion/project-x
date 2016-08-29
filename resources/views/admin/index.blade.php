@@ -83,6 +83,12 @@
 			function gd(year, month, day) {
 				return new Date(year, month - 1, day).getTime();
 			}
+			$("input#reservation").daterangepicker({}, function(start, end, label){
+				var url = "statistic/" + start.format('YYYY-MM-DD') + "/" + end.format('YYYY-MM-DD');
+				$.get(url, function(response){
+					console.log(response);
+				});
+			});
 		});
 		TableManageButtons.init();
 	</script>
@@ -94,6 +100,21 @@
 
 		<br><br> -->
 		<h3>Пользователи</h3>
+		<div class="daosn3">
+			<p>Выберите даты</p>
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<div class="controls">
+							<div class="input-prepend input-group">
+								<span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+								<input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control">
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
 		<h3 class="b">Сегодня: 48 чел. За неделю: 756 чел. За месяц: 7 569 чел. За год: 250 783 чел.</h3>
 		<div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;"></div>
 		<!-- <p><img src="/img/pr/grafik.png" height="240" /> <br>x:Время; y:Деньги;</p> -->
