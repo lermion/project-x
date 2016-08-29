@@ -68,7 +68,7 @@
 			<img src="/images/loading-main.gif" alt="">
 		</div>
 	</div>
-	<div class="mobile-menu-overlay" ></div>
+	<div class="mobile-menu-overlay" ng-show="isOverlay"></div>
 	<!-- Scripts -->
 	<script type="text/javascript" src="../../app/libs/jquery-2.1.3.min.js"></script>
 	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
