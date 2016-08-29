@@ -56,6 +56,18 @@
                 </div>
                 <p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
             </form>
+
+            <div class="row admin-promo-main-img">
+                <div class="col-md-3 lh">
+                    Изображение на главной: 
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <img src="http://1.bp.blogspot.com/-FlpE6jqIzQg/UmAq6fFgejI/AAAAAAAADko/ulj3pT0dIlg/s1600/best-nature-desktop-hd-wallpaper.jpg" class="img-responsive" alt="">
+                </div>
+                <div class="col-md-3">
+                    <input type="file">
+                </div>
+            </div>
 	    </div>
 
 
