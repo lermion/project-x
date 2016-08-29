@@ -50,14 +50,14 @@ class UserController extends Controller
             $query->whereBetween('created_at', [$request->input('reg_range_from'), $request->input('reg_range_to')]);
         }
         if ($request->input('keywords')) {
-            $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
+  //          $query->where('user_quote', 'like', '%'.$request->input('keywords').'%');
 //            ->orWhere('first_name', 'like', '%'.$request->input('keywords').'%')
 //                ->orWhere('last_name', 'like', '%'.$request->input('keywords').'%')
 //                ->orWhere('login', 'like', '%'.$request->input('keywords').'%');
-        }
+  //      }
 //        if ($request->has('keywords')) {
-//            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
-//        }
+            $query->where('first_name', 'like', '%'.$request->input('keywords').'%');
+        }
 //        if ($request->has('keywords')) {
 //            $query->where('last_name', 'like', '%'.$request->input('keywords').'%');
 //        }

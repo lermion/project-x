@@ -49,15 +49,25 @@
 						{"data": "id"},
 						{
 							"data": "avatar_path",
-							"render" : function(data, type, row) {
-        						return '<img src="' + data + '" />';
-    						}
+							"render" : function(data, type, row){
+								return '<img src="' + data + '" />';
+							}
 						},
-						{"data": "first_name"},
-						{"data": "gender"},
+						{
+							"data": "first_name",
+							"render" : function(data, type, full, meta){
+								return "<a href='user/show/" + full.id + "'>" + full.first_name + " " + full.last_name + "</a>";
+							}
+						},
+						{
+							"data": "gender",
+							"render" : function(data, type, row){
+								return parseInt(data) ? "Мужской" : "Женский";
+							}
+						},
 						{"data": "birthday"},
 						{"data": "created_at"},
-						{"data": "status"},
+						{"data": "user_quote"},
 						{"data": "action"}
 					],
 					"columnDefs": [{
@@ -166,8 +176,7 @@
 										<div class="input-prepend input-group">
 											<span class="add-on input-group-addon"><i
 														class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-											<input type="text" style="width: 200px" name="reservation" id="reservation"
-												   class="form-control">
+											<input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control">
 										</div>
 									</div>
 								</div>
