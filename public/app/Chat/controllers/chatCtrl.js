@@ -666,6 +666,28 @@ angular.module('placePeopleApp')
 				getSinglePublication(publication.id);
 			};
 
+			$scope.limit = 6;
+
+			$scope.loadMorePubFiles = function (key, flag, pub) {
+				if (flag === 'list') {
+					if (key === false) {
+						$scope.limit = pub.images.length + pub.videos.length;
+					} else {
+						$scope.limit = 7;
+					}
+					// pub.morePubFiles = true;
+					$scope.$broadcast('loadPubFiles');
+				} else {
+					if (key === false) {
+						$scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+					} else {
+						$scope.limit = 7;
+					}
+					$scope.morePubFiles = true;
+					$scope.$broadcast('loadPubFiles');
+				}
+			};
+
 			function getSinglePublication(pubId, flag) {
 				PublicationService.getSinglePublication(pubId).then(function (response) {
 					//getAllCommentsPublication(pubId);

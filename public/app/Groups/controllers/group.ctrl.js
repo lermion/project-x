@@ -170,6 +170,13 @@
 
 		// set default tab (view) for group view
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
+			if(toState.name === "group.chat"){
+				var data = {
+					room_id: vm.group.room_id,
+					userId: $scope.loggedUserId
+				};
+				socket.emit("connection to chat", data);
+			}
 			var state = $state.current.name;
 
 			if (state === 'group' && fromState.name === 'group.publications') {
@@ -1468,7 +1475,8 @@
 		var getGroupChatDialogue = {
 			room_id: vm.group.room_id,
 			offset: 0,
-			limit: 10
+			limit: 10,
+			userId: $scope.loggedUserId
 		};
 		$scope.beforeChange = function (files) {
 			$scope.files = files;
@@ -1486,18 +1494,33 @@
 		});
 		socket.forward('updatechat', $scope);
 		$scope.$on('socket:updatechat', function(event, data){
-			$scope.messages.push(data);
-			if (data.images.length > 0) {
-				vm.group.count_chat_files += data.images.length;
+			if(data.isRead){
+				if(data.userId !== $scope.loggedUserId){
+					$scope.messages.forEach(function(value){
+						value.isRead = false;
+					});
+				}
+			}else{
+				if(data.login === $scope.loggedUser){
+					data.isRead = true;
+				}else{
+					$scope.messages.forEach(function(value){
+						value.isRead = false;
+					});
+					$scope.messages.push(data);
+				}
+				if (data.images.length > 0) {
+					vm.group.count_chat_files += data.images.length;
+				}
+				vm.group.count_chat_message++;
 			}
-			vm.group.count_chat_message++;
 		});
 		$scope.emojiMessage = {
 			replyToUser: function () {
 				$scope.sendMessage($scope.emojiMessage.messagetext, vm.group.room_id, $scope.files);
 			}
 		};
-
+		
 		$scope.checkMessageType = function(message){
 			var regExp = "^http://" + $location.host();
 			var match = (new RegExp(regExp)).exec(message.text);
