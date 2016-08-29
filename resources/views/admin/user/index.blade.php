@@ -26,7 +26,9 @@
 				if(filters){
 					var url = "user/get_users?";
 					for(var i = 0; i < filters.length; i++){
-						url += filters[i];
+						if(filters[i] !== undefined){
+							url += filters[i];
+						}
 					}
 					getUsers(url);
 				}
@@ -34,8 +36,8 @@
 			function getUsers(url){
 				var table = $('#datatable').dataTable({
 					"language": {
-                		"url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json"
-            		},
+						"url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json"
+					},
 					"bDestroy": true,
 					"dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"ajax": {
@@ -45,7 +47,12 @@
 					},
 					"columns": [
 						{"data": "id"},
-						{"data": "avatar_path"},
+						{
+							"data": "avatar_path",
+							"render" : function(data, type, row) {
+        						return '<img src="' + data + '" />';
+    						}
+						},
 						{"data": "first_name"},
 						{"data": "gender"},
 						{"data": "birthday"},
@@ -75,10 +82,22 @@
 				createUrl(filters);
 			});
 
+			$('#input-search').keyup(function(e){
+				if(e.keyCode == 13){
+					if(this.value !== ""){
+						filters[6] = "&keywords=" + this.value;
+					}else{
+						filters[6] = "";
+					}
+					createUrl(filters);
+				}
+			});
+
 			$("input#avatar").change(function(event){
 				var checkbox = $("input#avatar");
 				checkbox.val( checkbox[0].checked ? 1 : 0);
 				filters[1] = "&is_avatar=" + checkbox.val();
+				console.log(checkbox.val());
 				createUrl(filters);
 			});
 
@@ -165,7 +184,7 @@
 						<input id="avatar" type="checkbox" checked>
 						<label for="avatar"><span>&nbsp; с аватаром</span></label>
 					</div>
-					<div class="daosn3 key"><input type="text" class="form-control" placeholder="Поиск..."></div>
+					<div class="daosn3 key"><input type="text" id="input-search" class="form-control" placeholder="Поиск..."></div>
 		</div>
 	</div>
 
