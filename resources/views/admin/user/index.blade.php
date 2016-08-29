@@ -84,9 +84,14 @@
 				createUrl(filters);
 			});
 
+			$("input#age_range_to").on("change paste keyup", function(event){
+				filters[3] = "&age_range_to=" + (this.value);
+				createUrl(filters);
+			});
+
 			$("input#reservation").daterangepicker({}, function(start, end, label){
-				filters[3] = "&reg_range_from=" + start.format('YYYY-MM-DD');
-				filters[4] = "&reg_range_to=" + end.format('YYYY-MM-DD');
+				filters[4] = "&reg_range_from=" + start.format('YYYY-MM-DD');
+				filters[5] = "&reg_range_to=" + end.format('YYYY-MM-DD');
 				createUrl(filters);
 			});
 
