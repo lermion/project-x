@@ -507,21 +507,21 @@
                                     console.log(err);
                                 });
                     } else if (flag === 'pub') {
-                        // PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
-                        // 	.then(
-                        // 		function(res){
-                        // 			if (res.status) {
-                        ctrl.complainIsSend = true;
-                        $timeout(function () {
-                            ngDialog.closeAll();
-                        }, 2000);
-                        // 			} else {
-                        // 				console.log('Error');
-                        // 			}
-                        // 		},
-                        // 		function(err){
-                        // 			console.log(err);
-                        // 		});
+                        PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
+                            .then(
+                                function (res) {
+                                    if (res.status) {
+                                        ctrl.complainIsSend = true;
+                                        $timeout(function () {
+                                            ngDialog.closeAll();
+                                        }, 2000);
+                                    } else {
+                                        console.log('Error');
+                                    }
+                                },
+                                function (err) {
+                                    console.log(err);
+                                });
                     }
                 };
 

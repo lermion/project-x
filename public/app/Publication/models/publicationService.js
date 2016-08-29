@@ -263,7 +263,7 @@ angular.module('placePeopleApp')
                 'publication_id': pubId,
                 'complaint_category_id': compCat
             };
-            $http.post(path + 'need/to/change/route', data)
+            $http.post(path + 'publication/complaint', data)
                 .success(function (response) {
                     defer.resolve(response);
                 })

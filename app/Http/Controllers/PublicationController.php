@@ -175,7 +175,7 @@ class PublicationController extends Controller
         }
         $publicationData = $request->all();
 
-        $o = $cov->getClientOriginalName($request->file('cover'));
+//        $o = $cov->getClientOriginalName($request->file('cover'));
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
@@ -196,13 +196,13 @@ class PublicationController extends Controller
                     continue;
                 }
                 $path = Image::getImagePath($image);
-                if ($image->is_cover == true)
-                {
-                    $publication->images()->create(['url' => $path],['is_cover' => true]);
-                } else
-                {
+//                if ($image->is_cover == true)
+//                {
+//                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+//                } else
+//                {
                     $publication->images()->create(['url' => $path]);
-                }
+//                }
 
             }
         }
