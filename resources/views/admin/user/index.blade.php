@@ -49,14 +49,19 @@
 						{"data": "id"},
 						{
 							"data": "avatar_path",
-							"render" : function(data, type, row) {
+							"render" : function(data, type, row){
 								return '<img src="' + data + '" />';
 							}
 						},
-						{"data": "first_name"},
+						{
+							"data": "first_name",
+							"render" : function(data, type, full, meta){
+								return "<a href='javascript:void(0);'>" + full.first_name + " " + full.last_name + "</a>";
+							}
+						},
 						{
 							"data": "gender",
-							"render" : function(data, type, row) {
+							"render" : function(data, type, row){
 								return parseInt(data) ? "Мужской" : "Женский";
 							}
 						},
