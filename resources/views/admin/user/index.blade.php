@@ -50,7 +50,8 @@
 						{
 							"data": "avatar_path",
 							"render" : function(data, type, row){
-								return '<img src="' + data + '" />';
+								console.log(data);
+								return data ? '<img src="' + data + '" />' : '<img src="/images/user.png" />';
 							}
 						},
 						{
