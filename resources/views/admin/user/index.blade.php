@@ -57,17 +57,37 @@
 				});
 			}
 			getUsers(null);
+
 			var filters = [];
+
+			//handlers
+
 			$("select.gender").change(function(event){
-				filters[0] = "&gender=" + (this.value);
+				if(this.value !== "none"){
+					filters[0] = "&gender=" + (this.value);
+				}else{
+					filters[0] = "";
+				}
 				createUrl(filters);
 			});
+
 			$("input#avatar").change(function(event){
 				var checkbox = $("input#avatar");
 				checkbox.val( checkbox[0].checked ? 1 : 0);
 				filters[1] = "&is_avatar=" + checkbox.val();
 				createUrl(filters);
 			});
+
+			$("input#age_range_from").on("change paste keyup", function(event){
+				filters[2] = "&age_range_from=" + (this.value);
+				createUrl(filters);
+			});
+
+			$("input#age_range_to").on("change paste keyup", function(event){
+				filters[3] = "&age_range_to=" + (this.value);
+				createUrl(filters);
+			});
+
 			$('#datatable-keytable').DataTable({
 				keys: true
 			});
@@ -103,7 +123,7 @@
 	   <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
 					<div class="daosn3 gender">
 						<select class="form-control gender">
-							<option>Пол</option>
+							<option value="none">Пол</option>
 							<option value="1">Мужской</option>
 							<option value="0">Женский</option>
 						</select>
@@ -126,10 +146,10 @@
 						</form>
 					</div>
 					<div class="daosn3 age">
-						<input type="number" class="form-control" placeholder="Возраст от">
+						<input type="number" id="age_range_from" class="form-control" placeholder="Возраст от">
 					</div>
 					<div class="daosn3 age">
-						<input type="number" class="form-control" placeholder="Возраст до">
+						<input type="number" id="age_range_to" class="form-control" placeholder="Возраст до">
 					</div>
 					<div class="daosn3 avatar">
 						<input id="avatar" type="checkbox" checked>
