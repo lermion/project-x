@@ -118,8 +118,12 @@ class Publication extends Model
     {
         $publications = Publication::with(['videos', 'images', 'user'])
             ->where('publications.user_id', $userId)
-            ->where('publications.is_main', false)
+            //->where('publications.is_main', false)
             ->where('publications.is_anonym', false)
+            ->where(function($query){
+                $query->where('publications.is_main',false);
+                $query->orWhere(['publications.user_id'=>Auth::id(),'publications.in_profile',true]);
+                })
             ->where(function($query){
                 $query->whereNotExists(function($query)
                 {

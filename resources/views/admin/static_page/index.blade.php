@@ -33,7 +33,6 @@
 
     <div class="x_content">
         <h3>Промо страницы {{session()->get('message')}}</h3>
-
         <ul class="promo">
             @foreach($pages as $page)
                 <li><a href="{{action('Admin\StaticPageController@edit', ['id'=>$page->id])}}">{{$page->description}}</a></li>
