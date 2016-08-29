@@ -47,7 +47,12 @@
 					},
 					"columns": [
 						{"data": "id"},
-						{"data": "avatar_path"},
+						{
+							"data": "avatar_path",
+							"render" : function(data, type, row) {
+        						return '<img src="' + data + '" />';
+    						}
+						},
 						{"data": "first_name"},
 						{"data": "gender"},
 						{"data": "birthday"},
