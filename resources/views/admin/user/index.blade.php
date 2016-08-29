@@ -22,10 +22,11 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
-			function getUsers(){
-				$('#datatable').dataTable({
+			function getUsers(gender){
+				var table = $('#datatable').dataTable({
+					"bDestroy": true,
 					"ajax": {
-						"url": "user/get_users",
+						"url": gender ? "user/get_users?gender=" + gender : "user/get_users",
 						"type": "GET",
 						"dataSrc": ""
 					},
@@ -46,9 +47,10 @@
 					}]
 				});
 			}
-			getUsers();
+			getUsers(null);
 			$("select.gender").change(function(event){
-				console.log("heheee!");
+				var that = this;
+				getUsers(this.value);
 			});
 			$('#datatable-keytable').DataTable({
 				keys: true
