@@ -84,10 +84,20 @@
 				createUrl(filters);
 			});
 
-			$("input#age_range_to").on("change paste keyup", function(event){
-				filters[3] = "&age_range_to=" + (this.value);
+			Date.prototype.yyyymmdd = function(){
+				var mm = this.getMonth() + 1;
+				var dd = this.getDate();
+				return [this.getFullYear(), !mm[1] && '0', mm, !dd[1] && '0', dd].join('');
+			};
+
+			$("input#reservation").daterangepicker({}, function(start, end, label){
+				filters[3] = "&reg_range_from=" + start.format('YYYY-MM-DD');
+				filters[4] = "&reg_range_to=" + end.format('YYYY-MM-DD');
 				createUrl(filters);
 			});
+
+			
+			console.log(date);
 
 			$('#datatable-keytable').DataTable({
 				keys: true
@@ -139,7 +149,7 @@
 											<span class="add-on input-group-addon"><i
 														class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
 											<input type="text" style="width: 200px" name="reservation" id="reservation"
-												   class="form-control" value="03/18/2013 - 03/23/2013"/>
+												   class="form-control">
 										</div>
 									</div>
 								</div>
