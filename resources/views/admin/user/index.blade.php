@@ -56,7 +56,7 @@
 						{
 							"data": "first_name",
 							"render" : function(data, type, full, meta){
-								return "<a href='javascript:void(0);'>" + full.first_name + " " + full.last_name + "</a>";
+								return "<a href='user/show/" + full.id + "'>" + full.first_name + " " + full.last_name + "</a>";
 							}
 						},
 						{
