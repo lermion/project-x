@@ -13,7 +13,7 @@ class Publication extends Model
 
     public function images()
     {
-        return $this->belongsToMany('App\Image', 'publication_images')->withTimestamps();
+        return $this->belongsToMany('App\Image', 'publication_images')->withPivot('is_cover')->withTimestamps();
     }
 
     public function place()
@@ -63,7 +63,7 @@ class Publication extends Model
                     $q->where(['is_main'=> true]);
                     $q->where(function($quer){
                         $quer->where('is_moderate',true);
-                        $quer->orWhere('user_id',Auth::id());
+                        $quer->orWhere(['user_id'=>Auth::id(),'in_profile'=>false]);
                     });
                 })
                     ->orWhere(function ($query) use ($userId) {
@@ -122,7 +122,7 @@ class Publication extends Model
             ->where('publications.is_anonym', false)
             ->where(function($query){
                 $query->where('publications.is_main',false);
-                $query->orWhere(['publications.user_id'=>Auth::id(),'publications.in_profile',true]);
+                $query->orWhere(['publications.user_id'=>Auth::id(),'publications.in_profile'=>true]);
                 })
             ->where(function($query){
                 $query->whereNotExists(function($query)
