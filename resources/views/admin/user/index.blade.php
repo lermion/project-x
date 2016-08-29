@@ -54,7 +54,12 @@
 							}
 						},
 						{"data": "first_name"},
-						{"data": "gender"},
+						{
+							"data": "gender",
+							"render" : function(data, type, row) {
+								return parseInt(data) ? "Мужской" : "Женский";
+							}
+						},
 						{"data": "birthday"},
 						{"data": "created_at"},
 						{"data": "status"},
