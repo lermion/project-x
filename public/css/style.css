@@ -150,7 +150,6 @@ body.main-page {
     background-color: rgba(0, 0, 0, .3);
     box-sizing: border-box;
     z-index: 9999999;
-    display: none;
  }
 
 @media (max-width: 900px) {
@@ -4373,9 +4372,15 @@ body.ngdialog-open {
 }
 .group-chat .my-messege .user-messege  .messege-time {
 	padding-right: 20px;
-	background-image: url(../images/done.png);
+	/*background-image: url(/images/done.png);*/
 	background-position: right center;
 	background-repeat: no-repeat;
+}
+.group-chat .my-messege .user-messege .messege-time.done {
+	background-image: url(/images/done.png);
+}
+.group-chat .my-messege .user-messege .messege-time.no-done {
+	background-image: url(/images/no-done.png);
 }
 .group-chat .user-messege .pictures {
 	height: 102px;
