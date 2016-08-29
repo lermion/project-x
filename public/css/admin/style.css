@@ -778,6 +778,8 @@ table.admin-users .col-do {
 }
 .lh {
 	line-height: 34px;
+	font-weight: 700;
+	padding-left: 20px;
 }
 .admin-promo-main-img {
 	margin-bottom: 10px;
