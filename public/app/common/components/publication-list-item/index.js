@@ -12,14 +12,25 @@
                 authorName: '<',
                 avatar: '<',
                 index: '<',
+                pubIndex: '<',
                 prevState: '<',
 
                 // для callback из контекста вывода компонента
-                toClick: '<'
+                toClick: '<',
+
+                // для карусели публикаций
+                pubList: '<',
+
+                // различные обработчики клика в зависимоости от открытия публикации в модальном окне
+                // или вывод как элемент списка
+                isModal: '<',
+
+                // "плитка" или список
+                isGrid: '<'
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
-                                  socket, md5) {
+                                  socket, md5, $filter) {
                 var ctrl = this;
                 var modal;
 
@@ -66,6 +77,9 @@
                     ctrl.pub = ctrl.pubData;
                     ctrl.avatar = getAvatarPath();
                     ctrl.authorName = getAuthorName();
+                    if (ctrl.pubList) {
+                        ctrl.pubList = $filter('orderBy')(ctrl.pubList, '-created_at');
+                    }
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -266,8 +280,10 @@
                 };
 
                 ctrl.clickEvent = function () {
-                    if (ctrl.toClick) {
-                        ctrl.toClick(ctrl.pub);
+                    if (ctrl.toClick && !ctrl.isModal) {
+                        ctrl.toClick(ctrl.pub, ctrl.index);
+                    } else {
+                        showNextInfo();
                     }
                 };
 
@@ -536,6 +552,49 @@
                         function (error) {
                             console.log(error);
                         });
+                }
+
+
+                // Carousel
+                ctrl.indexCurrentImage = 0;
+
+                ctrl.openPreviousInfo = function () {
+                    var imagesLength = ctrl.pub.images.length;
+                    if (imagesLength >= 1) {
+                        ctrl.indexCurrentImage--;
+                        if (ctrl.pub.images[ctrl.indexCurrentImage] !== undefined) {
+                            ctrl.pub.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
+                        } else {
+                            --ctrl.pubIndex;
+                            var prevPub = ctrl.pubList[ctrl.pubIndex];
+                            if (prevPub) {
+
+                                ctrl.pub = prevPub;
+                                ctrl.mainImage = ctrl.pub.images[imagesLength - 1].url;
+                                ctrl.indexCurrentImage = imagesLength - 1;
+                            }
+                        }
+                    }
+                };
+
+                function showNextInfo() {
+
+                    if (ctrl.pub.images.length >= 1) {
+                        ctrl.indexCurrentImage++;
+                        if (ctrl.pub.images[ctrl.indexCurrentImage] !== undefined) {
+                            ctrl.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
+                        } else {
+                            ++ctrl.pubIndex;
+                            var nextPub = ctrl.pubList[ctrl.pubIndex];
+                            if (nextPub) {
+                                ctrl.pub = nextPub;
+                                if (ctrl.pub.images[0] !== undefined) {
+                                    ctrl.mainImage = ctrl.pub.images[0].url;
+                                    ctrl.indexCurrentImage = 0;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         });

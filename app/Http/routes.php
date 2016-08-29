@@ -344,9 +344,9 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/base/get_area\" method=\"post\" enctype=\"multipart/form-data\">
-             <input type='text' name='country_id' ><br>
-             <input type='text' name='region_id' ><br>
+        echo "<form action=\"http://pp.dev/user/7/publication\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='offset' ><br>
+             <input type='text' name='limit' ><br>
              <input type='text' name='area_id' ><br>
              <input type='file' name='original_avatar'><br>
              <input type=\"submit\">

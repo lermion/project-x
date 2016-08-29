@@ -15,9 +15,9 @@
 	<script src="/js/datatables/dataTables.responsive.min.js"></script>
 	<script src="/js/datatables/responsive.bootstrap.min.js"></script>
 	<script src="/js/datatables/dataTables.scroller.min.js"></script>
-
-
+	
 	<!-- pace -->
+	
 	<script src="/js/pace/pace.min.js"></script>
 
 	<script type="text/javascript">
@@ -26,13 +26,18 @@
 				if(filters){
 					var url = "user/get_users?";
 					for(var i = 0; i < filters.length; i++){
-						url += filters[i];
+						if(filters[i] !== undefined){
+							url += filters[i];
+						}
 					}
 					getUsers(url);
 				}
 			}
 			function getUsers(url){
 				var table = $('#datatable').dataTable({
+					"language": {
+						"url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json"
+					},
 					"bDestroy": true,
 					"dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"ajax": {
@@ -72,10 +77,22 @@
 				createUrl(filters);
 			});
 
+			$('#input-search').keyup(function(e){
+				if(e.keyCode == 13){
+					if(this.value !== ""){
+						filters[6] = "&keywords=" + this.value;
+					}else{
+						filters[6] = "";
+					}
+					createUrl(filters);
+				}
+			});
+
 			$("input#avatar").change(function(event){
 				var checkbox = $("input#avatar");
 				checkbox.val( checkbox[0].checked ? 1 : 0);
 				filters[1] = "&is_avatar=" + checkbox.val();
+				console.log(checkbox.val());
 				createUrl(filters);
 			});
 
@@ -86,6 +103,12 @@
 
 			$("input#age_range_to").on("change paste keyup", function(event){
 				filters[3] = "&age_range_to=" + (this.value);
+				createUrl(filters);
+			});
+
+			$("input#reservation").daterangepicker({}, function(start, end, label){
+				filters[4] = "&reg_range_from=" + start.format('YYYY-MM-DD');
+				filters[5] = "&reg_range_to=" + end.format('YYYY-MM-DD');
 				createUrl(filters);
 			});
 
@@ -139,7 +162,7 @@
 											<span class="add-on input-group-addon"><i
 														class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
 											<input type="text" style="width: 200px" name="reservation" id="reservation"
-												   class="form-control" value="03/18/2013 - 03/23/2013"/>
+												   class="form-control">
 										</div>
 									</div>
 								</div>
@@ -156,7 +179,7 @@
 						<input id="avatar" type="checkbox" checked>
 						<label for="avatar"><span>&nbsp; с аватаром</span></label>
 					</div>
-					<div class="daosn3 key"><input type="text" class="form-control" placeholder="Поиск..."></div>
+					<div class="daosn3 key"><input type="text" id="input-search" class="form-control" placeholder="Поиск..."></div>
 		</div>
 	</div>
 

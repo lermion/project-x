@@ -1,5 +1,5 @@
-<div class="user-publication-bg"></div>
-<div class="user-publication">
+<div class="user-publication-bg" ng-if="$ctrl.isModal" ng-click="$ctrl.openPreviousInfo($ctrl.pub.images)"></div>
+<div class="user-publication" ng-if="!$ctrl.isGrid">
 
     <div class="user-publication-header">
         <div class="user-function">
@@ -205,3 +205,8 @@
     </div>
 
 </div>
+
+<a href class="user-publication-grid" ng-if="$ctrl.isGrid" ng-click="$ctrl.clickEvent()">
+    <img ng-src="{{$ctrl.pub.cover || $ctrl.pub.images[0].url}}" alt="">
+    <!-- <span class="video" ng-show="$index==0"></span> -->
+</a>
