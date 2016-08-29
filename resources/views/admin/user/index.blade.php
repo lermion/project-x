@@ -50,7 +50,6 @@
 						{
 							"data": "avatar_path",
 							"render" : function(data, type, row){
-								console.log(data);
 								return data ? '<img src="' + data + '" />' : '<img src="/images/user.png" />';
 							}
 						},
@@ -108,7 +107,6 @@
 				var checkbox = $("input#avatar");
 				checkbox.val( checkbox[0].checked ? 1 : 0);
 				filters[1] = "&is_avatar=" + checkbox.val();
-				console.log(checkbox.val());
 				createUrl(filters);
 			});
 
@@ -250,7 +248,6 @@
 			var form = $('#deleteModal').find('form');
 
 			form.attr('action',form.attr('action')+'/'+$(this).attr('period'));
-			console.log($(this).attr('period'));
 			form.submit();
 			return false;
 		});
@@ -260,7 +257,6 @@
 			var link = this.href;
 			location += "/";
 			var index = location.indexOf(link);
-			console.log(index);
 			if(location == link) {
 				$(this).addClass('active');
 			}
