@@ -193,9 +193,14 @@ class PublicationController extends Controller
                     continue;
                 }
                 $path = Image::getImagePath($image);
-                $publication->images()->create([
-                    'url' => $path,
-                ]);
+                if ($image->is_cover == true)
+                {
+                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+                } else
+                {
+                    $publication->images()->create(['url' => $path]);
+                }
+
             }
         }
         if ($request->hasFile('videos')) {
