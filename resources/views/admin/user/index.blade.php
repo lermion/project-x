@@ -15,9 +15,9 @@
 	<script src="/js/datatables/dataTables.responsive.min.js"></script>
 	<script src="/js/datatables/responsive.bootstrap.min.js"></script>
 	<script src="/js/datatables/dataTables.scroller.min.js"></script>
-
-
+	
 	<!-- pace -->
+	
 	<script src="/js/pace/pace.min.js"></script>
 
 	<script type="text/javascript">
@@ -33,6 +33,9 @@
 			}
 			function getUsers(url){
 				var table = $('#datatable').dataTable({
+					"language": {
+                		"url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Russian.json"
+            		},
 					"bDestroy": true,
 					"dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"ajax": {
