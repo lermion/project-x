@@ -84,20 +84,11 @@
 				createUrl(filters);
 			});
 
-			Date.prototype.yyyymmdd = function(){
-				var mm = this.getMonth() + 1;
-				var dd = this.getDate();
-				return [this.getFullYear(), !mm[1] && '0', mm, !dd[1] && '0', dd].join('');
-			};
-
 			$("input#reservation").daterangepicker({}, function(start, end, label){
 				filters[3] = "&reg_range_from=" + start.format('YYYY-MM-DD');
 				filters[4] = "&reg_range_to=" + end.format('YYYY-MM-DD');
 				createUrl(filters);
 			});
-
-			
-			console.log(date);
 
 			$('#datatable-keytable').DataTable({
 				keys: true

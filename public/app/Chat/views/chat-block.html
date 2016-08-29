@@ -129,6 +129,27 @@
 				<div class="chat-publication-photo">    				
 					<a ng-click="showPublication(message.pub)" href="javascript:void(0);"><img ng-src="{{message.pub.cover ? message.pub.cover : message.pub.images[0].url}}" alt=""></a>
 				</div>
+				<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
+					<div class="images-item">
+						<img src="http://www.ethicalsuperstore.com/images/icons/icon-eco-septictanks.png">
+					</div>
+					<div class="images-item">
+						<img src="http://www.ethicalsuperstore.com/images/icons/icon-eco-septictanks.png">
+					</div>
+					<div class="images-item">
+						<img src="http://www.ethicalsuperstore.com/images/icons/icon-eco-septictanks.png">
+					</div>
+					<div class="images-item">
+						<img src="http://www.ethicalsuperstore.com/images/icons/icon-eco-septictanks.png">
+					</div>
+
+					<div class="images-item">
+						<video width="150px" controls ngf-src="video.url"></video>
+					</div>
+					<div class="images-item more">
+						<p class="counter">Еще<br> фото</p>
+					</div>
+				</div>
 				<div class="chat-publication-relations">
 					<div class="publication-relations-left">
 						<span class="publication-relations-left-btn" ng-click="Model.addPublicationLike(message.pub)"
