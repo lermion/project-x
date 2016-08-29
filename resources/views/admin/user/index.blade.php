@@ -22,11 +22,20 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
-			function getUsers(gender){
+			function createUrl(filters){
+				if(filters){
+					var url = "user/get_users?";
+					for(var i = 0; i < filters.length; i++){
+						url += filters[i];
+					}
+					getUsers(url);
+				}
+			}
+			function getUsers(url){
 				var table = $('#datatable').dataTable({
 					"bDestroy": true,
 					"ajax": {
-						"url": gender ? "user/get_users?gender=" + gender : "user/get_users",
+						"url": url ? url : "user/get_users",
 						"type": "GET",
 						"dataSrc": ""
 					},
@@ -48,9 +57,16 @@
 				});
 			}
 			getUsers(null);
+			var filters = [];
 			$("select.gender").change(function(event){
-				var that = this;
-				getUsers(this.value);
+				filters[0] = "&gender=" + (this.value);
+				createUrl(filters);
+			});
+			$("input#avatar").change(function(event){
+				var checkbox = $("input#avatar");
+				checkbox.val( checkbox[0].checked ? 1 : 0);
+				filters[1] = "&is_avatar=" + checkbox.val();
+				createUrl(filters);
 			});
 			$('#datatable-keytable').DataTable({
 				keys: true
