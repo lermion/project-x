@@ -150,6 +150,8 @@ angular.module('placePeopleApp')
 
                 $rootScope.showHeader = $state.current.showHeader === true;
 
+                $scope.isOverlay = false;
+
             });
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
