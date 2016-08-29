@@ -150,7 +150,6 @@ body.main-page {
     background-color: rgba(0, 0, 0, .3);
     box-sizing: border-box;
     z-index: 9999999;
-    display: none;
  }
 
 @media (max-width: 900px) {
