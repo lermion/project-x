@@ -2603,6 +2603,22 @@ pub-list-item .publication-footer-button {
 }
 #wrapper .user-publication {
 	background: #fff;
+	position: relative;
+}
+#wrapper .user-publication.blocked,
+.photo.thumbnail.blocked {
+	opacity: .9;
+}
+#wrapper .user-publication.blocked:after,
+.photo.thumbnail.blocked:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #000;
+	opacity: .7;
+	content: "";
 }
 #wrapper .user-publication-header {
 	position: relative;
