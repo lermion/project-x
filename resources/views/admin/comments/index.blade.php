@@ -15,7 +15,7 @@
 	    <tbody>
         @foreach($comments as $comment)
 	      <tr>
-            <td><p><a href="/publication/show/{{$comment->publication_id}}">Публикация:</a></p>{{$comment->publications}}</td>
+            <td><p><a href="/one_publication/{{$comment->publication_id}}">Публикация:</a></p>{{$comment->publications}}</td>
             <td>{{$comment->text}}</td>
             <td><a href="/admin/user/show/{{$comment->user_id}}">{{$comment->login}}</a></td>
             <td class="text-center">

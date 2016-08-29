@@ -20,7 +20,7 @@ class ComplaintsController extends Controller
             ->join('users as u','complaint_publications.user_which_id','=','u.id')
             ->join('complaint_categories','complaint_publications.complaint_category_id','=','complaint_categories.id')
             ->paginate(25);
-        return view('admin.complaints.index')->with('complaints', $complaints);
+        return view('admin.complaints.index',['complaints'=>$complaints,'url'=>'Publication']);
     }
 
     public function delete_complaint_comment($id)
@@ -47,7 +47,7 @@ class ComplaintsController extends Controller
             ->join('users as u','complaint_comments.user_which_id','=','u.id')
             ->join('complaint_categories','complaint_comments.complaint_category_id','=','complaint_categories.id')
             ->paginate(25);
-        return view('admin.complaints.index')->with('complaints', $complaints);
+        return view('admin.complaints.index',['complaints'=>$complaints,'url'=>'Comments']);
     }
 
     public function delete_complaint_publication($id)

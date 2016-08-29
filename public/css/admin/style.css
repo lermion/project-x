@@ -771,6 +771,7 @@ table.admin-users .col-do {
 	margin-bottom: 10px;
 }
 .admin-settings-menu li a:active,
+.admin-settings-menu li.active,
 .admin-settings-menu li a:hover,
 .admin-settings-menu li a.active {
 	background-color: #ddd;

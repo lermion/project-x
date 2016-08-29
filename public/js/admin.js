@@ -22,8 +22,3 @@ $("select.get-region").change(function(event){
 	var that = this;
 	getRegion(that);
 });
-
-$("select.gender").change(function(event){
-	var that = this;
-	filters();
-});

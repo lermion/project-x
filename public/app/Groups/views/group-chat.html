@@ -44,21 +44,20 @@
 								<a href="javascript:void(0);" ng-click="vm.openModalReviewPublication(message.pub.id)"><img ng-src="{{message.pub.images[0].url}}"></a>
 							</div>					
 							<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles" style="max-height:262px; overflow:hidden; position:relative;" ng-hide="message.pub.images.length === 1">		
-								<div ng-click="changeMainFileFeed(image, message.pub)" ng-repeat="image in pub.images | limitTo: limit as results" class="images-item">
+								<div ng-click="changeMainFileFeed(image, message.pub)" ng-repeat="image in message.pub.images | limitTo: limit as results" class="images-item">
 									<img ng-src="{{image.url}}">
 								</div>
 								<div ng-click="changeMainFileFeed(video, message.pub)" ng-repeat="video in message.pub.videos" class="images-item">
 									<video width="150px" controls ngf-src="video.url"></video>
 								</div>
-								<div ng-hide="results.length === message.pub.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === message.pub.images.length)">
+								<div ng-hide="results.length === message.pub.images.length" class="images-item more" ng-click="loadMorePubFiles(results.length === message.pub.images.length, 'list', message.pub)">
 									<p class="counter">Еще<br> {{message.pub.images.length - limit}} фото</p>
 								</div>
 							</div>
 						</div>
 						<div class="likes">
 							<div class="likes-item">
-								<a href="javascript:void(0);" ng-click="addPublicationLike(message.pub)"
-								   class="like"
+								<a href="javascript:void(0);" ng-click="addPublicationLike(message.pub)" class="like"
 								ng-class="message.pub.user_like ? 'active': ''">Тема</a>
 								<p class="like-item" ng-if="message.pub.like_count > 0">
 									В теме 

@@ -5,8 +5,8 @@
 	<div class="x_content">
         <div class="complains-menu">
             <ul class="row admin-settings-menu">
-                <li class="col-md-3 col-md-offset-3 active"><a href="{{action('Admin\ComplaintsController@index')}}">Публикации</a></li>
-                <li class="col-md-3"><a href="{{action('Admin\ComplaintsController@comments')}}">Комментарии</a></li>
+                <li class="col-md-3 col-md-offset-3  @if ($url == 'Publication') active @endif"><a href="{{action('Admin\ComplaintsController@index')}}">Публикации</a></li>
+                <li class="col-md-3 @if ($url == 'Comments') active @endif"><a href="{{action('Admin\ComplaintsController@comments')}}">Комментарии</a></li>
             </ul>
         </div>
         <div class="moderator-complaints">

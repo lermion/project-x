@@ -73,8 +73,10 @@ angular.module('placePeopleApp')
             $scope.openMenu = function () {
                 if ($window.innerWidth <= 800) {
                     $scope.showMenu = !$scope.showMenu;
+                    $scope.isOverlay = !$scope.isOverlay;
                 } else {
                     $scope.showMenu = true;
+                    $scope.isOverlay = false;
                 }
             };
             $scope.openBottomMenu = function () {
@@ -113,6 +115,7 @@ angular.module('placePeopleApp')
                     } else {
                         $scope.pubSize = '';
                         $scope.resizeHeight = '';
+                        $scope.isOverlay = false;
                     }
                 }, true);
             w.bind('resize', function () {

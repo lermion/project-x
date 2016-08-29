@@ -5,7 +5,7 @@
 	<div class="admin-mail">
 		<div class="complains-menu">
             <ul class="row admin-settings-menu">
-                <li class="col-md-2 col-md-offset-3 active"><a href="/admin/mail/">Новые </a></li>
+                <li class="col-md-2 col-md-offset-3"><a href="/admin/mail/">Новые </a></li>
                 <li class="col-md-2"><a href="/admin/mail/get_closed/">Закрытые </a></li>
                 <li class="col-md-2"><a href="/admin/mail/get_review/">На заметке </a></li>
             </ul>
