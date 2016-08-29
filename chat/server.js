@@ -155,6 +155,16 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
+	socket.on("connection to chat", function(data){
+		var result = {
+			roomId: data.room_id,
+			userId: data.userId,
+			isRead: {
+				isReadMessage: true
+			}
+		};
+		io.sockets.in(data.room_id).emit('updatechat', result);
+	});
 	socket.on('send message', function(data, callback){
 		data.message = striptags(data.message);
 		if(data.imagesObj !== undefined){
