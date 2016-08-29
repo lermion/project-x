@@ -306,15 +306,15 @@
 				});
 
 			} else {
+				console.info('PubID: ' + pub.id);
 				ngDialog.open({
 					templateUrl: '../app/common/views/pub-item-modal.html',
 					name: 'modal-publication-group',
 					className: 'view-publication ngdialog-theme-default',
 					data: {
-						pub: pub
-					},
-					preCloseCallback: function () {
-						vm.group.publications[index] = vm.activePublication;
+						pub: pub,
+						pubList: vm.group.publications,
+						pubIndex: index
 					}
 				});
 			}

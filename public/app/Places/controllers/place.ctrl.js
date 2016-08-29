@@ -236,10 +236,9 @@
                     name: 'modal-publication-group',
                     className: 'view-publication ngdialog-theme-default',
                     data: {
-                        pub: pub
-                    },
-                    preCloseCallback: function () {
-                        vm.place.publications[index] = vm.activePublication;
+                        pub: pub,
+                        pubList: vm.place.publications,
+                        pubIndex: index
                     }
                 });
             }
