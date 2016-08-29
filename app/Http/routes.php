@@ -22,6 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'moderator'], function () {
             Route::get('/', 'Admin\HomeController@index');
+            Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
             Route::get('logout', 'Admin\AuthController@logout');
             Route::group(['prefix' => 'user'], function () {
                 Route::get('/', 'Admin\UserController@index');
