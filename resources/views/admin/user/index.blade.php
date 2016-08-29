@@ -67,7 +67,7 @@
 						},
 						{"data": "birthday"},
 						{"data": "created_at"},
-						{"data": "status"},
+						{"data": "user_quote"},
 						{"data": "action"}
 					],
 					"columnDefs": [{

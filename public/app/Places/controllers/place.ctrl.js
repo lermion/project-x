@@ -585,21 +585,21 @@
                             console.log(err);
                         });
             } else if (flag === 'pub') {
-                // PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
-                // 	.then(
-                // 		function(res){
-                // 			if (res.status) {
-                vm.complainIsSend = true;
-                $timeout(function () {
-                    ngDialog.closeAll();
-                }, 2000);
-                // 			} else {
-                // 				console.log('Error');
-                // 			}
-                // 		},
-                // 		function(err){
-                // 			console.log(err);
-                // 		});
+                PublicationService.complaintPubAuthor(complainUnitId, complainCategory)
+                    .then(
+                        function (res) {
+                            if (res.status) {
+                                vm.complainIsSend = true;
+                                $timeout(function () {
+                                    ngDialog.closeAll();
+                                }, 2000);
+                            } else {
+                                console.log('Error');
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        });
             }
         };
 
@@ -1106,8 +1106,8 @@
             //});
         };
 
-        vm.isChatState = function() {
-          return $state.is('place.chat');
+        vm.isChatState = function () {
+            return $state.is('place.chat');
         };
 
 
@@ -1594,22 +1594,22 @@
         $scope.counter = 10;
         $scope.loadMorePubFiles = function (key, flag, pub) {
             if (flag === 'list') {
-                    if (key === false) {
-                        $scope.limit = pub.images.length + pub.videos.length;
-                    } else {
-                        $scope.limit = 7;
-                    }
-                    // pub.morePubFiles = true;
-                    $scope.$broadcast('loadPubFiles');
+                if (key === false) {
+                    $scope.limit = pub.images.length + pub.videos.length;
                 } else {
-                    if (key === false) {
-                        $scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
-                    } else {
-                        $scope.limit = 7;
-                    }
-                    $scope.morePubFiles = true;
-                    $scope.$broadcast('loadPubFiles');
+                    $scope.limit = 7;
                 }
+                // pub.morePubFiles = true;
+                $scope.$broadcast('loadPubFiles');
+            } else {
+                if (key === false) {
+                    $scope.limit = $scope.singlePublication.images.length + $scope.singlePublication.videos.length;
+                } else {
+                    $scope.limit = 7;
+                }
+                $scope.morePubFiles = true;
+                $scope.$broadcast('loadPubFiles');
+            }
         };
         $scope.showFileAdd = function () {
             if ($scope.showFileAddMenu) {
