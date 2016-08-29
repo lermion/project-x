@@ -33,7 +33,25 @@
 
     <div class="x_content">
         <h3>Промо страницы {{session()->get('message')}}</h3>
-
+        <div class="row admin-promo-main-img">
+            <div class="col-md-3 lh">
+                Текст на главной: 
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="text" placeholder="Ведите текст...">
+            </div>
+        </div>
+        <div class="row admin-promo-main-img">
+            <div class="col-md-3 lh">
+                Изображение на главной: 
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <img src="http://1.bp.blogspot.com/-FlpE6jqIzQg/UmAq6fFgejI/AAAAAAAADko/ulj3pT0dIlg/s1600/best-nature-desktop-hd-wallpaper.jpg" class="img-responsive" alt="">
+            </div>
+            <div class="col-md-3">
+            	<input type="file">
+            </div>
+        </div>
         <ul class="promo">
             @foreach($pages as $page)
                 <li><a href="{{action('Admin\StaticPageController@edit', ['id'=>$page->id])}}">{{$page->description}}</a></li>

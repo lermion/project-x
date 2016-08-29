@@ -776,3 +776,9 @@ table.admin-users .col-do {
 .admin-settings-menu li a.active {
 	background-color: #ddd;
 }
+.lh {
+	line-height: 34px;
+}
+.admin-promo-main-img {
+	margin-bottom: 10px;
+}
