@@ -173,6 +173,9 @@ angular.module('placePeopleApp')
             videos.forEach(function (video) {
                 data.append('videos[]', video);
             });
+
+            data.append('in_profile', publication.inProfile ? 1 : 0);
+
             var config = {
                     headers: {
                         'Content-Type': undefined
