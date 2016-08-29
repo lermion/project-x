@@ -50,11 +50,16 @@
 						{
 							"data": "avatar_path",
 							"render" : function(data, type, row) {
-        						return '<img src="' + data + '" />';
-    						}
+								return '<img src="' + data + '" />';
+							}
 						},
 						{"data": "first_name"},
-						{"data": "gender"},
+						{
+							"data": "gender",
+							"render" : function(data, type, row) {
+								return parseInt(data) ? "Мужской" : "Женский";
+							}
+						},
 						{"data": "birthday"},
 						{"data": "created_at"},
 						{"data": "status"},
@@ -166,8 +171,7 @@
 										<div class="input-prepend input-group">
 											<span class="add-on input-group-addon"><i
 														class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-											<input type="text" style="width: 200px" name="reservation" id="reservation"
-												   class="form-control">
+											<input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control">
 										</div>
 									</div>
 								</div>

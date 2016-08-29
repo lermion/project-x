@@ -515,7 +515,8 @@ angular.module('placePeopleApp')
 
 			$scope.pubNew = {
 				files: [],
-				cover: null
+				cover: null,
+				inProfile: true
 			};
 
 			var originalPubNew = angular.copy($scope.pubNew);
@@ -529,6 +530,7 @@ angular.module('placePeopleApp')
 					Upload.imageDimensions(resizedFile).then(function (dimensions) {
 						console.info('User publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
 					});
+					resizedFile.is_cover = false;
 					$scope.pubNew.files.push(resizedFile);
 				});
 			}
@@ -582,7 +584,11 @@ angular.module('placePeopleApp')
 				angular.forEach($scope.pubNew.files, function(item) {
 					item.isCover = false;
 				});
+
+				// TODO: refact!
 				$scope.pubNew.files[index].isCover = true;
+				$scope.pubNew.files[index].is_cover = true;
+
 				$scope.pubNew.cover = $scope.pubNew.files[index];
 			};
 

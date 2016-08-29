@@ -18,18 +18,18 @@
 
 
     <!-- pace -->
-    <script src="js/pace/pace.min.js"></script>
+    <script src="/js/pace/pace.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#datatable').dataTable();
-            $('#datatable-keytable').DataTable({
-                keys: true
-            });
-            $('#datatable-responsive').DataTable();
-        });
-        TableManageButtons.init();
-    </script>
+    <!--<script type="text/javascript">-->
+        <!--$(document).ready(function () {-->
+            <!--$('#datatable').dataTable();-->
+            <!--$('#datatable-keytable').DataTable({-->
+                <!--keys: true-->
+            <!--});-->
+            <!--$('#datatable-responsive').DataTable();-->
+        <!--});-->
+        <!--TableManageButtons.init();-->
+    <!--</script>-->
 
     <div class="x_content">
         <h3>Промо страницы {{session()->get('message')}}</h3>
