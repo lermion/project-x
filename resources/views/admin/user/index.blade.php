@@ -34,6 +34,7 @@
 			function getUsers(url){
 				var table = $('#datatable').dataTable({
 					"bDestroy": true,
+					"dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"ajax": {
 						"url": url ? url : "user/get_users",
 						"type": "GET",
