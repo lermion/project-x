@@ -5,7 +5,7 @@
     <div class="x_content admin-user-page-content">
         <div class="admin-settings">
             <ul class="row admin-settings-menu">
-                <li class="col-md-2 col-md-offset-3"><a href="/admin/moderation/">Публикации </a></li>
+                <li class="col-md-2 col-md-offset-3 active"><a href="/admin/moderation/">Публикации </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/groups">Группы </a></li>
                 <li class="col-md-2"><a href="/admin/moderation/places">Места </a></li>
             </ul>
@@ -13,21 +13,12 @@
 
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-<<<<<<< HEAD
                 <li class="col-md-2 @if ($url == 'New') active @endif"><a href="/admin/moderation/">Новые </a></li>
                 <li class="col-md-2 @if ($url == 'Topic') active @endif"><a href="/admin/moderation/publications_is_topic">Тема дня </a></li>
                 <li class="col-md-2 @if ($url == 'Note') active @endif"><a href="/admin/moderation/publications_to_note">На заметке </a></li>
                 <li class="col-md-2 @if ($url == 'Block') active @endif"><a href="/admin/moderation/publications_is_block">Заблокированные </a></li>
                 <li class="col-md-2 @if ($url == 'Moderate') active @endif"><a href="/admin/moderation/publications_is_moderate">Подтвержденные </a></li>
                 <li class="col-md-2 @if ($url == 'Main') active @endif"><a href="/admin/moderation/publications_is_main">На главной </a></li>
-=======
-                <li class="col-md-2"><a href="/admin/moderation/">Новые </a></li>
-                <li class="col-md-2"><a href="/admin/moderation/publications_is_topic">Тема дня </a></li>
-                <li class="col-md-2"><a href="/admin/moderation/publications_to_note">На заметке </a></li>
-                <li class="col-md-2"><a href="/admin/moderation/publications_is_block">Заблокированные </a></li>
-                <li class="col-md-2"><a href="/admin/moderation/publications_is_moderate">Подтвержденные </a></li>
-                <li class="col-md-2"><a href="/admin/moderation/publications_is_main">На главной </a></li>
->>>>>>> 3c1f47905fd9e1f2b27279ef84de0609d3079023
             </ul>
         </div>
 

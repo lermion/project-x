@@ -127,6 +127,7 @@ class PublicationController extends Controller
                 'original_cover' => 'file',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
+                'in_profile' => 'boolean',
                 'videos' => 'array',
                 'images' => 'array'
             ]);
@@ -273,6 +274,7 @@ class PublicationController extends Controller
                         'original_cover' => 'file',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',
+                        'in_profile' => 'boolean',
                         'videos' => 'array',
                         'images' => 'array',
                         'delete_videos' => 'array',
