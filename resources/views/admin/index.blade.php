@@ -32,20 +32,19 @@
 			$("input#reservation").daterangepicker({}, function(start, end, label){
 				var url = "admin/statistic/" + start.format('YYYY-MM-DD') + "/" + end.format('YYYY-MM-DD');
 				$.get(url, function(response){
-					console.log(response);
-					response.forEach(function(value){
-						value
+					var data1 = [];
+					Object.keys(response).forEach(function(value){
+						data1.push([gd(value.split("-")[0], value.split("-")[1], value.split("-")[2]), response[value].scalar]);
 					});
-					var data1 = [
-						[gd(2012, 1, 1), 17],
-						[gd(2012, 1, 2), 74],
-						[gd(2012, 1, 3), 6],
-						[gd(2012, 1, 4), 39],
-						[gd(2012, 1, 5), 20],
-						[gd(2012, 1, 6), 85],
-						[gd(2012, 1, 7), 7]
-					];
-					console.log(data1);
+					// var data1 = [
+					// 	[gd(2012, 1, 1), 17],
+					// 	[gd(2012, 1, 2), 74],
+					// 	[gd(2012, 1, 3), 6],
+					// 	[gd(2012, 1, 4), 39],
+					// 	[gd(2012, 1, 5), 20],
+					// 	[gd(2012, 1, 6), 85],
+					// 	[gd(2012, 1, 7), 7]
+					// ];
 					$("#canvas_dahs").length && $.plot($("#canvas_dahs"), [data1], {
 						series: {
 							lines: {
