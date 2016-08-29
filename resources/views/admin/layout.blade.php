@@ -55,7 +55,7 @@
                         <ul class="nav side-menu">
                             <li><a href="{{ action('Admin\HomeController@index') }}"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>
                             <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li> <!-- Публикации, места, публичные группы -->
-                            <li><a href="{{ action('Admin\UserController@index') }}"><i class="fa fa-child"></i> Пользователи</a></li> <!-- адекватность [блокирует] -->
+                            <li><a href="{{ action('Admin\UserController@index') }}"><i class="fa fa-child"></i> Пользователи <span class="counters counter__users badge"></span></a></li> <!-- адекватность [блокирует] -->
                             <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
                             <li><a href="{{ action('Admin\CommentsController@index') }}"><i class="fa fa-comments-o"></i> Комментарии</a></li>
 
@@ -75,13 +75,13 @@
                         <h3>Admin</h3>
                         <ul class="nav side-menu">
                             <li><a href="{{ action('Admin\HomeController@index') }}"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>
-                            <li><a href="{{ action('Admin\UserController@index') }}"><i class="fa fa-male"></i>Пользователи</a></li>
+                            <li><a href="{{ action('Admin\UserController@index') }}"><i class="fa fa-male"></i>Пользователи <span class="counters counter__users badge"></span></a></li>
                             <li><a href="{{ action('Admin\ModeratorController@index') }}"><i class="fa fa-mortar-board"></i> Модераторы</a></li>
                             <!--<li><a href="#"><i class="fa fa-rouble"></i> Финансы</a></li>-->
                             <li><a href="{{ action('Admin\StaticPageController@index') }}"><i class="fa fa-desktop"></i> Промо</a></li>
-                            <li><a href="{{ action('Admin\MailController@index') }}"><i class="fa fa-envelope-o"></i> Письма админу</a></li>
+                            <li><a href="{{ action('Admin\MailController@index') }}"><i class="fa fa-envelope-o"></i> Письма админу <span class="counters counter__mails badge"></span></a></li>
                             <!--<li><a href="#"><i class="fa fa-institution"></i> Услуги</a></li>-->
-                            <li><a href="{{ action('Admin\LockContentController@index') }}"><i class="fa fa-trash"></i> На удаление</a></li>
+                            <li><a href="{{ action('Admin\LockContentController@index') }}"><i class="fa fa-trash"></i> На удаление <span class="counters counter__toremove badge"></span></a></li>
                             <li><a href="{{ action('Admin\OptionController@index') }}"><i class="fa fa-cogs"></i> Настройки</a></li>
                             <li><a href="{{ action('Admin\ComplaintsController@index') }}"><i class="fa fa-bullhorn"></i> Жалобы</a></li>
                             <li><a href="{{ action('Admin\ModerationController@index') }}"><i class="fa fa-thumbs-o-up"></i> Модерация</a></li>

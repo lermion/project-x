@@ -322,3 +322,152 @@ if (typeof NProgress != 'undefined') {
         NProgress.done();
     });
 }
+
+
+// Counters for sidebar
+// Users
+$(function() {
+    var POLL_URL = 'count/users',
+        POLL_FREQUENCY = 5000;
+
+    var queue = [],
+        inProgress = false;
+
+    var $counterUsers = $('.counter__users');
+
+    $.fastPoll = $.fastPoll || {};
+
+    $.fastPoll.sendMessage = function(message) {
+        queue.push(message);
+    };
+
+    $.fastPoll.receiveMessage = function(message) {
+        console.log('received message');
+        console.dir(message);
+    };
+
+    function getUsersCounter() {
+        if (inProgress) {
+            return;
+        }
+        inProgress = true;
+        var messages = queue;
+        queue = [];
+
+        $.ajax(POLL_URL, {
+            type: 'GET',
+            dataType: 'json',
+            data: null,
+            contentType: 'application/json',
+            timeout: 5000,
+            success: function(data) {
+                $counterUsers.text(data);
+                inProgress = false;
+        },
+        error: function() {
+            queue = queue.concat(messages);
+            inProgress = false;
+        }
+    });
+    }
+
+    setInterval(getUsersCounter, POLL_FREQUENCY);
+}());
+
+// Mails
+$(function() {
+    var POLL_URL = 'count/mails',
+        POLL_FREQUENCY = 5000;
+
+    var queue = [],
+        inProgress = false;
+
+    var $counterMails = $('.counter__mails');
+
+    $.fastPoll = $.fastPoll || {};
+
+    $.fastPoll.sendMessage = function(message) {
+        queue.push(message);
+    };
+
+    $.fastPoll.receiveMessage = function(message) {
+        console.log('received message');
+        console.dir(message);
+    };
+
+    function getMailsCounter() {
+        if (inProgress) {
+            return;
+        }
+        inProgress = true;
+        var messages = queue;
+        queue = [];
+
+        $.ajax(POLL_URL, {
+            type: 'GET',
+            dataType: 'json',
+            data: null,
+            contentType: 'application/json',
+            timeout: 5000,
+            success: function(data) {
+                $counterMails.text(data);
+                inProgress = false;
+            },
+            error: function() {
+                queue = queue.concat(messages);
+                inProgress = false;
+            }
+        });
+    }
+
+    setInterval(getMailsCounter, POLL_FREQUENCY);
+}());
+
+// To remove
+$(function() {
+    var POLL_URL = 'count/to_remove',
+        POLL_FREQUENCY = 5000;
+
+    var queue = [],
+        inProgress = false;
+
+    var $counterToRemove = $('.counter__toremove');
+
+    $.fastPoll = $.fastPoll || {};
+
+    $.fastPoll.sendMessage = function(message) {
+        queue.push(message);
+    };
+
+    $.fastPoll.receiveMessage = function(message) {
+        console.log('received message');
+        console.dir(message);
+    };
+
+    function getToRemoveCounter() {
+        if (inProgress) {
+            return;
+        }
+        inProgress = true;
+        var messages = queue;
+        queue = [];
+
+        $.ajax(POLL_URL, {
+            type: 'GET',
+            dataType: 'json',
+            data: null,
+            contentType: 'application/json',
+            timeout: 5000,
+            success: function(data) {
+                $counterToRemove.text(data);
+                inProgress = false;
+            },
+            error: function() {
+                queue = queue.concat(messages);
+                inProgress = false;
+            }
+        });
+    }
+
+    setInterval(getToRemoveCounter, POLL_FREQUENCY);
+}());
