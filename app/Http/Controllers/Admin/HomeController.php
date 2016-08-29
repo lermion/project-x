@@ -17,9 +17,9 @@ class HomeController extends Controller
 
     public function statistic($date, $end_date)
     {
-        $data[]=null;
+        $data=array();
         for ($i = new\DateTime($date);$i < new\DateTime($end_date);){
-            $data[$i->format('Y-m-d')] = User::whereBetween('created_at', [ $i->format('Y-m-d'), $i->modify('+1 day')->format('Y-m-d')])->count();
+            (object)$data[$i->format('Y-m-d')] = (object)User::whereBetween('created_at', [ $i->format('Y-m-d'), $i->modify('+1 day')->format('Y-m-d')])->count();
         }
         return response()->json($data);
     }

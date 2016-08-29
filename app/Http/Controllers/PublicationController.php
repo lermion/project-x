@@ -174,8 +174,9 @@ class PublicationController extends Controller
             }
         }
         $publicationData = $request->all();
-        $cov = $request->file('cover');
-        dd($cov);
+
+        $o = $cov->getClientOriginalName($request->file('cover'));
+
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $path = Image::getCoverPath($cover);
