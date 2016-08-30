@@ -154,6 +154,7 @@ class Publication extends Model
             $publication_comments = $publication_comments->toArray();
             $publication->comments = array_reverse($publication_comments);
             $publication->user_like = $publication->likes()->where('user_id', Auth::id())->first() != null;
+            $publication->like_count = $publication->likes()->count();
             $publication->comment_count = $publication->comments()->count();
         }
         return $publications;

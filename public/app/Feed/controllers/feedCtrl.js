@@ -112,7 +112,7 @@ angular.module('placePeopleApp')
 
             // Submit
             $scope.publishNewPub = function (isAnon, pubText) {
-                var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
+                var textToSave = pubText.messagetext;
 
                 if ($scope.pubNew.files === undefined || $scope.pubNew.files.length == 0) {
                     $scope.publishNewPubErr = true;
@@ -168,15 +168,16 @@ angular.module('placePeopleApp')
                 //});
             };
 
-            $scope.ngRepeatHasRendered = function () {
-                window.emojiPicker = new EmojiPicker({
-                    emojiable_selector: '[data-emojiable=true]',
-                    assetsPath: 'lib/img/',
-                    popupButtonClasses: 'fa fa-smile-o'
-                });
-                window.emojiPicker.discover();
-                $(".emoji-button").text("");
-            }
+            //$scope.ngRepeatHasRendered = function () {
+            //    window.emojiPicker = new EmojiPicker({
+            //        emojiable_selector: '[data-emojiable=true]',
+            //        assetsPath: 'lib/img/',
+            //        popupButtonClasses: 'fa fa-smile-o'
+            //    });
+            //    window.emojiPicker.discover();
+            //    $(".emoji-button").text("");
+            //}
+
             amMoment.changeLocale('ru');
             $scope.loggedUserId = +storage.userId;
             $scope.commentModel = {pubText: ''};
@@ -527,26 +528,26 @@ angular.module('placePeopleApp')
 
             $scope.complainIsSend = false;
 
-            $scope.$on('ngDialog.opened', function (e, $dialog) {
-                var mainImagePublication = $(".main-image-publication");
-                setTimeout(function () {
-                    mainImagePublication.focus();
-                }, 0);
-                $scope.keyPress = function (event, images) {
-                    if (event.keyCode === 39) {
-                        $scope.openNextInfo(images);
-                    } else if (event.keyCode === 37) {
-                        $scope.openPreviousInfo(images);
-                    }
-                };
-                window.emojiPicker = new EmojiPicker({
-                    emojiable_selector: '[data-emojiable=true]',
-                    assetsPath: 'lib/img/',
-                    popupButtonClasses: 'fa fa-smile-o'
-                });
-                window.emojiPicker.discover();
-                $(".emoji-button").text("");
-            });
+            //$scope.$on('ngDialog.opened', function (e, $dialog) {
+            //    var mainImagePublication = $(".main-image-publication");
+            //    setTimeout(function () {
+            //        mainImagePublication.focus();
+            //    }, 0);
+            //    $scope.keyPress = function (event, images) {
+            //        if (event.keyCode === 39) {
+            //            $scope.openNextInfo(images);
+            //        } else if (event.keyCode === 37) {
+            //            $scope.openPreviousInfo(images);
+            //        }
+            //    };
+            //    //window.emojiPicker = new EmojiPicker({
+            //    //    emojiable_selector: '[data-emojiable=true]',
+            //    //    assetsPath: 'lib/img/',
+            //    //    popupButtonClasses: 'fa fa-smile-o'
+            //    //});
+            //    //window.emojiPicker.discover();
+            //    //$(".emoji-button").text("");
+            //});
 
             $scope.changeMainFileFeed = function (file, currPub) {
                 if (file.pivot.video_id || file.pivot.image_id) {
@@ -764,17 +765,17 @@ angular.module('placePeopleApp')
                 });
             }
 
-            $scope.showAddCommentBlock = function (pub, index) {
-                var div = $(".emoji-wysiwyg-editor")[index];
-                setTimeout(function () {
-                    div.focus();
-                }, 0);
-                if (pub.showAddComment) {
-                    pub.showAddComment = false;
-                } else {
-                    pub.showAddComment = true;
-                }
-            }
+            //$scope.showAddCommentBlock = function (pub, index) {
+            //    var div = $(".emoji-wysiwyg-editor")[index];
+            //    setTimeout(function () {
+            //        div.focus();
+            //    }, 0);
+            //    if (pub.showAddComment) {
+            //        pub.showAddComment = false;
+            //    } else {
+            //        pub.showAddComment = true;
+            //    }
+            //}
 
             $scope.closePopup = function () {
                 ngDialog.closeAll();
@@ -954,6 +955,31 @@ angular.module('placePeopleApp')
                     storageService.setStorageItem('pubView', 'list');
                 }
             }
+
+            $scope.openModalPublication = function (pub, index) {
+                if (isMobile()) {
+
+                    $state.go('mobile-pub-view-test', {
+                        id: pub.id,
+                        prevState: {
+                            name: 'feed'
+                        }
+                    });
+
+                } else {
+                    console.info('PubID: ' + pub.id);
+                    ngDialog.open({
+                        templateUrl: '../app/common/views/pub-item-modal.html',
+                        name: 'modal-publication-group',
+                        className: 'view-publication ngdialog-theme-default',
+                        data: {
+                            pub: pub,
+                            pubList: $scope.publications,
+                            pubIndex: index
+                        }
+                    });
+                }
+            };
 
             function isMobile() {
                 var screenWidth = $window.innerWidth;

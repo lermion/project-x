@@ -99,15 +99,7 @@
         function init() {
             $scope.$emit('userPoint', 'user');
             var storage = storageService.getStorage();
-            //vm.loggedUser = storage.username;
 
-            $http.get('/static_page/get/name')
-                .success(function (response) {
-                    vm.staticPages = response;
-                })
-                .error(function (error) {
-                    console.log(error);
-                });
             vm.logOut = function () {
                 AuthService.userLogOut()
                     .then(function (res) {
