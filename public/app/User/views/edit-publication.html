@@ -1,75 +1,86 @@
 <h5>Редактировать публикацию</h5>
 <div class="publication">
-	<div class="publication-item">
-		<a class="user" ui-sref="user({username: $root.user.username})"  ng-click="closePopup()">
+    <div class="publication-item">
+        <a class="user" ui-sref="user({username: $root.user.username})" ng-click="closePopup()">
 			<span class="ava">
 				<img ng-src="{{currPub.user.avatar_path}}" alt="">				
 			</span>
-			<p class="user-name">{{currPub.user.first_name}} {{currPub.user.last_name}}</p>
-		</a>
-		<!-- <form action="">
-			<input type="checkbox" id="anon" ng-model="currPub.isAnonPub">
-			<label for="anon">
-				<span></span>
-				Анонимная публикация
-			</label>
-		</form> -->
-	</div>	
-	<div class="text-field">				
-		<div emoji-form emoji-message="emojiMessage">
-		<textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
-			<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
-				<i class="icon icon-emoji"></i>
-			</a>
-		</div>
-	</div>	
-		<div class="new-add" ng-scrollbar rebuild-on="loadPubFiles || rebuild:me" style="max-height: 250px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
-			<div class="new-img" ng-repeat="file in editedPubFilesArray" ng-init="rebuildScroll()">		  
-				<div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
-					<div class="close" ng-click="editedPubDeleteFile($index, file.id, file.pivot)">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>					
-					<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
-					<video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>
-					<div class="check" ng-class="{'js-isShow': file.isCover || !!file.pivot.is_cover}" ng-click="setMainPubPhoto($index)" ng-if="file.showIsCover || file.isCover || !!file.pivot.is_cover">
-						<div class="check-inner">
-							<p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="new-img" ng-repeat="file in files"  ng-click="showMoreImages(files)">		  
-				<div class="inner">
-					<div class="close" ng-click="deletePubFile(files, $index)">
-						<div class="close-inner">
-							<p>Удалить</p>
-						</div>
-					</div>
-					<img ngf-thumbnail="file || '/thumb.jpg'">
-					<video width="200px" controls ngf-src="file"></video>
-					<!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">	
-						<div class="check-inner">
-							<p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
-						</div>
-					</div> -->
-				</div>
-				<p class="img-name">{{file.name}}</p>
-			</div>
-		</div>
-	<div class="publication-footer" >
-		<div class="add-objects"> 
-			<input id="edited-pub-add-object" type="file" ngf-keep="true" style="display: none;" ngf-select ng-model="files" ngf-before-model-change="pubFiles($files)" ngf-multiple="true">			
-			<label for="edited-pub-add-object">
-				<span class="add"></span>
-				Добавить фото или видео *
-			</label>                                         
-		</div>
-		<div class="publication-footer-button">
-			<a href="" class="cansel" ng-click="closePopup();">Отменить</a>  
-			<a href="" class="publication-button" ng-click="saveEditedPub(currPub.id, emojiMessage, files);" ladda="updatePubLoader">Сохранить</a>    
-		</div>       
-	</div>
-	<p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео</p>
+
+            <p class="user-name">{{currPub.user.first_name}} {{currPub.user.last_name}}</p>
+        </a>
+        <!-- <form action="">
+            <input type="checkbox" id="anon" ng-model="currPub.isAnonPub">
+            <label for="anon">
+                <span></span>
+                Анонимная публикация
+            </label>
+        </form> -->
+    </div>
+    <div class="text-field">
+        <div emoji-form emoji-message="emojiMessage">
+            <textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+            <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+                <i class="icon icon-emoji"></i>
+            </a>
+        </div>
+    </div>
+    <div class="new-add" ng-scrollbar rebuild-on="loadPubFiles || rebuild:me"
+         style="max-height: 250px; overflow:hidden; position:relative;" ng-init="editedPubFiles(currPub)">
+        <div class="new-img" ng-repeat="file in editedPubFilesArray" ng-init="rebuildScroll()">
+            <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
+                <div class="close" ng-click="editedPubDeleteFile($index, file.id, file.pivot)">
+                    <div class="close-inner">
+                        <p>Удалить</p>
+                    </div>
+                </div>
+                <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+                <video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>
+                <div class="check" ng-class="{'js-isShow': file.isCover || !!file.pivot.is_cover}"
+                     ng-click="setNewMainPubPhoto($index)"
+                     ng-if="file.showIsCover || file.isCover || !!file.pivot.is_cover">
+                    <div class="check-inner">
+                        <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="new-img" ng-repeat="file in files" ng-click="showMoreImages(files)">
+            <div class="inner">
+                <div class="close" ng-click="deletePubFile(files, $index)">
+                    <div class="close-inner">
+                        <p>Удалить</p>
+                    </div>
+                </div>
+                <img ngf-thumbnail="file || '/thumb.jpg'">
+                <video width="200px" controls ngf-src="file"></video>
+                <!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">
+                    <div class="check-inner">
+                        <p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                    </div>
+                </div> -->
+            </div>
+            <p class="img-name">{{file.name}}</p>
+        </div>
+    </div>
+    <div class="publication-footer">
+        <div class="add-objects">
+            <input id="edited-pub-add-object" type="file"style="display: none;"
+                   ngf-keep="true"
+                   ngf-select
+                   ng-model="files"
+                   ngf-change="pubFiles($files)"
+                   ngf-multiple="true">
+            <label for="edited-pub-add-object">
+                <span class="add"></span>
+                Добавить фото или видео *
+            </label>
+        </div>
+        <div class="publication-footer-button">
+            <a href="" class="cansel" ng-click="closePopup();">Отменить</a>
+            <a href="" class="publication-button" ng-click="saveEditedPub(currPub.id, emojiMessage, files);"
+               ladda="updatePubLoader">Сохранить</a>
+        </div>
+    </div>
+    <p class="publication-text"><span>*</span> Для создания публикации обязательным является добавление фото или видео
+    </p>
 </div> 
