@@ -81,7 +81,6 @@
 						{
 							"data": "status",
 							"render" : function(data, type, row){
-								console.log(data);
 								if(url === "user/get_confirm?"){
 									return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a>";
 								}else{
