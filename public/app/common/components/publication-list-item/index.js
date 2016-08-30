@@ -26,13 +26,21 @@
                 isModal: '<',
 
                 // "плитка" или список
-                isGrid: '<'
+                isGrid: '<',
+
+                // "На модерации"
+                showModerate: "<"
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
-                                  socket, md5, $filter) {
+                                  socket, md5, $filter, $q, Upload) {
                 var ctrl = this;
-                var modal;
+                var modal, modalEditPub;
+
+                var pubEditDeletedPhotos = [];
+                var pubEditDeletedVideos = [];
+
+                var originalPubEdited = {};
 
                 amMoment.changeLocale('ru');
 
@@ -72,6 +80,8 @@
 
                 ctrl.shareData = [];
 
+                ctrl.emojiMessage = {};
+
                 var alertPubCommentModal;
 
                 // Lifecycle hooks
@@ -82,6 +92,26 @@
                     if (ctrl.pubList) {
                         ctrl.pubList = $filter('orderBy')(ctrl.pubList, '-created_at');
                     }
+
+                    ctrl.pubEdited = {
+                        files: [],
+                        newFiles: [],
+                        cover: [],
+                        coverId: null
+                    };
+
+
+
+                    ctrl.pub.images.forEach(function (img) {
+                        var filename = img.url.split('/')[(img.url.split('/')).length - 1];
+                        img.name = filename.substring(8, filename.length);
+                        ctrl.pubEdited.files.push(img);
+                    });
+                    ctrl.pub.videos.forEach(function (video) {
+                        ctrl.pubEdited.files.push(video);
+                    });
+
+                    originalPubEdited = angular.copy(ctrl.pubEdited);
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -485,6 +515,24 @@
                     });
                 };
 
+                ctrl.openModalEditPub = function (pubId) {
+                    modalEditPub = ngDialog.open({
+                        template: '../app/common/components/publication-list-item/edit-publication.html',
+                        className: 'user-publication user-publication-edit ngdialog-theme-default ',
+                        scope: $scope,
+                        name: 'modal-edit-publication',
+                        preCloseCallback: function () {
+                            ctrl.pubEdited = angular.copy(originalPubEdited);
+                        }
+                    });
+                };
+
+                $scope.$on('ngDialog.opened', function (e, $dialog) {
+                    if ($dialog.name === "modal-edit-publication") {
+                        $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(ctrl.pub.text);
+                    }
+                });
+
                 ctrl.alerts = {};
                 ctrl.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
                     var complainCategory = [];
@@ -553,6 +601,87 @@
                     return mes[1];
                 };
 
+                ctrl.editedPubDeleteFile = function (index, fileId, pivot) {
+                    ctrl.pubEdited.files.splice(index, 1);
+                    if (pivot.image_id) {
+                        pubEditDeletedPhotos.push(fileId);
+                    } else if (pivot.video_id) {
+                        pubEditDeletedVideos.push(fileId);
+                    }
+                    $scope.$broadcast('rebuild:me');
+                };
+
+                ctrl.setNewMainPubPhoto = function (index, isNewFile) {
+
+                    angular.forEach(ctrl.pubEdited.newFiles, function (item) {
+                        if (item.isCover) {
+                            item.isCover = false;
+                        }
+                    });
+                    angular.forEach(ctrl.pubEdited.files, function (item) {
+                        item.pivot.is_cover = false;
+                    });
+
+                    if (isNewFile) {
+                        ctrl.pubEdited.newFiles[index].isCover = true;
+                        ctrl.pubEdited.cover = ctrl.pubEdited.newFiles[index];
+                    } else {
+                        ctrl.pubEdited.files[index].pivot.is_cover = true;
+                        ctrl.pubEdited.coverId = ctrl.pubEdited.files[index].id;
+                    }
+                };
+
+                ctrl.addFilesToEditPub = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+                    var defer = $q.defer();
+                    var prom = [];
+                    newFiles.forEach(function (image) {
+                        prom.push(resizeImage2(image));
+                    });
+                    $q.all(prom).then(function (data) {
+                        angular.forEach(data, function (item) {
+                            ctrl.pubEdited.newFiles.push(item);
+                        });
+                        $scope.$broadcast('rebuild:me');
+                    });
+                };
+
+                ctrl.saveEditedPub = function (pubId) {
+                    var textToSave = ctrl.emojiMessage.messagetext;
+
+                    ctrl.updatePubLoader = true;
+
+                    var images = [];
+                    var videos = [];
+                    var isMain = 0;
+
+                    if (ctrl.pubEdited.newFiles) {
+                        ctrl.pubEdited.newFiles.forEach(function (file) {
+                            var type = file.type.split('/')[0];
+                            if (type === 'image') {
+                                images.push(file);
+                            } else if (type === 'video') {
+                                videos.push(file);
+                            }
+                        });
+                    }
+
+                    ctrl.pubEdited.inProfile = true;
+
+                    PublicationService.updatePublication(pubId, textToSave, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos, ctrl.pubEdited)
+                        .then(
+                            function (res) {
+                                if (res.status) {
+                                    modalEditPub.close();
+                                } else {
+                                    console.log('Error');
+                                }
+                                ctrl.updatePubLoader = false;
+                            },
+                            function (err) {
+                                console.log(err);
+                            });
+                };
+
                 function getAvatarPath() {
                     if (!ctrl.pub.is_anonym) {
                         return ctrl.pub.user.avatar_path;
@@ -580,6 +709,12 @@
                         function (error) {
                             console.log(error);
                         });
+                }
+
+                function resizeImage2(image) {
+                    return Upload.resize(image, 700, 395).then(function (resizedFile) {
+                        return resizedFile;
+                    });
                 }
 
 
