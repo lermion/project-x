@@ -2,7 +2,7 @@
 <div class="user-publication" ng-class="{blocked: !!ctrl.pub.is_block}" ng-if="!$ctrl.isGrid">
 
     <div class="user-publication-header">
-        <div class="user-function">
+        <div class="user-function" ng-class="{'pub-modal': $ctrl.isModal}">
             <a href class="user" ui-sref="user({username: $ctrl.pub.user.login})" ng-click="closeThisDialog()">
 				<span class="ava">
 					<img ng-src="{{$ctrl.avatar}}" alt="">
@@ -13,6 +13,9 @@
 							</span>
             </a>
 
+            <div class="topic" ng-show="!!$ctrl.pub.is_topic">Тема дня</div>
+            <div class="topic" ng-if="!$ctrl.pub.is_moderate && $ctrl.pub.user.id === $root.user.userId">На модерации
+            </div>
             <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
                  click-outside="$ctrl.showUserMenu = false"
                  outside-if-not="user-menu">
@@ -28,19 +31,22 @@
             </div>
         </div>
         <div class="user-function">
-            <a class="user" ng-if="$ctrl.pub.group.length > 0" ui-sref="group({groupName: $ctrl.pub.group[0].url_name})">
+            <a class="user" ng-if="$ctrl.pub.group.length > 0"
+               ui-sref="group({groupName: $ctrl.pub.group[0].url_name})">
                 <p class="user-name">{{$ctrl.pub.group[0].name}}</p>
             </a>
-            <a class="user" ng-if="$ctrl.pub.place.length > 0" ui-sref="place({placeName: $ctrl.pub.place[0].url_name})">
-                <p class="user-name" >{{$ctrl.pub.place[0].name}}</p>
+            <a class="user" ng-if="$ctrl.pub.place.length > 0"
+               ui-sref="place({placeName: $ctrl.pub.place[0].url_name})">
+                <p class="user-name">{{$ctrl.pub.place[0].name}}</p>
             </a>
         </div>
-         <a href ng-if="$ctrl.prevState" ng-click="$ctrl.goPrevState()" class="return">Назад</a>
+        <a href ng-if="$ctrl.prevState" ng-click="$ctrl.goPrevState()" class="return">Назад</a>
     </div>
 
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
-            <img ng-init="$ctrl.pub.cover ? $ctrl.mainImage = $ctrl.pub.cover : $ctrl.mainImage = $ctrl.pub.images[0].url" ng-src="{{$ctrl.mainImage}}">
+            <img ng-init="$ctrl.pub.cover ? $ctrl.mainImage = $ctrl.pub.cover : $ctrl.mainImage = $ctrl.pub.images[0].url"
+                 ng-src="{{$ctrl.mainImage}}">
             <video ng-if="mainVideo" width="150px" controls ngf-src="mainVideo"></video>
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
@@ -62,12 +68,13 @@
             </div>
 
         </div>
-        <p class="publication-text" ng-bind-html="$ctrl.pub.text | colonToSmiley"></p>
+        <p class="publication-text" ng-click="$ctrl.goToSearch(ctrl.pub.text)"
+           ng-bind-html="$ctrl.pub.text | colonToSmiley | linkCheck"></p>
     </div>
 
     <div class="likes">
         <div class="likes-item">
-            <a href ng-click="$ctrl.addPublicationLike($ctrl.pub, $ctrl.pub.user.id == loggedUserId)"
+            <a href ng-click="$ctrl.addPublicationLike($ctrl.pub, $ctrl.pub.user.id == $root.user.userId)"
                class="like" ng-class="$ctrl.pub.user_like ? 'active': ''">Тема</a>
 
             <p class="like-item" ng-if="$ctrl.pub.like_count > 0">
@@ -88,7 +95,8 @@
     </div>
 
     <div class="visible-comments" ng-hide="$ctrl.pub.comments.length === 0">
-        <div ng-repeat="comment in $ctrl.pub.comments | orderBy: 'comment.created_at'" class="user-comment" ng-init="comment.commentLength = 250;">
+        <div ng-repeat="comment in $ctrl.pub.comments | orderBy: 'comment.created_at'" class="user-comment"
+             ng-init="comment.commentLength = 250;">
             <div class="user-ava">
                 <a href class="ava" ui-sref="user({username: comment.user.login})" ng-click="$ctrl.closeModal()">
                     <img ng-src="{{comment.user.avatar_path}}" alt="">
@@ -102,15 +110,21 @@
                             {{comment.user.last_name}}</a>
 
                         <p class="time" am-time-ago="comment.created_at"></p>
-                        <a ng-hide="comment.user.id == $ctrl.myId" href="javascript:void(0);" ng-click="comment.user.id != $ctrl.myId && $ctrl.addCommentLike(comment)" class="like-counter">{{comment.like_count}}</a>
+                        <a ng-hide="comment.user.id == $ctrl.myId" href="javascript:void(0);"
+                           ng-click="comment.user.id != $ctrl.myId && $ctrl.addCommentLike(comment)"
+                           class="like-counter">{{comment.like_count}}</a>
                     </div>
                     <a href ng-click="$ctrl.openCommentComplainBlock(comment.id)" class="alert alert-text"
                        ng-if="!(comment.user.id == $ctrl.myId)">Пожаловаться</a>
                     <a href ng-click="$ctrl.deleteComment('viewPage', $ctrl.pub, comment, $index)" class="alert"
                        ng-if="comment.user.id == $ctrl.myId"></a>
                 </div>
-                <p class="comment-item" ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck">{{comment.text}}</p>
-                <a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="$ctrl.showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>
+                <p class="comment-item"
+                   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck">
+                    {{comment.text}}</p>
+                <a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);"
+                   ng-click="$ctrl.showFullComment(comment)"
+                   ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>
 
                 <div ng-if="comment.images[0]" class="comment-pic">
                     <a href ng-repeat="image in comment.images | limitTo: 3 as results"
@@ -197,7 +211,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </form>

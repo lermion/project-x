@@ -39,6 +39,29 @@
 </head>
 
 <body class="nav-md">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Проверка присутствия модератора</h4>
+        </div>
+        <div class="modal-body">
+          <p>Вы на месте?</p>
+        </div>
+        <div class="modal-footer">
+        	<button type="button" class="btn btn-success">Да</button>
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
 <div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
@@ -136,6 +159,8 @@
 
             <!-- top tiles --><!-- /top tiles --><br />
                 @yield('content')
+
+                <button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button>
     </div>
         <!-- /page content -->
     </div>
@@ -183,5 +208,12 @@
 <!-- pace -->
 <script src="/js/pace/pace.min.js"></script>
 
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+});
+</script>
 </body>
 </html>

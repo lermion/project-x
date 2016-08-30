@@ -2625,9 +2625,12 @@ pub-list-item .publication-footer-button {
 }
 .user-publication-header .user-function {
 	display: flex;
-	width: 52.5%;
+	width: 100%;
 	justify-content: space-between;
 	align-items: center;
+}
+.user-publication-header .user-function.pub-modal {
+	width: 52.5%;
 }
 .user-publication-header .return {
 	cursor: pointer;
@@ -4201,6 +4204,7 @@ body.ngdialog-open {
 #user-page.list-style .my-profile {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
 	background-color: #fff;
+	margin-bottom: 30px;
 }
 #user-page.list-style .my-photos {
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
