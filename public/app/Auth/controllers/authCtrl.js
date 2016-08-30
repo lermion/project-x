@@ -12,22 +12,14 @@ angular.module('placePeopleApp')
 
 			function init() {
 
-				setUserCountry();
+				if( $state.is('reg') ) {
+					setUserCountry();
+					setCountryCode();
+				}
 
 			}
 
 
-			/**
-			 * Set user country for registration select element
-			 */
-			function setUserCountry() {
-				$scope.countries.forEach(function (elem) {
-					if (elem.name === $rootScope.countryName) {
-						$scope.newUserCountryId = +elem.id;
-						console.log($scope.newUserCountryId);
-					}
-				});
-			}
 
 			$scope.$emit('authPoint', 'auth');
 
@@ -382,5 +374,27 @@ angular.module('placePeopleApp')
 						console.log(err);
 					});
 			};
+
+			/**
+			 * Set user country for registration select element
+			 */
+			function setUserCountry() {
+				$scope.countries.forEach(function (elem) {
+					if (elem.name === $rootScope.countryName) {
+						$scope.newUserCountryId = +elem.id;
+					}
+				});
+			}
+
+			function setCountryCode() {
+				console.log($scope.newUserCountryId);
+				var countryId = parseInt($scope.newUserCountryId);
+				$scope.countries.forEach(function (country) {
+					if (country.id === countryId) {
+						$scope.phoneCode = country.code;
+					}
+				});
+			}
+
 
 		}]);

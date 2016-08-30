@@ -516,6 +516,7 @@ angular.module('placePeopleApp')
             $scope.pubNew = {
                 files: [],
                 cover: null,
+                cover_id: null,
                 inProfile: true
             };
 

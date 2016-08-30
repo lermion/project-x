@@ -37,6 +37,7 @@
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
         vm.myId = myId;
+        vm.loggedUser = storage.username;
 
         vm.isMobile = false;
 
@@ -1501,14 +1502,14 @@
                     });
                 }
             } else {
-                if (data.login === $scope.loggedUser) {
+                if (data.login === vm.loggedUser) {
                     data.isRead = true;
                 } else {
                     $scope.messages.forEach(function (value) {
                         value.isRead = false;
                     });
-                    $scope.messages.push(data);
                 }
+                $scope.messages.push(data);
                 if (data.images.length > 0) {
                     vm.group.count_chat_files += data.images.length;
                 }
