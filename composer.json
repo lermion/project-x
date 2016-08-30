@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "php-ffmpeg/php-ffmpeg": "^0.6.1",
         "euclid1990/php-sphinx-search": "^1.0",
-		"nesbot/carbon": "~1.21"
+		"nesbot/carbon": "~1.21",
+		"intervention/image": "2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
