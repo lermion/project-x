@@ -295,14 +295,14 @@ angular.module('placePeopleApp')
                     window.emojiPicker.discover();
                     $(".emoji-button").text("");
                 } else if ($dialog.name === "edit-publication") {
-                    window.emojiPicker = new EmojiPicker({
-                        emojiable_selector: '.edit-publication-pub-text',
-                        assetsPath: 'lib/img/',
-                        popupButtonClasses: 'fa fa-smile-o'
-                    });
-                    window.emojiPicker.discover();
-                    $(".emoji-button").text("");
-                    $(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text.split(' messagetext: ')[0];
+                    //window.emojiPicker = new EmojiPicker({
+                    //    emojiable_selector: '.edit-publication-pub-text',
+                    //    assetsPath: 'lib/img/',
+                    //    popupButtonClasses: 'fa fa-smile-o'
+                    //});
+                    //window.emojiPicker.discover();
+                    //$(".emoji-button").text("");
+                    //$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text.split(' messagetext: ')[0];
                 } else if ($dialog.name === "create-publication") {
                     window.emojiPicker = new EmojiPicker({
                         emojiable_selector: '.create-publication-pub-text',
@@ -587,7 +587,7 @@ angular.module('placePeopleApp')
             };
 
             $scope.publishNewPub = function (pubText) {
-                var textToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
+                var textToSave = pubText.messagetext;
                 if ($scope.pubNew.files === undefined || $scope.pubNew.files.length == 0) {
                     $scope.publishNewPubErr = true;
                     return;

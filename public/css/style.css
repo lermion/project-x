@@ -3627,7 +3627,8 @@ pub-list-item .publication-footer-button {
 .content-item .user-publication-header .user-menu {
 	margin-left: 85px;
 }
-.content-item .user-publication-header  .menu-item {
+.content-item .user-publication-header  .menu-item,
+.my_profilll .user-publication-header  .menu-item {
 	right: 0;
 	left: auto;
 }

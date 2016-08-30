@@ -14,14 +14,14 @@
             </a>
 
             <div class="topic" ng-show="!!$ctrl.pub.is_topic">Тема дня</div>
-            <div class="topic" ng-if="!$ctrl.pub.is_moderate && $ctrl.pub.user.id === $root.user.userId">На модерации
+            <div class="topic" ng-if="!$ctrl.pub.is_moderate && $ctrl.pub.user.id === $root.user.userId && $ctrl.showModerate">На модерации
             </div>
             <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
                  click-outside="$ctrl.showUserMenu = false"
                  outside-if-not="user-menu">
                 <div class="menu-item" ng-if="$ctrl.showUserMenu">
                     <div class="inner">
-                        <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.editPub($ctrl.pub)">Редактировать</a>
+                        <a href ng-if="$ctrl.pub.user.id === $root.user.userId" ng-click="$ctrl.openModalEditPub()">Редактировать</a>
                         <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
                         <a href ng-click="$ctrl.getPubLink($ctrl.pub.id)">Получить ссылку</a>
                         <a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
