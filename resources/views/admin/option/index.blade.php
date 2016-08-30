@@ -62,7 +62,7 @@
                     Изображение на главной: 
                 </div>
                 <div class="col-md-3 col-sm-3">
-                    <img src="http://1.bp.blogspot.com/-FlpE6jqIzQg/UmAq6fFgejI/AAAAAAAADko/ulj3pT0dIlg/s1600/best-nature-desktop-hd-wallpaper.jpg" class="img-responsive" alt="">
+                    <img src="/images/bc.png" class="img-responsive" alt="/images/bc.png">
                 </div>
                 <div class="col-md-3">
                     <input type="file">
