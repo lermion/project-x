@@ -69,17 +69,19 @@
 						{"data": "created_at"},
 						{"data": "user_quote"},
 						{
-							"data": "action",
+							"data": "status",
 							"render" : function(data, type, row){
-								return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button>";
+								return data !== "Подтвержден" ? "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button>" : "";
 							}
 						}
 					]
 				});
 				$('#datatable tbody').on('click', 'button#confirmBnt', function(){
 					var data = table.api().row($(this).parents('tr')).data();
-					$.get("admin/confirm/" + data.id, function(response){
-						console.log(response);
+					$.get("user/confirm/" + data.id, function(response){
+						if(response.status){
+							getUsers(null);
+						}
 					});
 				});
 			}
