@@ -122,7 +122,7 @@
 						<!-- unit grid-->
 						<div class="content-item" ng-if="photosGrid">
 							<div class="my-photos">
-								<div class="photo thumbnail" ng-repeat="pub in userPublications" style="{{pubSize}}">
+								<div class="photo thumbnail" ng-class="{blocked: !!pub.is_block}" ng-repeat="pub in userPublications" style="{{pubSize}}">
 									<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
 										<img ng-src="{{pub.cover || pub.images[0].url}}" alt="">
 									</a>
@@ -136,7 +136,7 @@
 								 style="{{resizeHeight}}"
 								 ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
 								<div role="document">
-									<div class="user-publication">
+									<div class="user-publication" ng-class="{blocked: !!singlePublication.is_block}">
 										<div class="user-publication-content">
 
 											<div class="publication-ava"

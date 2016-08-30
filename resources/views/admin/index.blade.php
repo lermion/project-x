@@ -96,15 +96,6 @@
 			lastWeek = formatDate(lastWeek);
 			var now = new Date();
 			now = formatDate(now);
-			var data1 = [
-				[gd(2012, 1, 1), 17],
-				[gd(2012, 1, 2), 74],
-				[gd(2012, 1, 3), 6],
-				[gd(2012, 1, 4), 39],
-				[gd(2012, 1, 5), 20],
-				[gd(2012, 1, 6), 85],
-				[gd(2012, 1, 7), 7]
-			];
 			var url = "admin/statistic/" + lastWeek + "/" + now;
 			$.get(url, function(response){
 				var data2 = [];
@@ -113,7 +104,6 @@
 				});
 				updateGraphic(data2);
 			});
-			updateGraphic(data1);
 			$("input#reservation").daterangepicker({}, function(start, end, label){
 				var url = "admin/statistic/" + start.format('YYYY-MM-DD') + "/" + end.format('YYYY-MM-DD');
 				$.get(url, function(response){

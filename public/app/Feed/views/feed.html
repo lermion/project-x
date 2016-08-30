@@ -17,7 +17,7 @@
 
                 <div class="content-item" ng-if="photosGrid">
                     <div class="my-photos feed">
-                        <div class="photo thumbnail" ng-repeat="pub in publications | orderBy: '-created_at'" style="{{pubSize}}">
+                        <div class="photo thumbnail "ng-class="{blocked: !!pub.is_block}" ng-repeat="pub in publications | orderBy: '-created_at'" style="{{pubSize}}">
                             <a href ng-click="showPublication(pub, $index)">
                                 <img ng-src="{{pub.cover || pub.images[0].url}}" alt="">
                             </a>
@@ -27,7 +27,7 @@
 
                 <div class="content-item" ng-if="!photosGrid" ng-init="$last ? ngRepeatHasRendered() : null"
                      ng-repeat="pub in publications | orderBy: ['-is_topic', '-created_at']">
-                    <div class="user-publication">
+                    <div class="user-publication" ng-class="{blocked: !!pub.is_block}">
                         <div class="user-publication-header">
                             <div class="user-function">
                                 <a class="user" ui-sref="user({username: pub.user.login})">
