@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class OptionController extends Controller
 {
@@ -63,10 +64,25 @@ class OptionController extends Controller
 //            ];
 //            return response()->json($result);
 //        }
-        try {$request->hasFile('picture');
+        try
+        {
+            $this->validate($request, [
+                'picture' => 'required|image|mimes:jpeg|max:1000'
+            ]);
+            $request->hasFile('picture');
             $picture = $request->file('picture');
             $cover = getimagesize($picture);
-            dd($cover[0]);
+            if($cover[0] > 1920){
+                $x = $cover[0];
+            }
+            if ($cover[1] >= 1080){
+                $y = $cover[1];
+            }
+            $data = $x;
+
+            //dd($cover);
+
+
             $path = '/images/';
             $fullPath = public_path() . $path;
             Storage::put('bc.png', file_get_contents($picture->getRealPath()));
@@ -82,19 +98,7 @@ class OptionController extends Controller
             ];
             return response()->json($result);
         }
-//        if ($request->hasFile('picture')) {
-//            $picture = $request->file('picture');
-//            $cover = getimagesize($picture);
-//            dd($cover);
-//            $path = '/images/';
-//            $fullPath = public_path() . $path;
-//            Storage::put('bc.png', file_get_contents($picture->getRealPath()));
-//            $picture->move($fullPath, 'bc.png');
-//            Storage::delete('bc.png');
-//            $result = 'true';
-//        }
         return response()->json($result);
-
     }
 
 
