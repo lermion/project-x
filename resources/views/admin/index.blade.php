@@ -26,70 +26,102 @@
 				keys: true
 			});
 			$('#datatable-responsive').DataTable();
-			function gd(year, month, day) {
+			function gd(year, month, day){
 				return new Date(year, month - 1, day).getTime();
 			}
+			function updateGraphic(data){
+				$("#canvas_dahs").length && $.plot($("#canvas_dahs"), [data], {
+					series: {
+						lines: {
+							show: false,
+							fill: true
+						},
+						splines: {
+							show: true,
+							tension: 0.4,
+							lineWidth: 1,
+							fill: 0.4
+						},
+						points: {
+							radius: 0,
+							show: true
+						},
+						shadowSize: 2
+					},
+					grid: {
+						verticalLines: true,
+						hoverable: true,
+						clickable: true,
+						tickColor: "#d5d5d5",
+						borderWidth: 1,
+						color: '#fff'
+					},
+					colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
+					xaxis: {
+						tickColor: "rgba(51, 51, 51, 0.06)",
+						mode: "time",
+						tickSize: [1, "day"],
+						//tickLength: 10,
+						axisLabel: "Date",
+						axisLabelUseCanvas: true,
+						axisLabelFontSizePixels: 12,
+						axisLabelFontFamily: 'Verdana, Arial',
+						axisLabelPadding: 10
+						//mode: "time", timeformat: "%m/%d/%y", minTickSize: [1, "day"]
+					},
+					yaxis: {
+						ticks: 8,
+						tickColor: "rgba(51, 51, 51, 0.06)",
+					},
+					tooltip: false
+				});
+			}
+			function getLastWeek(){
+				var today = new Date();
+				var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+				return lastWeek;
+			}
+			function formatDate(date){
+				var d = new Date(date),
+					month = '' + (d.getMonth() + 1),
+					day = '' + d.getDate(),
+					year = d.getFullYear();
+
+				if (month.length < 2) month = '0' + month;
+				if (day.length < 2) day = '0' + day;
+
+				return [year, month, day].join('-');
+			}
+			var lastWeek = getLastWeek();
+			lastWeek = formatDate(lastWeek);
+			var now = new Date();
+			now = formatDate(now);
+			var data1 = [
+				[gd(2012, 1, 1), 17],
+				[gd(2012, 1, 2), 74],
+				[gd(2012, 1, 3), 6],
+				[gd(2012, 1, 4), 39],
+				[gd(2012, 1, 5), 20],
+				[gd(2012, 1, 6), 85],
+				[gd(2012, 1, 7), 7]
+			];
+			var url = "admin/statistic/" + lastWeek + "/" + now;
+			$.get(url, function(response){
+				var data2 = [];
+				Object.keys(response).forEach(function(value){
+					data2.push([gd(value.split("-")[0], value.split("-")[1], value.split("-")[2]), response[value].scalar]);
+				});
+				updateGraphic(data2);
+			});
+			updateGraphic(data1);
 			$("input#reservation").daterangepicker({}, function(start, end, label){
 				var url = "admin/statistic/" + start.format('YYYY-MM-DD') + "/" + end.format('YYYY-MM-DD');
 				$.get(url, function(response){
-					var data1 = [];
+					var data2 = [];
 					Object.keys(response).forEach(function(value){
-						data1.push([gd(value.split("-")[0], value.split("-")[1], value.split("-")[2]), response[value].scalar]);
+						data2.push([gd(value.split("-")[0], value.split("-")[1], value.split("-")[2]), response[value].scalar]);
 					});
-					// var data1 = [
-					// 	[gd(2012, 1, 1), 17],
-					// 	[gd(2012, 1, 2), 74],
-					// 	[gd(2012, 1, 3), 6],
-					// 	[gd(2012, 1, 4), 39],
-					// 	[gd(2012, 1, 5), 20],
-					// 	[gd(2012, 1, 6), 85],
-					// 	[gd(2012, 1, 7), 7]
-					// ];
-					$("#canvas_dahs").length && $.plot($("#canvas_dahs"), [data1], {
-						series: {
-							lines: {
-								show: false,
-								fill: true
-							},
-							splines: {
-								show: true,
-								tension: 0.4,
-								lineWidth: 1,
-								fill: 0.4
-							},
-							points: {
-								radius: 0,
-								show: true
-							},
-							shadowSize: 2
-						},
-						grid: {
-							verticalLines: true,
-							hoverable: true,
-							clickable: true,
-							tickColor: "#d5d5d5",
-							borderWidth: 1,
-							color: '#fff'
-						},
-						colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
-						xaxis: {
-							tickColor: "rgba(51, 51, 51, 0.06)",
-							mode: "time",
-							tickSize: [1, "day"],
-							//tickLength: 10,
-							axisLabel: "Date",
-							axisLabelUseCanvas: true,
-							axisLabelFontSizePixels: 12,
-							axisLabelFontFamily: 'Verdana, Arial',
-							axisLabelPadding: 10
-							//mode: "time", timeformat: "%m/%d/%y", minTickSize: [1, "day"]
-						},
-						yaxis: {
-							ticks: 8,
-							tickColor: "rgba(51, 51, 51, 0.06)",
-						},
-						tooltip: false
-					});
+					updateGraphic(data2);
 				});
 			});
 		});
