@@ -4391,7 +4391,6 @@ body.ngdialog-open {
 }
 .group-chat .my-messege .user-messege  .messege-time {
 	padding-right: 20px;
-	/*background-image: url(/images/done.png);*/
 	background-position: right center;
 	background-repeat: no-repeat;
 }
@@ -4399,6 +4398,16 @@ body.ngdialog-open {
 	background-image: url(/images/done.png);
 }
 .group-chat .my-messege .user-messege .messege-time.no-done {
+	background-image: url(/images/no-done.png);
+}
+.group-chat .users-messege  .messege-time {
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.group-chat .users-messege .messege-time.done {
+	background-image: url(/images/done.png);
+}
+.group-chat .users-messege .user-messege .messege-time.no-done {
 	background-image: url(/images/no-done.png);
 }
 .group-chat .user-messege .pictures {
