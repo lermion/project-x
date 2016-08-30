@@ -23,6 +23,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['middleware' => 'moderator'], function () {
             Route::get('/', 'Admin\HomeController@index');
             Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
+            Route::get('count_new_users', 'Admin\HomeController@count_new_users');
             Route::get('logout', 'Admin\AuthController@logout');
             Route::group(['prefix' => 'user'], function () {
                 Route::get('/', 'Admin\UserController@index');
@@ -344,7 +345,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/7/publication\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/count_new_users\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='text' name='area_id' ><br>
