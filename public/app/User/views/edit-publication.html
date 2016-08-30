@@ -36,28 +36,31 @@
                 <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
                 <video width="150px" controls ngf-src="file.url" ng-if="file.pivot.video_id"></video>
                 <div class="check" ng-class="{'js-isShow': file.isCover || !!file.pivot.is_cover}"
-                     ng-click="setNewMainPubPhoto($index)"
+                     ng-click="setNewMainPubPhoto($index, false)"
                      ng-if="file.showIsCover || file.isCover || !!file.pivot.is_cover">
                     <div class="check-inner">
                         <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
                     </div>
                 </div>
             </div>
+            <p class="img-name">{{file.name}}</p>
         </div>
-        <div class="new-img" ng-repeat="file in files" ng-click="showMoreImages(files)">
-            <div class="inner">
+        <div class="new-img" ng-repeat="file in currPub.files">
+            <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
                 <div class="close" ng-click="deletePubFile(files, $index)">
                     <div class="close-inner">
                         <p>Удалить</p>
                     </div>
                 </div>
-                <img ngf-thumbnail="file || '/thumb.jpg'">
+                <img ngf-src="file || '/thumb.jpg'">
                 <video width="200px" controls ngf-src="file"></video>
-                <!-- <div class="check" ng-click="setMainPubPhoto(file)" style="{{mainPubPhoto === file.file.name ? 'display:block;' : ''}}">
+                <div class="check" ng-class="{'js-isShow': file.isCover}"
+                     ng-click="setNewMainPubPhoto($index, true)"
+                     ng-if="file.showIsCover || file.isCover">
                     <div class="check-inner">
-                        <p>{{mainPubPhoto === file.file.name ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                        <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
                     </div>
-                </div> -->
+                </div>
             </div>
             <p class="img-name">{{file.name}}</p>
         </div>
@@ -67,8 +70,8 @@
             <input id="edited-pub-add-object" type="file"style="display: none;"
                    ngf-keep="true"
                    ngf-select
-                   ng-model="files"
-                   ngf-change="pubFiles($files)"
+                   ng-model="files1"
+                   ngf-change="addFilesToEditPub($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                    ngf-multiple="true">
             <label for="edited-pub-add-object">
                 <span class="add"></span>

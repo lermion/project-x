@@ -84,6 +84,7 @@ angular.module('placePeopleApp')
             $scope.closeSharePopup = function () {
                 sharePublication.close();
             };
+
             $scope.sendSharePublication = function (pubId) {
                 var isMembers = false;
                 var isAnotherPlace = false;
@@ -489,6 +490,20 @@ angular.module('placePeopleApp')
                 });
             };
 
+            $scope.addFilesToEditPub = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+                var defer = $q.defer();
+                var prom = [];
+                newFiles.forEach(function (image) {
+                    prom.push(resizeImage2(image));
+                });
+                $q.all(prom).then(function (data) {
+                    angular.forEach(data, function (item) {
+                        $scope.currPub.files.push(item);
+                    });
+                    $scope.$broadcast('rebuild:me');
+                });
+            };
+
             $scope.fileTypeCheck = function (filetype) {
                 var type = filetype.split('/')[0];
                 if (type === 'image') {
@@ -546,16 +561,24 @@ angular.module('placePeopleApp')
                 $scope.pubNew.cover = $scope.pubNew.files[index];
             };
 
-            $scope.setNewMainPubPhoto = function (index) {
+            $scope.setNewMainPubPhoto = function (index, isNewFile) {
+
+                angular.forEach($scope.currPub.files, function (item) {
+                    if (item.isCover) {
+                        item.isCover = false;
+                    }
+                });
                 angular.forEach($scope.editedPubFilesArray, function (item) {
                     item.pivot.is_cover = false;
                 });
 
-                // TODO: refact!
-                $scope.pubNew.files[index].isCover = true;
-                $scope.pubNew.files[index].is_cover = true;
-
-                $scope.pubNew.cover = $scope.pubNew.files[index];
+                if (isNewFile) {
+                    $scope.currPub.files[index].isCover = true;
+                    $scope.currPub.cover = $scope.currPub.files[index];
+                } else {
+                    $scope.editedPubFilesArray[index].pivot.is_cover = true;
+                    $scope.currPub.coverId = $scope.editedPubFilesArray[index].id;
+                }
             };
 
             $scope.deletePubFile = function (index) {
@@ -826,6 +849,7 @@ angular.module('placePeopleApp')
 
             $scope.editPub = function (pub) {
                 $scope.currPub = pub;
+                $scope.currPub.files = [];
                 editPubPopup = ngDialog.open({
                     template: '../app/User/views/edit-publication.html',
                     className: 'user-publication user-publication-edit ngdialog-theme-default',
@@ -870,17 +894,15 @@ angular.module('placePeopleApp')
 
             $scope.saveEditedPub = function (pubId, pubText, files) {
                 var textToSave = $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + pubText.messagetext;
+
                 $scope.updatePubLoader = true;
+
                 var images = [];
                 var videos = [];
-                var isMain;
-                if ($state.current.name === 'feed') {
-                    isMain = 1;
-                } else {
-                    isMain = 0;
-                }
-                if (files) {
-                    files.forEach(function (file) {
+                var isMain = 0;
+
+                if ($scope.currPub.files) {
+                    $scope.currPub.files.forEach(function (file) {
                         var type = file.type.split('/')[0];
                         if (type === 'image') {
                             images.push(file);
@@ -889,7 +911,10 @@ angular.module('placePeopleApp')
                         }
                     });
                 }
-                PublicationService.updatePublication(pubId, textToSave, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos)
+
+                $scope.currPub.inProfile = true;
+
+                PublicationService.updatePublication(pubId, textToSave, 0, isMain, images, videos, pubEditDeletedVideos, pubEditDeletedPhotos, $scope.currPub)
                     .then(
                         function (res) {
                             if (res.status) {
@@ -1153,17 +1178,6 @@ angular.module('placePeopleApp')
                     });
             }
 
-            function getBlobFromUrl(item, callback) {
-                var url = item.url;
-                return $http({
-                    url: url,
-                    method: "GET",
-                    responseType: "blob"
-                }).success(function (value) {
-                    return callback(value);
-                });
-            }
-
             function getAllCommentsPublication(flag, pub, showAllComments) {
                 PublicationService.getAllCommentsPublication(pub.id).then(function (response) {
                         if (showAllComments === true) {
@@ -1224,6 +1238,12 @@ angular.module('placePeopleApp')
                     });
                     resizedFile.is_cover = false;
                     $scope.pubNew.files.push(resizedFile);
+                });
+            }
+
+            function resizeImage2(image) {
+                return Upload.resize(image, 700, 395).then(function (resizedFile) {
+                    return resizedFile;
                 });
             }
 
