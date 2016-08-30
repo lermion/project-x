@@ -1,5 +1,5 @@
 <div class="user-publication-bg" ng-if="$ctrl.isModal" ng-click="$ctrl.openPreviousInfo($ctrl.pub.images)"></div>
-<div class="user-publication" ng-if="!$ctrl.isGrid">
+<div class="user-publication" ng-class="{blocked: !!ctrl.pub.is_block}" ng-if="!$ctrl.isGrid">
 
     <div class="user-publication-header">
         <div class="user-function">
