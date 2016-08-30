@@ -103,7 +103,7 @@ class CountryController extends Controller
     public function createDistrict(Request $request)
     {
         if (Area::where(['name'=>$request->input('name'),'region_id'=>$request->input('region_id')])->first()){
-            return redirect('/admin/base/district')->with('message', 'Ошибка!!! Такая область уже есть в базе');
+            return redirect('/admin/base/district')->with('message', 'Ошибка!!! Такой район уже есть в базе');
         }
         $data = $request->all();
         Area::create($data);
