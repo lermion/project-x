@@ -45,7 +45,7 @@
                             <a href="/admin/complaints/delete_comment/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Удалить комментарий</button></a>
                         @else
                             <a href="/admin/complaints/delete_complaint_publication/{{$complaint->id}}"><button class="btn btn-success btn-xs">Отменить жалобу</button></a>
-                            <a href="#"><button class="btn btn-danger btn-xs">Блокировать контент</button></a>
+                            <a href="/admin/complaints/delete_publication/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Блокировать контент</button></a>
                         @endif
                     </td>
                   </tr>
