@@ -27,14 +27,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'user'], function () {
                 Route::get('/', 'Admin\UserController@index');
                 Route::get('get_users/', 'Admin\UserController@getUsers');
-                Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
                 Route::get('confirm/{id}', 'Admin\UserController@confirm');
                 Route::get('review/{id}', 'Admin\UserController@review');
-                Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
+//                Route::get('suspicious/{id}', 'Admin\UserController@suspicious');
 //                Route::get('delete/{id}/{month}', 'Admin\UserController@destroy');
                 Route::get('show/{id}', 'Admin\UserController@show');
                 Route::get('get_confirm', 'Admin\UserController@getConfirm');
-                Route::get('get_all', 'Admin\UserController@getAll');
+//                Route::get('get_all', 'Admin\UserController@getAll');
 //                Route::post('get_review', 'Admin\UserController@getReview');
 //                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
             });
