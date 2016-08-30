@@ -72,7 +72,7 @@
 						{
 							"data": "status",
 							"render" : function(data, type, row){
-								return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a>";
+								return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a><button id='onANote' type='button' class='btn btn-primary btn-xs'>На заметку</button>";
 							}
 						}
 					]
@@ -89,6 +89,14 @@
 					var data = table.api().row($(this).parents('tr')).data();
 					$('#deleteModal').find("input").attr("value", data.id);
 					deleteModal.open();
+				});
+				$('#datatable tbody').on('click', 'button#onANote', function(){
+					var data = table.api().row($(this).parents('tr')).data();
+					$.get("user/review/" + data.id, function(response){
+						if(response.status){
+							getUsers(null);
+						}
+					});
 				});
 			}
 			getUsers(null);
