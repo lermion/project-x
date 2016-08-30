@@ -3688,7 +3688,7 @@ span.users-today-time-time.early {
     width: 100%;
 }
 .chat-publication-wrap .publication-images .images-item {
-    width: 97px;
+    width: 102px;
     overflow: hidden;
     height: 85px;
     margin: 0 3.5px 3px 0;
@@ -3708,7 +3708,11 @@ span.users-today-time-time.early {
     background-color: #495b79;
     color: #fff;
 }
-
+.chat-publication-wrap .publication-images .images-item.more:hover {
+    background-color: #fff;
+    color: #495b79;
+    transition: all .1s ease-in-out .1s;
+}
 .chat-right-top-person.my-msg {
     background-color: rgb(215, 226, 250);
 }
@@ -4030,6 +4034,9 @@ span.users-today-time-time.early {
 }
 /*@media screen and (min-width:769px) and (max-width:1024px)*/
 @media (max-width: 1024px) {
+    .chat-publication-wrap .publication-images .images-item {
+        width: 19.1%;
+    }
     .chat-main-container {
         width: 100%;
     }
@@ -4115,7 +4122,7 @@ span.users-today-time-time.early {
 }
 @media (max-width: 720px) {
     .chat-publication-wrap .publication-images .images-item {
-        width: 14%;
+        width: 13.8%;
         margin: 0 1.5px 1.5px 0;
         height: 60px;
     }
@@ -4187,6 +4194,9 @@ span.users-today-time-time.early {
     }
 }
 @media (max-width: 768px) {
+    .chat-publication-wrap .publication-images .images-item {
+        width: 19.1%;
+    }
     .chat-mobile-chat-inner {
         width: 100%;
     }
