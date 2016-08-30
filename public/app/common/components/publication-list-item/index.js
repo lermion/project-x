@@ -72,6 +72,8 @@
 
                 ctrl.shareData = [];
 
+                var alertPubCommentModal;
+
                 // Lifecycle hooks
                 ctrl.$onInit = function (args) {
                     ctrl.pub = ctrl.pubData;
@@ -83,15 +85,15 @@
                 };
 
                 ctrl.$onChanges = function (args) {
-                    console.log('OnChanges');
+                    //console.log('OnChanges');
                 };
 
                 ctrl.$onDestroy = function (args) {
-                    console.log('OnDestroy');
+                    //console.log('OnDestroy');
                 };
 
                 ctrl.$postLink = function (args) {
-                    console.log('OnLink');
+                    //console.log('OnLink');
                 };
 
 
@@ -175,13 +177,17 @@
                 };
 
                 ctrl.openCommentComplainBlock = function (commentId) {
-                    ngDialog.open({
-                        template: '../app/Places/views/alert-publication.html',
+                    alertPubCommentModal = ngDialog.open({
+                        template: '../app/common/components/publication-list-item/alert-publication.html',
                         className: 'alert-publication ngdialog-theme-default',
                         scope: $scope,
                         data: {
                             id: commentId,
                             flag: 'comment'
+                        },
+                        preCloseCallback: function () {
+                            ctrl.complainIsSend = false;
+                            ctrl.alerts = {};
                         }
                     });
                 };
@@ -523,6 +529,28 @@
                                     console.log(err);
                                 });
                     }
+                };
+
+                ctrl.goToSearch = function (searchParam) {
+                    if (searchParam.indexOf("#") === 0) {
+                        var search = {
+                            str: searchParam,
+                            byUsers: true,
+                            byPublications: true,
+                            byPlaces: true,
+                            byGroups: true
+                        };
+                        $state.go('search', {
+                            'searchObj': angular.copy(search),
+                            'restoreSearchResult': false,
+                            'setActiveTab': true
+                        });
+                    }
+                };
+
+                ctrl.splitText = function (text) {
+                    var mes = text.split(' messagetext: ');
+                    return mes[1];
                 };
 
                 function getAvatarPath() {

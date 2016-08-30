@@ -1134,6 +1134,39 @@ angular.module('placePeopleApp')
                     });
             };
 
+            $scope.openModalPublication = function (pub, index) {
+                if (isMobile()) {
+
+                    $state.go('mobile-pub-view-test', {
+                        id: pub.id,
+                        prevState: {
+                            name: 'user',
+                            params: {
+                                username: $stateParams.username
+                            }
+                        }
+                    });
+
+                } else {
+                    console.info('PubID: ' + pub.id);
+                    ngDialog.open({
+                        templateUrl: '../app/common/views/pub-item-modal.html',
+                        name: 'modal-publication-group',
+                        className: 'view-publication ngdialog-theme-default',
+                        data: {
+                            pub: pub,
+                            pubList: $scope.userPublications,
+                            pubIndex: index
+                        }
+                    });
+                }
+            };
+
+            function isMobile() {
+                var screenWidth = $window.innerWidth;
+                return screenWidth < 768;
+            }
+
             function checkPublicationsViewMode() {
                 if (!storage.pubView) {
                     storageService.setStorageItem('pubView', 'greed');
