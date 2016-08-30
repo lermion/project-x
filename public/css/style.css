@@ -84,7 +84,6 @@ body.main-page {
  }
 .page-404-inner {
 	width: 50%;
-	height: 20vh;
 	display: flex;
 	font-family:  "SFUIDisplayMedium";
 	color: #61687e;
@@ -93,7 +92,7 @@ body.main-page {
 	width: 40%;
 	box-sizing: border-box;
 	color: #61687e;
-    font-size: 125px;
+    font-size: 120px;
     text-align: center;
 }
 .page404-title {
@@ -151,12 +150,37 @@ body.main-page {
     box-sizing: border-box;
     z-index: 9999999;
  }
-
 @media (max-width: 900px) {
-            .main-up-button {
-            	display: none;
-            }
-        }
+    .main-up-button {
+    	display: none;
+    }
+    .page404-logo {
+	    font-size: 90px;
+	}
+	.page404-title p {
+	    font-size: 28px;
+	}
+	.page-404-inner {
+	    width: 60%;
+	}
+}
+@media (max-width: 620px) {
+	.page404-logo {
+	    font-size: 70px;
+	    width: 100%;
+	}
+	.page404-title p {
+	    font-size: 25px;
+	    width: 100%;
+	}
+	.page404-title {
+		width: 100%;
+	}
+	.page-404-inner {
+	    width: 70%;
+	    flex-wrap: wrap;
+	}
+}
 .check-in .form {
 	display: flex;
 	flex-direction: column;
