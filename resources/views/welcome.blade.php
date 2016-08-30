@@ -131,6 +131,7 @@
 	<script src="../../app/Static/models/staticService.js"></script>
 	<script src="../../app/User/models/userService.js"></script>
 	<script src="../../app/User/controllers/userCtrl.js"></script>
+	<script src="../../app/Feed/index.js"></script>
 	<script src="../../app/Feed/models/feedService.js"></script>
 	<script src="../../app/Feed/controllers/feedCtrl.js"></script>
 	<script src="../../app/Chat/models/chatService.js"></script>

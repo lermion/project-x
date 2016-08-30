@@ -145,33 +145,7 @@ angular.module('placePeopleApp')
                     requireLogin: true
                 })
 
-                .state('feed', {
-                    url: '/feed',
-                    templateUrl: '../../app/Feed/views/feed.html',
-                    controller: 'feedCtrl',
-                    showHeader: true,
-                    requireLogin: true,
-                    resolve: {
-                        profile: ['$rootScope', '$q', '$state', '$stateParams', 'UserService', function ($rootScope, $q, $state, $stateParams, UserService) {
-                            var deferred = $q.defer();
 
-                            UserService.getUserData($rootScope.user.username)
-                                .then(
-                                    function (data) {
-                                        $stateParams.userId = data.id;
-                                        deferred.resolve(data);
-                                    },
-                                    function (error) {
-                                        deferred.reject();
-                                        $state.go("404");
-                                    }
-                                );
-
-                            return deferred.promise;
-                        }]
-                    }
-
-                })
                 .state('p', {
                     url: '/p/:pubId/:hash',
                     templateUrl: '../../app/hidden-publication.html',
@@ -370,7 +344,7 @@ angular.module('placePeopleApp')
                         publications: null
                     }
                 })
-                
+
 
 
         }])
