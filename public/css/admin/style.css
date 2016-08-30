@@ -784,3 +784,13 @@ table.admin-users .col-do {
 .admin-promo-main-img {
 	margin-bottom: 10px;
 }
+.modal-footer button.btn.btn-default {
+	margin: 5px;
+}
+.modal-footer button.btn {
+	margin: 5px;
+	min-width: 70px;
+}
+.modal-body {
+	font-size: 15px;
+}
