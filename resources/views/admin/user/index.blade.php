@@ -21,7 +21,16 @@
 	<script src="/js/pace/pace.min.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function () {
+		$(document).ready(function(){
+			$('.admin-settings-menu li a').on("click", function(){
+				if($(this).parent().attr("id") === "all-users"){
+					getUsers("user/get_users?");
+				}else if($(this).parent().attr("id") === "on-a-note"){
+					getUsers("user/get_confirm?");
+				}
+			    $('.admin-settings-menu li a').removeClass("active");
+			    $(this).addClass("active");
+			});
 			function createUrl(filters){
 				if(filters){
 					var url = "user/get_users?";
@@ -192,9 +201,9 @@
 				@if ($moderator['is_admin'] == false)
 				<li class="col-md-3 col-md-offset-3 @if ($url == 'New') active @endif"><a href="/admin/user">Новые</a></li>
 				@else
-				<li class="col-md-3 col-md-offset-3 @if ($url == 'All') active @endif"><a href="/admin/user/get_all">Все</a></li>
+				<li id="all-users" class="col-md-3 col-md-offset-3"><a href="javascript:void(0);">Все</a></li>
 					@endif
-				<li class="col-md-3 @if ($url == 'Confirm') active @endif"><a href="/admin/user/get_confirm">На заметке </a></li>
+				<li id="on-a-note" class="col-md-3"><a href="javascript:void(0);">На заметке</a></li>
 			</ul>
 		</div>
 	   <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
@@ -280,15 +289,15 @@
 			var form = $('#deleteModal').find('form');
 			form.attr('action',form.attr('action')+$(this).attr('userId'));
 		});
-		$('.admin-settings-menu li a').each(function () {
-			var location = window.location.href;
-			var link = this.href;
-			location += "/";
-			var index = location.indexOf(link);
-			if(location == link) {
-				$(this).addClass('active');
-			}
-		});
+		// $('.admin-settings-menu li a').each(function () {
+		// 	var location = window.location.href;
+		// 	var link = this.href;
+		// 	location += "/";
+		// 	var index = location.indexOf(link);
+		// 	if(location == link) {
+		// 		$(this).addClass('active');
+		// 	}
+		// });
 	</script>
 	{!! $users->render() !!}
 @stop
