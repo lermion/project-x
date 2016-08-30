@@ -1136,7 +1136,7 @@ body.public.user {
 	}
 }
 .public header .header.header-user .logo.logo-in-menu {
-    background-image: url(../images/logotip.png);
+    background-image: url(../images/logotip-mobile.png);
     background-repeat: no-repeat;
     background-size: 163px 25px;
     background-position: left center;
