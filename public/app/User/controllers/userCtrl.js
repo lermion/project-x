@@ -593,6 +593,18 @@ angular.module('placePeopleApp')
                 $scope.pubNew.cover = $scope.pubNew.files[index];
             };
 
+            $scope.setNewMainPubPhoto = function (index) {
+                angular.forEach($scope.editedPubFilesArray, function (item) {
+                    item.pivot.is_cover = false;
+                });
+
+                // TODO: refact!
+                $scope.pubNew.files[index].isCover = true;
+                $scope.pubNew.files[index].is_cover = true;
+
+                $scope.pubNew.cover = $scope.pubNew.files[index];
+            };
+
             $scope.deletePubFile = function (index) {
                 $scope.pubNew.files.splice(index, 1);
                 $scope.$broadcast('rebuild:me');
