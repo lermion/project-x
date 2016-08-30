@@ -47,6 +47,35 @@ class OptionController extends Controller
         return redirect('admin/option/')->with('message', 'Сохраненно');
     }
 
+    public function mainPicture(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'picture' => 'required|image|mimes:png|max:5000'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        if ($request->hasFile('picture')) {
+            $picture = $request->file('picture');
+            $path = '/images/';
+            $fullPath = public_path() . $path;
+            Storage::put('bc.png', file_get_contents($picture->getRealPath()));
+            $picture->move($fullPath, 'bc.png');
+            Storage::delete('bc.png');
+            $result = 'true';
+        }
+        return response()->json($result);
+
+    }
+
 //    public function update(Request $request, $id)
 //    {
 //        try {

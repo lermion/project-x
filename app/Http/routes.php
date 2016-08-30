@@ -37,7 +37,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('get_all', 'Admin\UserController@getAll');
 //                Route::post('get_review', 'Admin\UserController@getReview');
 //                Route::get('get_suspicious', 'Admin\UserController@getSuspicious');
-//                Route::post('main_picture', 'Admin\UserController@mainPicture');
             });
             Route::group(['prefix' => 'moderator'], function () {
                 Route::get('/', 'Admin\ModeratorController@index');
@@ -69,6 +68,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'option'], function () {
                 Route::get('/', 'Admin\OptionController@index');
                 Route::post('create', 'Admin\OptionController@create');
+                Route::post('main_picture', 'Admin\OptionController@mainPicture');
                 // Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
             Route::group(['prefix' => 'complaints'], function () {
