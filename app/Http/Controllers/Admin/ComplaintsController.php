@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\ComplaintComment;
 use App\Comment;
 use App\ComplaintPublication;
+use App\Publication;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,9 +33,10 @@ class ComplaintsController extends Controller
     public function delete_comment($id)
     {
         $id_comment = ComplaintComment::where('id',$id)->pluck('comment_id');
-        $comment = Comment::find($id_comment);
-        $comment->text = 'Comment delete';
-        $comment->save();
+        Comment::find($id_comment)->delete();
+//        $comment = Comment::find($id_comment);
+//        $comment->text = 'Comment delete';
+//        $comment->save();
         ComplaintComment::find($id)->delete();
         return redirect('admin/complaints/comments')->with('message', 'Комментарий удален');
     }
@@ -58,7 +60,11 @@ class ComplaintsController extends Controller
 
     public function delete_publication($id)
     {
-
+        $publication = Publication::find($id);
+        $publication->is_block = true;
+//        $publication->block_message = $request->input('message');
+        $publication->save();
+        return redirect('admin/complaints/')->with('message', 'Публикация заблокированна');
     }
 
     public function count_complaint_comment(){
