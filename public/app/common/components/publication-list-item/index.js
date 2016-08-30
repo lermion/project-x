@@ -676,6 +676,7 @@
                                     console.log('Error');
                                 }
                                 ctrl.updatePubLoader = false;
+                                ctrl.updatePubLoader = false;
                             },
                             function (err) {
                                 console.log(err);

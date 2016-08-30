@@ -25,6 +25,7 @@
         'yandex-metrika',
 
 
+        'app.feed',
         'app.places',
         'app.directives',
         'app.groups',
