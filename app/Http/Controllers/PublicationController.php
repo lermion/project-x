@@ -334,6 +334,10 @@ class PublicationController extends Controller
                     $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
                     $image_cover->is_cover = true;
                     $image_cover->save();
+                    $url = Image::find($cover_id);
+                    $public = Publication::where('id',$id)->first();
+                    $public->cover = $url['url'];
+                    $public->save();
 
                 }
                 if ($request->hasFile('images')) {
@@ -346,6 +350,9 @@ class PublicationController extends Controller
                         $path = Image::getImagePath($image);
                         if ($cover_name == $image->getClientOriginalName())
                         {
+                            $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                            $image->is_cover = false;
+                            $image->save();
                             $publication->images()->create(['url' => $path],['is_cover' => true]);
                         } else
                         {

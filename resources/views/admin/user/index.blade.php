@@ -21,7 +21,16 @@
 	<script src="/js/pace/pace.min.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function () {
+		$(document).ready(function(){
+			$('.admin-settings-menu li a').on("click", function(){
+				if($(this).parent().attr("id") === "all-users"){
+					getUsers("user/get_users?");
+				}else if($(this).parent().attr("id") === "on-a-note"){
+					getUsers("user/get_confirm?");
+				}
+			    $('.admin-settings-menu li a').removeClass("active");
+			    $(this).addClass("active");
+			});
 			function createUrl(filters){
 				if(filters){
 					var url = "user/get_users?";
@@ -33,6 +42,7 @@
 					getUsers(url);
 				}
 			}
+			var deleteModal = $('#deleteModal').remodal();
 			function getUsers(url){
 				var table = $('#datatable').dataTable({
 					"language": {
@@ -71,7 +81,12 @@
 						{
 							"data": "status",
 							"render" : function(data, type, row){
-								return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a>";
+								if(url === "user/get_confirm?"){
+									return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a>";
+								}else{
+									return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a><button id='onANote' type='button' class='btn btn-primary btn-xs'>На заметку</button>";
+								}
+								
 							}
 						}
 					]
@@ -84,11 +99,18 @@
 						}
 					});
 				});
-				var deleteModal = $('#deleteModal').remodal();
 				$('#datatable tbody').on('click', 'a#deleteBnt', function(){
 					var data = table.api().row($(this).parents('tr')).data();
 					$('#deleteModal').find("input").attr("value", data.id);
 					deleteModal.open();
+				});
+				$('#datatable tbody').on('click', 'button#onANote', function(){
+					var data = table.api().row($(this).parents('tr')).data();
+					$.get("user/review/" + data.id, function(response){
+						if(response.status){
+							getUsers(null);
+						}
+					});
 				});
 			}
 			getUsers(null);
@@ -144,6 +166,22 @@
 				keys: true
 			});
 			$('#datatable-responsive').DataTable();
+			var deletePeriodBnt = $('.deletePeriodBnt');
+			deletePeriodBnt.on('click',function(e){
+				e.preventDefault();
+				var userId = $('#deleteModal').find("input").attr("value");
+				if(parseInt($(this).attr('period')) === 0){
+					deleteModal.close();
+				}else{
+					getUsers(null);
+					deleteModal.close();
+					$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
+						if(response.status){
+							getUsers(null);
+						}
+					});
+				}
+			});
 		});
 		TableManageButtons.init();
 	</script>
@@ -168,9 +206,9 @@
 				@if ($moderator['is_admin'] == false)
 				<li class="col-md-3 col-md-offset-3 @if ($url == 'New') active @endif"><a href="/admin/user">Новые</a></li>
 				@else
-				<li class="col-md-3 col-md-offset-3 @if ($url == 'All') active @endif"><a href="/admin/user/get_all">Все</a></li>
+				<li id="all-users" class="col-md-3 col-md-offset-3"><a href="javascript:void(0);">Все</a></li>
 					@endif
-				<li class="col-md-3 @if ($url == 'Confirm') active @endif"><a href="/admin/user/get_confirm">На заметке </a></li>
+				<li id="on-a-note" class="col-md-3"><a href="javascript:void(0);">На заметке</a></li>
 			</ul>
 		</div>
 	   <div class="admin-info" style="width:100%; height:auto; margin-bottom:5px;">
@@ -251,33 +289,20 @@
 	</div>
 	<script>
 		var deleteBtn = $('.deleteBnt');
-		var deletePeriodBnt = $('.deletePeriodBnt');
-		var deleteModal = $('#deleteModal').remodal();
 		deleteBtn.on('click',function () {
 			deleteModal.open();
 			var form = $('#deleteModal').find('form');
 			form.attr('action',form.attr('action')+$(this).attr('userId'));
 		});
-		deletePeriodBnt.on('click',function(e){
-			e.preventDefault();
-			var userId = $('#deleteModal').find("input").attr("value");
-			if(parseInt($(this).attr('period')) === 0){
-				deleteModal.close();
-			}else{
-				$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
-					console.log(response);
-				});
-			}
-		});
-		$('.admin-settings-menu li a').each(function () {
-			var location = window.location.href;
-			var link = this.href;
-			location += "/";
-			var index = location.indexOf(link);
-			if(location == link) {
-				$(this).addClass('active');
-			}
-		});
+		// $('.admin-settings-menu li a').each(function () {
+		// 	var location = window.location.href;
+		// 	var link = this.href;
+		// 	location += "/";
+		// 	var index = location.indexOf(link);
+		// 	if(location == link) {
+		// 		$(this).addClass('active');
+		// 	}
+		// });
 	</script>
 	{!! $users->render() !!}
 @stop

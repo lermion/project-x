@@ -1454,9 +1454,9 @@
             return deferred.promise;
         };
         socket.on("load more messages", function (response) {
-            $scope.busyMessages = false;
             if (response.messages.length === 0) {
                 $scope.statusLoading = false;
+                $scope.counter = 0;
             } else {
                 response.messages.forEach(function (value) {
                     $scope.messages.unshift(value);

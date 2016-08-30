@@ -6,6 +6,7 @@ use App\Place;
 use App\PlaceUser;
 use App\Image;
 use App\Publication;
+use App\PublicationImage;
 use App\Video;
 use Illuminate\Http\Request;
 
@@ -128,16 +129,24 @@ class PlacePublicationController extends Controller
         $place = Place::find($id);
         $publication = $place->publications()->create($publicationData);
         if ($request->hasFile('images')) {
+            $cover = $request->file('cover');
+            $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('images') as $image) {
                 if (!$image) {
                     continue;
                 }
                 $path = Image::getImagePath($image);
-                $publication->images()->create([
-                    'url' => $path,
-                ]);
+                if ($cover_name == $image->getClientOriginalName())
+                {
+                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+                } else
+                {
+                    $publication->images()->create(['url' => $path]);
+                }
+
             }
         }
+
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $video) {
                 if (!$video) {
@@ -209,15 +218,41 @@ class PlacePublicationController extends Controller
                         }
                     }
                 }
+                if ($request->input('cover_id')){
+                    $cover_id = $request->input('cover_id');
+
+                    $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                    $image->is_cover = false;
+                    $image->save();
+
+                    $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
+                    $image_cover->is_cover = true;
+                    $image_cover->save();
+                    $url = Image::find($cover_id);
+                    $public = Publication::where('id',$id)->first();
+                    $public->cover = $url['url'];
+                    $public->save();
+
+                }
                 if ($request->hasFile('images')) {
+                    $cover = $request->file('cover');
+                    $cover_name = $cover->getClientOriginalName();
                     foreach ($request->file('images') as $image) {
                         if (!$image) {
                             continue;
                         }
                         $path = Image::getImagePath($image);
-                        $publication->images()->create([
-                            'url' => $path,
-                        ]);
+                        if ($cover_name == $image->getClientOriginalName())
+                        {
+                            $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                            $image->is_cover = false;
+                            $image->save();
+                            $publication->images()->create(['url' => $path],['is_cover' => true]);
+                        } else
+                        {
+                            $publication->images()->create(['url' => $path]);
+                        }
+
                     }
                 }
                 $deleteVideos = $request->input('delete_videos');
