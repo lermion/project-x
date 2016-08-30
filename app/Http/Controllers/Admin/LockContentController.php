@@ -121,6 +121,7 @@ class LockContentController extends Controller
     public function destroy($id, $month)
     {
         $user = User::find($id);
+        //dd($user);
         $timestamp = strtotime('+' . $month . ' month');
         $date = date('Y:m:d', $timestamp);
         BlackList::create(['phone' => $user->phone, 'date' => $date]);
@@ -135,6 +136,6 @@ class LockContentController extends Controller
 //        $user->user_quote = '';
 //        $user->is_private = true;
         $user->delete();
-        return redirect('/admin/lock/')->with('message', 'Пользователь удален');
+        return ['status'=>true];
     }
 }

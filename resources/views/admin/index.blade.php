@@ -20,7 +20,10 @@
 	<script src="js/pace/pace.min.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
+		$(document).ready(function(){
+			$.get("admin/count_new_users", function(response){
+				$("h3.b").text("Сегодня: " + response.day + " чел. За неделю: " + response.week + " чел. За месяц: " + response.month + " чел. За год: " + response.year + " чел.");
+			});
 			$('#datatable').dataTable();
 			$('#datatable-keytable').DataTable({
 				keys: true
@@ -140,7 +143,7 @@
 				</fieldset>
 			</form>
 		</div>
-		<h3 class="b">Сегодня: 48 чел. За неделю: 756 чел. За месяц: 7 569 чел. За год: 250 783 чел.</h3>
+		<h3 class="b"></h3>
 		<div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;"></div>
 		<!-- <p><img src="/img/pr/grafik.png" height="240" /> <br>x:Время; y:Деньги;</p> -->
 	</div>

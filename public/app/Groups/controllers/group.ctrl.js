@@ -37,6 +37,7 @@
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
         vm.myId = myId;
+        vm.loggedUser = storage.username;
 
         vm.isMobile = false;
 
@@ -98,15 +99,7 @@
         function init() {
             $scope.$emit('userPoint', 'user');
             var storage = storageService.getStorage();
-            //vm.loggedUser = storage.username;
 
-            $http.get('/static_page/get/name')
-                .success(function (response) {
-                    vm.staticPages = response;
-                })
-                .error(function (error) {
-                    console.log(error);
-                });
             vm.logOut = function () {
                 AuthService.userLogOut()
                     .then(function (res) {
@@ -1461,9 +1454,9 @@
             return deferred.promise;
         };
         socket.on("load more messages", function (response) {
-            $scope.busyMessages = false;
             if (response.messages.length === 0) {
                 $scope.statusLoading = false;
+                $scope.counter = 0;
             } else {
                 response.messages.forEach(function (value) {
                     $scope.messages.unshift(value);
@@ -1501,14 +1494,14 @@
                     });
                 }
             } else {
-                if (data.login === $scope.loggedUser) {
+                if (data.login === vm.loggedUser) {
                     data.isRead = true;
                 } else {
                     $scope.messages.forEach(function (value) {
                         value.isRead = false;
                     });
-                    $scope.messages.push(data);
                 }
+                $scope.messages.push(data);
                 if (data.images.length > 0) {
                     vm.group.count_chat_files += data.images.length;
                 }

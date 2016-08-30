@@ -1,319 +1,160 @@
 <div style="min-height: 100%;">
-	<div class="user-main-content">
-		<div class="user-main-content-item">
-			<div class="content-user">
-				<div id="user-page" ng-class="photosGrid ? '' : 'list-style'">
-					<div class="my-profile">
-						<div class="ava">
-							<a ng-click="showFullAvatar(userData.original_avatar_path)" href="javascript:void(0)">
-								<img ng-src="{{userData.avatar_path ? userData.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
-							</a>
-						</div>
-						<div class="my-profile-item">
-							<div class="user-status">
-								<div ng-hide="profileEdition"><a class="user-name" href="javascript:void(0)">{{userData.first_name}} {{userData.last_name}}</a></div>
-								<div ng-show="profileEdition" class="rewrite-fields">
-									<input type="text" placeholder="Имя" ng-model="userData.first_name">
-									<input type="text" placeholder="Фамилия" ng-model="userData.last_name">
-								</div>
-								<p>{{userData.is_online ? 'В сети' : 'Не в сети'}}</p>
-							</div>
+    <div class="user-main-content">
+        <div class="user-main-content-item">
+            <div class="content-user">
+                <div id="user-page" ng-class="photosGrid ? '' : 'list-style'">
+                    <div class="my-profile">
+                        <div class="ava">
+                            <a ng-click="showFullAvatar(userData.original_avatar_path)" href="javascript:void(0)">
+                                <img ng-src="{{userData.avatar_path ? userData.avatar_path : '/upload/preview-chat-no-avatar.png'}}"
+                                     alt="">
+                            </a>
+                        </div>
+                        <div class="my-profile-item">
+                            <div class="user-status">
+                                <div ng-hide="profileEdition"><a class="user-name" href="javascript:void(0)">{{userData.first_name}}
+                                    {{userData.last_name}}</a></div>
+                                <div ng-show="profileEdition" class="rewrite-fields">
+                                    <input type="text" placeholder="Имя" ng-model="userData.first_name">
+                                    <input type="text" placeholder="Фамилия" ng-model="userData.last_name">
+                                </div>
+                                <p>{{userData.is_online ? 'В сети' : 'Не в сети'}}</p>
+                            </div>
 
-							<div class="counts" ng-class="myProfile ? '' : 'another-user'">
-								<a href="javascript:void(0)" class="counter">
-									<p class="notes">Публикации</p>
-									<span>{{userData.publications_count}}</span>
-								</a>
-								<a href="javascript:void(0)" class="counter" ng-show="myProfile">
-									<p class="contacts">Контакты</p>
-									<span>417</span>
-								</a>
-								<a href="javascript:void(0)" class="counter"
-								   ng-click="isAuthorized && userData.subscribers_count > 0 && openSubscribers(userData.id)">
-									<p class="contacts-off">Подписчики</p>
-									<span>{{userData.subscribers_count}}</span>
-								</a>
-								<a href="javascript:void(0)" class="counter"
-								   ng-click="isAuthorized && userData.subscription_count > 0 && openSubscribe(userData.id)">
-									<p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
-									<span>{{userData.subscription_count}}</span>
-								</a>
-							</div>
-							<p class="status-user" ng-hide="profileEdition"
-							   ng-bind-html="userData.user_quote | colonToSmiley"></p>
-							<input class="status-correct" type="text" name=""
-								   ng-show="profileEdition && !showStatusArea" ng-model="userData.user_quote"
-								   ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''"
-								   ng-click="statusErr=false;">
+                            <div class="counts" ng-class="myProfile ? '' : 'another-user'">
+                                <a href="javascript:void(0)" class="counter">
+                                    <p class="notes">Публикации</p>
+                                    <span>{{userData.publications_count}}</span>
+                                </a>
+                                <a href="javascript:void(0)" class="counter" ng-show="myProfile">
+                                    <p class="contacts">Контакты</p>
+                                    <span>417</span>
+                                </a>
+                                <a href="javascript:void(0)" class="counter"
+                                   ng-click="isAuthorized && userData.subscribers_count > 0 && openSubscribers(userData.id)">
+                                    <p class="contacts-off">Подписчики</p>
+                                    <span>{{userData.subscribers_count}}</span>
+                                </a>
+                                <a href="javascript:void(0)" class="counter"
+                                   ng-click="isAuthorized && userData.subscription_count > 0 && openSubscribe(userData.id)">
+                                    <p class="contacts-on">{{myProfile ? 'Я подписан' : 'Подписки'}}</p>
+                                    <span>{{userData.subscription_count}}</span>
+                                </a>
+                            </div>
+                            <p class="status-user" ng-hide="profileEdition"
+                               ng-bind-html="userData.user_quote | colonToSmiley"></p>
+                            <input class="status-correct" type="text" name=""
+                                   ng-show="profileEdition && !showStatusArea" ng-model="userData.user_quote"
+                                   ng-model-options="{updateOn: 'blur'}" ng-class="statusErr? 'error-status':''"
+                                   ng-click="statusErr=false;">
 
-							<p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше
-								140 символов</p>
+                            <p ng-show="statusErr" class="error" ng-show="profileEdition">Статус не может быть больше
+                                140 символов</p>
 
-							<div class="comunications" ng-show="myProfile">
-								<a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать
-									публикацию</a>
-								<a href="javascript:void(0)" class="rewrite"
-								   ng-click="editProfile(userData.first_name, userData.last_name, userData.user_quote);">{{profileEdition
-									? 'Сохранить' : 'Редактировать'}}</a>
+                            <div class="comunications" ng-show="myProfile">
+                                <a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать
+                                    публикацию</a>
+                                <a href="javascript:void(0)" class="rewrite"
+                                   ng-click="editProfile(userData.first_name, userData.last_name, userData.user_quote);">{{profileEdition
+                                    ? 'Сохранить' : 'Редактировать'}}</a>
 
-								<div class="view">
-									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
-									   ng-click="pubViewStyleChange(true);"></a>
-									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
-									   ng-click="pubViewStyleChange(false);"></a>
-								</div>
-							</div>
-							<div class="comunications" ng-hide="myProfile || !isAuthorized">
-								<a href="javascript:void(0)" class="read" ng-class="isSigned ? 'is-sub' : ''" ng-click="sign()">{{isSigned ? 'Отписаться' :
-									'Подписаться'}}</a>
+                                <div class="view">
+                                    <a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
+                                       ng-click="pubViewStyleChange(true);"></a>
+                                    <a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
+                                       ng-click="pubViewStyleChange(false);"></a>
+                                </div>
+                            </div>
+                            <div class="comunications" ng-hide="myProfile || !isAuthorized">
+                                <a href="javascript:void(0)" class="read" ng-class="isSigned ? 'is-sub' : ''"
+                                   ng-click="sign()">{{isSigned ? 'Отписаться' :
+                                    'Подписаться'}}</a>
 
-								<div class="view">
-									<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
-									   ng-click="pubViewStyleChange(true)"></a>
-									<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
-									   ng-click="pubViewStyleChange(false)"></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea"
-					   ng-bind-html="userData.user_quote | colonToSmiley"></p>
-					<input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea"
-						   ng-model="userData.user_quote" ng-model-options="{updateOn: 'blur'}"
-						   ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
+                                <div class="view">
+                                    <a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
+                                       ng-click="pubViewStyleChange(true)"></a>
+                                    <a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
+                                       ng-click="pubViewStyleChange(false)"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="status-user adaptiv" ng-hide="profileEdition || showStatusArea"
+                       ng-bind-html="userData.user_quote | colonToSmiley"></p>
+                    <input class="status-correct adaptiv" type="text" name="" ng-show="showStatusArea"
+                           ng-model="userData.user_quote" ng-model-options="{updateOn: 'blur'}"
+                           ng-class="statusErr? 'error-status':''" ng-click="statusErr=false;">
 
-					<p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition">Статус не может быть больше
-						140 символов</p>
+                    <p ng-show="statusErr" class="error adaptiv" ng-show="profileEdition">Статус не может быть больше
+                        140 символов</p>
 
-					<div class="comunications adaptiv" ng-show="myProfile">
-						<a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать
-							публикацию</a>
-						<a href="javascript:void(0)" class="rewrite"
-						   ng-click="editProfile(userData.first_name, userData.last_name, userData.user_quote);">{{profileEdition
-							? 'Сохранить' : 'Редактировать'}}</a>
+                    <div class="comunications adaptiv" ng-show="myProfile">
+                        <a href="javascript:void(0)" class="create" ng-click="createPublication()">Создать
+                            публикацию</a>
+                        <a href="javascript:void(0)" class="rewrite"
+                           ng-click="editProfile(userData.first_name, userData.last_name, userData.user_quote);">{{profileEdition
+                            ? 'Сохранить' : 'Редактировать'}}</a>
 
-						<div class="view">
-							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
-							   ng-click="pubViewStyleChange(true);"></a>
-							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
-							   ng-click="pubViewStyleChange(false);"></a>
-						</div>
-					</div>
-					<div class="comunications adaptiv" ng-hide="myProfile">
-						<a href="javascript:void(0)" class="read" ng-click="isSigned=!isSigned;">{{isSigned ?
-							'Отписаться' : 'Подписаться'}}</a>
+                        <div class="view">
+                            <a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
+                               ng-click="pubViewStyleChange(true);"></a>
+                            <a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
+                               ng-click="pubViewStyleChange(false);"></a>
+                        </div>
+                    </div>
+                    <div class="comunications adaptiv" ng-hide="myProfile">
+                        <a href="javascript:void(0)" class="read" ng-click="isSigned=!isSigned;">{{isSigned ?
+                            'Отписаться' : 'Подписаться'}}</a>
 
-						<div class="view">
-							<a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
-							   ng-click="pubViewStyleChange(true);"></a>
-							<a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
-							   ng-click="pubViewStyleChange(false);"></a>
-						</div>
-					</div>
-					<p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций
-						следует подписаться</p>
+                        <div class="view">
+                            <a href="javascript:void(0)" ng-class="photosGrid ? 'active' : ''" class="table"
+                               ng-click="pubViewStyleChange(true);"></a>
+                            <a href="javascript:void(0)" ng-class="!photosGrid ? 'active' : ''" class="list"
+                               ng-click="pubViewStyleChange(false);"></a>
+                        </div>
+                    </div>
+                    <p ng-show="needToSign" class="content-error" style="text-align:center;">Для просмотра публикаций
+                        следует подписаться</p>
 
-					<p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций
-						следует авторизоваться</p>
-					<p ng-show="needToAddAvatar && !isSigned" class="content-error" style="text-align:center;">Для просмотра публикаций
-						следует добавить аватар или подписаться</p>	
+                    <p ng-show="needToLogin" class="content-error" style="text-align:center;">Для просмотра публикаций
+                        следует авторизоваться</p>
 
-					<div ng-hide="needToAddAvatar && !isSigned" infinite-scroll="loadMorePubs()" infinite-scroll-distance="1">
-						<!-- unit grid-->
-						<div class="content-item" ng-if="photosGrid">
-							<div class="my-photos">
-								<div class="photo thumbnail" ng-class="{blocked: !!pub.is_block}" ng-repeat="pub in userPublications" style="{{pubSize}}">
-									<a href="javascript:void(0)" ng-click="showPublication(pub, $index)">
-										<img ng-src="{{pub.cover || pub.images[0].url}}" alt="">
-									</a>
-								</div>
-							</div>
-						</div>
+                    <p ng-show="needToAddAvatar && !isSigned" class="content-error" style="text-align:center;">Для
+                        просмотра публикаций
+                        следует добавить аватар или подписаться</p>
 
-						<!-- single unit -->
-						<div class="my-photos-list" ng-show="!photosGrid">
-							<div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications"
-								 style="{{resizeHeight}}"
-								 ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
-								<div role="document">
-									<div class="user-publication" ng-class="{blocked: !!singlePublication.is_block}">
-										<div class="user-publication-content">
+                    <div ng-hide="needToAddAvatar && !isSigned" infinite-scroll="loadMorePubs()"
+                         infinite-scroll-distance="1">
+                        <!-- unit grid-->
+                        <div class="content-item" ng-if="photosGrid">
+                            <div class="my-photos">
+                                <div class="photo thumbnail" ng-class="{blocked: !!pub.is_block}"
+                                     ng-repeat="pub in userPublications" style="{{pubSize}}">
+                                    <pub-list-item pub-data="pub"
+                                                   index="$index"
+                                                   to-click="openModalPublication"
+                                                   is-grid="true"
+                                                   is-modal="false"></pub-list-item>
+                                </div>
+                            </div>
+                        </div>
 
-											<div class="publication-ava"
-												 ng-init="singlePublication.mainFile.pivot ? '' : singlePublication.mainFile.pivot.image_id = true;">
-												<a href="javascript:void(0);" class="ava"
-												   ng-click="showPublication(singlePublication, $index)">
-													<img ng-src="{{singlePublication.mainFile.url}}"
-														 ng-if="singlePublication.mainFile.pivot.image_id">
-												</a>
-												<video ng-if="singlePublication.mainFile.pivot.video_id" width="150px"
-													   controls ngf-src="singlePublication.mainFile.url"></video>
-											</div>
-											<div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
-												 style="max-height:175px; overflow:hidden; position:relative;"
-												 ng-hide="(singlePublication.images.length + singlePublication.videos.length) === 1"
-												 ng-init="singlePublication.limit = 7">
-												<div ng-click="changeMainFile(file, 'list', singlePublication)"
-													 ng-repeat="file in singlePublication.images.concat(singlePublication.videos) | limitTo: singlePublication.limit as results"
-													 class="images-item">
-													<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
-													<video width="150px" controls ngf-src="file.url"
-														   ng-if="file.pivot.video_id"></video>
-												</div>
-
-												<div ng-hide="results.length === (singlePublication.images.length + singlePublication.videos.length)"
-													 class="images-item more"
-													 ng-click="loadMorePubFiles(results.length === (singlePublication.images.length + singlePublication.videos.length), 'list', singlePublication)">
-													<p class="counter">Еще<br> {{(singlePublication.images.length +
-														singlePublication.videos.length) - singlePublication.limit}}
-														файлов</p>
-												</div>
-
-											</div>
-											<div ng-show="splitText(singlePublication.text) !== 'undefined'"><p class="publication-text" ng-click="goToSearch(splitText(singlePublication.text))"
-											   ng-bind-html="splitText(singlePublication.text) | colonToSmiley | linkCheck"></p></div>
-											<!-- <a href="javascript:void(0);" class="publication-place">г. Лондон</a> -->
-										</div>
-										<div class="likes">
-											<div class="likes-item">
-												<a href="javascript:void(0);"
-												   ng-click="addPublicationLike(singlePublication, singlePublication.user.id == loggedUserId)"
-												   class="like"
-												ng-class="singlePublication.user_like ? 'active': ''">Тема</a>
-
-												<p class="like-item" ng-if="singlePublication.like_count > 0">
-													В теме
-													<span ng-show="singlePublication.user_like" class="you"> Вы </span>
-													<span ng-show="singlePublication.user_like && singlePublication.like_count > 1"
-														  class="more">и еще </span>
-													<span class="count-like"
-														  ng-hide="singlePublication.user_like && singlePublication.like_count == 1">{{singlePublication.user_like ? singlePublication.like_count - 1 : singlePublication.like_count}} чел.</span>
-												</p>
-											</div>
-											<a href ng-if="singlePublication.comment_count > 0" class="comments-count">{{singlePublication.comment_count}}</a>
-										</div>
-										<div class="more-comments"
-											 ng-if="singlePublication.comments.length !== singlePublication.comment_count">
-											<a href="javascript:void(0);"
-											   ng-click="getAllCommentsPublication('userPage', singlePublication, true)"
-											   class="all-comments">Еще {{singlePublication.comment_count - singlePublication.comments.length}}
-												комментариев</a>
-										</div>
-										<div ng-hide="singlePublication.comments.length === 0" class="visible-comments">
-											<div ng-repeat="comment in singlePublication.comments" class="user-comment" ng-init="comment.commentLength = 250;">
-												<div class="user-ava">
-													<a class="ava" ui-sref="user({username: comment.user.login})">
-														<img ng-src="{{comment.user.avatar_path}}" alt="">
-													</a>
-												</div>
-												<div class="comment">
-													<div class="user-info">
-														<div class="info-item">
-															<a class="user-name"
-															   ui-sref="user({username: comment.user.login})">{{comment.user.first_name}}
-																{{comment.user.last_name}}</a>
-
-															<p class="time" am-time-ago="comment.created_at"></p>
-															<a ng-hide="comment.user.id == loggedUserId && comment.like_count == ''" href="javascript:void(0);"
-															   ng-click="comment.user.id != loggedUserId && addCommentLike(comment)" class="like-counter">{{comment.like_count > 0 ? comment.like_count : ''}}</a>
-														</div>
-														<a href="javascript:void(0);"
-														   ng-click="alertPubComment(comment.id)"
-														   class="alert alert-text"
-														   ng-hide="comment.user.id == loggedUserId">Пожаловаться</a>
-														<a href="javascript:void(0);"
-														   ng-click="deleteComment('userPage', singlePublication, comment, $index)"
-														   class="alert" ng-show="comment.user.id == loggedUserId"></a>
-													</div>
-													<p class="comment-item" ng-click="goToSearch(comment.text)"
-													   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck"></p>
-													<a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);" ng-click="showFullComment(comment)" ng-show="comment.text.length != comment.commentLength && comment.text.length > 250">Показать все</a>
-
-													<div ng-if="comment.images[0]" class="comment-pic">
-														<a ng-repeat="image in comment.images | limitTo: 3 as results"
-														   ng-click="showMoreImages(comment.images)"
-														   href="javascript:void(0);" class="comment-pic-item">
-															<img ng-src="{{image.url}}">
-														</a>
-														<a ng-show="comment.images.length >= 4"
-														   href="javascript:void(0);"
-														   ng-click="showMoreImages(comment.images)"
-														   class="comment-pic-item">
-															<p>Ещё {{comment.images.length - 3}} фото</p>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="added_comments" ng-init="singlePublication.showAddComment = false;">
-											<a ng-hide="singlePublication.showAddComment" href="javascript:void(0);"
-											   ng-click="showAddCommentBlock(singlePublication, $index)" class="add_comments">Добавить
-												комментарий</a>
-										</div>
-										<div class="add-comment" ng-show="singlePublication.showAddComment">
-											<div class="user-ava">
-												<a class="ava" ui-sref="user({username: $root.user.username})">
-													<img ng-src="{{loggedUserAvatar}}" alt="">
-												</a>
-											</div>
-											<div style="position:relative;" class="add">
-												<div class="text-field">
-													<div emoji-form emoji-message="emojiMessage">
-														<textarea id="messageInputs"
-																  ng-model="emojiMessage.messagetext"></textarea>
-														<a href="javascript:void(0);" class="emoji-button"
-														   id="emojibtn">
-															<i class="icon icon-emoji"></i>
-														</a>
-													</div>
-												</div>
-												<div class="new-add" ng-show="singlePublication.files"
-													 class="visible-comments" ng-scrollbar rebuild-on="rebuild:me"
-													 style="max-height: 250px; overflow:hidden; position:relative;">
-													<div class="new-img" ng-repeat="file in singlePublication.files">
-														<div class="inner">
-															<div ng-click="deletePubFile(singlePublication.files, $index)"
-																 class="close">
-																<div class="close-inner">
-																	<p>Удалить</p>
-																</div>
-															</div>
-															<img ngf-thumbnail="file || '/thumb.jpg'">
-															<video width="200px" controls ngf-src="file"></video>
-														</div>
-														<p class="img-name">{{file.name}}</p>
-													</div>
-												</div>
-												<div class="publication-footer"
-													 ng-init="addFileObjId = 'add-file-to-comment-'+singlePublication.id">
-													<div class="publication-footer-button">
-														<button ng-disabled="disableAddComment"
-																ng-click="addNewComment('userPage', singlePublication, emojiMessage, singlePublication.files);"
-																class="publication-button">Отправить
-														</button>
-													</div>
-													<div class="add-objects">
-														<input id="{{addFileObjId}}" ngf-keep="true"
-															   style="display: none;" ngf-select
-															   ng-model="singlePublication.files" ngf-multiple="true"
-															   ngf-before-model-change="pubFiles($files)">
-														<label for="{{addFileObjId}}">
-															Прикрепить
-															<span class="add"></span>
-														</label>
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<h4 class="text-center" ng-if="userPublications.length === 0">Список публикаций пуст</h4>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <!-- single unit -->
+                        <div class="my-photos-list" ng-show="!photosGrid">
+                            <div class="my_profilll photo-list" ng-repeat="singlePublication in userPublications"
+                                 style="{{resizeHeight}}"
+                                 ng-init="singlePublication.cover ? singlePublication.mainFile.url = singlePublication.cover : singlePublication.mainFile.url = singlePublication.images[0].url">
+                                <pub-list-item pub-data="singlePublication"
+                                               index="$index"
+                                               to-click="openModalPublication"
+                                               is-grid="false"
+                                               is-modal="false"></pub-list-item>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="text-center" ng-if="userPublications.length === 0">Список публикаций пуст</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

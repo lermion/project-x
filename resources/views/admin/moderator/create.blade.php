@@ -13,7 +13,7 @@
                         <img src="/img/ava/moderator.png" alt="/img/ava/moderator.png">
                     </div>
                     <div>
-                        <input type="file" name="photo" id="photo">
+                        <input type="file" name="photo" onchange="readURL(this);" id="photo">
                     </div>
                 </div>
                 <div class="col-md-3">
