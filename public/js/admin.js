@@ -9,6 +9,15 @@ function getRegion(that){
 		}
 	});
 }
+function readURL(input){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$('.admin-moderator-avatar img').attr('src', e.target.result).width(150).height(200);
+		};
+		reader.readAsDataURL(input.files[0]);
+	}
+}
 var url = "user/get_users/0";
 function filters(){
 	$.get("user/get_users/0", function(data){
