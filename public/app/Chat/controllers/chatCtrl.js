@@ -968,6 +968,7 @@ angular.module('placePeopleApp')
 			$scope.loadPubIntoChat = function(message, pubId){
 				if(pubId != undefined){
 					PublicationService.getSinglePublication(pubId).then(function(response){						
+						console.log(response);
 						message.pub = response;
 					},
 					function(error){
