@@ -33,9 +33,11 @@
                       @endif
                     <td>{{$complaint->user_to_login}}</td>
                     <td class="mini-image">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
-                        <img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="">
+                        @if ($complaint->comment)
+                            <p>Нет картинки</p>
+                        @else
+                            <img src="{{$complaint->publication_cover}}" alt="{{$complaint->publication_cover}}">
+                        @endif
                     </td>
                     <td>{{$complaint->user_which_login}}</td>
                     <td>{{$complaint->complaint}}</td>
@@ -45,7 +47,7 @@
                             <a href="/admin/complaints/delete_comment/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Удалить комментарий</button></a>
                         @else
                             <a href="/admin/complaints/delete_complaint_publication/{{$complaint->id}}"><button class="btn btn-success btn-xs">Отменить жалобу</button></a>
-                            <a href="/admin/complaints/delete_publication/{{$complaint->id}}"><button class="btn btn-danger btn-xs">Блокировать контент</button></a>
+                            <a href="/admin/complaints/delete_publication/{{$complaint->publication_id}}"><button class="btn btn-danger btn-xs">Блокировать контент</button></a>
                         @endif
                     </td>
                   </tr>

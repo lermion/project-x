@@ -115,7 +115,7 @@ class CountryController extends Controller
         $countries = Country::get();
         $regions = Region::get();
         $district = Area::find($id);
-        return view('admin.base.districtEdit',['district'=>$district,'region'=>$regions,'countries'=>$countries]);
+        return view('admin.base.districtEdit',['district'=>$district,'regions'=>$regions,'countries'=>$countries]);
     }
 
     public function editDistrictSave(Request $request)
@@ -129,7 +129,7 @@ class CountryController extends Controller
 
     public function createSettlement(Request $request)
     {
-        if (City::where(['name'=>$request->input('name'),'area_id'=>$request->input('area_id')])->first()){
+        if (City::where(['name'=>$request->input('name'),'area_id'=>$request->input('area_id')])->orWhere(['name'=>$request->input('name'),'country_id'=>$request->input('country_id')])->orWhere(['name'=>$request->input('name'),'region_id'=>$request->input('region_id')])->first()){
             return redirect('/admin/base/settlement')->with('message', 'Ошибка!!! Такой населенный пункт уже есть в базе');
         }
         $data = $request->all();

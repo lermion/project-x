@@ -22,9 +22,10 @@ class CommentsController extends Controller
 
     public function delete_comment($id)
     {
-        $comment = Comment::find($id);
-        $comment->text = 'Comment delete';
-        $comment->save();
+        Comment::find($id)->delete();
+//        $comment = Comment::find($id);
+//        $comment->text = 'Comment delete';
+//        $comment->save();
         return redirect('admin/comments/');
     }
 }
