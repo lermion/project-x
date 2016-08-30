@@ -3708,7 +3708,11 @@ span.users-today-time-time.early {
     background-color: #495b79;
     color: #fff;
 }
-
+.chat-publication-wrap .publication-images .images-item.more:hover {
+    background-color: #fff;
+    color: #495b79;
+    transition: all .1s ease-in-out .1s;
+}
 .chat-right-top-person.my-msg {
     background-color: rgb(215, 226, 250);
 }
