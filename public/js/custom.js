@@ -327,7 +327,7 @@ if (typeof NProgress != 'undefined') {
 // Counters for sidebar
 // Users
 $(function() {
-    var POLL_URL = 'count/users',
+    var POLL_URL = window.location.origin + '/admin/count/users',
         POLL_FREQUENCY = 5000;
 
     var queue = [],
@@ -370,13 +370,13 @@ $(function() {
         }
     });
     }
-
+    getUsersCounter();
     setInterval(getUsersCounter, POLL_FREQUENCY);
 }());
 
 // Mails
 $(function() {
-    var POLL_URL = 'count/mails',
+    var POLL_URL = window.location.origin + '/admin/count/mails',
         POLL_FREQUENCY = 5000;
 
     var queue = [],
@@ -419,13 +419,13 @@ $(function() {
             }
         });
     }
-
+    getMailsCounter();
     setInterval(getMailsCounter, POLL_FREQUENCY);
 }());
 
 // To remove
 $(function() {
-    var POLL_URL = 'count/to_remove',
+    var POLL_URL = window.location.origin + '/admin/count/to_remove',
         POLL_FREQUENCY = 5000;
 
     var queue = [],
@@ -468,6 +468,6 @@ $(function() {
             }
         });
     }
-
+    getToRemoveCounter();
     setInterval(getToRemoveCounter, POLL_FREQUENCY);
 }());

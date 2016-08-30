@@ -136,6 +136,6 @@ class LockContentController extends Controller
 //        $user->user_quote = '';
 //        $user->is_private = true;
         $user->delete();
-        return redirect('/admin/lock/')->with('message', 'Пользователь удален');
+        return ['status'=>true];
     }
 }
