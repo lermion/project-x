@@ -121,6 +121,7 @@ class LockContentController extends Controller
     public function destroy($id, $month)
     {
         $user = User::find($id);
+        //dd($user);
         $timestamp = strtotime('+' . $month . ' month');
         $date = date('Y:m:d', $timestamp);
         BlackList::create(['phone' => $user->phone, 'date' => $date]);
