@@ -193,7 +193,7 @@ angular.module('placePeopleApp')
             return defer.promise;
         }
 
-        function updatePublication(pubId, text, isAnon, isMain, images, videos, delete_videos, delete_images) {
+        function updatePublication(pubId, text, isAnon, isMain, images, videos, delete_videos, delete_images, pub) {
 
             var data = new FormData();
             data.append('text', text);
@@ -211,6 +211,14 @@ angular.module('placePeopleApp')
             delete_videos.forEach(function (del_video) {
                 data.append('delete_videos[]', del_video);
             });
+
+            if (pub.coverId) {
+                data.append('cover_id', pub.coverId);
+            } else {
+                data.append('cover', pub.cover, pub.cover.name);
+            }
+
+            data.append('in_profile', pub.inProfile ? 1 : 0);
 
             var config = {
                     headers: {

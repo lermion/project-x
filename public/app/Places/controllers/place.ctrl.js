@@ -33,6 +33,7 @@
         vm.lastName = lastName;
         vm.myAvatar = myAvatar;
         vm.myId = myId;
+        vm.loggedUser = storage.username;
 
         vm.subForm = false;
 
@@ -1698,11 +1699,26 @@
         });
         socket.forward('updatechat', $scope);
         $scope.$on('socket:updatechat', function (event, data) {
-            $scope.messages.push(data);
-            if (data.images.length > 0) {
-                vm.place.count_chat_files += data.images.length;
+            if(data.isRead){
+                if (data.userId !== $scope.loggedUserId) {
+                    $scope.messages.forEach(function (value) {
+                        value.isRead = false;
+                    });
+                }
+            }else{
+                if (data.login === vm.loggedUser) {
+                    data.isRead = true;
+                } else {
+                    $scope.messages.forEach(function (value) {
+                        value.isRead = false;
+                    });
+                }
+                $scope.messages.push(data);
+                if (data.images.length > 0) {
+                    vm.place.count_chat_files += data.images.length;
+                }
+                vm.place.count_chat_message++;
             }
-            vm.place.count_chat_message++;
         });
         $scope.emojiMessage = {
             replyToUser: function () {

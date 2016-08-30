@@ -5,13 +5,13 @@ angular.module('placePeopleApp')
 			getStorage: getStorage,			
 			deleteStorage: deleteStorage,
 			isUserAuthorized: isUserAuthorized
-		}
+		};
 
 		function setStorageItem(key, value){
 			$window.localStorage.setItem(key, value);
 
 			$rootScope.$broadcast('storage:update');
-			console.info('localStorage updated - ' + key + ' ' + value);
+			//console.info('localStorage updated - ' + key + ' ' + value);
 		}
 		function isUserAuthorized(){
 			var defer = $q.defer();

@@ -68,13 +68,27 @@
 						{"data": "birthday"},
 						{"data": "created_at"},
 						{"data": "user_quote"},
-						{"data": "action"}
-					],
-					"columnDefs": [{
-						"targets": -1,
-						"data": null,
-						"defaultContent": "<button type='button' class='btn btn-success btn-xs'>Подтвердить</button>"
-					}]
+						{
+							"data": "status",
+							"render" : function(data, type, row){
+								return "<button id='confirmBnt' type='button' class='btn btn-success btn-xs'>Подтвердить</button><a href='javascript:void(0);' id='deleteBnt' class='btn btn-danger btn-xs'>Удалить</a>";
+							}
+						}
+					]
+				});
+				$('#datatable tbody').on('click', 'button#confirmBnt', function(){
+					var data = table.api().row($(this).parents('tr')).data();
+					$.get("user/confirm/" + data.id, function(response){
+						if(response.status){
+							getUsers(null);
+						}
+					});
+				});
+				var deleteModal = $('#deleteModal').remodal();
+				$('#datatable tbody').on('click', 'a#deleteBnt', function(){
+					var data = table.api().row($(this).parents('tr')).data();
+					$('#deleteModal').find("input").attr("value", data.id);
+					deleteModal.open();
 				});
 			}
 			getUsers(null);
@@ -143,6 +157,7 @@
 			<button period="1" class="btn btn-danger btn-xs deletePeriodBnt">Месяц</button>
 			<button period="6" class="btn btn-danger btn-xs deletePeriodBnt">Полгода</button>
 			<button period="12" class="btn btn-danger btn-xs deletePeriodBnt">Год</button>
+			<input type="hidden" value="" name="">
 		</form>
 	</div>
 
@@ -243,15 +258,17 @@
 			var form = $('#deleteModal').find('form');
 			form.attr('action',form.attr('action')+$(this).attr('userId'));
 		});
-		deletePeriodBnt.on('click',function (e) {
+		deletePeriodBnt.on('click',function(e){
 			e.preventDefault();
-			var form = $('#deleteModal').find('form');
-
-			form.attr('action',form.attr('action')+'/'+$(this).attr('period'));
-			form.submit();
-			return false;
+			var userId = $('#deleteModal').find("input").attr("value");
+			if(parseInt($(this).attr('period')) === 0){
+				deleteModal.close();
+			}else{
+				$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
+					console.log(response);
+				});
+			}
 		});
-
 		$('.admin-settings-menu li a').each(function () {
 			var location = window.location.href;
 			var link = this.href;
