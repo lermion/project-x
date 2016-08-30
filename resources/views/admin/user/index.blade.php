@@ -33,6 +33,7 @@
 					getUsers(url);
 				}
 			}
+			var deleteModal = $('#deleteModal').remodal();
 			function getUsers(url){
 				var table = $('#datatable').dataTable({
 					"language": {
@@ -84,7 +85,6 @@
 						}
 					});
 				});
-				var deleteModal = $('#deleteModal').remodal();
 				$('#datatable tbody').on('click', 'a#deleteBnt', function(){
 					var data = table.api().row($(this).parents('tr')).data();
 					$('#deleteModal').find("input").attr("value", data.id);
@@ -144,6 +144,22 @@
 				keys: true
 			});
 			$('#datatable-responsive').DataTable();
+			var deletePeriodBnt = $('.deletePeriodBnt');
+			deletePeriodBnt.on('click',function(e){
+				e.preventDefault();
+				var userId = $('#deleteModal').find("input").attr("value");
+				if(parseInt($(this).attr('period')) === 0){
+					deleteModal.close();
+				}else{
+					getUsers(null);
+					deleteModal.close();
+					$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
+						if(response.status){
+							getUsers(null);
+						}
+					});
+				}
+			});
 		});
 		TableManageButtons.init();
 	</script>
@@ -251,23 +267,10 @@
 	</div>
 	<script>
 		var deleteBtn = $('.deleteBnt');
-		var deletePeriodBnt = $('.deletePeriodBnt');
-		var deleteModal = $('#deleteModal').remodal();
 		deleteBtn.on('click',function () {
 			deleteModal.open();
 			var form = $('#deleteModal').find('form');
 			form.attr('action',form.attr('action')+$(this).attr('userId'));
-		});
-		deletePeriodBnt.on('click',function(e){
-			e.preventDefault();
-			var userId = $('#deleteModal').find("input").attr("value");
-			if(parseInt($(this).attr('period')) === 0){
-				deleteModal.close();
-			}else{
-				$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
-					console.log(response);
-				});
-			}
 		});
 		$('.admin-settings-menu li a').each(function () {
 			var location = window.location.href;
