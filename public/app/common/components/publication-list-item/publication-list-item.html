@@ -1,5 +1,7 @@
 <div class="user-publication-bg" ng-if="$ctrl.isModal" ng-click="$ctrl.openPreviousInfo($ctrl.pub.images)"></div>
-<div class="user-publication" ng-class="{blocked: !!ctrl.pub.is_block}" ng-if="!$ctrl.isGrid" id="{{::$ctrl.isModal ? ('pub' + $ctrl.pub.id) : ''}}" tabindex="{{$ctrl.isModal ? 1 : 0}}" ng-keydown="$ctrl.keyPress($event)">
+<div class="user-publication" ng-class="{blocked: !!ctrl.pub.is_block}" ng-if="!$ctrl.isGrid"
+     id="{{::$ctrl.isModal ? ('pub' + $ctrl.pub.id) : ''}}" tabindex="{{$ctrl.isModal ? 1 : 0}}"
+     ng-keydown="$ctrl.keyPress($event)">
 
     <div class="user-publication-header">
 
@@ -15,7 +17,9 @@
             </a>
 
             <div class="topic" ng-show="!!$ctrl.pub.is_topic">Тема дня</div>
-            <div class="topic" ng-if="!$ctrl.pub.is_moderate && $ctrl.pub.user.id === $root.user.userId && $ctrl.showModerate">На модерации
+            <div class="topic"
+                 ng-if="!$ctrl.pub.is_moderate && $ctrl.pub.user.id === $root.user.userId && $ctrl.showModerate">На
+                модерации
             </div>
             <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
                  click-outside="$ctrl.showUserMenu = false"
@@ -46,9 +50,13 @@
 
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
-            <img ng-if="!$ctrl.mainVideo" ng-init="$ctrl.pub.cover ? $ctrl.mainImage = $ctrl.pub.cover : $ctrl.mainImage = $ctrl.pub.images[0].url"
+
+            <img ng-if="!$ctrl.isModal"
+                 ng-init="$ctrl.pub.cover"
                  ng-src="{{$ctrl.mainImage}}">
-            <video ng-if="$ctrl.mainVideo" width="700px" controls ngf-src="$ctrl.mainVideo"></video>
+
+            <video ng-if="$ctrl.mainVideo && $ctrl.isModal" width="700px" controls ngf-src="$ctrl.mainVideo"></video>
+
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
              style="max-height:175px; overflow:hidden; position:relative;"
