@@ -119,6 +119,11 @@
                             if(element)
                                 element.focus();
                         });
+
+                        if (ctrl.pub.videos.length > 0) {
+                            ctrl.mainVideo = ctrl.pub.videos[0].url;
+                        }
+
                     }
                 };
 
