@@ -1,7 +1,7 @@
 //functions
 
 function getRegion(that){
-	$.get("get_region/" + parseInt(that.value), function(data){
+	$.get("/admin/base/get_region/" + parseInt(that.value), function(data){
 		if(data.length > 0){
 			$.each(data, function(key, value) {
 				$("select.get-regions").append($("<option/>", {

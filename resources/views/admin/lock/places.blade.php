@@ -32,7 +32,7 @@
                 <tbody>
                 @foreach($places as $place)
                   <tr>
-                    <td><a href="">{{$place->id}}</a></td>
+                    <td><a href="/place/{{$place->url_name}}">{{$place->id}}</a></td>
                     <td>{{$place->name}}</td>
                     <td>{{$place->description}}</td>
                     <td>{{$place->creator->first()->first_name.' '.$place->creator->first()->last_name}}</td>
