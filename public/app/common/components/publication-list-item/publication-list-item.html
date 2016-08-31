@@ -52,8 +52,7 @@
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
 
             <img ng-if="!$ctrl.isModal"
-                 ng-init="$ctrl.pub.cover"
-                 ng-src="{{$ctrl.mainImage}}">
+                 ng-src="{{$ctrl.pub.cover}}">
 
             <video ng-if="$ctrl.mainVideo && $ctrl.isModal" width="700px" controls ngf-src="$ctrl.mainVideo"></video>
 
