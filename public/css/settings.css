@@ -58,6 +58,7 @@
 }
 .settingsss .text p {
     margin: 0;
+    overflow: hidden;
 }
 .settingsss .text {
     width: 50%;
@@ -180,7 +181,7 @@
      Contacts list (people of groups/places etc.)
 ----------------------*/
 .contacts_list li {
-    padding: 0 0 0 10px;
+    padding: 0 0 0 5px;
 }
 .contacts_list .user-block {
     width: 100%;
@@ -211,7 +212,7 @@
     line-height: 1;
 }
 .ngdialog.popup-invite-group .contacts_list .user-info {
-    padding-left: 10px;
+    padding-left: 5px;
 }
 .contacts_list .user-info__user,
 .user-info__user {
@@ -238,14 +239,17 @@
     height: 15px;
     line-height: 15px;
     position: absolute;
-    left: 54px;
+    left: 43px;
     text-align: center;
     top: 0;
     width: 15px;
     font-size: .695em;
     cursor: pointer;
 }
-
+.popup-invite-place-people-name1 .user-info {
+    max-width: 73%;
+    margin-left: 5px;
+}
 
 
 .groups .group div.wright {
@@ -424,7 +428,7 @@
     height: 15px;
     line-height: 15px;
     position: absolute;
-    left: 54px;
+    left: 50px;
     text-align: center;
     top: 0;
     width: 15px;
@@ -729,6 +733,16 @@
     }
 }
 @media only screen and (max-width: 520px) {
+    .modal__content {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .popup-invite-group .invite-group__items {
+        width: 100%;
+    }
+    .popup-invite-group .invite-group__items-selected {
+        width: 100%;
+    }
     .settingsss .set_2 p {
         font-size: 14px;
         margin-top: 5px;
@@ -1333,6 +1347,9 @@ label span.add {
     font-size: 15.6px;
     font-family: "SFUIDisplayMedium";
     margin: 0 0 0 15px;
+    /*max-width: 80%;*/
+    word-wrap: break-word;
+    overflow: hidden;
 }
 .popup-add-group .add-ava label .add-photo {
     background-image: url(../images/plus_group.png);
@@ -1585,6 +1602,16 @@ label span.add {
     align-items: center;
 }
 @media (max-width: 720px) {
+    .popup-add-group .first_item {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .popup-add-group .ava_group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
     .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
         width: 80%;
         margin-left: -40%;
@@ -2327,6 +2354,9 @@ div.my_profilll.photo-list div:last-child {
     .popup-add-group .fifth_item .item1 li img {
         margin-right: 8px;
     }
+    .item1-add-people-container .contacts_list .items-selected__item-delete {
+        left: 35px;
+    }
     .item1-add-people-title {
         margin: 0;
         line-height: 45px;
@@ -2343,6 +2373,9 @@ div.my_profilll.photo-list div:last-child {
     .popup-add-group .fifth_item .item1 {
         height: auto;
         max-height: 245px;
+    }
+    .popup-invite-place-people-name1 .user-info {
+        max-width: 60%;
     }
 }
 @media (max-width: 520px) {
@@ -2362,6 +2395,9 @@ div.my_profilll.photo-list div:last-child {
     .popup-add-group .fifth_item .item1 li img {
         width: 50px;
         height: 50px;
+    }
+    .contacts_list .items-selected__item-delete {
+        left: 45px;
     }
     .item1.add-people li span.add-people-delete {
         background: #ec6045;
@@ -6690,7 +6726,7 @@ textarea[type="text"]:focus,
 .contacts_list .user_block {
     background-image: url(/images/add.png);
     background-repeat: no-repeat;
-    background-position: right 20px center;
+    background-position: right 2px center;
     background-size: 10px;
 }
 .group-description-container1 {

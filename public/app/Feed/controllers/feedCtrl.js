@@ -21,7 +21,9 @@
 
         $scope.publications = publications;
 
-        $scope.emojiMessage = {};
+        $scope.emojiMessage = {
+            messagetext: ''
+        };
         $scope.shareData = [];
         $scope.loggedUserAva = storage.loggedUserAva;
         $scope.groupsChecked = [];
@@ -29,6 +31,8 @@
         $scope.groupsChatArray = [];
         $scope.subscribersArray = [];
         $scope.subscriptionsArray = [];
+
+
 
         activate();
 
@@ -137,7 +141,7 @@
         var counter = 10;
 
         $scope.loadMorePubs = function () {
-            if ($scope.publications && counter < $scope.publications.length) {
+            if ($scope.publications && counter <= $scope.publications.length) {
                 counter += 10;
             } else {
                 return;

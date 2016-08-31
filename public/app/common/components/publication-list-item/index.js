@@ -33,7 +33,7 @@
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
-                                  socket, md5, $filter, $q, Upload) {
+                                  socket, md5, $filter, $q, Upload, $window) {
                 var ctrl = this;
                 var modal, modalEditPub;
 
@@ -101,7 +101,6 @@
                     };
 
 
-
                     ctrl.pub.images.forEach(function (img) {
                         var filename = img.url.split('/')[(img.url.split('/')).length - 1];
                         img.name = filename.substring(8, filename.length);
@@ -112,6 +111,15 @@
                     });
 
                     originalPubEdited = angular.copy(ctrl.pubEdited);
+
+                    if (ctrl.isModal) {
+                        ctrl.indexCurrentImage = getIndexCurrentImage();
+                        $timeout(function() {
+                            var element = $window.document.getElementById('pub'+ctrl.pub.id);
+                            if(element)
+                                element.focus();
+                        });
+                    }
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -127,7 +135,7 @@
                 };
 
 
-                ctrl.changeMainFile = function (file, flag, pub) {
+                ctrl.changeMainFile = function (file, flag, index) {
                     if (file.pivot.video_id) {
                         ctrl.mainImage = "";
                         ctrl.mainVideo = file.url;
@@ -137,6 +145,19 @@
                         } else {
                             ctrl.mainVideo = "";
                             ctrl.mainImage = file.url;
+                            if (ctrl.isModal) {
+                                ctrl.indexCurrentImage = index;
+                            }
+                        }
+                    }
+                };
+
+                ctrl.keyPress = function (event) {
+                    if (ctrl.isModal) {
+                        if (event.keyCode === 39) {
+                            showNextInfo();
+                        } else if (event.keyCode === 37) {
+                            ctrl.openPreviousInfo();
                         }
                     }
                 };
@@ -725,15 +746,16 @@
                 ctrl.openPreviousInfo = function () {
                     var imagesLength = ctrl.pub.images.length;
                     if (imagesLength >= 1) {
-                        ctrl.indexCurrentImage--;
-                        if (ctrl.pub.images[ctrl.indexCurrentImage] !== undefined) {
-                            ctrl.pub.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
-                        } else {
-                            --ctrl.pubIndex;
-                            var prevPub = ctrl.pubList[ctrl.pubIndex];
-                            if (prevPub) {
 
+                        if (ctrl.pub.images[ctrl.indexCurrentImage - 1] !== undefined) {
+                            ctrl.indexCurrentImage--;
+                            ctrl.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
+                        } else {
+                            var prevPub = ctrl.pubList[ctrl.pubIndex - 1];
+                            if (prevPub) {
+                                ctrl.pubIndex--;
                                 ctrl.pub = prevPub;
+                                imagesLength = ctrl.pub.images.length;
                                 ctrl.mainImage = ctrl.pub.images[imagesLength - 1].url;
                                 ctrl.indexCurrentImage = imagesLength - 1;
                             }
@@ -742,15 +764,15 @@
                 };
 
                 function showNextInfo() {
-
                     if (ctrl.pub.images.length >= 1) {
-                        ctrl.indexCurrentImage++;
-                        if (ctrl.pub.images[ctrl.indexCurrentImage] !== undefined) {
+                        if (ctrl.pub.images[ctrl.indexCurrentImage + 1] !== undefined) {
+                            ctrl.indexCurrentImage++;
                             ctrl.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
                         } else {
-                            ++ctrl.pubIndex;
-                            var nextPub = ctrl.pubList[ctrl.pubIndex];
+
+                            var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
                             if (nextPub) {
+                                ctrl.pubIndex++;
                                 ctrl.pub = nextPub;
                                 if (ctrl.pub.images[0] !== undefined) {
                                     ctrl.mainImage = ctrl.pub.images[0].url;
@@ -759,6 +781,17 @@
                             }
                         }
                     }
+                }
+
+                function getIndexCurrentImage() {
+                    var index;
+                    ctrl.pub.images.forEach(function (image, i, images) {
+                        if (image.pivot.is_cover) {
+                            index = i;
+                        }
+                    });
+
+                    return index;
                 }
             }
         });

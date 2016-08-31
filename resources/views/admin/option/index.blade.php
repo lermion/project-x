@@ -4,7 +4,7 @@
 
 	    <div id="settings-tab" class="admin-settings">
 	        <ul class="row admin-settings-menu">
-	            <li class="col-md-3 col-md-offset-3"><a href="#settings-tab-common">Общие настройки</a></li>
+	            <li class="col-md-3"><a href="#settings-tab-common">Общие настройки</a></li>
 	            <li class="col-md-3"><a href="#settings-tab-limit">Ограничения</a></li>
 	        </ul>
             <form action="{{action('Admin\OptionController@create')}}" method="post">
@@ -57,20 +57,23 @@
                 <p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
             </form>
 
-            <div class="row admin-promo-main-img">
-                <div class="col-md-3 lh">
-                    Изображение на главной: 
-                </div>
-                <form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
-                <div class="col-md-3 col-sm-3">
-                    <img src="/images/bc.png" class="img-responsive" alt="/images/bc.png">
-                </div>
-                <div class="col-md-3">
-                    <input type="file" name="picture">
-                </div>
-                    <p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
-                </form>
-            </div>
+            <form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
+	            <div class="row admin-promo-main-img">
+	                <div class="col-md-3 lh">
+	                    Изображение на главной: 
+	                </div>
+	                <form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
+	                <div class="col-md-3 col-sm-3 col-xs-6">
+	                    <img src="/images/bc.png" class="img-responsive" alt="/images/bc.png">
+	                </div>
+	                <div class="col-md-3">
+	                    <input type="file" name="picture">
+	                </div>     	
+	            </div>
+	            <div class="row">
+	                	<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
+	                </div>
+            </form>
 	    </div>
 
 

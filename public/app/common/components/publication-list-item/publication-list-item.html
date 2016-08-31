@@ -1,7 +1,8 @@
 <div class="user-publication-bg" ng-if="$ctrl.isModal" ng-click="$ctrl.openPreviousInfo($ctrl.pub.images)"></div>
-<div class="user-publication" ng-class="{blocked: !!ctrl.pub.is_block}" ng-if="!$ctrl.isGrid">
+<div class="user-publication" ng-class="{blocked: !!ctrl.pub.is_block}" ng-if="!$ctrl.isGrid" id="{{::$ctrl.isModal ? ('pub' + $ctrl.pub.id) : ''}}" tabindex="{{$ctrl.isModal ? 1 : 0}}" ng-keydown="$ctrl.keyPress($event)">
 
     <div class="user-publication-header">
+
         <div class="user-function" ng-class="{'pub-modal': $ctrl.isModal}">
             <a href class="user" ui-sref="user({username: $ctrl.pub.user.login})" ng-click="closeThisDialog()">
 				<span class="ava">
@@ -53,7 +54,7 @@
              style="max-height:175px; overflow:hidden; position:relative;"
              ng-hide="$ctrl.pub.images.length === 1">
 
-            <div ng-click="$ctrl.changeMainFile(file)"
+            <div ng-click="$ctrl.changeMainFile(file, false, $index)"
                  ng-repeat="file in $ctrl.pub.images.concat($ctrl.pub.videos) | limitTo: limit as results"
                  class="images-item">
                 <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
