@@ -7149,3 +7149,18 @@ button.settings-btn {
     box-shadow: none;
 }
 
+@media (max-width: 767px) {
+    .user-publication-header .user-menu {
+        display: flex;
+        align-self: flex-end;
+        height: 15px;
+    }
+    .photo-list .user-publication-header .user-menu {
+        align-self: center;
+        height: 30px;
+    }
+    .content-item .user-publication-header .user-menu {
+        align-self: center;
+        height: 30px;
+    }
+}
