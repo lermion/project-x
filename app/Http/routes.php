@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'moderator'], function () {
+            Route::get('getCheckTime/', 'Admin\PresenceCheckController@getCheckTime');
             Route::get('/', 'Admin\HomeController@index');
             Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
             Route::get('count_new_users', 'Admin\HomeController@count_new_users');
@@ -121,7 +122,8 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('settlement', 'Admin\CountryController@settlement');
                 Route::get('get_region/{id}', 'Admin\CountryController@getRegion');
                 Route::get('get_area/{id}', 'Admin\CountryController@getArea');
-                Route::post('get_city', 'Admin\CountryController@getCity');
+                Route::get('get_city', 'Admin\CountryController@getCity');
+
             });
             Route::group(['prefix' => 'moderation'], function () {
                 Route::get('/', 'Admin\ModerationController@index');
@@ -345,7 +347,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/count_new_users\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/getCheckTime\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='text' name='area_id' ><br>

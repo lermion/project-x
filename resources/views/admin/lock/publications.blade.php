@@ -30,7 +30,7 @@
                 <tbody>
                 @foreach($publications as $publication)
                   <tr>
-                    <td><a href="">{{$publication->id}}</a></td>
+                    <td><a href="/p/{{$publication->id}}/{{md5($publication->id)}}">{{$publication->id}}</a></td>
                     <td>{{$publication->text}}</td>
                     <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                     <td>

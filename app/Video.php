@@ -35,37 +35,28 @@ class Video extends Model
     }
     public static function makeVideo($f_name, $f_path, $new_fname)
     {
-        /*$path = '/upload/publication/videos/';
-        $fileName = str_random(8) . $video->getClientOriginalName();
-        $fullPath = public_path() . $path;
+        Log::info('Started video:make for ' . $f_path . $f_name . ', file exists: ' . file_exists($f_path . $f_name) . ', new: ' . $new_fname);
 
-        // Avatar
-        $video->move($fullPath, $fileName);*/
+        if (substr(php_uname(), 0, 7) == "Windows"){
+            $ffmpeg = FFMpeg::create([
+                'ffmpeg.binaries'        => 'C:\ffmpeg\bin\ffmpeg.exe',
+                'ffprobe.binaries'        => 'C:\ffmpeg\bin\ffprobe.exe'
+            ]);
+        } else {
+            $ffmpeg = FFMpeg::create();
+        }
 
-            if (substr(php_uname(), 0, 7) == "Windows"){
-                $ffmpeg = FFMpeg::create([
-                    'ffmpeg.binaries'        => 'C:\ffmpeg\bin\ffmpeg.exe',
-                       'ffprobe.binaries'        => 'C:\ffmpeg\bin\ffprobe.exe'
-                ]);
-            }
-            else {
-                $ffmpeg = FFMpeg::create();
-//dd($ffmpeg);
+        $file = $ffmpeg->open($f_path . $f_name);
+        $file
+            ->filters()
+            // ->resize(new Dimension(640, 480))
+            ->synchronize();
 
-           }
-            $file = $ffmpeg->open($f_path . $f_name);
-            $file
-                ->filters()
-  //              ->resize(new Dimension(640, 480))
-                ->synchronize();
-//dd($file);
-            $file
-		
-        //        ->save(new WebM(), $new_fname . '.webm');
-		->save(new X264(), 'export-x264.mp4');
-            Storage::disk('video')->delete($f_name);
-        
-        
+        $file->save(new X264(), public_path() . '/' . $new_fname . '.mp4');
+
+        Log::info('File saved');
+
+        Storage::disk('video')->delete($f_name);
     }
 
     public static function getVideoPath($video){
@@ -78,5 +69,6 @@ class Video extends Model
 
         return $path.$fileName;
     }
+
 
 }

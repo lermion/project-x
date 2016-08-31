@@ -57,7 +57,7 @@
                     <tbody>
                     @foreach($publications as $publication)
                       <tr>
-                        <td><a href="">{{$publication->id}}</a></td>
+                        <td><a href="/p/{{$publication->id}}/{{md5($publication->id)}}">{{$publication->id}}</a></td>
                         <td>{{$publication->text}}</td>
                         <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                         <td class="mini-image">
@@ -90,7 +90,7 @@
                     <tbody>
                     @foreach($groups as $group)
                       <tr>
-                        <td><a href="">{{$group->id}}</a></td>
+                        <td><a href="/group/{{$group->url_name}}">{{$group->id}}</a></td>
                         <td>{{$group->name}}</td>
                         <td class="img-center">
                             <img src="{{$group->avatar}}" alt="{{$group->avatar}}">
@@ -122,7 +122,7 @@
                     <tbody>
                     @foreach($places as $place)
                       <tr>
-                        <td><a href="">{{$place->id}}</a></td>
+                        <td><a href="/place/{{$place->url_name}}">{{$place->id}}</a></td>
                         <td>{{$place->name}}</td>
                         <td class="img-center">
                             <img src="{{$place->cover}}" alt="{{$place->cover}}">
