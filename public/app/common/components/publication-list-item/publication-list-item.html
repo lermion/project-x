@@ -30,7 +30,7 @@
                         <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
                         <a href ng-click="$ctrl.getPubLink($ctrl.pub.id)">Получить ссылку</a>
                         <a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
-                        <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.deletePub($ctrl.pub)">Удалить</a>
+                        <a href ng-if="$ctrl.pub.user.id === $root.user.userId" ng-click="$ctrl.deletePub($ctrl.pub)">Удалить</a>
                     </div>
                 </div>
             </div>
