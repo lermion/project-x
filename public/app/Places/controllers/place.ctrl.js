@@ -146,14 +146,7 @@
             });
         };
 
-        vm.openModalDeletePlace = function () {
-            modalDeletePlace = ngDialog.open({
-                template: '../app/Places/views/popup-delete-place.html',
-                name: 'modal-delete-group',
-                className: 'popup-delete-group ngdialog-theme-default',
-                scope: $scope
-            });
-        };
+
 
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
@@ -524,24 +517,16 @@
             });
         };
 
-        vm.confirmPubDelete = function (pubId) {
-            vm.subForm = true;
-            PublicationService.deletePublication(pubId).then(function (res) {
-                    if (res.status) {
-                        angular.forEach(vm.place.publications, function (item, index, arr) {
-                            if (item.id === pubId) {
-                                arr.splice(index, 1);
-                                vm.place.count_publications--;
-                            }
-                        });
-                    }
-                    vm.subForm = false;
-                    ngDialog.closeAll();
-                },
-                function (err) {
-                    console.log(err);
-                });
-        };
+        $scope.$on('publication:delete', function(event, data) {
+            angular.forEach(vm.place.publications, function (item, index, arr) {
+                if (item.id === data.pubId) {
+                    arr.splice(index, 1);
+                    vm.place.count_publications--;
+                }
+            });
+        });
+
+
 
         vm.openPubComplainBlock = function (pubId) {
             modalAlertComment = ngDialog.open({

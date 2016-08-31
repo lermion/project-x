@@ -231,14 +231,6 @@
             });
         };
 
-        vm.openModalDeleteGroup = function () {
-            modalDeleteGroup = ngDialog.open({
-                template: '../app/Groups/views/popup-delete-group.html',
-                name: 'modal-delete-group',
-                className: 'popup-delete-group ngdialog-theme-default',
-                scope: $scope
-            });
-        };
 
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
@@ -543,34 +535,15 @@
             $scope.$broadcast('rebuild:me');
         };
 
-        vm.deletePub = function (pub) {
-            vm.pubToDelete = pub.id;
-            ngDialog.open({
-                template: '../app/Groups/views/delete-publication.html',
-                className: 'delete-publication ngdialog-theme-default',
-                scope: $scope
-            });
-        };
 
-        vm.confirmPubDelete = function (pubId) {
-            PublicationService.deletePublication(pubId).then(function (res) {
-                    if (res.status) {
-                        angular.forEach(vm.group.publications, function (item, index, arr) {
-                            if (item.id === pubId) {
-                                arr.splice(index, 1);
-                                vm.group.count_publications--;
-                            }
-                        });
-                    }
-                    if (vm.isMobile) {
-                        $state.go('group.publications');
-                    }
-                    ngDialog.closeAll();
-                },
-                function (err) {
-                    console.log(err);
-                });
-        };
+        $scope.$on('publication:delete', function(event, data) {
+            angular.forEach(vm.group.publications, function (item, index, arr) {
+                if (item.id === data.pubId) {
+                    arr.splice(index, 1);
+                    vm.group.count_publications--;
+                }
+            });
+        });
 
         vm.openPubComplainBlock = function (pubId) {
             modalAlertComment = ngDialog.open({
