@@ -1612,9 +1612,6 @@ label span.add {
         align-items: center;
         width: 100%;
     }
-    .popup-add-group .ava_group img.img_ava {
-        overflow: initial;
-    }
     .ngdialog.popup-add-group.ngdialog-theme-default .ngdialog-content {
         width: 80%;
         margin-left: -40%;
