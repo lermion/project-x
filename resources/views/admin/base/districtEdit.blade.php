@@ -33,7 +33,7 @@
                 <span class="line-h"><b>Название района</b></span>
             </div>
             <div class="col-md-3">
-                <input class="form-control" type="text" name="name" placeholder="Введите название...">
+                <input class="form-control" type="text" name="name" placeholder="Введите название..." value="{{$district->name}}">
                 <input type="hidden" name="id" value="{{$district->id}}">
             </div>
         </div>
