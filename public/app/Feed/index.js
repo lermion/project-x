@@ -23,7 +23,7 @@
                         return UserService.getUserData($rootScope.user.username)
                             .then(
                                 function (data) {
-                                    return $stateParams.userId = data.id;
+                                    return data;
                                 },
                                 function (error) {
                                     $state.go("404");
