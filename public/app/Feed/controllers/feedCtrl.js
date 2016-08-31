@@ -21,7 +21,9 @@
 
         $scope.publications = publications;
 
-        $scope.emojiMessage = {};
+        $scope.emojiMessage = {
+            messagetext: ''
+        };
         $scope.shareData = [];
         $scope.loggedUserAva = storage.loggedUserAva;
         $scope.groupsChecked = [];
@@ -29,6 +31,8 @@
         $scope.groupsChatArray = [];
         $scope.subscribersArray = [];
         $scope.subscriptionsArray = [];
+
+
 
         activate();
 
