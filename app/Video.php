@@ -9,6 +9,7 @@ use FFMpeg\Format\Video\WebM;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Log;
 
 class Video extends Model
 {
@@ -25,12 +26,10 @@ class Video extends Model
             $ffmpeg = FFMpeg::create();
         }
         $file = $ffmpeg->open($f_path . $f_name);
-        $file
-            ->filters()
+        $file->filters()
             ->resize(new Dimension(640, 480))
             ->synchronize();
-        $file
-            ->frame(TimeCode::fromSeconds(10))
+        $file->frame(TimeCode::fromSeconds(10))
             ->save($new_fname . '.jpg');
     }
     public static function makeVideo($f_name, $f_path, $new_fname)
