@@ -7159,4 +7159,8 @@ button.settings-btn {
         align-self: center;
         height: 30px;
     }
+    .content-item .user-publication-header .user-menu {
+        align-self: center;
+        height: 30px;
+    }
 }
