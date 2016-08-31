@@ -54,7 +54,7 @@
 			</div>
 		</div>
 	</header>
-	<header ng-cloak ng-if="!$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
+	<header ng-cloak ng-if="!$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration' || currentPath === '/auth/restore')">
 		<div class="header">
 			<a class="logo" ui-sref="auth"></a>
 			<a class="registration" ui-sref="reg">Регистрация</a>
