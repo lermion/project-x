@@ -47,17 +47,16 @@ class PlacePublicationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
             $this->validate($request, [
                 'text' => 'min:1',
-                'cover' => 'file',
-                'original_cover' => 'file',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
-                'in_profile' => 'boolean',
                 'videos' => 'array',
+                'cover' => 'file',
+                'original_cover' => 'file',
                 'images' => 'array'
             ]);
         } catch (\Exception $ex) {
@@ -70,6 +69,7 @@ class PlacePublicationController extends Controller
             ];
             return response()->json($result);
         }
+
         if ($request->hasFile('images')) {
             $validator = Validator::make($request->file('images'), [
                 'image'
@@ -102,10 +102,18 @@ class PlacePublicationController extends Controller
                 return response()->json($result);
             }
         }
-        $publicationData = $request->all();
-        if (!$request->hasFile('images')){
-            $request->cover = null;
+
+        if (!$placeUser = PlaceUser::where(['user_id' => Auth::id(), 'place_id' => $id, 'is_admin' => true])->first()) {
+            $responseData = [
+                "status" => false,
+                "error" => [
+                    'message' => "Permission denied",
+                    'code' => '8'
+                ]
+            ];
+            return response()->json($responseData);
         }
+        $publicationData = $request->all();
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $path = Image::getCoverPath($cover);
@@ -117,8 +125,9 @@ class PlacePublicationController extends Controller
             $publicationData['original_cover'] = $path;
         }
         $publicationData['user_id'] = Auth::id();
-        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
-        $publication = Publication::create($publicationData);
+//        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
+        $place = Place::find($id);
+        $publication = $place->publications()->create($publicationData);
         if ($request->hasFile('images')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
@@ -137,57 +146,29 @@ class PlacePublicationController extends Controller
 
             }
         }
+
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $video) {
                 if (!$video) {
                     continue;
                 }
-
-                // try {
-                $f_name = $video->getClientOriginalName();
-                $f_path = storage_path('tmp/video/');
-                $video->move($f_path, $f_name);
-                $new_fname = 'upload/publication/videos/' . uniqid();
-                Video::makeFrame($f_name, $f_path, $new_fname);
-                //Video::makeVideo($f_name, $f_path, $new_fname);
-                $cmd = 'php ' . base_path().'/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
-                if (substr(php_uname(), 0, 7) == "Windows"){
-                    pclose(popen("start /B ". $cmd, "r"));
-                }
-                else {
-                    exec($cmd . " > /dev/null &");
-                }
-                /* }
-                 catch (\Exception $e) {
-                     $result = [
-                         "status" => false,
-                         "error" => [
-                             'message' => 'Bad video',
-                             'code' => '1'
-                         ]
-                     ];
-                     return response()->json($result);
-                 }*/
-                $publication->cover = $new_fname .'.jpg';
-                $publication->save();
+                $path = Video::getVideoPath($video);
                 $publication->videos()->create([
-                    'url' => $new_fname . '.mp4',
-                    'img_url' => $new_fname . '.jpg',
+                    'url' => $path,
                 ]);
-
             }
         }
         $responseData = [
             "status" => true,
             "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
         ];
-
         return response()->json($responseData);
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */

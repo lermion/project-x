@@ -175,6 +175,9 @@ class PublicationController extends Controller
             }
         }
         $publicationData = $request->all();
+        if (!$request->hasFile('images')){
+            $request->cover = null;
+        }
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $path = Image::getCoverPath($cover);
@@ -237,11 +240,13 @@ class PublicationController extends Controller
                      ];
                      return response()->json($result);
                  }*/
-
+                $publication->cover = $new_fname .'.jpg';
+                $publication->save();
                 $publication->videos()->create([
                     'url' => $new_fname . '.mp4',
                     'img_url' => $new_fname . '.jpg',
                 ]);
+
             }
         }
         $responseData = [
