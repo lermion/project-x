@@ -2341,7 +2341,7 @@ div.my_profilll.photo-list div:last-child {
     .popup-add-group .fifth_item .item1 li img {
         margin-right: 8px;
     }
-    .contacts_list .items-selected__item-delete {
+    .item1-add-people-container .contacts_list .items-selected__item-delete {
         left: 35px;
     }
     .item1-add-people-title {
