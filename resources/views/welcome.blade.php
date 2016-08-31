@@ -22,7 +22,7 @@
 <!-- End Google Tag Manager -->
 
 	<back-top ng-cloak class="main-up-button">Наверх</back-top>
-	<header ng-cloak ng-if="$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration')">
+	<header ng-cloak ng-if="$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration' || currentPath === '/auth/restore')">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
