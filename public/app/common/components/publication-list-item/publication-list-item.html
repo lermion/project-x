@@ -53,7 +53,7 @@
              style="max-height:175px; overflow:hidden; position:relative;"
              ng-hide="$ctrl.pub.images.length === 1">
 
-            <div ng-click="$ctrl.changeMainFile(file)"
+            <div ng-click="$ctrl.changeMainFile(file, false, $index)"
                  ng-repeat="file in $ctrl.pub.images.concat($ctrl.pub.videos) | limitTo: limit as results"
                  class="images-item">
                 <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
