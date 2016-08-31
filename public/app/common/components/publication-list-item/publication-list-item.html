@@ -46,7 +46,7 @@
 
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
-            <img ng-init="$ctrl.pub.cover ? $ctrl.mainImage = $ctrl.pub.cover : $ctrl.mainImage = $ctrl.pub.images[0].url"
+            <img ng-if="!$ctrl.mainVideo" ng-init="$ctrl.pub.cover ? $ctrl.mainImage = $ctrl.pub.cover : $ctrl.mainImage = $ctrl.pub.images[0].url"
                  ng-src="{{$ctrl.mainImage}}">
             <video ng-if="$ctrl.mainVideo" width="700px" controls ngf-src="$ctrl.mainVideo"></video>
         </div>
