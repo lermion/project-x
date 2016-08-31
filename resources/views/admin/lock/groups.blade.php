@@ -7,7 +7,7 @@
 	<div class="x_content">
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3 active"><a href="/admin/lock/">Пользователи </a></li>
+                <li class="col-md-3"><a href="/admin/lock/">Пользователи </a></li>
                 <li class="col-md-3"><a href="/admin/lock/publications/">Публикации </a></li>
                 <li class="col-md-3"><a href="/admin/lock/groups/">Группы </a></li>
                 <li class="col-md-3"><a href="/admin/lock/places/">Места </a></li>
