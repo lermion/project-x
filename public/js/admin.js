@@ -2,7 +2,6 @@
 
 function getRegion(that){
 	$.get("get_region/" + parseInt(that.value), function(data){
-		var output = [];
 		if(data.length > 0){
 			$.each(data, function(key, value) {
 				$("select.get-regions").append($("<option/>", {
@@ -10,7 +9,7 @@ function getRegion(that){
 					text: value.name
 				}));
 			});
-			$('.select.get-regions').html(output.join(''));
+			$("select.get-regions").attr("name", "region_id");
 			$("select.get-regions").change(function(event){
 				$.get("get_area/" + parseInt(this.value), function(response){
 					if(data.length > 0){
