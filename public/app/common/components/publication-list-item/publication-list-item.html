@@ -14,7 +14,7 @@
 							</span>
             </a>
 
-            <div class="topic" ng-show="!!parseInt($ctrl.pub.is_topic)">Тема дня</div>
+            <div class="topic" ng-show="!!$ctrl.pub.is_topic">Тема дня</div>
             <div class="topic" ng-if="!$ctrl.pub.is_moderate && $ctrl.pub.user.id === $root.user.userId && $ctrl.showModerate">На модерации
             </div>
             <div class="user-menu" ng-click="$ctrl.showUserMenu=!$ctrl.showUserMenu"
