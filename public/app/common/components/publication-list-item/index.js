@@ -33,7 +33,7 @@
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
-                                  socket, md5, $filter, $q, Upload) {
+                                  socket, md5, $filter, $q, Upload, $window) {
                 var ctrl = this;
                 var modal, modalEditPub;
 
@@ -114,6 +114,11 @@
 
                     if (ctrl.isModal) {
                         ctrl.indexCurrentImage = getIndexCurrentImage();
+                        $timeout(function() {
+                            var element = $window.document.getElementById('pub'+ctrl.pub.id);
+                            if(element)
+                                element.focus();
+                        });
                     }
                 };
 
@@ -143,6 +148,16 @@
                             if (ctrl.isModal) {
                                 ctrl.indexCurrentImage = index;
                             }
+                        }
+                    }
+                };
+
+                ctrl.keyPress = function (event) {
+                    if (ctrl.isModal) {
+                        if (event.keyCode === 39) {
+                            showNextInfo();
+                        } else if (event.keyCode === 37) {
+                            ctrl.openPreviousInfo();
                         }
                     }
                 };
