@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="content-item" ng-if="photosGrid">
-                    <div class="my-photos feed">
+                    <div class="my-photos feed" ng-if="publications.length > 0">
                         <div class="photo thumbnail " ng-class="{blocked: !!pub.is_block}"
                              ng-repeat="pub in publications | orderBy: '-created_at'" style="{{pubSize}}">
                             <pub-list-item pub-data="pub"

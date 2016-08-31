@@ -171,7 +171,7 @@
 
             if (publication.files.images) {
                 angular.forEach(publication.files.images, function (image) {
-                    fd.append('images[]', image);
+                    fd.append('images[]', image, image.name);
                 });
             }
             if (publication.files.videos) {
