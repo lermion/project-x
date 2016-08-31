@@ -219,7 +219,9 @@ Queries.prototype.getUserDialogue = function(data){
 						isRead = true;
 						}else{
 							for(var i = 0; i < isRead[0]['COUNT(message_id)']; i++){
-								result[i].isRead = true;
+								if (result[i] !== undefined) {
+									result[i].isRead = true;
+								}
 							}
 						}
 					}
@@ -267,13 +269,15 @@ Queries.prototype.getGroupChatDialogue = function(data){
 				for(var i = 0; i < result.length; i++){
 					result[i].images = response[i];
 				}
-				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND message_id > (SELECT MAX( message_id) FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND NOT user_id = " + data.userId + ")", function(err, isRead) {
-					if(isRead !== undefined){
+				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND message_id > (SELECT MAX( message_id) FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND NOT user_id = " + data.userId + ")", function(err, isRead) {					if(isRead !== undefined){
 						if(isRead[0]['COUNT(message_id)'] === 0){
 						isRead = true;
 						}else{
 							for(var i = 0; i < isRead[0]['COUNT(message_id)']; i++){
-								result[i].isRead = true;
+								if (result[i] !== undefined) {
+									result[i].isRead = true;
+								}
+
 							}
 						}
 					}
