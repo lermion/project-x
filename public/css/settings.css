@@ -428,7 +428,7 @@
     height: 15px;
     line-height: 15px;
     position: absolute;
-    left: 54px;
+    left: 50px;
     text-align: center;
     top: 0;
     width: 15px;
@@ -733,6 +733,16 @@
     }
 }
 @media only screen and (max-width: 520px) {
+    .modal__content {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .popup-invite-group .invite-group__items {
+        width: 100%;
+    }
+    .popup-invite-group .invite-group__items-selected {
+        width: 100%;
+    }
     .settingsss .set_2 p {
         font-size: 14px;
         margin-top: 5px;
