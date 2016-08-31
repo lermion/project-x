@@ -3646,7 +3646,7 @@ pub-list-item .publication-footer-button {
 	line-height: 20px;
 }
 .content-item .user-publication-header .user-menu {
-	margin-left: 85px;
+	margin-left: 0;
 }
 .content-item .user-publication-header  .menu-item,
 .my_profilll .user-publication-header  .menu-item {
