@@ -2744,7 +2744,7 @@ pub-list-item .publication-footer-button {
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
-	width: auto;
+	width: 100%;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:hover:before {
 	color: #333;
