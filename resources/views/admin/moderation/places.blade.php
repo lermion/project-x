@@ -37,7 +37,7 @@
                 <tbody>
                 @foreach($places as $place)
                   <tr>
-                    <td><a href="">{{$place->id}}</a></td>
+                    <td><a href="/place/{{$place->url_name}}">{{$place->id}}</a></td>
                     <td>{{$place->name}}</td>
                     <td class="img-center">
                         <img src="{{$place->cover}}" alt="{{$place->cover}}">

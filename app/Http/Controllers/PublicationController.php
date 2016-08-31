@@ -212,37 +212,36 @@ class PublicationController extends Controller
                     continue;
                 }
 
-               // try {
-                    $f_name = $video->getClientOriginalName();
-                    $f_path = storage_path('tmp/video/');
-                    $video->move($f_path, $f_name);
-                    $new_fname = 'upload/publication/videos/' . uniqid();
-                    Video::makeFrame($f_name, $f_path, $new_fname);
-		    Video::makeVideo($f_name, $f_path, $new_fname);
-                    $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
-                    if (substr(php_uname(), 0, 7) == "Windows"){
-                        pclose(popen("start /B ". $cmd, "r"));
-                    }
-                    else {
-                        exec($cmd . " > /dev/null &");
-                    }
-               /* }
-                catch (\Exception $e) {
-                    $result = [
-                        "status" => false,
-                        "error" => [
-                            'message' => 'Bad video',
-                            'code' => '1'
-                        ]
-                    ];
-                    return response()->json($result);
-                }*/
+                // try {
+                $f_name = $video->getClientOriginalName();
+                $f_path = storage_path('tmp/video/');
+                $video->move($f_path, $f_name);
+                $new_fname = 'upload/publication/videos/' . uniqid();
+                Video::makeFrame($f_name, $f_path, $new_fname);
+                //Video::makeVideo($f_name, $f_path, $new_fname);
+                $cmd = 'php ' . base_path().'/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                if (substr(php_uname(), 0, 7) == "Windows"){
+                    pclose(popen("start /B ". $cmd, "r"));
+                }
+                else {
+                    exec($cmd . " > /dev/null &");
+                }
+                /* }
+                 catch (\Exception $e) {
+                     $result = [
+                         "status" => false,
+                         "error" => [
+                             'message' => 'Bad video',
+                             'code' => '1'
+                         ]
+                     ];
+                     return response()->json($result);
+                 }*/
 
                 $publication->videos()->create([
-                    'url' => $new_fname . '.webm',
+                    'url' => $new_fname . '.mp4',
                     'img_url' => $new_fname . '.jpg',
                 ]);
-                
             }
         }
         $responseData = [
