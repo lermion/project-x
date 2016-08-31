@@ -34,7 +34,7 @@
         <span class="line-h"><b>Выберите район</b></span>
       </div>
       <div class="col-md-3">
-          <select class="form-control" name="area_id">
+          <select class="form-control get-areas" name="area_id">
               @foreach($areas as $area)
                   <option value="{{$area->id}}">{{$area->name}}</option>
               @endforeach

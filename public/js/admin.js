@@ -12,8 +12,16 @@ function getRegion(that){
 			$("select.get-regions").attr("name", "region_id");
 			$("select.get-regions").change(function(event){
 				$.get("get_area/" + parseInt(this.value), function(response){
-					if(data.length > 0){
-						
+					if(response.length > 0){
+						$.each(response, function(key, value) {
+							$("select.get-areas").append($("<option/>", {
+								value: value.id,
+								text: value.name
+							}));
+						});
+						$("select.get-areas").attr("name", "area_id");
+					}else{
+						$("select.get-areas").replaceWith("<select class='form-control get-areas'><option></option></select>");
 					}
 				});
 			});
