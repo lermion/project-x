@@ -16,7 +16,7 @@ angular.module('placePeopleApp')
             var alertPubCommentModal;
 
             var w = angular.element($window);
-            var originalPubNew = angular.copy($scope.pubNew);
+
             var editPubPopup;
             var counter = 0;
             var pubEditDeletedPhotos = [];
@@ -28,6 +28,7 @@ angular.module('placePeopleApp')
                 cover_id: null,
                 inProfile: true
             };
+            var originalPubNew = angular.copy($scope.pubNew);
 
             $scope.loggedUserAvatar = storage.loggedUserAva;
             $scope.groupsChecked = [];
@@ -38,7 +39,9 @@ angular.module('placePeopleApp')
 
             $scope.loggedUserId = +storage.userId;
             $scope.indexCurrentImage = 0;
-            $scope.emojiMessage = {};
+            $scope.emojiMessage = {
+                messagetext: ''
+            };
             $scope.menuItems = [
                 {
                     menuType: "members",
@@ -637,11 +640,9 @@ angular.module('placePeopleApp')
                             console.log('Error');
                         }
                         $scope.newPubLoader = false;
-                        $scope.pubNew.files = [];
                     },
                     function (err) {
                         console.log(err);
-                        $scope.pubNew.files = [];
                     });
             };
 
