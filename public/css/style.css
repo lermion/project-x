@@ -2702,7 +2702,7 @@ pub-list-item .publication-footer-button {
 	position: absolute;
 	width: 156px;
 	top: 20px;
-	left: 50%;
+	right: 0;
 	margin-left: -78px;
 	padding-top: 20px;
 }
