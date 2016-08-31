@@ -137,7 +137,7 @@
         var counter = 10;
 
         $scope.loadMorePubs = function () {
-            if ($scope.publications && counter < $scope.publications.length) {
+            if ($scope.publications && counter <= $scope.publications.length) {
                 counter += 10;
             } else {
                 return;
