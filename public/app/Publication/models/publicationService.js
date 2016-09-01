@@ -156,21 +156,21 @@ angular.module('placePeopleApp')
             return defer.promise;
         }
 
-        function createPublication(text, isAnon, isMain, videos, images, publication) {
+        function createPublication(publication) {
             var data = new FormData();
             var cover;
 
-            data.append('text', text);
-            data.append('is_anonym', isAnon);
-            data.append('is_main', isMain);
+            data.append('text',publication.text);
+            data.append('is_anonym', publication.isAnonym ? 1 : 0);
+            data.append('is_main', publication.isMain);
 
-            images.forEach(function (img) {
+            publication.images.forEach(function (img) {
                 data.append('images[]', img, img.name);
             });
 
             data.append('cover', publication.cover, publication.cover.name);
 
-            videos.forEach(function (video) {
+            publication.videos.forEach(function (video) {
                 data.append('videos[]', video);
             });
 
