@@ -451,10 +451,9 @@ angular.module('placePeopleApp')
 				$scope.Model.chatRooms = response;
 			});
 
-			// socket.on('switchRoom', function(newroom){
-			// 	socket.emit("switchRoom", newroom);
-			// });
-			
+			function checkURL(url){
+				return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+			}
 			$scope.Model.sendMes = function(message, roomId, files){
 				$scope.disabledSendMessage = true;
 				if(files !== undefined){
@@ -464,8 +463,13 @@ angular.module('placePeopleApp')
 						images: files
 					};
 					files.forEach(function(value){
-						imagesObj.imageName.push(value.name);
-						imagesObj.imageType.push(value.type);
+						if(checkURL(value.name)){
+							imagesObj.imageName.push(value.name);
+							imagesObj.imageType.push(value.type);
+						}else{
+							console.log("it is video");
+							imagesObj = "";
+						}
 					});
 				}
 				if(!roomId){
@@ -483,7 +487,7 @@ angular.module('placePeopleApp')
 					userId: $scope.loggedUserId,
 					room_id: roomId ? roomId : $scope.Model.opponent.room_id,
 					message: message ? message : "",
-					imagesObj: imagesObj
+					imagesObj: imagesObj !== "" ? imagesObj : undefined
 				};
 				$scope.Model.chatMes = '';
 				socket.emit('send message', data, function(){
@@ -585,7 +589,7 @@ angular.module('placePeopleApp')
 						// };
 					}
 				}
-    		});
+			});
 
 			$scope.Model.getLockedUsers = function(){
 				ChatService.getLockedUsers().then(function(response){	
