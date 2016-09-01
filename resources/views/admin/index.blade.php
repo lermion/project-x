@@ -110,11 +110,15 @@
 			$("input#reservation").daterangepicker({}, function(start, end, label){
 				var url = "admin/statistic/" + start.format('YYYY-MM-DD') + "/" + end.format('YYYY-MM-DD');
 				$.get(url, function(response){
-					var data2 = [];
-					Object.keys(response).forEach(function(value){
-						data2.push([gd(value.split("-")[0], value.split("-")[1], value.split("-")[2]), response[value].scalar]);
-					});
-					updateGraphic(data2);
+					if(Object.keys(response).length >= 2){
+						var data2 = [];
+						Object.keys(response).forEach(function(value){
+							data2.push([gd(value.split("-")[0], value.split("-")[1], value.split("-")[2]), response[value].scalar]);
+						});
+						updateGraphic(data2);
+					}else{
+						alert("Диапазон выбранных дат должен быть минимум 3 дня");
+					}
 				});
 			});
 		});

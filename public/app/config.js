@@ -151,7 +151,7 @@ angular.module('placePeopleApp')
                     templateUrl: '../../app/hidden-publication.html',
                     controller: 'HiddenPubContoller',
                     showHeader: true,
-                    requireLogin: true
+                    requireLogin: false
                 })
                 // .state('feed-mobile', {
                 //   url: 'feed/:pubId',
