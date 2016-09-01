@@ -517,7 +517,7 @@
             });
         };
 
-        $scope.$on('publication:delete', function(event, data) {
+        $rootScope.$on('publication:delete', function(event, data) {
             angular.forEach(vm.place.publications, function (item, index, arr) {
                 if (item.id === data.pubId) {
                     arr.splice(index, 1);

@@ -5,11 +5,11 @@
         .module('app.feed')
         .controller('feedCtrl', feedCtrl);
 
-    feedCtrl.$inject = ['$scope', '$state', 'PublicationService',
+    feedCtrl.$inject = ['$rootScope', '$scope', '$state', 'PublicationService',
         'FeedService', '$window', 'storageService', 'ngDialog', 'amMoment', 'Upload',
         'socket', 'groupsService', 'placesService', '$location', '$q', 'profile', 'publications'];
 
-    function feedCtrl($scope, $state, PublicationService,
+    function feedCtrl($rootScope, $scope, $state, PublicationService,
                       FeedService, $window, storageService, ngDialog, amMoment, Upload,
                       socket, groupsService, placesService, $location, $q, profile, publications) {
 
@@ -434,7 +434,7 @@
         ];
 
 
-        $scope.$on('publication:delete', function(event, data) {
+        $rootScope.$on('publication:delete', function(event, data) {
             angular.forEach($scope.publications, function (item, index, arr) {
                 if (item.id === data.pubId) {
                     arr.splice(index, 1);

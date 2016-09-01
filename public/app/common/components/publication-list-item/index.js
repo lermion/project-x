@@ -723,7 +723,7 @@
                 ctrl.confirmPubDelete = function () {
                     PublicationService.deletePublication(ctrl.pub.id).then(function (res) {
                             if (res.status) {
-                                $scope.$emit('publication:delete', {
+                                $rootScope.$broadcast('publication:delete', {
                                     pubId: ctrl.pub.id
                                 });
                             }
