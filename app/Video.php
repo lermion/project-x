@@ -46,8 +46,7 @@ class Video extends Model
         }
 
         $file = $ffmpeg->open($f_path . $f_name);
-        $file
-            ->filters()
+        $file->filters()
             // ->resize(new Dimension(640, 480))
             ->synchronize();
 
