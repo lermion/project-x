@@ -3688,6 +3688,7 @@ span.users-today-time-time.early {
     font-size: 13.6px;
 }
 .publication-relations-left span {
+    cursor: pointer;
     margin-left: 5px;
 }
 .publication-relations-left-btn {
