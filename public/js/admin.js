@@ -11,7 +11,7 @@ function getRegion(that){
 			});
 			$("select.get-regions").attr("name", "region_id");
 			$("select.get-regions").change(function(event){
-				$.get("get_area/" + parseInt(this.value), function(response){
+				$.get("/admin/base/get_area/" + parseInt(this.value), function(response){
 					if(response.length > 0){
 						$.each(response, function(key, value) {
 							$("select.get-areas").append($("<option/>", {
