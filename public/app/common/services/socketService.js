@@ -8,10 +8,8 @@
 	socket.$inject = ['$location', 'socketFactory'];
 
 	/* @ngInject */
-	function socket($location, socketFactory) {
+	function socket($location, socketFactory){
 		var path = $location.protocol() + '://' + $location.host();
-		console.log(path);
-
 		var baseUrl = path + ':3000';
 		var myIoSocket = io.connect(baseUrl);
 
