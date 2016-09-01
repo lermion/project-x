@@ -125,6 +125,7 @@
                         }
 
                     }
+                    ctrl.mainImage = ctrl.pub.cover;
                 };
 
                 ctrl.$onChanges = function (args) {
