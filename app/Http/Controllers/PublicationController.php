@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ComplaintPublication;
 use App\Image;
 use App\Publication;
+use App\PublicationVideo;
 use App\User;
 use App\Video;
 use Illuminate\Http\Request;
@@ -125,7 +126,6 @@ class PublicationController extends Controller
             $this->validate($request, [
                 'text' => 'min:1',
                 'cover' => 'file',
-                'original_cover' => 'file',
                 'is_anonym' => 'boolean',
                 'is_main' => 'boolean',
                 'in_profile' => 'boolean',
@@ -175,18 +175,6 @@ class PublicationController extends Controller
             }
         }
         $publicationData = $request->all();
-        if ($request->hasFile('cover')) {
-            $cover = $request->file('cover');
-            if ($request->hasFile('images')){
-                $path = Image::getCoverPath($cover);
-                $publicationData['cover'] = $path;
-            }
-        }
-        if ($request->hasFile('original_cover')) {
-            $cover = $request->file('original_cover');
-            $path = Image::getOriginalCoverPath($cover);
-            $publicationData['original_cover'] = $path;
-        }
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $publication = Publication::create($publicationData);
@@ -194,13 +182,13 @@ class PublicationController extends Controller
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('images') as $image) {
-                if (!$image) {
-                    continue;
-                }
+                $image_name = $image->getClientOriginalName();
                 $path = Image::getImagePath($image);
-                if ($cover_name == $image->getClientOriginalName())
+                if ($image_name == $cover_name)
                 {
                     $publication->images()->create(['url' => $path],['is_cover' => true]);
+                    $publication->cover = $path;
+                    $publication->save();
                 } else
                 {
                     $publication->images()->create(['url' => $path]);
@@ -209,32 +197,47 @@ class PublicationController extends Controller
             }
         }
         if ($request->hasFile('videos')) {
+            $cover = $request->file('cover');
+            $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('videos') as $video) {
-                if (!$video) {
-                    continue;
+                $video_name = $video->getClientOriginalName();
+                if ($video_name == $cover_name) {
+                    $f_name = $video->getClientOriginalName();
+                    $f_path = storage_path('tmp/video/');
+                    $video->move($f_path, $f_name);
+                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    Video::makeFrame($f_name, $f_path, $new_fname);
+                    //Video::makeVideo($f_name, $f_path, $new_fname);
+                    $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                    if (substr(php_uname(), 0, 7) == "Windows") {
+                        pclose(popen("start /B " . $cmd, "r"));
+                    } else {
+                        exec($cmd . " > /dev/null &");
+                    }
+                    $publication->cover = $new_fname . '.jpg';
+                    $publication->save();
+                    $publication->videos()->create([
+                        'url' => $new_fname . '.mp4',
+                        'img_url' => $new_fname . '.jpg',
+                    ], ['is_cover' => true]);
+                } else {
+                    $f_name = $video->getClientOriginalName();
+                    $f_path = storage_path('tmp/video/');
+                    $video->move($f_path, $f_name);
+                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    Video::makeFrame($f_name, $f_path, $new_fname);
+                    //Video::makeVideo($f_name, $f_path, $new_fname);
+                    $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                    if (substr(php_uname(), 0, 7) == "Windows") {
+                        pclose(popen("start /B " . $cmd, "r"));
+                    } else {
+                        exec($cmd . " > /dev/null &");
+                    }
+                    $publication->videos()->create([
+                        'url' => $new_fname . '.mp4',
+                        'img_url' => $new_fname . '.jpg',
+                    ]);
                 }
-
-                // try {
-                $f_name = $video->getClientOriginalName();
-                $f_path = storage_path('tmp/video/');
-                $video->move($f_path, $f_name);
-                $new_fname = 'upload/publication/videos/' . uniqid();
-                Video::makeFrame($f_name, $f_path, $new_fname);
-                //Video::makeVideo($f_name, $f_path, $new_fname);
-                $cmd = 'php ' . base_path().'/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
-                if (substr(php_uname(), 0, 7) == "Windows"){
-                    pclose(popen("start /B ". $cmd, "r"));
-                }
-                else {
-                    exec($cmd . " > /dev/null &");
-                }
-                $publication->cover = $new_fname .'.jpg';
-                $publication->save();
-                $publication->videos()->create([
-                    'url' => $new_fname . '.mp4',
-                    'img_url' => $new_fname . '.jpg',
-                ]);
-
             }
         }
         $responseData = [
@@ -271,7 +274,6 @@ class PublicationController extends Controller
                     $this->validate($request, [
                         'text' => 'min:1',
                         'cover' => 'file',
-                        'original_cover' => 'file',
                         'is_anonym' => 'boolean',
                         'is_main' => 'boolean',
                         'in_profile' => 'boolean',
@@ -291,16 +293,12 @@ class PublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
-                if ($request->hasFile('cover')) {
-                    $cover = $request->file('cover');
-                    $path = Image::getImagePath($cover);
-                    $publicationData['cover'] = $path;
-                }
-                if ($request->hasFile('original_cover')) {
-                    $cover = $request->file('original_cover');
-                    $path = Image::getOriginalCoverPath($cover);
-                    $publicationData['original_cover'] = $path;
-                }
+//                if ($request->hasFile('cover')) {
+//                    $cover = $request->file('cover');
+//                    $path = Image::getImagePath($cover);
+//                    $publicationData['cover'] = $path;
+//                }
+//
                 if ($publication->is_main == true or $publicationData['is_main'] == true){
                     $publicationData['is_moderate'] = false;
                 } else {
@@ -316,43 +314,6 @@ class PublicationController extends Controller
                         }
                     }
                 }
-                if ($request->input('cover_id')){
-                    $cover_id = $request->input('cover_id');
-
-                    $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
-                    $image->is_cover = false;
-                    $image->save();
-
-                    $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
-                    $image_cover->is_cover = true;
-                    $image_cover->save();
-                    $url = Image::find($cover_id);
-                    $public = Publication::where('id',$id)->first();
-                    $public->cover = $url['url'];
-                    $public->save();
-
-                }
-                if ($request->hasFile('images')) {
-                    $cover = $request->file('cover');
-                    $cover_name = $cover->getClientOriginalName();
-                    foreach ($request->file('images') as $image) {
-                        if (!$image) {
-                            continue;
-                        }
-                        $path = Image::getImagePath($image);
-                        if ($cover_name == $image->getClientOriginalName())
-                        {
-                            $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
-                            $image->is_cover = false;
-                            $image->save();
-                            $publication->images()->create(['url' => $path],['is_cover' => true]);
-                        } else
-                        {
-                            $publication->images()->create(['url' => $path]);
-                        }
-
-                    }
-                }
                 $deleteVideos = $request->input('delete_videos');
                 if ($deleteVideos) {
                     foreach ($deleteVideos as $deleteVideo) {
@@ -364,44 +325,218 @@ class PublicationController extends Controller
                         }
                     }
                 }
+                if ($request->input('cover_image_id')){
+                    $cover_id = $request->input('cover_image_id');
 
-                if ($request->hasFile('videos')) {
-                    foreach ($request->file('videos') as $video) {
-                        if (!$video) {
-                            continue;
+                    $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                    $image->is_cover = false;
+                    $image->save();
+                    $video = PublicationVideo::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                    $video->is_cover = false;
+                    $video->save();
+
+                    $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
+                    $image_cover->is_cover = true;
+                    $image_cover->save();
+                    $url = Image::find($cover_id);
+                    $public = Publication::where('id',$id)->first();
+                    $public->cover = $url['url'];
+                    $public->save();
+                }
+
+                if ($request->input('cover_video_id')){
+                    $cover_id = $request->input('cover_video_id');
+
+                    $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                    $image->is_cover = false;
+                    $image->save();
+                    $video = PublicationVideo::where(['is_cover'=>true,'publication_id'=>$id])->first();
+                    $video->is_cover = false;
+                    $video->save();
+
+                    $video_cover = PublicationVideo::where(['video_id'=>$cover_id,'publication_id'=>$id])->first();
+                    $video_cover->is_cover = true;
+                    $video_cover->save();
+                    $url = Video::find($cover_id);
+                    $public = Publication::where('id',$id)->first();
+                    $public->cover = $url['url'];
+                    $public->save();
+                }
+
+
+//                if ($request->hasFile('images')) {
+//                    $cover = $request->file('cover');
+//                    $cover_name = $cover->getClientOriginalName();
+//                    foreach ($request->file('images') as $image) {
+//                        if (!$image) {
+//                            continue;
+//                        }
+//                        $path = Image::getImagePath($image);
+//                        if ($cover_name == $image->getClientOriginalName())
+//                        {
+//                            $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
+//                            $image->is_cover = false;
+//                            $image->save();
+//                            $publication->images()->create(['url' => $path],['is_cover' => true]);
+//                        } else
+//                        {
+//                            $publication->images()->create(['url' => $path]);
+//                        }
+//
+//                    }
+//                }
+//                if ($request->hasFile('videos')) {
+//                    foreach ($request->file('videos') as $video) {
+//                        if (!$video) {
+//                            continue;
+//                        }
+//
+//                        try {
+//                            $f_name = $video->getClientOriginalName();
+//                            $f_path = storage_path('tmp/video/');
+//                            $video->move($f_path, $f_name);
+//                            $new_fname = 'upload/publication/videos/' . uniqid();
+//                            Video::makeFrame($f_name, $f_path, $new_fname);
+//                            $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
+//                            if (substr(php_uname(), 0, 7) == "Windows"){
+//                                pclose(popen("start /B ". $cmd, "r"));
+//                            }
+//                            else {
+//                                exec($cmd . " > /dev/null &");
+//                            }
+//                        }
+//                        catch (\Exception $e) {
+//                            $result = [
+//                                "status" => false,
+//                                "error" => [
+//                                    'message' => 'Bad video',
+//                                    'code' => '1'
+//                                ]
+//                            ];
+//                            return response()->json($result);
+//                        }
+//                        $publication->videos()->create([
+//                            'url' => $new_fname . '.webm',
+//                            'img_url' => $new_fname . 'jpg'
+//                        ]);
+//                     }
+//
+//
+//                }
+
+
+
+
+
+
+
+
+
+
+
+
+                if ($request->hasFile('images')) {
+                    $cover = $request->file('cover');
+                    foreach ($request->file('images') as $image) {
+                        $image_name = $image->getClientOriginalName();
+                        $path = Image::getImagePath($image);
+                        if($cover) {
+                            $cover_name = $cover->getClientOriginalName();
+                            if ($image_name == $cover_name) {
+                                $image = PublicationImage::where(['is_cover' => true, 'publication_id' => $id])->first();
+                                if ($image) {
+                                    $image->is_cover = false;
+                                    $image->save();
+                                }
+                                $video = PublicationVideo::where(['is_cover' => true, 'publication_id' => $id])->first();
+                                if ($video) {
+                                    $video->is_cover = false;
+                                    $video->save();
+                                }
+                                dd(1);
+                                $publication->images()->create(['url' => $path], ['is_cover' => true]);
+                                $publication->cover = $path;
+                                $publication->save();
+                            } else {
+                                $publication->images()->create(['url' => $path]);
+                            }
+                        }else {
+                            $publication->images()->create(['url' => $path]);
                         }
-
-                        try {
+                    }
+                }
+                if ($request->hasFile('videos')) {
+                    $cover = $request->file('cover');
+                    foreach ($request->file('videos') as $video) {
+                        $video_name = $video->getClientOriginalName();
+                        if($cover) {
+                            $cover_name = $cover->getClientOriginalName();
+                            if ($video_name == $cover_name) {
+                                $image = PublicationImage::where(['is_cover' => true, 'publication_id' => $id])->first();
+                                if ($image) {
+                                    $image->is_cover = false;
+                                    $image->save();
+                                }
+                                $video = PublicationVideo::where(['is_cover' => true, 'publication_id' => $id])->first();
+                                if ($video) {
+                                    $video->is_cover = false;
+                                    $video->save();
+                                }
+                                $f_name = $video->getClientOriginalName();
+                                $f_path = storage_path('tmp/video/');
+                                $video->move($f_path, $f_name);
+                                $new_fname = 'upload/publication/videos/' . uniqid();
+                                Video::makeFrame($f_name, $f_path, $new_fname);
+                                //Video::makeVideo($f_name, $f_path, $new_fname);
+                                $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                                if (substr(php_uname(), 0, 7) == "Windows") {
+                                    pclose(popen("start /B " . $cmd, "r"));
+                                } else {
+                                    exec($cmd . " > /dev/null &");
+                                }
+                                $publication->cover = $new_fname . '.jpg';
+                                $publication->save();
+                                $publication->videos()->create([
+                                    'url' => $new_fname . '.mp4',
+                                    'img_url' => $new_fname . '.jpg',
+                                ], ['is_cover' => true]);
+                            } else {
+                                $f_name = $video->getClientOriginalName();
+                                $f_path = storage_path('tmp/video/');
+                                $video->move($f_path, $f_name);
+                                $new_fname = 'upload/publication/videos/' . uniqid();
+                                Video::makeFrame($f_name, $f_path, $new_fname);
+                                //Video::makeVideo($f_name, $f_path, $new_fname);
+                                $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                                if (substr(php_uname(), 0, 7) == "Windows") {
+                                    pclose(popen("start /B " . $cmd, "r"));
+                                } else {
+                                    exec($cmd . " > /dev/null &");
+                                }
+                                $publication->videos()->create([
+                                    'url' => $new_fname . '.mp4',
+                                    'img_url' => $new_fname . '.jpg',
+                                ]);
+                            }
+                        } else {
                             $f_name = $video->getClientOriginalName();
                             $f_path = storage_path('tmp/video/');
                             $video->move($f_path, $f_name);
                             $new_fname = 'upload/publication/videos/' . uniqid();
                             Video::makeFrame($f_name, $f_path, $new_fname);
-                            $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
-                            if (substr(php_uname(), 0, 7) == "Windows"){
-                                pclose(popen("start /B ". $cmd, "r"));
-                            }
-                            else {
+                            //Video::makeVideo($f_name, $f_path, $new_fname);
+                            $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                            if (substr(php_uname(), 0, 7) == "Windows") {
+                                pclose(popen("start /B " . $cmd, "r"));
+                            } else {
                                 exec($cmd . " > /dev/null &");
                             }
+                            $publication->videos()->create([
+                                'url' => $new_fname . '.mp4',
+                                'img_url' => $new_fname . '.jpg',
+                            ]);
                         }
-                        catch (\Exception $e) {
-                            $result = [
-                                "status" => false,
-                                "error" => [
-                                    'message' => 'Bad video',
-                                    'code' => '1'
-                                ]
-                            ];
-                            return response()->json($result);
-                        }
-                        $publication->videos()->create([
-                            'url' => $new_fname . '.webm',
-                            'img_url' => $new_fname . 'jpg'
-                        ]);
-                     }
-                        
-
+                    }
                 }
                 $responseData = [
                     "status" => true,

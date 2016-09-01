@@ -44,6 +44,6 @@ class MakeVideo extends Command
     {
         $arguments = $this->argument();
         Video::makeVideo($arguments['f_name'], $arguments['f_path'], $arguments['new_fname']);
-        Video::where('url', $arguments['new_fname'] . '.webm')->update(['is_coded' => 1]);
+        Video::where('url', $arguments['new_fname'] . '.mp4')->update(['is_coded' => 1]);
     }
 }
