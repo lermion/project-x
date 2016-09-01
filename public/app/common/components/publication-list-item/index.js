@@ -35,7 +35,7 @@
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
                                   socket, md5, $filter, $q, Upload, $window) {
                 var ctrl = this;
-                var modal, modalEditPub;
+                var modal, modalEditPub, modalDeletePub;
 
                 var pubEditDeletedPhotos = [];
                 var pubEditDeletedVideos = [];
@@ -294,10 +294,10 @@
                 };
 
                 ctrl.showAddCommentBlock = function () {
-                    var div = $(".emoji-wysiwyg-editor")[ctrl.index];
-                    setTimeout(function () {
-                        div.focus();
-                    }, 0);
+                    //var div = $(".emoji-wysiwyg-editor")[ctrl.index];
+                    //setTimeout(function () {
+                    //    div.focus();
+                    //}, 0);
                     ctrl.showAddComment = !(ctrl.showAddComment === true);
                 };
 
@@ -707,6 +707,31 @@
                             function (err) {
                                 console.log(err);
                             });
+                };
+
+                ctrl.openModalDeletePub = function () {
+                    modalDeletePub = ngDialog.open({
+                        template: '../app/common/components/publication-list-item/delete-publication.html',
+                        className: 'popup-delete-group ngdialog-theme-default ',
+                        scope: $scope,
+                        preCloseCallback: function () {
+
+                        }
+                    });
+                };
+
+                ctrl.confirmPubDelete = function () {
+                    PublicationService.deletePublication(ctrl.pub.id).then(function (res) {
+                            if (res.status) {
+                                $scope.$emit('publication:delete', {
+                                    pubId: ctrl.pub.id
+                                });
+                            }
+                            ngDialog.closeAll();
+                        },
+                        function (err) {
+                            console.log(err);
+                        });
                 };
 
                 function getAvatarPath() {

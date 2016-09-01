@@ -434,19 +434,13 @@
         ];
 
 
-        //$scope.$on('ngDialog.opened', function (e, $dialog) {
-        //    var mainImagePublication = $(".main-image-publication");
-        //    setTimeout(function () {
-        //        mainImagePublication.focus();
-        //    }, 0);
-        //    $scope.keyPress = function (event, images) {
-        //        if (event.keyCode === 39) {
-        //            $scope.openNextInfo(images);
-        //        } else if (event.keyCode === 37) {
-        //            $scope.openPreviousInfo(images);
-        //        }
-        //    };
-        //});
+        $scope.$on('publication:delete', function(event, data) {
+            angular.forEach($scope.publications, function (item, index, arr) {
+                if (item.id === data.pubId) {
+                    arr.splice(index, 1);
+                }
+            });
+        });
 
         $scope.changeMainFileFeed = function (file, currPub) {
             if (file.pivot.video_id || file.pivot.image_id) {

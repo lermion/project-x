@@ -1098,35 +1098,18 @@ angular.module('placePeopleApp')
                 }
             };
 
-            $scope.deletePub = function (pub) {
-                $scope.pubToDelete = pub.id;
-                deletePublication = ngDialog.open({
-                    template: '../app/User/views/delete-publication.html',
-                    className: 'delete-publication ngdialog-theme-default',
-                    scope: $scope
-                });
-            };
-
-            $scope.confirmPubDelete = function (pubToDelete) {
-                PublicationService.deletePublication(pubToDelete).then(function (res) {
-                        if (res.status) {
-                            ngDialog.closeAll();
-                            $scope.userPublications.splice($scope.indexCurrentPublication, 1);
-                            $scope.userData.publications_count--;
-                            getUserPubs(storage.userId);
-                            if ($state.current.name === "mobile-pub-view") {
-                                $state.go("user", {username: $stateParams.username});
-                            }
+            $scope.$on('publication:delete', function(event, data) {
+                angular.forEach($scope.userPublications, function (item, index, arr) {
+                    if (item.id === data.pubId) {
+                        arr.splice(index, 1);
+                        $scope.userData.publications_count--;
+                        if ($state.current.name === "mobile-pub-view") {
+                            $state.go("user", {username: $stateParams.username});
                         }
-                    },
-                    function (error) {
-                        console.log(error);
-                    });
-            };
+                    }
+                });
+            });
 
-            $scope.cancelPubDelete = function () {
-                deletePublication.close();
-            };
 
             $scope.confirmSubscriber = function (subscriber) {
                 UserService.confirmSubscriber(subscriber.id)

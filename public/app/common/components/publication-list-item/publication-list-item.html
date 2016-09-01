@@ -30,7 +30,7 @@
                         <a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
                         <a href ng-click="$ctrl.getPubLink($ctrl.pub.id)">Получить ссылку</a>
                         <a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
-                        <a href ng-if="$ctrl.place.is_admin" ng-click="$ctrl.deletePub($ctrl.pub)">Удалить</a>
+                        <a href ng-if="$ctrl.pub.user.id === $root.user.userId" ng-click="$ctrl.openModalDeletePub()">Удалить</a>
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                         <p class="time" am-time-ago="comment.created_at"></p>
                         <a ng-hide="comment.user.id == $ctrl.myId" href="javascript:void(0);"
                            ng-click="comment.user.id != $ctrl.myId && $ctrl.addCommentLike(comment)"
-                           class="like-counter">{{comment.like_count}}</a>
+                           class="like-counter">{{comment.like_count > 0 ? comment.like_count : ''}}</a>
                     </div>
                     <a href ng-click="$ctrl.openCommentComplainBlock(comment.id)" class="alert alert-text"
                        ng-if="!(comment.user.id == $ctrl.myId)">Пожаловаться</a>
