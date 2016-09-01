@@ -42,10 +42,19 @@
                     <td>{{$publication->text}}</td>
                     <td>{{$publication->user->first_name.' '.$publication->user->last_name}}</td>
                     <td class="mini-image">
-                        <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
-                        <!-- <a href="">Ещё</a> -->
+                        @if ($publication->images->first() != null)
+                            <img src="{{$publication->images->first()->url}}" alt="{{$publication->images->first()->url}}">
+                        @else
+                            Нет картинки
+                        @endif
                     </td>
-                    <td>Нет видео</td>
+                    <td class="mini-image">
+                        @if ($publication->videos->first() != null)
+                            <img src="/{{$publication->videos->first()->img_url}}" alt="{{$publication->videos->first()->img_url}}">
+                        @else
+                            Нет видео
+                        @endif
+                    </td>
                     <td>{{$publication->created_at}}</td>
                     <td class="text-center">
                             @if ($publication->is_block == false)
@@ -66,6 +75,7 @@
                     </td>
                   </tr>
                 @endforeach
+                {{--{{dd($publication)}}--}}
                 </tbody>
             </table>
         </div>
