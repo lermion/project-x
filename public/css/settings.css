@@ -2126,7 +2126,7 @@ div.my_profilll.photo-list div:last-child {
     align-items: center;
     margin-bottom: 5px;
 }
-.add_newgroup .button .create {
+.add_newgroup .button .create, {
     text-decoration: none;
     font-size: 14.6px;
     font-family: "SFUIDisplayMedium";

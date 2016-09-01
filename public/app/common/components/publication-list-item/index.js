@@ -126,6 +126,8 @@
 
                     }
                     ctrl.mainImage = ctrl.pub.cover;
+
+                    ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
                 };
 
                 ctrl.$onChanges = function (args) {

@@ -1,4 +1,4 @@
-<form name="$ctrl.newPublicationForm" ng-submit="$ctrl.submitNewPublication()" novalidate>
+<form name="$ctrl.newPublicationForm" novalidate>
     <h5>Новая публикация</h5>
 
     <div class="publication">
@@ -90,7 +90,7 @@
                        type="file"
                        ngf-select
                        ngf-accept="'image/*, video/*'"
-                       ngf-pattern="'image/*, video/*'"
+                       ngf-pattern="'image/*, video/*, .mp4'"
                        ng-model="$ctrl.filesPreview"
                        ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        ngf-multiple="true"
@@ -112,9 +112,9 @@
             </div>
             <div class="publication-footer-button">
                 <a href="" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-                <button type="submit" class="publication-button"
-                        ladda="$ctrl.subForm" ng-disabled="$ctrl.subForm">Опубликовать
-                </button>
+                <a type="submit" class="publication-button"
+                        ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()" ng-disabled="$ctrl.subForm">Опубликовать
+                </a>
             </div>
         </div>
 
