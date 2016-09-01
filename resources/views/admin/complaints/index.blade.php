@@ -36,7 +36,9 @@
                         @if ($complaint->comment)
                             <p>Нет картинки</p>
                         @else
-                            <img src="{{$complaint->publication_cover}}" alt="{{$complaint->publication_cover}}">
+                            <img class="js-show-modal-image"
+                                 src="{{$complaint->publication_cover}}"
+                                 alt="{{$complaint->publication_cover}}">
                         @endif
                     </td>
                     <td>{{$complaint->user_which_login}}</td>
@@ -57,6 +59,25 @@
             </table>
         </div>
     </div>
+
+<!-- Creates the bootstrap modal where the image will appear -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imagepreview" class="img-responsive">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script>
         $('.admin-settings-menu li a').each(function () {
             var location = window.location.href;
@@ -68,6 +89,13 @@
                 $(this).addClass('active');
             }
         });
+
+        $(".js-show-modal-image").on("click", function() {
+            $('#imagepreview').attr('src', $(this).attr('src')); // here asign the image to the modal when the user click the enlarge link
+            $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+        });
+
     </script>
+
     {!! $complaints->render() !!}
 @stop

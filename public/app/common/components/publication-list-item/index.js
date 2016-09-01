@@ -294,10 +294,10 @@
                 };
 
                 ctrl.showAddCommentBlock = function () {
-                    var div = $(".emoji-wysiwyg-editor")[ctrl.index];
-                    setTimeout(function () {
-                        div.focus();
-                    }, 0);
+                    //var div = $(".emoji-wysiwyg-editor")[ctrl.index];
+                    //setTimeout(function () {
+                    //    div.focus();
+                    //}, 0);
                     ctrl.showAddComment = !(ctrl.showAddComment === true);
                 };
 
