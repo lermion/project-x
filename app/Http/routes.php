@@ -113,7 +113,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('edit_country_save', 'Admin\CountryController@editCountrySave');
                 Route::get('region', 'Admin\CountryController@region');
                 Route::post('create_region', 'Admin\CountryController@createRegion');
-                Route::get('edit_region/{id}', 'Admin\CountryController@editRegion');
+                Route::get('edit_region/{id}/{country_id}', 'Admin\CountryController@editRegion');
                 Route::post('edit_region_save', 'Admin\CountryController@editRegionSave');
                 Route::get('district', 'Admin\CountryController@district');
                 Route::post('create_district', 'Admin\CountryController@createDistrict');
