@@ -502,6 +502,7 @@
                 scope: $scope,
                 preCloseCallback: function () {
                     $scope.pubNew = angular.copy(originalPub);
+                    $scope.emojiMessage.messagetext = '';
                 }
             });
         };

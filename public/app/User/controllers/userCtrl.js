@@ -467,6 +467,7 @@ angular.module('placePeopleApp')
                     name: "create-publication",
                     preCloseCallback: function () {
                         $scope.pubNew = angular.copy(originalPubNew);
+                        $scope.emojiMessage.messagetext = '';
                     }
                 });
             };
