@@ -28,15 +28,13 @@ class CountController extends Controller
 
     public function to_remove()
     {
-        $to_remove = \DB::transaction(function() {
-            $user = User::where('is_block', true)->count();
-            $place = Place::where('is_block', true)->count();
-            $group = Group::where('is_block', true)->count();
-            $publication = Publication::where('is_block', true)->count();
-            $remove = $user+$place+$group+$publication;
-            return $remove;
-        });
-        return $to_remove;
+        $user_count = User::where('is_block', true)->count();
+        $places_count = Place::where('is_block', true)->count();
+        $groups_count = Group::where('is_block', true)->count();
+        $publications_count = Publication::where('is_block', true)->count();
+        $count = $user_count+$places_count+$groups_count+$publications_count;
+        $response = ['count'=>$count, 'user_count'=>$user_count, 'places_count'=>$places_count, 'groups_count'=>$groups_count, 'publications_count'=>$publications_count];
+        return response()->json($response);
 
     }
 }
