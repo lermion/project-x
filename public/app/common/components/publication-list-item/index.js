@@ -775,6 +775,11 @@
                 ctrl.indexCurrentImage = 0;
 
                 ctrl.openPreviousInfo = function () {
+                    $timeout(function() {
+                        var element = $window.document.getElementById('pub'+ctrl.pub.id);
+                        if(element)
+                            element.focus();
+                    });
                     var imagesLength = ctrl.pub.images.length;
                     if (imagesLength >= 1) {
 
