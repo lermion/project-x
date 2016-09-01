@@ -307,13 +307,13 @@ angular.module('placePeopleApp')
                     //$(".emoji-button").text("");
                     //$(".ngdialog .emoji-wysiwyg-editor")[1].innerHTML = $scope.currPub.text.split(' messagetext: ')[0];
                 } else if ($dialog.name === "create-publication") {
-                    window.emojiPicker = new EmojiPicker({
-                        emojiable_selector: '.create-publication-pub-text',
-                        assetsPath: 'lib/img/',
-                        popupButtonClasses: 'fa fa-smile-o'
-                    });
-                    window.emojiPicker.discover();
-                    $(".emoji-button").text("");
+                    //window.emojiPicker = new EmojiPicker({
+                    //    emojiable_selector: '.create-publication-pub-text',
+                    //    assetsPath: 'lib/img/',
+                    //    popupButtonClasses: 'fa fa-smile-o'
+                    //});
+                    //window.emojiPicker.discover();
+                    //$(".emoji-button").text("");
                 }
             });
 
@@ -459,18 +459,33 @@ angular.module('placePeopleApp')
                 openSubscribe(userId);
             };
 
+            //$scope.createPublication = function () {
+            //    ngDialog.open({
+            //        template: '../app/User/views/create-publication.html',
+            //        className: 'user-publication ngdialog-theme-default',
+            //        scope: $scope,
+            //        name: "create-publication",
+            //        preCloseCallback: function () {
+            //            $scope.pubNew = angular.copy(originalPubNew);
+            //            $scope.emojiMessage.messagetext = '';
+            //        }
+            //    });
+            //};
+
             $scope.createPublication = function () {
                 ngDialog.open({
-                    template: '../app/User/views/create-publication.html',
+                    template: '../app/common/views/publication-new.html',
                     className: 'user-publication ngdialog-theme-default',
                     scope: $scope,
-                    name: "create-publication",
-                    preCloseCallback: function () {
-                        $scope.pubNew = angular.copy(originalPubNew);
-                        $scope.emojiMessage.messagetext = '';
+                    data: {
+                        profile: $rootScope.user
                     }
                 });
             };
+            $rootScope.$on('publication:add', function(event, data) {
+                $scope.userPublications.unshift(data.publication);
+                $scope.userData.publications_count++;
+            });
 
             $scope.closePopup = function () {
                 ngDialog.closeAll();

@@ -169,13 +169,13 @@
 
             fd.append('text', publication.text);
 
-            if (publication.files.images) {
-                angular.forEach(publication.files.images, function (image) {
+            if (publication.images) {
+                angular.forEach(publication.images, function (image) {
                     fd.append('images[]', image, image.name);
                 });
             }
-            if (publication.files.videos) {
-                angular.forEach(publication.files.videos, function (video) {
+            if (publication.videos) {
+                angular.forEach(publication.videos, function (video) {
                     fd.append('videos[]', video);
                 });
             }

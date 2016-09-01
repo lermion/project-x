@@ -495,17 +495,31 @@
             return mes[1];
         };
 
+        //$scope.createPublication = function () {
+        //    ngDialog.open({
+        //        template: '../app/Feed/views/create-publication.html',
+        //        className: 'user-publication ngdialog-theme-default',
+        //        scope: $scope,
+        //        preCloseCallback: function () {
+        //            $scope.pubNew = angular.copy(originalPub);
+        //            $scope.emojiMessage.messagetext = '';
+        //        }
+        //    });
+        //};
+
         $scope.createPublication = function () {
             ngDialog.open({
-                template: '../app/Feed/views/create-publication.html',
+                template: '../app/common/views/publication-new.html',
                 className: 'user-publication ngdialog-theme-default',
                 scope: $scope,
-                preCloseCallback: function () {
-                    $scope.pubNew = angular.copy(originalPub);
-                    $scope.emojiMessage.messagetext = '';
+                data: {
+                    feed: $rootScope.user
                 }
             });
         };
+        $rootScope.$on('publication:add', function(event, data) {
+            $scope.publications.push(data.publication);
+        });
 
         $scope.deletePubFile = function (index) {
             $scope.pubNew.files.splice(index, 1);

@@ -93,24 +93,7 @@
                         ctrl.pubList = $filter('orderBy')(ctrl.pubList, '-created_at');
                     }
 
-                    ctrl.pubEdited = {
-                        files: [],
-                        newFiles: [],
-                        cover: [],
-                        coverId: null
-                    };
 
-
-                    ctrl.pub.images.forEach(function (img) {
-                        var filename = img.url.split('/')[(img.url.split('/')).length - 1];
-                        img.name = filename.substring(8, filename.length);
-                        ctrl.pubEdited.files.push(img);
-                    });
-                    ctrl.pub.videos.forEach(function (video) {
-                        ctrl.pubEdited.files.push(video);
-                    });
-
-                    originalPubEdited = angular.copy(ctrl.pubEdited);
 
                     if (ctrl.isModal) {
                         ctrl.indexCurrentImage = getIndexCurrentImage();
@@ -126,6 +109,8 @@
 
                     }
                     ctrl.mainImage = ctrl.pub.cover;
+
+                    ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -800,18 +785,20 @@
                 };
 
                 function showNextInfo() {
-                    if (ctrl.pub.images.length >= 1) {
-                        if (ctrl.pub.images[ctrl.indexCurrentImage + 1] !== undefined) {
+                    if (ctrl.pub.files >= 1) {
+                        if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
                             ctrl.indexCurrentImage++;
-                            ctrl.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
+                            ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
                         } else {
 
                             var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
                             if (nextPub) {
                                 ctrl.pubIndex++;
                                 ctrl.pub = nextPub;
-                                if (ctrl.pub.images[0] !== undefined) {
-                                    ctrl.mainImage = ctrl.pub.images[0].url;
+                                if (ctrl.pub.files[0] !== undefined) {
+                                    ctrl.mainImage = ctrl.pub.files[0].url;
+                                    ctrl.mainVideo = ctrl.pub.files[0].url;
                                     ctrl.indexCurrentImage = 0;
                                 }
                             }
@@ -821,8 +808,8 @@
 
                 function getIndexCurrentImage() {
                     var index;
-                    ctrl.pub.images.forEach(function (image, i, images) {
-                        if (image.pivot.is_cover) {
+                    ctrl.pub.files.forEach(function (file, i, files) {
+                        if (file.pivot.is_cover) {
                             index = i;
                         }
                     });

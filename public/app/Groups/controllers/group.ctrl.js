@@ -194,28 +194,28 @@
             vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
         });
 
-        $scope.$on('ngDialog.opened', function (e, $dialog) {
-            if ($dialog.name === "modal-publication-group") {
-                var mainImagePublication = $(".main-image-publication");
-                setTimeout(function () {
-                    mainImagePublication.focus();
-                }, 0);
-                $scope.keyPress = function (event, images) {
-                    if (event.keyCode === 39) {
-                        $scope.openNextInfo(images);
-                    } else if (event.keyCode === 37) {
-                        $scope.openPreviousInfo(images);
-                    }
-                };
-            }
-            if ($dialog.name === "modal-edit-group") {
-                $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.groupEdited.description);
-            }
-
-            if ($dialog.name === "modal-edit-publication") {
-                $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
-            }
-        });
+        //$scope.$on('ngDialog.opened', function (e, $dialog) {
+        //    if ($dialog.name === "modal-publication-group") {
+        //        var mainImagePublication = $(".main-image-publication");
+        //        setTimeout(function () {
+        //            mainImagePublication.focus();
+        //        }, 0);
+        //        $scope.keyPress = function (event, images) {
+        //            if (event.keyCode === 39) {
+        //                $scope.openNextInfo(images);
+        //            } else if (event.keyCode === 37) {
+        //                $scope.openPreviousInfo(images);
+        //            }
+        //        };
+        //    }
+        //    if ($dialog.name === "modal-edit-group") {
+        //        $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.groupEdited.description);
+        //    }
+        //
+        //    if ($dialog.name === "modal-edit-publication") {
+        //        $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
+        //    }
+        //});
 
 
         // Modal windows
@@ -249,27 +249,27 @@
             });
         };
 
-        vm.openModalNewPublication = function () {
-            modalNewPublication = ngDialog.open({
-                template: '../app/Groups/views/popup-add-publication.html',
-                name: 'modal-publication-group',
-                className: 'user-publication group-pub ngdialog-theme-default',
-                scope: $scope,
-                preCloseCallback: resetFormNewPublication
-            });
-        };
-
         //vm.openModalNewPublication = function () {
         //    modalNewPublication = ngDialog.open({
-        //        template: '../app/common/views/publication-new.html',
+        //        template: '../app/Groups/views/popup-add-publication.html',
         //        name: 'modal-publication-group',
         //        className: 'user-publication group-pub ngdialog-theme-default',
-        //        data: {
-        //          group: vm.group
-        //        },
+        //        scope: $scope,
         //        preCloseCallback: resetFormNewPublication
         //    });
         //};
+
+        vm.openModalNewPublication = function () {
+            modalNewPublication = ngDialog.open({
+                template: '../app/common/views/publication-new.html',
+                className: 'user-publication ngdialog-theme-default',
+                scope: $scope,
+                data: {
+                  group: vm.group
+                },
+                preCloseCallback: resetFormNewPublication
+            });
+        };
 
         vm.openModalReviewPublication = function (id, index) {
             $scope.indexCurrentPublication = index;
@@ -376,6 +376,11 @@
                     }
                 })
         };
+
+        $rootScope.$on('publication:add', function(event, data) {
+            vm.group.publications.push(data.publication);
+            vm.group.count_publications++;
+        });
 
 
         //New publication

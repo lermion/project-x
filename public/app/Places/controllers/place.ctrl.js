@@ -166,12 +166,24 @@
             });
         };
 
+        //vm.openModalNewPublication = function () {
+        //    modalNewPublication = ngDialog.open({
+        //        template: '../app/Places/views/popup-add-publication.html',
+        //        name: 'modal-publication-group',
+        //        className: 'user-publication place-publication ngdialog-theme-default',
+        //        scope: $scope,
+        //        preCloseCallback: resetFormNewPublication
+        //    });
+        //};
+
         vm.openModalNewPublication = function () {
             modalNewPublication = ngDialog.open({
-                template: '../app/Places/views/popup-add-publication.html',
-                name: 'modal-publication-group',
-                className: 'user-publication place-publication ngdialog-theme-default',
+                template: '../app/common/views/publication-new.html',
+                className: 'user-publication ngdialog-theme-default',
                 scope: $scope,
+                data: {
+                    place: vm.place
+                },
                 preCloseCallback: resetFormNewPublication
             });
         };
@@ -296,6 +308,11 @@
                     vm.subForm = false;
                 })
         };
+
+        $rootScope.$on('publication:add', function(event, data) {
+            vm.place.publications.push(data.publication);
+            vm.place.count_publications++;
+        });
 
 
         vm.updatePlace = function () {
