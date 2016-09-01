@@ -231,7 +231,6 @@
             });
         };
 
-
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
                 getSubscription().then(function () {
@@ -259,6 +258,18 @@
                 preCloseCallback: resetFormNewPublication
             });
         };
+
+        //vm.openModalNewPublication = function () {
+        //    modalNewPublication = ngDialog.open({
+        //        template: '../app/common/views/publication-new.html',
+        //        name: 'modal-publication-group',
+        //        className: 'user-publication group-pub ngdialog-theme-default',
+        //        data: {
+        //          group: vm.group
+        //        },
+        //        preCloseCallback: resetFormNewPublication
+        //    });
+        //};
 
         vm.openModalReviewPublication = function (id, index) {
             $scope.indexCurrentPublication = index;

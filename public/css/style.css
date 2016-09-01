@@ -2705,6 +2705,7 @@ pub-list-item .publication-footer-button {
 	right: 0;
 	margin-left: -78px;
 	padding-top: 20px;
+	z-index: 99999991;
 }
 // .user-publication-header .user-menu:hover  .menu-item {
 // 	display: block;
