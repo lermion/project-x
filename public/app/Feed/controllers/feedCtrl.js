@@ -591,10 +591,10 @@
         $scope.pubViewStyleChange = function (flag) {
             if (flag) {
                 $scope.photosGrid = true;
-                storageService.setStorageItem('pubView', 'greed');
+                storageService.setStorageItem('feedPubView', 'greed');
             } else {
                 $scope.photosGrid = false;
-                storageService.setStorageItem('pubView', 'list');
+                storageService.setStorageItem('feedPubView', 'list');
             }
         };
 
@@ -729,13 +729,13 @@
         }
 
         function checkPublicationsView() {
-            if (!storage.pubView) {
-                storageService.setStorageItem('pubView', 'greed');
+            if (!storage.feedPubView) {
+                storageService.setStorageItem('feedPubView', 'greed');
                 $scope.photosGrid = true;
             } else {
-                if (storage.pubView === 'greed') {
+                if (storage.feedPubView === 'greed') {
                     $scope.photosGrid = true;
-                } else if (storage.pubView === 'list') {
+                } else if (storage.feedPubView === 'list') {
                     $scope.photosGrid = false;
                 }
             }

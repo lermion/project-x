@@ -175,13 +175,12 @@ class PublicationController extends Controller
             }
         }
         $publicationData = $request->all();
-        if (!$request->hasFile('images')){
-            $request->cover = null;
-        }
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
-            $path = Image::getCoverPath($cover);
-            $publicationData['cover'] = $path;
+            if ($request->hasFile('images')){
+                $path = Image::getCoverPath($cover);
+                $publicationData['cover'] = $path;
+            }
         }
         if ($request->hasFile('original_cover')) {
             $cover = $request->file('original_cover');
@@ -229,17 +228,6 @@ class PublicationController extends Controller
                 else {
                     exec($cmd . " > /dev/null &");
                 }
-                /* }
-                 catch (\Exception $e) {
-                     $result = [
-                         "status" => false,
-                         "error" => [
-                             'message' => 'Bad video',
-                             'code' => '1'
-                         ]
-                     ];
-                     return response()->json($result);
-                 }*/
                 $publication->cover = $new_fname .'.jpg';
                 $publication->save();
                 $publication->videos()->create([

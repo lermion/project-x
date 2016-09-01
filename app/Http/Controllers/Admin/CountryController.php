@@ -107,7 +107,7 @@ class CountryController extends Controller
         }
         $data = $request->all();
         Area::create($data);
-        return redirect('/admin/base/district')->with('message', 'Район добавленн');
+        return redirect('/admin/base/district')->with('message', 'Район добавлен');
     }
 
     public function editDistrict($id)
@@ -124,7 +124,7 @@ class CountryController extends Controller
         $district->name = $request->input('name');
         $district->region_id = $request->input('region_id');
         $district->save();
-        return redirect('/admin/base/region')->with('message', 'Район измененн');
+        return redirect('/admin/base/region')->with('message', 'Район изменен');
     }
 
     public function createSettlement(Request $request)
@@ -134,7 +134,27 @@ class CountryController extends Controller
         }
         $data = $request->all();
         City::create($data);
-        return redirect('/admin/base/settlement')->with('message', 'Населенный пункт добавленн');
+        return redirect('/admin/base/settlement')->with('message', 'Населенный пункт добавлен');
+    }
+
+    public function editSettlement($id)
+    {
+        $countries = Country::get();
+        $regions = Region::get();
+        $areas = Area::get();
+        $cities = City::find($id);
+        return view('admin.base.settlementEdit',['areas'=>$areas,'regions'=>$regions,'countries'=>$countries,'cities'=>$cities]);
+    }
+
+    public function editSettlementSave(Request $request)
+    {
+        $settlement = City::find($request->input('id'));
+        $settlement->name = $request->input('name');
+        $settlement->country_id = $request->input('country_id');
+        $settlement->area_id = $request->input('area_id');
+        $settlement->region_id = $request->input('region_id');
+        $settlement->save();
+        return redirect('/admin/base/settlement')->with('message', 'Населенный пункт изменен');
     }
 
     public function getRegion($id)
