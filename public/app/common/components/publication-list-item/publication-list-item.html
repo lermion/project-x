@@ -61,7 +61,7 @@
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
              style="max-height:175px; overflow:hidden; position:relative;"
-             ng-hide="$ctrl.pub.images.length === 1">
+             ng-hide="$ctrl.pub.files.length === 1">
 
             <div ng-click="$ctrl.changeMainFile(file, false, $index)"
                  ng-repeat="file in $ctrl.pub.files | limitTo: limit as results"
