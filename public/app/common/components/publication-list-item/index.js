@@ -125,6 +125,7 @@
                         }
 
                     }
+                    ctrl.mainImage = ctrl.pub.cover;
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -723,7 +724,7 @@
                 ctrl.confirmPubDelete = function () {
                     PublicationService.deletePublication(ctrl.pub.id).then(function (res) {
                             if (res.status) {
-                                $scope.$emit('publication:delete', {
+                                $rootScope.$broadcast('publication:delete', {
                                     pubId: ctrl.pub.id
                                 });
                             }
@@ -774,6 +775,11 @@
                 ctrl.indexCurrentImage = 0;
 
                 ctrl.openPreviousInfo = function () {
+                    $timeout(function() {
+                        var element = $window.document.getElementById('pub'+ctrl.pub.id);
+                        if(element)
+                            element.focus();
+                    });
                     var imagesLength = ctrl.pub.images.length;
                     if (imagesLength >= 1) {
 

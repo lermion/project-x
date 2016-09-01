@@ -467,6 +467,7 @@ angular.module('placePeopleApp')
                     name: "create-publication",
                     preCloseCallback: function () {
                         $scope.pubNew = angular.copy(originalPubNew);
+                        $scope.emojiMessage.messagetext = '';
                     }
                 });
             };
@@ -1098,7 +1099,7 @@ angular.module('placePeopleApp')
                 }
             };
 
-            $scope.$on('publication:delete', function(event, data) {
+            $rootScope.$on('publication:delete', function(event, data) {
                 angular.forEach($scope.userPublications, function (item, index, arr) {
                     if (item.id === data.pubId) {
                         arr.splice(index, 1);

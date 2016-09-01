@@ -231,7 +231,6 @@
             });
         };
 
-
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
                 getSubscription().then(function () {
@@ -259,6 +258,18 @@
                 preCloseCallback: resetFormNewPublication
             });
         };
+
+        //vm.openModalNewPublication = function () {
+        //    modalNewPublication = ngDialog.open({
+        //        template: '../app/common/views/publication-new.html',
+        //        name: 'modal-publication-group',
+        //        className: 'user-publication group-pub ngdialog-theme-default',
+        //        data: {
+        //          group: vm.group
+        //        },
+        //        preCloseCallback: resetFormNewPublication
+        //    });
+        //};
 
         vm.openModalReviewPublication = function (id, index) {
             $scope.indexCurrentPublication = index;
@@ -536,7 +547,7 @@
         };
 
 
-        $scope.$on('publication:delete', function(event, data) {
+        $rootScope.$on('publication:delete', function(event, data) {
             angular.forEach(vm.group.publications, function (item, index, arr) {
                 if (item.id === data.pubId) {
                     arr.splice(index, 1);
@@ -1041,10 +1052,10 @@
         vm.pubViewStyleChange = function (flag) {
             if (flag) {
                 vm.photosGrid = true;
-                storageService.setStorageItem('pubView', 'greed');
+                storageService.setStorageItem('groupPubView', 'greed');
             } else {
                 vm.photosGrid = false;
-                storageService.setStorageItem('pubView', 'list');
+                storageService.setStorageItem('groupPubView', 'list');
             }
         };
 
@@ -1299,13 +1310,13 @@
         }
 
         function checkPublicationsView() {
-            if (!storage.pubView) {
-                storageService.setStorageItem('pubView', 'greed');
+            if (!storage.groupPubView) {
+                storageService.setStorageItem('groupPubView', 'greed');
                 storage = storageService.getStorage();
             } else {
-                if (storage.pubView === 'greed') {
+                if (storage.groupPubView === 'greed') {
                     vm.photosGrid = true;
-                } else if (storage.pubView === 'list') {
+                } else if (storage.groupPubView === 'list') {
                     vm.photosGrid = false;
                 }
             }

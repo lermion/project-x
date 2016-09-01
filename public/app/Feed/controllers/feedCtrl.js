@@ -5,11 +5,11 @@
         .module('app.feed')
         .controller('feedCtrl', feedCtrl);
 
-    feedCtrl.$inject = ['$scope', '$state', 'PublicationService',
+    feedCtrl.$inject = ['$rootScope', '$scope', '$state', 'PublicationService',
         'FeedService', '$window', 'storageService', 'ngDialog', 'amMoment', 'Upload',
         'socket', 'groupsService', 'placesService', '$location', '$q', 'profile', 'publications'];
 
-    function feedCtrl($scope, $state, PublicationService,
+    function feedCtrl($rootScope, $scope, $state, PublicationService,
                       FeedService, $window, storageService, ngDialog, amMoment, Upload,
                       socket, groupsService, placesService, $location, $q, profile, publications) {
 
@@ -434,7 +434,7 @@
         ];
 
 
-        $scope.$on('publication:delete', function(event, data) {
+        $rootScope.$on('publication:delete', function(event, data) {
             angular.forEach($scope.publications, function (item, index, arr) {
                 if (item.id === data.pubId) {
                     arr.splice(index, 1);
@@ -502,6 +502,7 @@
                 scope: $scope,
                 preCloseCallback: function () {
                     $scope.pubNew = angular.copy(originalPub);
+                    $scope.emojiMessage.messagetext = '';
                 }
             });
         };
@@ -591,10 +592,10 @@
         $scope.pubViewStyleChange = function (flag) {
             if (flag) {
                 $scope.photosGrid = true;
-                storageService.setStorageItem('pubView', 'greed');
+                storageService.setStorageItem('feedPubView', 'greed');
             } else {
                 $scope.photosGrid = false;
-                storageService.setStorageItem('pubView', 'list');
+                storageService.setStorageItem('feedPubView', 'list');
             }
         };
 
@@ -729,13 +730,13 @@
         }
 
         function checkPublicationsView() {
-            if (!storage.pubView) {
-                storageService.setStorageItem('pubView', 'greed');
+            if (!storage.feedPubView) {
+                storageService.setStorageItem('feedPubView', 'greed');
                 $scope.photosGrid = true;
             } else {
-                if (storage.pubView === 'greed') {
+                if (storage.feedPubView === 'greed') {
                     $scope.photosGrid = true;
-                } else if (storage.pubView === 'list') {
+                } else if (storage.feedPubView === 'list') {
                     $scope.photosGrid = false;
                 }
             }

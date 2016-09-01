@@ -21,7 +21,7 @@ angular.module('placePeopleApp')
 			}).error(function(error){
 				console.log(error);
 			});
-			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+			$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 				$scope.currentPath = $location.path();
 			});
 			$scope.Model.mobile = {};
@@ -968,7 +968,6 @@ angular.module('placePeopleApp')
 			$scope.loadPubIntoChat = function(message, pubId){
 				if(pubId != undefined){
 					PublicationService.getSinglePublication(pubId).then(function(response){						
-						console.log(response);
 						message.pub = response;
 					},
 					function(error){
