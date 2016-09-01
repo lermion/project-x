@@ -57,6 +57,7 @@
                  ng-src="{{$ctrl.mainImage}}">
 
             <video ng-if="$ctrl.mainVideo && $ctrl.isModal" width="700" controls ngf-src="$ctrl.mainVideo"></video>
+            <video ng-if="$ctrl.mainVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
 
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
