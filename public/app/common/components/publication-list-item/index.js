@@ -125,20 +125,19 @@
                 };
 
 
-                ctrl.changeMainFile = function (file, flag, index) {
+                ctrl.changeMainFile = function (file, index) {
                     if (file.pivot.video_id) {
-                        ctrl.mainImage = "";
+                        ctrl.mainImage = null;
                         ctrl.mainVideo = file.url;
+                        if (ctrl.isModal) {
+                            ctrl.indexCurrentImage = index;
+                        }
                     } else if (file.pivot.image_id) {
-                        if (flag) {
-                            ctrl.mainImageInPopup = file.url;
-                        } else {
-                            ctrl.mainVideo = "";
+                            ctrl.mainVideo = null;
                             ctrl.mainImage = file.url;
                             if (ctrl.isModal) {
                                 ctrl.indexCurrentImage = index;
                             }
-                        }
                     }
                 };
 
@@ -791,10 +790,10 @@
                             ctrl.indexCurrentImage++;
                             if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
                                 ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                                ctrl.mainVideo = null;
                             } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id){
                                 ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
-                            } else {
-                                ctrl.mainVideo = null;
+                                ctrl.mainImage = null;
                             }
                         } else {
                             var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
@@ -804,8 +803,10 @@
                                 if (ctrl.pub.files[0] !== undefined) {
                                     if (ctrl.pub.files[0].pivot.image_id) {
                                         ctrl.mainImage = ctrl.pub.files[0].url;
-                                    } else if (ctrl.pub.files[0].pivot.video_id) {
                                         ctrl.mainVideo = null;
+                                    } else if (ctrl.pub.files[0].pivot.video_id) {
+                                        ctrl.mainVideo = ctrl.pub.files[0].url;
+                                        ctrl.mainImage = null;
                                     }
                                     ctrl.indexCurrentImage = 0;
                                 }
