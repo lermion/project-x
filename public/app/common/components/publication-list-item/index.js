@@ -108,7 +108,7 @@
                             var videoCover = ctrl.pub.videos.filter(function(file, index, videos) {
                                 return file.pivot.is_cover == true;
                             });
-                            ctrl.mainVideo = videoCover || false;
+                            ctrl.mainVideo = videoCover[0] || false;
                         }
 
                     }
