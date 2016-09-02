@@ -109,6 +109,10 @@
 
                 ctrl.submitNewPublication = function () {
 
+                    if (ctrl.subForm) {
+                        return false;
+                    }
+
                     ctrl.newPublicationForm.$setSubmitted();
 
                     if (ctrl.newPublicationForm.$invalid) {

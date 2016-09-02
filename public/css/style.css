@@ -2381,11 +2381,11 @@ pub-list-item .publication-footer-button {
 	cursor: pointer;
 }
 .publication-footer-button .publication-button.ladda-button {
-	position: static;
+	position: relative;
 	margin-top: 0;
 	margin-bottom: 0;
 }
-.publication-footer-button .publication-button:hover  {
+.publication-footer-button .publication-button:hover:not([data-loading])  {
 	background-color: #fff;
 	color: #495b79;
 }
