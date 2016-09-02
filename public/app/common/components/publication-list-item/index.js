@@ -780,8 +780,8 @@
                 ctrl.openPreviousInfo = function () {
                     $timeout(function () {
                         var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
-                        if (element)
-                            element.focus();
+                        if (element.length > 1)
+                            element[1].focus();
                     });
                     var imagesLength = ctrl.pub.files.length;
                     if (imagesLength >= 1) {
