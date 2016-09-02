@@ -94,12 +94,11 @@
                     }
 
 
-
                     if (ctrl.isModal) {
                         ctrl.indexCurrentImage = getIndexCurrentImage();
-                        $timeout(function() {
-                            var element = $window.document.getElementById('pub'+ctrl.pub.id);
-                            if(element)
+                        $timeout(function () {
+                            var element = $window.document.getElementById('pub' + ctrl.pub.id);
+                            if (element)
                                 element.focus();
                         });
 
@@ -760,9 +759,9 @@
                 ctrl.indexCurrentImage = 0;
 
                 ctrl.openPreviousInfo = function () {
-                    $timeout(function() {
-                        var element = $window.document.getElementById('pub'+ctrl.pub.id);
-                        if(element)
+                    $timeout(function () {
+                        var element = $window.document.getElementById('pub' + ctrl.pub.id);
+                        if (element)
                             element.focus();
                     });
                     var imagesLength = ctrl.pub.files.length;
@@ -790,17 +789,22 @@
                     if (ctrl.pub.files.length >= 1) {
                         if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
                             ctrl.indexCurrentImage++;
-                            ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
-                            ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
+                                ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            } else {
+                                ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            }
                         } else {
-
                             var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
                             if (nextPub) {
                                 ctrl.pubIndex++;
                                 ctrl.pub = nextPub;
                                 if (ctrl.pub.files[0] !== undefined) {
-                                    ctrl.mainImage = ctrl.pub.files[0].url;
-                                    ctrl.mainVideo = ctrl.pub.files[0].url;
+                                    if (ctrl.pub.files[0].pivot.image_id) {
+                                        ctrl.mainImage = ctrl.pub.files[0].url;
+                                    } else {
+                                        ctrl.mainVideo = ctrl.pub.files[0].url;
+                                    }
                                     ctrl.indexCurrentImage = 0;
                                 }
                             }
