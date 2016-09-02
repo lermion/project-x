@@ -1893,6 +1893,12 @@ body.public.user {
 		padding: 10px 20px 10px 20px;
 		background-color: #fff;
 	}
+	.content-user #user-page.list-style .comunications.adaptiv {
+		margin-bottom: 30px;
+	}
+	.content-user #user-page .comunications.adaptiv {
+		margin-bottom: 0px;
+	}
 	.my-profile-item .comunications {
 		display: none;
 	}
@@ -4683,6 +4689,9 @@ body.ngdialog-open {
 	}
 }
 @media (max-width: 520px)  {
+	#user-page.list-style .my-profile {
+	    margin-bottom: 0px;
+	}
 	.group-comment {
 		flex-wrap: wrap;
 			justify-content: flex-end;
