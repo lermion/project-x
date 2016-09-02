@@ -253,6 +253,9 @@ angular.module('placePeopleApp')
 
 			/*LOGIN PAGE*/
 			$scope.login = function (login, pwd) {
+				if(login.indexOf("+") !== -1){
+					login = login.replace("+", "");
+				}
 				$scope.loginLoader = true;
 				if (!login && !pwd) {
 					$scope.loginError = 'Введите логин и пароль';

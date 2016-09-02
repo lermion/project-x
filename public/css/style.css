@@ -4842,3 +4842,8 @@ input#chat-add-file-file{
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+h4.have-no-publication{
+	margin: 0 auto;
+    width: 300px;
+    text-align: center;
+}
