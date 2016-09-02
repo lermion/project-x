@@ -2581,6 +2581,9 @@ p.top-person-status {
     font-size: 12.6px;
     color: #999;
 }
+a.top-person-users-list {
+    color: #495b79;
+}
 .user-menu-top {
     display: flex;
     margin-right: 20px;
