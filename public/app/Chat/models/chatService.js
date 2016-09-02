@@ -13,8 +13,24 @@ angular.module('placePeopleApp')
 			getChatFiles: getChatFiles,
 			updateGroupChat: updateGroupChat,
 			exitUserFromGroupChat: exitUserFromGroupChat,
-			changeGroupChatAdmin: changeGroupChatAdmin
+			changeGroupChatAdmin: changeGroupChatAdmin,
+			sendVideos: sendVideos
 		};
+
+		function sendVideos(messageId, videos){
+			var data = new FormData();
+			data.append("message_id", messageId);
+			videos.forEach(function(video){
+				data.append("videos[]", video);
+			});
+			return $http({
+				method: 'POST',
+				url: 'chat/videos',
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: data
+			})
+		}
 
 		function changeGroupChatAdmin(roomId, userId){
 			var defer = $q.defer();
