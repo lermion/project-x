@@ -49,7 +49,7 @@
 				<td>{{$countries->where('id',$region->country_id)->first()->name}}</td>
 				<td>
 					<p class="text-center">
-						<a class="btn btn-warning btn-xs" href="/admin/base/edit_region/{{$region->id}}">Редактировать</a>
+						<a class="btn btn-warning btn-xs" href="/admin/base/edit_region/{{$region->id}}/{{$region->country_id}}">Редактировать</a>
 					</p>
 				</td>
 			  </tr>

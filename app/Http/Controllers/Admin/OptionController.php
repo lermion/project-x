@@ -54,36 +54,42 @@ class OptionController extends Controller
         try
         {
             $this->validate($request, [
-                'picture' => 'required|image|mimes:png|max:5000'
+                'picture' => 'required|image|max:3000'
             ]);
             $request->hasFile('picture');
             $picture = $request->file('picture');
             $cover = getimagesize($picture);
-            if($cover[0] > 1920 and $cover[1] > 1080)
+
+            if ($cover[0] < 1920 || $cover[1] < 1080){
+                $result = [
+                    "status" => false,
+                    "error" => "Low resolution images"
+                ];
+            }
+
+            if($cover[0] > 1920 || $cover[1] > 1080)
             {
                 $picture = Image2::make($picture);
                 $picture->resize(1920, 1080);
                 $path = '/images/';
                 $fullPath = public_path() . $path;
-                Storage::put('bc.png', file_get_contents($picture->getRealPath()));
-                $picture->move($fullPath, 'bc.png');
-                Storage::delete('bc.png');
-                $result = 'true';
+                Storage::delete('bc.jpeg');
+                $picture->save($fullPath.'bc.jpeg');
+                $result = [
+                    "status" => true,
+                    "error" => "Picture set"
+                ];
             }
+
             elseif($cover[0] == 1920 and $cover[1] == 1080)
             {
                 $path = '/images/';
                 $fullPath = public_path() . $path;
-                Storage::put('bc.png', file_get_contents($picture->getRealPath()));
-                $picture->move($fullPath, 'bc.png');
-                Storage::delete('bc.png');
-                $result = 'true';
-            }
-            else
-            {
+                Storage::delete('bc.jpeg');
+                $picture->save($fullPath.'bc.jpeg');
                 $result = [
-                    "status" => false,
-                    "error" => "Low resolution images"
+                    "status" => true,
+                    "error" => "Picture set"
                 ];
             }
 
@@ -95,6 +101,6 @@ class OptionController extends Controller
             ];
             return response()->json($result);
         }
-        return redirect('admin/option/')->with('message', 'Сохраненно');
+        return redirect('admin/option/')->with('message',$result);
     }
 }

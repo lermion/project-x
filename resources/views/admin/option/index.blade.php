@@ -64,7 +64,7 @@
 	                </div>
 	                <form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
 	                <div class="col-md-3 col-sm-3 col-xs-6">
-	                    <img src="/images/bc.png" class="img-responsive" alt="/images/bc.png">
+	                    <img src="/images/bc.jpeg" class="img-responsive" alt="/images/bc.jpeg">
 	                </div>
 	                <div class="col-md-3">
 	                    <input type="file" name="picture">
