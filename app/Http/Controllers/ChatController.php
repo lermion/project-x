@@ -307,7 +307,7 @@ class ChatController extends Controller
             $f_name = $video->getClientOriginalName();
             $f_path = storage_path('tmp/video/');
             $video->move($f_path, $f_name);
-            $new_fname = 'upload/publication/videos/' . uniqid();
+            $new_fname = 'upload/chat/videos/' . uniqid();
             Video::makeFrame($f_name, $f_path, $new_fname);
             //Video::makeVideo($f_name, $f_path, $new_fname);
             $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
