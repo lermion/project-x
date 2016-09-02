@@ -765,19 +765,21 @@
                         if(element)
                             element.focus();
                     });
-                    var imagesLength = ctrl.pub.images.length;
+                    var imagesLength = ctrl.pub.files.length;
                     if (imagesLength >= 1) {
 
-                        if (ctrl.pub.images[ctrl.indexCurrentImage - 1] !== undefined) {
+                        if (ctrl.pub.files[ctrl.indexCurrentImage - 1] !== undefined) {
                             ctrl.indexCurrentImage--;
-                            ctrl.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
+                            ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
                         } else {
                             var prevPub = ctrl.pubList[ctrl.pubIndex - 1];
                             if (prevPub) {
                                 ctrl.pubIndex--;
                                 ctrl.pub = prevPub;
-                                imagesLength = ctrl.pub.images.length;
-                                ctrl.mainImage = ctrl.pub.images[imagesLength - 1].url;
+                                imagesLength = ctrl.pub.files.length;
+                                ctrl.mainImage = ctrl.pub.files[imagesLength - 1].url;
+                                ctrl.mainVideo = ctrl.pub.files[imagesLength - 1].url;
                                 ctrl.indexCurrentImage = imagesLength - 1;
                             }
                         }
@@ -785,7 +787,7 @@
                 };
 
                 function showNextInfo() {
-                    if (ctrl.pub.files >= 1) {
+                    if (ctrl.pub.files.length >= 1) {
                         if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
                             ctrl.indexCurrentImage++;
                             ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
