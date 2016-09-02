@@ -2748,7 +2748,13 @@ pub-list-item .publication-footer-button {
 	overflow: hidden;
 }
 
-.user-publication-content .publication-ava img, .user-publication-content .publication-ava video{
+.user-publication-content .publication-ava img {
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
+.user-publication-content .publication-ava video {
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
