@@ -133,11 +133,11 @@
                             ctrl.indexCurrentImage = index;
                         }
                     } else if (file.pivot.image_id) {
-                            ctrl.mainVideo = null;
-                            ctrl.mainImage = file.url;
-                            if (ctrl.isModal) {
-                                ctrl.indexCurrentImage = index;
-                            }
+                        ctrl.mainVideo = null;
+                        ctrl.mainImage = file.url;
+                        if (ctrl.isModal) {
+                            ctrl.indexCurrentImage = index;
+                        }
                     }
                 };
 
@@ -278,10 +278,23 @@
                 };
 
                 ctrl.showAddCommentBlock = function () {
-                    //var div = $(".emoji-wysiwyg-editor")[ctrl.index];
-                    //setTimeout(function () {
-                    //    div.focus();
-                    //}, 0);
+                    var editor;
+                    $timeout(function () {
+
+                        var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
+
+                        //если найдено две одинаковых публикации (список и модальное окно), установим фокус на втором элементе (модальное окно)
+                        if (element.length > 1 && ctrl.isModal) {
+                            editor = element[1];
+                            editor.getElementsByClassName('emoji-wysiwyg-editor')[0].focus();
+
+                            // если это не модальное окно, а публикация списка, установим на фокус на первом элементе
+                        } else {
+                            editor = element[0];
+                            editor.getElementsByClassName('emoji-wysiwyg-editor')[0].focus();
+                        }
+
+                    });
                     ctrl.showAddComment = !(ctrl.showAddComment === true);
                 };
 
@@ -327,6 +340,7 @@
 
                 ctrl.clickEvent = function () {
                     if (ctrl.toClick && !ctrl.isModal) {
+                        ctrl.showAddComment = false;
                         ctrl.toClick(ctrl.pub, ctrl.index);
                     } else {
                         showNextInfo();
@@ -770,7 +784,7 @@
                             if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
                                 ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                 ctrl.mainVideo = null;
-                            } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id){
+                            } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
                                 ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                 ctrl.mainImage = null;
                             }
@@ -784,7 +798,7 @@
                                 if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
                                     ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                     ctrl.mainVideo = null;
-                                } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id){
+                                } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
                                     ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                     ctrl.mainImage = null;
                                 }
@@ -801,7 +815,7 @@
                             if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
                                 ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                 ctrl.mainVideo = null;
-                            } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id){
+                            } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
                                 ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                 ctrl.mainImage = null;
                             }
