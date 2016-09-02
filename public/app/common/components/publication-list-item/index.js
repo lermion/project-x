@@ -765,7 +765,6 @@
                     });
                     var imagesLength = ctrl.pub.files.length;
                     if (imagesLength >= 1) {
-
                         if (ctrl.pub.files[ctrl.indexCurrentImage - 1] !== undefined) {
                             ctrl.indexCurrentImage--;
                             if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
@@ -781,6 +780,7 @@
                                 ctrl.pubIndex--;
                                 ctrl.pub = prevPub;
                                 imagesLength = ctrl.pub.files.length;
+                                ctrl.indexCurrentImage = ctrl.pub.files.length - 1;
                                 if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
                                     ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
                                     ctrl.mainVideo = null;
