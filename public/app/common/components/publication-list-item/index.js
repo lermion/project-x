@@ -125,20 +125,19 @@
                 };
 
 
-                ctrl.changeMainFile = function (file, flag, index) {
+                ctrl.changeMainFile = function (file, index) {
                     if (file.pivot.video_id) {
-                        ctrl.mainImage = "";
+                        ctrl.mainImage = null;
                         ctrl.mainVideo = file.url;
+                        if (ctrl.isModal) {
+                            ctrl.indexCurrentImage = index;
+                        }
                     } else if (file.pivot.image_id) {
-                        if (flag) {
-                            ctrl.mainImageInPopup = file.url;
-                        } else {
-                            ctrl.mainVideo = "";
+                            ctrl.mainVideo = null;
                             ctrl.mainImage = file.url;
                             if (ctrl.isModal) {
                                 ctrl.indexCurrentImage = index;
                             }
-                        }
                     }
                 };
 
