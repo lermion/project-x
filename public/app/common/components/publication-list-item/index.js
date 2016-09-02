@@ -94,12 +94,11 @@
                     }
 
 
-
                     if (ctrl.isModal) {
                         ctrl.indexCurrentImage = getIndexCurrentImage();
-                        $timeout(function() {
-                            var element = $window.document.getElementById('pub'+ctrl.pub.id);
-                            if(element)
+                        $timeout(function () {
+                            var element = $window.document.getElementById('pub' + ctrl.pub.id);
+                            if (element)
                                 element.focus();
                         });
 
@@ -760,24 +759,26 @@
                 ctrl.indexCurrentImage = 0;
 
                 ctrl.openPreviousInfo = function () {
-                    $timeout(function() {
-                        var element = $window.document.getElementById('pub'+ctrl.pub.id);
-                        if(element)
+                    $timeout(function () {
+                        var element = $window.document.getElementById('pub' + ctrl.pub.id);
+                        if (element)
                             element.focus();
                     });
-                    var imagesLength = ctrl.pub.images.length;
+                    var imagesLength = ctrl.pub.files.length;
                     if (imagesLength >= 1) {
 
-                        if (ctrl.pub.images[ctrl.indexCurrentImage - 1] !== undefined) {
+                        if (ctrl.pub.files[ctrl.indexCurrentImage - 1] !== undefined) {
                             ctrl.indexCurrentImage--;
-                            ctrl.mainImage = ctrl.pub.images[ctrl.indexCurrentImage].url;
+                            ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
                         } else {
                             var prevPub = ctrl.pubList[ctrl.pubIndex - 1];
                             if (prevPub) {
                                 ctrl.pubIndex--;
                                 ctrl.pub = prevPub;
-                                imagesLength = ctrl.pub.images.length;
-                                ctrl.mainImage = ctrl.pub.images[imagesLength - 1].url;
+                                imagesLength = ctrl.pub.files.length;
+                                ctrl.mainImage = ctrl.pub.files[imagesLength - 1].url;
+                                ctrl.mainVideo = ctrl.pub.files[imagesLength - 1].url;
                                 ctrl.indexCurrentImage = imagesLength - 1;
                             }
                         }
@@ -785,20 +786,27 @@
                 };
 
                 function showNextInfo() {
-                    if (ctrl.pub.files >= 1) {
+                    if (ctrl.pub.files.length >= 1) {
                         if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
                             ctrl.indexCurrentImage++;
-                            ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
-                            ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
+                                ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            } else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id){
+                                ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+                            } else {
+                                ctrl.mainVideo = null;
+                            }
                         } else {
-
                             var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
                             if (nextPub) {
                                 ctrl.pubIndex++;
                                 ctrl.pub = nextPub;
                                 if (ctrl.pub.files[0] !== undefined) {
-                                    ctrl.mainImage = ctrl.pub.files[0].url;
-                                    ctrl.mainVideo = ctrl.pub.files[0].url;
+                                    if (ctrl.pub.files[0].pivot.image_id) {
+                                        ctrl.mainImage = ctrl.pub.files[0].url;
+                                    } else if (ctrl.pub.files[0].pivot.video_id) {
+                                        ctrl.mainVideo = null;
+                                    }
                                     ctrl.indexCurrentImage = 0;
                                 }
                             }
