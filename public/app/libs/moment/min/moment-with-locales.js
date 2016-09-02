@@ -2681,7 +2681,11 @@
 
     function pastFuture (diff, output) {
         var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
-        return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
+        if(typeof format === 'function' ? format(output) : format.replace(/%s/i, output) === "только что назад"){
+            return "только что";
+        }else{
+            return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
+        }
     }
 
     function locale_set__set (config) {
@@ -8376,7 +8380,7 @@
         relativeTime : {
             future : 'через %s',
             past : '%s назад',
-            s : 'несколько секунд',
+            s : 'только что',
             m : ru__relativeTimeWithPlural,
             mm : ru__relativeTimeWithPlural,
             h : 'час',
