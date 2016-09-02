@@ -10,8 +10,9 @@
 			<div class="chat-person-top-info">
 				<a ui-sref="user({username: Model.opponent.login})" class="top-person-name">{{!Model.opponent.is_group ? Model.opponent.first_name + ' ' + Model.opponent.last_name : Model.opponent.name}}</a>
 				<p class="top-person-users">
-					<span ng-if="Model.opponent.is_group && Model.opponent.members.length > 0">участники: </span>
-					<a ng-repeat="member in Model.opponent.members" ui-sref="user({username: member.login})" ng-if="Model.opponent.is_group" href="javascript:void(0);">{{member.first_name}}{{$last ? '' : ', '}}</a>
+					<span ng-if="Model.opponent.is_group && Model.opponent.members.length > 0">участники:&nbsp;&nbsp;</span>
+					<a class="top-person-users-list" ng-repeat="member in Model.opponent.members | limitTo : 3" ui-sref="user({username: member.login})" ng-if="Model.opponent.is_group" href="javascript:void(0);">{{member.first_name}}{{$last ? '' : ', '}}</a>&nbsp;
+					<a href="javascript:void(0);" ng-click="Model.showContactData(Model.opponent)" ng-show="Model.opponent.members.length > 3">...</a>
 					<span ng-if="Model.opponent.is_group && Model.opponent.members.length === 0">нет участников</span>
 				</p>
 				<p class="top-person-status" ng-hide="!!Model.opponent.is_group">{{Model.opponent.last_action ? 'В сети':'Не в сети'}}</p>
