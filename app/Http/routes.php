@@ -321,6 +321,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('users/{room_id}', 'ChatController@users');
         Route::get('exit_user/{room_id}', 'ChatController@exit_user');
         Route::get('exit_admin/{room_id}/{user_id}', 'ChatController@exit_admin');
+        Route::post('videos', 'ChatController@videos');
     });
 
     Route::group(['prefix' => 'mail'], function () {
@@ -350,11 +351,11 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/getCheckTime\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/videos\" method=\"post\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
-             <input type='text' name='area_id' ><br>
-             <input type='file' name='original_avatar'><br>
+             <input type='number' name='message_id' ><br>
+             <input type='file' name='videos[]'><br>
              <input type=\"submit\">
               </form>";
     });
