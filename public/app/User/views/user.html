@@ -5,7 +5,7 @@
                 <div id="user-page" ng-class="photosGrid ? '' : 'list-style'">
                     <div class="my-profile">
                         <div class="ava">
-                            <a ng-click="showFullAvatar(userData.original_avatar_path)" href="javascript:void(0)">
+                            <a ng-style="!userData.avatar_path && {'cursor': 'default'}" ng-click="userData.avatar_path && showFullAvatar(userData.original_avatar_path)" href="javascript:void(0)">
                                 <img ng-src="{{userData.avatar_path ? userData.avatar_path : '/upload/preview-chat-no-avatar.png'}}"
                                      alt="">
                             </a>
