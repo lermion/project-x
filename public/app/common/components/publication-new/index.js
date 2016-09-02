@@ -74,10 +74,6 @@
 
                 ctrl.newPublicationForm = {};
 
-                ctrl.submitNewPublication = function () {
-
-                };
-
                 ctrl.emojiMessage = {
                     messagetext: ''
                 };
@@ -113,11 +109,17 @@
 
                 ctrl.submitNewPublication = function () {
 
+                    if (ctrl.subForm) {
+                        return false;
+                    }
+
                     ctrl.newPublicationForm.$setSubmitted();
 
                     if (ctrl.newPublicationForm.$invalid) {
                         return false;
                     }
+
+                    ctrl.subForm = true;
 
                     var images = [];
                     var videos = [];
@@ -182,11 +184,12 @@
 
                 function submitProfileOrFeedPublication(pub) {
                     PublicationService.createPublication(pub).then(function (data) {
-                            $rootScope.$broadcast('publication:add', {
-                                publication: data.publication
-                            });
-                            ngDialog.closeAll();
+                        $rootScope.$broadcast('publication:add', {
+                            publication: data.publication
                         });
+                        ctrl.subForm = false;
+                        ngDialog.closeAll();
+                    });
                 }
 
                 function submitGroupPublication(pub) {
@@ -194,6 +197,7 @@
                         $rootScope.$broadcast('publication:add', {
                             publication: data.publication
                         });
+                        ctrl.subForm = false;
                         ngDialog.closeAll();
                     });
                 }
@@ -203,6 +207,7 @@
                         $rootScope.$broadcast('publication:add', {
                             publication: data.publication
                         });
+                        ctrl.subForm = false;
                         ngDialog.closeAll();
                     });
                 }

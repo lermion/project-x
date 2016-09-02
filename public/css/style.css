@@ -2381,11 +2381,11 @@ pub-list-item .publication-footer-button {
 	cursor: pointer;
 }
 .publication-footer-button .publication-button.ladda-button {
-	position: static;
+	position: relative;
 	margin-top: 0;
 	margin-bottom: 0;
 }
-.publication-footer-button .publication-button:hover  {
+.publication-footer-button .publication-button:hover:not([data-loading])  {
 	background-color: #fff;
 	color: #495b79;
 }
@@ -2748,7 +2748,13 @@ pub-list-item .publication-footer-button {
 	overflow: hidden;
 }
 
-.user-publication-content .publication-ava img, .user-publication-content .publication-ava video{
+.user-publication-content .publication-ava img {
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
+.user-publication-content .publication-ava video {
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
