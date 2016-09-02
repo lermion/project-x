@@ -92,6 +92,7 @@ io.sockets.on('connection', function(socket){
 						queries.getUserRooms(data).then(function(response){
 							var shareResponse = response.filter(function( obj ) {
     							return obj.is_group !== 1;
+    							callback(shareResponse);
 							});
 							var roomsArray = [];
 							response.forEach(function(value){
@@ -100,10 +101,10 @@ io.sockets.on('connection', function(socket){
 								socket.room = GLOBAL.rooms;
 								socket.join(value.room_id);
 							});
-							callback(shareResponse);
 							response[response.length - 1].isNew = true;
 							//var socketId = usersId[response[0].id];
 							//io.sockets.connected[socketId].emit("get user rooms", response);
+							console.log("gegewgege!!!");
 							socket.emit("get user rooms", response);
 						},
 						function(error){
