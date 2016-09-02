@@ -28,7 +28,7 @@ class Publication extends Model
 
     public function videos()
     {
-        return $this->belongsToMany('App\Video', 'publication_videos')->withTimestamps();
+        return $this->belongsToMany('App\Video', 'publication_videos')->withPivot('is_cover')->withTimestamps();
     }
     protected static function boot() {
         parent::boot();
