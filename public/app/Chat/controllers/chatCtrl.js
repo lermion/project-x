@@ -462,12 +462,13 @@ angular.module('placePeopleApp')
 						imageType: [],
 						images: files
 					};
+					$scope.messageVideos = [];
 					files.forEach(function(value){
 						if(checkURL(value.name)){
 							imagesObj.imageName.push(value.name);
 							imagesObj.imageType.push(value.type);
 						}else{
-							console.log("it is video");
+							$scope.messageVideos.push(value);
 							imagesObj = "";
 						}
 					});
@@ -540,7 +541,7 @@ angular.module('placePeopleApp')
 				$location.hash(messageId + "");
 			}
 			socket.forward('updatechat', $scope);
-			$scope.$on('socket:updatechat', function (event, data) {
+			$scope.$on('socket:updatechat', function(event, data){
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){
 					$scope.Model.opponent.room_id = data.roomId;
 				}
@@ -559,6 +560,14 @@ angular.module('placePeopleApp')
 					}
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
+						if($scope.messageVideos !== undefined){
+							ChatService.sendVideos(data.id, $scope.messageVideos).then(function(response){
+								console.log(response);
+							},
+							function(error){
+								console.log(error);
+							});
+						}
 						if(data.login === $scope.loggedUser){
 							data.isRead = true;
 						}else{
