@@ -14,7 +14,7 @@
                     </div>
                     <a href="" class="create-groups" ng-click="createPublication()">Создать публикацию</a>
                 </div>
-
+                <h4 class="have-no-publication" ng-show="publications.length === 0">Публикаций нет</h4>
                 <div class="content-item" ng-if="photosGrid">
                     <div class="my-photos feed" ng-if="publications.length > 0">
                         <div class="photo thumbnail " ng-class="{blocked: !!pub.is_block}"
