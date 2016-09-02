@@ -97,9 +97,9 @@
                     if (ctrl.isModal) {
                         ctrl.indexCurrentImage = getIndexCurrentImage();
                         $timeout(function () {
-                            var element = $window.document.getElementById('pub' + ctrl.pub.id);
-                            if (element)
-                                element.focus();
+                            var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
+                            if (element.length > 1)
+                                element[1].focus();
                         });
 
                         if (ctrl.pub.videos.length > 0) {
@@ -771,9 +771,10 @@
                 // Carousel
                 ctrl.indexCurrentImage = 0;
 
+                
                 ctrl.openPreviousInfo = function () {
                     $timeout(function () {
-                        var element = $window.document.getElementById('pub' + ctrl.pub.id);
+                        var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
                         if (element)
                             element.focus();
                     });
