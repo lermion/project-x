@@ -102,8 +102,13 @@
                                 element[1].focus();
                         });
 
+
+                        // если в публикации есть видеофайлы, то проверим не является ли один из них обложкой
                         if (ctrl.pub.videos.length > 0) {
-                            ctrl.mainVideo = ctrl.pub.videos[0].url;
+                            var videoCover = ctrl.pub.videos.filter(function(file, index, videos) {
+                                return file.pivot.is_cover == true;
+                            });
+                            ctrl.mainVideo = videoCover[0] ? videoCover[0].url : false;
                         }
 
                     }
@@ -771,12 +776,12 @@
                 // Carousel
                 ctrl.indexCurrentImage = 0;
 
-                
+
                 ctrl.openPreviousInfo = function () {
                     $timeout(function () {
                         var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
-                        if (element)
-                            element.focus();
+                        if (element.length > 1)
+                            element[1].focus();
                     });
                     var imagesLength = ctrl.pub.files.length;
                     if (imagesLength >= 1) {

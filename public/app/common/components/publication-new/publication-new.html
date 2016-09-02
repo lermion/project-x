@@ -89,8 +89,8 @@
                        name="files1"
                        type="file"
                        ngf-select
-                       ngf-accept="'image/*, video/*'"
-                       ngf-pattern="'image/*, video/*, .mp4'"
+                       ngf-accept="'image/*,video/*'"
+                       ngf-pattern="'image/*,video/*'"
                        ng-model="$ctrl.filesPreview"
                        ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
                        ngf-multiple="true"
