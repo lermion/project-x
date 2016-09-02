@@ -304,10 +304,12 @@ class ChatController extends Controller
         }
         $message_id = $request->input('message_id');
         foreach ($request->file('videos') as $video) {
+            $cover = [];
             $f_name = $video->getClientOriginalName();
             $f_path = storage_path('tmp/video/');
             $video->move($f_path, $f_name);
             $new_fname = 'upload/chat/videos/' . uniqid();
+            $cover[] = $new_fname .'.jpg';
             Video::makeFrame($f_name, $f_path, $new_fname);
             //Video::makeVideo($f_name, $f_path, $new_fname);
             $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
@@ -318,8 +320,9 @@ class ChatController extends Controller
             }
             $vidos = Video::create(['url' => $new_fname . '.mp4', 'img_url' => $new_fname . '.jpg',]);
             MessageVideo::create(['message_id' => $message_id, 'video_id' => $vidos->id]);
+
         }
-        $result = ["status" => true, "cover"=>$new_fname .'.jpg'];
+        $result = ["status" => true, "cover"=>$cover];
         return response()->json($result);
     }
 }
