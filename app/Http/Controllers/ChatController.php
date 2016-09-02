@@ -303,8 +303,8 @@ class ChatController extends Controller
             }
         }
         $message_id = $request->input('message_id');
+        $cover = [];
         foreach ($request->file('videos') as $video) {
-            $cover = [];
             $f_name = $video->getClientOriginalName();
             $f_path = storage_path('tmp/video/');
             $video->move($f_path, $f_name);
