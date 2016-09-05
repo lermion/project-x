@@ -227,15 +227,18 @@ angular.module('placePeopleApp')
 						$scope.Model.Chat.unshift(value);
 						itemsProcessed++;
 						if(itemsProcessed === response.messages.length) {
-      						returnToBackCB();
-    					}
+							setTimeout(function(){
+								returnToBackCB();
+							}, 50);
+      					}
 					});
-					function returnToBackCB(){
-						$scope.returnToBack(response.messages[0].id);
-					}
 					$scope.counter += 10;
 				}
 			});
+
+			function returnToBackCB(){
+				$scope.returnToBack(response.messages[0].id);
+			}
 
 			function loadUserContacts(){
 				PublicationService.getSubscribers($scope.loggedUserId).then(function(response){
