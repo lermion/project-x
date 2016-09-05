@@ -104,10 +104,10 @@ class ModeratorController extends Controller
                 ]);
         };
 
-        if (isset ($weekday[7]) && $weekday[7]=='on'){
+        if (isset ($weekday[0]) && $weekday[0]=='on'){
             WorkingHoursModerator::create(
-                ['weekday'=>7,'from_time'=>$from_time[7],
-                    'to_time'=>$to_time[7],
+                ['weekday'=>7,'from_time'=>$from_time[0],
+                    'to_time'=>$to_time[0],
                     'moderator_id'=>$moderator['id']
                 ]);
         };

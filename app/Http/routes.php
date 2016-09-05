@@ -204,7 +204,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
             Route::post('store', 'GroupPublicationController@store');
-            Route::post('update/{id}', 'GroupPublicationController@update');
+            //Route::post('update/{id}', 'GroupPublicationController@update');
             Route::group(['prefix' => '{publicationId}/comment'], function () {
                 Route::post('store', 'GroupPublicationCommentController@store');
             });
@@ -296,7 +296,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['prefix' => '{placeId}/publication'], function () {
             Route::get('/', 'PlacePublicationController@index');
             Route::post('store', 'PlacePublicationController@store');
-            Route::post('update/{id}', 'PlacePublicationController@update');
+            //Route::post('update/{id}', 'PlacePublicationController@update');
             Route::get('destroy/{id}', 'PlacePublicationController@destroy');
             Route::group(['prefix' => '{publicationId}/comment'], function () {
                 Route::post('store', 'PlacePublicationCommentController@store');
@@ -352,7 +352,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/videos\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/getCheckTime\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='number' name='message_id' ><br>
