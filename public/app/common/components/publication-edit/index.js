@@ -125,7 +125,9 @@
                         } else if (file.pivot.video_id) {
                             ctrl.newPub.deleteVideos.push(file.id);
                         }
-
+                        if (file.pivot.is_cover) {
+                            ctrl.pub.cover = null;
+                        }
                         ctrl.files.splice(index, 1);
                         ctrl.newPub.coverId = null;
                     }
@@ -204,7 +206,9 @@
                         }
                     });
 
-                    if (!ctrl.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {
+                    // если новая обложка не выбрана, а текущая обложка отсутствует (при редактировании удалили файл), то
+                    // обложка устанавливается автоматически
+                    if (!ctrl.cover && !ctrl.pub.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {
                         // если нет видеофайлов, обложка = фото
                         if (videos.length === 0) {
                             // если есть фото сохраненные на сервере, то возьмем их id для установки обложкой
