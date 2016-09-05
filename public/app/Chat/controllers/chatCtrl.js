@@ -222,12 +222,17 @@ angular.module('placePeopleApp')
 					$scope.counter = 0;
 				}else{
 					$scope.busyMessages = false;
+					var itemsProcessed = 0;
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
+						itemsProcessed++;
+						if(itemsProcessed === response.messages.length) {
+      						returnToBackCB();
+    					}
 					});
-					setTimeout(function(){
+					function returnToBackCB(){
 						$scope.returnToBack(response.messages[0].id);
-					}, 50);
+					}
 					$scope.counter += 10;
 				}
 			});
