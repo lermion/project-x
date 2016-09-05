@@ -486,7 +486,7 @@ class PublicationController extends Controller
                                     $video->is_cover = false;
                                     $video->save();
                                 }
-                                $f_name = $video->getClientOriginalName();
+                                $f_name = $video_name;
                                 $f_path = storage_path('tmp/video/');
                                 $video->move($f_path, $f_name);
                                 $new_fname = 'upload/publication/videos/' . uniqid();
