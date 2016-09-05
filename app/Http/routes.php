@@ -352,7 +352,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/get_video/10\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/videos\" method=\"post\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='number' name='message_id' ><br>
