@@ -298,27 +298,7 @@ class PublicationController extends Controller
                 } else {
                     $publicationData['is_moderate'] = $publication->is_moderate;
                 }
-
-                $deleteImages = $request->input('delete_images');
-                if ($deleteImages) {
-                    foreach ($deleteImages as $deleteImage) {
-                        $image = Image::find($deleteImage);
-                        if ($image) {
-                            $image->delete();
-                        }
-                    }
-                }
-                $deleteVideos = $request->input('delete_videos');
-                if ($deleteVideos) {
-                    foreach ($deleteVideos as $deleteVideo) {
-                        $video = Video::find($deleteVideo);
-                        if ($video) {
-                            Storage::disk('video')->delete($video->url);
-                            Storage::disk('video')->delete($video->img_url);
-                            $video->delete();
-                        }
-                    }
-                }
+                $publication->update($publicationData);
                 if ($request->input('cover_image_id')){
                     $cover_id = $request->input('cover_image_id');
                     $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
@@ -461,7 +441,26 @@ class PublicationController extends Controller
                         }
                     }
                 }
-                $publication->update($publicationData);
+                $deleteImages = $request->input('delete_images');
+                if ($deleteImages) {
+                    foreach ($deleteImages as $deleteImage) {
+                        $image = Image::find($deleteImage);
+                        if ($image) {
+                            $image->delete();
+                        }
+                    }
+                }
+                $deleteVideos = $request->input('delete_videos');
+                if ($deleteVideos) {
+                    foreach ($deleteVideos as $deleteVideo) {
+                        $video = Video::find($deleteVideo);
+                        if ($video) {
+                            Storage::disk('video')->delete($video->url);
+                            Storage::disk('video')->delete($video->img_url);
+                            $video->delete();
+                        }
+                    }
+                }
                 $responseData = [
                     "status" => true,
                     "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
