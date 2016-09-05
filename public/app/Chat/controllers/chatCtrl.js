@@ -480,6 +480,7 @@ angular.module('placePeopleApp')
 							imagesObj.imageType.push(value.type);
 							imagesObj.images.push(value);
 						}else{
+							$scope.sendMessageLoader = true;
 							$scope.messageVideos.push(value);
 						}
 					});
@@ -612,6 +613,7 @@ angular.module('placePeopleApp')
 						if($scope.messageVideos !== undefined){
 							ChatService.sendVideos(data.id, $scope.messageVideos).then(function(response){
 								if(response.data.status){
+									$scope.sendMessageLoader = false;
 									data.videos = [];
 									Object.keys(response.data).forEach(function(value){
 										if(response.data[value] !== true){

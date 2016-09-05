@@ -228,7 +228,7 @@
 					<input type="file" ngf-select="beforeChange($files)" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
 				</div>
 			</div>
-			<button ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent, true) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
+			<button ladda="sendMessageLoader" ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent, true) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 		</div>
 		<div ng-show="files.length > 0" class="send-wrap-bottom">
 			<div class="pic" ng-repeat="file in files">
