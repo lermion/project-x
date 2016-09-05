@@ -8,10 +8,10 @@
 	<div class="x_content">
         <div class="admin-settings">
             <ul class="col-md-12 admin-settings-menu">
-                <li class="col-md-3"><a href="/admin/lock/">Пользователи </a></li>
-                <li class="col-md-3"><a href="/admin/lock/publications/">Публикации </a></li>
-                <li class="col-md-3"><a href="/admin/lock/groups/">Группы </a></li>
-                <li class="col-md-3"><a href="/admin/lock/places/">Места </a></li>
+                <li class="col-md-3"><a href="/admin/lock/">Пользователи <span class="counters js-counter-toremove-users badge"></span></a></li>
+                <li class="col-md-3"><a href="/admin/lock/publications/">Публикации <span class="counters js-counter-toremove-publications badge"></span></a></li>
+                <li class="col-md-3"><a href="/admin/lock/groups/">Группы <span class="counters js-counter-toremove-groups badge"></span></a></li>
+                <li class="col-md-3"><a href="/admin/lock/places/">Места <span class="counters js-counter-toremove-places badge"></span></a></li>
             </ul>
         </div>
 

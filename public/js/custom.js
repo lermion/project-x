@@ -361,7 +361,7 @@ $(function() {
             contentType: 'application/json',
             timeout: 5000,
             success: function(data) {
-                $counterUsers.text(data);
+                $counterUsers.text(data === 0 ? '' : data);
                 inProgress = false;
         },
         error: function() {
@@ -410,7 +410,7 @@ $(function() {
             contentType: 'application/json',
             timeout: 5000,
             success: function(data) {
-                $counterMails.text(data);
+                $counterMails.text(data === 0 ? '' : data);
                 inProgress = false;
             },
             error: function() {
@@ -431,7 +431,11 @@ $(function() {
     var queue = [],
         inProgress = false;
 
-    var $counterToRemove = $('.counter__toremove');
+    var $counterToRemove = $('.counter__toremove'),
+        $counterToRemoveUsers = $('.js-counter-toremove-users'),
+        $counterToRemovePublications = $('.js-counter-toremove-publications'),
+        $counterToRemoveGroups = $('.js-counter-toremove-groups'),
+        $counterToRemovePlaces = $('.js-counter-toremove-places');
 
     $.fastPoll = $.fastPoll || {};
 
@@ -459,7 +463,13 @@ $(function() {
             contentType: 'application/json',
             timeout: 5000,
             success: function(data) {
-                $counterToRemove.text(data);
+                $counterToRemove.text(data.count === 0 ? '' : data.count);
+
+                $counterToRemoveUsers.text(data.user_count === 0 ? '' : data.user_count);
+                $counterToRemovePublications.text(data.publications_count === 0 ? '' : data.publications_count);
+                $counterToRemoveGroups.text(data.groups_count === 0 ? '' : data.groups_count);
+                $counterToRemovePlaces.text(data.places_count === 0 ? '' : data.places_count);
+
                 inProgress = false;
             },
             error: function() {
