@@ -476,11 +476,11 @@ angular.module('placePeopleApp')
 					$scope.messageVideos = [];
 					files.forEach(function(value){
 						if(checkURL(value.name)){
-							console.log(value);
 							imagesObj.imageName.push(value.name);
 							imagesObj.imageType.push(value.type);
 							imagesObj.images.push(value);
 						}else{
+							$scope.sendMessageLoader = true;
 							$scope.messageVideos.push(value);
 						}
 					});
@@ -556,6 +556,7 @@ angular.module('placePeopleApp')
 							$scope.mainVideoInPopup = files[0].video_url;
 							$scope.notCodedmessage = false;
 						}else{
+							$scope.mainImageInPopup = null;
 							$scope.mainVideoInPopup = null;
 							$scope.notCodedmessage = true;
 						}
@@ -612,6 +613,7 @@ angular.module('placePeopleApp')
 						if($scope.messageVideos !== undefined){
 							ChatService.sendVideos(data.id, $scope.messageVideos).then(function(response){
 								if(response.data.status){
+									$scope.sendMessageLoader = false;
 									data.videos = [];
 									Object.keys(response.data).forEach(function(value){
 										if(response.data[value] !== true){
