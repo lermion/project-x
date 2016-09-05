@@ -77,7 +77,7 @@
 						<div class="messege-text">
 							<p id="{{message.id}}" ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
 							<span ng-show="message.images.length !== 0" class="pictures">
-								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images">
+								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images.concat(message.videos)">
 									<img ng-src="{{image.url}}" alt="">
 								</span>
 							</span>
@@ -198,6 +198,7 @@
 					</div>
 				</div>
 				<img ngf-thumbnail="file || '/thumb.jpg'">
+				<video width="150px" controls ngf-src="file"></video>
 			</div>
 		</div>
 	</div>
