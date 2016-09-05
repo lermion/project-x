@@ -1,11 +1,11 @@
 <div class="comment-imges">
 	<div class="comment-img">
-		<img ng-src="{{mainImageInPopup}}">
+		<img ng-if="mainImageInPopup" ng-src="{{mainImageInPopup}}">
+		<video ng-if="mainVideoInPopup" controls ngf-src="mainVideoInPopup"></video>
 	</div>
 	<div class="comment-imges-list">
-		<a ng-hide="ngDialogData.images.length === 1" href="javascript:void(0);" ng-click="changeMainFile(image, true)" ng-repeat="image in ngDialogData.images" class="comment-list">
-			<img ng-src="{{image.url}}" alt="">
-			<!-- <img ng-src="{{image.url}}" alt="" ngf-src="image"> -->
+		<a ng-hide="ngDialogData.files.length === 1" href="javascript:void(0);" ng-click="changeMainFile(file, true)" ng-repeat="file in ngDialogData.files" class="comment-list">
+			<img ng-src="{{file.url}}" alt="">
 		</a>
 	</div>
 </div>
