@@ -293,18 +293,12 @@ class PublicationController extends Controller
                     return response()->json($result);
                 }
                 $publicationData = $request->all();
-//                if ($request->hasFile('cover')) {
-//                    $cover = $request->file('cover');
-//                    $path = Image::getImagePath($cover);
-//                    $publicationData['cover'] = $path;
-//                }
-//
                 if ($publication->is_main == true or $publicationData['is_main'] == true){
                     $publicationData['is_moderate'] = false;
                 } else {
                     $publicationData['is_moderate'] = $publication->is_moderate;
                 }
-                $publication->update($publicationData);
+
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
                     foreach ($deleteImages as $deleteImage) {
@@ -327,19 +321,16 @@ class PublicationController extends Controller
                 }
                 if ($request->input('cover_image_id')){
                     $cover_id = $request->input('cover_image_id');
-
                     $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
                     if ($image) {
                         $image->is_cover = false;
                         $image->save();
                     }
-
                     $video = PublicationVideo::where(['is_cover'=>true,'publication_id'=>$id])->first();
                     if ($video) {
                         $video->is_cover = false;
                         $video->save();
                     }
-
                     $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
                     $image_cover->is_cover = true;
                     $image_cover->save();
@@ -348,17 +339,18 @@ class PublicationController extends Controller
                     $public->cover = $url['url'];
                     $public->save();
                 }
-
                 if ($request->input('cover_video_id')){
                     $cover_id = $request->input('cover_video_id');
-
                     $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
-                    $image->is_cover = false;
-                    $image->save();
+                    if ($image) {
+                        $image->is_cover = false;
+                        $image->save();
+                    }
                     $video = PublicationVideo::where(['is_cover'=>true,'publication_id'=>$id])->first();
-                    $video->is_cover = false;
-                    $video->save();
-
+                    if ($video) {
+                        $video->is_cover = false;
+                        $video->save();
+                    }
                     $video_cover = PublicationVideo::where(['video_id'=>$cover_id,'publication_id'=>$id])->first();
                     $video_cover->is_cover = true;
                     $video_cover->save();
@@ -367,79 +359,6 @@ class PublicationController extends Controller
                     $public->cover = $url['url'];
                     $public->save();
                 }
-
-
-//                if ($request->hasFile('images')) {
-//                    $cover = $request->file('cover');
-//                    $cover_name = $cover->getClientOriginalName();
-//                    foreach ($request->file('images') as $image) {
-//                        if (!$image) {
-//                            continue;
-//                        }
-//                        $path = Image::getImagePath($image);
-//                        if ($cover_name == $image->getClientOriginalName())
-//                        {
-//                            $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
-//                            $image->is_cover = false;
-//                            $image->save();
-//                            $publication->images()->create(['url' => $path],['is_cover' => true]);
-//                        } else
-//                        {
-//                            $publication->images()->create(['url' => $path]);
-//                        }
-//
-//                    }
-//                }
-//                if ($request->hasFile('videos')) {
-//                    foreach ($request->file('videos') as $video) {
-//                        if (!$video) {
-//                            continue;
-//                        }
-//
-//                        try {
-//                            $f_name = $video->getClientOriginalName();
-//                            $f_path = storage_path('tmp/video/');
-//                            $video->move($f_path, $f_name);
-//                            $new_fname = 'upload/publication/videos/' . uniqid();
-//                            Video::makeFrame($f_name, $f_path, $new_fname);
-//                            $cmd = 'php ' . base_path().'/artisan video:make ' . $f_name . ' ' . $f_path . ' ' . $new_fname;
-//                            if (substr(php_uname(), 0, 7) == "Windows"){
-//                                pclose(popen("start /B ". $cmd, "r"));
-//                            }
-//                            else {
-//                                exec($cmd . " > /dev/null &");
-//                            }
-//                        }
-//                        catch (\Exception $e) {
-//                            $result = [
-//                                "status" => false,
-//                                "error" => [
-//                                    'message' => 'Bad video',
-//                                    'code' => '1'
-//                                ]
-//                            ];
-//                            return response()->json($result);
-//                        }
-//                        $publication->videos()->create([
-//                            'url' => $new_fname . '.webm',
-//                            'img_url' => $new_fname . 'jpg'
-//                        ]);
-//                     }
-//
-//
-//                }
-
-
-
-
-
-
-
-
-
-
-
-
                 if ($request->hasFile('images')) {
                     $cover = $request->file('cover');
                     foreach ($request->file('images') as $image) {
@@ -542,6 +461,7 @@ class PublicationController extends Controller
                         }
                     }
                 }
+                $publication->update($publicationData);
                 $responseData = [
                     "status" => true,
                     "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
