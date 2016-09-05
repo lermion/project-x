@@ -331,7 +331,8 @@ class ChatController extends Controller
     {
         if ($video = Video::find($id)) {
             $url = $video->url;
-            return response()->json(['status'=>true, 'url'=>$url]);
+            $is_coded = $video->is_coded;
+            return response()->json(['status'=>true, 'url'=>$url, 'is_coded'=>$is_coded]);
         } else {
             $result = [
                 "status" => false,

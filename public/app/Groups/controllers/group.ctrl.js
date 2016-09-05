@@ -383,7 +383,7 @@
         });
 
         $rootScope.$on('publication:update', function(event, data) {
-            angular.forEach(vm.group.publications, function (item, index, arr) {
+            angular.forEach($scope.userPublications, function (item, index, arr) {
                 if (item.id === data.publication.id) {
                     arr[index] = data.publication;
                 }
