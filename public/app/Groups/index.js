@@ -2,9 +2,9 @@
     'use strict';
 
     angular
-        .module('app.groups', ['ngFileUpload', 'ngScrollbar', 'ngAnimate'])
+        .module('app.groups', [])
         .config(routes);
-    angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000);
+    //angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000);
 
     routes.$inject = ['$stateProvider'];
 
