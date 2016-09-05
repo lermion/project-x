@@ -465,18 +465,20 @@ angular.module('placePeopleApp')
 				return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 			}
 			$scope.Model.sendMes = function(message, roomId, files){
-				$scope.disabledSendMessage = true;
+				// $scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
 						imageType: [],
-						images: files
+						images: []
 					};
 					$scope.messageVideos = [];
 					files.forEach(function(value){
 						if(checkURL(value.name)){
+							console.log(value);
 							imagesObj.imageName.push(value.name);
 							imagesObj.imageType.push(value.type);
+							imagesObj.images.push(value);
 						}else{
 							$scope.messageVideos.push(value);
 						}
@@ -561,7 +563,6 @@ angular.module('placePeopleApp')
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
-					console.log(data.messages);
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
 							return chat.countMessages = 0;
