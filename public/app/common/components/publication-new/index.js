@@ -217,7 +217,7 @@
                     //    console.info('Group publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
                     //});
 
-                    return Upload.resize(image, 700, 395, null, null, null, true).then(function (resizedFile) {
+                    return Upload.resize(image, 700, 395, null, null, null, false).then(function (resizedFile) {
                         //Upload.imageDimensions(resizedFile).then(function (dimensions) {
                         //    console.info('Group publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
                         //});
