@@ -227,15 +227,18 @@ angular.module('placePeopleApp')
 						$scope.Model.Chat.unshift(value);
 						itemsProcessed++;
 						if(itemsProcessed === response.messages.length) {
-      						returnToBackCB();
-    					}
+							setTimeout(function(){
+								returnToBackCB(response.messages[0].id);
+							}, 50);
+      					}
 					});
-					function returnToBackCB(){
-						$scope.returnToBack(response.messages[0].id);
-					}
 					$scope.counter += 10;
 				}
 			});
+
+			function returnToBackCB(lastMessageId){
+				$scope.returnToBack(lastMessageId);
+			}
 
 			function loadUserContacts(){
 				PublicationService.getSubscribers($scope.loggedUserId).then(function(response){
@@ -476,7 +479,6 @@ angular.module('placePeopleApp')
 							imagesObj.imageType.push(value.type);
 						}else{
 							$scope.messageVideos.push(value);
-							imagesObj = "";
 						}
 					});
 				}
@@ -521,7 +523,7 @@ angular.module('placePeopleApp')
 					className: 'popup-comment-images ngdialog-theme-default',
 					scope: $scope,
 					data: {
-						images: files
+						files: files
 					},
 					preCloseCallback: function (value) {
 						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
@@ -531,7 +533,13 @@ angular.module('placePeopleApp')
 
 			$scope.changeMainFile = function(file, flag, pub){
 				if(flag){
-					$scope.mainImageInPopup = file.url;
+					if(file.video_url){
+						$scope.mainImageInPopup = null;
+						$scope.mainVideoInPopup = file.video_url;
+					}else{
+						$scope.mainVideoInPopup = null;
+						$scope.mainImageInPopup = file.url;
+					}
 				}else{
 					$scope.mainVideo = "";
 					$scope.mainImage = file.url;
@@ -553,6 +561,7 @@ angular.module('placePeopleApp')
 					$scope.Model.opponent.room_id = data.roomId;
 				}
 				if(data.messages){
+					console.log(data.messages);
 					$scope.getMessagesCount = function(chat){
 						if(chat.room_id === data.room_id){
 							return chat.countMessages = 0;
