@@ -1506,6 +1506,7 @@
 				$scope.statusLoading = false;
 				$scope.counter = 0;
 			} else {
+				$scope.busyMessages = false;
 				response.messages.forEach(function (value) {
 					$scope.messages.unshift(value);
 				});
