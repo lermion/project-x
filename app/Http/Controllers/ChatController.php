@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ChatRoom;
 use App\Image;
+use App\MessageVideo;
 use App\Video;
 use Illuminate\Http\Request;
 use App\DeleteMessage;
@@ -16,7 +17,7 @@ use DB;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 
 
 class ChatController extends Controller
@@ -265,5 +266,82 @@ class ChatController extends Controller
         $user->save();
         UserChat::where(['user_id' => Auth::id(), 'room_id' => $room_id])->delete();
         return response()->json(["status" => true]);
+    }
+
+    public function videos(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'message_id' => 'required|numeric',
+                'videos' => 'required|array'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+
+        if ($request->hasFile('videos')) {
+            $validator = Validator::make($request->file('videos'), [
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad video',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+        $message_id = $request->input('message_id');
+        $cover = [];
+        foreach ($request->file('videos') as $video) {
+            $f_name = $video->getClientOriginalName();
+            $f_path = storage_path('tmp/video/');
+            $video->move($f_path, $f_name);
+            $new_fname = 'upload/chat/videos/' . uniqid();
+            $cover[] = $new_fname .'.jpg';
+            Video::makeFrame($f_name, $f_path, $new_fname);
+            //Video::makeVideo($f_name, $f_path, $new_fname);
+            $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+            if (substr(php_uname(), 0, 7) == "Windows") {
+                pclose(popen("start /B " . $cmd, "r"));
+            } else {
+                exec($cmd . " > /dev/null &");
+            }
+            $vidos = Video::create(['url' => $new_fname . '.mp4', 'img_url' => $new_fname . '.jpg',]);
+            MessageVideo::create(['message_id' => $message_id, 'video_id' => $vidos->id]);
+            $cover=['id'=>$vidos->id, 'url'=>$new_fname . '.jpg'];
+            $result[] = $cover;
+        }
+        $result['status'] = true;
+        return response()->json($result);
+    }
+
+    public function get_video($id)
+    {
+        if ($video = Video::find($id)) {
+            $url = $video->url;
+            return response()->json(['status'=>true, 'url'=>$url]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect video id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+
+        }
     }
 }
