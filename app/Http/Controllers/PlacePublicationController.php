@@ -9,10 +9,12 @@ use App\Publication;
 use App\PublicationImage;
 use App\Video;
 use Illuminate\Http\Request;
+use App\PublicationVideo;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class PlacePublicationController extends Controller
 {
@@ -113,32 +115,68 @@ class PlacePublicationController extends Controller
             ];
             return response()->json($responseData);
         }
+//        if ($request->hasFile('cover')) {
+//            $cover = $request->file('cover');
+//            $path = Image::getCoverPath($cover);
+//            $publicationData['cover'] = $path;
+//        }
+//        $publicationData['user_id'] = Auth::id();
+////        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
+//        $place = Place::find($id);
+//        $publication = $place->publications()->create($publicationData);
+//        if ($request->hasFile('images')) {
+//            $cover = $request->file('cover');
+//            $cover_name = $cover->getClientOriginalName();
+//            foreach ($request->file('images') as $image) {
+//                if (!$image) {
+//                    continue;
+//                }
+//                $path = Image::getImagePath($image);
+//                if ($cover_name == $image->getClientOriginalName())
+//                {
+//                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+//                } else
+//                {
+//                    $publication->images()->create(['url' => $path]);
+//                }
+//
+//            }
+//        }
+//
+//        if ($request->hasFile('videos')) {
+//            foreach ($request->file('videos') as $video) {
+//                if (!$video) {
+//                    continue;
+//                }
+//                $path = Video::getVideoPath($video);
+//                $publication->videos()->create([
+//                    'url' => $path,
+//                ]);
+//            }
+//        }
+//        $responseData = [
+//            "status" => true,
+//            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+//        ];
+//        return response()->json($responseData);
         $publicationData = $request->all();
-        if ($request->hasFile('cover')) {
-            $cover = $request->file('cover');
-            $path = Image::getCoverPath($cover);
-            $publicationData['cover'] = $path;
-        }
-        if ($request->hasFile('original_cover')) {
-            $cover = $request->file('original_cover');
-            $path = Image::getOriginalCoverPath($cover);
-            $publicationData['original_cover'] = $path;
-        }
+        //dd($publicationData);
+        //$publication = Publication::create($publicationData);
         $publicationData['user_id'] = Auth::id();
-//        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $place = Place::find($id);
         $publication = $place->publications()->create($publicationData);
+
         if ($request->hasFile('images')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('images') as $image) {
-                if (!$image) {
-                    continue;
-                }
+                $image_name = $image->getClientOriginalName();
                 $path = Image::getImagePath($image);
-                if ($cover_name == $image->getClientOriginalName())
+                if ($image_name == $cover_name)
                 {
                     $publication->images()->create(['url' => $path],['is_cover' => true]);
+                    $publication->cover = $path;
+                    $publication->save();
                 } else
                 {
                     $publication->images()->create(['url' => $path]);
@@ -146,22 +184,56 @@ class PlacePublicationController extends Controller
 
             }
         }
-
         if ($request->hasFile('videos')) {
+            $cover = $request->file('cover');
+            $cover_name = $cover->getClientOriginalName();
+
             foreach ($request->file('videos') as $video) {
-                if (!$video) {
-                    continue;
+                $video_name = $video->getClientOriginalName();
+                if ($video_name == $cover_name) {
+                    $f_name = $video->getClientOriginalName();
+                    $f_path = storage_path('tmp/video/');
+                    $video->move($f_path, $f_name);
+                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    Video::makeFrame($f_name, $f_path, $new_fname);
+                    //Video::makeVideo($f_name, $f_path, $new_fname);
+                    $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                    if (substr(php_uname(), 0, 7) == "Windows") {
+                        pclose(popen("start /B " . $cmd, "r"));
+                    } else {
+                        exec($cmd . " > /dev/null &");
+                    }
+                    $publication->cover = $new_fname . '.jpg';
+                    $publication->save();
+                    $publication->videos()->create([
+                        'url' => $new_fname . '.mp4',
+                        'img_url' => $new_fname . '.jpg',
+                    ], ['is_cover' => true]);
+                } else {
+                    $f_name = $video->getClientOriginalName();
+                    $f_path = storage_path('tmp/video/');
+                    $video->move($f_path, $f_name);
+                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    Video::makeFrame($f_name, $f_path, $new_fname);
+                    //Video::makeVideo($f_name, $f_path, $new_fname);
+                    $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
+                    if (substr(php_uname(), 0, 7) == "Windows") {
+                        pclose(popen("start /B " . $cmd, "r"));
+                    } else {
+                        exec($cmd . " > /dev/null &");
+                    }
+                    $publication->videos()->create([
+                        'url' => $new_fname . '.mp4',
+                        'img_url' => $new_fname . '.jpg',
+                    ]);
                 }
-                $path = Video::getVideoPath($video);
-                $publication->videos()->create([
-                    'url' => $path,
-                ]);
             }
         }
         $responseData = [
             "status" => true,
             "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
         ];
+
         return response()->json($responseData);
     }
 
