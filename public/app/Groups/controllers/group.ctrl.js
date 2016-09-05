@@ -988,6 +988,37 @@
 			}
 		};
 
+		$scope.changeMainFile = function(file, flag, pub){
+			if(flag){
+				if(file.video_url){
+					ChatService.getVideo(file.id).then(function(response){
+						if(response.status && response.is_coded){
+							$scope.mainImageInPopup = null;
+							$scope.mainVideoInPopup = file.video_url;
+							$scope.notCodedmessage = false;
+						}else{
+							$scope.mainVideoInPopup = null;
+							$scope.mainImageInPopup = null;
+							$scope.notCodedmessage = true;
+						}
+					},
+					function(error){
+						console.log(error);
+					});
+				}else{
+					$scope.notCodedmessage = false;
+					$scope.mainVideoInPopup = null;
+					$scope.mainImageInPopup = file.url;
+				}
+			}else{
+				$scope.mainVideo = "";
+				$scope.mainImage = file.url;
+			}
+			if(flag === 'list'){
+				pub.mainFile = file;
+			}
+		};
+
 		vm.addPublicationLike = function (pub) {
 			pub.user_like = !pub.user_like;
 			pub.like_count = pub.user_like ? ++pub.like_count : --pub.like_count;
@@ -1415,15 +1446,34 @@
 			}
 		}
 		$scope.showPopupWithFiles = function (files) {
+			if(files[0].video_url){
+				ChatService.getVideo(files[0].id).then(function(response){
+					if(response.status && response.is_coded){
+						$scope.mainImageInPopup = null;
+						$scope.mainVideoInPopup = files[0].video_url;
+						$scope.notCodedmessage = false;
+					}else{
+						$scope.mainImageInPopup = null;
+						$scope.mainVideoInPopup = null;
+						$scope.notCodedmessage = true;
+					}
+				},
+				function(error){
+					console.log(error);
+				});
+			}else{
+				$scope.notCodedmessage = false;
+				$scope.mainVideoInPopup = null;
+				$scope.mainImageInPopup = files[0].url;
+			}
 			$scope.imagesInPopup = files;
-			$scope.mainImageInPopup = files[0].url;
 			angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
 			ngDialog.open({
 				template: '../app/User/views/popup-comment-images.html',
 				className: 'popup-comment-images ngdialog-theme-default',
 				scope: $scope,
 				data: {
-					images: files
+					files: files
 				},
 				preCloseCallback: function (value) {
 					angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
@@ -1456,6 +1506,7 @@
 				$scope.statusLoading = false;
 				$scope.counter = 0;
 			} else {
+				$scope.busyMessages = false;
 				response.messages.forEach(function (value) {
 					$scope.messages.unshift(value);
 				});
@@ -1480,7 +1531,8 @@
 			files.splice(index, 1);
 		}
 		socket.emit("get group chat dialogue", getGroupChatDialogue);
-		socket.on("get group chat dialogue", function (response) {
+		socket.forward('get group chat dialogue', $scope);
+		$scope.$on("socket:get group chat dialogue", function(event, response){
 			$scope.messages = response.messages.reverse();
 		});
 		socket.forward('updatechat', $scope);
@@ -1496,6 +1548,7 @@
 					ChatService.sendVideos(data.id, $scope.messageVideos).then(function(response){
 						$scope.messageVideos = [];
 						if(response.data.status){
+							$scope.sendMessageLoader = false;
 							data.videos = [];
 							Object.keys(response.data).forEach(function(value){
 								if(response.data[value] !== true){
@@ -1519,19 +1572,21 @@
 					function(error){
 						console.log(error);
 					});
+				}else{
+					data.videos = [];
+					if (data.login === vm.loggedUser) {
+						data.isRead = true;
+					} else {
+						$scope.messages.forEach(function (value) {
+							value.isRead = false;
+						});
+					}
+					$scope.messages.push(data);
+					if (data.images.length > 0) {
+						vm.group.count_chat_files += data.images.length;
+					}
+					vm.group.count_chat_message++;
 				}
-				if (data.login === vm.loggedUser) {
-					data.isRead = true;
-				} else {
-					$scope.messages.forEach(function (value) {
-						value.isRead = false;
-					});
-				}
-				$scope.messages.push(data);
-				if (data.images.length > 0) {
-					vm.group.count_chat_files += data.images.length;
-				}
-				vm.group.count_chat_message++;
 			}
 		});
 		$scope.emojiMessage = {
@@ -1569,14 +1624,11 @@
 		}
 		$scope.sendMessage = function (messageText, roomId, files) {
 			$scope.disabledSendMessage = true;
-			if (messageText === "" && files === undefined || messageText === "" && files.length === 0) {
-				return;
-			}
 			if (files !== undefined) {
 				var imagesObj = {
 					imageName: [],
 					imageType: [],
-					images: files
+					images: []
 				};
 				files.forEach(function (value) {
 					if(checkURL(value.name)){

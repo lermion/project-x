@@ -30,7 +30,7 @@ class MailController extends Controller
         if ($mail->status != 'Closed' ) {
             $mail->status = 'Closed';
             $mail->save();
-            return redirect('/admin/mail/get_closed')->with('message', 'Статус сообщения изменен');
+            return redirect()->back()->with('message', 'Статус сообщения изменен');
         } else {
             $result = [
                 "status" => false,
@@ -39,7 +39,7 @@ class MailController extends Controller
                     'code' => '7'
                 ]
             ];
-            return redirect('/admin/mail/get_closed')->with('message', 'Ошибка!!! Статус сообщения не изменен');
+            return redirect()->back()->with('message', 'Ошибка!!! Статус сообщения не изменен');
         }
     }
 
@@ -50,7 +50,7 @@ class MailController extends Controller
         if ($mail->status != 'Review' ) {
             $mail->status = 'Review';
             $mail->save();
-            return redirect('/admin/mail/get_review')->with('message', 'Статус сообщения изменен');
+            return redirect()->back()->with('message', 'Статус сообщения изменен');
         } else {
             $result = [
                 "status" => false,
@@ -59,16 +59,16 @@ class MailController extends Controller
                     'code' => '7'
                 ]
             ];
-            return redirect('/admin/mail/get_review')->with('message', 'Ошибка!!! Статус сообщения не изменен');
+            return redirect()->back()->with('message', 'Ошибка!!! Статус сообщения не изменен');
         }
     }
 
     public function destroy($id)
     {
         if (UserMail::find($id)->delete()) {
-            return redirect('/admin/mail/')->with('message', 'Сообщение удаленнно');
+            return redirect()->back()->with('message', 'Сообщение удаленнно');
         } else {
-            return redirect('/admin/mail/')->with('message', 'Ошибка!!! Сообщение не удаленнно');
+            return redirect()->back()->with('message', 'Ошибка!!! Сообщение не удаленнно');
         }
     }
 
