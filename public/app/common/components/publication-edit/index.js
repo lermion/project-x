@@ -120,6 +120,8 @@
                     } else {
                         var file = ctrl.files[index];
 
+
+
                         if (file.pivot.image_id) {
                             ctrl.newPub.deleteImages.push(file.id);
                         } else if (file.pivot.video_id) {
@@ -178,7 +180,11 @@
 
                     ctrl.newPublicationForm.$setSubmitted();
 
-                    ctrl.newPublicationForm.files1.$setValidity('required', true);
+                    if (ctrl.files.length === 0 && ctrl.newFiles.length === 0) {
+                        ctrl.newPublicationForm.files1.$setValidity('required', false);
+                    } else {
+                        ctrl.newPublicationForm.files1.$setValidity('required', true);
+                    }
 
                     if (ctrl.newPublicationForm.$invalid) {
                         return false;
@@ -186,8 +192,10 @@
 
                     ctrl.subForm = true;
 
-                    var images = [];
-                    var videos = [];
+                    var images = [],
+                        oldImages = [];
+                    var videos = [],
+                        oldVideos = [];
 
                     var isMain;
 
@@ -206,26 +214,40 @@
                         }
                     });
 
+                    ctrl.files.forEach(function (file) {
+                        var type = file.pivot.image_id ? 'image' : 'video';
+                        if (type === 'image') {
+                            oldImages.push(file);
+                        } else if (type === 'video') {
+                            oldVideos.push(file);
+                        }
+                    });
+
                     // если новая обложка не выбрана, а текущая обложка отсутствует (при редактировании удалили файл), то
                     // обложка устанавливается автоматически
                     if (!ctrl.cover && !ctrl.pub.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {
+
                         // если нет видеофайлов, обложка = фото
+
+
+                        // 1. Если нет старых видео
+                        if (oldVideos.length === 0) {
+                            // если есть старые фото возьмем их id
+                            if (oldImages.length > 0) {
+                                ctrl.pub.cover_image_id = oldImages[0].id;
+                            }
+                        } else {
+                            ctrl.cover = ctrl.pub.cover_video_id = oldVideos[0].id
+                        }
+
+                        // 2. Если нет новых видео
                         if (videos.length === 0) {
                             // если есть фото сохраненные на сервере, то возьмем их id для установки обложкой
-                            if (ctrl.pub.images.length > 0) {
-                                ctrl.pub.cover_image_id = ctrl.pub.images[0].id;
-                                // если все фото новые, то сделаем обложкой первое фото
-                            } else {
+                            if (images.length > 0) {
                                 ctrl.cover = images[0];
                             }
                         } else {
-                            // если есть и видео и фото, то обложка = фото
-                            if (images.length > 0) {
-                                ctrl.cover = images[0];
-                            } else {
-                                // если есть только видео, то обложка = видео
-                                ctrl.cover = videos[0];
-                            }
+                            ctrl.cover = videos[0];
                         }
                     }
 
