@@ -2,6 +2,7 @@
 	<div class="comment-img">
 		<img ng-if="mainImageInPopup" ng-src="{{mainImageInPopup}}">
 		<video ng-if="mainVideoInPopup" controls ngf-src="mainVideoInPopup"></video>
+		<div ng-show="notCodedmessage">Видео находится в обработке</div>
 	</div>
 	<div class="comment-imges-list">
 		<a ng-hide="ngDialogData.files.length === 1" href="javascript:void(0);" ng-click="changeMainFile(file, true)" ng-repeat="file in ngDialogData.files" class="comment-list">
