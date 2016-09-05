@@ -336,7 +336,7 @@ class PublicationController extends Controller
                     $video_cover->save();
                     $url = Video::find($cover_id);
                     $public = Publication::where('id',$id)->first();
-                    $public->cover = $url['url'];
+                    $public->cover = $url['img_url'];
                     $public->save();
                 }
                 if ($request->hasFile('images')) {
