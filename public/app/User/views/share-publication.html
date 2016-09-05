@@ -1,83 +1,104 @@
 <div class="share-publication-title">Переслать публикацию</div>
 <div class="share-publication-menu-wrap">
-	<div class="share-publication-menu-wrap-inner">
-		<a ng-class="{active:isSelected($index)}" ng-repeat="menuItem in menuItems" href="javascript:void(0);" ng-click="changeMenu(menuItem.menuType, $index)" class="share-publication-menu-item">{{menuItem.name}}</a>
-	</div>
+    <div class="share-publication-menu-wrap-inner">
+        <a ng-class="{active:isSelected($index)}" ng-repeat="menuItem in menuItems" href="javascript:void(0);"
+           ng-click="changeMenu(menuItem.menuType, $index)" class="share-publication-menu-item">{{menuItem.name}}</a>
+    </div>
 </div>
 <div class="share-publication-search-wrap">
-	<div class="share-publication-search-input">
-		<input ng-model="query" type="text" placeholder="Поиск...">
-	</div>
-	<div ng-if="members()" class="share-publication-search-data">
-		<div class="share-publication-search-sign">Я подписан</div>
-		<div ng-init="subscription.type = 'members'" ng-repeat="subscription in subscriptions | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input ng-checked="subscriptionsArray.indexOf(subscription.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(subscription, active, 'subscription')" type="checkbox"></span>
-			<div class="share-publication-search-data-info">
-				<div class="share-publication-search-data-ava">
-					<a ui-sref="user({username: subscription.login})" href="javascript:void(0);">
-						<img ng-src="{{subscription.avatar_path}}" alt="">
-					</a>
-				</div>
-				<span class="share-publication-search-data-name">{{subscription.first_name}} {{subscription.last_name}}</span>
-			</div>
-		</div>
-		<div class="share-publication-search-sign">Подписчики</div>
-		<div ng-init="subscriber.type = 'members'" ng-repeat="subscriber in subscribers | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input ng-checked="subscribersArray.indexOf(subscriber.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(subscriber, active, 'subscriber')" type="checkbox"></span>
-			<div class="share-publication-search-data-info">
-				<div class="share-publication-search-data-ava">
-					<a ui-sref="user({username: subscriber.login})" href="javascript:void(0);">
-						<img ng-src="{{subscriber.avatar_path}}" alt="">
-					</a>
-				</div>
-				<span class="share-publication-search-data-name">{{subscriber.first_name}} {{subscriber.last_name}}</span>
-			</div>
-		</div>
-	</div>
-	<div ng-if="groupsChat()" class="share-publication-search-data">
-		<div class="share-publication-search-sign">Групповые чаты</div>
-		<div ng-repeat="groupChat in groupsChatArr | filter:{$:query}" ng-if="groupChat.is_group" class="share-publication-search-data-item">
-			<span><input ng-checked="groupsChatArray.indexOf(groupChat.room_id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(groupChat, active, 'group-chat')" type="checkbox"></span>
-			<div class="share-publication-search-data-info">
-				<div class="share-publication-search-data-ava">
-					<a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
-						<img ng-src="{{groupChat.avatar}}" alt="">
-					</a>
-				</div>
-				<span class="share-publication-search-data-name">{{groupChat.name}}</span>
-			</div>
-		</div>
-	</div>
-	<div ng-if="showGroups()" class="share-publication-search-data">
-		<div class="share-publication-search-sign">Группы</div>
-		<div ng-show="group.is_sub" ng-repeat="group in groups | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input ng-checked="groupsChecked.indexOf(group.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(group, active, 'group')" type="checkbox"></span>
-			<div class="share-publication-search-data-info">
-				<div class="share-publication-search-data-ava">
-					<a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
-						<img ng-src="{{group.card_avatar}}" alt="">
-					</a>
-				</div>
-				<span class="share-publication-search-data-name">{{group.name}}</span>
-			</div>
-		</div>
-	</div>
-	<div ng-if="showPlaces()" class="share-publication-search-data">
-		<div class="share-publication-search-sign">Места</div>
-		<div ng-show="place.is_sub" ng-repeat="place in places | filter:{$:query}" class="share-publication-search-data-item">
-			<span><input ng-checked="placesChecked.indexOf(place.id) > -1 ? active = true : active = false" class="share-publication-checkbox" ng-model="active" ng-change="change(place, active, 'place')" type="checkbox"></span>
-			<div class="share-publication-search-data-info">
-				<div class="share-publication-search-data-ava">
-					<a ui-sref="place({placeName: place.url_name, placeId: place.id})" href="javascript:void(0);">
-						<img ng-src="{{place.avatar}}" alt="">
-					</a>
-				</div>
-				<span class="share-publication-search-data-name">{{place.name}}</span>
-			</div>
-		</div>
-	</div>
-	<div class="share-publication-send-btn">
-		<div ng-click="closeSharePopup()" class="share-publication-send-btn-cancel">Отменить</div>
-		<div ng-click="sendSharePublication(ngDialogData.pubId)" class="share-publication-send-btn-send">Отправить</div>
-	</div>
+    <div class="share-publication-search-input">
+        <input ng-model="query" type="text" placeholder="Поиск...">
+    </div>
+    <div ng-if="members()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Я подписан</div>
+        <div ng-init="subscription.type = 'members'" ng-repeat="subscription in subscriptions | filter:{$:query}"
+             class="share-publication-search-data-item">
+            <span><input ng-checked="subscriptionsArray.indexOf(subscription.id) > -1 ? active = true : active = false"
+                         class="share-publication-checkbox" ng-model="active"
+                         ng-change="change(subscription, active, 'subscription')" type="checkbox"></span>
+
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="user({username: subscription.login})" href="javascript:void(0);">
+                        <img ng-src="{{subscription.avatar_path}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{subscription.first_name}} {{subscription.last_name}}</span>
+            </div>
+        </div>
+        <div class="share-publication-search-sign">Подписчики</div>
+        <div ng-init="subscriber.type = 'members'" ng-repeat="subscriber in subscribers | filter:{$:query}"
+             class="share-publication-search-data-item">
+            <span><input ng-checked="subscribersArray.indexOf(subscriber.id) > -1 ? active = true : active = false"
+                         class="share-publication-checkbox" ng-model="active"
+                         ng-change="change(subscriber, active, 'subscriber')" type="checkbox"></span>
+
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="user({username: subscriber.login})" href="javascript:void(0);">
+                        <img ng-src="{{subscriber.avatar_path}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{subscriber.first_name}} {{subscriber.last_name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="groupsChat()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Групповые чаты</div>
+        <div ng-repeat="groupChat in groupsChatArr | filter:{$:query}" ng-if="groupChat.is_group"
+             class="share-publication-search-data-item">
+            <span><input ng-checked="groupsChatArray.indexOf(groupChat.room_id) > -1 ? active = true : active = false"
+                         class="share-publication-checkbox" ng-model="active"
+                         ng-change="change(groupChat, active, 'group-chat')" type="checkbox"></span>
+
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="user({username: groupChat.login})" href="javascript:void(0);">
+                        <img ng-src="{{groupChat.avatar}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{groupChat.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="showGroups()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Группы</div>
+        <div ng-show="group.is_sub" ng-repeat="group in groups | filter:{$:query}"
+             class="share-publication-search-data-item">
+            <span><input ng-checked="groupsChecked.indexOf(group.id) > -1 ? active = true : active = false"
+                         class="share-publication-checkbox" ng-model="active" ng-change="change(group, active, 'group')"
+                         type="checkbox"></span>
+
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="group({groupName: group.url_name, groupId: group.id})" href="javascript:void(0);">
+                        <img ng-src="{{group.card_avatar}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{group.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="showPlaces()" class="share-publication-search-data">
+        <div class="share-publication-search-sign">Места</div>
+        <div ng-show="place.is_sub" ng-repeat="place in places | filter:{$:query}"
+             class="share-publication-search-data-item">
+            <span><input ng-checked="placesChecked.indexOf(place.id) > -1 ? active = true : active = false"
+                         class="share-publication-checkbox" ng-model="active" ng-change="change(place, active, 'place')"
+                         type="checkbox"></span>
+
+            <div class="share-publication-search-data-info">
+                <div class="share-publication-search-data-ava">
+                    <a ui-sref="place({placeName: place.url_name, placeId: place.id})" href="javascript:void(0);">
+                        <img ng-src="{{place.avatar}}" alt="">
+                    </a>
+                </div>
+                <span class="share-publication-search-data-name">{{place.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="share-publication-send-btn">
+        <div ng-click="closeSharePopup()" class="share-publication-send-btn-cancel">Отменить</div>
+        <div ng-click="sendSharePublication(ngDialogData.pubId)" class="share-publication-send-btn-send">Отправить</div>
+    </div>
 </div>

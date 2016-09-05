@@ -51,6 +51,14 @@
                 ctrl.emojiMessage = {};
                 ctrl.subForm = false;
 
+                ctrl.groupsChecked = [];
+                ctrl.placesChecked = [];
+                ctrl.groupsChatArray = [];
+                ctrl.subscribersArray = [];
+                ctrl.subscriptionsArray = [];
+
+                ctrl.active = false;
+
                 // Current user
                 var storage = storageService.getStorage();
                 ctrl.firstName = storage.firstName;
@@ -105,7 +113,7 @@
 
                         // если в публикации есть видеофайлы, то проверим не является ли один из них обложкой
                         if (ctrl.pub.videos.length > 0) {
-                            var videoCover = ctrl.pub.videos.filter(function(file, index, videos) {
+                            var videoCover = ctrl.pub.videos.filter(function (file, index, videos) {
                                 return file.pivot.is_cover == true;
                             });
                             ctrl.mainVideo = videoCover[0] ? videoCover[0].url : false;
@@ -365,6 +373,9 @@
                 };
 
                 ctrl.sendSharePublication = function (pubId) {
+                    var isMembers = false;
+                    var isAnotherPlace = false;
+                    var data;
                     if (ctrl.shareData.length > 0) {
                         var membersLength = [];
                         ctrl.shareData.forEach(function (value) {
@@ -373,7 +384,7 @@
                                 var members = [];
                                 members[0] = $rootScope.user.userId;
                                 members[1] = value.id;
-                                var data = {
+                                data = {
                                     members: members,
                                     is_group: false,
                                     share: true
@@ -391,20 +402,23 @@
                                             });
                                         }
                                     } else {
-                                        var data = {
+                                        data = {
                                             userId: $rootScope.user.userId,
                                             room_id: response.room_id,
                                             message: $location.absUrl() + "/publication/" + pubId
                                         };
                                         socket.emit('send message', data, function () {
-                                            var popupNotification = ngDialog.open({
-                                                template: '../app/User/views/popup-notification.html',
-                                                className: 'popup-delete-group ngdialog-theme-default',
-                                                scope: ctrl
-                                            });
-                                            setTimeout(function () {
-                                                ngDialog.closeAll();
-                                            }, 2000);
+                                            isMembers = true;
+                                            if (!isAnotherPlace) {
+                                                var popupNotification = ngDialog.open({
+                                                    template: '../app/User/views/popup-notification.html',
+                                                    className: 'popup-delete-group ngdialog-theme-default',
+                                                    scope: $scope
+                                                });
+                                                setTimeout(function () {
+                                                    ngDialog.closeAll();
+                                                }, 2000);
+                                            }
                                         });
                                     }
                                 });
@@ -415,24 +429,69 @@
                                     message: $location.absUrl() + "/publication/" + pubId
                                 };
                                 socket.emit('send message', data, function () {
-                                    ngDialog.open({
-                                        template: '../app/User/views/popup-notification.html',
-                                        className: 'popup-delete-group ngdialog-theme-default',
-                                        scope: $scope
-                                    });
-                                    setTimeout(function () {
-                                        ngDialog.closeAll();
-                                    }, 2000);
+                                    isAnotherPlace = true;
+                                    if (!isMembers) {
+                                        var popupNotification = ngDialog.open({
+                                            template: '../app/User/views/popup-notification.html',
+                                            className: 'popup-delete-group ngdialog-theme-default',
+                                            scope: $scope
+                                        });
+                                        setTimeout(function () {
+                                            ngDialog.closeAll();
+                                        }, 2000);
+                                    }
                                 });
                             }
                         });
                     }
                 };
-                ctrl.change = function (data, active) {
+                ctrl.change = function (data, active, type) {
                     if (active) {
                         ctrl.shareData.push(data);
+                        if (type === "subscription") {
+                            ctrl.subscriptionsArray.push(data.id);
+                            ctrl.subscribers.forEach(function (value) {
+                                if (value.id === data.id) {
+                                    ctrl.subscribersArray.push(value.id);
+                                }
+                            });
+                        } else if (type === "subscriber") {
+                            ctrl.subscribersArray.push(data.id);
+                            ctrl.subscriptions.forEach(function (value) {
+                                if (value.id === data.id) {
+                                    ctrl.subscriptionsArray.push(value.id);
+                                }
+                            });
+                        } else if (type === "group") {
+                            ctrl.groupsChecked.push(data.id);
+                        } else if (type === "place") {
+                            ctrl.placesChecked.push(data.id);
+                        } else if (type === "group-chat") {
+                            ctrl.groupsChatArray.push(data.room_id);
+                        }
                     } else {
                         ctrl.shareData.splice(ctrl.shareData.indexOf(data), 1);
+                        if (type === "subscription") {
+                            ctrl.subscriptionsArray.splice(ctrl.subscriptionsArray.indexOf(data.id), 1);
+                            ctrl.subscribers.forEach(function (value) {
+                                if (value.id === data.id) {
+                                    ctrl.subscribersArray.splice(ctrl.subscribersArray.indexOf(value.id), 1);
+                                }
+                            });
+                        } else if (type === "subscriber") {
+                            ctrl.subscribersArray.splice(ctrl.subscribersArray.indexOf(data.id), 1);
+                            ctrl.subscriptions.forEach(function (value) {
+                                if (value.id === data.id) {
+                                    ctrl.subscriptionsArray.splice(ctrl.subscriptionsArray.indexOf(value.id), 1);
+                                }
+                            });
+                        } else if (type === "group") {
+                            ctrl.groupsChecked.splice(ctrl.groupsChecked.indexOf(data.id), 1);
+                        } else if (type === "place") {
+                            ctrl.placesChecked.splice(ctrl.placesChecked.indexOf(data.id), 1);
+                        } else if (type === "group-chat") {
+                            ctrl.groupsChatArray.splice(ctrl.groupsChatArray.indexOf(data.room_id), 1);
+                        }
                     }
                 };
                 ctrl.currentIndex = 0;
@@ -458,7 +517,7 @@
                             return false;
                         }
                     } else if (value === "groups-chat") {
-                        socket.emit("get user rooms", ctrl.loggedUserId);
+                        socket.emit("get user rooms", $rootScope.user.userId);
                         socket.on("get user rooms", function (response) {
                             ctrl.groupsChatArr = response;
                         });
@@ -544,18 +603,6 @@
                     });
                 };
 
-                //ctrl.openModalEditPub = function (pubId) {
-                //    modalEditPub = ngDialog.open({
-                //        template: '../app/common/components/publication-list-item/edit-publication.html',
-                //        className: 'user-publication user-publication-edit ngdialog-theme-default ',
-                //        scope: $scope,
-                //        name: 'modal-edit-publication',
-                //        preCloseCallback: function () {
-                //            ctrl.pubEdited = angular.copy(originalPubEdited);
-                //        }
-                //    });
-                //};
-
                 ctrl.openModalEditPub = function () {
                     var original = angular.copy(ctrl.pub);
                     ngDialog.open({
@@ -564,14 +611,13 @@
                         scope: $scope,
                         name: 'modal-edit-publication',
                         data: {
-                          pub: ctrl.pub
+                            pub: ctrl.pub
                         },
                         preCloseCallback: function () {
 
                         }
                     });
                 };
-
 
 
                 ctrl.alerts = {};
