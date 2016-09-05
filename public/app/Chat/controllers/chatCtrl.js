@@ -518,6 +518,12 @@ angular.module('placePeopleApp')
 
 			$scope.showPopupWithFiles = function(files){
 				if(files[0].video_url){
+					ChatService.getVideo(files[0].id).then(function(response){
+						console.log(response);
+					},
+					function(error){
+						console.log(error);
+					});
 					$scope.mainImageInPopup = null;
 					$scope.mainVideoInPopup = files[0].video_url;
 				}else{

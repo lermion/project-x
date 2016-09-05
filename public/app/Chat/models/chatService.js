@@ -14,7 +14,8 @@ angular.module('placePeopleApp')
 			updateGroupChat: updateGroupChat,
 			exitUserFromGroupChat: exitUserFromGroupChat,
 			changeGroupChatAdmin: changeGroupChatAdmin,
-			sendVideos: sendVideos
+			sendVideos: sendVideos,
+			getVideo: getVideo
 		};
 
 		function sendVideos(messageId, videos){
@@ -30,6 +31,18 @@ angular.module('placePeopleApp')
 				transformRequest: angular.identity,
 				data: data
 			})
+		}
+
+		function getVideo(videoId){
+			var defer = $q.defer();
+			$http.get('chat/video/' + videoId)
+				.success(function (response) {
+					defer.resolve(response);
+				})
+				.error(function (error) {
+					defer.reject(error);
+				});
+			return defer.promise;
 		}
 
 		function changeGroupChatAdmin(roomId, userId){
