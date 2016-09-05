@@ -160,7 +160,7 @@
 
                     if (isNewFile) {
                         ctrl.newFiles[index].isCover = true;
-                        ctrl.pub.cover = ctrl.newFiles[index];
+                        ctrl.cover = ctrl.newFiles[index];
                     } else {
                         ctrl.files[index].isCover = true;
                         ctrl.files[index].pivot.is_cover = true;
