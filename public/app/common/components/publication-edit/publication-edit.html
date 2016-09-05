@@ -1,0 +1,136 @@
+<form name="$ctrl.newPublicationForm" novalidate>
+    <h5>Редактировать публикацию</h5>
+
+    <div class="publication">
+
+        <div class="publication-item">
+            <a class="user" ng-if="$ctrl.pub.group.length > 0" ui-sref="group({groupName: $ctrl.group.url_name})"
+               ng-click="closeThisDialog()">
+			    <span class="ava">
+				    <img ng-src="{{::$ctrl.avatar}}">
+			    </span>
+
+                <p class="user-name">{{::$ctrl.authorName}}</p>
+            </a>
+            <a class="user" ng-if="$ctrl.pub.place.length > 0" ui-sref="place({placeName: $ctrl.place.url_name})"
+               ng-click="closeThisDialog()">
+			    <span class="ava">
+				    <img ng-src="{{::$ctrl.avatar}}">
+			    </span>
+
+                <p class="user-name">{{::$ctrl.authorName}}</p>
+            </a>
+            <a class="user" ng-if="!!$ctrl.pub.in_profile || !!$ctrl.pub.is_main"
+               ui-sref="user({username: $root.user.username})"
+               ng-click="closeThisDialog()">
+			    <span class="ava">
+				    <img ng-src="{{::$ctrl.avatar}}">
+			    </span>
+
+                <p class="user-name">{{::$ctrl.authorName}}</p>
+            </a>
+
+            <input type="checkbox" ng-if="$ctrl.isFeed" id="anon" ng-model="$ctrl.pub.is_anonym">
+            <label for="anon" ng-if="$ctrl.isFeed">
+                <span></span>
+                Анонимная публикация
+            </label>
+
+        </div>
+
+
+        <div class="text-field">
+
+            <div emoji-form emoji-message="$ctrl.emojiMessage">
+                <textarea id="messageInput" name="text" ng-model="$ctrl.emojiMessage.messagetext"></textarea>
+                <a href class="emoji-button" id="emojibtn">
+                    <i class="icon icon-emoji"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="error-messages" ng-messages="$ctrl.newPublicationForm.text.$error"
+             ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
+            <div ng-message="required">Вы не заполнили текст публикации</div>
+        </div>
+        <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
+             style="max-height: 250px; overflow:hidden; position:relative;">
+            <div class="new-img" ng-repeat="file in $ctrl.files">
+                <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
+                    <div class="close" ng-click="$ctrl.removeFile($index, false)">
+                        <div class="close-inner">
+                            <p>Удалить</p>
+                        </div>
+                    </div>
+                    <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+                    <img ng-src="{{file.img_url}}" ng-if="file.pivot.video_id">
+                    <video width="200px" controls ngf-src="file"></video>
+                    <div class="check" ng-class="{'js-isShow': file.isCover ||  !!file.pivot.is_cover}"
+                         ng-click="$ctrl.setNewMainPubPhoto($index, false)"
+                         ng-if="file.showIsCover || file.isCover || !!file.pivot.is_cover">
+                        <div class="check-inner">
+                            <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="img-name">{{::$ctrl.getImageName(file)}}</p>
+            </div>
+            <div class="new-img" ng-repeat="file in $ctrl.newFiles">
+                <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
+                    <div class="close" ng-click="$ctrl.removeFile($index, true)">
+                        <div class="close-inner">
+                            <p>Удалить</p>
+                        </div>
+                    </div>
+                    <img ngf-thumbnail="file || '/thumb.jpg'">
+                    <video width="200px" controls ngf-src="file"></video>
+                    <div class="check" ng-class="{'js-isShow': file.isCover}"
+                         ng-click="$ctrl.setNewMainPubPhoto($index, true)"
+                         ng-if="file.showIsCover || file.isCover">
+                        <div class="check-inner">
+                            <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="img-name">{{file.name}}</p>
+            </div>
+        </div>
+
+        <div class="publication-footer">
+            <div class="add-objects">
+                <input id="add-main-pub-object" style="display: none;"
+                       name="files1"
+                       type="file"
+                       ngf-select
+                       ngf-accept="'image/*,video/*'"
+                       ngf-pattern="'image/*,video/*'"
+                       ng-model="$ctrl.filesPreview"
+                       ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+                       ngf-multiple="true"
+                       ngf-keep="true"
+                       required>
+
+
+                <label for="add-main-pub-object"
+                >
+                    <span class="add"></span>
+                    Добавить фото или видео *
+                </label>
+
+                <div class="error-messages" ng-messages="$ctrl.newPublicationForm.files1.$error"
+                     ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
+                    <div ng-message="required">Вы не выбрали медиафайл</div>
+                    <div ng-message="pattern">Выбранный файл не является фото или видео</div>
+                </div>
+            </div>
+            <div class="publication-footer-button">
+                <a href="" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
+                <a class="publication-button" ladda="$ctrl.subForm" ng-click="$ctrl.updatePub()">Сохранить</a>
+            </div>
+        </div>
+
+        <p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для
+            создания публикации обязательным является добавление фото или видео'}} </p>
+
+    </div>
+</form>

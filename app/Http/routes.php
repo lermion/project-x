@@ -322,6 +322,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('exit_user/{room_id}', 'ChatController@exit_user');
         Route::get('exit_admin/{room_id}/{user_id}', 'ChatController@exit_admin');
         Route::post('videos', 'ChatController@videos');
+        Route::get('get_video/{id}', 'ChatController@get_video');
     });
 
     Route::group(['prefix' => 'mail'], function () {
@@ -351,7 +352,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/chat/videos\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/chat/get_video/10\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='number' name='message_id' ><br>

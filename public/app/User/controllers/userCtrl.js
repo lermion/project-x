@@ -487,6 +487,14 @@ angular.module('placePeopleApp')
                 $scope.userData.publications_count++;
             });
 
+            $rootScope.$on('publication:update', function(event, data) {
+                angular.forEach($scope.userPublications, function (item, index, arr) {
+                    if (item.id === data.publication.id) {
+                        arr[index] = data.publication;
+                    }
+                });
+            });
+
             $scope.closePopup = function () {
                 ngDialog.closeAll();
             };

@@ -160,7 +160,7 @@ angular.module('placePeopleApp')
             var data = new FormData();
             var cover;
 
-            data.append('text',publication.text);
+            data.append('text', publication.text);
             data.append('is_anonym', publication.isAnonym ? 1 : 0);
             data.append('is_main', publication.isMain);
 
@@ -193,32 +193,49 @@ angular.module('placePeopleApp')
             return defer.promise;
         }
 
-        function updatePublication(pubId, text, isAnon, isMain, images, videos, delete_videos, delete_images, pub) {
+        function updatePublication(pub) {
 
             var data = new FormData();
-            data.append('text', text);
-            data.append('is_anonym', isAnon);
-            data.append('is_main', isMain);
-            images.forEach(function (img) {
-                data.append('images[]', img);
-            });
-            videos.forEach(function (video) {
-                data.append('videos[]', video);
-            });
-            delete_images.forEach(function (del_img) {
-                data.append('delete_images[]', del_img);
-            });
-            delete_videos.forEach(function (del_video) {
-                data.append('delete_videos[]', del_video);
-            });
 
-            if (pub.coverId) {
-                data.append('cover_id', pub.coverId);
-            } else {
-                data.append('cover', pub.cover, pub.cover.name);
+            data.append('text', pub.text);
+            data.append('is_anonym', pub.isAnonym);
+            data.append('is_main', pub.isMain);
+            data.append('in_profile', pub.inProfile ? 1 : 0);
+
+            if (pub.images.length > 0) {
+                pub.images.forEach(function (img) {
+                    data.append('images[]', img, img.name);
+                });
             }
 
-            data.append('in_profile', pub.inProfile ? 1 : 0);
+            if (pub.videos.length > 0) {
+                pub.videos.forEach(function (video) {
+                    data.append('videos[]', video, video.name);
+                });
+            }
+            if (pub.deleteImages) {
+                pub.deleteImages.forEach(function (id) {
+                    data.append('delete_images[]', id);
+                });
+            }
+
+            if (pub.deleteVideos) {
+                pub.deleteVideos.forEach(function (id) {
+                    data.append('delete_videos[]', id);
+                });
+            }
+
+
+            if (pub.cover_image_id) {
+                data.append('cover_image_id', pub.cover_image_id);
+            }
+            if (pub.cover_video_id) {
+                data.append('cover_video_id', pub.cover_video_id);
+            }
+
+            if (pub.cover) {
+                data.append('cover', pub.cover, pub.cover.name);
+            }
 
             var config = {
                     headers: {
@@ -227,7 +244,7 @@ angular.module('placePeopleApp')
                     transformRequest: angular.identity
                 },
                 defer = $q.defer();
-            $http.post(path + 'publication/update/' + pubId, data, config)
+            $http.post(path + 'publication/update/' + pub.id, data, config)
                 .success(function (response) {
                     defer.resolve(response);
                 })

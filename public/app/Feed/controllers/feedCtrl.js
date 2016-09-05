@@ -442,6 +442,14 @@
             });
         });
 
+        $rootScope.$on('publication:update', function(event, data) {
+            angular.forEach($scope.publications, function (item, index, arr) {
+                if (item.id === data.publication.id) {
+                    arr[index] = data.publication;
+                }
+            });
+        });
+
         $scope.changeMainFileFeed = function (file, currPub) {
             if (file.pivot.video_id || file.pivot.image_id) {
                 currPub.mainFile = file;

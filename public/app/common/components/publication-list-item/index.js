@@ -544,23 +544,35 @@
                     });
                 };
 
-                ctrl.openModalEditPub = function (pubId) {
-                    modalEditPub = ngDialog.open({
-                        template: '../app/common/components/publication-list-item/edit-publication.html',
+                //ctrl.openModalEditPub = function (pubId) {
+                //    modalEditPub = ngDialog.open({
+                //        template: '../app/common/components/publication-list-item/edit-publication.html',
+                //        className: 'user-publication user-publication-edit ngdialog-theme-default ',
+                //        scope: $scope,
+                //        name: 'modal-edit-publication',
+                //        preCloseCallback: function () {
+                //            ctrl.pubEdited = angular.copy(originalPubEdited);
+                //        }
+                //    });
+                //};
+
+                ctrl.openModalEditPub = function () {
+                    var original = angular.copy(ctrl.pub);
+                    ngDialog.open({
+                        template: '../app/common/views/publication-edit.html',
                         className: 'user-publication user-publication-edit ngdialog-theme-default ',
                         scope: $scope,
                         name: 'modal-edit-publication',
+                        data: {
+                          pub: ctrl.pub
+                        },
                         preCloseCallback: function () {
-                            ctrl.pubEdited = angular.copy(originalPubEdited);
+
                         }
                     });
                 };
 
-                $scope.$on('ngDialog.opened', function (e, $dialog) {
-                    if ($dialog.name === "modal-edit-publication") {
-                        $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(ctrl.pub.text);
-                    }
-                });
+
 
                 ctrl.alerts = {};
                 ctrl.sendComplain = function (complainUnitId, flag, cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8) {
