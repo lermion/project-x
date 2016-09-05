@@ -169,6 +169,7 @@
                         } else {
                             ctrl.pub.cover_video_id = ctrl.files[index].id;
                         }
+                        ctrl.pub.cover = null;
                     }
                 };
 
