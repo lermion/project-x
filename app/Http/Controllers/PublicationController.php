@@ -481,12 +481,12 @@ class PublicationController extends Controller
                                     $image->is_cover = false;
                                     $image->save();
                                 }
-                                $video = PublicationVideo::where(['is_cover' => true, 'publication_id' => $id])->first();
-                                if ($video) {
-                                    $video->is_cover = false;
-                                    $video->save();
+                                $video_avatar = PublicationVideo::where(['is_cover' => true, 'publication_id' => $id])->first();
+                                if ($video_avatar) {
+                                    $video_avatar->is_cover = false;
+                                    $video_avatar->save();
                                 }
-                                $f_name = $video_name;
+                                $f_name = $video->getClientOriginalName();;
                                 $f_path = storage_path('tmp/video/');
                                 $video->move($f_path, $f_name);
                                 $new_fname = 'upload/publication/videos/' . uniqid();
