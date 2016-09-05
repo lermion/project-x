@@ -465,6 +465,7 @@ angular.module('placePeopleApp')
 			function checkURL(url){
 				return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 			}
+			$scope.messageVideos = [];
 			$scope.Model.sendMes = function(message, roomId, files){
 				$scope.disabledSendMessage = true;
 				if(files !== undefined){
@@ -473,7 +474,6 @@ angular.module('placePeopleApp')
 						imageType: [],
 						images: []
 					};
-					$scope.messageVideos = [];
 					files.forEach(function(value){
 						if(checkURL(value.name)){
 							imagesObj.imageName.push(value.name);
@@ -509,6 +509,11 @@ angular.module('placePeopleApp')
 					}
 					$scope.emojiMessage.rawhtml = "";
 					data.message = "";
+					imagesObj = {
+						imageName: [],
+						imageType: [],
+						images: []
+					};
 					if(data.message === "" && $scope.emojiMessage.rawhtml === ""){
 						setTimeout(function(){
 							$scope.disabledSendMessage = false;
@@ -610,8 +615,9 @@ angular.module('placePeopleApp')
 					}
 				}else{
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
-						if($scope.messageVideos !== undefined){
+						if($scope.messageVideos.length > 0){
 							ChatService.sendVideos(data.id, $scope.messageVideos).then(function(response){
+								$scope.messageVideos = [];
 								if(response.data.status){
 									$scope.sendMessageLoader = false;
 									data.videos = [];
@@ -637,6 +643,7 @@ angular.module('placePeopleApp')
 								console.log(error);
 							});
 						}else{
+							data.videos = [];
 							if(data.login === $scope.loggedUser){
 								data.isRead = true;
 							}else{
