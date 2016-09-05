@@ -228,7 +228,7 @@ angular.module('placePeopleApp')
 						itemsProcessed++;
 						if(itemsProcessed === response.messages.length) {
 							setTimeout(function(){
-								returnToBackCB();
+								returnToBackCB(response.messages[0].id);
 							}, 50);
       					}
 					});
@@ -236,8 +236,8 @@ angular.module('placePeopleApp')
 				}
 			});
 
-			function returnToBackCB(){
-				$scope.returnToBack(response.messages[0].id);
+			function returnToBackCB(lastMessageId){
+				$scope.returnToBack(lastMessageId);
 			}
 
 			function loadUserContacts(){
