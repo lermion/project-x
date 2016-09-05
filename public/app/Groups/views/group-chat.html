@@ -3,7 +3,7 @@
 		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div> -->
-		<div ng-init="checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === $root.user.username ? 'my-messege' : 'users-messege'">
+		<div ng-hide="message.text == '' && message.images.length === 0 && message.videos.length === 0" ng-init="checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === $root.user.username ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a href="javascript:void(0);" class="ava">
 					<img ng-src="{{message.avatar_path}}" alt="">
@@ -76,9 +76,9 @@
 						<a ng-hide="messages[$index - 1].login == messages[messages.length - 1].login" class="user-name">{{message.first_name}} {{message.last_name}}</a>
 						<div class="messege-text">
 							<p id="{{message.id}}" ng-click="goToSearch(message.text)" ng-bind-html="message.text | colonToSmiley | linkCheck"></p>
-							<span ng-show="message.images.length !== 0" class="pictures">
-								<span ng-click="showPopupWithFiles(message.images)" class="pic" ng-repeat="image in message.images.concat(message.videos)">
-									<img ng-src="{{image.url}}" alt="">
+							<span ng-show="message.images.length > 0 || message.videos.length > 0" class="pictures">
+								<span ng-click="showPopupWithFiles(message.images.concat(message.videos))" class="pic" ng-repeat="file in message.images.concat(message.videos)">
+									<img ng-src="{{file.url}}" alt="">
 								</span>
 							</span>
 						</div>
@@ -188,7 +188,7 @@
 					</span>
 				</div>                                         
 			</div> 
-			<button ng-disabled="disabledSendMessage" ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id, files)" class="send">Отправить</button>
+			<button ladda="sendMessageLoader" ng-disabled="disabledSendMessage" ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id, files)" class="send">Отправить</button>
 		</div>
 		<div ng-show="files.length > 0" class="pictures">
 			<div class="pic" ng-repeat="file in files">
