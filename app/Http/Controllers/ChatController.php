@@ -320,7 +320,7 @@ class ChatController extends Controller
             }
             $vidos = Video::create(['url' => $new_fname . '.mp4', 'img_url' => $new_fname . '.jpg',]);
             MessageVideo::create(['message_id' => $message_id, 'video_id' => $vidos->id]);
-            $cover=['id'=>$vidos->id, 'url'=>$new_fname . '.jpg'];
+            $cover=['id'=>$vidos->id, 'url'=>$new_fname . '.jpg', 'video_url' => $vidos->url];
             $result[] = $cover;
         }
         $result['status'] = true;

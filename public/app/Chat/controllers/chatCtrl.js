@@ -476,7 +476,6 @@ angular.module('placePeopleApp')
 					$scope.messageVideos = [];
 					files.forEach(function(value){
 						if(checkURL(value.name)){
-							console.log(value);
 							imagesObj.imageName.push(value.name);
 							imagesObj.imageType.push(value.type);
 							imagesObj.images.push(value);
@@ -556,6 +555,7 @@ angular.module('placePeopleApp')
 							$scope.mainVideoInPopup = files[0].video_url;
 							$scope.notCodedmessage = false;
 						}else{
+							$scope.mainImageInPopup = null;
 							$scope.mainVideoInPopup = null;
 							$scope.notCodedmessage = true;
 						}
