@@ -15,6 +15,7 @@ angular.module('placePeopleApp')
 			var editGroupChat = null;
 			var leaveGroupPopup = null;
 			$scope.loggedUserId = parseInt(storage.userId);
+			$scope.notCodedmessage = false;
 			$scope.Model = $scope.Model || {Name : "xxx"};
 			$http.get('/static_page/get/name').success(function(response){
 				$scope.staticPages = response;
@@ -516,17 +517,54 @@ angular.module('placePeopleApp')
 				});
 			};
 
+			$scope.changeMainFile = function(file, flag, pub){
+				if(flag){
+					if(file.video_url){
+						ChatService.getVideo(file.id).then(function(response){
+							if(response.status && response.is_coded){
+								$scope.mainImageInPopup = null;
+								$scope.mainVideoInPopup = file.video_url;
+								$scope.notCodedmessage = false;
+							}else{
+								$scope.mainVideoInPopup = null;
+								$scope.mainImageInPopup = null;
+								$scope.notCodedmessage = true;
+							}
+						},
+						function(error){
+							console.log(error);
+						});
+					}else{
+						$scope.notCodedmessage = false;
+						$scope.mainVideoInPopup = null;
+						$scope.mainImageInPopup = file.url;
+					}
+				}else{
+					$scope.mainVideo = "";
+					$scope.mainImage = file.url;
+				}
+				if(flag === 'list'){
+					pub.mainFile = file;
+				}
+			};
+
 			$scope.showPopupWithFiles = function(files){
 				if(files[0].video_url){
 					ChatService.getVideo(files[0].id).then(function(response){
-						console.log(response);
+						if(response.status && response.is_coded){
+							$scope.mainImageInPopup = null;
+							$scope.mainVideoInPopup = files[0].video_url;
+							$scope.notCodedmessage = false;
+						}else{
+							$scope.mainVideoInPopup = null;
+							$scope.notCodedmessage = true;
+						}
 					},
 					function(error){
 						console.log(error);
 					});
-					$scope.mainImageInPopup = null;
-					$scope.mainVideoInPopup = files[0].video_url;
 				}else{
+					$scope.notCodedmessage = false;
 					$scope.mainVideoInPopup = null;
 					$scope.mainImageInPopup = files[0].url;
 				}
@@ -543,24 +581,6 @@ angular.module('placePeopleApp')
 						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
 					}
 				});
-			};
-
-			$scope.changeMainFile = function(file, flag, pub){
-				if(flag){
-					if(file.video_url){
-						$scope.mainImageInPopup = null;
-						$scope.mainVideoInPopup = file.video_url;
-					}else{
-						$scope.mainVideoInPopup = null;
-						$scope.mainImageInPopup = file.url;
-					}
-				}else{
-					$scope.mainVideo = "";
-					$scope.mainImage = file.url;
-				}
-				if(flag === 'list'){
-					pub.mainFile = file;
-				}
 			};
 
 			$scope.isSelected = function (roomId) {

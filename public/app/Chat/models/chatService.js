@@ -35,7 +35,7 @@ angular.module('placePeopleApp')
 
 		function getVideo(videoId){
 			var defer = $q.defer();
-			$http.get('chat/video/' + videoId)
+			$http.get('chat/get_video/' + videoId)
 				.success(function (response) {
 					defer.resolve(response);
 				})
