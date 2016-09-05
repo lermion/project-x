@@ -225,7 +225,9 @@ angular.module('placePeopleApp')
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
-					$scope.returnToBack(response.messages[0].id);
+					setTimeout(function(){
+						$scope.returnToBack(response.messages[0].id);
+					}, 50);
 					$scope.counter += 10;
 				}
 			});
