@@ -9,7 +9,11 @@
         <span class="line-h"><b>Выберите страну</b></span>
       </div>
       <div class="col-md-3">
-          <input class="form-control" type="text" value="{{$country->name}}" readonly="readonly">
+          <select class="form-control get-regions" name="country_id">
+              @foreach($countries as $country)
+                  <option @if ($country->id == $country_id) selected @endif value="{{$country->id}}">{{$country->name}}</option>
+              @endforeach
+          </select>
       </div>
     </div>
 

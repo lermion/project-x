@@ -65,6 +65,9 @@ class CountryController extends Controller
 
     public function editCountrySave(Request $request)
     {
+        if (Country::where('name',$request->input('name'))->first()){
+            return redirect('/admin/base/')->with('message', 'Ошибка!!! Такая странна уже есть в базе');
+        }
         $country = Country::find($request->input('id'));
         $country->name = $request->input('name');
         $country->code = $request->input('code');
@@ -86,14 +89,18 @@ class CountryController extends Controller
 
     public function editRegion($id,$country_id)
     {
-        $country = Country::find($country_id);
+        $countries = Country::get();
         $region = Region::find($id);
-        return view('admin.base.regionEdit',['region'=>$region,'country'=>$country]);
+        return view('admin.base.regionEdit',['region'=>$region,'countries'=>$countries,'country_id'=>$country_id]);
     }
 
     public function editRegionSave(Request $request)
     {
+        if (Region::where(['name'=>$request->input('name'),'country_id'=>$request->input('country_id')])->first()){
+            return redirect('/admin/base/region')->with('message', 'Ошибка!!! Такая область уже есть в базе');
+        }
         $region = Region::find($request->input('id'));
+        $region->country_id = $request->input('country_id');
         $region->name = $request->input('name');
         $region->save();
         return redirect('/admin/base/region')->with('message', 'Область изменинна');
@@ -119,11 +126,14 @@ class CountryController extends Controller
 
     public function editDistrictSave(Request $request)
     {
+        if (Area::where(['name'=>$request->input('name'),'region_id'=>$request->input('region_id')])->first()){
+            return redirect('/admin/base/district')->with('message', 'Ошибка!!! Такой район уже есть в базе');
+        }
         $district = Area::find($request->input('id'));
         $district->name = $request->input('name');
         $district->region_id = $request->input('region_id');
         $district->save();
-        return redirect('/admin/base/region')->with('message', 'Район изменен');
+        return redirect('/admin/base/district')->with('message', 'Район изменен');
     }
 
     public function createSettlement(Request $request)
@@ -147,6 +157,9 @@ class CountryController extends Controller
 
     public function editSettlementSave(Request $request)
     {
+        if (City::where(['name'=>$request->input('name'),'area_id'=>$request->input('area_id')])->orWhere(['name'=>$request->input('name'),'country_id'=>$request->input('country_id')])->orWhere(['name'=>$request->input('name'),'region_id'=>$request->input('region_id')])->first()){
+            return redirect('/admin/base/settlement')->with('message', 'Ошибка!!! Такой населенный пункт уже есть в базе');
+        }
         $settlement = City::find($request->input('id'));
         $settlement->name = $request->input('name');
         $settlement->country_id = $request->input('country_id');

@@ -64,8 +64,8 @@
 			  <tr>
 				<td>{{$city->id}}</td>
 				<td>{{$city->name}}</td>
-				<td>{{--{{$areas->where('id',$city->area_id)->first()->name}}--}}</td>
-				<td>{{--{{$regions->where('id',$city->region_id)->first()->name}}--}}</td>
+				<td>@if ($city->area_id) {{$areas->where('id',$city->area_id)->first()->name}} @endif</td>
+				<td>@if ($city->region_id) {{$regions->where('id',$city->region_id)->first()->name}} @endif</td>
 				<td>{{$countries->where('id',$city->country_id)->first()->name}}</td>
 				<td>
 					<p class="text-center">
