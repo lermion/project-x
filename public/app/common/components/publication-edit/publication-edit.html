@@ -1,10 +1,10 @@
 <form name="$ctrl.newPublicationForm" novalidate>
-    <h5>Новая публикация</h5>
+    <h5>Редактировать публикацию</h5>
 
     <div class="publication">
 
         <div class="publication-item">
-            <a class="user" ng-if="$ctrl.group" ui-sref="group({groupName: $ctrl.group.url_name})"
+            <a class="user" ng-if="$ctrl.pub.group.length > 0" ui-sref="group({groupName: $ctrl.group.url_name})"
                ng-click="closeThisDialog()">
 			    <span class="ava">
 				    <img ng-src="{{::$ctrl.avatar}}">
@@ -12,7 +12,7 @@
 
                 <p class="user-name">{{::$ctrl.authorName}}</p>
             </a>
-            <a class="user" ng-if="$ctrl.place" ui-sref="place({placeName: $ctrl.place.url_name})"
+            <a class="user" ng-if="$ctrl.pub.place.length > 0" ui-sref="place({placeName: $ctrl.place.url_name})"
                ng-click="closeThisDialog()">
 			    <span class="ava">
 				    <img ng-src="{{::$ctrl.avatar}}">
@@ -20,7 +20,8 @@
 
                 <p class="user-name">{{::$ctrl.authorName}}</p>
             </a>
-            <a class="user" ng-if="$ctrl.profile" ui-sref="user({username: $ctrl.profile.username})"
+            <a class="user" ng-if="!!$ctrl.pub.in_profile || !!$ctrl.pub.is_main"
+               ui-sref="user({username: $root.user.username})"
                ng-click="closeThisDialog()">
 			    <span class="ava">
 				    <img ng-src="{{::$ctrl.avatar}}">
@@ -28,16 +29,8 @@
 
                 <p class="user-name">{{::$ctrl.authorName}}</p>
             </a>
-            <a class="user" ng-if="$ctrl.feed" ui-sref="user({username: $ctrl.feed.username})"
-               ng-click="closeThisDialog()">
-			    <span class="ava">
-				    <img ng-src="{{::$ctrl.avatar}}">
-			    </span>
 
-                <p class="user-name">{{::$ctrl.authorName}}</p>
-            </a>
-
-            <input type="checkbox" ng-if="$ctrl.isFeed" id="anon" ng-model="isAnonPub">
+            <input type="checkbox" ng-if="$ctrl.isFeed" id="anon" ng-model="$ctrl.pub.is_anonym">
             <label for="anon" ng-if="$ctrl.isFeed">
                 <span></span>
                 Анонимная публикация
@@ -62,17 +55,37 @@
         </div>
         <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
              style="max-height: 250px; overflow:hidden; position:relative;">
-
             <div class="new-img" ng-repeat="file in $ctrl.files">
                 <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
-                    <div class="close" ng-click="$ctrl.removeFile($index)">
+                    <div class="close" ng-click="$ctrl.removeFile($index, false)">
+                        <div class="close-inner">
+                            <p>Удалить</p>
+                        </div>
+                    </div>
+                    <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
+                    <img ng-src="{{file.img_url}}" ng-if="file.pivot.video_id">
+                    <video width="200px" controls ngf-src="file"></video>
+                    <div class="check" ng-class="{'js-isShow': file.isCover ||  !!file.pivot.is_cover}"
+                         ng-click="$ctrl.setNewMainPubPhoto($index, false)"
+                         ng-if="file.showIsCover || file.isCover || !!file.pivot.is_cover">
+                        <div class="check-inner">
+                            <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="img-name">{{::$ctrl.getImageName(file)}}</p>
+            </div>
+            <div class="new-img" ng-repeat="file in $ctrl.newFiles">
+                <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
+                    <div class="close" ng-click="$ctrl.removeFile($index, true)">
                         <div class="close-inner">
                             <p>Удалить</p>
                         </div>
                     </div>
                     <img ngf-thumbnail="file || '/thumb.jpg'">
                     <video width="200px" controls ngf-src="file"></video>
-                    <div class="check" ng-class="{'js-isShow': file.isCover}" ng-click="$ctrl.setMainPubPhoto($index)"
+                    <div class="check" ng-class="{'js-isShow': file.isCover}"
+                         ng-click="$ctrl.setNewMainPubPhoto($index, true)"
                          ng-if="file.showIsCover || file.isCover">
                         <div class="check-inner">
                             <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
@@ -112,9 +125,7 @@
             </div>
             <div class="publication-footer-button">
                 <a href="" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-                <a type="submit" class="publication-button"
-                        ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать
-                </a>
+                <a class="publication-button" ladda="$ctrl.subForm" ng-click="$ctrl.updatePub()">Сохранить</a>
             </div>
         </div>
 

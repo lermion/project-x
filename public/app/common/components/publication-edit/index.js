@@ -6,17 +6,20 @@
         .module('app.components')
         .component('pubEdit', {
             bindings: {
-                group: '<',
-                place: '<',
-                profile: '<',
-                feed: '<'
+                pubData: '<'
             },
-            templateUrl: '../app/common/components/publication-new/publication-edit.html',
-            controller: function ($rootScope, $scope, $q, $state, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
+            templateUrl: '../app/common/components/publication-edit/publication-edit.html',
+            controller: function ($rootScope, $scope, $q, $state, $filter, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
                 var ctrl = this;
 
                 ctrl.pub = {};
                 ctrl.files = [];
+                ctrl.newFiles = [];
+                ctrl.newPub = {
+                    deleteImages: [],
+                    deleteVideos: []
+                };
+
                 ctrl.subForm = false;
                 ctrl.isAnonym = false;
 
@@ -49,14 +52,27 @@
 
                 ctrl.shareData = [];
 
-                ctrl.emojiMessage = {};
+                ctrl.emojiMessage = {
+                    messagetext: '',
+                    rawhtml: ''
+                };
 
                 // Lifecycle hooks
                 ctrl.$onInit = function (args) {
-                    ctrl.pub = ctrl.pubData;
+
+                    ctrl.pub = angular.copy(ctrl.pubData);
+
                     ctrl.avatar = getAvatarPath();
                     ctrl.authorName = getAuthorName();
                     ctrl.isFeed = $state.is('feed');
+                    ctrl.files = ctrl.pub.images.concat(ctrl.pub.videos);
+
+                    $timeout(function () {
+                        $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(ctrl.pub.text);
+                        ctrl.emojiMessage.messagetext = $filter('colonToSmiley')(ctrl.pub.text);
+                    }, 0);
+
+
                 };
 
                 ctrl.$onChanges = function (args) {
@@ -67,12 +83,12 @@
                     //console.log('OnDestroy');
                 };
 
-                ctrl.$postLink = function (args) {
-                    //console.log('OnLink');
+                ctrl.$postLink = function () {
+
                 };
 
 
-                ctrl.newPublicationForm = {};
+
 
                 ctrl.emojiMessage = {
                     messagetext: ''
@@ -87,13 +103,32 @@
                     newFiles.forEach(function (image) {
                         prom.push(resizeImage(image));
                     });
-                    $q.all(prom).then(function () {
+                    $q.all(prom).then(function (data) {
+                        angular.forEach(data, function (item) {
+                            ctrl.newFiles.push(item);
+                        });
                         $scope.$broadcast('rebuild:me');
                     });
                 };
 
-                ctrl.removeFile = function (index) {
-                    ctrl.files.splice(index, 1);
+                ctrl.removeFile = function (index, isNewFile) {
+
+                    if (isNewFile) {
+                        ctrl.newFiles.splice(index, 1);
+                        ctrl.newPub.cover = null;
+
+                    } else {
+                        var file = ctrl.files[index];
+
+                        if (file.pivot.image_id) {
+                            ctrl.newPub.deleteImages.push(file.id);
+                        } else if (file.pivot.video_id) {
+                            ctrl.newPub.deleteVideos.push(file.id);
+                        }
+
+                        ctrl.files.splice(index, 1);
+                        ctrl.newPub.coverId = null;
+                    }
                     $scope.$broadcast('rebuild:me');
                 };
 
@@ -104,16 +139,44 @@
 
                     ctrl.files[index].isCover = true;
 
-                    ctrl.cover = ctrl.files[index];
+                    ctrl.newPub.cover = ctrl.files[index];
                 };
 
-                ctrl.submitNewPublication = function () {
+                ctrl.setNewMainPubPhoto = function (index, isNewFile) {
+
+                    angular.forEach(ctrl.newFiles, function (item) {
+                        if (item.isCover) {
+                            item.isCover = false;
+                        }
+                    });
+                    angular.forEach(ctrl.files, function (item) {
+                        item.pivot.is_cover = false;
+                        item.isCover = false;
+                    });
+
+                    if (isNewFile) {
+                        ctrl.newFiles[index].isCover = true;
+                        ctrl.pub.cover = ctrl.newFiles[index];
+                    } else {
+                        ctrl.files[index].isCover = true;
+                        ctrl.files[index].pivot.is_cover = true;
+                        if (ctrl.files[index].pivot.image_id) {
+                            ctrl.pub.cover_image_id = ctrl.files[index].id;
+                        } else {
+                            ctrl.pub.cover_video_id = ctrl.files[index].id;
+                        }
+                    }
+                };
+
+                ctrl.updatePub = function () {
 
                     if (ctrl.subForm) {
                         return false;
                     }
 
                     ctrl.newPublicationForm.$setSubmitted();
+
+                    ctrl.newPublicationForm.files1.$setValidity('required', true);
 
                     if (ctrl.newPublicationForm.$invalid) {
                         return false;
@@ -132,7 +195,7 @@
                         isMain = 0;
                     }
 
-                    ctrl.files.forEach(function (file) {
+                    ctrl.newFiles.forEach(function (file) {
                         var type = file.type.split('/')[0];
                         if (type === 'image') {
                             images.push(file);
@@ -141,10 +204,16 @@
                         }
                     });
 
-                    if (!ctrl.cover) {
+                    if (!ctrl.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {
                         // если нет видеофайлов, обложка = фото
                         if (videos.length === 0) {
-                            ctrl.cover = images[0];
+                            // если есть фото сохраненные на сервере, то возьмем их id для установки обложкой
+                            if (ctrl.pub.images.length > 0) {
+                                ctrl.pub.cover_image_id = ctrl.pub.images[0].id;
+                                // если все фото новые, то сделаем обложкой первое фото
+                            } else {
+                                ctrl.cover = images[0];
+                            }
                         } else {
                             // если есть и видео и фото, то обложка = фото
                             if (images.length > 0) {
@@ -158,70 +227,38 @@
 
 
                     var newPublication = {
+                        id: ctrl.pub.id,
                         text: ctrl.emojiMessage.messagetext,
                         cover: ctrl.cover,
+                        cover_image_id: ctrl.pub.cover_image_id,
+                        cover_video_id: ctrl.pub.cover_video_id,
                         images: images,
                         videos: videos,
-                        isAnonym: ctrl.isAnonym,
+                        deleteImages: ctrl.newPub.deleteImages,
+                        deleteVideos: ctrl.newPub.deleteVideos,
+                        isAnonym: ctrl.pub.is_anonym,
                         isMain: isMain,
-                        inProfile: $state.is('user'),
-
-                        groupId: ctrl.group ? ctrl.group.id : null,
-                        placeId: ctrl.place ? ctrl.place.id : null
+                        inProfile: $state.is('user')
 
                     };
 
-                    // в зависимости от того где создается публикация используется свой сервис
-                    if (ctrl.group) {
-                        submitGroupPublication(newPublication);
-                    } else if (ctrl.place) {
-                        submitPlacePublication(newPublication);
-                    } else {
-                        submitProfileOrFeedPublication(newPublication);
-                    }
-
+                    PublicationService.updatePublication(newPublication).then(function (data) {
+                        $rootScope.$broadcast('publication:update', {
+                            publication: data.publication
+                        });
+                        ctrl.subForm = false;
+                        ngDialog.closeAll();
+                    });
                 };
 
-                function submitProfileOrFeedPublication(pub) {
-                    PublicationService.createPublication(pub).then(function (data) {
-                        $rootScope.$broadcast('publication:add', {
-                            publication: data.publication
-                        });
-                        ctrl.subForm = false;
-                        ngDialog.closeAll();
-                    });
-                }
-
-                function submitGroupPublication(pub) {
-                    groupsService.addPublication(pub).then(function (data) {
-                        $rootScope.$broadcast('publication:add', {
-                            publication: data.publication
-                        });
-                        ctrl.subForm = false;
-                        ngDialog.closeAll();
-                    });
-                }
-
-                function submitPlacePublication(pub) {
-                    placesService.addPublication(pub).then(function (data) {
-                        $rootScope.$broadcast('publication:add', {
-                            publication: data.publication
-                        });
-                        ctrl.subForm = false;
-                        ngDialog.closeAll();
-                    });
-                }
+                ctrl.getImageName = function (file) {
+                    var url = file.url || file.img_url;
+                    return url.split("/").pop();
+                };
 
                 function resizeImage(image) {
-                    //Upload.imageDimensions(image).then(function (dimensions) {
-                    //    console.info('Group publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                    //});
-
                     return Upload.resize(image, 700, 395).then(function (resizedFile) {
-                        //Upload.imageDimensions(resizedFile).then(function (dimensions) {
-                        //    console.info('Group publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                        //});
-                        ctrl.files.push(resizedFile);
+                        return resizedFile;
                     });
                 }
 
@@ -229,17 +266,14 @@
 
                     var avatar;
 
-                    if (ctrl.group) {
-                        avatar = ctrl.group.card_avatar;
+                    if (ctrl.pub.group) {
+                        avatar = ctrl.pub.group.card_avatar;
                     }
-                    if (ctrl.place) {
-                        avatar = ctrl.place.avatar;
+                    if (ctrl.pub.place) {
+                        avatar = ctrl.pub.place.avatar;
                     }
-                    if (ctrl.profile) {
-                        avatar = ctrl.profile.loggedUserAva;
-                    }
-                    if (ctrl.feed) {
-                        avatar = ctrl.feed.loggedUserAva;
+                    if ($state.is('user') || $state.is('feed')) {
+                        avatar = $rootScope.user.loggedUserAva;
                     }
                     return avatar;
                 }
@@ -247,17 +281,14 @@
                 function getAuthorName() {
                     var name;
 
-                    if (ctrl.group) {
-                        name = ctrl.group.name;
+                    if (ctrl.pub.group) {
+                        name = ctrl.pub.group.name;
                     }
-                    if (ctrl.place) {
-                        name = ctrl.place.name;
+                    if (ctrl.pub.place) {
+                        name = ctrl.pub.place.name;
                     }
-                    if (ctrl.profile) {
-                        name = ctrl.profile.fullName;
-                    }
-                    if (ctrl.feed) {
-                        name = ctrl.feed.fullName;
+                    if ($state.is('user') || $state.is('feed')) {
+                        name = $rootScope.user.fullName;
                     }
                     return name;
                 }

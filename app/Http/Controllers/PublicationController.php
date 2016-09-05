@@ -329,11 +329,16 @@ class PublicationController extends Controller
                     $cover_id = $request->input('cover_image_id');
 
                     $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
-                    $image->is_cover = false;
-                    $image->save();
+                    if ($image) {
+                        $image->is_cover = false;
+                        $image->save();
+                    }
+
                     $video = PublicationVideo::where(['is_cover'=>true,'publication_id'=>$id])->first();
-                    $video->is_cover = false;
-                    $video->save();
+                    if ($video) {
+                        $video->is_cover = false;
+                        $video->save();
+                    }
 
                     $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
                     $image_cover->is_cover = true;
@@ -453,7 +458,6 @@ class PublicationController extends Controller
                                     $video->is_cover = false;
                                     $video->save();
                                 }
-                                dd(1);
                                 $publication->images()->create(['url' => $path], ['is_cover' => true]);
                                 $publication->cover = $path;
                                 $publication->save();

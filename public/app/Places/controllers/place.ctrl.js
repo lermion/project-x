@@ -314,6 +314,13 @@
             vm.place.count_publications++;
         });
 
+        $rootScope.$on('publication:update', function(event, data) {
+            angular.forEach(vm.place.publications, function (item, index, arr) {
+                if (item.id === data.publication.id) {
+                    arr[index] = data.publication;
+                }
+            });
+        });
 
         vm.updatePlace = function () {
 
