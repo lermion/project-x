@@ -326,4 +326,22 @@ class ChatController extends Controller
         $result['status'] = true;
         return response()->json($result);
     }
+
+    public function get_video($id)
+    {
+        if ($video = Video::find($id)) {
+            $url = $video->url;
+            return response()->json(['status'=>true, 'url'=>$url]);
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Incorrect video id",
+                    'code' => '6'
+                ]
+            ];
+            return response()->json($result);
+
+        }
+    }
 }
