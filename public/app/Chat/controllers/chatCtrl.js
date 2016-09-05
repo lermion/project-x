@@ -465,7 +465,7 @@ angular.module('placePeopleApp')
 				return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 			}
 			$scope.Model.sendMes = function(message, roomId, files){
-				// $scope.disabledSendMessage = true;
+				$scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
@@ -517,8 +517,14 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.showPopupWithFiles = function(files){
+				if(files[0].video_url){
+					$scope.mainImageInPopup = null;
+					$scope.mainVideoInPopup = files[0].video_url;
+				}else{
+					$scope.mainVideoInPopup = null;
+					$scope.mainImageInPopup = files[0].url;
+				}
 				$scope.imagesInPopup = files;
-				$scope.mainImageInPopup = files[0].url;
 				angular.element(document.querySelector('.view-publication')).addClass('posFixedPopup');
 				ngDialog.open({
 					template: '../app/User/views/popup-comment-images.html',
@@ -579,22 +585,41 @@ angular.module('placePeopleApp')
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId || $scope.Model.opponent !== undefined && $scope.Model.opponent.id === $scope.loggedUserId){
 						if($scope.messageVideos !== undefined){
 							ChatService.sendVideos(data.id, $scope.messageVideos).then(function(response){
-								console.log(response);
+								if(response.data.status){
+									data.videos = [];
+									Object.keys(response.data).forEach(function(value){
+										if(response.data[value] !== true){
+											data.videos.push(response.data[value]);
+										}
+									});
+									if(data.login === $scope.loggedUser){
+										data.isRead = true;
+									}else{
+										$scope.Model.Chat.forEach(function(value){
+											value.isRead = false;
+										});
+									}
+									$scope.Model.Chat.push(data);
+									$scope.isNeededScroll = function(){
+										return $scope.Model.Chat;
+									}
+								}
 							},
 							function(error){
 								console.log(error);
 							});
-						}
-						if(data.login === $scope.loggedUser){
-							data.isRead = true;
 						}else{
-							$scope.Model.Chat.forEach(function(value){
-								value.isRead = false;
-							});
-						}
-						$scope.Model.Chat.push(data);
-						$scope.isNeededScroll = function(){
-							return $scope.Model.Chat;
+							if(data.login === $scope.loggedUser){
+								data.isRead = true;
+							}else{
+								$scope.Model.Chat.forEach(function(value){
+									value.isRead = false;
+								});
+							}
+							$scope.Model.Chat.push(data);
+							$scope.isNeededScroll = function(){
+								return $scope.Model.Chat;
+							}
 						}
 					}else{
 						socket.emit("get user rooms", $scope.loggedUserId);
