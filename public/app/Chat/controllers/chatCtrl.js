@@ -465,21 +465,22 @@ angular.module('placePeopleApp')
 				return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 			}
 			$scope.Model.sendMes = function(message, roomId, files){
-				$scope.disabledSendMessage = true;
+				// $scope.disabledSendMessage = true;
 				if(files !== undefined){
 					var imagesObj = {
 						imageName: [],
 						imageType: [],
-						images: files
+						images: []
 					};
 					$scope.messageVideos = [];
 					files.forEach(function(value){
 						if(checkURL(value.name)){
+							console.log(value);
 							imagesObj.imageName.push(value.name);
 							imagesObj.imageType.push(value.type);
+							imagesObj.images.push(value);
 						}else{
 							$scope.messageVideos.push(value);
-							imagesObj = "";
 						}
 					});
 				}
@@ -524,7 +525,7 @@ angular.module('placePeopleApp')
 					className: 'popup-comment-images ngdialog-theme-default',
 					scope: $scope,
 					data: {
-						images: files
+						files: files
 					},
 					preCloseCallback: function (value) {
 						angular.element(document.querySelector('.view-publication')).removeClass('posFixedPopup');
@@ -534,7 +535,13 @@ angular.module('placePeopleApp')
 
 			$scope.changeMainFile = function(file, flag, pub){
 				if(flag){
-					$scope.mainImageInPopup = file.url;
+					if(file.video_url){
+						$scope.mainImageInPopup = null;
+						$scope.mainVideoInPopup = file.video_url;
+					}else{
+						$scope.mainVideoInPopup = null;
+						$scope.mainImageInPopup = file.url;
+					}
 				}else{
 					$scope.mainVideo = "";
 					$scope.mainImage = file.url;

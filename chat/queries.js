@@ -203,7 +203,13 @@ Queries.prototype.getUserDialogue = function(data){
 			Promise.all(result.map(function(item){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT images.url FROM images INNER JOIN message_images ON message_images.image_id = images.id WHERE message_images.message_id = '" + item.id + "'", function(error, images){
-						resolve(images);
+						connection.query("SELECT videos.img_url as url, videos.id, videos.url as video_url FROM videos INNER JOIN message_videos ON message_videos.video_id = videos.id WHERE message_videos.message_id = '" + item.id + "'", function(error, videos){
+							var files = {
+								images: images,
+								videos: videos
+							};
+							resolve(files);
+						});
 					});
 				});
 				return promise.then(function(result){
@@ -211,7 +217,10 @@ Queries.prototype.getUserDialogue = function(data){
 				});
 			})).then(function(){
 				for(var i = 0; i < result.length; i++){
-					result[i].images = response[i];
+					result[i].images = response[i].images;
+				}
+				for(var i = 0; i < result.length; i++){
+					result[i].videos = response[i].videos;
 				}
 				connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + data.room_id + " AND message_id > (SELECT MAX( message_id) FROM chat_notice_messages WHERE room_id = " + data.room_id + " AND NOT user_id = " + data.members[0] + ")", function(err, isRead) {
 					if(isRead !== undefined){
