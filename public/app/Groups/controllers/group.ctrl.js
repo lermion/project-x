@@ -1531,7 +1531,6 @@
 		}
 		socket.emit("get group chat dialogue", getGroupChatDialogue);
 		socket.on("get group chat dialogue", function(response){
-			console.log(response);
 			$scope.messages = response.messages.reverse();
 		});
 		socket.forward('updatechat', $scope);
