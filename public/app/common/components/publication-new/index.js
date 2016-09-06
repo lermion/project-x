@@ -12,11 +12,12 @@
                 feed: '<'
             },
             templateUrl: '../app/common/components/publication-new/publication-new.html',
-            controller: function ($rootScope, $scope, $q, $state, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
+            controller: function ($rootScope, $scope, $q, $state, PublicationService, groupsService, placesService, storageService, ngDialog, Upload, $timeout) {
                 var ctrl = this;
 
                 ctrl.pub = {};
                 ctrl.files = [];
+                ctrl.originalFiles = [];
                 ctrl.subForm = false;
                 ctrl.isAnonym = false;
 
@@ -53,7 +54,6 @@
 
                 // Lifecycle hooks
                 ctrl.$onInit = function (args) {
-                    ctrl.pub = ctrl.pubData;
                     ctrl.avatar = getAvatarPath();
                     ctrl.authorName = getAuthorName();
                     ctrl.isFeed = $state.is('feed');
@@ -85,26 +85,52 @@
                     var defer = $q.defer();
                     var prom = [];
                     newFiles.forEach(function (image) {
+                        ctrl.originalFiles.push(image);
                         prom.push(resizeImage(image));
                     });
-                    $q.all(prom).then(function () {
+                    $q.all(prom).then(function (data) {
+                        angular.forEach(data, function (item, index, array) {
+                            ctrl.files.push(item);
+
+                        });
+                        if (!ctrl.coverToCrop) {
+                            var file = newFiles[0];
+                            if (isImage(file)) {
+                                ctrl.coverToCrop = file;
+                            } else {
+                                ctrl.cover = file;
+                            }
+                            ctrl.files[0].isCover = true;
+                        }
                         $scope.$broadcast('rebuild:me');
                     });
                 };
 
                 ctrl.removeFile = function (index) {
+                    if (ctrl.files[index].isCover) {
+                        ctrl.coverToCrop = null;
+                    }
                     ctrl.files.splice(index, 1);
+                    ctrl.originalFiles.splice(index, 1);
                     $scope.$broadcast('rebuild:me');
                 };
 
                 ctrl.setMainPubPhoto = function (index) {
+                    var file = ctrl.files[index];
+
                     angular.forEach(ctrl.files, function (item) {
                         item.isCover = false;
                     });
 
-                    ctrl.files[index].isCover = true;
+                    file.isCover = true;
 
-                    ctrl.cover = ctrl.files[index];
+                    ctrl.cover = file;
+
+                    if (isImage(file)) {
+                        ctrl.coverToCrop = ctrl.originalFiles[index];
+                    } else {
+                        ctrl.coverToCrop = null;
+                    }
                 };
 
                 ctrl.submitNewPublication = function () {
@@ -114,6 +140,15 @@
                     }
 
                     ctrl.newPublicationForm.$setSubmitted();
+
+                    // TODO: fix validation
+                    $timeout(function(){
+                        ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? false : true);
+                    });
+
+                    if (!ctrl.cover) {
+                        return false;
+                    }
 
                     if (ctrl.newPublicationForm.$invalid) {
                         return false;
@@ -221,7 +256,8 @@
                         //Upload.imageDimensions(resizedFile).then(function (dimensions) {
                         //    console.info('Group publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
                         //});
-                        ctrl.files.push(resizedFile);
+                        //ctrl.files.push(resizedFile);
+                        return resizedFile;
                     });
                 }
 
@@ -281,6 +317,16 @@
                     return Upload.resize(image, 700, 395).then(function (resizedFile) {
                         return resizedFile;
                     });
+                }
+
+                function isImage(file) {
+                    var type = file.type.split('/')[0];
+                    return type === 'image';
+                }
+
+                function isVideo(file) {
+                    var type = file.type.split('/')[0];
+                    return type === 'video';
                 }
 
             }
