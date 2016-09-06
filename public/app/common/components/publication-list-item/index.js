@@ -121,20 +121,16 @@
                             if (videoCover[0]) {
                                 ctrl.mainVideo = videoCover[0].url;
                                 videoIsCoded = !!videoCover[0].is_coded;
+                                if (!videoIsCoded) {
+                                    $http.get('chat/get_video/' + videoCover[0].id).then(function (resp) {
+                                        ctrl.showVideo = !!resp.data.is_coded;
+                                    });
+                                } else {
+                                    ctrl.showVideo = true;
+                                }
                             } else {
                                 ctrl.mainVideo = false;
                             }
-
-
-                            if (!videoIsCoded) {
-                                $http.get('chat/get_video/' + videoCover[0].id).then(function(resp) {
-                                    ctrl.showVideo = !!resp.data.is_coded;
-                                });
-                            } else {
-                                ctrl.showVideo = true;
-                            }
-
-
                         }
 
                     }
@@ -161,7 +157,7 @@
                         ctrl.mainImage = null;
                         ctrl.mainVideo = file.url;
 
-                        $http.get('chat/get_video/' + file.id).then(function(resp) {
+                        $http.get('chat/get_video/' + file.id).then(function (resp) {
                             ctrl.showVideo = !!resp.data.is_coded;
                         });
 
