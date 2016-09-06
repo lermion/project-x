@@ -428,6 +428,10 @@ body.main-page {
 	background-image: url(../images/phone.png); 
 	left: 0;
 }
+.phone-field span.reg-key {
+	background-image: url(../images/key-hover.png); 
+	left: 0;
+}
 .lastname-field span.lastname {
 	background-image: url(../images/user-name.png); 
 	left: 0;
@@ -1842,6 +1846,9 @@ body.public.user {
 	// .public header .header {
 	// 	justify-content: center;
 	// }
+	.registration-key .form-item {
+		width: 90%;
+	}
 	#user-page .my-profile-item .status-user,
 	#user-page .my-profile-item textarea,
 	#user-page .my-profile-item .error {
