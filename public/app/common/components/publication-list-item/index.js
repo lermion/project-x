@@ -144,7 +144,7 @@
                         ctrl.mainVideo = file.url;
 
                         $http.get('chat/get_video/' + file.id).then(function(resp) {
-                            ctrl.mainVideo.is_coded = !!resp.is_coded;
+                            ctrl.mainVideo.is_coded = !!resp.data.is_coded;
                         });
 
                         if (ctrl.isModal) {
