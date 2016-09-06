@@ -452,6 +452,7 @@ angular.module('placePeopleApp')
 				var lastDialogue = response[response.length - 1];
 				if(lastDialogue !== undefined){
 					if(lastDialogue.is_group && lastDialogue.isNew){
+						$scope.currentRoomId = lastDialogue.room_id;
 						$scope.Model.opponent = lastDialogue;
 						$scope.Model.Chat = [];
 						$scope.Model.showChatBlock = true;
