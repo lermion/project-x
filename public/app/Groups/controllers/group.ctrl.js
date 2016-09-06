@@ -26,6 +26,7 @@
 		var modalEditGroup, modalDeleteGroup, modalInviteUsers,
 			modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage,
 			modalAlertComment;
+
 		var groupName = $stateParams.groupName;
 
 		var newPublicationObj = {
@@ -250,16 +251,6 @@
 			});
 		};
 
-		//vm.openModalNewPublication = function () {
-		//    modalNewPublication = ngDialog.open({
-		//        template: '../app/Groups/views/popup-add-publication.html',
-		//        name: 'modal-publication-group',
-		//        className: 'user-publication group-pub ngdialog-theme-default',
-		//        scope: $scope,
-		//        preCloseCallback: resetFormNewPublication
-		//    });
-		//};
-
 		vm.openModalNewPublication = function () {
 			modalNewPublication = ngDialog.open({
 				template: '../app/common/views/publication-new.html',
@@ -384,9 +375,18 @@
 		});
 
 		$rootScope.$on('publication:update', function(event, data) {
-			angular.forEach($scope.userPublications, function (item, index, arr) {
+			angular.forEach(vm.group.publications, function (item, index, arr) {
 				if (item.id === data.publication.id) {
 					arr[index] = data.publication;
+				}
+			});
+		});
+
+		$rootScope.$on('publication:delete', function(event, data) {
+			angular.forEach(vm.group.publications, function (item, index, arr) {
+				if (item.id === data.pubId) {
+					arr.splice(index, 1);
+					vm.group.count_publications--;
 				}
 			});
 		});
@@ -561,14 +561,7 @@
 		};
 
 
-		$rootScope.$on('publication:delete', function(event, data) {
-			angular.forEach(vm.group.publications, function (item, index, arr) {
-				if (item.id === data.pubId) {
-					arr.splice(index, 1);
-					vm.group.count_publications--;
-				}
-			});
-		});
+
 
 		vm.openPubComplainBlock = function (pubId) {
 			modalAlertComment = ngDialog.open({

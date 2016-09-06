@@ -4209,6 +4209,31 @@ span.users-today-time-time.early {
     border-width: 6px;
 }
 
+form.add-files-in-group-chat .error-messages.ng-active {
+    margin: -17px -168px -27px;
+    z-index: 999999;
+}
+
+form.add-files-in-place-chat .error-messages.ng-active {
+    margin: -17px -168px -27px;
+    z-index: 999999;
+}
+
+form.add-files-in-chat .error-messages.ng-active {
+    margin: 37px -264px 15px;
+    z-index: 999999;
+}
+
+form.add-files-in-chat .error-messages.ng-active:after{
+    position: absolute;
+    top: -11px;
+    content: "";
+    left: 20px;
+    border-style: solid;
+    border-color: transparent transparent #f44336;
+    border-width: 6px;
+}
+
 /*CHAT pravki*/
 .chat-right-cont-ng {
     width: 100%;

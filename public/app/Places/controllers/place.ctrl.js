@@ -116,24 +116,24 @@
             vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
         });
 
-        $scope.$on('ngDialog.opened', function (e, $dialog) {
-            if ($dialog.name === "modal-publication-group") {
-                var mainImagePublication = $(".main-image-publication");
-                setTimeout(function () {
-                    mainImagePublication.focus();
-                }, 0);
-                $scope.keyPress = function (event, images) {
-                    if (event.keyCode === 39) {
-                        $scope.openNextInfo(images);
-                    } else if (event.keyCode === 37) {
-                        $scope.openPreviousInfo(images);
-                    }
-                };
-            }
-            if ($dialog.name === "modal-edit-publication") {
-                $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
-            }
-        });
+        //$scope.$on('ngDialog.opened', function (e, $dialog) {
+        //    if ($dialog.name === "modal-publication-group") {
+        //        var mainImagePublication = $(".main-image-publication");
+        //        setTimeout(function () {
+        //            mainImagePublication.focus();
+        //        }, 0);
+        //        $scope.keyPress = function (event, images) {
+        //            if (event.keyCode === 39) {
+        //                $scope.openNextInfo(images);
+        //            } else if (event.keyCode === 37) {
+        //                $scope.openPreviousInfo(images);
+        //            }
+        //        };
+        //    }
+        //    if ($dialog.name === "modal-edit-publication") {
+        //        $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
+        //    }
+        //});
 
 
         // Modal windows
@@ -319,6 +319,15 @@
             angular.forEach(vm.place.publications, function (item, index, arr) {
                 if (item.id === data.publication.id) {
                     arr[index] = data.publication;
+                }
+            });
+        });
+
+        $rootScope.$on('publication:delete', function(event, data) {
+            angular.forEach(vm.place.publications, function (item, index, arr) {
+                if (item.id === data.pubId) {
+                    arr.splice(index, 1);
+                    vm.place.count_publications--;
                 }
             });
         });
@@ -542,14 +551,7 @@
             });
         };
 
-        $rootScope.$on('publication:delete', function(event, data) {
-            angular.forEach(vm.place.publications, function (item, index, arr) {
-                if (item.id === data.pubId) {
-                    arr.splice(index, 1);
-                    vm.place.count_publications--;
-                }
-            });
-        });
+
 
 
 
