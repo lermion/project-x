@@ -71,5 +71,11 @@
 			<label for="checkbox3" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 		</div>
+		<div class="settings-reg-keys">
+			<h4>Регистрационные коды</h4>
+			<p ng-class="!registrationKey.isUsed ? 'not-used' : ''" ng-repeat="registrationKey in registrationKeys">
+				<span>{{registrationKey.code}}</span> - {{registrationKey.isUsed ? 'использован' : 'не использован'}}
+			</p>
+		</div>
 	</div>
 </div>

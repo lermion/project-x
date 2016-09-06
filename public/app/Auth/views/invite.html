@@ -1,0 +1,22 @@
+<div class="registration-key">
+	<div class="check-in" ng-hide="regConfirmed">
+		<div class="form">
+			<div class="logo"></div>
+			<h1>С теми, кто в теме</h1>
+			<div class="form-item" ng-hide="regStep1">
+				<h5>Регистрация</h5>
+				<form>                                       
+					<div class="phone-field">
+						<span id="phone" class="reg-key">{{newUserCountryId ? phoneCode : ''}}</span>
+							<input id="phone-input" type="text" ng-model="inviteCode" ng-pattern="inviteCodeExp" placeholder="Введите регистрационный код..." required style="padding-left:{{calcPadding()}}px;">
+					</div>                                        
+					<p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
+					<div class="key-prompt">
+						<p>*Регистрационный код можно получить у зарегистрированных пользователей</p>
+					</div>
+				</form>
+				<button class="check-in-button" ng-click="userRegisterS1();" ladda="codeSendLoader">Зарегистрироваться</button>
+			</div>
+		</div>
+	</div>
+</div>

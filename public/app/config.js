@@ -60,6 +60,18 @@ angular.module('placePeopleApp')
                         }
                     }
                 })
+                .state('invite', {
+                    url: '/auth/invite',
+                    templateUrl: '../../app/Auth/views/invite.html',
+                    controller: 'authCtrl',
+                    requireLogin: false,
+                    showHeader: true,
+                    resolve: {
+                        countries: function () {
+                            return [];
+                        }
+                    }
+                })
                 .state('login', {
                     url: '/auth/login',
                     templateUrl: '../../app/Auth/views/login.html',
