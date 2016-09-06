@@ -262,7 +262,7 @@
             <!-- top tiles --><!-- /top tiles --><br />
                 @yield('content')
 
-                <button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button>
+                
     </div>
         <!-- /page content -->
     </div>
