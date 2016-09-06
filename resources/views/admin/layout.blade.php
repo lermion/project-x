@@ -54,8 +54,8 @@
           <p>Вы на месте?</p>
         </div>
         <div class="modal-footer">
-        	<button type="button" class="btn btn-success">Да</button>
-        	<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        	<button type="button" class="btn btn-success js-moderator-confirm">Да</button>
+        	<!--<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>-->
         </div>
       </div>
       
@@ -74,6 +74,108 @@
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <?php if($moderator['is_admin'] == false){ ?>
+                        <script>
+                            // Check moderator
+                            $(function() {
+                                var URL = window.location.origin + '/admin/get_check_time',
+                                        URL_CONFIRM = window.location.origin + '/admin/confirmation/',
+                                        POLL_FREQUENCY = 5000,
+                                        moderatorId = null;
+
+                                var queue = [],
+                                        inProgress = false;
+
+                                var $moderatorModal = $('#myModal');
+                                var $moderatorConfirmBtn = $('.js-moderator-confirm');
+
+                                $moderatorConfirmBtn.on('click', function() {
+                                    confirmTimeModerator();
+                                });
+                                $moderatorModal.on('shown.bs.modal', function (e) {
+                                    setTimeout(function() {
+                                        $moderatorModal.modal('hide');
+                                        getCheckTimeModerator();
+                                    }, 1000*15);
+                                });
+
+                                $.fastPoll = $.fastPoll || {};
+
+                                $.fastPoll.sendMessage = function(message) {
+                                    queue.push(message);
+                                };
+
+                                $.fastPoll.receiveMessage = function(message) {
+                                    console.log('received message');
+                                    console.dir(message);
+                                };
+
+                                function getCheckTimeModerator() {
+
+                                    if (inProgress) {
+                                        return;
+                                    }
+                                    inProgress = true;
+                                    var messages = queue;
+                                    queue = [];
+
+                                    $.ajax(URL, {
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        data: null,
+                                        contentType: 'application/json',
+                                        success: function(data) {
+                                            console.log(data);
+                                            moderatorId = data.moderator_id;
+                                            var date = new Date();
+                                            var time = data.time.split(/\:|\-/g);
+                                            date.setHours(time[0]);
+                                            date.setMinutes(time[1]);
+                                            date.setSeconds(time[2]);
+                                            var delay = date.getTime() - Date.now();
+                                            setTimeout(function() {
+                                                $moderatorModal.modal({
+                                                    keyboard: false
+                                                });
+                                            }, 1000*3);
+                                            inProgress = false;
+                                        },
+                                        error: function() {
+                                            queue = queue.concat(messages);
+                                            inProgress = false;
+                                        }
+                                    });
+                                }
+
+                                function confirmTimeModerator() {
+                                    if (inProgress) {
+                                        return;
+                                    }
+                                    inProgress = true;
+                                    var messages = queue;
+                                    queue = [];
+
+                                    $.ajax(URL_CONFIRM + moderatorId, {
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        data: null,
+                                        contentType: 'application/json',
+                                        success: function(data) {
+                                            getCheckTimeModerator();
+                                            $moderatorModal.modal('hide');
+                                            inProgress = false;
+                                        },
+                                        error: function() {
+                                            queue = queue.concat(messages);
+                                            inProgress = false;
+                                        }
+                                    });
+                                }
+
+                                getCheckTimeModerator();
+
+                                //setInterval(getToRemoveCounter, POLL_FREQUENCY);
+                            }());
+                        </script>
                             <h3>Moderator</h3>
                         <ul class="nav side-menu">
                             <li><a href="{{ action('Admin\HomeController@index') }}"><i class="fa fa-bar-chart-o"></i> Аналитика</a></li>

@@ -481,3 +481,4 @@ $(function() {
     getToRemoveCounter();
     setInterval(getToRemoveCounter, POLL_FREQUENCY);
 }());
+
