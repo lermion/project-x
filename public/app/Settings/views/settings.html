@@ -21,18 +21,17 @@
 			</div> -->
 
 			<div class="add-ava" ng-init="showEditAva=true;">
-												<input type="file" id="avatarImg"/>  
-												<label for="avatarImg">                                            
-													<span class="ava">         
-														<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">
-														<img  ng-show="userData.is_avatar &&  croppedFile" style="width:100%;"  data-ng-src="{{croppedFile}}">
-													</span>
-														<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-																<span class="add-photo"  ng-show="!croppedFile || showEditAva"></span>
-														</span>
-												</label>                                         
-								  </div>     
-
+				<input type="file" id="avatarImg"/>  
+				<label for="avatarImg">
+					<span class="ava">         
+						<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">
+						<img ng-show="userData.is_avatar &&  croppedFile" style="width:100%;"  data-ng-src="{{croppedFile}}">
+					</span>
+					<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
+						<span class="add-photo"  ng-show="!croppedFile || showEditAva"></span>
+					</span>
+				</label>
+			</div>     
 			<div class="text">
 				<p class="">
 					<a href="" class="h1" ng-hide="settingsEdit">{{userData.first_name}} {{userData.last_name}}</a>
