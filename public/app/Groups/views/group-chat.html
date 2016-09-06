@@ -177,17 +177,21 @@
 				</div>	
 			</div>
 			<!-- <textarea placeholder="Введите сообщение..." class="textarea" name="" id="" cols="30" rows="10"></textarea> -->
-			<div class="add-objects">						
-				<input id="addfile" type='file' ngf-select="beforeChange($files)" ngf-keep="true" ngf-multiple="true" style="display: none;" ng-model="files"> 
-				<div>
-					<span class="add" ng-click="showFileAdd()">
-						<span class="dropp" ng-show="showFileAddMenu">
-							<!-- <a href="javascript:void();" class="active">Публикация</a> -->
-							<label for="addfile">Файл</label>
+			<form class="add-files-in-group-chat" name="addFilesInChat" novalidate>
+				<div class="add-objects">						
+					<input id="addfile" type='file' ngf-select="beforeChange($files)" ngf-max-size="250MB" ngf-keep="true" ngf-multiple="true" style="display: none;" ng-model="files"> 
+					<div>
+						<span class="add" ng-click="showFileAdd()">
+							<span class="dropp" ng-show="showFileAddMenu">
+								<label for="addfile">Файл</label>
+							</span>
 						</span>
-					</span>
-				</div>                                         
-			</div> 
+					</div>                                         
+				</div>
+				<div class="error-messages" ng-messages="addFilesInChat.$error">
+					<div ng-message="maxSize">Максимальный размер файла 250 мб</div>
+				</div>
+			</form>
 			<button ladda="sendMessageLoader" ng-disabled="disabledSendMessage" ng-click="sendMessage(emojiMessage.messagetext, vm.group.room_id, files)" class="send">Отправить</button>
 		</div>
 		<div ng-show="files.length > 0" class="pictures">
