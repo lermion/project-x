@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\WorkingHoursModerator;
+use App\CreateCheckingModerator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -26,27 +27,51 @@ class PresenceCheckController extends Controller
         $to_min = $to_time[1];
         $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
         $timestamp = $time->timestamp;
-        if ($timestamp < $to_working_time) {
-            function inspection($working_time)
-            {
-                $p = null;
+        if ($timestamp < $to_working_time)
+        {
+            if ($timestamp > $working_time) {
+                $time_inspection = $this->inspection($working_time);
+            } else {
                 $interval = 30 * 60;
-                $time = Carbon::now();
-                $timestamp = $time->timestamp;
-                if ($timestamp > $working_time) {
-                    $inspection = inspection($working_time + $interval);
-                } else {
-                    $inspection = Carbon::createFromTimestamp($working_time)->toTimeString();
-                }
-                return $inspection;
+                $time_inspection = Carbon::createFromTimestamp($working_time + $interval)->toTimeString();
             }
-
-            $time_inspection = inspection($working_time);
-            return response()->json(["status" => true, "time" => $time_inspection]);
+            return response()->json(["status" => true, "time" => $time_inspection, "moderator_id" => $admin['id']]);
         }
         else
         {
             return response()->json(["status" => false, "error" => 'Today moderator does not work']);
         }
+    }
+    public function Confirmation($id)
+    {
+        $data['moderator_id'] = $id;
+        $time = Carbon::now();
+        $time_working = $time->toDateString();
+
+        $moderator_working = CreateCheckingModerator::where('moderator_id',$id)->where('created_at', 'like', $time_working.'%')->first();
+        if ($moderator_working) {
+            $moderator_working->hours_worked += 30;
+            $moderator_working->save();
+        } else{
+            CreateCheckingModerator::create($data);
+            $moderator_working = CreateCheckingModerator::where('moderator_id',$id)->where('created_at', 'like', $time_working.'%')->first();
+            $moderator_working->hours_worked += 30;
+            $moderator_working->save();
+        }
+    }
+
+    private function inspection(&$working_time)
+    {
+        $p = null;
+        $interval = 30 * 60;
+        $time = Carbon::now();
+        $timestamp = $time->timestamp;
+        $working_time = $working_time + $interval;
+        if ($timestamp > $working_time) {
+            $this->inspection($working_time);
+        }
+        $res = Carbon::createFromTimestamp($working_time)->toTimeString();
+
+        return $res;
     }
 }

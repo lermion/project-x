@@ -21,7 +21,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'moderator'], function () {
-            Route::get('getCheckTime/', 'Admin\PresenceCheckController@getCheckTime');
+            Route::get('get_check_time/', 'Admin\PresenceCheckController@getCheckTime');
+            Route::get('confirmation/{id}', 'Admin\PresenceCheckController@Confirmation');
             Route::get('/', 'Admin\HomeController@index');
             Route::get('statistic/{date}/{end_date}', 'Admin\HomeController@statistic');
             Route::get('count_new_users', 'Admin\HomeController@count_new_users');
@@ -352,7 +353,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/getCheckTime\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/admin/get_check_time\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='number' name='message_id' ><br>
