@@ -26,6 +26,7 @@
 		var modalEditGroup, modalDeleteGroup, modalInviteUsers,
 			modalSetCreator, modalNewPublication, modalReviewPublication, modalCropImage,
 			modalAlertComment;
+
 		var groupName = $stateParams.groupName;
 
 		var newPublicationObj = {
@@ -249,16 +250,6 @@
 
 			});
 		};
-
-		//vm.openModalNewPublication = function () {
-		//    modalNewPublication = ngDialog.open({
-		//        template: '../app/Groups/views/popup-add-publication.html',
-		//        name: 'modal-publication-group',
-		//        className: 'user-publication group-pub ngdialog-theme-default',
-		//        scope: $scope,
-		//        preCloseCallback: resetFormNewPublication
-		//    });
-		//};
 
 		vm.openModalNewPublication = function () {
 			modalNewPublication = ngDialog.open({
