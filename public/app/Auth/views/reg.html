@@ -7,22 +7,13 @@
 									<h5>Регистрация</h5>
 									<form>
 										<div class="city-field">
-												<span class="city"></span>                                                
-												<select>
-													<option value="">Выберите тему...</option>
-													<option value="">Москва</option>
-													<option value="">Санкт-Петербург</option>
-													<option value="">Екатеринбург</option>
-													<option value="">Новосибирск</option>
-													<option value="">Уфа</option>
-													<option value="">Воронеж</option>
-													<option value="">Другое</option>
-												</select>
+												<span class="city"></span>
+												<select ng-change="changeTopic(selectedOption)" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.val"></select>
 												<span class="city-inner"></span>
 										</div>
-										<div class="phone-field">
-											<span id="" class="region"></span>
-											<input id="" type="text" placeholder="Напишите другую тему..." required style="padding-left:{{calcPadding()}}px;">
+										<div ng-show="showAnotherTopic" class="phone-field">
+											<span class="region"></span>
+											<input type="text" placeholder="Напишите другую тему..." required style="padding-left:{{calcPadding()}}px;">
 										</div> 
 										<div class="city-field">
 												<span class="city"></span>                                                

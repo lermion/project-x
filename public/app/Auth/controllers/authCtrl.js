@@ -192,6 +192,55 @@ angular.module('placePeopleApp')
 				ngDialog.closeAll();
 			};
 
+			var getTopics = function(){
+				var topics = [
+					{
+						name: "Выберите тему...",
+						val: 0
+					},
+					{
+						name: "Москва",
+						val: 1
+					},
+					{
+						name: "Санкт-Петербург",
+						val: 2
+					},
+					{
+						name: "Екатеринбург",
+						val: 3
+					},
+					{
+						name: "Новосибирск",
+						val: 4
+					},
+					{
+						name: "Уфа",
+						val: 5
+					},
+					{
+						name: "Воронеж",
+						val: 6
+					},
+					{
+						name: "Другое",
+						val: 7
+					}
+				];
+				return topics;
+			};
+
+			$scope.topics = getTopics();
+			$scope.showAnotherTopic = false;
+			$scope.selectedOption = $scope.topics[0];
+			$scope.changeTopic = function(selectedOption){
+				if(selectedOption.val === 7){
+					$scope.showAnotherTopic = true;
+				}else{
+					$scope.showAnotherTopic = false;
+				}
+			}
+
 			function blobToFile(dataURI){
 				var byteString = atob(dataURI.split(',')[1]);
 				var ab = new ArrayBuffer(byteString.length);
@@ -390,7 +439,6 @@ angular.module('placePeopleApp')
 			}
 
 			function setCountryCode() {
-				console.log($scope.newUserCountryId);
 				var countryId = parseInt($scope.newUserCountryId);
 				$scope.countries.forEach(function (country) {
 					if (country.id === countryId) {
