@@ -116,25 +116,6 @@
             vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
         });
 
-        //$scope.$on('ngDialog.opened', function (e, $dialog) {
-        //    if ($dialog.name === "modal-publication-group") {
-        //        var mainImagePublication = $(".main-image-publication");
-        //        setTimeout(function () {
-        //            mainImagePublication.focus();
-        //        }, 0);
-        //        $scope.keyPress = function (event, images) {
-        //            if (event.keyCode === 39) {
-        //                $scope.openNextInfo(images);
-        //            } else if (event.keyCode === 37) {
-        //                $scope.openPreviousInfo(images);
-        //            }
-        //        };
-        //    }
-        //    if ($dialog.name === "modal-edit-publication") {
-        //        $(".ngdialog.user-publication-edit .emoji-wysiwyg-editor")[0].innerHTML = $filter('colonToSmiley')(vm.pubEdited.text);
-        //    }
-        //});
-
 
         // Modal windows
         vm.openModalEditPlace = function () {
@@ -146,8 +127,6 @@
                 scope: $scope
             });
         };
-
-
 
         vm.openModalInviteUsers = function () {
             getSubscribers().then(function () {
@@ -166,16 +145,6 @@
 
             });
         };
-
-        //vm.openModalNewPublication = function () {
-        //    modalNewPublication = ngDialog.open({
-        //        template: '../app/Places/views/popup-add-publication.html',
-        //        name: 'modal-publication-group',
-        //        className: 'user-publication place-publication ngdialog-theme-default',
-        //        scope: $scope,
-        //        preCloseCallback: resetFormNewPublication
-        //    });
-        //};
 
         vm.openModalNewPublication = function () {
             modalNewPublication = ngDialog.open({
@@ -280,7 +249,6 @@
                 }
             });
         };
-
 
         vm.submitNewPublication = function () {
             vm.newPublicationForm.$setSubmitted();
@@ -399,18 +367,8 @@
             });
 
         };
-        function resizeImage(image) {
-            Upload.imageDimensions(image).then(function (dimensions) {
-                console.info('Place publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-            });
 
-            return Upload.resize(image, 700, 395).then(function (resizedFile) {
-                Upload.imageDimensions(resizedFile).then(function (dimensions) {
-                    console.info('Place publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                });
-                vm.files.push(resizedFile);
-            });
-        }
+
 
         vm.addNewComment = function (flag, pub, pubText, files) {
             vm.commentForm.$setSubmitted();
@@ -648,6 +606,7 @@
         var editPubPopup;
         var pubEditDeletedPhotos = [];
         var pubEditDeletedVideos = [];
+
         vm.editPub = function (pub) {
             vm.pubEdited = angular.copy(vm.activePublication);
             vm.emojiMessage.messagetext = vm.pubEdited.text;
@@ -1552,6 +1511,19 @@
             function getPublicationsFailed(error) {
                 console.error('XHR Failed for getPublications. ' + error.data);
             }
+        }
+
+        function resizeImage(image) {
+            Upload.imageDimensions(image).then(function (dimensions) {
+                console.info('Place publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+            });
+
+            return Upload.resize(image, 700, 395).then(function (resizedFile) {
+                Upload.imageDimensions(resizedFile).then(function (dimensions) {
+                    console.info('Place publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+                });
+                vm.files.push(resizedFile);
+            });
         }
 
 

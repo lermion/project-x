@@ -7194,3 +7194,15 @@ button.settings-btn {
         height: 30px;
     }
 }
+.settings-reg-keys {
+    padding: 10px;
+    font-family: "SFUIDisplayLight";
+}
+.settings-reg-keys p {
+    margin: 0 0 0 20px;
+    font-size: 15px;
+
+}
+.settings-reg-keys .not-used {
+    color: #3dc846;
+}
