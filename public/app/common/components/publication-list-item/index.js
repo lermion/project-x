@@ -117,6 +117,16 @@
                                 return file.pivot.is_cover == true;
                             });
                             ctrl.mainVideo = videoCover[0] ? videoCover[0].url : false;
+
+                            var videoIsCoded = !!videoCover[0].is_coded;
+
+                            if (!videoIsCoded) {
+                                $http.get('chat/get_video/' + videoCover[0].id).then(function(resp) {
+                                    ctrl.showVideo = !!resp.data.is_coded;
+                                });
+                            }
+
+
                         }
 
                     }
