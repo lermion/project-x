@@ -222,11 +222,15 @@
 			</div>
 			<div ng-hide="currentPath === '/chat/blocked'" class="send-add-file" ng-click="showFileAdd()">
 				<a href=""></a>
-				<div class="chat-add-file-menu" ng-show="showFileAddMenu">
-					<!-- <a class="chat-add-file-publ" href="">Публикация</a> -->
-					<label class="chat-add-file-file" for="chat-add-file-file">Файл</label>
-					<input type="file" ngf-select="beforeChange($files)" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
-				</div>
+				<form class="add-files-in-chat" name="addFilesInChat" novalidate>
+					<div class="chat-add-file-menu" ng-show="showFileAddMenu">
+						<label class="chat-add-file-file" for="chat-add-file-file">Файл</label>
+						<input type="file" ngf-select="beforeChange($files)" ngf-max-size="3MB" ng-model="files" ngf-keep="true" ngf-multiple="true" id="chat-add-file-file">
+					</div>
+					<div class="error-messages" ng-messages="addFilesInChat.$error">
+		                <div ng-message="maxSize">Максимальный размер файла 250 мб</div>
+		            </div>
+				</form>
 			</div>
 			<button ladda="sendMessageLoader" ng-disabled="disabledSendMessage" class="chat-send-btn" ng-click="Model.displayBlockedBlock ? Model.blockContact(Model.opponent, true) : Model.sendMes(emojiMessage.messagetext, Model.opponent.room_id, files)">{{Model.displayBlockedBlock ? 'Разблокировать' : 'Отправить'}}</button>
 		</div>
