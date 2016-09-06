@@ -113,12 +113,18 @@
 
                         // если в публикации есть видеофайлы, то проверим не является ли один из них обложкой
                         if (ctrl.pub.videos.length > 0) {
+                            var videoIsCoded = false;
                             var videoCover = ctrl.pub.videos.filter(function (file, index, videos) {
                                 return file.pivot.is_cover == true;
                             });
-                            ctrl.mainVideo = videoCover[0] ? videoCover[0].url : false;
 
-                            var videoIsCoded = !!videoCover[0].is_coded;
+                            if (videoCover[0]) {
+                                ctrl.mainVideo = videoCover[0].url;
+                                videoIsCoded = !!videoCover[0].is_coded;
+                            } else {
+                                ctrl.mainVideo = false;
+                            }
+
 
                             if (!videoIsCoded) {
                                 $http.get('chat/get_video/' + videoCover[0].id).then(function(resp) {
