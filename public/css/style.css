@@ -266,6 +266,9 @@ body.main-page {
 .form-item form input {
 	padding-left: 27px; 
 }
+.registration-key .form-item form input {
+    padding-left: 35px;
+}
 .form-item form input:focus,
 .text-field:focus {
 	border: 1px solid #c24f39;
