@@ -33,7 +33,7 @@
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
-                                  socket, md5, $filter, $q, Upload, $window) {
+                                  socket, md5, $filter, $q, $http, Upload, $window) {
                 var ctrl = this;
                 var modal, modalEditPub, modalDeletePub;
 
@@ -142,6 +142,11 @@
                     if (file.pivot.video_id) {
                         ctrl.mainImage = null;
                         ctrl.mainVideo = file.url;
+
+                        $http.get('chat/get_video/' + file.id).then(function(resp) {
+                            ctrl.mainVideo.is_coded = !!resp.is_coded;
+                        });
+
                         if (ctrl.isModal) {
                             ctrl.indexCurrentImage = index;
                         }
