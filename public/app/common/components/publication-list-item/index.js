@@ -124,6 +124,8 @@
                                 $http.get('chat/get_video/' + videoCover[0].id).then(function(resp) {
                                     ctrl.showVideo = !!resp.data.is_coded;
                                 });
+                            } else {
+                                ctrl.showVideo = true;
                             }
 
 
