@@ -46,6 +46,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('stop/{id}', 'Admin\ModeratorController@stop');
                 Route::get('stopped', 'Admin\ModeratorController@stopped');
                 Route::get('update/{id}', 'Admin\ModeratorController@update');
+                Route::get('destroy/{id}', 'Admin\ModeratorController@destroy');
                 Route::post('update_save', 'Admin\ModeratorController@updateSave');
                 Route::post('store', 'Admin\ModeratorController@store');
             });

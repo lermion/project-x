@@ -74,10 +74,10 @@
                             <td class="text-center"><input type="time" name="to_time[6]" id="to_time[6]"></td>
                           </tr>
                           <tr>
-                            <td><input type="checkbox" name="weekday[7]" id="weekday[7]"></td>
-                            <td><label for="weekday[7]">Воскресенье</label></td>
-                            <td class="text-center"><input type="time" name="from_time[7]" id="from_time[7]"></td>
-                            <td class="text-center"><input type="time" name="to_time[7]" id="to_time[7]"></td>
+                            <td><input type="checkbox" name="weekday[0]" id="weekday[0]"></td>
+                            <td><label for="weekday[0]">Воскресенье</label></td>
+                            <td class="text-center"><input type="time" name="from_time[0]" id="from_time[0]"></td>
+                            <td class="text-center"><input type="time" name="to_time[0]" id="to_time[0]"></td>
                           </tr>
                         </tbody>
                       </table>
