@@ -323,6 +323,15 @@
             });
         });
 
+        $rootScope.$on('publication:delete', function(event, data) {
+            angular.forEach(vm.place.publications, function (item, index, arr) {
+                if (item.id === data.pubId) {
+                    arr.splice(index, 1);
+                    vm.place.count_publications--;
+                }
+            });
+        });
+
         vm.updatePlace = function () {
 
             vm.placeEditedForm.$setSubmitted();
@@ -542,14 +551,7 @@
             });
         };
 
-        $rootScope.$on('publication:delete', function(event, data) {
-            angular.forEach(vm.place.publications, function (item, index, arr) {
-                if (item.id === data.pubId) {
-                    arr.splice(index, 1);
-                    vm.place.count_publications--;
-                }
-            });
-        });
+
 
 
 

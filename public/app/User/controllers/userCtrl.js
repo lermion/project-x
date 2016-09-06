@@ -495,6 +495,18 @@ angular.module('placePeopleApp')
                 });
             });
 
+            $rootScope.$on('publication:delete', function(event, data) {
+                angular.forEach($scope.userPublications, function (item, index, arr) {
+                    if (item.id === data.pubId) {
+                        arr.splice(index, 1);
+                        $scope.userData.publications_count--;
+                        if ($state.current.name === "mobile-pub-view") {
+                            $state.go("user", {username: $stateParams.username});
+                        }
+                    }
+                });
+            });
+
             $scope.closePopup = function () {
                 ngDialog.closeAll();
             };
@@ -1122,17 +1134,7 @@ angular.module('placePeopleApp')
                 }
             };
 
-            $rootScope.$on('publication:delete', function(event, data) {
-                angular.forEach($scope.userPublications, function (item, index, arr) {
-                    if (item.id === data.pubId) {
-                        arr.splice(index, 1);
-                        $scope.userData.publications_count--;
-                        if ($state.current.name === "mobile-pub-view") {
-                            $state.go("user", {username: $stateParams.username});
-                        }
-                    }
-                });
-            });
+
 
 
             $scope.confirmSubscriber = function (subscriber) {

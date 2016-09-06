@@ -434,12 +434,8 @@
         ];
 
 
-        $rootScope.$on('publication:delete', function(event, data) {
-            angular.forEach($scope.publications, function (item, index, arr) {
-                if (item.id === data.pubId) {
-                    arr.splice(index, 1);
-                }
-            });
+        $rootScope.$on('publication:add', function(event, data) {
+            $scope.publications.push(data.publication);
         });
 
         $rootScope.$on('publication:update', function(event, data) {
@@ -449,6 +445,16 @@
                 }
             });
         });
+
+        $rootScope.$on('publication:delete', function(event, data) {
+            angular.forEach($scope.publications, function (item, index, arr) {
+                if (item.id === data.pubId) {
+                    arr.splice(index, 1);
+                }
+            });
+        });
+
+
 
         $scope.changeMainFileFeed = function (file, currPub) {
             if (file.pivot.video_id || file.pivot.image_id) {
@@ -525,9 +531,7 @@
                 }
             });
         };
-        $rootScope.$on('publication:add', function(event, data) {
-            $scope.publications.push(data.publication);
-        });
+
 
         $scope.deletePubFile = function (index) {
             $scope.pubNew.files.splice(index, 1);
