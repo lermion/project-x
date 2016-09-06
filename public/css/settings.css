@@ -7203,6 +7203,6 @@ button.settings-btn {
     font-size: 15px;
 
 }
-.settings-reg-keys p.not-used {
+.settings-reg-keys .not-used {
     color: #3dc846;
 }

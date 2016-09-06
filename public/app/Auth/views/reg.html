@@ -8,6 +8,24 @@
 									<form>
 										<div class="city-field">
 												<span class="city"></span>                                                
+												<select>
+													<option value="">Выберите тему...</option>
+													<option value="">Москва</option>
+													<option value="">Санкт-Петербург</option>
+													<option value="">Екатеринбург</option>
+													<option value="">Новосибирск</option>
+													<option value="">Уфа</option>
+													<option value="">Воронеж</option>
+													<option value="">Другое</option>
+												</select>
+												<span class="city-inner"></span>
+										</div>
+										<div class="phone-field">
+											<span id="" class="region"></span>
+											<input id="" type="text" placeholder="Напишите другую тему..." required style="padding-left:{{calcPadding()}}px;">
+										</div> 
+										<div class="city-field">
+												<span class="city"></span>                                                
 												<select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" ng-click="nupnErr=false;" ng-change="nupnErr=false;" required>
 												<option value="">Выберите страну...</option>
 												</select>
