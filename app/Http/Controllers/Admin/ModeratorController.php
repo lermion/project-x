@@ -144,8 +144,13 @@ class ModeratorController extends Controller
 
     public function stopped()
     {
+//        $moderators = Moderator::where('is_stop',false)->get();
+//        $working_hours = WorkingHoursModerator::all();
+//        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'New']);
+
         $moderators = Moderator::where('is_stop',true)->get();
-        return view('admin.moderator.index',['moderators'=>$moderators,'url'=>'Stopped'])->with('moderators', $moderators);
+        $working_hours = WorkingHoursModerator::all();
+        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'Stopped']);
     }
 
     /**
@@ -169,7 +174,7 @@ class ModeratorController extends Controller
     public function update($id)
     {
         $moderators = Moderator::find($id);
-        $moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id);
+        $moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id)->get();
         return view('admin.moderator.update')->with('moderators', $moderators);
     }
 
@@ -202,6 +207,8 @@ class ModeratorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Moderator::find($id)->delete();
+        WorkingHoursModerator::where('moderator_id',$id)->delete();
+        return redirect('/admin/moderator/')->with('message', 'Модератор удаленн');
     }
 }

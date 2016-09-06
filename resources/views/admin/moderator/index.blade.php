@@ -28,33 +28,128 @@
                     <td><p align="center" class="m0 cp"><img src="{{$mod->photo?$mod->photo:'/img/ava/moderator.png'}}" height="70" /></p></td>
                     <td><a href="/admin/moderator/update/{{$mod->id}}">{{ $mod->first_name.' '.$mod->last_name }}</a></td>
                     <td class="moderator-time-to-work">
+
                         <div class="row text-center">
                             <div class="col-md-2 col-md-offset-1">
                                 <p>Пн</p>
-                                <p>9:00</p>
-                                <p>18:00</p>
+                                <p>@foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
                             </div>
                             <div class="col-md-2">
                                 <p>Вт</p>
-                                <p>9:00</p>
-                                <p>18:00</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 2 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 2 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
                             </div>
                             <div class="col-md-2">
                                 <p>Ср</p>
-                                <p>9:00</p>
-                                <p>18:00</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 3 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 3 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
                             </div>
                             <div class="col-md-2">
                                 <p>Чт</p>
-                                <p>9:00</p>
-                                <p>18:00</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 4 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 4 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
                             </div>
                             <div class="col-md-2">
                                 <p>Пт</p>
-                                <p>9:00</p>
-                                <p>18:00</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 5 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 5 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Сб</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 6 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 6 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Вс</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 0 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->from_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 0 and $working_hour->moderator_id == $mod->id)
+                                            {{$working_hour->to_time}}
+                                        @endif
+                                    @endforeach
+                                </p>
                             </div>
                         </div>
+
                     </td>
                     <td class="moderators-process">
                         <p>Модераций: <b>173</b></p>
@@ -67,7 +162,7 @@
                                 <button type="button" class="btn btn-warning btn-xs"> @if ($mod->is_stop == false) Остановить  @else   Восстановить @endif </button>
                             </a>
                             <a class="btn btn-info btn-xs" href="/admin/moderator/update/{{$mod->id}}">Изменить</a>
-                            <a class="btn btn-danger btn-xs deleteConfirm-mod" href="">Удалить</a>
+                            <a class="btn btn-danger btn-xs deleteConfirm-mod" href="/admin/moderator/destroy/{{$mod->id}}">Удалить</a>
                         </p>
                     </td>
                 </tr>

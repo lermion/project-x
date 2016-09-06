@@ -70,6 +70,32 @@
 			<label for="checkbox3" class="checkbox-label" data-off="off" data-on="on"></label>
 				</p> 
 		</div>
+		<div class="settings-select-region">
+			<h4>Области видимости</h4>
+			<ul class="settings-regions-list">
+				<li>
+					<input type="checkbox" id="reg1"/>
+            		<label for="reg1">Все</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg2"/>
+            		<label for="reg2">Москва</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg3"/>
+            		<label for="reg3">Днепр</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg4"/>
+            		<label for="reg4">Санкт-Петербург</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg5"/>
+            		<label for="reg5">Другое</label>
+				</li>
+				
+			</ul>
+		</div>
 		<div class="settings-reg-keys">
 			<h4>Регистрационные коды</h4>
 			<p ng-class="!registrationKey.isUsed ? 'not-used' : ''" ng-repeat="registrationKey in registrationKeys">

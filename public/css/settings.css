@@ -7195,7 +7195,8 @@ button.settings-btn {
     }
 }
 .settings-reg-keys {
-    padding: 10px;
+    border-top: 1px solid #ebecef;
+    padding: 20px;
     font-family: "SFUIDisplayLight";
 }
 .settings-reg-keys p {
@@ -7205,4 +7206,51 @@ button.settings-btn {
 }
 .settings-reg-keys .not-used {
     color: #3dc846;
+}
+.settings-select-region {
+    padding: 0px;
+    font-family: "SFUIDisplayLight";
+    border-top: 1px solid #ebecef;
+ }
+ .settings-regions-list {
+    list-style: none;
+    padding-left: 20px;
+    max-height: 220px;
+    overflow-y: auto;
+ }
+ .settings-regions-list li {
+    margin: 10px;
+    font-size: 14px;
+    padding-left: 10px;
+ }
+ .settings-regions-list input[type="checkbox"] + label {
+    line-height: 20px;
+    vertical-align: top;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.settings-regions-list input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin: 0 10px 0 0;
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid #d9dcdf;
+}
+.settings-regions-list input[type="checkbox"]:checked + label::before {
+    background-image: url(/images/checkbox_group.png);
+    background-size: 85% 75%;
+    background-position: 70% 50%;
+    background-repeat: no-repeat;
+    background-color: #ec6045;
+    border: 1px solid transparent;
+}
+.settings-select-region h4 {
+    margin: 15px;
+}
+.settings-reg-keys h4 {
+    margin: 0 0 15px 0;
 }
