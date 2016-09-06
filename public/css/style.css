@@ -211,7 +211,7 @@ body.main-page {
 	background: rgba(0, 0, 0, 0.4);
 }
 .form-item h5 {
-	font-family:  "SFUIDisplayMedium"; 
+	font-family:  "SFUIDisplayLight"; 
 	line-height: 62px;
 	font-size: 21px;
 	text-align: center;
@@ -467,6 +467,9 @@ body.main-page {
 	padding: 0;
 	margin-bottom: 10px;
 	line-height: 15px;
+}
+.form-item form .key-prompt p {
+	color: #fff;
 }
 .check-in-button,
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
