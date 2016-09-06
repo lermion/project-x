@@ -2762,6 +2762,11 @@ pub-list-item .publication-footer-button {
 	align-items: center;
 	/*margin-bottom: 5px;*/
 	overflow: hidden;
+	font-family: SFUIDisplayLight, Arial, sans-serif;
+}
+
+.user-publication-content .publication-ava h4 {
+	color: #000;
 }
 
 .user-publication-content .publication-ava img {
