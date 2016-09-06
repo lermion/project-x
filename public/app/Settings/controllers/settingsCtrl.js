@@ -133,6 +133,42 @@ angular.module('placePeopleApp')
 				});
 	};
 
+	var getRegistrationKeys = function(){
+		var registrationKeys = [
+			{
+				code: 12345678,
+				isUsed: true
+			},
+			{
+				code: 54354354,
+				isUsed: false
+			},
+			{
+				code: 87876887,
+				isUsed: true
+			},
+			{
+				code: 43265342,
+				isUsed: false
+			},
+			{
+				code: 65764534,
+				isUsed: true
+			},
+			{
+				code: 76574412,
+				isUsed: false
+			},
+			{
+				code: 54364325,
+				isUsed: true
+			}
+		];
+		return registrationKeys;
+	};
+
+	$scope.registrationKeys = getRegistrationKeys();
+
 	$scope.myImage='';
 	$scope.myCroppedImage='';
 	var handleFileSelect = function(evt) {
