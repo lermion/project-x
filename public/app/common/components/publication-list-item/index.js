@@ -33,7 +33,7 @@
             },
             templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
             controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
-                                  socket, md5, $filter, $q, Upload, $window) {
+                                  socket, md5, $filter, $q, $http, Upload, $window) {
                 var ctrl = this;
                 var modal, modalEditPub, modalDeletePub;
 
@@ -117,6 +117,18 @@
                                 return file.pivot.is_cover == true;
                             });
                             ctrl.mainVideo = videoCover[0] ? videoCover[0].url : false;
+
+                            var videoIsCoded = !!videoCover[0].is_coded;
+
+                            if (!videoIsCoded) {
+                                $http.get('chat/get_video/' + videoCover[0].id).then(function(resp) {
+                                    ctrl.showVideo = !!resp.data.is_coded;
+                                });
+                            } else {
+                                ctrl.showVideo = true;
+                            }
+
+
                         }
 
                     }
@@ -142,6 +154,11 @@
                     if (file.pivot.video_id) {
                         ctrl.mainImage = null;
                         ctrl.mainVideo = file.url;
+
+                        $http.get('chat/get_video/' + file.id).then(function(resp) {
+                            ctrl.showVideo = !!resp.data.is_coded;
+                        });
+
                         if (ctrl.isModal) {
                             ctrl.indexCurrentImage = index;
                         }

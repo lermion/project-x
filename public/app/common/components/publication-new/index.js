@@ -12,7 +12,7 @@
                 feed: '<'
             },
             templateUrl: '../app/common/components/publication-new/publication-new.html',
-            controller: function ($rootScope, $scope, $q, $state, PublicationService, groupsService, placesService, storageService, ngDialog, Upload, $timeout) {
+            controller: function ($rootScope, $scope, $q, $state, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
                 var ctrl = this;
 
                 ctrl.pub = {};
@@ -81,6 +81,15 @@
                 ctrl.ngDialog = ngDialog;
 
 
+                /**
+                 * Adds files to the publication
+                 * @param files
+                 * @param file
+                 * @param newFiles
+                 * @param duplicateFiles
+                 * @param invalidFiles
+                 * @param event
+                 */
                 ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
                     var defer = $q.defer();
                     var prom = [];
@@ -106,6 +115,10 @@
                     });
                 };
 
+                /**
+                 * Removes files (originals and thumbnails) of publication
+                 * @param index
+                 */
                 ctrl.removeFile = function (index) {
                     if (ctrl.files[index].isCover) {
                         ctrl.coverToCrop = null;
@@ -115,6 +128,10 @@
                     $scope.$broadcast('rebuild:me');
                 };
 
+                /**
+                 * Sets the main image of publication
+                 * @param index
+                 */
                 ctrl.setMainPubPhoto = function (index) {
                     var file = ctrl.files[index];
 

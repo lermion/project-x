@@ -51,11 +51,14 @@
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
 
+            <div ng-if="!$ctrl.isModal && $ctrl.mainVideo && !$ctrl.showVideo">Load...</div>
+            <div ng-if="$ctrl.isModal && $ctrl.mainVideo && !$ctrl.showVideo">Load...</div>
+
             <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}">
             <img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}">
 
-            <video ng-if="$ctrl.isModal && $ctrl.mainVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
-            <video ng-if="!$ctrl.isModal && $ctrl.mainVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
+            <video ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
+            <video ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
 
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
