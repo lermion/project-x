@@ -1951,25 +1951,22 @@ body.public.user {
 		font-size: 10px;
 	}
 	.adaptiv {
-		padding: 10px 5px 10px 5px;
+		padding: 5px 10px;
 		background-color: #fff;
 	}
 	.comunications.adaptiv .rewrite,
 	.comunications.adaptiv .create {
-		padding: 0 5px;
+		padding: 0;
 		font-size: 13px;
 	}
 	#user-page .status-user.adaptiv {
-		padding: 0 5px 15px;
-			
+		padding: 5px 10px 0 10px;	
 	}
 	#user-page .status-correct.adaptiv {
 		margin: 5px;
 			width: 97%;
 	}
 }
-
-
 
 /* ngdialog*/
 
@@ -2765,6 +2762,11 @@ pub-list-item .publication-footer-button {
 	align-items: center;
 	/*margin-bottom: 5px;*/
 	overflow: hidden;
+	font-family: SFUIDisplayLight, Arial, sans-serif;
+}
+
+.user-publication-content .publication-ava h4 {
+	color: #000;
 }
 
 .user-publication-content .publication-ava img {

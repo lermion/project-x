@@ -389,7 +389,7 @@ input.cmn-toggle-round:checked + label:after {
 	width: 10%;
 }
 .moderator-time-to-work p {
-	margin: 0 5px;
+	margin: 0 3px;
 }
 .admin-moderator-avatar {
 	text-align: center;
@@ -424,13 +424,13 @@ div table.table>tbody>tr:hover {
 	width: 6%;
 }
 .admin-moderators .name {
-	width: 14%;
+	width: 12%;
 }
 .admin-moderators .time {
 	width: 40%;
 }
 .admin-moderators .process {
-	width: 20%;
+	width: 16%;
 }
 .admin-moderators .do {
 	width: 10%;
@@ -793,4 +793,8 @@ table.admin-users .col-do {
 }
 .modal-body {
 	font-size: 15px;
+}
+.moderator-time {
+	width: 14%;
+	float: right;
 }

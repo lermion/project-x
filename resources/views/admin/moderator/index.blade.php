@@ -30,7 +30,7 @@
                     <td class="moderator-time-to-work">
 
                         <div class="row text-center">
-                            <div class="col-md-2 col-md-offset-1">
+                            <div class="moderator-time">
                                 <p>Пн</p>
                                 <p>@foreach($working_hours as $working_hour)
                                         @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
@@ -46,7 +46,7 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="moderator-time">
                                 <p>Вт</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
@@ -63,7 +63,7 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="moderator-time">
                                 <p>Ср</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
@@ -80,7 +80,7 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="moderator-time">
                                 <p>Чт</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
@@ -97,7 +97,7 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="moderator-time">
                                 <p>Пт</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
@@ -114,7 +114,7 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="moderator-time">
                                 <p>Сб</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
@@ -131,7 +131,7 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="moderator-time">
                                 <p>Вс</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
