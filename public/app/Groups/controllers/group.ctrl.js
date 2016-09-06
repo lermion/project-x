@@ -384,9 +384,18 @@
 		});
 
 		$rootScope.$on('publication:update', function(event, data) {
-			angular.forEach($scope.userPublications, function (item, index, arr) {
+			angular.forEach(vm.group.publications, function (item, index, arr) {
 				if (item.id === data.publication.id) {
 					arr[index] = data.publication;
+				}
+			});
+		});
+
+		$rootScope.$on('publication:delete', function(event, data) {
+			angular.forEach(vm.group.publications, function (item, index, arr) {
+				if (item.id === data.pubId) {
+					arr.splice(index, 1);
+					vm.group.count_publications--;
 				}
 			});
 		});
@@ -561,14 +570,7 @@
 		};
 
 
-		$rootScope.$on('publication:delete', function(event, data) {
-			angular.forEach(vm.group.publications, function (item, index, arr) {
-				if (item.id === data.pubId) {
-					arr.splice(index, 1);
-					vm.group.count_publications--;
-				}
-			});
-		});
+
 
 		vm.openPubComplainBlock = function (pubId) {
 			modalAlertComment = ngDialog.open({
