@@ -59,7 +59,8 @@ class PlacePublicationController extends Controller
                 'videos' => 'array',
                 'cover' => 'file',
                 'original_cover' => 'file',
-                'images' => 'array'
+                'images' => 'array',
+                'original_images' => 'array'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -115,50 +116,6 @@ class PlacePublicationController extends Controller
             ];
             return response()->json($responseData);
         }
-//        if ($request->hasFile('cover')) {
-//            $cover = $request->file('cover');
-//            $path = Image::getCoverPath($cover);
-//            $publicationData['cover'] = $path;
-//        }
-//        $publicationData['user_id'] = Auth::id();
-////        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
-//        $place = Place::find($id);
-//        $publication = $place->publications()->create($publicationData);
-//        if ($request->hasFile('images')) {
-//            $cover = $request->file('cover');
-//            $cover_name = $cover->getClientOriginalName();
-//            foreach ($request->file('images') as $image) {
-//                if (!$image) {
-//                    continue;
-//                }
-//                $path = Image::getImagePath($image);
-//                if ($cover_name == $image->getClientOriginalName())
-//                {
-//                    $publication->images()->create(['url' => $path],['is_cover' => true]);
-//                } else
-//                {
-//                    $publication->images()->create(['url' => $path]);
-//                }
-//
-//            }
-//        }
-//
-//        if ($request->hasFile('videos')) {
-//            foreach ($request->file('videos') as $video) {
-//                if (!$video) {
-//                    continue;
-//                }
-//                $path = Video::getVideoPath($video);
-//                $publication->videos()->create([
-//                    'url' => $path,
-//                ]);
-//            }
-//        }
-//        $responseData = [
-//            "status" => true,
-//            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
-//        ];
-//        return response()->json($responseData);
         $publicationData = $request->all();
         //dd($publicationData);
         //$publication = Publication::create($publicationData);
@@ -171,15 +128,21 @@ class PlacePublicationController extends Controller
             $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('images') as $image) {
                 $image_name = $image->getClientOriginalName();
+                foreach ($request->file('original_images') as $original_image) {
+                    $original_image_name = $original_image->getClientOriginalName();
+                    if ($image_name == $original_image_name){
+                        $original_path = Image::getOriginalImagePath($original_image);
+                    }
+                }
                 $path = Image::getImagePath($image);
                 if ($image_name == $cover_name)
                 {
-                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+                    $publication->images()->create(['url' => $path,'original_img_url' => $original_path],['is_cover' => true]);
                     $publication->cover = $path;
                     $publication->save();
                 } else
                 {
-                    $publication->images()->create(['url' => $path]);
+                    $publication->images()->create(['url' => $path,'original_img_url' => $original_path]);
                 }
 
             }

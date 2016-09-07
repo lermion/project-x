@@ -6,10 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $fillable = ['url'];
+    protected $fillable = ['url','original_img_url'];
     
     public static function getImagePath($image){
         $path = '/upload/publication/images/';
+        $fileName = str_random(8) . $image->getClientOriginalName();
+        $fullPath = public_path() . $path;
+        $image->move($fullPath, $fileName);
+
+        return $path.$fileName;
+    }
+
+    public static function getOriginalImagePath($image){
+        $path = '/upload/publication/original_images/';
         $fileName = str_random(8) . $image->getClientOriginalName();
         $fullPath = public_path() . $path;
         $image->move($fullPath, $fileName);

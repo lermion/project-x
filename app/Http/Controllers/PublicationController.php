@@ -130,7 +130,8 @@ class PublicationController extends Controller
                 'is_main' => 'boolean',
                 'in_profile' => 'boolean',
                 'videos' => 'array',
-                'images' => 'array'
+                'images' => 'array',
+                'original_images' => 'array'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -144,6 +145,22 @@ class PublicationController extends Controller
         }
         if ($request->hasFile('images')) {
             $validator = Validator::make($request->file('images'), [
+                'image'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad image',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+        if ($request->hasFile('original_images')) {
+            $validator = Validator::make($request->file('original_images'), [
                 'image'
             ]);
 
@@ -178,22 +195,28 @@ class PublicationController extends Controller
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $publication = Publication::create($publicationData);
+
         if ($request->hasFile('images')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('images') as $image) {
                 $image_name = $image->getClientOriginalName();
+                foreach ($request->file('original_images') as $original_image) {
+                    $original_image_name = $original_image->getClientOriginalName();
+                    if ($image_name == $original_image_name){
+                        $original_path = Image::getOriginalImagePath($original_image);
+                    }
+                }
                 $path = Image::getImagePath($image);
                 if ($image_name == $cover_name)
                 {
-                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+                    $publication->images()->create(['url' => $path,'original_img_url' => $original_path],['is_cover' => true]);
                     $publication->cover = $path;
                     $publication->save();
                 } else
                 {
-                    $publication->images()->create(['url' => $path]);
+                    $publication->images()->create(['url' => $path,'original_img_url' => $original_path]);
                 }
-
             }
         }
         if ($request->hasFile('videos')) {
@@ -279,6 +302,7 @@ class PublicationController extends Controller
                         'in_profile' => 'boolean',
                         'videos' => 'array',
                         'images' => 'array',
+                        'original_images' => 'array',
                         'delete_videos' => 'array',
                         'delete_images' => 'array'
                     ]);
@@ -343,6 +367,12 @@ class PublicationController extends Controller
                     $cover = $request->file('cover');
                     foreach ($request->file('images') as $image) {
                         $image_name = $image->getClientOriginalName();
+                        foreach ($request->file('original_images') as $original_image) {
+                            $original_image_name = $original_image->getClientOriginalName();
+                            if ($image_name == $original_image_name){
+                                $original_path = Image::getOriginalImagePath($original_image);
+                            }
+                        }
                         $path = Image::getImagePath($image);
                         if($cover) {
                             $cover_name = $cover->getClientOriginalName();
@@ -357,14 +387,14 @@ class PublicationController extends Controller
                                     $video->is_cover = false;
                                     $video->save();
                                 }
-                                $publication->images()->create(['url' => $path], ['is_cover' => true]);
+                                $publication->images()->create(['url' => $path,'original_img_url' => $original_path], ['is_cover' => true]);
                                 $publication->cover = $path;
                                 $publication->save();
                             } else {
-                                $publication->images()->create(['url' => $path]);
+                                $publication->images()->create(['url' => $path,'original_img_url' => $original_path]);
                             }
                         }else {
-                            $publication->images()->create(['url' => $path]);
+                            $publication->images()->create(['url' => $path,'original_img_url' => $original_path]);
                         }
                     }
                 }
