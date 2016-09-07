@@ -160,7 +160,7 @@
 
                     // TODO: fix validation
                     $timeout(function(){
-                        ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? false : true);
+                        ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
                     });
 
                     if (!ctrl.cover) {
@@ -173,7 +173,8 @@
 
                     ctrl.subForm = true;
 
-                    var images = [];
+                    var images = [],
+                        originalImages = [];
                     var videos = [];
 
                     var isMain;
@@ -190,6 +191,12 @@
                             images.push(file);
                         } else if (type === 'video') {
                             videos.push(file);
+                        }
+                    });
+                    ctrl.originalFiles.forEach(function (file) {
+                        var type = file.type.split('/')[0];
+                        if (type === 'image') {
+                            originalImages.push(file);
                         }
                     });
 
@@ -213,6 +220,7 @@
                         text: ctrl.emojiMessage.messagetext,
                         cover: ctrl.cover,
                         images: images,
+                        originalImages: originalImages,
                         videos: videos,
                         isAnonym: ctrl.isAnonym,
                         isMain: isMain,
