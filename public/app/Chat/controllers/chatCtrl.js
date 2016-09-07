@@ -742,6 +742,10 @@ angular.module('placePeopleApp')
 					className: 'popup-group-chat ngdialog-theme-default',
 					scope: $scope,
 					name: 'group-chat',
+					preCloseCallback: function(){
+						$scope.showErrorMessageAvatar = false;
+						$scope.showErrorMessage = false;
+					}
 					// preCloseCallback: function(value){
 					// 	$state.go("user", {username: $stateParams.username});
 					// }
@@ -928,11 +932,17 @@ angular.module('placePeopleApp')
 				users.push(parseInt($scope.loggedUserId));
 				if($scope.Model.newGroupChat.users.length === 0){
 					$scope.showErrorMessage = true;
+					$scope.showErrorMessageAvatar = false;
 					return;
 				}else{
 					$scope.Model.newGroupChat.users.forEach(function(user){
 						users.push(user.id);
 					});
+					if($scope.avatarGroupChat === undefined){
+						$scope.showErrorMessageAvatar = true;
+						$scope.showErrorMessage = false;
+						return;
+					}
 					var avatarObj = {
 						avatarName: $scope.avatarGroupChat.name,
 						avatarType: $scope.avatarGroupChat.type,
@@ -997,6 +1007,7 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.saveCropp = function(myCroppedImage, fileName){
+				$scope.showErrorMessageAvatar = false;
 				$scope.Model.newGroupChat.avatar = myCroppedImage;
 				var blobFile = blobToFile(myCroppedImage);
 				blobFile.name = fileName;
