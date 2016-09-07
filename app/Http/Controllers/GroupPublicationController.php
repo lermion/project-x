@@ -58,7 +58,8 @@ class GroupPublicationController extends Controller
                 'cover' => 'file',
                 'original_cover' => 'file',
                 'videos' => 'array',
-                'images' => 'array'
+                'images' => 'array',
+                'original_images' => 'array'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -70,99 +71,6 @@ class GroupPublicationController extends Controller
             ];
             return response()->json($result);
         }
-
-//        if ($request->hasFile('images')) {
-//            $validator = Validator::make($request->file('images'), [
-//                'image'
-//            ]);
-//
-//            if ($validator->fails()) {
-//                $result = [
-//                    "status" => false,
-//                    "error" => [
-//                        'message' => 'Bad image',
-//                        'code' => '1'
-//                    ]
-//                ];
-//                return response()->json($result);
-//            }
-//        }
-//        if ($request->hasFile('videos')) {
-//            $validator = Validator::make($request->file('videos'), [
-//                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
-//            ]);
-//
-//            if ($validator->fails()) {
-//                $result = [
-//                    "status" => false,
-//                    "error" => [
-//                        'message' => 'Bad video',
-//                        'code' => '1'
-//                    ]
-//                ];
-//                return response()->json($result);
-//            }
-//        }
-//
-//        if (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $id, 'is_admin' => true])->first()) {
-//            $responseData = [
-//                "status" => false,
-//                "error" => [
-//                    'message' => "Permission denied",
-//                    'code' => '8'
-//                ]
-//            ];
-//            return response()->json($responseData);
-//        }
-//        $publicationData = $request->all();
-//        if ($request->hasFile('cover')) {
-//            $cover = $request->file('cover');
-//            $path = Image::getCoverPath($cover);
-//            $publicationData['cover'] = $path;
-//        }
-//        if ($request->hasFile('original_cover')) {
-//            $cover = $request->file('original_cover');
-//            $path = Image::getOriginalCoverPath($cover);
-//            $publicationData['original_cover'] = $path;
-//        }
-//        $publicationData['user_id'] = Auth::id();
-////        $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
-//        $group = Group::find($id);
-//        $publication = $group->publications()->create($publicationData);
-//        if ($request->hasFile('images')) {
-//            $cover = $request->file('cover');
-//            $cover_name = $cover->getClientOriginalName();
-//            foreach ($request->file('images') as $image) {
-//                if (!$image) {
-//                    continue;
-//                }
-//                $path = Image::getImagePath($image);
-//                if ($cover_name == $image->getClientOriginalName())
-//                {
-//                    $publication->images()->create(['url' => $path],['is_cover' => true]);
-//                } else
-//                {
-//                    $publication->images()->create(['url' => $path]);
-//                }
-//
-//            }
-//        }
-//        if ($request->hasFile('videos')) {
-//            foreach ($request->file('videos') as $video) {
-//                if (!$video) {
-//                    continue;
-//                }
-//                $path = Video::getVideoPath($video);
-//                $publication->videos()->create([
-//                    'url' => $path,
-//                ]);
-//            }
-//        }
-//        $responseData = [
-//            "status" => true,
-//            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
-//        ];
-//        return response()->json($responseData);
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
         $group = Group::find($id);
@@ -172,15 +80,21 @@ class GroupPublicationController extends Controller
             $cover_name = $cover->getClientOriginalName();
             foreach ($request->file('images') as $image) {
                 $image_name = $image->getClientOriginalName();
+                foreach ($request->file('original_images') as $original_image) {
+                    $original_image_name = $original_image->getClientOriginalName();
+                    if ($image_name == $original_image_name){
+                        $original_path = Image::getOriginalImagePath($original_image);
+                    }
+                }
                 $path = Image::getImagePath($image);
                 if ($image_name == $cover_name)
                 {
-                    $publication->images()->create(['url' => $path],['is_cover' => true]);
+                    $publication->images()->create(['url' => $path,'original_img_url' => $original_path],['is_cover' => true]);
                     $publication->cover = $path;
                     $publication->save();
                 } else
                 {
-                    $publication->images()->create(['url' => $path]);
+                    $publication->images()->create(['url' => $path,'original_img_url' => $original_path]);
                 }
 
             }
