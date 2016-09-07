@@ -7150,6 +7150,10 @@ textarea[type="text"]:focus,
 .publication-alert-done {
     text-align: center;
 }
+button.settings-btn.save-areas-btn{
+    margin-left: 39px;
+    margin-bottom: 14px;
+}
 button.settings-btn {
     text-decoration: none;
     font-size: 14.6px;
