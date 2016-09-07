@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AccessCode;
 use App\Online;
 use App\Publication;
 use App\Subscriber;
@@ -148,8 +149,23 @@ class UserController extends Controller
             }
             $user->original_avatar_path = $path;
         }
+        AccessCode::generateCode($userId);
         $user->save();
         return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);
+    }
+
+    public function getCodes($id)
+    {
+       $codes = AccessCode::where('user_id',$id)->get();
+        $result = [];
+        foreach ($codes as $code){
+            $result[] = [
+                'code' => $code->code,
+                'isUsed' => $code->invited_user_id == null ? true : false
+            ];
+        }
+        return response()->json($result);
+
     }
 
     private function getAvatarPath($avatar)

@@ -170,6 +170,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
         Route::get('show/{login}', 'UserController@show');
+        Route::get('get_codes/{id}', 'UserController@getCodes');
         Route::post('{id}/publication', 'PublicationController@userPublication')->middleware(['auth']);
         Route::post('subscribe/store', 'SubscriberController@store')->middleware(['auth']);
         Route::get('subscribe/confirm/{id}', 'SubscriberController@confirm')->middleware(['auth']);
@@ -354,7 +355,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/get_check_time\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/get_codes/11\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='number' name='message_id' ><br>
