@@ -403,7 +403,7 @@ angular.module('placePeopleApp')
 					chat.members.forEach(function(member){
 						members.push(member.id);
 					});					
-					data = {					
+					data = {
 						members: members, 
 						room_id: chat.room_id,
 						is_group: true,
@@ -652,6 +652,12 @@ angular.module('placePeopleApp')
 									value.isRead = false;
 								});
 							}
+							var readMessages = {
+								members: []
+							};
+							readMessages.members[0] = $scope.loggedUserId;
+							readMessages.room_id = data.roomId;
+							socket.emit("read message", readMessages);
 							$scope.Model.Chat.push(data);
 							$scope.isNeededScroll = function(){
 								return $scope.Model.Chat;
