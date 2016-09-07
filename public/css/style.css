@@ -451,8 +451,37 @@ body.main-page {
 	background-image: url(../images/name.png);
 	left: 0;
 }
-
-
+.reg-regions-list {
+	display: block;
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	max-height: 50vh;
+	overflow-y: auto;
+	max-width: 18vw;
+	font-family: "SFUIDisplayLight";
+}
+.region-name {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+}
+.region-name span {
+	height: 15px;
+	width: 15px;
+}
+.region-name p {
+	font-size: 14px;
+	margin: 0;
+	margin-left: 10px;
+	padding-right: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.region-img {
+	width: 15px;
+	height: 15px;
+}
 .user-field span.user {
 	background-image: url(../images/at-sign.png);
 	left: 0;
@@ -4884,4 +4913,9 @@ h4.have-no-publication{
 	margin: 0 auto;
 	width: 300px;
 	text-align: center;
+}
+@media (max-width: 900px) {
+	.reg-regions-list {
+		display: none;
+	}
 }
