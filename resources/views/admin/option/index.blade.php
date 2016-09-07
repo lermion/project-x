@@ -51,7 +51,12 @@
                               <label for="cmn-toggle-1"></label>
                             </div>
                         </div>
-                        
+                        <div class="admin-settings-limit-toggle-btn"><span>Показывать не модерированные публикации на главной</span>
+                            <div class="switch">
+                                <input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round" type="checkbox" @if ($option->moderate_publication == true)checked @endif  name="moderate_publication">
+                                <label for="cmn-toggle-2"></label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
@@ -60,7 +65,7 @@
             <form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
 	            <div class="row admin-promo-main-img">
 	                <div class="col-md-3 lh">
-	                    Изображение на главной: 
+	                    Изображение на главной:
 	                </div>
 	                <form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
 	                <div class="col-md-3 col-sm-3 col-xs-6">
@@ -68,7 +73,7 @@
 	                </div>
 	                <div class="col-md-3">
 	                    <input type="file" name="picture">
-	                </div>     	
+	                </div>
 	            </div>
 	            <div class="row">
 	                	<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>

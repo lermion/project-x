@@ -44,6 +44,11 @@ class OptionController extends Controller
         } else {
             $optionData['user_foto_bloc'] = false;
         }
+        if ($request->input('moderate_publication') == 'on'){
+            $optionData['moderate_publication'] = true;
+        } else {
+            $optionData['moderate_publication'] = false;
+        }
         $option = Option::first();
         $option->update($optionData);
         return redirect('admin/option/')->with('message', 'Сохраненно');

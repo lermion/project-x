@@ -74,27 +74,15 @@
 			<h4>Области видимости</h4>
 			<ul class="settings-regions-list">
 				<li>
-					<input type="checkbox" id="reg1"/>
-            		<label for="reg1">Все</label>
+					<input ng-model="selectedAll" type="checkbox" id="selectedAll" ng-click="checkAll()">
+					<label for="selectedAll">Все</label>
 				</li>
-				<li>
-					<input type="checkbox" id="reg2"/>
-            		<label for="reg2">Москва</label>
+				<li ng-repeat="area in areas">
+					<input ng-disabled="checkedAreas.length === checkedLimit && !active" type="checkbox" id="{{area.id}}" ng-model="active" ng-change="checkedArea(active, area)">
+					<label for="{{area.id}}">{{area.name}}</label>
 				</li>
-				<li>
-					<input type="checkbox" id="reg3"/>
-            		<label for="reg3">Днепр</label>
-				</li>
-				<li>
-					<input type="checkbox" id="reg4"/>
-            		<label for="reg4">Санкт-Петербург</label>
-				</li>
-				<li>
-					<input type="checkbox" id="reg5"/>
-            		<label for="reg5">Другое</label>
-				</li>
-				
 			</ul>
+			<button class="settings-btn save-areas-btn" ng-click="saveAreas()">Сохранить</button>
 		</div>
 		<div class="settings-reg-keys">
 			<h4>Регистрационные коды</h4>

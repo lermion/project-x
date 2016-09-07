@@ -82,15 +82,57 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.saveSettings = function(username, userLastname, userStatus){			
-		UserService.settingsEdit(username, userLastname, userStatus)
-			.then(					
-				function(res){								
-					$scope.settingsEdit = false;	        
-				},
-				function(err){
-					console.log(err);
-				});
+		UserService.settingsEdit(username, userLastname, userStatus).then(function(res){								
+			$scope.settingsEdit = false;	        
+		},
+		function(err){
+			console.log(err);
+		});
 	};
+
+	$scope.saveAreas = function(){
+		console.log("hgewge!!");
+	};
+
+	var getAreas = function(){
+		var areas = [
+			{
+				id: 1,
+				name: "Днепр"
+			},
+			{
+				id: 2,
+				name: "Киев"
+			},
+			{
+				id: 3,
+				name: "Винница"
+			},
+			{
+				id: 4,
+				name: "Москва"
+			}
+		];
+		return areas;
+	};
+
+	$scope.checkedAreas = [];
+	$scope.checkedLimit = 3;
+	$scope.checkedArea = function(active, area){
+		if(area.id === 0){
+			$scope.active = false;
+		}else{
+			if(active){
+				if($scope.checkedAreas.length < 3){
+					$scope.checkedAreas.push(area);
+				}
+			}else{
+				$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area), 1);
+			}
+		}
+	};
+
+	$scope.areas = getAreas();
 
 	$scope.changeShowAvatar = function(flag){			
 		UserService.changeShowAvatar(flag ? 1 : 0)
