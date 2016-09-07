@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BlackList;
 use App\Online;
+use App\Option;
 use App\SMS;
 use App\User;
 use Illuminate\Contracts\Validation\ValidationException;
@@ -145,5 +146,11 @@ class AuthController extends Controller
             Online::logOut(Auth::id());
         }
         Auth::logout();
+    }
+
+    public function closedRegistration(){
+       $closed_registration = Option::pluck('closed_registration');
+        $result = $closed_registration[0]==0 ? false : true;
+        return response()->json($result);
     }
 }
