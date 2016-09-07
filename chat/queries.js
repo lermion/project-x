@@ -111,6 +111,7 @@ Queries.prototype.getUserRooms = function(data){
 											if(lastMessages[0]){
 												if(lastMessages[0].text){
 													last_message = lastMessages[0].text;
+													last_message_id = lastMessages[0].id;
 												}else if(lastMessages[0].isImage){
 													last_message = 'изображение';
 												}else{
@@ -128,6 +129,7 @@ Queries.prototype.getUserRooms = function(data){
 										avatar: item.avatar,
 										is_admin: item.is_admin,
 										last_message: last_message,
+										last_message_id: last_message_id,
 										last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
 										show_notif: result[0] ? result[0].show_notif : "",
 										countMessages: countMessages[0]['COUNT(message_id)']
@@ -193,7 +195,8 @@ Queries.prototype.getUserDialogue = function(data){
 				}
 			});
 		}else{
-			connection.query("SELECT messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
+			connection.query("SELECT (SELECT last_message_id FROM received_messages WHERE last_message_id = (SELECT message_id FROM user_rooms_messages WHERE room_id = " + data.room_id + " ORDER BY message_id DESC LIMIT 1)) as last_message_id,  messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
+				console.log(result);
 				var response = [];
 		if(error){
 			console.log("error to get user dialogue: " + error.stack);
@@ -440,6 +443,41 @@ Queries.prototype.changeRoom = function(data, currentRoom){
 			}else{
 				connection.query("UPDATE chat_notice_messages SET message_id = " + lastMessageId + " WHERE id = " + result[0].id + "", function(error, result){
 					deferred.resolve(result);
+				});
+			}
+		});
+	});
+	return deferred.promise;
+}
+Queries.prototype.gotNotice = function(data){
+	var deferred = Q.defer();
+	data.forEach(function(value){
+		var gotNoticeData = {
+			chat_rooms_id: value.room_id,
+			last_message_id: value.last_message_id,
+			created_at: new Date(),
+			updated_at: new Date()
+		};
+		connection.query("SELECT chat_rooms_id FROM received_messages WHERE chat_rooms_id = " + value.room_id, function(error, result){
+			if(result.length > 0){
+				connection.query("UPDATE received_messages  SET last_message_id = " + value.last_message_id + " WHERE chat_rooms_id = " + value.room_id + "", function(err, result){
+					if(error){
+						console.log("error to update received_messages: " + error.stack);
+						deferred.reject(error);
+						return;
+					}else{
+						deferred.resolve(result);
+					}
+				});
+			}else{
+				connection.query("INSERT INTO `received_messages` SET ?", gotNoticeData, function(err, result){
+					if(error){
+						console.log("error to insert into received_messages: " + error.stack);
+						deferred.reject(error);
+						return;
+					}else{
+						deferred.resolve(result);
+					}
 				});
 			}
 		});

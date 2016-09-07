@@ -231,4 +231,12 @@ io.sockets.on('connection', function(socket){
 			console.log(error);
 		});
 	});
+	socket.on("got notice", function(data){
+		queries.gotNotice(data).then(function(response){
+			console.log(response);
+		},
+		function(error){
+			console.log(error);
+		});
+	});
 });
