@@ -616,7 +616,7 @@ angular.module('placePeopleApp')
 				}else if(data.isRead){
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId && data.userId !== $scope.loggedUserId){
 						$scope.Model.Chat.forEach(function(value){
-							value.isRead = false;
+							value.isRead = 'read';
 						});
 					}
 				}else{
@@ -633,10 +633,10 @@ angular.module('placePeopleApp')
 										}
 									});
 									if(data.login === $scope.loggedUser){
-										data.isRead = true;
+										data.isRead = 'no-done';
 									}else{
 										$scope.Model.Chat.forEach(function(value){
-											value.isRead = false;
+											value.isRead = 'read';
 										});
 									}
 									$scope.Model.Chat.push(data);
@@ -651,10 +651,10 @@ angular.module('placePeopleApp')
 						}else{
 							data.videos = [];
 							if(data.login === $scope.loggedUser){
-								data.isRead = true;
+								data.isRead = 'no-done';
 							}else{
 								$scope.Model.Chat.forEach(function(value){
-									value.isRead = false;
+									value.isRead = 'read';
 								});
 							}
 							var readMessages = {
