@@ -58,6 +58,7 @@ class PresenceCheckController extends Controller
             $moderator_working->hours_worked += 30;
             $moderator_working->save();
         }
+        return response()->json(["status" => true]);
     }
 
     private function inspection(&$working_time)

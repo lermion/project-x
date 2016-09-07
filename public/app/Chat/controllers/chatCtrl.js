@@ -439,9 +439,6 @@ angular.module('placePeopleApp')
 					$scope.Model.mobile.hideContent	= true;								
 					$state.go('chat.mobile');
 				}
-				$scope.isNeededScroll = function(){
-					return $scope.Model.Chat;
-				}
 				$rootScope.currentChat = chat;
 			};
 			
@@ -608,6 +605,9 @@ angular.module('placePeopleApp')
 						}
 					};
 					$scope.Model.Chat = data.messages.reverse();
+					$scope.isNeededScroll = function(){
+						return $scope.Model.Chat;
+					}
 				}else if(data.isRead){
 					if($scope.Model.opponent !== undefined && $scope.Model.opponent.room_id === data.roomId && data.userId !== $scope.loggedUserId){
 						$scope.Model.Chat.forEach(function(value){
@@ -920,7 +920,7 @@ angular.module('placePeopleApp')
 
 			$scope.Model.cancelEditGroupChat = function(){
 				editGroupChat.close();
-			}
+			};
 
 			$scope.Model.createGroupChat = function(name, status){
 				var statusToSave = $(".ngdialog .emoji-wysiwyg-editor")[0].innerHTML + ' messagetext: ' + status.messagetext;
