@@ -231,7 +231,7 @@ Queries.prototype.getUserDialogue = function(data){
 						}else{
 							for(var i = 0; i < isRead[0]['COUNT(message_id)']; i++){
 								if (result[i] !== undefined) {
-									result[i].isRead = true;
+									result[i].isRead = 'no-done';
 								}
 							}
 						}
