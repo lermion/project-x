@@ -56,28 +56,54 @@ class Publication extends Model
 
     public static function getMainPublication($offset,$limit,$userId = null)
     {
-        $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
-            ->where(['is_topic'=> true])
-            ->orWhere(function ($query) use ($userId) {
-                $query->where(function($q){
-                    $q->where(['is_main'=> true]);
-                    $q->where(function($quer){
-                        $quer->where('is_moderate',true);
-                        $quer->orWhere(['user_id'=>Auth::id(),'in_profile'=>false]);
-                    });
-                })
-                    ->orWhere(function ($query) use ($userId) {
-                        $query->whereExists(function ($query) use ($userId) {
-                            $query->select(DB::raw('subscribers.user_id'))
-                                ->from('subscribers')
-                                ->where('subscribers.user_id_sub', $userId)
-                                ->where('subscribers.is_confirmed', true)
-                                ->where('publications.is_main',false)
-                                ->where('publications.is_topic',false)
-                                ->whereRaw('subscribers.user_id = publications.user_id');
+        $moderate_publication = Option::pluck('moderate_publication');
+        if ($moderate_publication[0] == 1) {
+            $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
+                ->where(['is_topic' => true])
+                ->orWhere(function ($query) use ($userId) {
+                    $query->where(function ($q) {
+                        $q->where(['is_main' => true]);
+                        $q->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
+                    })
+                        ->orWhere(function ($query) use ($userId) {
+                            $query->whereExists(function ($query) use ($userId) {
+                                $query->select(DB::raw('subscribers.user_id'))
+                                    ->from('subscribers')
+                                    ->where('subscribers.user_id_sub', $userId)
+                                    ->where('subscribers.is_confirmed', true)
+                                    ->where('publications.is_main', false)
+                                    ->where('publications.is_topic', false)
+                                    ->whereRaw('subscribers.user_id = publications.user_id');
+                            });
                         });
-                    });
-            })
+                })
+                ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+        }
+        else {
+            $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
+                ->where(['is_topic' => true])
+                ->orWhere(function ($query) use ($userId) {
+                    $query->where(function ($q) {
+                        $q->where(['is_main' => true]);
+                        $q->where(function ($quer) {
+                            $quer->where('is_moderate', true);
+                            $quer->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
+                        });
+                    })
+                        ->orWhere(function ($query) use ($userId) {
+                            $query->whereExists(function ($query) use ($userId) {
+                                $query->select(DB::raw('subscribers.user_id'))
+                                    ->from('subscribers')
+                                    ->where('subscribers.user_id_sub', $userId)
+                                    ->where('subscribers.is_confirmed', true)
+                                    ->where('publications.is_main', false)
+                                    ->where('publications.is_topic', false)
+                                    ->whereRaw('subscribers.user_id = publications.user_id');
+                            });
+                        });
+                })
+                ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+        }
 //            ->where(function($query){
 //                $query->whereNotExists(function($query)
 //                {
@@ -94,7 +120,6 @@ class Publication extends Model
 //                        ->whereRaw('group_publications.publication_id = publications.id');
 //                });
 //            })
-            ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
         foreach ($publications as &$publication) {
             //$publication->comments = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->toArray();
             $publication_coment = $publication->comments()->with(['images', 'videos', 'user'])->orderBy('id', 'desc')->take(3)->get();
