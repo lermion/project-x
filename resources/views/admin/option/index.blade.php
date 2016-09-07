@@ -57,6 +57,12 @@
                                 <label for="cmn-toggle-2"></label>
                             </div>
                         </div>
+                        <div class="admin-settings-limit-toggle-btn"><span>Закрытая регистрайия</span>
+                            <div class="switch">
+                                <input id="cmn-toggle-3" class="cmn-toggle cmn-toggle-round" type="checkbox" @if ($option->closed_registration == true)checked @endif  name="closed_registration">
+                                <label for="cmn-toggle-3"></label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>

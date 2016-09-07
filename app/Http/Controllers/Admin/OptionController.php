@@ -49,6 +49,11 @@ class OptionController extends Controller
         } else {
             $optionData['moderate_publication'] = false;
         }
+        if ($request->input('closed_registration') == 'on'){
+            $optionData['closed_registration'] = true;
+        } else {
+            $optionData['closed_registration'] = false;
+        }
         $option = Option::first();
         $option->update($optionData);
         return redirect('admin/option/')->with('message', 'Сохраненно');
