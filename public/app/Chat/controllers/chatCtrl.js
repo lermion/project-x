@@ -593,6 +593,11 @@ angular.module('placePeopleApp')
 			$scope.returnToBack = function(messageId){
 				$location.hash(messageId + "");
 			}
+			socket.on("done message", function(data){
+				if(data.doneMessage){
+					console.log("done!!!");
+				}
+			});
 			socket.forward('updatechat', $scope);
 			$scope.$on('socket:updatechat', function(event, data){
 				if($scope.Model.opponent !== undefined && !$scope.Model.opponent.room_id){

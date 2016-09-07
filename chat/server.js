@@ -233,6 +233,7 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on("got notice", function(data){
 		queries.gotNotice(data).then(function(response){
+			io.emit("done message", {doneMessage: true});
 			console.log(response);
 		},
 		function(error){
