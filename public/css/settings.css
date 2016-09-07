@@ -3480,6 +3480,9 @@ span.users-today-time-time.early {
 .right-chat-my-msg-date.no-done {
     background-image: url(/images/no-done.png);
 }
+.right-chat-my-msg-date.read {
+    background-image: url(/images/read.png);
+}
 .right-chat-my-msg-date span {
     font-family: "SFUIDisplayMedium";
     font-size: 11px;
@@ -3569,6 +3572,9 @@ span.users-today-time-time.early {
 }
 .right-chat-to-my-msg-date.no-done {
     background-image: url(/images/no-done.png);
+}
+.right-chat-to-my-msg-date.read {
+    background-image: url(/images/read.png);
 }
 .right-chat-to-my-msg-date span {
     font-family: "SFUIDisplayMedium";
