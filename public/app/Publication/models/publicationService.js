@@ -164,9 +164,15 @@ angular.module('placePeopleApp')
             data.append('is_anonym', publication.isAnonym ? 1 : 0);
             data.append('is_main', publication.isMain);
 
+
             publication.images.forEach(function (img) {
                 data.append('images[]', img, img.name);
             });
+            if (publication.originalImages.length > 0) {
+                publication.originalImages.forEach(function (img) {
+                    data.append('original_images[]', img, img.name);
+                });
+            }
 
             data.append('cover', publication.cover, publication.cover.name);
 
@@ -207,6 +213,7 @@ angular.module('placePeopleApp')
                     data.append('images[]', img, img.name);
                 });
             }
+
 
             if (pub.videos.length > 0) {
                 pub.videos.forEach(function (video) {
