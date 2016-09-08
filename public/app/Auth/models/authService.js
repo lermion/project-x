@@ -14,12 +14,25 @@ angular.module('placePeopleApp')
 			validateRestoreSms: validateRestoreSms,
 			changePwd: changePwd,
 			isClosedRegistration: isClosedRegistration,
-			checkInviteCode: checkInviteCode
+			checkInviteCode: checkInviteCode,
+			getAreas: getAreas
 		}
 
-		function getCountries(){                
+		function getCountries(){
 			var defer = $q.defer();
 				$http.get(path + 'country/')
+					.success(function (response){
+						defer.resolve(response);
+					})
+					.error(function (error){
+						defer.reject(error);
+					});
+			return defer.promise;
+		}
+
+		function getAreas(){
+			var defer = $q.defer();
+				$http.get("auth/get_scope")
 					.success(function (response){
 						defer.resolve(response);
 					})

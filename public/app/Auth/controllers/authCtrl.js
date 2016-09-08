@@ -77,6 +77,17 @@ angular.module('placePeopleApp')
 				$state.go('login');
 			};
 
+			function getAreas(){
+				AuthService.getAreas().then(function(response){
+					$scope.areas = response;
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+
+			getAreas();
+
 			$scope.regWithCode = function(code){
 				AuthService.checkInviteCode(code).then(function(response){
 					if(response.status){
