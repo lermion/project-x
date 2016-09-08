@@ -160,7 +160,7 @@ class AuthController extends Controller
     }
 
     public function getScope(){
-        $scope = Scope::get();
+        $scope = Scope::orderBy('order')->get();
         return response()->json($scope);
     }
 
