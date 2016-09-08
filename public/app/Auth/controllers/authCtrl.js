@@ -77,24 +77,13 @@ angular.module('placePeopleApp')
 				$state.go('login');
 			};
 
-			$scope.registrationPage = function(){
-				AuthService.isClosedRegistration().then(function(response){
-					if(response){
-						$state.go('invite');
-					}else{
-						$state.go("reg");
-					}
-				},
-				function(error){
-					console.log(error);
-				});
-			};
-
 			$scope.regWithCode = function(code){
 				AuthService.checkInviteCode(code).then(function(response){
 					if(response.status){
+						$rootScope.isRightCode = true;
 						$state.go("reg");
 					}else{
+						$rootScope.isRightCode = false;
 						$scope.wrongCode = true;
 					}
 				},
