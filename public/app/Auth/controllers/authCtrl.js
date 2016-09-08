@@ -90,6 +90,15 @@ angular.module('placePeopleApp')
 				});
 			};
 
+			$scope.regWithCode = function(code){
+				// AuthService.checkInviteCode(code).then(function(response){
+				// 	console.log(response);
+				// },
+				// function(error){
+				// 	console.log(error);
+				// });
+			};
+
 			$scope.pwdRestore = function () {
 				state.go('restore');
 			};
