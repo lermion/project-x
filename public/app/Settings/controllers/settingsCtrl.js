@@ -133,6 +133,13 @@ angular.module('placePeopleApp')
 		}
 	};
 
+	$scope.checkAll = function(){
+		$scope.areas.forEach(function(value){
+			value.active = false;
+			$scope.checkedAreas = [];
+		});
+	};
+
 	$scope.areas = getAreas();
 
 	$scope.changeShowAvatar = function(flag){			
