@@ -226,6 +226,18 @@ angular.module('placePeopleApp')
 							}
 							$state.go(toState.name, toParams);
 						}
+						if(toState.name === "reg"){
+							AuthService.isClosedRegistration().then(function(response){
+								if(response && !$rootScope.isRightCode){
+									$state.go('invite');
+								}else{
+									$state.go("reg");
+								}
+							},
+							function(error){
+								console.log(error);
+							});
+						}
 					}
 				}
 
