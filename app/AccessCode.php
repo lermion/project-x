@@ -22,6 +22,18 @@ class AccessCode extends Model
         }
     }
 
+    public static function generateCodes()
+    {
+        $i = 0;
+        while ($i <= 99) {
+            $code = self::generator();
+            $exist = AccessCode::create(['code' => $code]);
+            if ($exist) {
+                $i++;
+            }
+        }
+    }
+
     public static function generator()
     {
             $result = '';
