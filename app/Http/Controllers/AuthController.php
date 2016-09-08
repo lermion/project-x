@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\AccessCode;
 use App\BlackList;
+use App\IncorrectCode;
 use App\Online;
 use App\Option;
 use App\SMS;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
 use Validator;
 
@@ -152,5 +156,55 @@ class AuthController extends Controller
        $closed_registration = Option::pluck('closed_registration');
         $result = $closed_registration[0]==0 ? false : true;
         return response()->json($result);
+    }
+
+    public function verificationCode($code){
+
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $time = Carbon::now()->subDay()->toDateTimeString();
+        IncorrectCode::where('updated_at','<',$time)->delete();
+        $user = IncorrectCode::where('ip',$ip)->first();
+        if ($user['col_error'] > 10){
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => "Protection against brute force",
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        } else {
+            $correct_code = AccessCode::where(['code'=>$code,'invited_user_id'=>null])->first();
+            if ($correct_code){
+                Session::put('code',$code);
+                $result = [
+                    "status" => true
+                ];
+                return response()->json($result);
+            } else {
+                if ($user){
+                    $user->col_error++;
+                    $user->save();
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => "Wrong code",
+                            'code' => '2'
+                        ]
+                    ];
+                    return response()->json($result);
+                } else {
+                    IncorrectCode::create(['ip'=>$ip,'col_error'=>1]);
+                    $result = [
+                        "status" => false,
+                        "error" => [
+                            'message' => "Wrong code",
+                            'code' => '2'
+                        ]
+                    ];
+                    return response()->json($result);
+                }
+            }
+        }
     }
 }

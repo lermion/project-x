@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AccessCode;
 use App\Option;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,15 @@ class OptionController extends Controller
     {
         $option = Option::first();
         return view('admin.option.index')->with('option', $option);
+    }
+
+    public function generateCodes()
+    {
+        if(AccessCode::generateCodes()) {
+            return redirect()->back()->with('message', 'Коды сгенерированны');
+        } else {
+            return redirect()->back()->with('message', 'Ошибка!!! Коды не сгенерированны');
+        }
     }
 
     public function create(Request $request)

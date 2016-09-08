@@ -72,6 +72,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\OptionController@index');
                 Route::post('create', 'Admin\OptionController@create');
                 Route::post('main_picture', 'Admin\OptionController@mainPicture');
+                Route::get('generate_codes', 'Admin\OptionController@generateCodes');
                 // Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
             Route::group(['prefix' => 'complaints'], function () {
@@ -165,6 +166,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('create', 'AuthController@store');
         Route::post('check_sms', 'AuthController@checkSMSCode');
         Route::get('closed_registration', 'AuthController@closedRegistration');
+        Route::get('verification_code/{code}', 'AuthController@verificationCode');
         Route::get('log_out', 'AuthController@logOut');
     });
     Route::group(['prefix' => 'user'], function () {
@@ -356,7 +358,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/auth/closed_registration\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/auth/verification_code/006610348\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='offset' ><br>
              <input type='text' name='limit' ><br>
              <input type='number' name='message_id' ><br>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AccessCode;
 use App\Online;
+use App\Option;
 use App\Publication;
 use App\Subscriber;
 use App\User;
@@ -149,6 +150,18 @@ class UserController extends Controller
             }
             $user->original_avatar_path = $path;
         }
+
+        $closed_registration = Option::pluck('closed_registration');
+        if($closed_registration[0] == true) {
+            $code = $request->session()->get('code');
+            $correct_code = AccessCode::where(['code' => $code])->first();
+            $correct_code->invited_user_id = $userId;
+            $correct_code->save();
+            $user_id_sub = $correct_code->user_id;
+            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $user_id_sub, 'is_confirmed' => true]);
+            Subscriber::create(['user_id' => $user_id_sub, 'user_id_sub' => $userId, 'is_confirmed' => true]);
+        }
+
         AccessCode::generateCode($userId);
         $user->save();
         return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);
@@ -161,7 +174,7 @@ class UserController extends Controller
         foreach ($codes as $code){
             $result[] = [
                 'code' => $code->code,
-                'isUsed' => $code->invited_user_id == null ? true : false
+                'isUsed' => $code->invited_user_id == null ? false : true
             ];
         }
         return response()->json($result);
