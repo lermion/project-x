@@ -29,9 +29,9 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		}
 
-		function checkInviteCode(){
+		function checkInviteCode(code){
 			var defer = $q.defer();
-				$http.get("")
+				$http.get("auth/verification_code/" + code)
 					.success(function (response){
 						defer.resolve(response);
 					})

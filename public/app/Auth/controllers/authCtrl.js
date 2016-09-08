@@ -91,12 +91,16 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.regWithCode = function(code){
-				// AuthService.checkInviteCode(code).then(function(response){
-				// 	console.log(response);
-				// },
-				// function(error){
-				// 	console.log(error);
-				// });
+				AuthService.checkInviteCode(code).then(function(response){
+					if(response.status){
+						$state.go("reg");
+					}else{
+						$scope.wrongCode = true;
+					}
+				},
+				function(error){
+					console.log(error);
+				});
 			};
 
 			$scope.pwdRestore = function () {
