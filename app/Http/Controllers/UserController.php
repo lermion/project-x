@@ -158,8 +158,10 @@ class UserController extends Controller
             $correct_code->invited_user_id = $userId;
             $correct_code->save();
             $user_id_sub = $correct_code->user_id;
-            Subscriber::create(['user_id' => $userId, 'user_id_sub' => $user_id_sub, 'is_confirmed' => true]);
-            Subscriber::create(['user_id' => $user_id_sub, 'user_id_sub' => $userId, 'is_confirmed' => true]);
+            if ($user_id_sub) {
+                Subscriber::create(['user_id' => $userId, 'user_id_sub' => $user_id_sub, 'is_confirmed' => true]);
+                Subscriber::create(['user_id' => $user_id_sub, 'user_id_sub' => $userId, 'is_confirmed' => true]);
+            }
         }
 
         AccessCode::generateCode($userId);
