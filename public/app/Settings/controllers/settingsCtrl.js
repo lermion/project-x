@@ -3,6 +3,7 @@ angular.module('placePeopleApp')
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
 		$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
+		$scope.loggedUserId = storage.userId;
 		//$scope.loggedUser = storage.username;
 
 		$http.get('/static_page/get/name')
@@ -162,54 +163,28 @@ angular.module('placePeopleApp')
 				});
 	};
 	$scope.changeLockProfile = function(flag){		
-		UserService.changeLockProfile(flag ? 1 : 0)
-			.then(
-				function(res){
-					if (res.status) {
-						$scope.userData = res.user;
-						$scope.isPrivate = res.user.is_private;
-					}
-				}, 
-				function(err){
-					console.log(err);
-				});
-	};
-
-	var getRegistrationKeys = function(){
-		var registrationKeys = [
-			{
-				code: 12345678,
-				isUsed: true
-			},
-			{
-				code: 54354354,
-				isUsed: false
-			},
-			{
-				code: 87876887,
-				isUsed: true
-			},
-			{
-				code: 43265342,
-				isUsed: false
-			},
-			{
-				code: 65764534,
-				isUsed: true
-			},
-			{
-				code: 76574412,
-				isUsed: false
-			},
-			{
-				code: 54364325,
-				isUsed: true
+		UserService.changeLockProfile(flag ? 1 : 0).then(function(res){
+			if(res.status){
+				$scope.userData = res.user;
+				$scope.isPrivate = res.user.is_private;
 			}
-		];
-		return registrationKeys;
+		}, 
+		function(err){
+			console.log(err);
+		});
 	};
 
-	$scope.registrationKeys = getRegistrationKeys();
+	function getRegistrationKeys(){
+		UserService.getRegistrationKeys($scope.loggedUserId).then(function(response){
+			console.log(response);
+			$scope.registrationKeys = response;
+		}, 
+		function(error){
+			console.log(error);
+		});
+	};
+
+	getRegistrationKeys();
 
 	$scope.myImage='';
 	$scope.myCroppedImage='';
