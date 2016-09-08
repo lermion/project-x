@@ -595,7 +595,11 @@ angular.module('placePeopleApp')
 			}
 			socket.on("done message", function(data){
 				if(data.doneMessage){
-					console.log("done!!!");
+					$scope.Model.Chat.forEach(function(value){
+						if(value.isRead === "no-done"){
+							value.isRead = "done";
+						}
+					});
 				}
 			});
 			socket.forward('updatechat', $scope);
