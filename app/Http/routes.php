@@ -156,6 +156,10 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('confirm_place/{id}', 'Admin\ModerationController@confirmPlace');
                 Route::get('note_place/{id}', 'Admin\ModerationController@notePlace');
             });
+            Route::group(['prefix' => 'scope'], function () {
+                Route::post('/', 'Admin\ScopeController@index');
+                Route::post('create', 'Admin\ScopeController@create');
+            });
 
         });
         Route::get('login', 'Admin\AuthController@login');
@@ -167,6 +171,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('check_sms', 'AuthController@checkSMSCode');
         Route::get('closed_registration', 'AuthController@closedRegistration');
         Route::get('verification_code/{code}', 'AuthController@verificationCode');
+        Route::get('get_scope', 'AuthController@getScope');
         Route::get('log_out', 'AuthController@logOut');
     });
     Route::group(['prefix' => 'user'], function () {
@@ -216,54 +221,6 @@ Route::group(['middleware' => ['web']], function () {
             });
         });
     });
-
-//    Route::group(['prefix' => 'moderator'], function () {
-//        Route::group(['middleware' => 'moderator'], function () {
-//            Route::get('/', 'Moderator\IndexController@index');
-//            Route::get('edit', 'Moderator\IndexController@edit');
-//            Route::post('update', 'Moderator\IndexController@update');
-//            Route::get('logout', 'Moderator\AuthController@logout');
-//            Route::get('comments', 'Moderator\ModerateController@comments');
-//            Route::get('delete_comment/{id}', 'Moderator\ModerateController@delete_comment');
-//            Route::get('comment_complaints', 'Moderator\ModerateController@comment_complaints');
-//            Route::get('delete_complaint_comment/{id}', 'Moderator\ModerateController@delete_complaint_comment');
-//            Route::get('publication_complaints', 'Moderator\ModerateController@publication_complaints');
-//            Route::get('delete_complaint_publication/{id}', 'Moderator\ModerateController@delete_complaint_publication');
-//            Route::get('getPublication', 'Moderator\ModerateController@getPublication');
-//            Route::get('getGroups', 'Moderator\ModerateController@getGroups');
-//            Route::post('blockGroup/{id}', 'Moderator\ModerateController@blockGroup');
-//            Route::get('confirmGroup/{id}', 'Moderator\ModerateController@confirmGroup');
-//            Route::get('getPlaces', 'Moderator\ModerateController@getPlaces');
-//            Route::post('blockPlace/{id}', 'Moderator\ModerateController@blockPlace');
-//            Route::get('confirmPlace/{id}', 'Moderator\ModerateController@confirmPlace');
-//            Route::get('topic/{id}', 'Moderator\ModerateController@topic');
-//            Route::post('blockPublication/{id}', 'Moderator\ModerateController@blockPublication');
-//            Route::get('confirmPublication/{id}', 'Moderator\ModerateController@confirmPublication');
-//            Route::get('count_complaint_comment', 'Moderator\ModerateController@count_complaint_comment');
-//            Route::get('count_complaint_publication', 'Moderator\ModerateController@count_complaint_publication');
-//            Route::group(['prefix' => 'moderate'], function () {
-//                Route::get('/', 'Moderator\ModerateController@index');
-//                Route::get('confirm/{id}', 'Moderator\ModerateController@confirm');
-//                Route::get('topic/{id}', 'Moderator\ModerateController@topic');
-//                Route::post('block/{id}', 'Moderator\ModerateController@block');
-//            });
-//            Route::group(['prefix' => 'users'], function () {
-//                Route::get('/', 'Moderator\UserController@index');
-//                Route::get('confirm/{id}', 'Moderator\UserController@confirm');
-//                Route::get('review/{id}', 'Moderator\UserController@review');
-//                Route::get('suspicious/{id}', 'Moderator\UserController@suspicious');
-//                Route::get('delete/{id}', 'Moderator\UserController@destroy');
-//                Route::get('show/{id}', 'Moderator\UserController@show');
-//                Route::get('get_confirm', 'Moderator\UserController@getConfirm');
-//                Route::get('get_review', 'Moderator\UserController@getReview');
-//                Route::get('get_suspicious', 'Moderator\UserController@getSuspicious');
-//                Route::get('new_count_users', 'Moderator\UserController@newCountUsers');
-//            });
-//        });
-//        Route::get('login', 'Moderator\AuthController@login');
-//        Route::post('auth', 'Moderator\AuthController@auth');
-//
-//    });
 
     Route::group(['prefix' => 'publication'], function () {
         Route::post('/', 'PublicationController@index');
@@ -358,11 +315,11 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/auth/verification_code/006610348\" method=\"get\" enctype=\"multipart/form-data\">
-             <input type='text' name='offset' ><br>
+        echo "<form action=\"http://pp.dev/auth/get_scope\" method=\"get\" enctype=\"multipart/form-data\">
+             <input type='text' name='name' ><br>
              <input type='text' name='limit' ><br>
-             <input type='number' name='message_id' ><br>
-             <input type='file' name='videos[]'><br>
+             <input type='number' name='order' ><br>
+             <input type='file' name='img'><br>
              <input type=\"submit\">
               </form>";
     });

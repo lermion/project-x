@@ -138,19 +138,6 @@ class UserController extends Controller
         $user = User::find($userId);
         $user->update($request->all());
         $user->password = bcrypt($password);
-        $user->save();
-        Auth::attempt(['login' => $user->login, 'password' => $password]);
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $path = $this->getAvatarPath($avatar);
-            $user->avatar_path = $path;
-            if ($request->hasFile('original_avatar')) {
-                $originalAvatar = $request->file('original_avatar');
-                $path = $this->getAvatarPath($originalAvatar);
-            }
-            $user->original_avatar_path = $path;
-        }
-
         $closed_registration = Option::pluck('closed_registration');
         if($closed_registration[0] == true) {
             $code = $request->session()->get('code');
@@ -163,8 +150,19 @@ class UserController extends Controller
                 Subscriber::create(['user_id' => $user_id_sub, 'user_id_sub' => $userId, 'is_confirmed' => true]);
             }
         }
-
         AccessCode::generateCode($userId);
+        $user->save();
+        Auth::attempt(['login' => $user->login, 'password' => $password]);
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $path = $this->getAvatarPath($avatar);
+            $user->avatar_path = $path;
+            if ($request->hasFile('original_avatar')) {
+                $originalAvatar = $request->file('original_avatar');
+                $path = $this->getAvatarPath($originalAvatar);
+            }
+            $user->original_avatar_path = $path;
+        }
         $user->save();
         return response()->json(["status" => true, 'user' => $user, 'user_id' => $user->id, 'login' => $user->login]);
     }

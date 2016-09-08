@@ -7,6 +7,7 @@ use App\BlackList;
 use App\IncorrectCode;
 use App\Online;
 use App\Option;
+use App\Scope;
 use App\SMS;
 use App\User;
 use Carbon\Carbon;
@@ -156,6 +157,11 @@ class AuthController extends Controller
        $closed_registration = Option::pluck('closed_registration');
         $result = $closed_registration[0]==0 ? false : true;
         return response()->json($result);
+    }
+
+    public function getScope(){
+        $scope = Scope::get();
+        return response()->json($scope);
     }
 
     public function verificationCode($code){
