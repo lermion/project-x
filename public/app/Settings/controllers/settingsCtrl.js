@@ -176,7 +176,6 @@ angular.module('placePeopleApp')
 
 	function getRegistrationKeys(){
 		UserService.getRegistrationKeys($scope.loggedUserId).then(function(response){
-			console.log(response);
 			$scope.registrationKeys = response;
 		}, 
 		function(error){
