@@ -78,7 +78,7 @@
 					<label for="selectedAll">Все</label>
 				</li>
 				<li ng-repeat="area in areas">
-					<input ng-disabled="checkedAreas.length === checkedLimit && !active" type="checkbox" id="{{area.id}}" ng-model="active" ng-change="checkedArea(active, area)">
+					<input ng-disabled="checkedAreas.length === checkedLimit && !area.active" type="checkbox" id="{{area.id}}" ng-model="area.active" ng-change="checkedArea(area.active, area)">
 					<label for="{{area.id}}">{{area.name}}</label>
 				</li>
 			</ul>

@@ -77,6 +77,19 @@ angular.module('placePeopleApp')
 				$state.go('login');
 			};
 
+			$scope.registrationPage = function(){
+				AuthService.isClosedRegistration().then(function(response){
+					if(response){
+						$state.go('invite');
+					}else{
+						$state.go("reg");
+					}
+				},
+				function(error){
+					console.log(error);
+				});
+			};
+
 			$scope.pwdRestore = function () {
 				state.go('restore');
 			};

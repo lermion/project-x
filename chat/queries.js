@@ -196,7 +196,6 @@ Queries.prototype.getUserDialogue = function(data){
 			});
 		}else{
 			connection.query("SELECT (SELECT last_message_id FROM received_messages WHERE last_message_id = (SELECT message_id FROM user_rooms_messages WHERE room_id = " + data.room_id + " ORDER BY message_id DESC LIMIT 1)) as last_message_id,  messages.id, messages.text, messages.created_at, messages.updated_at, users.first_name, users.last_name, users.login, users.avatar_path FROM `messages` INNER JOIN user_rooms_messages ON user_rooms_messages.message_id = messages.id INNER JOIN users ON messages.user_id = users.id WHERE user_rooms_messages.room_id = " + data.room_id + " ORDER BY messages.id DESC LIMIT " + data.limit + " OFFSET " + data.offset + "", function(error, result){
-				console.log(result);
 				var response = [];
 		if(error){
 			console.log("error to get user dialogue: " + error.stack);
@@ -232,7 +231,7 @@ Queries.prototype.getUserDialogue = function(data){
 						}else{
 							for(var i = 0; i < isRead[0]['COUNT(message_id)']; i++){
 								if (result[i] !== undefined) {
-									result[i].isRead = true;
+									result[i].isRead = 'no-done';
 								}
 							}
 						}

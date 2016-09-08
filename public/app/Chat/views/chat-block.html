@@ -91,7 +91,7 @@
 						</span>
 					</div>
 				</div>
-				<div ng-class="(message.login ===$root.user.username ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (!message.isRead ? 'read' : 'no-done')">
+				<div ng-class="(message.login ===$root.user.username ? 'right-chat-my-msg-date' : 'right-chat-to-my-msg-date') + ' ' + (message.isRead === 'no-done' ? 'no-done' : message.isRead === 'done' ? 'done' : 'read')">
 					<span>{{message.created_at | amDateFormat:'HH:mm'}}</span>
 				</div>
 			</div>
