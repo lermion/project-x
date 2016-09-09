@@ -1,56 +1,14 @@
 <div>
 		<div class="check-in" ng-hide="regConfirmed">
 			   <div class="form">
-			   			<div class="reg-regions-list">
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Москва</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Санкт-Петербург</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Екатеринбург</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Новосибирск</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Уфа</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Воронеж</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Вологда</p>
-			   				</div>
-			   				<div class="region-name">
-			   					<span>
-			   						<img class="region-img" src="https://pbs.twimg.com/profile_images/708664863535398912/H6FEoTRL_400x400.jpg" alt="">
-			   					</span>
-			   					<p>Рязань</p>
-			   				</div>
-			   			</div>
+						<div class="reg-regions-list">
+							<div class="region-name" ng-repeat="area in areas">
+								<span>
+									<img class="region-img" ng-src="{{area.img}}" alt="">
+								</span>
+								<a ng-click="selectArea(area.id)" href="javascript:void(0);">{{area.name}}</a>
+							</div>
+						</div>
 						<div class="logo"></div>
 						<h1>С теми, кто в теме</h1>
 						<div class="form-item" ng-hide="regStep1">

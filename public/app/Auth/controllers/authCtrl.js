@@ -77,6 +77,17 @@ angular.module('placePeopleApp')
 				$state.go('login');
 			};
 
+			function getAreas(){
+				AuthService.getAreas().then(function(response){
+					$scope.areas = response;
+				},
+				function(error){
+					console.log(error);
+				});
+			}
+
+			getAreas();
+
 			$scope.regWithCode = function(code){
 				AuthService.checkInviteCode(code).then(function(response){
 					if(response.status){
@@ -104,6 +115,12 @@ angular.module('placePeopleApp')
 						$scope.phoneCode = country.code;
 					}
 				});
+			};
+
+			$scope.checkedAreas = [];
+
+			$scope.selectArea = function(areaId){
+				$scope.checkedAreas.push(areaId);
 			};
 
 			$scope.calcPadding = function () {
@@ -294,7 +311,7 @@ angular.module('placePeopleApp')
 					$scope.regLoader = false;
 					return;
 				}
-				AuthService.registerUser(firstName, lastName, gender, login, pwd, countryId, $scope.croppedImg, uId, $scope.originalImageBlobFile)
+				AuthService.registerUser(firstName, lastName, gender, login, pwd, countryId, $scope.croppedImg, uId, $scope.originalImageBlobFile, $scope.checkedAreas)
 					.then(function (res) {
 						if (res.status) {
 							$scope.regLoader = false;

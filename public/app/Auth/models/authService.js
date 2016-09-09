@@ -14,12 +14,25 @@ angular.module('placePeopleApp')
 			validateRestoreSms: validateRestoreSms,
 			changePwd: changePwd,
 			isClosedRegistration: isClosedRegistration,
-			checkInviteCode: checkInviteCode
+			checkInviteCode: checkInviteCode,
+			getAreas: getAreas
 		}
 
-		function getCountries(){                
+		function getCountries(){
 			var defer = $q.defer();
 				$http.get(path + 'country/')
+					.success(function (response){
+						defer.resolve(response);
+					})
+					.error(function (error){
+						defer.reject(error);
+					});
+			return defer.promise;
+		}
+
+		function getAreas(){
+			var defer = $q.defer();
+				$http.get("auth/get_scope")
 					.success(function (response){
 						defer.resolve(response);
 					})
@@ -84,7 +97,7 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		   }
 
-		function registerUser(first, last, gender, login, pwd, countryId, avatar, userId, originalAvatar){           
+		function registerUser(first, last, gender, login, pwd, countryId, avatar, userId, originalAvatar, checkedAreas){
 			var data = new FormData();
 			data.append('first_name', first);
 			data.append('last_name', last);
@@ -92,8 +105,11 @@ angular.module('placePeopleApp')
 			data.append('login', login);
 			data.append('password', pwd);
 			data.append('country_id', countryId);
-			data.append('avatar', avatar);            
-			data.append('original_avatar', originalAvatar);            
+			data.append('avatar', avatar);
+			data.append('original_avatar', originalAvatar);
+			checkedAreas.forEach(function(area){
+                data.append('scopes[]', area);
+            });
 			var config = {
 					headers: {
 						'Content-Type': undefined
