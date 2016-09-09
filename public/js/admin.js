@@ -35,6 +35,7 @@ function readURL(input){
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			$('.admin-moderator-avatar img').attr('src', e.target.result).width(150).height(200);
+			$('img.previewIcon').attr('src', e.target.result).width(150).height(200);
 		};
 		reader.readAsDataURL(input.files[0]);
 	}
