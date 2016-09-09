@@ -96,6 +96,7 @@
 						@endforeach
 						</tbody>
 					</table>
+					<button style="float: left;" class="mg-l btn btn-primary">Добавить область</button>
 				</div>
 				<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
 			</form>
