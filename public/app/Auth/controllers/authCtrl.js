@@ -76,16 +76,19 @@ angular.module('placePeopleApp')
 				$scope.hideForm = true;
 				$state.go('login');
 			};
-
 			function getAreas(){
 				AuthService.getAreas().then(function(response){
 					$scope.areas = response;
-					$scope.topics = response;
-					$scope.getTopics = function(){
-						var newList = angular.copy(response);
-						newList.unshift({name: "Выберите тему..."});
-						return newList;
-					}
+					$scope.topics = angular.copy(response);
+					$scope.topics.unshift({
+						name: "Выберите тему...",
+						id: 0
+					});
+					$scope.topics.push({
+						name: "Другое",
+						id: response[response.length - 1].id + 1
+					});
+					$scope.selectedOption = $scope.topics[0];
 				},
 				function(error){
 					console.log(error);
@@ -130,8 +133,14 @@ angular.module('placePeopleApp')
 
 			$scope.checkedAreas = [];
 
-			$scope.selectArea = function(areaId){
-				$scope.checkedAreas.push(areaId);
+			$scope.selectArea = function(index, areaId){
+				$scope.checkedAreas[0] = areaId;
+				$scope.currentIndex = index;
+				$scope.selectedOption = $scope.areas[index];
+			};
+
+			$scope.isSelected = function(index){
+				return index === $scope.currentIndex;
 			};
 
 			$scope.calcPadding = function () {
@@ -236,7 +245,8 @@ angular.module('placePeopleApp')
 			};
 			$scope.showAnotherTopic = false;
 			$scope.changeTopic = function(selectedOption){
-				if(selectedOption.val === 7){
+				$scope.checkedAreas[0] = selectedOption.id;
+				if(selectedOption.name === "Другое"){
 					$scope.showAnotherTopic = true;
 				}else{
 					$scope.showAnotherTopic = false;
