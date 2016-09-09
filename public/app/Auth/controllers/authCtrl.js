@@ -81,12 +81,7 @@ angular.module('placePeopleApp')
 					$scope.areas = response;
 					$scope.topics = angular.copy(response);
 					$scope.topics.unshift({
-						name: "Выберите тему...",
-						id: 0
-					});
-					$scope.topics.push({
-						name: "Другое",
-						id: response[response.length - 1].id + 1
+						name: "Выберите тему..."
 					});
 					$scope.selectedOption = $scope.topics[0];
 				},
