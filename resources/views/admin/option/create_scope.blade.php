@@ -16,7 +16,7 @@
 			<span class="line-h"><b>Иконка</b></span>
 		</div>
 		<div class="col-md-3">
-			<label style="cursor: pointer;" class="line-h" for="addIcon"><img class="previewIcon" src="/images/name.png"></label>
+			<label style="cursor: pointer;" class="line-h" for="addIcon"><img style="margin-top: 5px;" class="previewIcon" src="/images/name.png"></label>
 			<input id="addIcon" onchange="readURL(this);" style="display: none;" type="file" required>
 		</div>
 	</div>
