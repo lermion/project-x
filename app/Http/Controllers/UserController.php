@@ -43,6 +43,7 @@ class UserController extends Controller
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
         $user->publications_count = Publication::getCountUserPublication($user->id);
+        $user->scopes = $user->scopes()->get();
         if (!$user->is_avatar)
             $user->avatar_path = '';
         return $user;
@@ -63,6 +64,7 @@ class UserController extends Controller
                 'phone' => 'unique:users|numeric|min:5',
                 'login' => 'unique:users',
                 'is_visible' => 'boolean',
+                'scopes' => 'required|array|max:3',
                 'is_avatar' => 'boolean'
             ]);
         } catch (\Exception $ex) {
@@ -87,6 +89,13 @@ class UserController extends Controller
             return response()->json($result);
         } else {
             $user->update($request->all());
+            $desired_scope = $request->input('desired_scope');
+//            if ($desired_scope) {
+//                DesiredScope::create(['user_id' => $user->id, 'scope_name' => $desired_scope]);
+//            }
+            $scopes = $request->input('scopes');
+            $user->scopes()->attach($scopes)->delate();
+            $user->scopes()->attach($scopes);
             if ($request->input('is_visible') == false)
                 Online::logOut(Auth::id());
             if ($request->hasFile('avatar')) {
@@ -123,8 +132,7 @@ class UserController extends Controller
                 'password' => 'required|min:6',
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'scopes' => 'required|array'
-                
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
