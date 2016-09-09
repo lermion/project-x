@@ -96,7 +96,7 @@
 						@endforeach
 						</tbody>
 					</table>
-					<button style="float: left;" class="mg-l btn btn-primary">Добавить область</button>
+					<a style="float: left;" class="mg-l btn btn-primary" href="/admin/option/create_scope">Добавить область</a>
 				</div>
 				<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
 			</form>
