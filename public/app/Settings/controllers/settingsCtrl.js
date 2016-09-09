@@ -65,18 +65,15 @@ angular.module('placePeopleApp')
 		return new Blob([ab], { type: 'image/jpeg' });
 	}
 
-	UserService.getUserData(storage.username)
-		.then(
-			function(res){										
-				$scope.userData = res;			
-				$scope.isVisible = res.is_visible;	
-				$scope.isPrivate = res.is_private;	
-				$scope.showAvatar = res.is_avatar;									        
-			},
-			function(err){
-				console.log(err);
-			}
-		);
+	UserService.getUserData(storage.username).then(function(res){
+		$scope.userData = res;
+		$scope.isVisible = res.is_visible;	
+		$scope.isPrivate = res.is_private;	
+		$scope.showAvatar = res.is_avatar;									        
+	},
+	function(err){
+		console.log(err);
+	});
 
 	$scope.openChangeSettings = function(){
 		$scope.settingsEdit = true;
@@ -93,28 +90,6 @@ angular.module('placePeopleApp')
 
 	$scope.saveAreas = function(){
 		console.log("hgewge!!");
-	};
-
-	var getAreas = function(){
-		var areas = [
-			{
-				id: 1,
-				name: "Днепр"
-			},
-			{
-				id: 2,
-				name: "Киев"
-			},
-			{
-				id: 3,
-				name: "Винница"
-			},
-			{
-				id: 4,
-				name: "Москва"
-			}
-		];
-		return areas;
 	};
 
 	$scope.checkedAreas = [];
@@ -134,13 +109,11 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.checkAll = function(){
-		$scope.areas.forEach(function(value){
+		$scope.userData.scopes.forEach(function(value){
 			value.active = false;
 			$scope.checkedAreas = [];
 		});
 	};
-
-	$scope.areas = getAreas();
 
 	$scope.changeShowAvatar = function(flag){			
 		UserService.changeShowAvatar(flag ? 1 : 0)
