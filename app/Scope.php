@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Scope extends Model
 {
     protected $fillable = [
-        'name','img','order'
+        'name','img','order','is_protected'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'scope_users')->withTimestamps();
+    }
+
 }

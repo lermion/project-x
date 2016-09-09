@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AccessCode;
+use App\DesiredScope;
 use App\Online;
 use App\Option;
 use App\Publication;
@@ -121,7 +122,9 @@ class UserController extends Controller
                 'login' => 'required|unique:users',
                 'password' => 'required|min:6',
                 'first_name' => 'required',
-                'last_name' => 'required'
+                'last_name' => 'required',
+                'scopes' => 'required|array'
+                
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -133,11 +136,10 @@ class UserController extends Controller
             ];
             return response()->json($result);
         }
+
         $password = $request->input('password');
         $userId = $request->session()->get('user_id');
         $user = User::find($userId);
-        $user->update($request->all());
-        $user->password = bcrypt($password);
         $closed_registration = Option::pluck('closed_registration');
         if($closed_registration[0] == true) {
             $code = $request->session()->get('code');
@@ -150,6 +152,14 @@ class UserController extends Controller
                 Subscriber::create(['user_id' => $user_id_sub, 'user_id_sub' => $userId, 'is_confirmed' => true]);
             }
         }
+        $desired_scope = $request->input('desired_scope');
+        if ($desired_scope) {
+            DesiredScope::create(['user_id' => $userId, 'scope_name' => $desired_scope]);
+        }
+        $scopes = $request->input('scopes');
+        $user->scopes()->attach($scopes);
+        $user->update($request->all());
+        $user->password = bcrypt($password);
         AccessCode::generateCode($userId);
         $user->save();
         Auth::attempt(['login' => $user->login, 'password' => $password]);

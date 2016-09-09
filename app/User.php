@@ -57,6 +57,16 @@ class User extends Authenticatable
         return $this->subscribers()->where(['user_id_sub'=>$id,'is_confirmed'=>true])->first()!=null;
     }
 
+    public function scopes()
+    {
+        return $this->belongsToMany('App\Scope', 'scope_users')->withTimestamps();
+    }
+
+    public function desired_scopes()
+    {
+        return $this->hasMany('App\DesiredScope');
+    }
+
     public static function getPublication($id)
     {
         $publications = Publication::with(['user', 'videos', 'group', 'images'])
