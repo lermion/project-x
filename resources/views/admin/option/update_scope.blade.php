@@ -16,7 +16,7 @@
 				<tr>
 					<input type="hidden" name="id" value="{{$scopes->id}}">
 					<td><input class="form-control" type="number" name="order" value="{{$scopes->order}}"></td>
-					<td class="text-center"><label for="updateIcon"><img src="{{$scopes->img}}" alt="{{$scopes->img}}" for="updateIcon"><input name="img" style="display: none;" id="updateIcon" type="file"></label></td>
+					<td class="text-center"><label for="updateIcon"><img class="previewIcon" src="{{$scopes->img}}" alt="{{$scopes->img}}" for="updateIcon"><input name="img" style="display: none;" id="updateIcon" onchange="readURL(this);" type="file"></label></td>
 					<td><input class="form-control" type="text" name="name" value="{{$scopes->name}}"></td>
 					<td class="text-center">{{$scopes->counter}}</td>
 				</tr>
