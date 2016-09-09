@@ -93,9 +93,14 @@ angular.module('placePeopleApp')
 					if(response.status){
 						$rootScope.isRightCode = true;
 						$state.go("reg");
-					}else{
+					}else if(!response.status && parseInt(response.error.code) === 2){
 						$rootScope.isRightCode = false;
 						$scope.wrongCode = true;
+						$scope.bruteForceError = false;
+					}else if(!response.status && parseInt(response.error.code) === 1){
+						$rootScope.isRightCode = false;
+						$scope.wrongCode = false;
+						$scope.bruteForceError = true;
 					}
 				},
 				function(error){

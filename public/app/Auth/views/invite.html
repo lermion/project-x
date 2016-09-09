@@ -11,6 +11,7 @@
 							<input id="phone-input" type="text" ng-model="inviteCode" ng-pattern="inviteCodeExp" placeholder="Введите регистрационный код..." required style="padding-left:{{calcPadding()}}px;">
 					</div>                                        
 					<p ng-show="wrongCode" class="capcha-tel">Введенный вами код неверен</p>
+					<p ng-show="bruteForceError" class="capcha-tel">Вы превысили количество попыток не правильного ввода, попробуйте через 24 часа</p>
 					<div class="key-prompt">
 						<p>*Регистрационный код можно получить у зарегистрированных пользователей</p>
 					</div>
