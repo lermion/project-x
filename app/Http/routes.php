@@ -76,6 +76,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('create_scope', 'Admin\OptionController@create_scope');
                 Route::get('update_scope/{id}', 'Admin\OptionController@update_scope');
                 Route::get('delete_scope/{id}', 'Admin\OptionController@delete_scope');
+                Route::post('create_scope_save', 'Admin\OptionController@create_scope_save');
+                Route::post('update_scope_save/{id}', 'Admin\OptionController@update_scope_save');
+                Route::get('delete_scope_save/{id}/{delete_id}', 'Admin\OptionController@delete_scope_save');
                 // Route::post('update_option/{id}', 'Admin\OptionController@update');
             });
             Route::group(['prefix' => 'complaints'], function () {

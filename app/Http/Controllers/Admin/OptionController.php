@@ -48,6 +48,67 @@ class OptionController extends Controller
         return view('admin.option.delete_scope',['scopes'=>$scopes,'counters'=>$counters]);
     }
 
+    public function create_scope_save(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:scopes,name',
+                'img' => 'required|file',
+                'order' => 'required|integer|unique:scopes,order',
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
+        }
+        $data = $request->all();
+        Scope::create($data);
+        return redirect()->back()->with('message', 'Сохраненно');
+    }
+
+    public function update_scope_save($id, Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'unique:scopes,name',
+                'img' => 'file',
+                'order' => 'integer|unique:scopes,order'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
+        }
+        $data = $request->all();
+        $scopes = Scope::find($id);
+        if ($scopes->is_protected == true) {
+            $data['name'] = $scopes->name;
+        }
+        $scopes->update($data);
+        return redirect()->back()->with('message', 'Сохраненно');
+    }
+
+    public function delete_scope_save($id,$delete_id)
+    {
+        $scopes = Scope::find($delete_id);
+        if ($scopes->is_protected == true) {
+            return redirect()->back()->with('message', 'Ошибка!!! Удаление не возможно');
+        }
+        ScopeUser::where('scope_id',$delete_id)->update($id);
+        Scope::where($delete_id)->delete();
+        return redirect()->back()->with('message', 'Сохраненно');
+    }
+
     public function generateCodes()
     {
         if(AccessCode::generateCodes()) {
