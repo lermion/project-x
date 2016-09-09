@@ -18,12 +18,41 @@ class OptionController extends Controller
     public function index()
     {
         $option = Option::first();
-        $scopes = Scope::get();
+        $scopes = Scope::orderBy('order')->get();
         $counters = [];
         foreach ($scopes as $scope) {
             $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
         }
         return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters]);
+    }
+
+    public function create_scope_save(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:scopes,name',
+                'img' => 'required|file',
+                'order' => 'required|integer|unique:scopes,order'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
+        }
+        $data = $request->all();
+        $img = $request->file('img');
+        $path = '/upload/scope/';
+        $fileName = str_random(8) . $img->getClientOriginalName();
+        $fullPath = public_path() . $path;
+        $img->move($fullPath, $fileName);
+        $data['img'] = $path.$fileName;
+        Scope::create($data);
+        return redirect()->back()->with('message', 'Сохраненно');
     }
 
     public function create_scope()
@@ -45,67 +74,64 @@ class OptionController extends Controller
         foreach ($scopes as $scope) {
             $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
         }
-        return view('admin.option.delete_scope',['scopes'=>$scopes,'counters'=>$counters]);
+        return view('admin.option.delete_scope',['scopes'=>$scopes,'counters'=>$counters,'delete_id'=>$id]);
     }
 
-    public function create_scope_save(Request $request)
+    public function update_scope_save(Request $request)
     {
-        try {
-            $this->validate($request, [
-                'name' => 'required|unique:scopes,name',
-                'img' => 'required|file',
-                'order' => 'required|integer|unique:scopes,order',
-            ]);
-        } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
-        }
-        $data = $request->all();
-        Scope::create($data);
-        return redirect()->back()->with('message', 'Сохраненно');
-    }
 
-    public function update_scope_save($id, Request $request)
-    {
-        try {
-            $this->validate($request, [
-                'name' => 'unique:scopes,name',
-                'img' => 'file',
-                'order' => 'integer|unique:scopes,order'
-            ]);
-        } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
-        }
+//        try {
+//            $this->validate($request, [
+//                'name' => 'required',
+//                'img' => 'file',
+//                'order' => 'required|integer'
+//            ]);
+//        } catch (\Exception $ex) {
+//            $result = [
+//                "status" => false,
+//                "error" => [
+//                    'message' => $ex->validator->errors(),
+//                    'code' => '1'
+//                ]
+//            ];
+//            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
+//        }
+
+        $id = $request->input('id');
         $data = $request->all();
         $scopes = Scope::find($id);
         if ($scopes->is_protected == true) {
             $data['name'] = $scopes->name;
         }
+        if ($request->file('img')) {
+            $img = $request->file('img');
+            $path = '/upload/scope/';
+            $fileName = str_random(8) . $img->getClientOriginalName();
+            $fullPath = public_path() . $path;
+            $img->move($fullPath, $fileName);
+            $data['img'] = $path.$fileName;
+        }
         $scopes->update($data);
         return redirect()->back()->with('message', 'Сохраненно');
     }
 
-    public function delete_scope_save($id,$delete_id)
+    public function delete_scope_save(Request $request)
     {
+        $delete_id = $request->input('delete_id');
+
+        $id = $request->input('radiobutton');
+
         $scopes = Scope::find($delete_id);
-        if ($scopes->is_protected == true) {
+
+        if ($scopes->is_protected != 0) {
             return redirect()->back()->with('message', 'Ошибка!!! Удаление не возможно');
         }
-        ScopeUser::where('scope_id',$delete_id)->update($id);
-        Scope::where($delete_id)->delete();
+
+        $scope_users = ScopeUser::where('scope_id',$delete_id)->get();//->update($id);
+        foreach ($scope_users as $scope_user) {
+            ScopeUser::where('id',$scope_user->id)->update(['scope_id'=>$id]);
+        }
+        Scope::where('id',$delete_id)->delete();
         return redirect()->back()->with('message', 'Сохраненно');
     }
 

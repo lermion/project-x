@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="" method="post">
+<form action="{{ action('Admin\OptionController@delete_scope_save') }}" method="get">
 	<div id="settings-tab-areas">
 		<table id="datatable" class="table table-bordered admin-users">
 			<thead>
@@ -15,24 +15,19 @@
 				</tr>
 			</thead>
 			<tbody>
+			@foreach($scopes as $scope)
 				<tr>
-					<td>1</td>
-					<td class="text-center"><label for="updateIcon"><img src="http://orig15.deviantart.net/3ef6/f/2010/285/e/d/chicken_little_by_vale_ska-d30ncmy.gif" for="updateIcon"><input style="display: none;" id="updateIcon" type="file"></label></td>
-					<td>Днепр</td>
-					<td class="text-center">13</td>
+					<td>{{$scope->order}}</td>
+
+					<td class="text-center"><label for="updateIcon"><img src="{{$scope->img}}" alt="{{$scope->img}}" for="updateIcon"><input style="display: none;" id="updateIcon" type="file"></label></td>
+					<td>{{$scope->name}}</td>
+					<td class="text-center">{{$counters[$scope->id]}}</td>
 					<td class="text-center">
-						<input type="radio" name="radiobutton">
+						<input type="radio" name="radiobutton" value="{{$scope->id}}">
+						<input type="hidden" name="delete_id" value="{{$delete_id}}">
 					</td>
 				</tr>
-				<tr>
-					<td>3</td>
-					<td class="text-center"><label for="updateIcon"><img src="http://orig15.deviantart.net/3ef6/f/2010/285/e/d/chicken_little_by_vale_ska-d30ncmy.gif" for="updateIcon"><input style="display: none;" id="updateIcon" type="file"></label></td>
-					<td>Киев</td>
-					<td class="text-center">14</td>
-					<td class="text-center">
-						<input type="radio" name="radiobutton">
-					</td>
-				</tr>
+			@endforeach
 			</tbody>
 		</table>
 	</div>

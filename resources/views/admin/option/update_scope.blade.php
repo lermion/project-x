@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-<form action="" method="post">
+<form action="{{ action('Admin\OptionController@update_scope_save') }}" method="post" enctype="multipart/form-data">
 	<div id="settings-tab-areas">
 		<table id="datatable" class="table table-bordered admin-users">
 			<thead>
@@ -14,10 +14,11 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><input class="form-control" type="number"></td>
-					<td class="text-center"><label for="updateIcon"><img src="http://orig15.deviantart.net/3ef6/f/2010/285/e/d/chicken_little_by_vale_ska-d30ncmy.gif" for="updateIcon"><input style="display: none;" id="updateIcon" type="file"></label></td>
-					<td><input class="form-control" type="text"></td>
-					<td class="text-center">13</td>
+					<input type="hidden" name="id" value="{{$scopes->id}}">
+					<td><input class="form-control" type="number" name="order" value="{{$scopes->order}}"></td>
+					<td class="text-center"><label for="updateIcon"><img src="{{$scopes->img}}" alt="{{$scopes->img}}" for="updateIcon"><input name="img" style="display: none;" id="updateIcon" type="file"></label></td>
+					<td><input class="form-control" type="text" name="name" value="{{$scopes->name}}"></td>
+					<td class="text-center">{{$scopes->counter}}</td>
 				</tr>
 			</tbody>
 		</table>
