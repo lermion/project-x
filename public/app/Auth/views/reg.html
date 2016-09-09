@@ -6,7 +6,7 @@
 								<span>
 									<img class="region-img" ng-src="{{area.img}}" alt="">
 								</span>
-								<a ng-click="selectArea(area.id)" href="javascript:void(0);">{{area.name}}</a>
+								<a ng-class="{active:isSelected($index)}" ng-click="selectArea($index, area.id)" href="javascript:void(0);">{{area.name}}</a>
 							</div>
 						</div>
 						<div class="logo"></div>
@@ -16,7 +16,7 @@
 									<form>
 										<div class="city-field">
 												<span class="city"></span>
-												<select ng-change="changeTopic(selectedOption)" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.val"></select>
+												<select ng-change="changeTopic(selectedOption)" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.id"></select>
 												<span class="city-inner"></span>
 										</div>
 										<div ng-show="showAnotherTopic" class="phone-field">

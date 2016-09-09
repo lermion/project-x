@@ -466,6 +466,9 @@ body.main-page {
 	text-decoration: none;
 	padding-left: 5px;
 }
+.reg-regions-list .region-name a.active{
+	color: gray;
+}
 .region-name {
 	display: flex;
 	align-items: center;

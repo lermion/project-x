@@ -77,7 +77,7 @@
 					<input ng-model="selectedAll" type="checkbox" id="selectedAll" ng-click="checkAll()">
 					<label for="selectedAll">Все</label>
 				</li>
-				<li ng-repeat="area in areas">
+				<li ng-repeat="area in userData.scopes">
 					<input ng-disabled="checkedAreas.length === checkedLimit && !area.active" type="checkbox" id="{{area.id}}" ng-model="area.active" ng-change="checkedArea(area.active, area)">
 					<label for="{{area.id}}">{{area.name}}</label>
 				</li>
