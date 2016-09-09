@@ -25,6 +25,7 @@
 	<header ng-cloak ng-if="$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration' || currentPath === '/auth/restore' || currentPath === '/auth/invite')">
 		<div class="header header-user">
 			<a class="logo" ui-sref="feed"></a>
+			<span class="beta">β</span>
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
 			<a class="drop-menu" ng-click="openMenu()" href></a>
 			<div class="menu-item" ng-show="showMenu">
@@ -57,6 +58,7 @@
 	<header ng-cloak ng-if="!$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration' || currentPath === '/auth/restore' || currentPath === '/auth/invite')">
 		<div class="header">
 			<a class="logo" ui-sref="auth"></a>
+			<span class="beta">β</span>
 			<a class="registration" ui-sref="reg">Регистрация</a>
 			<a class="exit enter"  ui-sref="login"><span></span>Вoйти</a>
 		</div>

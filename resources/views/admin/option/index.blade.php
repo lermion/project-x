@@ -73,7 +73,7 @@
 								<th class="col-id">Порядок</th>
 								<th class="col-ava">Иконка</th>
 								<th class="col-ava">Название</th>
-								<th class="col-ava">Счетчик</th>
+								<th class="col-ava">Количество участников</th>
 								<th class="col-ava">Действия</th>
 							</tr>
 						</thead>
