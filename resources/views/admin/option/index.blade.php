@@ -5,7 +5,8 @@
 	    <div id="settings-tab" class="admin-settings">
 	        <ul class="row admin-settings-menu">
 	            <li class="col-md-3"><a href="#settings-tab-common">Общие настройки</a></li>
-	            <li class="col-md-3"><a href="#settings-tab-limit">Ограничения</a></li>
+                <li class="col-md-3"><a href="#settings-tab-limit">Ограничения</a></li>
+	            <li class="col-md-3"><a href="#settings-tab-areas">Области видимости</a></li>
 	        </ul>
             <form action="{{action('Admin\OptionController@create')}}" method="post">
                 <div id="settings-tab-common" class="admin-settings-data">
@@ -57,13 +58,16 @@
                                 <label for="cmn-toggle-2"></label>
                             </div>
                         </div>
-                        <div class="admin-settings-limit-toggle-btn"><span>Закрытая регистрайия</span>
+                        <div class="admin-settings-limit-toggle-btn"><span>Закрытая регистрация</span>
                             <div class="switch">
                                 <input id="cmn-toggle-3" class="cmn-toggle cmn-toggle-round" type="checkbox" @if ($option->closed_registration == true)checked @endif  name="closed_registration">
                                 <label for="cmn-toggle-3"></label>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="settings-tab-areas">
+                    <p>Области видимости!</p>
                 </div>
                 <p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
             </form>
