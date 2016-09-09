@@ -132,7 +132,7 @@ class UserController extends Controller
                 'password' => 'required|min:6',
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'scopes' => 'required|array|max:3'
+                'scopes' => 'required|array|max:1'
             ]);
         } catch (\Exception $ex) {
             $result = [

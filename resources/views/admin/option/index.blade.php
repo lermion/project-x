@@ -78,16 +78,22 @@
 							</tr>
 						</thead>
 						<tbody>
+						@foreach($scopes as $scope)
 							<tr>
-								<td>1</td>
-								<td class="text-center"><a href="javascript:void(0);"><img src="http://icons.iconarchive.com/icons/david-renelt/little-icon-people/32/Working-icon.png"></a></td>
-								<td>Днепр</td>
-								<td>13</td>
+								<td>{{$scope->order}}</td>
 								<td class="text-center">
-									<button type="button" class="btn btn-success btn-xs">Редактировать</button>
-									<button type="button" class="btn btn-danger btn-xs">Удалить</button>
+									<img src="{{$scope->img}}" alt="{{$scope->img}}">
+								</td>
+								<td>{{$scope->name}}</td>
+								<td>{{$counters[$scope->id]}}</td>
+								<td class="text-center">
+									<a type="button" class="btn btn-success btn-xs" href="/admin/moderator/update/{{$scope->id}}">Редактировать</a>
+									@if ($scope->is_protected != true)
+									<a type="button" class="btn btn-danger btn-xs" href="/admin/moderator/update/{{$scope->id}}">Удалить</a>
+									@endif
 								</td>
 							</tr>
+						@endforeach
 						</tbody>
 					</table>
 				</div>

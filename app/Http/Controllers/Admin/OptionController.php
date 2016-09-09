@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\AccessCode;
 use App\Option;
+use App\Scope;
+use App\ScopeUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +18,24 @@ class OptionController extends Controller
     public function index()
     {
         $option = Option::first();
-        return view('admin.option.index')->with('option', $option);
+        $scopes = Scope::get();
+        $counters = [];
+        foreach ($scopes as $scope) {
+
+            $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
+
+        }
+        return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters]);
+    }
+
+    public function create_scope()
+    {
+        return view('admin.moderator.create');
+    }
+
+    public function update_scope($id)
+    {
+        return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters]);
     }
 
     public function generateCodes()
