@@ -117,6 +117,12 @@ angular.module('placePeopleApp')
 				});
 			};
 
+			$scope.checkedAreas = [];
+
+			$scope.selectArea = function(areaId){
+				$scope.checkedAreas.push(areaId);
+			};
+
 			$scope.calcPadding = function () {
 				return parseInt(angular.element(document.querySelector("#phone"))[0].clientWidth);
 			};
@@ -305,7 +311,7 @@ angular.module('placePeopleApp')
 					$scope.regLoader = false;
 					return;
 				}
-				AuthService.registerUser(firstName, lastName, gender, login, pwd, countryId, $scope.croppedImg, uId, $scope.originalImageBlobFile)
+				AuthService.registerUser(firstName, lastName, gender, login, pwd, countryId, $scope.croppedImg, uId, $scope.originalImageBlobFile, $scope.checkedAreas)
 					.then(function (res) {
 						if (res.status) {
 							$scope.regLoader = false;

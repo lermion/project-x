@@ -97,7 +97,7 @@ angular.module('placePeopleApp')
 			return defer.promise;
 		   }
 
-		function registerUser(first, last, gender, login, pwd, countryId, avatar, userId, originalAvatar){           
+		function registerUser(first, last, gender, login, pwd, countryId, avatar, userId, originalAvatar, checkedAreas){
 			var data = new FormData();
 			data.append('first_name', first);
 			data.append('last_name', last);
@@ -105,8 +105,11 @@ angular.module('placePeopleApp')
 			data.append('login', login);
 			data.append('password', pwd);
 			data.append('country_id', countryId);
-			data.append('avatar', avatar);            
-			data.append('original_avatar', originalAvatar);            
+			data.append('avatar', avatar);
+			data.append('original_avatar', originalAvatar);
+			checkedAreas.forEach(function(area){
+                data.append('scopes[]', area);
+            });
 			var config = {
 					headers: {
 						'Content-Type': undefined

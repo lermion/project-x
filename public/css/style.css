@@ -264,7 +264,7 @@ body.main-page {
 	padding-left: 27px; 
 }
 .registration-key .form-item form input {
-    padding-left: 35px;
+	padding-left: 35px;
 }
 .form-item form input:focus,
 .text-field:focus {
@@ -460,6 +460,11 @@ body.main-page {
 	overflow-y: auto;
 	max-width: 18vw;
 	font-family: "SFUIDisplayLight";
+}
+.reg-regions-list .region-name a{
+	color: white;
+	text-decoration: none;
+	padding-left: 5px;
 }
 .region-name {
 	display: flex;
