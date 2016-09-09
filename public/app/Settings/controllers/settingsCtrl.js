@@ -89,7 +89,7 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.saveAreas = function(){
-		console.log("hgewge!!");
+		console.log("save areas");
 	};
 
 	$scope.checkedAreas = [];

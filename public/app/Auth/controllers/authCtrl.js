@@ -80,6 +80,12 @@ angular.module('placePeopleApp')
 			function getAreas(){
 				AuthService.getAreas().then(function(response){
 					$scope.areas = response;
+					$scope.topics = response;
+					$scope.getTopics = function(){
+						var newList = angular.copy(response);
+						newList.unshift({name: "Выберите тему..."});
+						return newList;
+					}
 				},
 				function(error){
 					console.log(error);
@@ -228,48 +234,7 @@ angular.module('placePeopleApp')
 				$scope.showEditAva = false;
 				ngDialog.closeAll();
 			};
-
-			var getTopics = function(){
-				var topics = [
-					{
-						name: "Выберите тему...",
-						val: 0
-					},
-					{
-						name: "Москва",
-						val: 1
-					},
-					{
-						name: "Санкт-Петербург",
-						val: 2
-					},
-					{
-						name: "Екатеринбург",
-						val: 3
-					},
-					{
-						name: "Новосибирск",
-						val: 4
-					},
-					{
-						name: "Уфа",
-						val: 5
-					},
-					{
-						name: "Воронеж",
-						val: 6
-					},
-					{
-						name: "Другое",
-						val: 7
-					}
-				];
-				return topics;
-			};
-
-			$scope.topics = getTopics();
 			$scope.showAnotherTopic = false;
-			$scope.selectedOption = $scope.topics[0];
 			$scope.changeTopic = function(selectedOption){
 				if(selectedOption.val === 7){
 					$scope.showAnotherTopic = true;
