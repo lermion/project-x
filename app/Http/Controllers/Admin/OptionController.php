@@ -21,21 +21,31 @@ class OptionController extends Controller
         $scopes = Scope::get();
         $counters = [];
         foreach ($scopes as $scope) {
-
             $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
-
         }
         return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters]);
     }
 
     public function create_scope()
     {
-        return view('admin.moderator.create');
+        return view('admin.option.create_scope');
     }
 
     public function update_scope($id)
     {
-        return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters]);
+        $scopes = Scope::find($id);
+        $scopes->counter = ScopeUser::where('scope_id', $id)->count();
+        return view('admin.option.update_scope',['scopes'=>$scopes]);
+    }
+
+    public function delete_scope($id)
+    {
+        $scopes = Scope::where('id','!=',$id)->get();
+        $counters = [];
+        foreach ($scopes as $scope) {
+            $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
+        }
+        return view('admin.option.delete_scope',['scopes'=>$scopes,'counters'=>$counters]);
     }
 
     public function generateCodes()

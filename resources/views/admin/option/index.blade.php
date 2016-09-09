@@ -87,9 +87,9 @@
 								<td>{{$scope->name}}</td>
 								<td>{{$counters[$scope->id]}}</td>
 								<td class="text-center">
-									<a type="button" class="btn btn-success btn-xs" href="/admin/moderator/update/{{$scope->id}}">Редактировать</a>
+									<a type="button" class="btn btn-success btn-xs" href="/admin/option/update_scope/{{$scope->id}}">Редактировать</a>
 									@if ($scope->is_protected != true)
-									<a type="button" class="btn btn-danger btn-xs" href="/admin/moderator/update/{{$scope->id}}">Удалить</a>
+									<a type="button" class="btn btn-danger btn-xs" href="/admin/option/delete_scope/{{$scope->id}}">Удалить</a>
 									@endif
 								</td>
 							</tr>
