@@ -229,7 +229,7 @@ class UserController extends Controller
     {
         try {
             $this->validate($request, [
-                'scopes' => 'required|array|max:3'
+                'scopes' => 'required|array|max:3',
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -241,34 +241,29 @@ class UserController extends Controller
             ];
             return response()->json($result);
         }
-        //dd($request->input('scopes'));
-        //$user = User::find(Auth::id());
-        $r = ScopeUser::where('user_id',Auth::id())->orderBy('updated_at')->take(1)->pluck('updated_at');
-        $to_working_time = Carbon::create($r[0], NULL)->timestamp;
-        dd($to_working_time);
-        $scopes_user = $user->scopes()->orderBy('scopes.id');
-        $scopes = Scope::all();
-        $data_scope = [];
-        foreach ($scopes as $scope) {
-
-            //dd($scope['id']);
-            foreach ($scopes_user as $scope_user){
-                if ($scope['id'] == $scope_user) {
-                    $scope['signed']=true;
-                }
+        $updated_at_scope = ScopeUser::where('user_id',Auth::id())->orderBy('updated_at')->take(1)->pluck('updated_at');
+        $carbon_updated_at_scope =  new Carbon($updated_at_scope[0]);
+        $timestamp_carbon_updated_at_scope = $carbon_updated_at_scope->timestamp;
+        $now = Carbon::now();
+        $yesterday_timestamp = $now->subDay()->timestamp;
+        if ($timestamp_carbon_updated_at_scope < $yesterday_timestamp){
+            $desired_scope = $request->input('desired_scope');
+            $user = User::find(Auth::id());
+            ScopeUser::where('user_id',Auth::id())->delete();
+            $scopes = $request->input('scopes');
+            $user->scopes()->attach($scopes);
+            if ($desired_scope) {
+                DesiredScope::create(['user_id' => $user->id, 'scope_name' => $desired_scope]);
             }
-            $data_scope[]=$scope;
+        } else {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => 'Changes may be once a day',
+                    'code' => '2'
+                ]
+            ];
+            return response()->json($result);
         }
-
-        return $data_scope;
-
-        $desired_scope = $request->input('desired_scope');
-//            if ($desired_scope) {
-//                DesiredScope::create(['user_id' => $user->id, 'scope_name' => $desired_scope]);
-//            }
-        $scopes = $request->input('scopes');
-        //$user->scopes()->attach($scopes)->delate();
-        //$user->scopes()->attach($scopes);
     }
-
 }
