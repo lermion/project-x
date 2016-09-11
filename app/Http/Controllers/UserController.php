@@ -7,8 +7,11 @@ use App\DesiredScope;
 use App\Online;
 use App\Option;
 use App\Publication;
+use App\Scope;
+use App\ScopeUser;
 use App\Subscriber;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\ChatLockedUser;
 
@@ -43,7 +46,7 @@ class UserController extends Controller
         $user->subscription_count = $user->subscription()->count();
         $user->subscribers_count = $user->subscribers()->count();
         $user->publications_count = Publication::getCountUserPublication($user->id);
-        $user->scopes = $user->scopes()->get();
+        $user->scopes =$this->getScopes();
         if (!$user->is_avatar)
             $user->avatar_path = '';
         return $user;
@@ -89,13 +92,7 @@ class UserController extends Controller
             return response()->json($result);
         } else {
             $user->update($request->all());
-            $desired_scope = $request->input('desired_scope');
-//            if ($desired_scope) {
-//                DesiredScope::create(['user_id' => $user->id, 'scope_name' => $desired_scope]);
-//            }
-            $scopes = $request->input('scopes');
-            $user->scopes()->attach($scopes)->delate();
-            $user->scopes()->attach($scopes);
+
             if ($request->input('is_visible') == false)
                 Online::logOut(Auth::id());
             if ($request->hasFile('avatar')) {
@@ -210,4 +207,68 @@ class UserController extends Controller
 
         return $path . $fileName;
     }
+
+    private function getScopes()
+    {
+        $user = User::find(Auth::id());
+        $scopes_user = $user->scopes()->pluck('scopes.id');
+        $scopes = Scope::all();
+        $data_scope = [];
+        foreach ($scopes as $scope) {
+            foreach ($scopes_user as $scope_user){
+                if ($scope['id'] == $scope_user) {
+                    $scope['signed']=true;
+                }
+            }
+            $data_scope[]=$scope;
+        }
+        return $data_scope;
+    }
+
+    public function updateScopes(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'scopes' => 'required|array|max:3'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        //dd($request->input('scopes'));
+        //$user = User::find(Auth::id());
+        $r = ScopeUser::where('user_id',Auth::id())->orderBy('updated_at')->take(1)->pluck('updated_at');
+        $to_working_time = Carbon::create($r[0], NULL)->timestamp;
+        dd($to_working_time);
+        $scopes_user = $user->scopes()->orderBy('scopes.id');
+        $scopes = Scope::all();
+        $data_scope = [];
+        foreach ($scopes as $scope) {
+
+            //dd($scope['id']);
+            foreach ($scopes_user as $scope_user){
+                if ($scope['id'] == $scope_user) {
+                    $scope['signed']=true;
+                }
+            }
+            $data_scope[]=$scope;
+        }
+
+        return $data_scope;
+
+        $desired_scope = $request->input('desired_scope');
+//            if ($desired_scope) {
+//                DesiredScope::create(['user_id' => $user->id, 'scope_name' => $desired_scope]);
+//            }
+        $scopes = $request->input('scopes');
+        //$user->scopes()->attach($scopes)->delate();
+        //$user->scopes()->attach($scopes);
+    }
+
 }

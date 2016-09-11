@@ -182,6 +182,7 @@ Route::group(['middleware' => ['web']], function () {
     });
     Route::group(['prefix' => 'user'], function () {
         Route::post('update', 'UserController@update')->middleware(['auth']);
+        Route::post('update_scopes', 'UserController@updateScopes')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
         Route::get('show/{login}', 'UserController@show');
         Route::get('get_codes/{id}', 'UserController@getCodes');
@@ -321,9 +322,9 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/auth/get_scope\" method=\"get\" enctype=\"multipart/form-data\">
-             <input type='text' name='name' ><br>
-             <input type='text' name='limit' ><br>
+        echo "<form action=\"http://pp.dev/user/update_scopes\" method=\"post\" enctype=\"multipart/form-data\">
+             <input type='text' name='scopes[]' ><br>
+             <input type='text' name='scopes[]' ><br>
              <input type='number' name='order' ><br>
              <input type='file' name='img'><br>
              <input type=\"submit\">
