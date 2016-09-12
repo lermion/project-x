@@ -226,7 +226,7 @@
 						isAnonym: ctrl.isAnonym,
 						isMain: isMain,
 						inProfile: $state.is('user'),
-						scopes: ctrl.checkedAreas
+						scopes: ctrl.checkedAreas,
 
 						groupId: ctrl.group ? ctrl.group.id : null,
 						placeId: ctrl.place ? ctrl.place.id : null
