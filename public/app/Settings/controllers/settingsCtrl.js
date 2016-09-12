@@ -128,7 +128,6 @@ angular.module('placePeopleApp')
 				$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area.id), 1);
 			}
 		}
-		console.log($scope.checkedAreas);
 	};
 
 	$scope.checkAll = function(param){
