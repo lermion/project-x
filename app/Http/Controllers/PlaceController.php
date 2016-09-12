@@ -238,7 +238,7 @@ class PlaceController extends Controller
             $placeData['original_cover'] = $path;
         }
         $place = Place::find($id);
-        ScopePlace::where('publication_id',$place->id)->delete();
+        ScopePlace::where('place_id',$place->id)->delete();
         $scopes = $request->input('scopes');
         $place->scopes()->attach($scopes);
         $place->update($placeData);

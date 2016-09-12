@@ -38,11 +38,6 @@
 				</thead>
 				<tbody>
 				@foreach($places as $place)
-					{{--@foreach($cities as $city)--}}
-						{{--@if ($city->id == $place->city_id)--}}
-					{{--{{dd($city->name)}}--}}
-					{{--@endif--}}
-					{{--@endforeach--}}
 				  <tr>
 					<td><a href="/place/{{$place->url_name}}">{{$place->id}}</a></td>
 					<td>{{$place->name}}</td>
@@ -69,18 +64,27 @@
 						@endif
 					</td>
 					<td>
-						<form action="">
-							<label for="area1">Днепр</label>
-							<input type="checkbox" id="area1" name="" value="">
-							<label for="area2">Киев</label>
-							<input type="checkbox" id="area2" name="" value="">
-							<label for="area3">Винница</label>
-							<input type="checkbox" id="area3" name="" value="">
+						<form action="{{ action('Admin\ModerationController@saveScopePlace') }}" method="post">
+							<input type="hidden" name="id" value="{{$place->id}}">
+							@foreach($scopes as $scope)
+							<label for="area1">{{$scope->name}}</label>
+							<input type="checkbox" id="area1"
+								   @foreach($place->scopes->all() as $id)
+								       @if ($scope->id == $id->id) checked
+								       @endif
+								   @endforeach name="scopes[]" value="{{$scope->id}}">
+							@endforeach
 							<button type="submit" class="btn btn-success btn-xs">Сохранить</button>
 						</form>
 					</td>
 					<td>
-						<span>Днепр</span>
+						<span>
+							@foreach($cities as $city)
+							@if ($city->id == $place->city_id)
+							{{$city->name}}
+							@endif
+							@endforeach
+						</span>
 					</td>
 				  </tr>
 				  @endforeach
