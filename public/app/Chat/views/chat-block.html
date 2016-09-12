@@ -131,7 +131,7 @@
 					<a ng-click="showPublication(message.pub)" href="javascript:void(0);"><img ng-src="{{message.pub.cover ? message.pub.cover : message.pub.images[0].url}}" alt=""></a>
 				</div>
 				<div class="publication-images" style="max-height:262px; overflow:hidden; position:relative;">		
-					<div ng-repeat="image in message.pub.images | limitTo: limit as results" class="images-item">
+					<div ng-repeat="image in message.pub.files | limitTo: limit as results" class="images-item">
 						<img ng-src="{{image.url}}">
 					</div>
 					<div style="display: none;" class="images-item">
