@@ -36,6 +36,11 @@
                 </thead>
                 <tbody>
                 @foreach($places as $place)
+                    {{--@foreach($cities as $city)--}}
+                        {{--@if ($city->id == $place->city_id)--}}
+                    {{--{{dd($city->name)}}--}}
+                    {{--@endif--}}
+                    {{--@endforeach--}}
                   <tr>
                     <td><a href="/place/{{$place->url_name}}">{{$place->id}}</a></td>
                     <td>{{$place->name}}</td>

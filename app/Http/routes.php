@@ -218,7 +218,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('delete_subscription/{id}', 'GroupController@admin_subscription_delete');
         Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
-        Route::get('get_group_scopes', 'GroupController@getGroupScopes');
+        Route::get('get_group_scopes/{id}', 'GroupController@getGroupScopes');
         Route::get('set_admin_creator/{group_id}/{admin_id}', 'GroupController@setUserCreator');
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
@@ -252,7 +252,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
         Route::get('counter_new_place', 'PlaceController@counter_new_place');
         Route::get('/', 'PlaceController@index');
-        Route::get('get_place_scopes', 'PlaceController@getPlaceScopes');
+        Route::get('get_place_scopes/{id}', 'PlaceController@getPlaceScopes');
         Route::get('admin_place', 'PlaceController@adminPlace');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');

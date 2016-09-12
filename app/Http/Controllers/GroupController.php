@@ -483,9 +483,9 @@ class GroupController extends Controller
         return NewGroup::where(['user_id' => Auth::id()])->count();
     }
 
-    public function getGroupScopes()
+    public function getGroupScopes($id)
     {
-        $group = Group::find(Auth::id());
+        $group = Group::find($id);
         $scopes_groups = $group->scopes()->pluck('scopes.id');
         $scopes = Scope::all();
         $all = false;
