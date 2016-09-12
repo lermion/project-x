@@ -435,7 +435,7 @@ angular.module('app.groups')
 				}else{
 					$scope.checkedAreas.splice($scope.checkedAreas.indexOf(scope.id), 1);
 				}
-			}
+			};
 
 			getScopes();
 

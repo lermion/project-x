@@ -42,8 +42,16 @@
                         <div ng-message="required">Вы не указали название</div>
                     </div>
                 </div>
-
-            </div>
+			</div>
+			<div class="settings-select-region">
+				<div class="select-country-country">Области видимости</div>
+				<ul class="settings-regions-list">
+					<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in scopes">
+						<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+						<label for="{{scope.id}}">{{scope.name}}</label>
+					</li>
+				</ul>
+			</div>
             <div class="create-places-select-country">
                 <div class="select-country-country">Выберите страну</div>
                 <div class="select-country-name">
