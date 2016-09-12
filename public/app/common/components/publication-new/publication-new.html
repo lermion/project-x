@@ -1,201 +1,161 @@
 <form name="$ctrl.newPublicationForm" novalidate>
-    <h5>Новая публикация</h5>
+	<h5>Новая публикация</h5>
 
-    <div class="publication">
+	<div class="publication">
 
-        <div class="publication-item">
-            <a class="user" ng-if="$ctrl.group" ui-sref="group({groupName: $ctrl.group.url_name})"
-               ng-click="closeThisDialog()">
-			    <span class="ava">
-				    <img ng-src="{{::$ctrl.avatar}}">
-			    </span>
+		<div class="publication-item">
+			<a class="user" ng-if="$ctrl.group" ui-sref="group({groupName: $ctrl.group.url_name})"
+			   ng-click="closeThisDialog()">
+				<span class="ava">
+					<img ng-src="{{::$ctrl.avatar}}">
+				</span>
 
-                <p class="user-name">{{::$ctrl.authorName}}</p>
-            </a>
-            <a class="user" ng-if="$ctrl.place" ui-sref="place({placeName: $ctrl.place.url_name})"
-               ng-click="closeThisDialog()">
-			    <span class="ava">
-				    <img ng-src="{{::$ctrl.avatar}}">
-			    </span>
+				<p class="user-name">{{::$ctrl.authorName}}</p>
+			</a>
+			<a class="user" ng-if="$ctrl.place" ui-sref="place({placeName: $ctrl.place.url_name})"
+			   ng-click="closeThisDialog()">
+				<span class="ava">
+					<img ng-src="{{::$ctrl.avatar}}">
+				</span>
 
-                <p class="user-name">{{::$ctrl.authorName}}</p>
-            </a>
-            <a class="user" ng-if="$ctrl.profile" ui-sref="user({username: $ctrl.profile.username})"
-               ng-click="closeThisDialog()">
-			    <span class="ava">
-				    <img ng-src="{{::$ctrl.avatar}}">
-			    </span>
+				<p class="user-name">{{::$ctrl.authorName}}</p>
+			</a>
+			<a class="user" ng-if="$ctrl.profile" ui-sref="user({username: $ctrl.profile.username})"
+			   ng-click="closeThisDialog()">
+				<span class="ava">
+					<img ng-src="{{::$ctrl.avatar}}">
+				</span>
 
-                <p class="user-name">{{::$ctrl.authorName}}</p>
-            </a>
-            <a class="user" ng-if="$ctrl.feed" ui-sref="user({username: $ctrl.feed.username})"
-               ng-click="closeThisDialog()">
-			    <span class="ava">
-				    <img ng-src="{{::$ctrl.avatar}}">
-			    </span>
+				<p class="user-name">{{::$ctrl.authorName}}</p>
+			</a>
+			<a class="user" ng-if="$ctrl.feed" ui-sref="user({username: $ctrl.feed.username})"
+			   ng-click="closeThisDialog()">
+				<span class="ava">
+					<img ng-src="{{::$ctrl.avatar}}">
+				</span>
 
-                <p class="user-name">{{::$ctrl.authorName}}</p>
-            </a>
+				<p class="user-name">{{::$ctrl.authorName}}</p>
+			</a>
 
-            <input type="checkbox" ng-if="$ctrl.isFeed" id="anon" ng-model="isAnonPub">
-            <label for="anon" ng-if="$ctrl.isFeed">
-                <span></span>
-                Анонимная публикация
-            </label>
+			<input type="checkbox" ng-if="$ctrl.isFeed" id="anon" ng-model="isAnonPub">
+			<label for="anon" ng-if="$ctrl.isFeed">
+				<span></span>
+				Анонимная публикация
+			</label>
 
-        </div>
+		</div>
 
-        <div class="settings-select-region">
-          <p>Области видимости</p>
-          <ul class="settings-regions-list">
-            <li>
-              <input type="checkbox" id="selectedAll">
-              <label for="selectedAll">Все</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg1">
-              <label for="reg1">Москва</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg2">
-              <label for="reg2">Днепр</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg3">
-              <label for="reg3">Санкт-Петербург</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg4">
-              <label for="reg4">Москва</label>
-            </li>
-            <li>
-              <input type="checkbox" id="selectedAll">
-              <label for="selectedAll">Все</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg1">
-              <label for="reg1">Москва</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg2">
-              <label for="reg2">Днепр</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg3">
-              <label for="reg3">Санкт-Петербург</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg4">
-              <label for="reg4">Москва</label>
-            </li>
-            <li>
-              <input type="checkbox" id="selectedAll">
-              <label for="selectedAll">Все</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg1">
-              <label for="reg1">Москва</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg2">
-              <label for="reg2">Днепр</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg3">
-              <label for="reg3">Санкт-Петербург</label>
-            </li>
-            <li>
-              <input type="checkbox" id="reg4">
-              <label for="reg4">Москва</label>
-            </li>
-          </ul>
-          <!-- <button class="settings-btn save-areas-btn" ng-click="saveAreas()">Сохранить</button> -->
-        </div>
+		<div class="settings-select-region">
+			<p>Области видимости</p>
+			<ul class="settings-regions-list">
+				<li>
+					<input type="checkbox" id="selectedAll">
+					<label for="selectedAll">Все</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg1">
+					<label for="reg1">Москва</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg2">
+					<label for="reg2">Днепр</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg3">
+					<label for="reg3">Санкт-Петербург</label>
+				</li>
+				<li>
+					<input type="checkbox" id="reg4">
+					<label for="reg4">Москва</label>
+				</li>
+			</ul>
+		  <!-- <button class="settings-btn save-areas-btn" ng-click="saveAreas()">Сохранить</button> -->
+		</div>
 
-        <div class="text-field">
+		<div class="text-field">
 
-            <div emoji-form emoji-message="$ctrl.emojiMessage">
-                <textarea id="messageInput" name="text" ng-model="$ctrl.emojiMessage.messagetext"></textarea>
-                <a href class="emoji-button" id="emojibtn">
-                    <i class="icon icon-emoji"></i>
-                </a>
-            </div>
-        </div>
-        <div class="error-messages" ng-messages="$ctrl.newPublicationForm.text.$error"
-             ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
-            <div ng-message="required">Вы не заполнили текст публикации</div>
-        </div>
+			<div emoji-form emoji-message="$ctrl.emojiMessage">
+				<textarea id="messageInput" name="text" ng-model="$ctrl.emojiMessage.messagetext"></textarea>
+				<a href class="emoji-button" id="emojibtn">
+					<i class="icon icon-emoji"></i>
+				</a>
+			</div>
+		</div>
+		<div class="error-messages" ng-messages="$ctrl.newPublicationForm.text.$error"
+			 ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
+			<div ng-message="required">Вы не заполнили текст публикации</div>
+		</div>
 
-        <div class="pub__crop-area" ng-if="$ctrl.coverToCrop">
-            <img-crop image="$ctrl.coverToCrop"
-                      result-image="myCroppedImage"
-                      chargement="'Загрузка'"
-                      area-type="rectangle"
-                      area-min-relative-size="{w: 700, h: 395}"
-                      result-image-size="{w: 700, h: 395}"></img-crop>
-        </div>
+		<div class="pub__crop-area" ng-if="$ctrl.coverToCrop">
+			<img-crop image="$ctrl.coverToCrop"
+					  result-image="myCroppedImage"
+					  chargement="'Загрузка'"
+					  area-type="rectangle"
+					  area-min-relative-size="{w: 700, h: 395}"
+					  result-image-size="{w: 700, h: 395}"></img-crop>
+		</div>
 
-        <div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
-             style="max-height: 250px; overflow:hidden; position:relative;">
+		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
+			 style="max-height: 250px; overflow:hidden; position:relative;">
 
-            <div class="new-img" ng-repeat="file in $ctrl.files">
-                <div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
-                    <div class="close" ng-click="$ctrl.removeFile($index)">
-                        <div class="close-inner">
-                            <p>Удалить</p>
-                        </div>
-                    </div>
-                    <img ngf-thumbnail="file || '/thumb.jpg'">
-                    <video width="200px" controls ngf-src="file"></video>
-                    <div class="check" ng-class="{'js-isShow': file.isCover}" ng-click="$ctrl.setMainPubPhoto($index)"
-                         ng-if="file.showIsCover || file.isCover">
-                        <div class="check-inner">
-                            <p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
-                        </div>
-                    </div>
-                </div>
-                <p class="img-name">{{file.name}}</p>
-            </div>
-        </div>
+			<div class="new-img" ng-repeat="file in $ctrl.files">
+				<div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
+					<div class="close" ng-click="$ctrl.removeFile($index)">
+						<div class="close-inner">
+							<p>Удалить</p>
+						</div>
+					</div>
+					<img ngf-thumbnail="file || '/thumb.jpg'">
+					<video width="200px" controls ngf-src="file"></video>
+					<div class="check" ng-class="{'js-isShow': file.isCover}" ng-click="$ctrl.setMainPubPhoto($index)"
+						 ng-if="file.showIsCover || file.isCover">
+						<div class="check-inner">
+							<p>{{file.isCover ? 'Заставка публикации' : 'Сделать заставкой публикации'}}</p>
+						</div>
+					</div>
+				</div>
+				<p class="img-name">{{file.name}}</p>
+			</div>
+		</div>
 
-        <div class="publication-footer">
-            <div class="add-objects">
-                <input id="add-main-pub-object" style="display: none;"
-                       name="files1"
-                       type="file"
-                       ngf-select
-                       ngf-accept="'image/*,video/*'"
-                       ngf-pattern="'image/*,video/*'"
-                       ng-model="$ctrl.filesPreview"
-                       ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                       ngf-multiple="true"
-                       ngf-keep="true"
-                       required>
+		<div class="publication-footer">
+			<div class="add-objects">
+				<input id="add-main-pub-object" style="display: none;"
+					   name="files1"
+					   type="file"
+					   ngf-select
+					   ngf-accept="'image/*,video/*'"
+					   ngf-pattern="'image/*,video/*'"
+					   ng-model="$ctrl.filesPreview"
+					   ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+					   ngf-multiple="true"
+					   ngf-keep="true"
+					   required>
 
 
-                <label for="add-main-pub-object"
-                >
-                    <span class="add"></span>
-                    Добавить фото или видео *
-                </label>
+				<label for="add-main-pub-object"
+				>
+					<span class="add"></span>
+					Добавить фото или видео *
+				</label>
 
-                <div class="error-messages" ng-messages="$ctrl.newPublicationForm.files1.$error"
-                     ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
-                    <div ng-message="required">Вы не выбрали медиафайл</div>
-                    <div ng-message="coverRequired">Вы не выбрали обложку</div>
-                    <div ng-message="pattern">Выбранный файл не является фото или видео</div>
-                </div>
-            </div>
-            <div class="publication-footer-button">
-                <a href="" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-                <a type="submit" class="publication-button"
-                   ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать
-                </a>
-            </div>
-        </div>
+				<div class="error-messages" ng-messages="$ctrl.newPublicationForm.files1.$error"
+					 ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
+					<div ng-message="required">Вы не выбрали медиафайл</div>
+					<div ng-message="coverRequired">Вы не выбрали обложку</div>
+					<div ng-message="pattern">Выбранный файл не является фото или видео</div>
+				</div>
+			</div>
+			<div class="publication-footer-button">
+				<a href="" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
+				<a type="submit" class="publication-button"
+				   ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать
+				</a>
+			</div>
+		</div>
 
-        <p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для
-            создания публикации обязательным является добавление фото или видео'}} </p>
+		<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для
+			создания публикации обязательным является добавление фото или видео'}} </p>
 
-    </div>
+	</div>
 </form>
