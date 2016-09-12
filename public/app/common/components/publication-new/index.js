@@ -1,359 +1,367 @@
 (function (angular) {
 
-    'use strict';
+	'use strict';
 
-    angular
-        .module('app.components')
-        .component('pubNew', {
-            bindings: {
-                group: '<',
-                place: '<',
-                profile: '<',
-                feed: '<'
-            },
-            templateUrl: '../app/common/components/publication-new/publication-new.html',
-            controller: function ($rootScope, $scope, $q, $state, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
-                var ctrl = this;
+	angular
+		.module('app.components')
+		.component('pubNew', {
+			bindings: {
+				group: '<',
+				place: '<',
+				profile: '<',
+				feed: '<'
+			},
+			templateUrl: '../app/common/components/publication-new/publication-new.html',
+			controller: function ($rootScope, $scope, $q, $state, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
+				var ctrl = this;
 
-                ctrl.pub = {};
-                ctrl.files = [];
-                ctrl.originalFiles = [];
-                ctrl.subForm = false;
-                ctrl.isAnonym = false;
+				ctrl.pub = {};
+				ctrl.files = [];
+				ctrl.originalFiles = [];
+				ctrl.subForm = false;
+				ctrl.isAnonym = false;
 
-                // Current user
-                var storage = storageService.getStorage();
-                ctrl.firstName = storage.firstName;
-                ctrl.lastName = storage.lastName;
-                ctrl.myAvatar = storage.loggedUserAva;
-                ctrl.myId = storage.userId;
-                ctrl.userName = storage.username;
+				// Current user
+				var storage = storageService.getStorage();
+				ctrl.firstName = storage.firstName;
+				ctrl.lastName = storage.lastName;
+				ctrl.myAvatar = storage.loggedUserAva;
+				ctrl.myId = storage.userId;
+				ctrl.userName = storage.username;
 
-                ctrl.menuItems = [
-                    {
-                        menuType: "members",
-                        name: "Пользователи"
-                    },
-                    {
-                        menuType: "groups-chat",
-                        name: "Групповые чаты"
-                    },
-                    {
-                        menuType: "groups",
-                        name: "Группы"
-                    },
-                    {
-                        menuType: "places",
-                        name: "Места"
-                    }
-                ];
+				ctrl.menuItems = [
+					{
+						menuType: "members",
+						name: "Пользователи"
+					},
+					{
+						menuType: "groups-chat",
+						name: "Групповые чаты"
+					},
+					{
+						menuType: "groups",
+						name: "Группы"
+					},
+					{
+						menuType: "places",
+						name: "Места"
+					}
+				];
 
-                ctrl.shareData = [];
+				ctrl.shareData = [];
 
-                ctrl.emojiMessage = {};
+				ctrl.emojiMessage = {};
 
-                // Lifecycle hooks
-                ctrl.$onInit = function (args) {
-                    ctrl.avatar = getAvatarPath();
-                    ctrl.authorName = getAuthorName();
-                    ctrl.isFeed = $state.is('feed');
-                };
+				// Lifecycle hooks
+				ctrl.$onInit = function (args) {
+					ctrl.avatar = getAvatarPath();
+					ctrl.authorName = getAuthorName();
+					ctrl.isFeed = $state.is('feed');
+				};
 
-                ctrl.$onChanges = function (args) {
-                    //console.log('OnChanges');
-                };
+				ctrl.$onChanges = function (args) {
+					//console.log('OnChanges');
+				};
 
-                ctrl.$onDestroy = function (args) {
-                    //console.log('OnDestroy');
-                };
+				ctrl.$onDestroy = function (args) {
+					//console.log('OnDestroy');
+				};
 
-                ctrl.$postLink = function (args) {
-                    //console.log('OnLink');
-                };
-
-
-                ctrl.newPublicationForm = {};
-
-                ctrl.emojiMessage = {
-                    messagetext: ''
-                };
-
-                ctrl.ngDialog = ngDialog;
+				ctrl.$postLink = function (args) {
+					//console.log('OnLink');
+				};
 
 
-                /**
-                 * Adds files to the publication
-                 * @param files
-                 * @param file
-                 * @param newFiles
-                 * @param duplicateFiles
-                 * @param invalidFiles
-                 * @param event
-                 */
-                ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-                    var defer = $q.defer();
-                    var prom = [];
-                    newFiles.forEach(function (image) {
-                        ctrl.originalFiles.push(image);
-                        prom.push(resizeImage(image));
-                    });
-                    $q.all(prom).then(function (data) {
-                        angular.forEach(data, function (item, index, array) {
-                            ctrl.files.push(item);
+				ctrl.newPublicationForm = {};
 
-                        });
-                        if (!ctrl.coverToCrop) {
-                            var file = newFiles[0];
-                            if (isImage(file)) {
-                                ctrl.coverToCrop = file;
-                            } else {
-                                ctrl.cover = file;
-                            }
-                            ctrl.files[0].isCover = true;
-                        }
-                        $scope.$broadcast('rebuild:me');
-                    });
-                };
+				ctrl.emojiMessage = {
+					messagetext: ''
+				};
 
-                /**
-                 * Removes files (originals and thumbnails) of publication
-                 * @param index
-                 */
-                ctrl.removeFile = function (index) {
-                    if (ctrl.files[index].isCover) {
-                        ctrl.coverToCrop = null;
-                    }
-                    ctrl.files.splice(index, 1);
-                    ctrl.originalFiles.splice(index, 1);
-                    $scope.$broadcast('rebuild:me');
-                };
-
-                /**
-                 * Sets the main image of publication
-                 * @param index
-                 */
-                ctrl.setMainPubPhoto = function (index) {
-                    var file = ctrl.files[index];
-
-                    angular.forEach(ctrl.files, function (item) {
-                        item.isCover = false;
-                    });
-
-                    file.isCover = true;
-
-                    ctrl.cover = file;
-
-                    if (isImage(file)) {
-                        ctrl.coverToCrop = ctrl.originalFiles[index];
-                    } else {
-                        ctrl.coverToCrop = null;
-                    }
-                };
-
-                ctrl.submitNewPublication = function () {
-
-                    if (ctrl.subForm) {
-                        return false;
-                    }
-
-                    ctrl.newPublicationForm.$setSubmitted();
-
-                    // TODO: fix validation
-                    $timeout(function(){
-                        ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
-                    });
-
-                    if (!ctrl.cover) {
-                        return false;
-                    }
-
-                    if (ctrl.newPublicationForm.$invalid) {
-                        return false;
-                    }
-
-                    ctrl.subForm = true;
-
-                    var images = [],
-                        originalImages = [];
-                    var videos = [];
-
-                    var isMain;
-
-                    if ($state.is('feed')) {
-                        isMain = 1;
-                    } else {
-                        isMain = 0;
-                    }
-
-                    ctrl.files.forEach(function (file) {
-                        var type = file.type.split('/')[0];
-                        if (type === 'image') {
-                            images.push(file);
-                        } else if (type === 'video') {
-                            videos.push(file);
-                        }
-                    });
-                    ctrl.originalFiles.forEach(function (file) {
-                        var type = file.type.split('/')[0];
-                        if (type === 'image') {
-                            originalImages.push(file);
-                        }
-                    });
-
-                    if (!ctrl.cover) {
-                        // если нет видеофайлов, обложка = фото
-                        if (videos.length === 0) {
-                            ctrl.cover = images[0];
-                        } else {
-                            // если есть и видео и фото, то обложка = фото
-                            if (images.length > 0) {
-                                ctrl.cover = images[0];
-                            } else {
-                                // если есть только видео, то обложка = видео
-                                ctrl.cover = videos[0];
-                            }
-                        }
-                    }
+				ctrl.ngDialog = ngDialog;
 
 
-                    var newPublication = {
-                        text: ctrl.emojiMessage.messagetext,
-                        cover: ctrl.cover,
-                        images: images,
-                        originalImages: originalImages,
-                        videos: videos,
-                        isAnonym: ctrl.isAnonym,
-                        isMain: isMain,
-                        inProfile: $state.is('user'),
+				/**
+				 * Adds files to the publication
+				 * @param files
+				 * @param file
+				 * @param newFiles
+				 * @param duplicateFiles
+				 * @param invalidFiles
+				 * @param event
+				 */
+				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+					var defer = $q.defer();
+					var prom = [];
+					newFiles.forEach(function (image) {
+						ctrl.originalFiles.push(image);
+						prom.push(resizeImage(image));
+					});
+					$q.all(prom).then(function (data) {
+						angular.forEach(data, function (item, index, array) {
+							ctrl.files.push(item);
 
-                        groupId: ctrl.group ? ctrl.group.id : null,
-                        placeId: ctrl.place ? ctrl.place.id : null
+						});
+						if (!ctrl.coverToCrop) {
+							var file = newFiles[0];
+							if (isImage(file)) {
+								ctrl.coverToCrop = file;
+							} else {
+								ctrl.cover = file;
+							}
+							ctrl.files[0].isCover = true;
+						}
+						$scope.$broadcast('rebuild:me');
+					});
+				};
 
-                    };
+				/**
+				 * Removes files (originals and thumbnails) of publication
+				 * @param index
+				 */
+				ctrl.removeFile = function (index) {
+					if (ctrl.files[index].isCover) {
+						ctrl.coverToCrop = null;
+					}
+					ctrl.files.splice(index, 1);
+					ctrl.originalFiles.splice(index, 1);
+					$scope.$broadcast('rebuild:me');
+				};
 
-                    // в зависимости от того где создается публикация используется свой сервис
-                    if (ctrl.group) {
-                        submitGroupPublication(newPublication);
-                    } else if (ctrl.place) {
-                        submitPlacePublication(newPublication);
-                    } else {
-                        submitProfileOrFeedPublication(newPublication);
-                    }
+				/**
+				 * Sets the main image of publication
+				 * @param index
+				 */
+				ctrl.setMainPubPhoto = function (index) {
+					var file = ctrl.files[index];
 
-                };
+					angular.forEach(ctrl.files, function (item) {
+						item.isCover = false;
+					});
 
-                function submitProfileOrFeedPublication(pub) {
-                    PublicationService.createPublication(pub).then(function (data) {
-                        $rootScope.$broadcast('publication:add', {
-                            publication: data.publication
-                        });
-                        ctrl.subForm = false;
-                        ngDialog.closeAll();
-                    });
-                }
+					file.isCover = true;
 
-                function submitGroupPublication(pub) {
-                    groupsService.addPublication(pub).then(function (data) {
-                        $rootScope.$broadcast('publication:add', {
-                            publication: data.publication
-                        });
-                        ctrl.subForm = false;
-                        ngDialog.closeAll();
-                    });
-                }
+					ctrl.cover = file;
 
-                function submitPlacePublication(pub) {
-                    placesService.addPublication(pub).then(function (data) {
-                        $rootScope.$broadcast('publication:add', {
-                            publication: data.publication
-                        });
-                        ctrl.subForm = false;
-                        ngDialog.closeAll();
-                    });
-                }
+					if (isImage(file)) {
+						ctrl.coverToCrop = ctrl.originalFiles[index];
+					} else {
+						ctrl.coverToCrop = null;
+					}
+				};
 
-                function resizeImage(image) {
-                    //Upload.imageDimensions(image).then(function (dimensions) {
-                    //    console.info('Group publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                    //});
+				ctrl.submitNewPublication = function () {
 
-                    return Upload.resize(image, 700, 395, null, null, null, false).then(function (resizedFile) {
-                        //Upload.imageDimensions(resizedFile).then(function (dimensions) {
-                        //    console.info('Group publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-                        //});
-                        //ctrl.files.push(resizedFile);
-                        return resizedFile;
-                    });
-                }
+					if (ctrl.subForm) {
+						return false;
+					}
 
-                function getAvatarPath() {
+					ctrl.newPublicationForm.$setSubmitted();
 
-                    var avatar;
+					// TODO: fix validation
+					$timeout(function(){
+						ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
+					});
 
-                    if (ctrl.group) {
-                        avatar = ctrl.group.card_avatar;
-                    }
-                    if (ctrl.place) {
-                        avatar = ctrl.place.avatar;
-                    }
-                    if (ctrl.profile) {
-                        avatar = ctrl.profile.loggedUserAva;
-                    }
-                    if (ctrl.feed) {
-                        avatar = ctrl.feed.loggedUserAva;
-                    }
-                    return avatar;
-                }
+					if (!ctrl.cover) {
+						return false;
+					}
 
-                function getAuthorName() {
-                    var name;
+					if (ctrl.newPublicationForm.$invalid) {
+						return false;
+					}
 
-                    if (ctrl.group) {
-                        name = ctrl.group.name;
-                    }
-                    if (ctrl.place) {
-                        name = ctrl.place.name;
-                    }
-                    if (ctrl.profile) {
-                        name = ctrl.profile.fullName;
-                    }
-                    if (ctrl.feed) {
-                        name = ctrl.feed.fullName;
-                    }
-                    return name;
-                }
+					ctrl.subForm = true;
 
-                function loadUserContacts() {
-                    PublicationService.getSubscribers($rootScope.user.userId).then(function (response) {
-                            ctrl.subscribers = response;
-                        },
-                        function (error) {
-                            console.log(error);
-                        });
-                    PublicationService.getSubscription($rootScope.user.userId).then(function (response) {
-                            ctrl.subscriptions = response;
-                        },
-                        function (error) {
-                            console.log(error);
-                        });
-                }
+					var images = [],
+						originalImages = [];
+					var videos = [];
 
-                function resizeImage2(image) {
-                    return Upload.resize(image, 700, 395).then(function (resizedFile) {
-                        return resizedFile;
-                    });
-                }
+					var isMain;
 
-                function isImage(file) {
-                    var type = file.type.split('/')[0];
-                    return type === 'image';
-                }
+					if ($state.is('feed')) {
+						isMain = 1;
+					} else {
+						isMain = 0;
+					}
 
-                function isVideo(file) {
-                    var type = file.type.split('/')[0];
-                    return type === 'video';
-                }
+					ctrl.files.forEach(function (file) {
+						var type = file.type.split('/')[0];
+						if (type === 'image') {
+							images.push(file);
+						} else if (type === 'video') {
+							videos.push(file);
+						}
+					});
+					ctrl.originalFiles.forEach(function (file) {
+						var type = file.type.split('/')[0];
+						if (type === 'image') {
+							originalImages.push(file);
+						}
+					});
 
-            }
-        });
+					if (!ctrl.cover) {
+						// если нет видеофайлов, обложка = фото
+						if (videos.length === 0) {
+							ctrl.cover = images[0];
+						} else {
+							// если есть и видео и фото, то обложка = фото
+							if (images.length > 0) {
+								ctrl.cover = images[0];
+							} else {
+								// если есть только видео, то обложка = видео
+								ctrl.cover = videos[0];
+							}
+						}
+					}
+
+
+					var newPublication = {
+						text: ctrl.emojiMessage.messagetext,
+						cover: ctrl.cover,
+						images: images,
+						originalImages: originalImages,
+						videos: videos,
+						isAnonym: ctrl.isAnonym,
+						isMain: isMain,
+						inProfile: $state.is('user'),
+
+						groupId: ctrl.group ? ctrl.group.id : null,
+						placeId: ctrl.place ? ctrl.place.id : null
+
+					};
+
+					// в зависимости от того где создается публикация используется свой сервис
+					if (ctrl.group) {
+						submitGroupPublication(newPublication);
+					} else if (ctrl.place) {
+						submitPlacePublication(newPublication);
+					} else {
+						submitProfileOrFeedPublication(newPublication);
+					}
+
+				};
+
+				function submitProfileOrFeedPublication(pub) {
+					PublicationService.createPublication(pub).then(function (data) {
+						$rootScope.$broadcast('publication:add', {
+							publication: data.publication
+						});
+						ctrl.subForm = false;
+						ngDialog.closeAll();
+					});
+				}
+
+				function submitGroupPublication(pub) {
+					groupsService.addPublication(pub).then(function (data) {
+						$rootScope.$broadcast('publication:add', {
+							publication: data.publication
+						});
+						ctrl.subForm = false;
+						ngDialog.closeAll();
+					});
+				}
+
+				function submitPlacePublication(pub) {
+					placesService.addPublication(pub).then(function (data) {
+						$rootScope.$broadcast('publication:add', {
+							publication: data.publication
+						});
+						ctrl.subForm = false;
+						ngDialog.closeAll();
+					});
+				}
+
+				function getScopes(){
+					PublicationService.getScopes().then(function(data){
+						console.log(data);
+					});
+				}
+
+				getScopes();
+
+				function resizeImage(image) {
+					//Upload.imageDimensions(image).then(function (dimensions) {
+					//    console.info('Group publication: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+					//});
+
+					return Upload.resize(image, 700, 395, null, null, null, false).then(function (resizedFile) {
+						//Upload.imageDimensions(resizedFile).then(function (dimensions) {
+						//    console.info('Group publication: after resize dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+						//});
+						//ctrl.files.push(resizedFile);
+						return resizedFile;
+					});
+				}
+
+				function getAvatarPath() {
+
+					var avatar;
+
+					if (ctrl.group) {
+						avatar = ctrl.group.card_avatar;
+					}
+					if (ctrl.place) {
+						avatar = ctrl.place.avatar;
+					}
+					if (ctrl.profile) {
+						avatar = ctrl.profile.loggedUserAva;
+					}
+					if (ctrl.feed) {
+						avatar = ctrl.feed.loggedUserAva;
+					}
+					return avatar;
+				}
+
+				function getAuthorName() {
+					var name;
+
+					if (ctrl.group) {
+						name = ctrl.group.name;
+					}
+					if (ctrl.place) {
+						name = ctrl.place.name;
+					}
+					if (ctrl.profile) {
+						name = ctrl.profile.fullName;
+					}
+					if (ctrl.feed) {
+						name = ctrl.feed.fullName;
+					}
+					return name;
+				}
+
+				function loadUserContacts() {
+					PublicationService.getSubscribers($rootScope.user.userId).then(function (response) {
+							ctrl.subscribers = response;
+						},
+						function (error) {
+							console.log(error);
+						});
+					PublicationService.getSubscription($rootScope.user.userId).then(function (response) {
+							ctrl.subscriptions = response;
+						},
+						function (error) {
+							console.log(error);
+						});
+				}
+
+				function resizeImage2(image) {
+					return Upload.resize(image, 700, 395).then(function (resizedFile) {
+						return resizedFile;
+					});
+				}
+
+				function isImage(file) {
+					var type = file.type.split('/')[0];
+					return type === 'image';
+				}
+
+				function isVideo(file) {
+					var type = file.type.split('/')[0];
+					return type === 'video';
+				}
+
+			}
+		});
 })(angular);

@@ -67,7 +67,11 @@ angular.module('placePeopleApp')
 
 	UserService.getUserData(storage.username).then(function(res){
 		$scope.userData = res;
-		console.log($scope.userData);
+		$scope.userData.scopes.forEach(function(value){
+			if(value.signed){
+				$scope.checkedAreas.push(value.id);
+			}
+		});
 		$scope.isVisible = res.is_visible;	
 		$scope.isPrivate = res.is_private;	
 		$scope.showAvatar = res.is_avatar;									        
@@ -90,8 +94,16 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.saveAreas = function(){
+		$scope.saveAreasPreloader = true;
 		UserService.updateScopes($scope.checkedAreas).then(function(response){
-			console.log(response);
+			$scope.saveAreasPreloader = false;
+			if(response.status){
+				$scope.successsaveareas = true;
+				$scope.errorsaveareas = false;
+			}else if(!response.status && parseInt(response.error.code) === 2){
+				$scope.successsaveareas = false;
+				$scope.errorsaveareas = true;
+			}
 		},
 		function(err){
 			console.log(err);
@@ -116,7 +128,6 @@ angular.module('placePeopleApp')
 				$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area.id), 1);
 			}
 		}
-		console.log($scope.checkedAreas);
 	};
 
 	$scope.checkAll = function(param){
@@ -134,7 +145,6 @@ angular.module('placePeopleApp')
 		UserService.changeShowAvatar(flag ? 1 : 0)
 			.then(
 				function(res){
-					console.log(res);
 					if (res.status) {						
 						$scope.userData = res.user;
 						$scope.showAvatar = res.user.is_avatar;	
