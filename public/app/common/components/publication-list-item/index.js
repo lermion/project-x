@@ -924,13 +924,14 @@
 
                 function getIndexCurrentImage() {
                     var index;
-                    ctrl.pub.files.forEach(function (file, i, files) {
-                        if (file.pivot.is_cover) {
-                            index = i;
-                        }
-                    });
-
-                    return index;
+                    if(ctrl.pub.files !== undefined){
+                        ctrl.pub.files.forEach(function (file, i, files) {
+                            if (file.pivot.is_cover) {
+                                index = i;
+                            }
+                        });
+                        return index;
+                    }
                 }
             }
         });

@@ -129,7 +129,7 @@ Queries.prototype.getUserRooms = function(data){
 										avatar: item.avatar,
 										is_admin: item.is_admin,
 										last_message: last_message,
-										last_message_id: last_message_id,
+										last_message_id: last_message_id ? last_message_id : '',
 										last_message_created_at: lastMessages[0] ? lastMessages[0].created_at : "",
 										show_notif: result[0] ? result[0].show_notif : "",
 										countMessages: countMessages[0]['COUNT(message_id)']

@@ -775,7 +775,7 @@ angular.module('placePeopleApp')
 			});
 
 			$scope.showPublication = function(publication){
-				getSinglePublication(publication.id);
+				getSinglePublication(publication);
 			};
 
 			$scope.limit = 6;
@@ -800,8 +800,8 @@ angular.module('placePeopleApp')
 				}
 			};
 
-			function getSinglePublication(pubId, flag) {
-				PublicationService.getSinglePublication(pubId).then(function (response) {
+			function getSinglePublication(publication, flag) {
+				PublicationService.getSinglePublication(publication.id).then(function (response) {
 					//getAllCommentsPublication(pubId);
 					$scope.limit = 6;
 					$scope.singlePublication = response;
@@ -809,13 +809,16 @@ angular.module('placePeopleApp')
 						$scope.mainImage = response.images[0].url;
 					}
 					if($window.innerWidth <= 700){
-						$state.go('mobile-pub-view', {username: $scope.loggedUser, id: pubId, fromChat: true});
+						$state.go('mobile-pub-view', {username: $scope.loggedUser, id: publication.id, fromChat: true});
 					}else{
 						ngDialog.open({
-							template: '../app/Chat/views/popup-view-chat-publication.html',
+							template: '../app/common/views/pub-item-modal.html',
 							className: 'view-publication ngdialog-theme-default',
 							scope: $scope,
-							name: "view-publication"
+							name: "view-publication",
+							data: {
+								pub: publication
+							}
 						});
 					}
 				},
