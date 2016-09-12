@@ -76,7 +76,7 @@
 							<input type="checkbox" id="area2" name="" value="">
 							<label for="area3">Винница</label>
 							<input type="checkbox" id="area3" name="" value="">
-							<button class="btn btn-success btn-xs">Сохранить</button>
+							<button type="submit" class="btn btn-success btn-xs">Сохранить</button>
 						</form>
 					</td>
 					<td>
