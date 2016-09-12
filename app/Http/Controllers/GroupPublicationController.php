@@ -7,6 +7,7 @@ use App\GroupUser;
 use App\Image;
 use App\Publication;
 use App\PublicationImage;
+use App\ScopePublication;
 use App\Video;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,8 @@ class GroupPublicationController extends Controller
                 'original_cover' => 'file',
                 'videos' => 'array',
                 'images' => 'array',
-                'original_images' => 'array'
+                'original_images' => 'array',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -75,6 +77,8 @@ class GroupPublicationController extends Controller
         $publicationData['user_id'] = Auth::id();
         $group = Group::find($id);
         $publication = $group->publications()->create($publicationData);
+        $scopes = $request->input('scopes');
+        $publication->scopes()->attach($scopes);
         if ($request->hasFile('images')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
@@ -175,7 +179,8 @@ class GroupPublicationController extends Controller
                         'videos' => 'array',
                         'images' => 'array',
                         'delete_videos' => 'array',
-                        'delete_images' => 'array'
+                        'delete_images' => 'array',
+                        'scopes' => 'required|array|max:3'
                     ]);
                 } catch (\Exception $ex) {
                     $result = [
@@ -199,6 +204,9 @@ class GroupPublicationController extends Controller
                     $publicationData['original_cover'] = $path;
                 }
                 $publication->update($publicationData);
+                ScopePublication::where('publication_id',$publication->id)->delete();
+                $scopes = $request->input('scopes');
+                $publication->scopes()->attach($scopes);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
                     foreach ($deleteImages as $deleteImage) {

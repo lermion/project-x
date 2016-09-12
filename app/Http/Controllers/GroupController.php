@@ -8,6 +8,8 @@ use App\NewGroup;
 use App\GroupInvite;
 use App\GroupUser;
 use App\Image;
+use App\Scope;
+use App\ScopeGroup;
 use App\User;
 use App\Online;
 use App\UserRoomsMessage;
@@ -79,7 +81,8 @@ class GroupController extends Controller
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
                 'card_avatar' => 'image',
-                'original_avatar' => 'image'
+                'original_avatar' => 'image',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -111,6 +114,8 @@ class GroupController extends Controller
         }
         $publicationData['room_id'] = $room->id;
         $group = Group::create($publicationData);
+        $scopes = $request->input('scopes');
+        $group->scopes()->attach($scopes);
         NewGroup::create(['user_id' => Auth::id(), 'group_id' => $group->id,]);
         GroupUser::create(['user_id' => Auth::id(), 'group_id' => $group->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'group' => $group]);
@@ -188,7 +193,8 @@ class GroupController extends Controller
                 'is_open' => 'required|boolean',
                 'avatar' => 'image',
                 'card_avatar' => 'image',
-                'original_avatar' => 'image'
+                'original_avatar' => 'image',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -232,6 +238,9 @@ class GroupController extends Controller
             $groupData['card_avatar'] = $path;
         }
         $group = Group::find($id);
+        ScopeGroup::where('publication_id',$group->id)->delete();
+        $scopes = $request->input('scopes');
+        $group->scopes()->attach($scopes);
         $group->update($groupData);
         return response()->json(["status" => true, "groupData" => $groupData]);
     }
@@ -472,6 +481,38 @@ class GroupController extends Controller
     public function counter_new_group ()
     {
         return NewGroup::where(['user_id' => Auth::id()])->count();
+    }
+
+    public function getGroupScopes()
+    {
+        $group = Group::find(Auth::id());
+        $scopes_groups = $group->scopes()->pluck('scopes.id');
+        $scopes = Scope::all();
+        $all = false;
+        foreach ($scopes_groups as $scopes_group){
+            if ($scopes_group == 1){
+                $all = true;
+            }
+        }
+        if ($all == true) {
+            $data_scope = [];
+            foreach ($scopes as $scope) {
+                $scope['signed'] = true;
+                $data_scope[] = $scope;
+            }
+            return $data_scope;
+        } else {
+            $data_scope = [];
+            foreach ($scopes as $scope) {
+                foreach ($scopes_groups as $scopes_group) {
+                    if ($scope['id'] == $scopes_group) {
+                        $scope['signed'] = true;
+                    }
+                }
+                $data_scope[] = $scope;
+            }
+            return $data_scope;
+        }
     }
 
     function transliterate($input)

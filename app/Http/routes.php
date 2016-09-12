@@ -207,7 +207,6 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'group', 'middleware' => 'auth'], function () {
-
         Route::get('counter_new_group', 'GroupController@counter_new_group');
         Route::get('/', 'GroupController@index');
         Route::get('admin_group', 'GroupController@adminGroup');
@@ -219,6 +218,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('delete_subscription/{id}', 'GroupController@admin_subscription_delete');
         Route::post('invite/{group_id}', 'GroupController@invite');
         Route::get('set_user_admin/{group_id}/{user_id}', 'GroupController@setUserAdmin');
+        Route::get('get_group_scopes', 'GroupController@getGroupScopes');
         Route::get('set_admin_creator/{group_id}/{admin_id}', 'GroupController@setUserCreator');
         Route::group(['prefix' => '{groupId}/publication'], function () {
             Route::get('/', 'GroupPublicationController@index');
@@ -250,9 +250,9 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix' => 'place', 'middleware' => 'auth'], function () {
-
         Route::get('counter_new_place', 'PlaceController@counter_new_place');
         Route::get('/', 'PlaceController@index');
+        Route::get('get_place_scopes', 'PlaceController@getPlaceScopes');
         Route::get('admin_place', 'PlaceController@adminPlace');
         Route::post('create', 'PlaceController@create')->middleware(['auth']);
         Route::get('show/{name}', 'PlaceController@show');
@@ -323,7 +323,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/get_scopes\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/place/get_place_scopes\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='order' ><br>
