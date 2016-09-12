@@ -207,21 +207,36 @@ class UserController extends Controller
         return $path . $fileName;
     }
 
-    private function getScopes()
+    public function getScopes()
     {
         $user = User::find(Auth::id());
         $scopes_user = $user->scopes()->pluck('scopes.id');
         $scopes = Scope::all();
-        $data_scope = [];
-        foreach ($scopes as $scope) {
-            foreach ($scopes_user as $scope_user){
-                if ($scope['id'] == $scope_user) {
-                    $scope['signed']=true;
-                }
+        $all = false;
+        foreach ($scopes_user as $scope_user){
+            if ($scope_user == 1){
+                $all = true;
             }
-            $data_scope[]=$scope;
         }
-        return $data_scope;
+        if ($all == true) {
+            $data_scope = [];
+            foreach ($scopes as $scope) {
+                $scope['signed'] = true;
+                $data_scope[] = $scope;
+            }
+            return $data_scope;
+        } else {
+            $data_scope = [];
+            foreach ($scopes as $scope) {
+                foreach ($scopes_user as $scope_user) {
+                    if ($scope['id'] == $scope_user) {
+                        $scope['signed'] = true;
+                    }
+                }
+                $data_scope[] = $scope;
+            }
+            return $data_scope;
+        }
     }
 
     public function updateScopes(Request $request)

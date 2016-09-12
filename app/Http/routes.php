@@ -192,6 +192,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('count_not_confirmed', 'SubscriberController@count_not_confirmed')->middleware(['auth']);
         Route::get('{id}/subscription', 'SubscriberController@subscription');
         Route::get('{id}/subscribers', 'SubscriberController@subscribers');
+        Route::get('get_scopes', 'UserController@getScopes')->middleware(['auth']);
     });
     Route::get('country', 'CountryController@index');
     Route::get('city/{country_id}', 'CityController@index');
@@ -322,7 +323,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/user/update_scopes\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/get_scopes\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='order' ><br>

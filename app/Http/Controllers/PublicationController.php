@@ -6,6 +6,7 @@ use App\ComplaintPublication;
 use App\Image;
 use App\Publication;
 use App\PublicationVideo;
+use App\ScopePublication;
 use App\User;
 use App\Video;
 use Illuminate\Http\Request;
@@ -131,7 +132,8 @@ class PublicationController extends Controller
                 'in_profile' => 'boolean',
                 'videos' => 'array',
                 'images' => 'array',
-                'original_images' => 'array'
+                'original_images' => 'array',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -195,7 +197,8 @@ class PublicationController extends Controller
         $publicationData['user_id'] = Auth::id();
         $publicationData['is_main'] = $publicationData['is_anonym'] ? true : $publicationData['is_main'];
         $publication = Publication::create($publicationData);
-
+        $scopes = $request->input('scopes');
+        $publication->scopes()->attach($scopes);
         if ($request->hasFile('images')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
@@ -304,7 +307,8 @@ class PublicationController extends Controller
                         'images' => 'array',
                         'original_images' => 'array',
                         'delete_videos' => 'array',
-                        'delete_images' => 'array'
+                        'delete_images' => 'array',
+                        'scopes' => 'required|array|max:3'
                     ]);
                 } catch (\Exception $ex) {
                     $result = [
@@ -323,6 +327,9 @@ class PublicationController extends Controller
                     $publicationData['is_moderate'] = $publication->is_moderate;
                 }
                 $publication->update($publicationData);
+                ScopePublication::where('publication_id',$publication->id)->delete();
+                $scopes = $request->input('scopes');
+                $publication->scopes()->attach($scopes);
                 if ($request->input('cover_image_id')){
                     $cover_id = $request->input('cover_image_id');
                     $image = PublicationImage::where(['is_cover'=>true,'publication_id'=>$id])->first();
