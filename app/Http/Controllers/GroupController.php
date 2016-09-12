@@ -28,37 +28,60 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::select('groups.id','groups.is_open','groups.name','groups.url_name','groups.description','groups.avatar','groups.card_avatar', 'groups.created_at', 'groups.room_id')
-            ->where('groups.is_open',true)
-            ->orWhere(function($query){
-                $query->where('groups.is_open',false);
-                $query->whereExists(function($query)
-                {
-                    $query->select(DB::raw('id'))
-                        ->from('group_users')
-                        ->where('group_users.user_id',Auth::id())
-                        ->whereRaw('group_users.group_id = groups.id');
-                });
-            })
-            ->get();
-        foreach($groups as &$group){
-            $group->count_chat_message = UserRoomsMessage::where('room_id',$group->room_id)->count();
-            $group->count_user = $group->users()->count();
-            $group->publications = $group->publications()->count();
-            if (GroupUser::where(['group_id' =>$group->id,'user_id' => Auth::id()])->first()){
-                $group->is_sub = true;
-            } else {$group->is_sub = false;}
-            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
-                $group->is_admin = true;
-            } else {$group->is_admin = false;}
-            if(GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_creator' => true])->first()){
-                $group->is_creator = true;
-            } else {$group->is_creator = false;}
-            if(NewGroup::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()){
-                $group->is_new_group = true;
-            } else {$group->is_new_group = false;}
+        $user = User::find(Auth::id());
+        $scopes = $user->scopes()->pluck('scopes.id');
+        $all = [];
+        foreach ($scopes as $scope) {
+            $groups = Group::select('groups.id', 'groups.is_open', 'groups.name', 'groups.url_name', 'groups.description', 'groups.avatar', 'groups.card_avatar', 'groups.created_at', 'groups.room_id', 'scope_groups.scope_id')
+                ->join('scope_groups', 'groups.id', '=', 'scope_groups.group_id')
+                ->where(function ($query) use ($scope) {
+                    $query->where('groups.is_open', true)
+                        ->where('scope_groups.scope_id', $scope);
+                })
+                ->orWhere(function ($query) {
+                    $query->where('groups.is_open', false);
+                    $query->whereExists(function ($query) {
+                        $query->select(DB::raw('id'))
+                            ->from('group_users')
+                            ->where('group_users.user_id', Auth::id())
+                            ->whereRaw('group_users.group_id = groups.id');
+                    });
+                })
+                ->get();
+            foreach ($groups as $group) {
+                $group->count_chat_message = UserRoomsMessage::where('room_id', $group->room_id)->count();
+                $group->count_user = $group->users()->count();
+                $group->publications = $group->publications()->count();
+                if (GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
+                    $group->is_sub = true;
+                } else {
+                    $group->is_sub = false;
+                }
+                if (GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()) {
+                    $group->is_admin = true;
+                } else {
+                    $group->is_admin = false;
+                }
+                if (GroupUser::where(['group_id' => $group->id, 'user_id' => Auth::id(), 'is_creator' => true])->first()) {
+                    $group->is_creator = true;
+                } else {
+                    $group->is_creator = false;
+                }
+                if (NewGroup::where(['group_id' => $group->id, 'user_id' => Auth::id()])->first()) {
+                    $group->is_new_group = true;
+                } else {
+                    $group->is_new_group = false;
+                }
+            }
+            $all[] = $groups;
         }
-        return $groups;
+        $group=[];
+        foreach ($all as $array){
+            foreach ($array as $one){
+                $group[]=$one;
+            }
+        }
+        return $group;
     }
 
     public function adminGroup()

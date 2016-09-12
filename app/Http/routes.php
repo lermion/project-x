@@ -161,6 +161,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('block_place/{id}', 'Admin\ModerationController@blockPlace');
                 Route::get('confirm_place/{id}', 'Admin\ModerationController@confirmPlace');
                 Route::get('note_place/{id}', 'Admin\ModerationController@notePlace');
+                Route::post('save_scope_place', 'Admin\ModerationController@saveScopePlace');
             });
             Route::group(['prefix' => 'scope'], function () {
                 Route::post('/', 'Admin\ScopeController@index');

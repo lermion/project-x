@@ -6,6 +6,8 @@ use App\City;
 use App\Group;
 use App\Place;
 use App\Publication;
+use App\Scope;
+use App\ScopePlace;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -171,7 +173,8 @@ class ModerationController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(25);
         $cities = City::all();
-        return view('admin.moderation.places',['places'=>$places,'cities'=>$cities,'url'=>'New']);
+        $scopes = Scope::all();
+        return view('admin.moderation.places',['places'=>$places,'cities'=>$cities,'scopes'=>$scopes,'url'=>'New']);
     }
 
     public function getIsBlockPlaces()
@@ -180,7 +183,9 @@ class ModerationController extends Controller
             ->where('is_block',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.places',['places'=>$places,'url'=>'Block']);
+        $cities = City::all();
+        $scopes = Scope::all();
+        return view('admin.moderation.places',['places'=>$places,'cities'=>$cities,'scopes'=>$scopes,'url'=>'Block']);
     }
 
     public function getToNotePlaces()
@@ -189,7 +194,9 @@ class ModerationController extends Controller
             ->where('to_note',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.places',['places'=>$places,'url'=>'Note']);
+        $cities = City::all();
+        $scopes = Scope::all();
+        return view('admin.moderation.places',['places'=>$places,'cities'=>$cities,'scopes'=>$scopes,'url'=>'Note']);
     }
 
     public function blockPlace($id)
@@ -213,5 +220,28 @@ class ModerationController extends Controller
         $place->to_note = true;
         $place->save();
         return redirect('/admin/moderation/places')->with('message', 'Место на заметке');
+    }
+
+    public function saveScopePlace(Request $request){
+        try {
+            $this->validate($request, [
+                'scopes' => 'required|array|max:3'
+            ]);
+        } catch (\Exception $ex) {
+        $result = [
+            "status" => false,
+            "error" => [
+            'message' => $ex->validator->errors(),
+            'code' => '1'
+            ]
+        ];
+            return redirect('/admin/moderation/places')->with('message', 'Ошибка!!! Область видемости не изменена');
+        }
+        $id = $request->input('id');
+        $place = Place::find($id);
+        ScopePlace::where('place_id',$place->id)->delete();
+        $scopes = $request->input('scopes');
+        $place->scopes()->attach($scopes);
+        return redirect('/admin/moderation/places')->with('message', 'Область видемости изменена');
     }
 }
