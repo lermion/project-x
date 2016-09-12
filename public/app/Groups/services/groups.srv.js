@@ -144,6 +144,9 @@
             fd.append('avatar', group.avatar, group.avatar.name);
             fd.append('original_avatar', group.originalAvatar, group.originalAvatar.name);
             fd.append('card_avatar', group.avatarCard, group.avatarCard.name);
+            group.scopes.forEach(function(scope){
+                fd.append('scopes[]', scope);
+            });
 
             return $http({
                 method: 'POST',

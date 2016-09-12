@@ -199,6 +199,7 @@ angular.module('app.groups')
 				$scope.subForm = true;
 
 				$scope.newGroup.description = $scope.emojiMessage.messagetext;
+				$scope.newGroup.scopes = $scope.checkedAreas;
 
 				groupsService.addGroup($scope.newGroup)
 					.then(function (data) {
