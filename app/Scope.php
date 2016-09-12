@@ -15,4 +15,9 @@ class Scope extends Model
         return $this->belongsToMany('App\User', 'scope_users')->withTimestamps();
     }
 
+    public function publications()
+    {
+        return $this->belongsToMany('App\User', 'scope_publications')->withTimestamps();
+    }
+
 }

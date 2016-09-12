@@ -25,7 +25,7 @@ class PublicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+        {
         try {
             $this->validate($request, [
                 'offset' => 'required|numeric',

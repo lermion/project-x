@@ -30,6 +30,12 @@ class Publication extends Model
     {
         return $this->belongsToMany('App\Video', 'publication_videos')->withPivot('is_cover')->withTimestamps();
     }
+
+    public function scopes()
+    {
+        return $this->belongsToMany('App\Scope', 'scope_publications')->withTimestamps();
+    }
+
     protected static function boot() {
         parent::boot();
 
