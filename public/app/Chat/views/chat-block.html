@@ -138,7 +138,8 @@
 						<video width="150px" controls ngf-src="video.url"></video>
 					</div>
 					<div ng-hide="results.length === message.pub.images.length" ng-click="loadMorePubFiles(results.length === message.pub.images.length, 'list', message.pub)" class="images-item more">
-						<p class="counter">Еще<br> {{message.pub.images.length - limit}} фото</p>
+						<p class="counter">Еще<br> {{(message.pub.images.length + message.pub.videos.length) -
+                    limit}} файлов</p>
 					</div>
 				</div>
 				<div class="chat-publication-relations">
