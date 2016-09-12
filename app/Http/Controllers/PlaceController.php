@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\ChatRoom;
 use App\Place;
 use App\NewPlace;
+use App\Scope;
+use App\ScopePlace;
 use App\TypePlace;
 use App\PlaceUser;
 use App\PlaceInvite;
@@ -62,7 +64,8 @@ class PlaceController extends Controller
                 'original_avatar' => 'image',
                 'cover' => 'image',
                 'original_cover' => 'image',
-                'type_place_id' => 'required'
+                'type_place_id' => 'required',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -117,6 +120,8 @@ class PlaceController extends Controller
             $placeData['original_cover'] = $path;
         }
         $place = Place::create($placeData);
+        $scopes = $request->input('scopes');
+        $place->scopes()->attach($scopes);
         PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'place' => $place]);
     }
@@ -185,7 +190,8 @@ class PlaceController extends Controller
                 'cover' => 'image',
                 'original_avatar' => 'image',
                 'original_cover' => 'image',
-                'type_place_id' => 'required'
+                'type_place_id' => 'required',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -232,6 +238,9 @@ class PlaceController extends Controller
             $placeData['original_cover'] = $path;
         }
         $place = Place::find($id);
+        ScopePlace::where('publication_id',$place->id)->delete();
+        $scopes = $request->input('scopes');
+        $place->scopes()->attach($scopes);
         $place->update($placeData);
         return response()->json(["status" => true, "placeData" => $placeData]);
     }
@@ -482,6 +491,38 @@ class PlaceController extends Controller
             $data = $request->all();
             $city = City::create($data);
             return response()->json(['status' => true, 'city_id' => $city->id]);
+        }
+    }
+
+    public function getPlaceScopes()
+    {
+        $place = Place::find(Auth::id());
+        $scopes_places = $place->scopes()->pluck('scopes.id');
+        $scopes = Scope::all();
+        $all = false;
+        foreach ($scopes_places as $scopes_place){
+            if ($scopes_place == 1){
+                $all = true;
+            }
+        }
+        if ($all == true) {
+            $data_scope = [];
+            foreach ($scopes as $scope) {
+                $scope['signed'] = true;
+                $data_scope[] = $scope;
+            }
+            return $data_scope;
+        } else {
+            $data_scope = [];
+            foreach ($scopes as $scope) {
+                foreach ($scopes_places as $scopes_place){
+                    if ($scope['id'] == $scopes_place) {
+                        $scope['signed'] = true;
+                    }
+                }
+                $data_scope[] = $scope;
+            }
+            return $data_scope;
         }
     }
 

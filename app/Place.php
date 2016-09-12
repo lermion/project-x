@@ -25,6 +25,11 @@ class Place extends Model
         return $this->belongsToMany('App\Publication', 'place_publications')->withTimestamps();
     }
 
+    public function scopes()
+    {
+        return $this->belongsToMany('App\Scope', 'scope_places')->withTimestamps();
+    }
+
     public function count_chat_files($room_id)
     {
         $image = Image::join('message_images','message_images.image_id','=', 'images.id')

@@ -60,7 +60,8 @@ class PlacePublicationController extends Controller
                 'cover' => 'file',
                 'original_cover' => 'file',
                 'images' => 'array',
-                'original_images' => 'array'
+                'original_images' => 'array',
+                'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
             $result = [
@@ -122,7 +123,8 @@ class PlacePublicationController extends Controller
         $publicationData['user_id'] = Auth::id();
         $place = Place::find($id);
         $publication = $place->publications()->create($publicationData);
-
+        $scopes = $request->input('scopes');
+        $publication->scopes()->attach($scopes);
         if ($request->hasFile('images')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
@@ -220,7 +222,8 @@ class PlacePublicationController extends Controller
                         'videos' => 'array',
                         'images' => 'array',
                         'delete_videos' => 'array',
-                        'delete_images' => 'array'
+                        'delete_images' => 'array',
+                        'scopes' => 'required|array|max:3'
                     ]);
                 } catch (\Exception $ex) {
                     $result = [
@@ -244,6 +247,9 @@ class PlacePublicationController extends Controller
                     $publicationData['original_cover'] = $path;
                 }
                 $publication->update($publicationData);
+                ScopePublication::where('publication_id',$publication->id)->delete();
+                $scopes = $request->input('scopes');
+                $publication->scopes()->attach($scopes);
                 $deleteImages = $request->input('delete_images');
                 if ($deleteImages) {
                     foreach ($deleteImages as $deleteImage) {
