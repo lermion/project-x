@@ -181,6 +181,9 @@ angular.module('placePeopleApp')
 			publication.images.forEach(function (img) {
 				data.append('images[]', img, img.name);
 			});
+			publication.scopes.forEach(function(scope){
+				data.append('scopes[]', scope);
+			});
 			if (publication.originalImages.length > 0) {
 				publication.originalImages.forEach(function (img) {
 					data.append('original_images[]', img, img.name);

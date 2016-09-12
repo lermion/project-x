@@ -18,6 +18,7 @@
 				ctrl.pub = {};
 				ctrl.files = [];
 				ctrl.originalFiles = [];
+				ctrl.checkedAreas = [];
 				ctrl.subForm = false;
 				ctrl.isAnonym = false;
 
@@ -225,6 +226,7 @@
 						isAnonym: ctrl.isAnonym,
 						isMain: isMain,
 						inProfile: $state.is('user'),
+						scopes: ctrl.checkedAreas
 
 						groupId: ctrl.group ? ctrl.group.id : null,
 						placeId: ctrl.place ? ctrl.place.id : null
@@ -274,8 +276,27 @@
 
 				function getScopes(){
 					PublicationService.getScopes().then(function(data){
-						console.log(data);
+						ctrl.scopes = data;
+						ctrl.scopes.forEach(function(value){
+							if(value.signed){
+								ctrl.checkedAreas.push(value.id);
+								value.active = true;
+							}
+						});
+					},
+					function(error){
+						console.log(error);
 					});
+				}
+
+				ctrl.checkedScope = function(active, scope){
+					if(active){
+						if(ctrl.checkedAreas.length < 3){
+							ctrl.checkedAreas.push(scope.id);
+						}
+					}else{
+						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
+					}
 				}
 
 				getScopes();
