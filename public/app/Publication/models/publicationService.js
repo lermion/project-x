@@ -224,6 +224,10 @@ angular.module('placePeopleApp')
 			data.append('is_main', pub.isMain);
 			data.append('in_profile', pub.inProfile ? 1 : 0);
 
+			pub.scopes.forEach(function(scope){
+				data.append('scopes[]', scope);
+			});
+
 			if (pub.images.length > 0) {
 				pub.images.forEach(function (img) {
 					data.append('images[]', img, img.name);
