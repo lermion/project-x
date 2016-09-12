@@ -147,7 +147,7 @@
 												$moderatorModal.modal({
 													keyboard: false
 												});
-											}, delay);
+											}, 1000*3);
 											inProgress = false;
 										},
 										error: function() {
