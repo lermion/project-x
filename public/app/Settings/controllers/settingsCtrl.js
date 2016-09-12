@@ -72,7 +72,6 @@ angular.module('placePeopleApp')
 				$scope.checkedAreas.push(value.id);
 			}
 		});
-		console.log($scope.checkedAreas);
 		$scope.isVisible = res.is_visible;	
 		$scope.isPrivate = res.is_private;	
 		$scope.showAvatar = res.is_avatar;									        
