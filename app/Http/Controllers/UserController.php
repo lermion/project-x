@@ -67,7 +67,7 @@ class UserController extends Controller
                 'phone' => 'unique:users|numeric|min:5',
                 'login' => 'unique:users',
                 'is_visible' => 'boolean',
-                'scopes' => 'required|array|max:3',
+                //'scopes' => 'required|array|max:3',
                 'is_avatar' => 'boolean'
             ]);
         } catch (\Exception $ex) {
@@ -92,7 +92,6 @@ class UserController extends Controller
             return response()->json($result);
         } else {
             $user->update($request->all());
-
             if ($request->input('is_visible') == false)
                 Online::logOut(Auth::id());
             if ($request->hasFile('avatar')) {
@@ -255,6 +254,10 @@ class UserController extends Controller
             if ($desired_scope) {
                 DesiredScope::create(['user_id' => $user->id, 'scope_name' => $desired_scope]);
             }
+            $result = [
+                "status" => true
+            ];
+            return response()->json($result);
         } else {
             $result = [
                 "status" => false,
