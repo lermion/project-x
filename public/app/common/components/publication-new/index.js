@@ -276,9 +276,20 @@
 
 				function getScopes(){
 					if(ctrl.group){
-
+						groupsService.getGroupScopes(ctrl.group.id).then(function(data){
+							ctrl.scopes = data;
+							ctrl.scopes.forEach(function(value){
+								if(value.signed){
+									ctrl.checkedAreas.push(value.id);
+									value.active = true;
+								}
+							});
+						},
+						function(error){
+							console.log(error);
+						});
 					}else if(ctrl.place){
-						placesService.getPlaceScopes(placeId).then(function(data){
+						placesService.getPlaceScopes(ctrl.place.id).then(function(data){
 							ctrl.scopes = data;
 							ctrl.scopes.forEach(function(value){
 								if(value.signed){

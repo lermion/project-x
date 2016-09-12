@@ -5,9 +5,9 @@
 		.module('app.places')
 		.factory('placesService', placesService);
 
-	placesService.$inject = ['$http'];
+	placesService.$inject = ['$http', '$q'];
 
-	function placesService($http) {
+	function placesService($http, $q) {
 
 		var countries = [];
 
