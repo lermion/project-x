@@ -158,12 +158,12 @@
             });
         };
 
-        vm.openModalReviewPublication = function (id, index) {
+        vm.openModalReviewPublication = function (publication, index) {
 
             if (isMobile()) {
 
                 $state.go('mobile-pub-view-test', {
-                    id: id,
+                    id: publication.id,
                     prevState: {
                         name: 'place',
                         params: {
@@ -175,12 +175,15 @@
             } else {
 
                 $scope.indexCurrentPublication = index;
-                getPublication(id).then(function () {
+                getPublication(publication.id).then(function () {
                     modalReviewPublication = ngDialog.open({
-                        template: '../app/Places/views/popup-view-place-publication.html',
+                        template: '../app/common/views/pub-item-modal.html',
                         name: 'modal-publication-group',
                         className: 'view-publication ngdialog-theme-default',
                         scope: $scope,
+                        data: {
+                            pub: publication
+                        },
                         preCloseCallback: function () {
                             // TODO: появляется дополнительная публикация и сразу пропадает
                             //vm.place.publications[index] = vm.activePublication;

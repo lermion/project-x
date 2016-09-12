@@ -263,9 +263,9 @@
 			});
 		};
 
-		vm.openModalReviewPublication = function (id, index) {
+		vm.openModalReviewPublication = function (publication, index) {
 			$scope.indexCurrentPublication = index;
-			getPublication(id).then(function () {
+			getPublication(publication.id).then(function () {
 				var screenWidth = $window.innerWidth;
 				if (screenWidth < 768) {
 					vm.isMobile = true;
@@ -273,10 +273,13 @@
 				} else if (screenWidth >= 768) {
 					vm.isMobile = false;
 					modalReviewPublication = ngDialog.open({
-						template: '../app/Groups/views/popup-view-group-publication.html',
+						template: '../app/common/views/pub-item-modal.html',
 						name: 'modal-publication-group',
 						className: 'view-publication ngdialog-theme-default',
 						scope: $scope,
+						data: {
+							pub: publication
+						},
 						preCloseCallback: function () {
 							// TODO: появляется "лишняя" публикация после текущей и сразу пропадает
 							//vm.group.publications[index] = vm.activePublication;
