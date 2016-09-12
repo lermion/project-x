@@ -78,7 +78,8 @@
 					<label for="{{area.id}}">{{area.name}}</label>
 				</li>
 			</ul>
-			<button class="settings-btn save-areas-btn" ng-click="saveAreas()">Сохранить</button>
+			<span ng-show="errorsaveareas" class="error-save-areas">Вы уже меняли области видимости сегодня, попробуйте через 24 часа</span>
+			<button ladda="saveAreasPreloader" class="settings-btn save-areas-btn" ng-click="saveAreas()">Сохранить</button>
 		</div>
 		<div class="settings-reg-keys">
 			<h4>Регистрационные коды</h4>

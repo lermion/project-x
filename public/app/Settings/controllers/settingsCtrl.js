@@ -95,8 +95,14 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.saveAreas = function(){
+		$scope.saveAreasPreloader = true;
 		UserService.updateScopes($scope.checkedAreas).then(function(response){
-			console.log(response);
+			$scope.saveAreasPreloader = false;
+			if(response.status){
+				$scope.errorsaveareas = false;
+			}else if(!response.status && parseInt(response.error.code) === 2){
+				$scope.errorsaveareas = true;
+			}
 		},
 		function(err){
 			console.log(err);
