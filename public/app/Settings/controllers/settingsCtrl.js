@@ -98,8 +98,10 @@ angular.module('placePeopleApp')
 		UserService.updateScopes($scope.checkedAreas).then(function(response){
 			$scope.saveAreasPreloader = false;
 			if(response.status){
+				$scope.successsaveareas = true;
 				$scope.errorsaveareas = false;
 			}else if(!response.status && parseInt(response.error.code) === 2){
+				$scope.successsaveareas = false;
 				$scope.errorsaveareas = true;
 			}
 		},
