@@ -1,278 +1,286 @@
 <form name="vm.form.placeNew" novalidate ng-if="!vm.isPlaceAdded" ng-init="vm.placeNew.isDynamic = false;">
-    <div class="create-places-common">
-        <div class="create-places-header">
-            <a class="create-places-header-a" ui-sref="places.add" ng-click="vm.resetNewPlaceForm()">Создать место</a>
-        </div>
-        <div class="create-places-common-inner">
-            <div class="create-places-type">
-                <span class="place-type-title">Тип места:</span>
-                <span class="place-type-name">{{::vm.activePlace.name}}</span>
-            </div>
-            <div class="create-places-description">
-                {{::vm.activePlace.description}}
-            </div>
+		<div class="create-places-common">
+				<div class="create-places-header">
+						<a class="create-places-header-a" ui-sref="places.add" ng-click="vm.resetNewPlaceForm()">Создать место</a>
+				</div>
+				<div class="create-places-common-inner">
+						<div class="create-places-type">
+								<span class="place-type-title">Тип места:</span>
+								<span class="place-type-name">{{::vm.activePlace.name}}</span>
+						</div>
+						<div class="create-places-description">
+								{{::vm.activePlace.description}}
+						</div>
 
 
-            <div class="create-places-select-country">
-                <div class="select-country-country">Выберите страну</div>
-                <div class="select-country-name">
-                    <select name="country"
-                            ng-options="option.name for option in vm.countries track by option.id"
-                            ng-model="vm.placeNew.country"
-                            required>
-                        <option value="">---</option>
-                    </select>
+						<div class="create-places-select-country">
+								<div class="select-country-country">Выберите страну</div>
+								<div class="select-country-name">
+										<select name="country"
+														ng-options="option.name for option in vm.countries track by option.id"
+														ng-model="vm.placeNew.country"
+														required>
+												<option value="">---</option>
+										</select>
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.country.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не выбрали страну</div>
-                    </div>
-                </div>
-            </div>
+										<div class="error-messages" ng-messages="vm.form.placeNew.country.$error"
+												 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+												<div ng-message="required">Вы не выбрали страну</div>
+										</div>
+								</div>
+						</div>
 
-            <div class="create-places-select-country">
-                <div class="select-country-country">Выберите город</div>
-                <div class="select-country-name">
-                    <angucomplete-alt id="autocomplete-city-place"
-                                      placeholder="Название..."
-                                      text-searching="Поиск города ..."
-                                      text-no-results="Не найден. Проверьте вводимый город."
-                                      pause="300"
-                                      selected-object="vm.citySelected"
-                                      remote-api-handler="vm.searchCity"
-                                      title-field="name"
-                                      input-class="form-control form-control-small"
-                                      field-required="true"
-                                      input-name="city"
-                                      disable-input="!vm.placeNew.country"></angucomplete-alt>
+						<div class="create-places-select-country">
+								<div class="select-country-country">Выберите город</div>
+								<div class="select-country-name">
+										<angucomplete-alt id="autocomplete-city-place"
+																			placeholder="Название..."
+																			text-searching="Поиск города ..."
+																			text-no-results="Не найден. Проверьте вводимый город."
+																			pause="300"
+																			selected-object="vm.citySelected"
+																			remote-api-handler="vm.searchCity"
+																			title-field="name"
+																			input-class="form-control form-control-small"
+																			field-required="true"
+																			input-name="city"
+																			disable-input="!vm.placeNew.country"></angucomplete-alt>
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.city.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="autocomplete-required">Вы не выбрали город</div>
-                    </div>
-                </div>
-            </div>
-            <div class="create-places-select-street">
-                <div class="select-country-country">Адрес места</div>
-                <div class="select-street-input">
-                    <angucomplete-alt id="autocomplete-address-place"
-                                      placeholder="улица, номер дома"
-                                      pause="1000"
-                                      selected-object="vm.addressSelected"
-                                      remote-api-handler="vm.searchAPI"
-                                      text-searching="Поиск адреса ..."
-                                      text-no-results="Не найден. Проверьте вводимый адрес."
-                                      remote-url="https://geocode-maps.yandex.ru/1.x/?format=json&results=3&geocode="
-                                      remote-url-data-field="response.GeoObjectCollection.featureMember"
-                                      title-field="GeoObject.name"
-                                      description-field="GeoObject.description"
-                                      input-class="form-control form-control-small"
-                                      field-required="true"
-                                      input-name="address"
-                                      disable-input="!vm.placeNew.city"></angucomplete-alt>
-                    <span class="street-on-map"
-                          ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
+										<div class="error-messages" ng-messages="vm.form.placeNew.city.$error"
+												 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+												<div ng-message="autocomplete-required">Вы не выбрали город</div>
+										</div>
+								</div>
+						</div>
+						<div class="create-places-select-street">
+								<div class="select-country-country">Адрес места</div>
+								<div class="select-street-input">
+										<angucomplete-alt id="autocomplete-address-place"
+																			placeholder="улица, номер дома"
+																			pause="1000"
+																			selected-object="vm.addressSelected"
+																			remote-api-handler="vm.searchAPI"
+																			text-searching="Поиск адреса ..."
+																			text-no-results="Не найден. Проверьте вводимый адрес."
+																			remote-url="https://geocode-maps.yandex.ru/1.x/?format=json&results=3&geocode="
+																			remote-url-data-field="response.GeoObjectCollection.featureMember"
+																			title-field="GeoObject.name"
+																			description-field="GeoObject.description"
+																			input-class="form-control form-control-small"
+																			field-required="true"
+																			input-name="address"
+																			disable-input="!vm.placeNew.city"></angucomplete-alt>
+										<span class="street-on-map"
+													ng-click="vm.placeNew.city && vm.openModalMap()">или укажите на карте</span>
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.address.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не указали адрес</div>
-                    </div>
-                </div>
+										<div class="error-messages" ng-messages="vm.form.placeNew.address.$error"
+												 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+												<div ng-message="required">Вы не указали адрес</div>
+										</div>
+								</div>
 
-            </div>
-            <div class="create-places-select-street">
-                <div class="select-country-country">Название</div>
-                <div class="select-street-input">
-                    <input type="text"
-                           name="name"
-                           ng-model="vm.placeNew.name"
-                           placeholder="Введите название места..."
-                           required>
+						</div>
+						<div class="create-places-select-street">
+								<div class="select-country-country">Название</div>
+								<div class="select-street-input">
+										<input type="text"
+													 name="name"
+													 ng-model="vm.placeNew.name"
+													 placeholder="Введите название места..."
+													 required>
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.name.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не указали название</div>
-                    </div>
-                </div>
+										<div class="error-messages" ng-messages="vm.form.placeNew.name.$error"
+												 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+												<div ng-message="required">Вы не указали название</div>
+										</div>
+								</div>
+						</div>
+						<div class="settings-select-region">
+							<div class="select-country-country">Области видимости</div>
+							<ul class="settings-regions-list">
+								<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in scopes">
+									<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+									<label for="{{scope.id}}">{{scope.name}}</label>
+								</li>
+							</ul>
+						</div>
+						<div class="create-places-select-street">
+								<div class="select-country-country">Описание</div>
+								<div class="select-street-input">
+										<textarea type="text"
+															name="description"
+															placeholder="Введите описание..."
+															ng-model="vm.placeNew.description"
+															required></textarea>
 
-            </div>
-            <div class="create-places-select-street">
-                <div class="select-country-country">Описание</div>
-                <div class="select-street-input">
-                    <textarea type="text"
-                              name="description"
-                              placeholder="Введите описание..."
-                              ng-model="vm.placeNew.description"
-                              required></textarea>
+										<div class="error-messages" ng-messages="vm.form.placeNew.description.$error"
+												 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+												<div ng-message="required">Вы не заполнили описание</div>
+										</div>
+								</div>
 
-                    <div class="error-messages" ng-messages="vm.form.placeNew.description.$error"
-                         ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-                        <div ng-message="required">Вы не заполнили описание</div>
-                    </div>
-                </div>
+						</div>
 
-            </div>
+						<div class="create-places-add-cover">
+								<div class="create-places-add-cover-img"
+										 name="cover"
+										 ngf-select
+										 ngf-pattern="'image/*'"
+										 ngf-accept="'image/*'"
+										 ngf-min-heiht="300"
+										 ngf-min-width="1200"
+										 ngf-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+										 ng-model="vm.placeNew.cover1"
+										 required
+								>
+										<a href="">
+												<img ngf-src="vm.placeNew.coverPreview" ngf-no-object-url="true">
+										</a>
 
-            <div class="create-places-add-cover">
-                <div class="create-places-add-cover-img"
-                     name="cover"
-                     ngf-select
-                     ngf-pattern="'image/*'"
-                     ngf-accept="'image/*'"
-                     ngf-min-heiht="300"
-                     ngf-min-width="1200"
-                     ngf-change="vm.changePlaceCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                     ng-model="vm.placeNew.cover1"
-                     required
-                >
-                    <a href="">
-                        <img ngf-src="vm.placeNew.coverPreview" ngf-no-object-url="true">
-                    </a>
+										<span>Добавить обложку места</span>
+								</div>
 
-                    <span>Добавить обложку места</span>
-                </div>
+						</div>
+						<div class="error-messages" ng-messages="vm.form.placeNew.cover.$error"
+								 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.cover.$dirty">
+								<div ng-message="pattern">Выбранный файл не является изображением</div>
+								<div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
+								<div ng-message="required">Вы не выбрали обложку для места</div>
+								<div ng-message="minHeight">Минимальная высота 280 пикселей</div>
+						</div>
+						<div class="create-places-add-cover">
+								<div class="create-places-add-cover-img"
+										 name="logo"
+										 ngf-select
+										 ngf-pattern="'image/*'"
+										 ngf-accept="'image/*'"
+										 ngf-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+										 ng-model="vm.placeNew.logo1"
+										 required>
+										<a href="">
+												<img ngf-src="vm.placeNew.logo" ngf-no-object-url="true">
+										</a>
+										<span>Добавить логотип места</span>
+								</div>
 
-            </div>
-            <div class="error-messages" ng-messages="vm.form.placeNew.cover.$error"
-                 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.cover.$dirty">
-                <div ng-message="pattern">Выбранный файл не является изображением</div>
-                <div ng-message="minWidth">Минимальная ширина 1200 пикселей</div>
-                <div ng-message="required">Вы не выбрали обложку для места</div>
-                <div ng-message="minHeight">Минимальная высота 280 пикселей</div>
-            </div>
-            <div class="create-places-add-cover">
-                <div class="create-places-add-cover-img"
-                     name="logo"
-                     ngf-select
-                     ngf-pattern="'image/*'"
-                     ngf-accept="'image/*'"
-                     ngf-change="vm.changePlaceLogoFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                     ng-model="vm.placeNew.logo1"
-                     required>
-                    <a href="">
-                        <img ngf-src="vm.placeNew.logo" ngf-no-object-url="true">
-                    </a>
-                    <span>Добавить логотип места</span>
-                </div>
+								<div class="create-places-add-cover-button-create"
+										 ng-click="vm.submitPlaceNew()"
+										 ladda="vm.subForm" data-style="slide-right">Создать место
+								</div>
+						</div>
+						<div class="error-messages" ng-messages="vm.form.placeNew.logo.$error"
+								 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.logo.$dirty">
+								<div ng-message="pattern">Выбранный файл не является изображением</div>
+								<!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
+								<div ng-message="required">Вы не выбрали обложку для группы</div>
+								<!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
+						</div>
 
-                <div class="create-places-add-cover-button-create"
-                     ng-click="vm.submitPlaceNew()"
-                     ladda="vm.subForm" data-style="slide-right">Создать место
-                </div>
-            </div>
-            <div class="error-messages" ng-messages="vm.form.placeNew.logo.$error"
-                 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted || vm.form.placeNew.logo.$dirty">
-                <div ng-message="pattern">Выбранный файл не является изображением</div>
-                <!--<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>-->
-                <div ng-message="required">Вы не выбрали обложку для группы</div>
-                <!--<div ng-message="minHeight">Минимальная высота 240 пикселей</div>-->
-            </div>
-
-        </div>
-    </div>
+				</div>
+		</div>
 </form>
 
 <div class="create-places-common" ng-if="vm.isPlaceAdded">
-    <div class="create-places-header">
-        <a class="create-places-header-a" ui-sref="places.add">Место создано</a>
-    </div>
-    <div class="create-places-common-inner">
-        <div class="create-places-type">
-            <span class="place-type-title">Тип места:</span>
-            <span class="place-type-name">{{::vm.activePlace.name}}</span>
-        </div>
-        <div class="create-places-type">
-            <span class="place-type-title">Название:</span>
-            <span class="place-type-name">{{vm.placeNew.name}}</span>
-        </div>
-        <div class="modal__content" ng-if="(vm.subscribers.length + vm.subscription.length) === 0">
-            <p>Список контактов пуст</p>
-        </div>
-        <div class="modal__content" ng-if="!vm.inviteNotSend">
-            <p>Приглашение отправлено</p>
-        </div>
-        <div class="create-places-type-invite" ng-hide="!vm.inviteNotSend">
-            <a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open"
-               ng-click="cancelNewGroup()"> Открыть место </a>
-            <a href class="create-places-type-btn-invite"
-               ng-click="vm.submitInviteUsers()"
-               ladda="vm.subForm" data-style="slide-right"> Пригласить</a>
-        </div>
-        <div class="fifth_item contacts_list"
-             ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
-            <div class="item1-container">
-                <input type="text" ng-model="searchString" placeholder="Быстрый поиск...">
+		<div class="create-places-header">
+				<a class="create-places-header-a" ui-sref="places.add">Место создано</a>
+		</div>
+		<div class="create-places-common-inner">
+				<div class="create-places-type">
+						<span class="place-type-title">Тип места:</span>
+						<span class="place-type-name">{{::vm.activePlace.name}}</span>
+				</div>
+				<div class="create-places-type">
+						<span class="place-type-title">Название:</span>
+						<span class="place-type-name">{{vm.placeNew.name}}</span>
+				</div>
+				<div class="modal__content" ng-if="(vm.subscribers.length + vm.subscription.length) === 0">
+						<p>Список контактов пуст</p>
+				</div>
+				<div class="modal__content" ng-if="!vm.inviteNotSend">
+						<p>Приглашение отправлено</p>
+				</div>
+				<div class="create-places-type-invite" ng-hide="!vm.inviteNotSend">
+						<a ui-sref="place({placeName: vm.placeName})" class="create-places-type-btn-open"
+							 ng-click="cancelNewGroup()"> Открыть место </a>
+						<a href class="create-places-type-btn-invite"
+							 ng-click="vm.submitInviteUsers()"
+							 ladda="vm.subForm" data-style="slide-right"> Пригласить</a>
+				</div>
+				<div class="fifth_item contacts_list"
+						 ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
+						<div class="item1-container">
+								<input type="text" ng-model="searchString" placeholder="Быстрый поиск...">
 
-                <ul class="item1 contacts_list">
-                    <p ng-if="subscription.length > 0">Я подписан</p>
-                    <li ng-repeat="user in vm.subscription | searchFor:searchString as subscription" class="user_block"
-                        ng-click="vm.onItemSelected(user)">
-                        <div class="popup-invite-place-people-name1 user-block">
-                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
-                            </a>
+								<ul class="item1 contacts_list">
+										<p ng-if="subscription.length > 0">Я подписан</p>
+										<li ng-repeat="user in vm.subscription | searchFor:searchString as subscription" class="user_block"
+												ng-click="vm.onItemSelected(user)">
+												<div class="popup-invite-place-people-name1 user-block">
+														<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+																<img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+														</a>
 
-                            <div class="user-info">
-                                <div class="user-info__user">
-                                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                        {{::user.first_name}} {{::user.last_name}}
-                                    </a>
-                                </div>
-                                <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
-                                <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
-                            </div>
-                        </div>
-                    </li>
+														<div class="user-info">
+																<div class="user-info__user">
+																		<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+																				{{::user.first_name}} {{::user.last_name}}
+																		</a>
+																</div>
+																<div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+																<div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
+														</div>
+												</div>
+										</li>
 
-                    <p ng-if="subscribers.length > 0">Подписчики</p>
-                    <li ng-repeat="user in vm.subscribers | searchFor:searchString as subscribers" class="user_block"
-                        ng-click="vm.onItemSelected(user)">
-                        <div class="popup-invite-place-people-name1 user-block">
-                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
-                            </a>
+										<p ng-if="subscribers.length > 0">Подписчики</p>
+										<li ng-repeat="user in vm.subscribers | searchFor:searchString as subscribers" class="user_block"
+												ng-click="vm.onItemSelected(user)">
+												<div class="popup-invite-place-people-name1 user-block">
+														<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+																<img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+														</a>
 
-                            <div class="user-info">
-                                <div class="user-info__user">
-                                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                        {{::user.first_name}} {{::user.last_name}}
-                                    </a>
-                                </div>
-                                <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
-                                <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <h4 ng-if="subscription.length === 0 && subscribers.length === 0">Пользователь не найден</h4>
-            </div>
-            <div class="item1-add-people-container">
-                <p class="item1-add-people-title" ng-if="vm.placeNew.users.length > 0">Список пользователей</p>
+														<div class="user-info">
+																<div class="user-info__user">
+																		<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+																				{{::user.first_name}} {{::user.last_name}}
+																		</a>
+																</div>
+																<div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+																<div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
+														</div>
+												</div>
+										</li>
+								</ul>
+								<h4 ng-if="subscription.length === 0 && subscribers.length === 0">Пользователь не найден</h4>
+						</div>
+						<div class="item1-add-people-container">
+								<p class="item1-add-people-title" ng-if="vm.placeNew.users.length > 0">Список пользователей</p>
 
-                <div class="item1 add-people add-people-right">
-                    <ul class="contacts_list">
-                        <li ng-repeat="user in vm.placeNew.users" ng-mouseenter="showAdmin=true"
-                            ng-mouseleave="showAdmin=false">
-                            <div class="popup-invite-place-people-name1 user-block">
-                                <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                    <img ng-src="{{user.avatar}}" class="contacts_photo_img">
-                                </a>
+								<div class="item1 add-people add-people-right">
+										<ul class="contacts_list">
+												<li ng-repeat="user in vm.placeNew.users" ng-mouseenter="showAdmin=true"
+														ng-mouseleave="showAdmin=false">
+														<div class="popup-invite-place-people-name1 user-block">
+																<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+																		<img ng-src="{{user.avatar}}" class="contacts_photo_img">
+																</a>
 
-                                <div class="user-info">
-                                    <div class="user-info__user">
-                                        <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                            {{::user.firstName}} {{::user.lastName}}
-                                        </a>
-                                    </div>
-                                    <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
-                                    <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
-                                </div>
-                            </div>
-                            <span class="add-people-delete" ng-click="vm.removeUser(user)">&#10006;</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+																<div class="user-info">
+																		<div class="user-info__user">
+																				<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+																						{{::user.firstName}} {{::user.lastName}}
+																				</a>
+																		</div>
+																		<div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+																		<div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
+																</div>
+														</div>
+														<span class="add-people-delete" ng-click="vm.removeUser(user)">&#10006;</span>
+												</li>
+										</ul>
+								</div>
+						</div>
+				</div>
+		</div>
 </div>

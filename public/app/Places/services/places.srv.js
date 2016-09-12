@@ -141,6 +141,9 @@
             fd.append('coordinates_x', place.coordinates_x);
             fd.append('coordinates_y', place.coordinates_y);
             fd.append('type_place_id', place.category.id);
+            place.scopes.forEach(function(scope){
+                fd.append('scopes[]', scope);
+            });
 
             if (place.isDynamic) {
                 fd.append('expired_date', place.expired_date);

@@ -1,155 +1,164 @@
 <form name="forms.newGroup" novalidate>
-    <div class="new_group"> Новая группа</div>
-    <div class="add_newgroup">
-        <div class="first_item">
-            <div class="ava_group">
-                <img ng-src="{{myAvatar}}" class="img_ava">
-                <a class="img_name">{{::myName}}</a>
-            </div>
-            <div class="checkbox_group">
-                <input type="checkbox" id="arr1" ng-model="newGroup.isOpen"/>
-                <label for="arr1">Публичная группа</label>
-            </div>
-        </div>
+	<div class="new_group"> Новая группа</div>
+	<div class="add_newgroup">
+		<div class="first_item">
+			<div class="ava_group">
+				<img ng-src="{{myAvatar}}" class="img_ava">
+				<a class="img_name">{{::myName}}</a>
+			</div>
+			<div class="checkbox_group">
+				<input type="checkbox" id="arr1" ng-model="newGroup.isOpen"/>
+				<label for="arr1">Публичная группа</label>
+			</div>
+		</div>
 
-        <div class="second_item">
-            <div class="add-ava" ng-class="(forms.newGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
-                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar"
-                       ng-model="groupCoverFile"
-                       ngf-select
-                       ngf-accept="'image/*'"
-                       ngf-pattern="'image/*'"
-                       ngf-min-height="240"
-                       ngf-min-width="700"
-                       ngf-change="changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
-                       required>
-                <label for="avatarImg">
-                    <img class="avatar__card" ngf-src="newGroup.avatarCard" ngf-no-object-url="true">
-                </label>
-            </div>
-            <span class="add_ava_grp"> Добавить обложку группе </span>
-        </div>
-        <img ngf-src="cropImageTest" ngf-no-object-url="true">
-        <div class="error-messages" ng-messages="forms.newGroup.avatar.$error"
-             ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted || forms.newGroup.avatar.$dirty">
-            <div ng-message="pattern">Выбранный файл не является изображением</div>
-            <div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
-            <div ng-message="required">Вы не выбрали обложку для группы</div>
-            <div ng-message="minHeight">Минимальная высота 240 пикселей</div>
-        </div>
-
-
-        <input type="text" name="name"
-               ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}"
-               ng-model="newGroup.name"
-               required
-               placeholder="Название">
-
-        <div class="error-messages" ng-messages="forms.newGroup.name.$error"
-             ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
-            <div ng-message="required">Вы не указали название группы</div>
-        </div>
-
-        <div class="text-field">
-            <div emoji-form emoji-message="emojiMessage">
-                <textarea id="messageInput" name="description"
-                          ng-model="emojiMessage.messagetext" required></textarea>
-                <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
-                    <i class="icon icon-emoji"></i>
-                </a>
-            </div>
-        </div>
-        <div class="error-messages" ng-messages="forms.newGroup.description.$error"
-             ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
-            <div ng-message="required">Вы не указали описание группы</div>
-        </div>
+		<div class="second_item">
+			<div class="add-ava" ng-class="(forms.newGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
+				<input type="file" name="avatar" id="avatarImg" class="js-group-avatar"
+					   ng-model="groupCoverFile"
+					   ngf-select
+					   ngf-accept="'image/*'"
+					   ngf-pattern="'image/*'"
+					   ngf-min-height="240"
+					   ngf-min-width="700"
+					   ngf-change="changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+					   required>
+				<label for="avatarImg">
+					<img class="avatar__card" ngf-src="newGroup.avatarCard" ngf-no-object-url="true">
+				</label>
+			</div>
+			<span class="add_ava_grp"> Добавить обложку группе </span>
+		</div>
+		<div class="settings-select-region">
+			<p>Области видимости</p>
+			<ul class="settings-regions-list">
+				<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in scopes">
+					<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+					<label for="{{scope.id}}">{{scope.name}}</label>
+				</li>
+			</ul>
+		</div>
+		<img ngf-src="cropImageTest" ngf-no-object-url="true">
+		<div class="error-messages" ng-messages="forms.newGroup.avatar.$error"
+			 ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted || forms.newGroup.avatar.$dirty">
+			<div ng-message="pattern">Выбранный файл не является изображением</div>
+			<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
+			<div ng-message="required">Вы не выбрали обложку для группы</div>
+			<div ng-message="minHeight">Минимальная высота 240 пикселей</div>
+		</div>
 
 
-        <div ng-if="isGroupNameExist">
-            <p>Группа с таким названием уже существует!</p>
-        </div>
-        <div class="button">
-            <a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
-            <a href class="create" ng-click="addGroup()" ladda="subForm" data-style="slide-right" ng-disabled="subForm">
-                Создать группу</a>
-        </div>
+		<input type="text" name="name"
+			   ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}"
+			   ng-model="newGroup.name"
+			   required
+			   placeholder="Название">
 
-        <div class="fifth_item" ng-if="subscribers.length + subscription.length > 0">
-            <div class="item1-container">
-                <input type="text" ng-model="searchString" placeholder="Пригласить в группу ...">
-                <ul class="item1 contacts_list">
-                    <p ng-if="filteredSubscription.length > 0">Подписки</p>
-                    <li ng-repeat="user in subscription | searchFor:searchString as filteredSubscription" ng-click="onItemSelected(user)"
-                        class="user_block">
-                        <div class="popup-invite-place-people-name1 user-block">
-                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
-                            </a>
+		<div class="error-messages" ng-messages="forms.newGroup.name.$error"
+			 ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
+			<div ng-message="required">Вы не указали название группы</div>
+		</div>
 
-                            <div class="user-info">
-                                <div class="user-info__user">
-                                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                        {{::user.first_name}} {{::user.last_name}}
-                                    </a>
-                                </div>
-                                <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
-                                <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
-                            </div>
-                        </div>
-                    </li>
+		<div class="text-field">
+			<div emoji-form emoji-message="emojiMessage">
+				<textarea id="messageInput" name="description"
+						  ng-model="emojiMessage.messagetext" required></textarea>
+				<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+					<i class="icon icon-emoji"></i>
+				</a>
+			</div>
+		</div>
+		<div class="error-messages" ng-messages="forms.newGroup.description.$error"
+			 ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
+			<div ng-message="required">Вы не указали описание группы</div>
+		</div>
 
-                    <p ng-if="filteredSubscribers.length > 0">Подписчики</p>
-                    <li ng-repeat="user in subscribers | searchFor:searchString as filteredSubscribers" ng-click="onItemSelected(user)"
-                        class="user_block">
-                        <div class="popup-invite-place-people-name1 user-block">
-                            <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                <img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
-                            </a>
 
-                            <div class="user-info">
-                                <div class="user-info__user">
-                                    <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                        {{::user.first_name}} {{::user.last_name}}
-                                    </a>
-                                </div>
-                                <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
-                                <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <h4 ng-if="filteredSubscription.length === 0 && filteredSubscribers.length === 0">Пользователь не найден</h4>
-            </div>
-            <div class="item1-add-people-container">
-                <p class="item1-add-people-title" ng-if="newGroup.users.length > 0">Список пользователей</p>
+		<div ng-if="isGroupNameExist">
+			<p>Группа с таким названием уже существует!</p>
+		</div>
+		<div class="button">
+			<a href="" class="cansel" ng-click="cancelNewGroup()"> Отменить </a>
+			<a href class="create" ng-click="addGroup()" ladda="subForm" data-style="slide-right" ng-disabled="subForm">
+				Создать группу</a>
+		</div>
 
-                <div class="item1 add-people">
-                    <ul class="contacts_list">
-                        <li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true"
-                            ng-mouseleave="showAdmin=false">
-                            <div class="popup-invite-place-people-name1 user-block">
-                                <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                    <span class="items-selected__item-delete" ng-click="removeUser(user)">&#10006;</span>
-                                    <img ng-src="{{user.avatar}}" class="contacts_photo_img">
-                                </a>
+		<div class="fifth_item" ng-if="subscribers.length + subscription.length > 0">
+			<div class="item1-container">
+				<input type="text" ng-model="searchString" placeholder="Пригласить в группу ...">
+				<ul class="item1 contacts_list">
+					<p ng-if="filteredSubscription.length > 0">Подписки</p>
+					<li ng-repeat="user in subscription | searchFor:searchString as filteredSubscription" ng-click="onItemSelected(user)"
+						class="user_block">
+						<div class="popup-invite-place-people-name1 user-block">
+							<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+								<img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+							</a>
 
-                                <div class="user-info">
-                                    <div class="user-info__user">
-                                        <a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-                                            {{::user.firstName}} {{::user.lastName}}
-                                        </a>
-                                    </div>
-                                    <div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
-                                    <div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
-                                </div>
-                            </div>
-                            
-                            <span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+							<div class="user-info">
+								<div class="user-info__user">
+									<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+										{{::user.first_name}} {{::user.last_name}}
+									</a>
+								</div>
+								<div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+								<div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
+							</div>
+						</div>
+					</li>
+
+					<p ng-if="filteredSubscribers.length > 0">Подписчики</p>
+					<li ng-repeat="user in subscribers | searchFor:searchString as filteredSubscribers" ng-click="onItemSelected(user)"
+						class="user_block">
+						<div class="popup-invite-place-people-name1 user-block">
+							<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+								<img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+							</a>
+
+							<div class="user-info">
+								<div class="user-info__user">
+									<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+										{{::user.first_name}} {{::user.last_name}}
+									</a>
+								</div>
+								<div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+								<div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<h4 ng-if="filteredSubscription.length === 0 && filteredSubscribers.length === 0">Пользователь не найден</h4>
+			</div>
+			<div class="item1-add-people-container">
+				<p class="item1-add-people-title" ng-if="newGroup.users.length > 0">Список пользователей</p>
+
+				<div class="item1 add-people">
+					<ul class="contacts_list">
+						<li ng-repeat="user in newGroup.users" ng-mouseenter="showAdmin=true"
+							ng-mouseleave="showAdmin=false">
+							<div class="popup-invite-place-people-name1 user-block">
+								<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+									<span class="items-selected__item-delete" ng-click="removeUser(user)">&#10006;</span>
+									<img ng-src="{{user.avatar}}" class="contacts_photo_img">
+								</a>
+
+								<div class="user-info">
+									<div class="user-info__user">
+										<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
+											{{::user.firstName}} {{::user.lastName}}
+										</a>
+									</div>
+									<div class="user-info__status" ng-if="user.user_quote">{{::user.user_quote}}</div>
+									<div class="user-info__online">{{::user.is_online ? 'В сети' : 'Не в сети'}}</div>
+								</div>
+							</div>
+							
+							<span class="add-people-admin" ng-if="user.isAdmin || showAdmin" ng-click="setAdmin(user)">Администратор</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
