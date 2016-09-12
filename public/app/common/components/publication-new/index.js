@@ -275,18 +275,35 @@
 				}
 
 				function getScopes(){
-					PublicationService.getScopes().then(function(data){
-						ctrl.scopes = data;
-						ctrl.scopes.forEach(function(value){
-							if(value.signed){
-								ctrl.checkedAreas.push(value.id);
-								value.active = true;
-							}
+					if(ctrl.group){
+
+					}else if(ctrl.place){
+						placesService.getPlaceScopes(placeId).then(function(data){
+							ctrl.scopes = data;
+							ctrl.scopes.forEach(function(value){
+								if(value.signed){
+									ctrl.checkedAreas.push(value.id);
+									value.active = true;
+								}
+							});
+						},
+						function(error){
+							console.log(error);
 						});
-					},
-					function(error){
-						console.log(error);
-					});
+					}else{
+						PublicationService.getScopes().then(function(data){
+							ctrl.scopes = data;
+							ctrl.scopes.forEach(function(value){
+								if(value.signed){
+									ctrl.checkedAreas.push(value.id);
+									value.active = true;
+								}
+							});
+						},
+						function(error){
+							console.log(error);
+						});
+					}
 				}
 
 				ctrl.checkedScope = function(active, scope){
