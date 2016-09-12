@@ -15,8 +15,24 @@ angular.module('placePeopleApp')
 			getSubscribers: getSubscribers,
 			getCounterNewSubscribers: getCounterNewSubscribers,
 			confirmSubscriber: confirmSubscriber,
-			getRegistrationKeys: getRegistrationKeys
+			getRegistrationKeys: getRegistrationKeys,
+			updateScopes: updateScopes
 		};
+
+		function updateScopes(scopes){
+			var data = {
+				scopes: scopes
+			};
+			var defer = $q.defer();
+				$http.post("user/update_scopes", data)
+					.success(function (response){
+						defer.resolve(response);
+					})
+					.error(function (error){
+						defer.reject(error);
+					});
+			return defer.promise;
+		}
 
 		function getRegistrationKeys(loggedUserId){
 			var defer = $q.defer();
@@ -133,7 +149,7 @@ angular.module('placePeopleApp')
 		}
 
 		function updateAvatar(avatar, originalAvatar){
-			var data = new FormData();            
+			var data = new FormData();
 			data.append('avatar', avatar);
 			data.append('original_avatar', originalAvatar);
 			var config = {

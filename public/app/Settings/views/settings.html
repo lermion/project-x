@@ -73,12 +73,8 @@
 		<div class="settings-select-region">
 			<h4>Области видимости</h4>
 			<ul class="settings-regions-list">
-				<li>
-					<input ng-model="selectedAll" type="checkbox" id="selectedAll" ng-click="checkAll()">
-					<label for="selectedAll">Все</label>
-				</li>
 				<li ng-repeat="area in userData.scopes">
-					<input ng-disabled="checkedAreas.length === checkedLimit && !area.active" type="checkbox" id="{{area.id}}" ng-model="area.active" ng-change="checkedArea(area.active, area)">
+					<input ng-disabled="checkedAreas.length === checkedLimit && !area.active && area.name !== 'Все'" type="checkbox" id="{{area.id}}" ng-model="area.active" ng-change="checkedArea(area.active, area)">
 					<label for="{{area.id}}">{{area.name}}</label>
 				</li>
 			</ul>

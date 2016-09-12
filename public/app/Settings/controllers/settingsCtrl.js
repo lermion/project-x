@@ -67,6 +67,7 @@ angular.module('placePeopleApp')
 
 	UserService.getUserData(storage.username).then(function(res){
 		$scope.userData = res;
+		console.log($scope.userData);
 		$scope.isVisible = res.is_visible;	
 		$scope.isPrivate = res.is_private;	
 		$scope.showAvatar = res.is_avatar;									        
@@ -89,28 +90,42 @@ angular.module('placePeopleApp')
 	};
 
 	$scope.saveAreas = function(){
-		console.log("save areas");
+		UserService.updateScopes($scope.checkedAreas).then(function(response){
+			console.log(response);
+		},
+		function(err){
+			console.log(err);
+		});
 	};
 
 	$scope.checkedAreas = [];
 	$scope.checkedLimit = 3;
 	$scope.checkedArea = function(active, area){
-		if(area.id === 0){
-			$scope.active = false;
+		if(area.name === "Все" && active){
+			$scope.checkAll(true);
+			$scope.checkedAreas[0] = area.id;
+		}else if(area.name === "Все" && !active){
+			$scope.checkAll(false);
+			$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area.id), 1);
 		}else{
 			if(active){
 				if($scope.checkedAreas.length < 3){
-					$scope.checkedAreas.push(area);
+					$scope.checkedAreas.push(area.id);
 				}
 			}else{
-				$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area), 1);
+				$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area.id), 1);
 			}
 		}
+		console.log($scope.checkedAreas);
 	};
 
-	$scope.checkAll = function(){
+	$scope.checkAll = function(param){
 		$scope.userData.scopes.forEach(function(value){
-			value.active = false;
+			if(value.name === "Все"){
+				value.active = param;
+			}else{
+				value.active = false;
+			}
 			$scope.checkedAreas = [];
 		});
 	};
