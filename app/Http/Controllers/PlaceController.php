@@ -494,9 +494,9 @@ class PlaceController extends Controller
         }
     }
 
-    public function getPlaceScopes()
+    public function getPlaceScopes($id)
     {
-        $place = Place::find(Auth::id());
+        $place = Place::find($id);
         $scopes_places = $place->scopes()->pluck('scopes.id');
         $scopes = Scope::all();
         $all = false;

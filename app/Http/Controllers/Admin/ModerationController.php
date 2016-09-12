@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\City;
 use App\Group;
 use App\Place;
 use App\Publication;
@@ -165,16 +166,17 @@ class ModerationController extends Controller
 
     public function places()
     {
-        $places = Place::with('users','creator')
+        $places = Place::with('users','creator','scopes')
             ->where(['is_block'=>false,'is_moderate'=>false,'to_note'=>false])
             ->orderBy('created_at', 'desc')
             ->paginate(25);
-        return view('admin.moderation.places',['places'=>$places,'url'=>'New']);
+        $cities = City::all();
+        return view('admin.moderation.places',['places'=>$places,'cities'=>$cities,'url'=>'New']);
     }
 
     public function getIsBlockPlaces()
     {
-        $places = Place::with('users','creator')
+        $places = Place::with('users','creator','scopes')
             ->where('is_block',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
@@ -183,7 +185,7 @@ class ModerationController extends Controller
 
     public function getToNotePlaces()
     {
-        $places = Place::with('users','creator')
+        $places = Place::with('users','creator','scopes')
             ->where('to_note',true)
             ->orderBy('created_at', 'desc')
             ->paginate(25);
