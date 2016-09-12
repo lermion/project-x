@@ -552,6 +552,10 @@
 				});
 			}
 
+			publication.scopes.forEach(function(scope){
+				fd.append('scopes[]', scope);
+			});
+
 			fd.append('cover', publication.cover, publication.cover.name);
 
 			return $http({
