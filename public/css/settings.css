@@ -3835,12 +3835,15 @@ span.users-today-time-time.early {
     color: #495b79;
     font-family: "SFUIDisplayMedium";
     padding: 5px;
-    margin-right: 10px;
+    margin-right: 6px;
     box-sizing: border-box;
     border: 1px solid transparent;
     border-radius: 3px;
     font-size: 14.6px;
     transition: all .1s ease-in-out .1s;
+}
+.send-wrap-top .ladda-button[data-style=expand-right][data-loading] {
+    padding-right: 45px;
 }
 .chat-send-btn:hover {
     border: 1px solid #495b79;
