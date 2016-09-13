@@ -7,6 +7,7 @@
 				<li class="col-md-3"><a href="#settings-tab-common">Общие настройки</a></li>
 				<li class="col-md-3"><a href="#settings-tab-limit">Ограничения</a></li>
 				<li class="col-md-3"><a href="#settings-tab-areas">Области видимости</a></li>
+				<li class="col-md-3"><a href="#settings-tab-code">Регистрационные коды</a></li>
 			</ul>
 			<form action="{{action('Admin\OptionController@create')}}" method="post">
 				<div id="settings-tab-common" class="admin-settings-data">
@@ -98,9 +99,40 @@
 					</table>
 					<a style="float: left;" class="mg-l btn btn-primary" href="/admin/option/create_scope">Добавить область</a>
 				</div>
+				<div id="settings-tab-code">
+					<table class="table table-bordered table-code">
+					    <thead>
+					      <tr>
+					        <th>Код</th>
+					        <th>Статус</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr>
+					        <td>123456</td>
+					        <td>Использован</td>
+					      </tr>
+					      <tr>
+					        <td>123456</td>
+					        <td>Не использован</td>
+					      </tr>
+					      <tr>
+					        <td>123456</td>
+					        <td>Использован</td>
+					      </tr>
+					      <tr>
+					        <td>123456</td>
+					        <td>Не использован</td>
+					      </tr>
+					      <tr>
+					        <td>123456</td>
+					        <td>Использован</td>
+					      </tr>
+					    </tbody>
+					  </table>
+				</div>
 				<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
 			</form>
-
 			<form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
 				<div class="row admin-promo-main-img">
 					<div class="col-md-3 lh">

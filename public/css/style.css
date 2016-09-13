@@ -963,12 +963,13 @@ body.public.user {
 	width: 163px;
 	height: 25px;
 	z-index: 1;
+	position: relative;
 }
 .public header span.beta {
 	color: white;
 	position: absolute;
-	bottom: 25px;
-	left: 332px;
+	top: -7px;
+	right: -12px;
 }
 .public header .main-menu {
 	width: 45%;

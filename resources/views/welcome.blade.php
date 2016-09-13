@@ -24,8 +24,10 @@
 	<back-top ng-cloak class="main-up-button">Наверх</back-top>
 	<header ng-cloak ng-if="$root.isAuthorized && $root.showHeader && !(currentPath === '/auth/login' || currentPath === '/' || currentPath === '/auth/registration' || currentPath === '/auth/restore' || currentPath === '/auth/invite')">
 		<div class="header header-user">
-			<a class="logo" ui-sref="feed"></a>
-			<span class="beta">β</span>
+			<a class="logo" ui-sref="feed">
+				<span class="beta">β</span>
+			</a>
+			
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
 			<a class="drop-menu" ng-click="openMenu()" href></a>
 			<div class="menu-item" ng-show="showMenu">
