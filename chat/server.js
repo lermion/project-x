@@ -4,7 +4,7 @@ var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
 var options = {
    key  : fs.readFileSync('./server.key'),
-   cert : fs.readFileSync('./server.csr')
+   cert : fs.readFileSync('./server.crt')
 };
 var server = require('https').Server(options, app);
 var io = require('socket.io')(server);
