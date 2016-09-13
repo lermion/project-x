@@ -117,7 +117,7 @@ Queries.prototype.getUserRooms = function(data){
 													last_message = 'видео';
 												}
 											}else{
-												lastMessages = "";
+												last_message_id = "";
 											}
 										}
 									}
