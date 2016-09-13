@@ -1609,6 +1609,7 @@
 			if (pubId != undefined) {
 				PublicationService.getSinglePublication(pubId).then(function (response) {
 						message.pub = response;
+						message.pub.files = response.images.concat(response.videos);
 					},
 					function (error) {
 						console.log(error);
