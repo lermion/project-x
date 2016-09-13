@@ -1,6 +1,6 @@
 var app = require('express')();
 var fs = require('fs');
-var data = fs.readFileSync('./config.json');
+var data = fs.readFileSync('./config.json', 'utf8');
 var config = JSON.parse(data);
 var options = {
    key  : config.privateKey,
