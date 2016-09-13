@@ -460,23 +460,37 @@ body.main-page {
 	overflow-y: auto;
 	max-width: 18vw;
 	font-family: "SFUIDisplayLight";
+	background: rgba(0,0,0, .6);
+	padding: 0;
 }
 .reg-regions-list .region-name a{
 	color: white;
 	text-decoration: none;
 	padding-left: 5px;
 }
-.reg-regions-list .region-name a.active{
-	color: gray;
+.reg-regions-list .region-name a {
+	padding: 7px;
+	width: 100%;
+	padding-left: 29px;
+	font-size: 15px;
+}
+.reg-regions-list .region-name a.active,
+.reg-regions-list .region-name a:hover {
+	color: #c1c1c1;
+	background-color: #5d5c5c;
+	border-radius: 1px;
 }
 .region-name {
 	display: flex;
 	align-items: center;
-	margin-bottom: 15px;
+	position: relative;
 }
 .region-name span {
 	height: 15px;
 	width: 15px;
+	position: absolute;
+	top: 9px;
+	left: 7px;
 }
 .region-name p {
 	font-size: 14px;
