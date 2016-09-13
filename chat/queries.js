@@ -120,6 +120,7 @@ Queries.prototype.getUserRooms = function(data){
 											}
 										}
 									}
+									console.log("last_message_id", last_message_id);
 									result = {
 										members: result,
 										room_id: item.id,
