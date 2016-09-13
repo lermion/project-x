@@ -5,7 +5,7 @@
 	socket.$inject = ['$location', 'socketFactory'];
 
 	function socket($location, socketFactory){
-			var path = "http://77.244.218.122";
+			var path = $location.protocol() + '://' + $location.host();
 			var baseUrl = path + ':3000';
 			var myIoSocket = io.connect(baseUrl);
 
