@@ -18,6 +18,9 @@ class PresenceCheckController extends Controller
         $time = Carbon::now();
         $weekday = $time->dayOfWeek;
         $working_hours = WorkingHoursModerator::where(['moderator_id' => $admin['id'], 'weekday' => $weekday])->first();
+        if (!$working_hours){
+            return response()->json(["status" => false, "error" => 'Today moderator does not work']);
+        };
         $from_time = explode(":", $working_hours->from_time);
         $hour = $from_time[0];
         $min = $from_time[1];

@@ -2740,7 +2740,7 @@ pub-list-item .publication-footer-button {
 .user-publication-header .return {
 	cursor: pointer;
 	position: absolute;
-	margin: 10px;
+	margin: 10px 10px 0 0;
 	color: #4678b1;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";

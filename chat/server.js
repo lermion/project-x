@@ -1,10 +1,14 @@
 var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 var fs = require('fs');
-var striptags = require('striptags');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
+var options = {
+   key  : fs.readFileSync('./cert.pem'),
+   cert : fs.readFileSync('./key.pem')
+};
+var server = require('https').Server(options, app);
+var io = require('socket.io')(server);
+var striptags = require('striptags');
 var Queries = require('./queries');
 var queries = new Queries();
 var users = {};

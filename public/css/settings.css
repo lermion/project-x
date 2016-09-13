@@ -3835,12 +3835,15 @@ span.users-today-time-time.early {
     color: #495b79;
     font-family: "SFUIDisplayMedium";
     padding: 5px;
-    margin-right: 10px;
+    margin-right: 6px;
     box-sizing: border-box;
     border: 1px solid transparent;
     border-radius: 3px;
     font-size: 14.6px;
     transition: all .1s ease-in-out .1s;
+}
+.send-wrap-top .ladda-button[data-style=expand-right][data-loading] {
+    padding-right: 45px;
 }
 .chat-send-btn:hover {
     border: 1px solid #495b79;
@@ -7263,4 +7266,34 @@ button.settings-btn {
 }
 .settings-reg-keys h4 {
     margin: 0 0 15px 0;
+}
+@media (min-width: 768px) {
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
+        background: transparent;
+        width: 90%;
+        padding: 50px 0;
+        margin-left: 0;
+        height: auto;
+        top: 0;
+        margin-top: 0;
+        left: 5%;
+        right: 0;
+        bottom: 0;
+        box-sizing: border-box;
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+        width: 100%;
+        background: #fff;
+        margin-left: 0;
+        left: auto;
+        position: static;
+    }
+    .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .ngdialog-close {
+        right: 0;
+        top: 50px;
+        margin-right: 20px;
+    }
+    .view-publication.ngdialog-theme-default .user-publication-content .publication-ava {
+        height: auto;
+    }
 }
