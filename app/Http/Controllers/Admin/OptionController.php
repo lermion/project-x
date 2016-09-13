@@ -19,11 +19,12 @@ class OptionController extends Controller
     {
         $option = Option::first();
         $scopes = Scope::orderBy('order')->get();
+        $codes = AccessCode::where('user_id',null)->get();
         $counters = [];
         foreach ($scopes as $scope) {
             $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
         }
-        return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters]);
+        return view('admin.option.index',['option'=>$option,'scopes'=>$scopes,'counters'=>$counters,'codes'=>$codes]);
     }
 
     public function create_scope_save(Request $request)

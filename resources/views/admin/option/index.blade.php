@@ -108,26 +108,18 @@
 					      </tr>
 					    </thead>
 					    <tbody>
+						@foreach($codes as $code)
 					      <tr>
-					        <td>123456</td>
-					        <td>Использован</td>
+					        <td>{{$code->code}}</td>
+					        <td>
+								@if ($code->invited_user_id != null)
+									Использован
+									@else
+									Не использован
+									@endif
+							</td>
 					      </tr>
-					      <tr>
-					        <td>123456</td>
-					        <td>Не использован</td>
-					      </tr>
-					      <tr>
-					        <td>123456</td>
-					        <td>Использован</td>
-					      </tr>
-					      <tr>
-					        <td>123456</td>
-					        <td>Не использован</td>
-					      </tr>
-					      <tr>
-					        <td>123456</td>
-					        <td>Использован</td>
-					      </tr>
+						@endforeach
 					    </tbody>
 					  </table>
 				</div>

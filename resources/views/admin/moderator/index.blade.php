@@ -31,33 +31,68 @@
 
                         <div class="row text-center">
                             <div class="moderator-time">
-                                <p>Пн</p>
-                                <p>@foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
+                                <p>Вс</p>
+                                <p>
+                                    @foreach($working_hours as $working_hour)
+                                        @if ($working_hour->weekday == 0 and $working_hour->moderator_id == $mod->id)
                                             {{$working_hour->from_time}}
                                         @endif
                                     @endforeach
                                 </p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
+                                        @if ($working_hour->weekday == 0 and $working_hour->moderator_id == $mod->id)
                                             {{$working_hour->to_time}}
                                         @endif
                                     @endforeach
                                 </p>
                             </div>
+                        <div class="moderator-time">
+                            <p>Сб</p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 6 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->from_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 6 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->to_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                        </div>
+                        <div class="moderator-time">
+                            <p>Пт</p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 5 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->from_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 5 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->to_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                        </div>
                             <div class="moderator-time">
-                                <p>Вт</p>
+                                <p>Чт</p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 2 and $working_hour->moderator_id == $mod->id)
+                                        @if ($working_hour->weekday == 4 and $working_hour->moderator_id == $mod->id)
                                             {{$working_hour->from_time}}
                                         @endif
                                     @endforeach
                                 </p>
                                 <p>
                                     @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 2 and $working_hour->moderator_id == $mod->id)
+                                        @if ($working_hour->weekday == 4 and $working_hour->moderator_id == $mod->id)
                                             {{$working_hour->to_time}}
                                         @endif
                                     @endforeach
@@ -80,76 +115,40 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div class="moderator-time">
-                                <p>Чт</p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 4 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->from_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 4 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->to_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                            </div>
-                            <div class="moderator-time">
-                                <p>Пт</p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 5 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->from_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 5 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->to_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                            </div>
-                            <div class="moderator-time">
-                                <p>Сб</p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 6 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->from_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 6 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->to_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                            </div>
-                            <div class="moderator-time">
-                                <p>Вс</p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 0 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->from_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                                <p>
-                                    @foreach($working_hours as $working_hour)
-                                        @if ($working_hour->weekday == 0 and $working_hour->moderator_id == $mod->id)
-                                            {{$working_hour->to_time}}
-                                        @endif
-                                    @endforeach
-                                </p>
-                            </div>
+                        <div class="moderator-time">
+                            <p>Вт</p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 2 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->from_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 2 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->to_time}}
+                                    @endif
+                                @endforeach
+                            </p>
                         </div>
-
+                        <div class="moderator-time">
+                            <p>Пн</p>
+                            <p>@foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->from_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                            <p>
+                                @foreach($working_hours as $working_hour)
+                                    @if ($working_hour->weekday == 1 and $working_hour->moderator_id == $mod->id)
+                                        {{$working_hour->to_time}}
+                                    @endif
+                                @endforeach
+                            </p>
+                        </div>
+                        </div>
                     </td>
                     <td class="moderators-process">
                         <p>Модераций: <b>173</b></p>
