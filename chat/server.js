@@ -3,8 +3,8 @@ var fs = require('fs');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
 var options = {
-   key  : fs.readFileSync('./server.enc.key'),
-   cert : fs.readFileSync('./server.enc.crt')
+   key  : fs.readFileSync('./server.key'),
+   cert : fs.readFileSync('./server.csr')
 };
 var server = require('https').Server(options, app);
 var io = require('socket.io')(server);
