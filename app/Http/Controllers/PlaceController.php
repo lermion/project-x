@@ -25,24 +25,82 @@ class PlaceController extends Controller
 {
     public function index()
     {
-        $places = Place::all();
-        foreach($places as &$place){
-            $place->count_chat_message = UserRoomsMessage::where('room_id',$place->room_id)->count();
-            $place->count_user = $place->users()->count();
-            $place->publications = $place->publications()->count();
-            if (PlaceUser::where(['place_id' =>$place->id,'user_id' => Auth::id()])->first()){
-                $place->is_sub = true;
-            } else {$place->is_sub = false;}
-            if(PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()){
-                $place->is_admin = true;
-            } else {$place->is_admin = false;}
-            if(NewPlace::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()){
-                $place->is_new_place = true;
-            } else {$place->is_new_place = false;}
-            $place->city_name = City::where(['id' => $place->city_id])->pluck('name');
-
+        $user = User::find(Auth::id());
+        $scopes = $user->scopes()->pluck('scopes.id');
+        $all_scope = 0;
+        foreach ($scopes as $scope) {
+            if ($scope == 1)$all_scope++;
         }
-        return $places;
+        if ($all_scope == 1) {
+            $places = Place::all();
+            foreach ($places as &$place) {
+                $place->count_chat_message = UserRoomsMessage::where('room_id', $place->room_id)->count();
+                $place->count_user = $place->users()->count();
+                $place->publications = $place->publications()->count();
+                if (PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+                    $place->is_sub = true;
+                } else {
+                    $place->is_sub = false;
+                }
+                if (PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()) {
+                    $place->is_admin = true;
+                } else {
+                    $place->is_admin = false;
+                }
+                if (NewPlace::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+                    $place->is_new_place = true;
+                } else {
+                    $place->is_new_place = false;
+                }
+                $place->city_name = City::where(['id' => $place->city_id])->pluck('name');
+            }
+            return $places;
+        } else {
+            $all=[];
+            foreach ($scopes as $scope) {
+                $places = Place::has('creator')->with(['creator','scopes'])
+                    ->whereHas('creator',function($query){
+                        $query->where('users.id',Auth::id());
+                    })
+                    ->orWhereHas('scopes',function($query) use ($scope){
+                        $query->where('scopes.id',$scope);
+                    })
+                    ->orWhereHas('scopes',function($query) use ($scope){
+                        $query->where('scopes.id',1);
+                    })
+                    ->get();
+                foreach ($places as &$place) {
+                    $place->count_chat_message = UserRoomsMessage::where('room_id', $place->room_id)->count();
+                    $place->count_user = $place->users()->count();
+                    $place->publications = $place->publications()->count();
+                    if (PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+                        $place->is_sub = true;
+                    } else {
+                        $place->is_sub = false;
+                    }
+                    if (PlaceUser::where(['place_id' => $place->id, 'user_id' => Auth::id(), 'is_admin' => true])->first()) {
+                        $place->is_admin = true;
+                    } else {
+                        $place->is_admin = false;
+                    }
+                    if (NewPlace::where(['place_id' => $place->id, 'user_id' => Auth::id()])->first()) {
+                        $place->is_new_place = true;
+                    } else {
+                        $place->is_new_place = false;
+                    }
+                    $place->city_name = City::where(['id' => $place->city_id])->pluck('name');
+
+                }
+                $all[]=$places;
+            }
+            $group = [];
+            foreach ($all as $array) {
+                foreach ($array as $one) {
+                    $group[] = $one;
+                }
+            }
+            return $group;
+        }
     }
 
     public function adminPlace()

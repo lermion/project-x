@@ -36,10 +36,11 @@ class Publication extends Model
         return $this->belongsToMany('App\Scope', 'scope_publications')->withTimestamps();
     }
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($publication) { // before delete() method call this
+        static::deleting(function ($publication) { // before delete() method call this
             $publication->videos()->delete();
             // do the rest of the cleanup...
         });
@@ -60,55 +61,152 @@ class Publication extends Model
         return $this->belongsTo('App\User');
     }
 
-    public static function getMainPublication($offset,$limit,$userId = null)
+    public static function getMainPublication($offset, $limit, $userId = null)
     {
         $moderate_publication = Option::pluck('moderate_publication');
         if ($moderate_publication[0] == 1) {
-            $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
-                ->where(['is_topic' => true])
-                ->orWhere(function ($query) use ($userId) {
-                    $query->where(function ($q) {
-                        $q->where(['is_main' => true]);
-                        $q->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
-                    })
-                        ->orWhere(function ($query) use ($userId) {
-                            $query->whereExists(function ($query) use ($userId) {
-                                $query->select(DB::raw('subscribers.user_id'))
-                                    ->from('subscribers')
-                                    ->where('subscribers.user_id_sub', $userId)
-                                    ->where('subscribers.is_confirmed', true)
-                                    ->where('publications.is_main', false)
-                                    ->where('publications.is_topic', false)
-                                    ->whereRaw('subscribers.user_id = publications.user_id');
+            $user = User::find(Auth::id());
+            $scopes = $user->scopes()->pluck('scopes.id');
+            $all_scope = 0;
+            foreach ($scopes as $scope) {
+                if ($scope == 1) $all_scope++;
+            }
+            if ($all_scope == 1) {
+                $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
+                    ->where(['is_topic' => true])
+                    ->orWhere(function ($query) use ($userId) {
+                        $query->where(function ($q) {
+                            $q->where(['is_main' => true]);
+                            $q->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
+                        })
+                            ->orWhere(function ($query) use ($userId) {
+                                $query->whereExists(function ($query) use ($userId) {
+                                    $query->select(DB::raw('subscribers.user_id'))
+                                        ->from('subscribers')
+                                        ->where('subscribers.user_id_sub', $userId)
+                                        ->where('subscribers.is_confirmed', true)
+                                        ->where('publications.is_main', false)
+                                        ->where('publications.is_topic', false)
+                                        ->whereRaw('subscribers.user_id = publications.user_id');
+                                });
                             });
-                        });
-                })
-                ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
-        }
-        else {
-            $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
-                ->where(['is_topic' => true])
-                ->orWhere(function ($query) use ($userId) {
-                    $query->where(function ($q) {
-                        $q->where(['is_main' => true]);
-                        $q->where(function ($quer) {
-                            $quer->where('is_moderate', true);
-                            $quer->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
-                        });
                     })
-                        ->orWhere(function ($query) use ($userId) {
-                            $query->whereExists(function ($query) use ($userId) {
-                                $query->select(DB::raw('subscribers.user_id'))
-                                    ->from('subscribers')
-                                    ->where('subscribers.user_id_sub', $userId)
-                                    ->where('subscribers.is_confirmed', true)
-                                    ->where('publications.is_main', false)
-                                    ->where('publications.is_topic', false)
-                                    ->whereRaw('subscribers.user_id = publications.user_id');
+                    ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+            } else {
+                $all = [];
+                foreach ($scopes as $scope) {
+                    $publication = Publication::with(['user', 'videos', 'images', 'group', 'place', 'scopes'])
+                        ->where(function ($query) use ($userId) {
+                            $query->where(['is_topic' => true])
+                                ->orWhere(function ($query) use ($userId) {
+                                    $query->where(function ($q) {
+                                        $q->where(['is_main' => true]);
+                                        $q->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
+                                    })
+                                        ->orWhere(function ($query) use ($userId) {
+                                            $query->whereExists(function ($query) use ($userId) {
+                                                $query->select(DB::raw('subscribers.user_id'))
+                                                    ->from('subscribers')
+                                                    ->where('subscribers.user_id_sub', $userId)
+                                                    ->where('subscribers.is_confirmed', true)
+                                                    ->where('publications.is_main', false)
+                                                    ->where('publications.is_topic', false)
+                                                    ->whereRaw('subscribers.user_id = publications.user_id');
+                                            });
+                                        });
+                                });
+                        })->where(function ($query) use ($scope) {
+                            $query->whereHas('scopes', function ($query) use ($scope) {
+                                $query->where('scopes.id', $scope);
+                            })->orWhereHas('scopes', function ($query) use ($scope) {
+                                $query->where('scopes.id', 1);
                             });
-                        });
-                })
-                ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+                        })
+                        ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+                    $all[] = $publication;
+                }
+                $publications = [];
+                foreach ($all as $array) {
+                    foreach ($array as $one) {
+                        $publications[] = $one;
+                    }
+                }
+                return $publications;
+            }
+        } else {
+            $user = User::find(Auth::id());
+            $scopes = $user->scopes()->pluck('scopes.id');
+            $all_scope = 0;
+            foreach ($scopes as $scope) {
+                if ($scope == 1) $all_scope++;
+            }
+            if ($all_scope == 1) {
+                $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
+                    ->where(['is_topic' => true])
+                    ->orWhere(function ($query) use ($userId) {
+                        $query->where(function ($q) {
+                            $q->where(['is_main' => true]);
+                            $q->where(function ($quer) {
+                                $quer->where('is_moderate', true);
+                                $quer->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
+                            });
+                        })
+                            ->orWhere(function ($query) use ($userId) {
+                                $query->whereExists(function ($query) use ($userId) {
+                                    $query->select(DB::raw('subscribers.user_id'))
+                                        ->from('subscribers')
+                                        ->where('subscribers.user_id_sub', $userId)
+                                        ->where('subscribers.is_confirmed', true)
+                                        ->where('publications.is_main', false)
+                                        ->where('publications.is_topic', false)
+                                        ->whereRaw('subscribers.user_id = publications.user_id');
+                                });
+                            });
+                    })
+                    ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+            } else{
+                $all = [];
+                foreach ($scopes as $scope) {
+                    $publication = Publication::with(['user', 'videos', 'images', 'group', 'place','scopes'])
+                        ->where(function ($query) use ($userId) {
+                            $query->where(['is_topic' => true])
+                                ->orWhere(function ($query) use ($userId) {
+                                    $query->where(function ($q) {
+                                        $q->where(['is_main' => true]);
+                                        $q->where(function ($quer) {
+                                            $quer->where('is_moderate', true);
+                                            $quer->orWhere(['user_id' => Auth::id(), 'in_profile' => false]);
+                                        });
+                                    })
+                                        ->orWhere(function ($query) use ($userId) {
+                                            $query->whereExists(function ($query) use ($userId) {
+                                                $query->select(DB::raw('subscribers.user_id'))
+                                                    ->from('subscribers')
+                                                    ->where('subscribers.user_id_sub', $userId)
+                                                    ->where('subscribers.is_confirmed', true)
+                                                    ->where('publications.is_main', false)
+                                                    ->where('publications.is_topic', false)
+                                                    ->whereRaw('subscribers.user_id = publications.user_id');
+                                            });
+                                        });
+                                });
+                        })->where(function ($query) use ($scope) {
+                            $query->whereHas('scopes', function ($query) use ($scope) {
+                                $query->where('scopes.id', $scope);
+                            })->orWhereHas('scopes', function ($query) use ($scope) {
+                                $query->where('scopes.id', 1);
+                            });
+                        })
+                        ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+                    $all[] = $publication;
+                }
+                $publications = [];
+                foreach ($all as $array) {
+                    foreach ($array as $one) {
+                        $publications[] = $one;
+                    }
+                }
+            }
         }
 //            ->where(function($query){
 //                $query->whereNotExists(function($query)
@@ -135,8 +233,8 @@ class Publication extends Model
             $publication_coment = $publication_coment->toArray();
             $publication->comments = array_reverse($publication_coment);
             $publication->like_count = $publication->likes()->count();
-            if(Auth::check())
-                $publication->user_like = $publication->likes()->where('user_id',Auth::id())->first()!=null;
+            if (Auth::check())
+                $publication->user_like = $publication->likes()->where('user_id', Auth::id())->first() != null;
             $publication->comment_count = $publication->comments()->count();
             if (!$publication->is_anonym) {
                 $publication->user;
@@ -145,33 +243,80 @@ class Publication extends Model
         return $publications;
     }
 
-    public static function getUserPublication($offset,$limit,$userId)
+    public static function getUserPublication($offset, $limit, $userId)
     {
-        $publications = Publication::with(['videos', 'images', 'user'])
-            ->where('publications.user_id', $userId)
-            //->where('publications.is_main', false)
-            ->where('publications.is_anonym', false)
-            ->where(function($query){
-                $query->where('publications.is_main',false);
-                $query->orWhere(['publications.user_id'=>Auth::id(),'publications.in_profile'=>true]);
+        $user = User::find(Auth::id());
+        $scopes = $user->scopes()->pluck('scopes.id');
+        $all_scope = 0;
+        foreach ($scopes as $scope) {
+            if ($scope == 1) $all_scope++;
+        }
+        if ($all_scope == 1) {
+            $publications = Publication::with(['videos', 'images', 'user', 'scopes'])
+                ->where('publications.user_id', $userId)
+                //->where('publications.is_main', false)
+                ->where('publications.is_anonym', false)
+                ->where(function ($query) {
+                    $query->where('publications.is_main', false);
+                    $query->orWhere(['publications.user_id' => Auth::id(), 'publications.in_profile' => true]);
                 })
-            ->where(function($query){
-                $query->whereNotExists(function($query)
-                {
-                    $query->select(DB::raw('id'))
-                        ->from('place_publications')
-                        ->whereRaw('place_publications.publication_id = publications.id');
-                });
-            })
-            ->where(function($query){
-                $query->whereNotExists(function($query)
-                {
-                    $query->select(DB::raw('id'))
-                        ->from('group_publications')
-                        ->whereRaw('group_publications.publication_id = publications.id');
-                });
-            })->orderBy('id', 'desc')
-            ->skip($offset)->take($limit)->get();
+                ->where(function ($query) {
+                    $query->whereNotExists(function ($query) {
+                        $query->select(DB::raw('id'))
+                            ->from('place_publications')
+                            ->whereRaw('place_publications.publication_id = publications.id');
+                    });
+                })
+                ->where(function ($query) {
+                    $query->whereNotExists(function ($query) {
+                        $query->select(DB::raw('id'))
+                            ->from('group_publications')
+                            ->whereRaw('group_publications.publication_id = publications.id');
+                    });
+                })->orderBy('id', 'desc')
+                ->skip($offset)->take($limit)->get();
+        } else {
+            $all = [];
+            foreach ($scopes as $scope) {
+                $publication = Publication::with(['videos', 'images', 'user', 'scopes'])
+                    ->where(function ($query) use ($scope) {
+                        $query->whereHas('scopes', function ($query) use ($scope) {
+                            $query->where('scopes.id', $scope);
+                        })->orWhereHas('scopes', function ($query) use ($scope) {
+                            $query->where('scopes.id', 1);
+                        });
+                    })
+                    ->where('publications.user_id', $userId)
+                    //->where('publications.is_main', false)
+                    ->where('publications.is_anonym', false)
+                    ->where(function ($query) {
+                        $query->where('publications.is_main', false);
+                        $query->orWhere(['publications.user_id' => Auth::id(), 'publications.in_profile' => true]);
+                    })
+                    ->where(function ($query) {
+                        $query->whereNotExists(function ($query) {
+                            $query->select(DB::raw('id'))
+                                ->from('place_publications')
+                                ->whereRaw('place_publications.publication_id = publications.id');
+                        });
+                    })
+                    ->where(function ($query) {
+                        $query->whereNotExists(function ($query) {
+                            $query->select(DB::raw('id'))
+                                ->from('group_publications')
+                                ->whereRaw('group_publications.publication_id = publications.id');
+                        });
+                    })->orderBy('id', 'desc')
+                    ->skip($offset)->take($limit)->get();
+                $all[] = $publication;
+            }
+            $publications = [];
+            foreach ($all as $array) {
+                foreach ($array as $one) {
+                    $publications[] = $one;
+                }
+            }
+        }
         foreach ($publications as &$publication) {
             $publication_comments = $publication->comments()
                 ->with(['images', 'videos', 'user'])
