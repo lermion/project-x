@@ -798,3 +798,6 @@ table.admin-users .col-do {
 	width: 14%;
 	float: right;
 }
+.table-code {
+	width: 50%;
+}

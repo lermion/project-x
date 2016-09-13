@@ -552,6 +552,12 @@
 				});
 			}
 
+			if (publication.originalImages.length > 0) {
+				publication.originalImages.forEach(function (img) {
+					fd.append('original_images[]', img, img.name);
+				});
+			}
+
 			publication.scopes.forEach(function(scope){
 				fd.append('scopes[]', scope);
 			});
