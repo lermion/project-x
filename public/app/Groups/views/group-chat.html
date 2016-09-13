@@ -48,9 +48,6 @@
 									<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
 									<img ng-src="{{file.img_url}}" ng-if="file.pivot.video_id">
 								</div>
-								<div ng-click="changeMainFileFeed(video, message.pub)" ng-repeat="video in message.pub.videos" class="images-item">
-									<video width="150px" controls ngf-src="video.url"></video>
-								</div>
 								<div ng-if="!(results.length === (message.pub.images.length + message.pub.videos.length))" class="images-item more" ng-click="loadMorePubFiles(results.length === message.pub.images.length, 'list', message.pub)">
 									<p class="counter">Еще<br> {{(message.pub.images.length + message.pub.videos.length) - limit}} файлов</p>
 								</div>
