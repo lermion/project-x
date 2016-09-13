@@ -3,8 +3,8 @@ var fs = require('fs');
 var data = fs.readFileSync('./config.json');
 var config = JSON.parse(data);
 var options = {
-   key  : fs.readFileSync('./cert.pem'),
-   cert : fs.readFileSync('./key.pem')
+   key: fs.readFileSync('./key.pem', 'utf8'),
+   cert: fs.readFileSync('./server.crt', 'utf8')
 };
 var server = require('https').Server(options, app);
 var io = require('socket.io')(server);
