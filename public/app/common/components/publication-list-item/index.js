@@ -133,8 +133,21 @@
                             }
                         }
 
+                        if (ctrl.pub.images.length > 0) {
+                            var imgCover = ctrl.pub.images.filter(function (file, index, images) {
+                                return file.pivot.is_cover == true;
+                            });
+
+                            if (imgCover[0]) {
+                                ctrl.mainImage = imgCover[0].original_img_url;
+                            }
+                        }
+
+                    } else {
+                        ctrl.mainImage = ctrl.pub.cover;
                     }
-                    ctrl.mainImage = ctrl.pub.cover;
+
+
 
                     ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
                 };
@@ -169,6 +182,7 @@
                         ctrl.mainImage = file.url;
                         if (ctrl.isModal) {
                             ctrl.indexCurrentImage = index;
+                            ctrl.mainImage = file.original_img_url;
                         }
                     }
                 };
