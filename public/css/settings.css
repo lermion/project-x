@@ -7196,7 +7196,7 @@ button.settings-btn {
     .user-publication-header .user-menu {
         display: flex;
         align-self: flex-end;
-        height: 15px;
+        height: 10px;
     }
     .photo-list .user-publication-header .user-menu {
         align-self: center;

@@ -2740,15 +2740,15 @@ pub-list-item .publication-footer-button {
 .user-publication-header .return {
 	cursor: pointer;
 	position: absolute;
-	margin: 10px 10px 0 0;
+	margin: 5px 10px 0 0;
 	color: #4678b1;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	width: auto;
-	height: 30px;
+	height: 20px;
 	right: 0;
 	top: 0;
-	line-height: 30px;
+	line-height: 20px;
 	transition: all .1s ease-in-out .1s;
 	text-decoration: none;
 	display: none;
