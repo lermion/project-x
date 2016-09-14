@@ -152,6 +152,9 @@
 				});
 			}else{
 				localStorage.setItem("currentMenu", 0);
+				$("#settings-tab").tabs({
+					active: 0
+				});
 			}
 			$(".admin-settings-menu a").on("click", function(){
 				var currentHref = $(this).attr("href").split("-tab-")[1];
