@@ -66,6 +66,7 @@ angular.module('placePeopleApp')
 	}
 
 	UserService.getUserData(storage.username).then(function(res){
+		$scope.checkedAreas = [];
 		$scope.userData = res;
 		$scope.userData.scopes.forEach(function(value){
 			if(value.signed){
@@ -110,16 +111,26 @@ angular.module('placePeopleApp')
 		});
 	};
 
-	$scope.checkedAreas = [];
 	$scope.checkedLimit = 3;
 	$scope.checkedArea = function(active, area){
 		if(area.name === "Все" && active){
 			$scope.checkAll(true);
+			$scope.checkedAreas = [];
 			$scope.checkedAreas[0] = area.id;
 		}else if(area.name === "Все" && !active){
 			$scope.checkAll(false);
+			$scope.checkedAreas = [];
 			$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area.id), 1);
 		}else{
+			if($scope.checkedAreas[0] === 1){
+				$scope.checkedAreas.splice(0, 1);
+			}
+			$scope.userData.scopes.forEach(function(value){
+				if(value.name === "Все"){
+					value.active = false;
+					value.signed = false;
+				}
+			});
 			if(active){
 				if($scope.checkedAreas.length < 3){
 					$scope.checkedAreas.push(area.id);
@@ -136,6 +147,7 @@ angular.module('placePeopleApp')
 				value.active = param;
 			}else{
 				value.active = false;
+				value.signed = false;
 			}
 			$scope.checkedAreas = [];
 		});
