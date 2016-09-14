@@ -140,7 +140,8 @@ class PlacePublicationController extends Controller
                 if ($image_name == $cover_name)
                 {
                     $publication->images()->create(['url' => $path,'original_img_url' => $original_path],['is_cover' => true]);
-                    $publication->cover = $path;
+                    $path_cover = Image::getCoverPath($cover);
+                    $publication->cover = $path_cover;
                     $publication->save();
                 } else
                 {
