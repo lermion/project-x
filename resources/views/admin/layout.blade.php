@@ -17,6 +17,7 @@
 
 	<!-- Custom styling plus plugins -->
 	<link href="/css/custom.css" rel="stylesheet">
+	<link href="/css/jquery.timepicker.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/maps/jquery-jvectormap-2.0.3.css" />
 	<link href="/css/icheck/flat/green.css" rel="stylesheet" />
 	<link href="/css/floatexamples.css" rel="stylesheet" type="text/css" />
@@ -25,6 +26,7 @@
 	<script src="/js/nprogress.js"></script>
 	<script src="{{ asset('libs/remodal/dist/remodal.min.js') }}"></script>
 	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/timepicker/jquery.timepicker.min.js"></script>
 
 	<!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
