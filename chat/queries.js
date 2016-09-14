@@ -100,7 +100,6 @@ Queries.prototype.getUserRooms = function(data){
 				var promise = new Promise(function(resolve, reject){
 					connection.query("SELECT(SELECT show_notif FROM user_chats WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + ") AS show_notif, users.avatar_path as avatar_path, users.login as login, users.first_name as first_name, users.last_name as last_name, users.user_quote as user_quote, user_chats.user_id as id, onlines.last_action as last_action FROM users INNER JOIN user_chats ON user_chats.user_id = users.id LEFT JOIN onlines ON onlines.user_id = users.id WHERE user_chats.room_id = " + item.id + " AND users.id!=" + data.members[0] + "", function(error, result){
 						connection.query("SELECT message_videos.id as isVideo, message_images.id as isImage, u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u LEFT JOIN message_images ON u.message_id = message_images.message_id LEFT JOIN message_videos ON u.message_id = message_videos.message_id INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = " + item.id + ")", function(error, lastMessages){
-
 							connection.query("SELECT COUNT(message_id) FROM user_rooms_messages WHERE room_id = " + item.id + " AND message_id > IFNULL((SELECT message_id FROM chat_notice_messages WHERE room_id = " + item.id + " AND user_id = " + data.members[0] + "), 0)", function(error, countMessages){
 								connection.query("SELECT delete_messages.message_id as delete_id, u.room_id, u.message_id, messages.id, messages.text, messages.created_at, messages.user_id FROM user_rooms_messages as u LEFT JOIN delete_messages ON u.message_id = delete_messages.message_id INNER JOIN messages ON messages.id = u.message_id WHERE u.message_id = (select max(urm.message_id) FROM user_rooms_messages as urm where urm.room_id = " + item.id + ")", function(error, isClearMessage){
 									var last_message = null;
@@ -109,6 +108,7 @@ Queries.prototype.getUserRooms = function(data){
 											last_message = "";
 										}else{
 											if(lastMessages[0]){
+												console.log("gegewge!!!");
 												if(lastMessages[0].text){
 													last_message = lastMessages[0].text;
 													last_message_id = lastMessages[0].id;
