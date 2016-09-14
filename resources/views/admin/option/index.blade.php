@@ -42,23 +42,6 @@
 							</div>
 						</div>
 					</div>
-					<form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
-						<div class="row admin-promo-main-img">
-							<div class="col-md-3 lh">
-								Изображение на главной:
-							</div>
-							<form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
-							<div class="col-md-3 col-sm-3 col-xs-6">
-								<img src="/images/bc.jpeg" class="img-responsive" alt="/images/bc.jpeg">
-							</div>
-							<div class="col-md-3">
-								<input type="file" name="picture">
-							</div>
-						</div>
-						<div class="row">
-							<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить изображение"></p>
-						</div>
-					</form>
 				</div>
 
 				<div id="settings-tab-limit" class="admin-settings-limit">
@@ -141,6 +124,20 @@
 					  </table>
 				</div>
 				<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
+			</form>
+			<form action="{{action('Admin\OptionController@mainPicture')}}" method="post" enctype="multipart/form-data">
+				<div class="row admin-promo-main-img">
+					<div class="col-md-3 lh">Изображение на главной:</div>
+					<div class="col-md-3 col-sm-3 col-xs-6">
+						<img src="/images/bc.jpeg" class="img-responsive" alt="/images/bc.jpeg">
+					</div>
+					<div class="col-md-3">
+						<input type="file" name="picture">
+					</div>
+				</div>
+				<div class="row">
+					<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить изображение"></p>
+				</div>
 			</form>
 		</div>
 
