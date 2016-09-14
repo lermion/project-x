@@ -107,8 +107,8 @@ Queries.prototype.getUserRooms = function(data){
 										if(isClearMessage[0].delete_id === isClearMessage[0].message_id){
 											last_message = "";
 										}else{
+											console.log("lastMessages", lastMessages);
 											if(lastMessages[0]){
-												console.log("gegewge!!!");
 												if(lastMessages[0].text){
 													last_message = lastMessages[0].text;
 													last_message_id = lastMessages[0].id;
