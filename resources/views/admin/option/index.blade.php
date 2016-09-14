@@ -146,7 +146,28 @@
 
 
 	<script>
-			$( "#settings-tab" ).tabs();
+			if(localStorage.getItem("currentMenu") !== null){
+				$("#settings-tab").tabs({
+					active: parseInt(localStorage.getItem("currentMenu"))
+				});
+			}else{
+				localStorage.setItem("currentMenu", 0);
+				$("#settings-tab").tabs({
+					active: 0
+				});
+			}
+			$(".admin-settings-menu a").on("click", function(){
+				var currentHref = $(this).attr("href").split("-tab-")[1];
+				if(currentHref === "common"){
+					localStorage.setItem("currentMenu", 0);
+				}else if(currentHref === "limit"){
+					localStorage.setItem("currentMenu", 1);
+				}else if(currentHref === "areas"){
+					localStorage.setItem("currentMenu", 2);
+				}else if(currentHref === "code"){
+					localStorage.setItem("currentMenu", 3);
+				}
+			});
 	</script>
 		
 @stop
