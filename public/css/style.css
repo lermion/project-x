@@ -987,7 +987,7 @@ body.public.user {
 }
 .public header .logo.logo-in-menu span.beta {
     top: -8px;
-    right: 12px;
+    right: 25px;
     line-height: 20px;
     font-family: "SFUIDisplayLight";
 }
@@ -1338,7 +1338,7 @@ body.public.user {
 			margin-right: 0;
 	}
 	.public header .main-menu.show-menu {
-		width: 210px;
+		width: 220px;
 		height: 100vh;
 		box-sizing: border-box;
 		z-index: 9999999999;
@@ -4523,7 +4523,7 @@ body.ngdialog-open {
 	line-height: 16px;
 	margin: 0;
 	font-size: 12.5px;
-	padding-left: 15px;
+	padding-left: 25px;
 }
 .group-chat .my-messege .user-messege  .messege-time {
 	padding-right: 20px;
@@ -4537,7 +4537,7 @@ body.ngdialog-open {
 	background-image: url(/images/no-done.png);
 }
 .group-chat .users-messege  .messege-time {
-	background-position: left center;
+	background-position: left 7px center;
 	background-repeat: no-repeat;
 }
 .group-chat .users-messege .messege-time.done {
