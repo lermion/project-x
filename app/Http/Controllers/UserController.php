@@ -211,21 +211,21 @@ class UserController extends Controller
     {
         $user = User::find(Auth::id());
         $scopes_user = $user->scopes()->pluck('scopes.id');
-        $scopes = Scope::all();
+        $scopes = Scope::orderBy('order')->get();
         $all = false;
-        foreach ($scopes_user as $scope_user){
-            if ($scope_user == 1){
-                $all = true;
-            }
-        }
-        if ($all == true) {
-            $data_scope = [];
-            foreach ($scopes as $scope) {
-                $scope['signed'] = true;
-                $data_scope[] = $scope;
-            }
-            return $data_scope;
-        } else {
+//        foreach ($scopes_user as $scope_user){
+//            if ($scope_user == 1){
+//                $all = true;
+//            }
+//        }
+//        if ($all == true) {
+//            $data_scope = [];
+//            foreach ($scopes as $scope) {
+//                $scope['signed'] = true;
+//                $data_scope[] = $scope;
+//            }
+//            return $data_scope;
+//        } else {
             $data_scope = [];
             foreach ($scopes as $scope) {
                 foreach ($scopes_user as $scope_user) {
@@ -236,7 +236,7 @@ class UserController extends Controller
                 $data_scope[] = $scope;
             }
             return $data_scope;
-        }
+//        }
     }
 
     public function updateScopes(Request $request)
