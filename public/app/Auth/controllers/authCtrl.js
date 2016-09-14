@@ -117,7 +117,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.setCoutryCode = function () {
-				console.log($scope.newUserCountryId);
 				var countryId = parseInt($scope.newUserCountryId);
 				$scope.countries.forEach(function (country) {
 					if (country.id === countryId) {
@@ -244,8 +243,11 @@ angular.module('placePeopleApp')
 			};
 			$scope.showAnotherTopic = false;
 			$scope.changeTopic = function(selectedOption){
-				console.log(selectedOption);
-				$scope.checkedAreas[0] = selectedOption.id;
+				if(selectedOption.id !== undefined){
+					$scope.checkedAreas[0] = selectedOption.id;
+				}else{
+					$scope.checkedAreas = [];
+				}
 				if(selectedOption.name === "Другое"){
 					$scope.showAnotherTopic = true;
 				}else{
