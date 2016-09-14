@@ -987,7 +987,7 @@ body.public.user {
 }
 .public header .logo.logo-in-menu span.beta {
     top: -8px;
-    right: 12px;
+    right: 25px;
     line-height: 20px;
     font-family: "SFUIDisplayLight";
 }
@@ -1338,7 +1338,7 @@ body.public.user {
 			margin-right: 0;
 	}
 	.public header .main-menu.show-menu {
-		width: 210px;
+		width: 220px;
 		height: 100vh;
 		box-sizing: border-box;
 		z-index: 9999999999;
