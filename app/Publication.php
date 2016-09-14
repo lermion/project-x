@@ -389,6 +389,7 @@ class Publication extends Model
     {
         $publications_count = Publication::where('publications.user_id', $userId)
             ->where('publications.is_anonym', false)
+            ->where('publications.in_profile', true)
             ->where(function ($query) {
                 $query->whereNotExists(function ($query) {
                     $query->select(DB::raw('id'))
