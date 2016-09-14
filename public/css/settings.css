@@ -7279,7 +7279,7 @@ button.settings-btn {
     margin: 15px;
 }
 .settings-reg-keys h4 {
-    margin: 0 0 15px 0;
+    margin: 0px 0px 15px 21px;
 }
 @media (min-width: 768px) {
     .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
