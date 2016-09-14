@@ -2525,7 +2525,6 @@ div.my_profilll.photo-list div:last-child {
     display: flex;
     width: 85%;
     align-items: center;
-
 }
 .chat-person-top-ava a {
     display: flex;
@@ -2533,6 +2532,9 @@ div.my_profilll.photo-list div:last-child {
     height: 50px;
     border-radius: 50%;
     margin: 5px;
+}
+.chat-person-top-ava a:first-child {
+    overflow: hidden;
 }
 .chat-person-top-ava a img {
     width: 100%;
@@ -4303,6 +4305,9 @@ form.add-files-in-chat .error-messages.ng-active:after{
         padding-left: 50px;
         position: relative;
     }
+    .chat-publication-wrap .chat-right-top-person {
+        padding-left: 0;
+    }
     .chat-main-container-left {
         width: 100%;
     }
@@ -4362,6 +4367,9 @@ form.add-files-in-chat .error-messages.ng-active:after{
     }
     .chat-right-top-person {
         padding-left: 30px;
+    }
+    .chat-publication-wrap .chat-right-top-person {
+        padding-left: 0;
     }
     .chat-link-back {
         left: 0px;
@@ -7196,7 +7204,7 @@ button.settings-btn {
     .user-publication-header .user-menu {
         display: flex;
         align-self: flex-end;
-        height: 15px;
+        height: 10px;
     }
     .photo-list .user-publication-header .user-menu {
         align-self: center;

@@ -100,7 +100,7 @@
 									setTimeout(function() {
 										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
-									}, 1000*15);
+									}, 60000);
 								});
 								$moderatorModal.on('show.bs.modal', function (e) {
 									$(".modal-content").css({
@@ -147,7 +147,7 @@
 												$moderatorModal.modal({
 													keyboard: false
 												});
-											}, 1000*3);
+											}, delay);
 											inProgress = false;
 										},
 										error: function() {
