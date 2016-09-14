@@ -31,7 +31,9 @@
 			<div class="main-menu"  ng-class="showMenu ? 'show-menu' : ''">
 			<a class="drop-menu" ng-click="openMenu()" href></a>
 			<div class="menu-item" ng-show="showMenu">
-				<a class="logo logo-in-menu" ui-sref="feed"></a>
+				<a class="logo logo-in-menu" ui-sref="feed">
+					<span class="beta">β</span>
+				</a>
 				<div class="search">
 					<form name="form.search" ng-submit="submitSearch()" novalidate>
 						<input type="text" ng-model="search.str" placeholder="Поиск...">

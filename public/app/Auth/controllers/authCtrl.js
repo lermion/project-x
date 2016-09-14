@@ -117,7 +117,6 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.setCoutryCode = function () {
-				console.log($scope.newUserCountryId);
 				var countryId = parseInt($scope.newUserCountryId);
 				$scope.countries.forEach(function (country) {
 					if (country.id === countryId) {
@@ -143,6 +142,10 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.userRegisterS1 = function () {
+				if($scope.checkedAreas.length === 0){
+					$scope.nupnErr = "Вы не выбрали область видимости";
+					return;
+				}
 				$scope.codeSendLoader = true;
 				if (!$scope.newUserCountryId && !$scope.newUserPhoneNumber) {
 					$scope.nupnErr = 'Заполните все поля';
@@ -158,32 +161,32 @@ angular.module('placePeopleApp')
 					$scope.codeSendLoader = false;
 					return;
 				}
-				AuthService.sendMessage(phoneNum, countryId)
-					.then(function (res) {
-						if (res.status) {
-							$scope.codeSendLoader = false;
-							$scope.newUserId = res.user_id;
-							$scope.regStep1 = true;
-						} else {
-							if (parseInt(res.error.code) === 1) {
-								$scope.nupnErr = 'Данный номер уже зарегистрирован';
-							} else if (parseInt(res.error.code) === 3) {
-								$scope.nupnErr = 'Ошибка при отправке кода подтверждения';
-							} else if (parseInt(res.error.code) === 10) {
-								var endDate = new Date(res.error.date);
-								var today = new Date(((new Date).toISOString()).slice(0, 10));
-								if (endDate >= today) {
-									var diff = (endDate - today) / 1000 / 60 / 60 / 24;
-									$scope.nupnErr = 'Номер заблокирован для регистрации еще на ' + diff + ' дней';
-								} else {
-									$scope.nupnErr = 'Номер заблокирован навсегда';
-								}
+				AuthService.sendMessage(phoneNum, countryId).then(function(res){
+					if(res.status){
+						$scope.codeSendLoader = false;
+						$scope.newUserId = res.user_id;
+						$scope.regStep1 = true;
+					} else {
+						if (parseInt(res.error.code) === 1) {
+							$scope.nupnErr = 'Данный номер уже зарегистрирован';
+						} else if (parseInt(res.error.code) === 3) {
+							$scope.nupnErr = 'Ошибка при отправке кода подтверждения';
+						} else if (parseInt(res.error.code) === 10) {
+							var endDate = new Date(res.error.date);
+							var today = new Date(((new Date).toISOString()).slice(0, 10));
+							if (endDate >= today) {
+								var diff = (endDate - today) / 1000 / 60 / 60 / 24;
+								$scope.nupnErr = 'Номер заблокирован для регистрации еще на ' + diff + ' дней';
+							} else {
+								$scope.nupnErr = 'Номер заблокирован навсегда';
 							}
-							$scope.codeSendLoader = false;
 						}
-					}, function (err) {
-						console.log(err);
-					});
+						$scope.codeSendLoader = false;
+					}
+				},
+				function (error){
+					console.log(error);
+				});
 			};
 
 			$scope.userRegisterS2 = function () {
@@ -240,7 +243,11 @@ angular.module('placePeopleApp')
 			};
 			$scope.showAnotherTopic = false;
 			$scope.changeTopic = function(selectedOption){
-				$scope.checkedAreas[0] = selectedOption.id;
+				if(selectedOption.id !== undefined){
+					$scope.checkedAreas[0] = selectedOption.id;
+				}else{
+					$scope.checkedAreas = [];
+				}
 				if(selectedOption.name === "Другое"){
 					$scope.showAnotherTopic = true;
 				}else{
