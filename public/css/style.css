@@ -4987,3 +4987,12 @@ h4.have-no-publication{
 	margin-bottom: 20px;
 	color: lightgreen;
 }
+a.who-can-see-publication{
+	color: #495b79;
+	text-decoration: none;
+    font-size: 14px;
+    font-family: "SFUIDisplayMedium";
+}
+a.who-can-see-publication:hover{
+	color: #999;
+}

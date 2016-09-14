@@ -44,20 +44,7 @@
 			</label>
 
 		</div>
-
-		<div class="settings-select-region">
-			<p>Области видимости</p>
-			<ul class="settings-regions-list">
-				<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in $ctrl.scopes">
-					<input ng-change="$ctrl.checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
-					<label for="{{scope.id}}">{{scope.name}}</label>
-				</li>
-			</ul>
-		  <!-- <button class="settings-btn save-areas-btn" ng-click="saveAreas()">Сохранить</button> -->
-		</div>
-
 		<div class="text-field">
-
 			<div emoji-form emoji-message="$ctrl.emojiMessage">
 				<textarea id="messageInput" name="text" ng-model="$ctrl.emojiMessage.messagetext"></textarea>
 				<a href class="emoji-button" id="emojibtn">
@@ -65,12 +52,20 @@
 				</a>
 			</div>
 		</div>
-
+		<a ng-click="showAreasBlock = !showAreasBlock" class="who-can-see-publication" href="javascript:void(0);">Кто будет видеть публикацию</a>
+		<div ng-show="showAreasBlock" class="settings-select-region">
+			<p>Области видимости</p>
+			<ul class="settings-regions-list">
+				<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in $ctrl.scopes">
+					<input ng-change="$ctrl.checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+					<label for="{{scope.id}}">{{scope.name}}</label>
+				</li>
+			</ul>
+		</div>
 		<div class="error-messages" ng-messages="$ctrl.newPublicationForm.text.$error"
 			 ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
 			<div ng-message="required">Вы не заполнили текст публикации</div>
 		</div>
-
 		<div class="pub__crop-area" ng-if="$ctrl.coverToCrop">
 			<img-crop image="$ctrl.coverToCrop"
 					  result-image="$ctrl.myCroppedImage"
