@@ -214,7 +214,8 @@ class PublicationController extends Controller
                 if ($image_name == $cover_name)
                 {
                     $publication->images()->create(['url' => $path,'original_img_url' => $original_path],['is_cover' => true]);
-                    $publication->cover = $path;
+                    $path_cover = Image::getCoverPath($cover);
+                    $publication->cover = $path_cover;
                     $publication->save();
                 } else
                 {
@@ -345,9 +346,10 @@ class PublicationController extends Controller
                     $image_cover = PublicationImage::where(['image_id'=>$cover_id,'publication_id'=>$id])->first();
                     $image_cover->is_cover = true;
                     $image_cover->save();
-                    $url = Image::find($cover_id);
+                    //$url = Image::find($cover_id);
+                    $url = Image::getUpdateCoverPath($request->input('cover'));
                     $public = Publication::where('id',$id)->first();
-                    $public->cover = $url['url'];
+                    $public->cover = $url;
                     $public->save();
                 }
                 if ($request->input('cover_video_id')){
@@ -395,7 +397,8 @@ class PublicationController extends Controller
                                     $video->save();
                                 }
                                 $publication->images()->create(['url' => $path,'original_img_url' => $original_path], ['is_cover' => true]);
-                                $publication->cover = $path;
+                                $path_cover = Image::getCoverPath($cover);
+                                $publication->cover = $path_cover;
                                 $publication->save();
                             } else {
                                 $publication->images()->create(['url' => $path,'original_img_url' => $original_path]);

@@ -35,6 +35,15 @@ class Image extends Model
         return $path.$fileName;
     }
 
+    public static function getUpdateCoverPath($image){
+        $path = '/upload/publication/cover/';
+        $fileName = $image->getClientOriginalName();
+        $fullPath = public_path() . $path;
+        $image->move($fullPath, $fileName);
+
+        return $path.$fileName;
+    }
+
     public static function getOriginalCoverPath($image){
         $path = '/upload/publication/original_cover/';
         $fileName = str_random(8) . $image->getClientOriginalName();
