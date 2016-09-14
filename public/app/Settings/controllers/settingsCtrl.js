@@ -132,10 +132,9 @@ angular.module('placePeopleApp')
 				}
 			});
 			if(active){
-				for(var i = 0; i < 3; i++){
+				if($scope.checkedAreas.length < 3){
 					$scope.checkedAreas.push(area.id);
 				}
-				console.log($scope.checkedAreas);
 			}else{
 				$scope.checkedAreas.splice($scope.checkedAreas.indexOf(area.id), 1);
 			}
