@@ -1072,9 +1072,8 @@ angular.module('placePeopleApp')
 					console.log(error);
 				});
 			};
-
 			$scope.checkMessageType = function(message){
-				var regExp = "^http://" + $location.host();
+				var regExp = $location.protocol() + $location.host();
 				var match = (new RegExp(regExp)).exec(message.text);
 				if(match){
 					var publicationUrl = match.input.split("/publication/");
