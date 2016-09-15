@@ -95,32 +95,27 @@
 										</div>
 								</div>
 						</div>
-						<div class="settings-select-region">
-							<div class="select-country-country">Области видимости</div>
-							<ul class="settings-regions-list">
-								<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in scopes">
-									<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
-									<label for="{{scope.id}}">{{scope.name}}</label>
-								</li>
-							</ul>
+						<div class="create-places-select-street">
+							<div class="select-country-country">Описание</div>
+							<div class="select-street-input">
+								<textarea type="text" name="description" placeholder="Введите описание..." ng-model="vm.placeNew.description" required></textarea>
+								<div class="error-messages" ng-messages="vm.form.placeNew.description.$error" ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
+									<div ng-message="required">Вы не заполнили описание</div>
+								</div>
+							</div>
 						</div>
 						<div class="create-places-select-street">
-								<div class="select-country-country">Описание</div>
-								<div class="select-street-input">
-										<textarea type="text"
-															name="description"
-															placeholder="Введите описание..."
-															ng-model="vm.placeNew.description"
-															required></textarea>
-
-										<div class="error-messages" ng-messages="vm.form.placeNew.description.$error"
-												 ng-if="vm.form.placeNew.$invalid && vm.form.placeNew.$submitted">
-												<div ng-message="required">Вы не заполнили описание</div>
-										</div>
-								</div>
-
+							<a ng-click="showAreasBlock = !showAreasBlock" class="who-can-see-publication" href="javascript:void(0);">Кто будет видеть публикацию</a>
+							<div ng-show="showAreasBlock" class="settings-select-region">
+								<p>Области видимости</p>
+								<ul class="settings-regions-list">
+									<li ng-show="scope.signed" ng-repeat="scope in scopes">
+										<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+										<label for="{{scope.id}}">{{scope.name}}</label>
+									</li>
+								</ul>
+							</div>
 						</div>
-
 						<div class="create-places-add-cover">
 								<div class="create-places-add-cover-img"
 										 name="cover"
