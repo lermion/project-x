@@ -51,12 +51,13 @@ class ModeratorController extends Controller
             $path = $this->getAvatarPath($photo);
             $data['photo'] = $path;
         }
-
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $moderator = Moderator::create($data);
         $from_time = $data['from_time'];
         $to_time = $data['to_time'];
-        $weekday = $data['weekday'];
+        if(!isset($data['weekday'])) {
+            $weekday = $data['weekday'];
+        }
         if (isset ($weekday[1]) && $weekday[1]=='on'){
             $from_times = explode(":", $from_time[1]);
             $hour = $from_times[0];

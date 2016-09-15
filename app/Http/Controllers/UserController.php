@@ -140,7 +140,6 @@ class UserController extends Controller
             ];
             return response()->json($result);
         }
-
         $password = $request->input('password');
         $userId = $request->session()->get('user_id');
         $user = User::find($userId);
@@ -210,6 +209,7 @@ class UserController extends Controller
     public function getScopes()
     {
         $user = User::find(Auth::id());
+        if (!$user)abort(404);
         $scopes_user = $user->scopes()->pluck('scopes.id');
         $scopes = Scope::orderBy('order')->get();
         $all = false;
