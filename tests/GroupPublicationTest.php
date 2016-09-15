@@ -34,12 +34,15 @@ class GroupPublicationTest extends TestCase
         \App\GroupUser::create(['user_id' => $user->id, 'group_id' => $group->id, 'is_admin' => 1]);
         $this->be($user);
         $data = [
-            'text' => 'test', 'is_anonym' => false, 'is_main' => false,
+            'text' => 'test', 'is_anonym' => false, 'is_main' => false, 'scopes'=>[1]
         ];
         $this->json('POST', 'group/' . $group->id . '/publication/store', $data)->seeJson([
             'status' => true,
         ]);
-        $this->seeInDatabase('publications', $data);
+        $delet = [
+            'text' => 'test', 'is_anonym' => false, 'is_main' => false
+        ];
+        $this->seeInDatabase('publications', $delet);
     }
 
     public function testUpdate()

@@ -8,27 +8,39 @@ class AdminLockContentTest extends TestCase
 {
     public function testGetLockPlaces()
     {
-        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        $place = \App\Place::where(['name' => 'test',  'description' => 'test',  'address' => 'test', 'coordinates_x' => '1', 'coordinates_y' => '1'])->first();
+        if (!$place) {
+            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x' => '1', 'coordinates_y' => '1', 'avatar' => 'test', 'is_moderate' => false, 'is_block' => true]);
+        }
         $this->json('GET', 'admin/lock/places');
         $place->delete();
     }
 
     public function testUnlockPlace()
     {
-        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        $place = \App\Place::where(['name' => 'test',  'description' => 'test',  'address' => 'test', 'coordinates_x' => '1', 'coordinates_y' => '1'])->first();
+        if (!$place) {
+            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x' => '1', 'coordinates_y' => '1', 'avatar' => 'test', 'is_moderate' => false, 'is_block' => true]);
+        }
         $this->json('GET', 'admin/lock/unlock_place/'.$place->id);
         $place->delete();
     }
 
     public function testDestroyPlace()
     {
-        $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x'=> '1', 'coordinates_y'=> '1', 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        $place = \App\Place::where(['name' => 'test',  'description' => 'test',  'address' => 'test', 'coordinates_x' => '1', 'coordinates_y' => '1'])->first();
+        if (!$place) {
+            $place = \App\Place::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'city_id' => '1', 'type_place_id' => '1', 'address' => 'test', 'coordinates_x' => '1', 'coordinates_y' => '1', 'avatar' => 'test', 'is_moderate' => false, 'is_block' => true]);
+        }
         $this->json('GET', 'admin/lock/destroy_place/'.$place->id);
     }
 
     public function testGetLockGroups()
     {
+        $group = \App\Group::where(['name' => 'test', 'description' => 'test',  'avatar' => 'test'])->first();
+        if (!$group) {
         $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        }
         $this->json('GET', 'admin/lock/groups');
         $group->delete();
     }
@@ -36,14 +48,20 @@ class AdminLockContentTest extends TestCase
 
     public function testUnlockGroup()
     {
-        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        $group = \App\Group::where(['name' => 'test', 'description' => 'test',  'avatar' => 'test'])->first();
+        if (!$group) {
+            $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        }
         $this->json('GET', 'admin/lock/unlock_group/'.$group->id);
         $group->delete();
     }
 
     public function testDestroyGroup()
     {
-        $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        $group = \App\Group::where(['name' => 'test', 'description' => 'test',  'avatar' => 'test'])->first();
+        if (!$group) {
+            $group = \App\Group::create(['name' => 'test', 'url_name' => 'test', 'description' => 'test', 'is_open' => 1, 'avatar' => 'test', 'is_moderate'=>false, 'is_block'=>true]);
+        }
         $this->json('GET', 'admin/lock/destroy_group/'.$group->id);
     }
 
