@@ -53,13 +53,9 @@ class ModeratorController extends Controller
         }
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $moderator = Moderator::create($data);
-        if ($data['from_time']){
-            $from_time = $data['from_time'];
-        }
-        if ($data['to_time']){
-            $to_time = $data['to_time'];
-        }
-        if($data['weekday']) {
+        $from_time = $data['from_time'];
+        $to_time = $data['to_time'];
+        if(!isset($data['weekday'])) {
             $weekday = $data['weekday'];
         }
         if (isset ($weekday[1]) && $weekday[1]=='on'){
