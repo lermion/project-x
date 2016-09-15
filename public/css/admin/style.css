@@ -801,3 +801,38 @@ table.admin-users .col-do {
 .table-code {
 	width: 50%;
 }
+.admin-moderation-all-places {
+	width: 100%;
+	height: 100%;
+	padding: 0 0 0 5px;
+	max-height: 110px;
+	overflow-y: auto;
+}
+.moderation-one-place-1 {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 3px 0;
+}
+.groups .col-region {
+	width: 15%;
+}
+.groups .col-city {
+	width: 10%;
+}
+.moderator-content-table.groups .place-do.col-do {
+	width: 10%;
+}
+.table>tbody>tr>td.td-place {
+	padding: 0;
+}
+.moderator-content-table.groups  label {
+	width: 90%;
+	margin: 0;
+}
+.td-place .btn {
+	margin-left: 5px;
+}
+.moderator-content-table.groups input[type=checkbox] {
+	margin: 0;
+}

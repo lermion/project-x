@@ -31,9 +31,9 @@
 					<th class="col-author">Создатель</th>
 					<th class="col-count">Количество участников</th>
 					<th class="col-time">Время создания</th>
-					<th class="col-do">Действия</th>
-					<th class="col-do">Области видимости</th>
-					<th class="col-do">Город</th>
+					<th class="col-do place-do">Действия</th>
+					<th class="col-region">Области видимости</th>
+					<th class="col-city">Город</th>
 				  </tr>
 				</thead>
 				<tbody>
@@ -63,17 +63,22 @@
 							<a type="button" class="btn btn-warning btn-xs" href="/admin/moderation/note_place/{{$place->id}}">На заметку</a>
 						@endif
 					</td>
-					<td>
+					<td class="td-place">
+						
 						<form action="{{ action('Admin\ModerationController@saveScopePlace') }}" method="post">
-							<input type="hidden" name="id" value="{{$place->id}}">
-							@foreach($scopes as $scope)
-							<label for="area1">{{$scope->name}}</label>
-							<input type="checkbox" id="area1"
-								   @foreach($place->scopes->all() as $id)
-								       @if ($scope->id == $id->id) checked
-								       @endif
-								   @endforeach name="scopes[]" value="{{$scope->id}}">
-							@endforeach
+							<div class="admin-moderation-all-places">
+								<input type="hidden" name="id" value="{{$place->id}}">
+								@foreach($scopes as $scope)
+									<div class="moderation-one-place-1">
+										<label for="area1">{{$scope->name}}</label>
+										<input type="checkbox" id="area1"
+											   @foreach($place->scopes->all() as $id)
+											       @if ($scope->id == $id->id) checked
+											       @endif
+											   @endforeach name="scopes[]" value="{{$scope->id}}">
+									</div>
+								@endforeach
+							</div>
 							<button type="submit" class="btn btn-success btn-xs">Сохранить</button>
 						</form>
 					</td>
