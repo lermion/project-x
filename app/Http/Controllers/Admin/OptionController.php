@@ -43,7 +43,7 @@ class OptionController extends Controller
                     'code' => '1'
                 ]
             ];
-            return redirect()->back()->with('message', 'Ошибка!!! Не сохраненно');
+            return redirect('admin/option/')->with('message', 'Ошибка!!! Не сохраненно');
         }
         $data = $request->all();
         $img = $request->file('img');
@@ -53,7 +53,7 @@ class OptionController extends Controller
         $img->move($fullPath, $fileName);
         $data['img'] = $path.$fileName;
         Scope::create($data);
-        return redirect()->back()->with('message', 'Сохраненно');
+        return redirect('admin/option/')->with('message', 'Сохраненно');
     }
 
     public function create_scope()
@@ -113,7 +113,7 @@ class OptionController extends Controller
             $data['img'] = $path.$fileName;
         }
         $scopes->update($data);
-        return redirect()->back()->with('message', 'Сохраненно');
+        return redirect('admin/option/')->with('message', 'Сохраненно');
     }
 
     public function delete_scope_save(Request $request)
@@ -125,7 +125,7 @@ class OptionController extends Controller
         $scopes = Scope::find($delete_id);
 
         if ($scopes->is_protected != 0) {
-            return redirect()->back()->with('message', 'Ошибка!!! Удаление не возможно');
+            return redirect('admin/option/')->with('message', 'Ошибка!!! Удаление не возможно');
         }
 
         $scope_users = ScopeUser::where('scope_id',$delete_id)->get();//->update($id);
@@ -133,15 +133,15 @@ class OptionController extends Controller
             ScopeUser::where('id',$scope_user->id)->update(['scope_id'=>$id]);
         }
         Scope::where('id',$delete_id)->delete();
-        return redirect()->back()->with('message', 'Сохраненно');
+        return redirect('admin/option/')->with('message', 'Сохраненно');
     }
 
     public function generateCodes()
     {
         if(AccessCode::generateCodes()) {
-            return redirect()->back()->with('message', 'Коды сгенерированны');
+            return redirect('admin/option/')->with('message', 'Коды сгенерированны');
         } else {
-            return redirect()->back()->with('message', 'Ошибка!!! Коды не сгенерированны');
+            return redirect('admin/option/')->with('message', 'Ошибка!!! Коды не сгенерированны');
         }
     }
 
