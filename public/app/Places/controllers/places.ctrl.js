@@ -784,7 +784,6 @@
 
 						arr.forEach(function (item) {
 							var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
-							console.log(data);
 							if (data.kind === 'locality') {
 								var cityName = null;
 								if(data.AddressDetails.Country.AddressLine){
