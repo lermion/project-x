@@ -29,15 +29,6 @@
 			</div>
 			<span class="add_ava_grp"> Добавить обложку группе </span>
 		</div>
-		<div class="settings-select-region">
-			<p>Области видимости</p>
-			<ul class="settings-regions-list">
-				<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in scopes">
-					<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
-					<label for="{{scope.id}}">{{scope.name}}</label>
-				</li>
-			</ul>
-		</div>
 		<img ngf-src="cropImageTest" ngf-no-object-url="true">
 		<div class="error-messages" ng-messages="forms.newGroup.avatar.$error"
 			 ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted || forms.newGroup.avatar.$dirty">
@@ -46,19 +37,15 @@
 			<div ng-message="required">Вы не выбрали обложку для группы</div>
 			<div ng-message="minHeight">Минимальная высота 240 пикселей</div>
 		</div>
-
-
 		<input type="text" name="name"
 			   ng-class="{'has-error': forms.newGroup.name.$invalid && submFormGroup}"
 			   ng-model="newGroup.name"
 			   required
 			   placeholder="Название">
-
 		<div class="error-messages" ng-messages="forms.newGroup.name.$error"
 			 ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
 			<div ng-message="required">Вы не указали название группы</div>
 		</div>
-
 		<div class="text-field">
 			<div emoji-form emoji-message="emojiMessage">
 				<textarea id="messageInput" name="description"
@@ -67,6 +54,16 @@
 					<i class="icon icon-emoji"></i>
 				</a>
 			</div>
+		</div>
+		<a ng-click="showAreasBlock = !showAreasBlock" class="who-can-see-publication" href="javascript:void(0);">Кто будет видеть публикацию</a>
+		<div ng-show="showAreasBlock" class="settings-select-region">
+			<p>Области видимости</p>
+			<ul class="settings-regions-list">
+				<li ng-show="scope.signed" ng-repeat="scope in scopes">
+					<input ng-change="checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+					<label for="{{scope.id}}">{{scope.name}}</label>
+				</li>
+			</ul>
 		</div>
 		<div class="error-messages" ng-messages="forms.newGroup.description.$error"
 			 ng-if="forms.newGroup.$invalid && forms.newGroup.$submitted">
