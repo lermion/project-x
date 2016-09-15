@@ -56,7 +56,7 @@
 		<div ng-show="showAreasBlock" class="settings-select-region">
 			<p>Области видимости</p>
 			<ul class="settings-regions-list">
-				<li ng-show="scope.name !== 'Все' && scope.signed" ng-repeat="scope in $ctrl.scopes">
+				<li ng-show="scope.signed" ng-repeat="scope in $ctrl.scopes">
 					<input ng-change="$ctrl.checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
 					<label for="{{scope.id}}">{{scope.name}}</label>
 				</li>
