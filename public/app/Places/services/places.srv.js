@@ -39,7 +39,7 @@
 
 		function getPlaceScopes(placeId){
 			var defer = $q.defer();
-			$http.get("place/get_place_scopes/" + placeId)
+			$http.get("user/get_scopes")
 				.success(function (response) {
 					defer.resolve(response);
 				})

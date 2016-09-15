@@ -3,7 +3,7 @@
 				<div class="chat-left-users-all">
 					<div class="chat-left-users-i-sign">
 						<div ng-show="Model.subscriptions.length > 0 && filtered.length > 0" class="chat-left-users-sign-inner">Я подписан</div>
-						<div ng-show="filtered.length === 0" class="chat-left-users-sign-inner">Не найдено</div>
+						<div ng-show="filtered.length === 0 && Model.subscriptions.length > 0" class="chat-left-users-sign-inner">Не найдено</div>
 						<div ng-show="Model.subscriptions.length === 0" class="chat-left-users-sign-inner">
 							Нет подписок
 						</div>

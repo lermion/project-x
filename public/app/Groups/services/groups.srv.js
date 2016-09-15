@@ -32,7 +32,7 @@
 
 		function getGroupScopes(groupId){
 			var defer = $q.defer();
-			$http.get("group/get_group_scopes/" + groupId)
+			$http.get("user/get_scopes")
 				.success(function (response) {
 					defer.resolve(response);
 				})
