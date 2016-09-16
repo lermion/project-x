@@ -100,7 +100,7 @@ class PlaceController extends Controller
                 }
             }
             $result = array_unique($place);
-            return $result;
+            return array_values($result);
         }
     }
 

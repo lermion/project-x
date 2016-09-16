@@ -73,7 +73,7 @@ class GroupController extends Controller
                     }
                 }
             $result = array_unique($groups);
-            return $result;
+            return array_values($result);
         } else {
             $all = [];
             foreach ($scopes as $scope) {
@@ -128,7 +128,7 @@ class GroupController extends Controller
                 }
             }
             $result = array_unique($group);
-            return $result;
+            return array_values($result);
         }
     }
 
