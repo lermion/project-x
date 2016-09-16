@@ -127,15 +127,11 @@
 				</div>
 			</div>
 			<div class="publication-footer-button">
-				<a href="" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-				<a type="submit" class="publication-button"
-				   ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать
-				</a>
+				<a href="javascript:void(0);" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
+				<button ng-disabled="$ctrl.isFilesAdded" type="submit" class="publication-button" ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
 			</div>
 		</div>
 
-		<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для
-			создания публикации обязательным является добавление фото или видео'}} </p>
-
+		<p class="publication-text"><span>* </span>{{ publishNewPubErr ? 'В публикации обязательны текст и файл' : 'Для создания публикации обязательным является добавление фото или видео'}} </p>
 	</div>
 </form>

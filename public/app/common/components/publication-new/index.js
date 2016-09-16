@@ -94,6 +94,7 @@
 				 * @param event
 				 */
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+					ctrl.isFilesAdded = true;
 					var defer = $q.defer();
 					var prom = [];
 					newFiles.forEach(function (image) {
@@ -103,6 +104,7 @@
 					$q.all(prom).then(function (data) {
 						angular.forEach(data, function (item, index, array) {
 							ctrl.files.push(item);
+							ctrl.isFilesAdded = false;
 						});
 						if (!ctrl.coverToCrop) {
 							var file = newFiles[0];
