@@ -7311,7 +7311,7 @@ button.settings-btn {
 		margin-right: 20px;
 	}
 	.view-publication.ngdialog-theme-default .user-publication-content .publication-ava {
-		height: auto;
+		height: 62vh;
 	}
 	.view-publication.ngdialog-theme-default .comment .comment-pic .comment-pic-item {
 		width: 15%;
