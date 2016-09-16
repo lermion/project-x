@@ -1518,7 +1518,7 @@ body.public.user {
 .my-profile-item .counts,
 .my-profile-item .comunications {
 	display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items:center;
 }
 .my-profile-item .counts.another-user {
@@ -1541,6 +1541,7 @@ body.public.user {
 .my-profile-item .counts .counter:nth-child(2),
 .my-profile-item .counts .counter:nth-child(1) p,
 .my-profile-item .counts .counter:nth-child(2) p {
+	margin-right: 15px;
 	cursor: default;
 }
 .counts.another-user .counter {
