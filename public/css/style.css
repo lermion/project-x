@@ -1518,7 +1518,7 @@ body.public.user {
 .my-profile-item .counts,
 .my-profile-item .comunications {
 	display: flex;
-		justify-content: center;
+		justify-content: space-around;
 		align-items:center;
 }
 .my-profile-item .counts.another-user {
