@@ -79,7 +79,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('create_scope_save', 'Admin\OptionController@create_scope_save');
                 Route::post('update_scope_save', 'Admin\OptionController@update_scope_save');
                 Route::get('delete_scope_save', 'Admin\OptionController@delete_scope_save');
-                // Route::post('update_option/{id}', 'Admin\OptionController@update');
+                Route::post('update_inspection', 'Admin\ModeratorController@update_inspection');
             });
             Route::group(['prefix' => 'complaints'], function () {
                 Route::get('/', 'Admin\ComplaintsController@index');
