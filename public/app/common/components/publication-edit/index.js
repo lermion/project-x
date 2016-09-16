@@ -187,7 +187,7 @@
 				ctrl.setNewMainPubPhoto = function (index, isNewFile) {
 					getBlobFromUrl(ctrl.files[index].original_img_url, function(value){
 						var blob = new Blob([value], {type: value.type});
-						blob.name = 'image';
+						blob.name = ctrl.files[index].original_img_url.split("original_images/")[1];
 						var reader = new FileReader();
 						reader.onload = function(event){
 							$scope.$apply(function($scope){

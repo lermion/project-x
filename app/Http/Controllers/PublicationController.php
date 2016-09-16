@@ -347,7 +347,7 @@ class PublicationController extends Controller
                     $image_cover->is_cover = true;
                     $image_cover->save();
                     //$url = Image::find($cover_id);
-                    $url = Image::getUpdateCoverPath($request->input('cover'));
+                    $url = Image::getUpdateCoverPath($request->file('cover'));
                     $public = Publication::where('id',$id)->first();
                     $public->cover = $url;
                     $public->save();
