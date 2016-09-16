@@ -16,6 +16,7 @@
 				ctrl.files = [];
 				ctrl.newFiles = [];
 				ctrl.checkedAreas = [];
+				ctrl.originalFiles = [];
 				ctrl.newPub = {
 					deleteImages: [],
 					deleteVideos: []
@@ -102,6 +103,7 @@
 					var defer = $q.defer();
 					var prom = [];
 					newFiles.forEach(function (image) {
+						ctrl.originalFiles.push(image);
 						prom.push(resizeImage(image));
 					});
 					$q.all(prom).then(function (data) {
@@ -116,6 +118,7 @@
 
 					if (isNewFile) {
 						ctrl.newFiles.splice(index, 1);
+						ctrl.originalFiles.splice(index, 1);
 						ctrl.newPub.cover = null;
 
 					} else {
@@ -185,18 +188,30 @@
 				}
 
 				ctrl.setNewMainPubPhoto = function (index, isNewFile) {
-					getBlobFromUrl(ctrl.files[index].original_img_url, function(value){
-						var blob = new Blob([value], {type: value.type});
-						blob.name = ctrl.files[index].original_img_url.split("original_images/")[1];
-						var reader = new FileReader();
-						reader.onload = function(event){
-							$scope.$apply(function($scope){
-								ctrl.coverToCrop = event.target.result;
-								ctrl.coverToCropName = blob.name;
-							});
-						};
-						reader.readAsDataURL(blob);
-					});
+					if(isNewFile){
+							var reader = new FileReader();
+							reader.onload = function(event){
+								$scope.$apply(function($scope){
+									ctrl.coverToCrop = event.target.result;
+									ctrl.coverToCropName = ctrl.newFiles[index].name;
+								});
+							};
+							reader.readAsDataURL(ctrl.newFiles[index]);
+					}else{
+						getBlobFromUrl(ctrl.files[index].original_img_url, function(value){
+							var blob = new Blob([value], {type: value.type});
+							blob.name = ctrl.files[index].original_img_url.split("original_images/")[1];
+							var reader = new FileReader();
+							reader.onload = function(event){
+								$scope.$apply(function($scope){
+									ctrl.coverToCrop = event.target.result;
+									ctrl.coverToCropName = blob.name;
+								});
+							};
+							reader.readAsDataURL(blob);
+						});
+					}
+					
 					angular.forEach(ctrl.newFiles, function (item) {
 						if (item.isCover) {
 							item.isCover = false;
@@ -250,6 +265,8 @@
 					var videos = [],
 						oldVideos = [];
 
+					var originalImages = [];
+
 					var isMain;
 
 					if ($state.is('feed')) {
@@ -273,6 +290,12 @@
 							oldImages.push(file);
 						} else if (type === 'video') {
 							oldVideos.push(file);
+						}
+					});
+					ctrl.originalFiles.forEach(function (file) {
+						var type = file.type.split('/')[0];
+						if (type === 'image') {
+							originalImages.push(file);
 						}
 					});
 					ctrl.cover = createCover();
@@ -312,6 +335,7 @@
 						cover_image_id: ctrl.pub.cover_image_id,
 						cover_video_id: ctrl.pub.cover_video_id,
 						images: images,
+						originalImages: originalImages,
 						videos: videos,
 						deleteImages: ctrl.newPub.deleteImages,
 						deleteVideos: ctrl.newPub.deleteVideos,
