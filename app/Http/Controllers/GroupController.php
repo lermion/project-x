@@ -72,7 +72,8 @@ class GroupController extends Controller
                         $group->is_new_group = false;
                     }
                 }
-            return $groups;
+            $result = array_unique($groups);
+            return $result;
         } else {
             $all = [];
             foreach ($scopes as $scope) {
