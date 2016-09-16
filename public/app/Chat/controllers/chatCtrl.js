@@ -1090,7 +1090,11 @@ angular.module('placePeopleApp')
 				if(pubId != undefined){
 					PublicationService.getSinglePublication(pubId).then(function(response){
 						message.pub = response;
-						message.pub.files = response.images.concat(response.videos);
+						if(response.videos.length > 0){
+							message.pub.files = response.images.concat(response.videos);
+						}else{
+							message.pub.files = response.images;
+						}
 					},
 					function(error){
 						console.log(error);
