@@ -112,6 +112,7 @@
 								reader.onload = function (event) {
 									$scope.$apply(function ($scope) {
 										ctrl.coverToCrop = event.target.result;
+										ctrl.coverToCropName = file.name;
 									});
 								};
 								reader.readAsDataURL(file);
@@ -209,11 +210,8 @@
 						}
 					});
 
-					setTimeout(function(){
-						ctrl.cover = createCover();
-					}, 3000);
+					ctrl.cover = createCover();
 					
-
 						if (!ctrl.cover) {
 							// если нет видеофайлов, обложка = фото
 							if (videos.length === 0) {
@@ -427,7 +425,7 @@
 
 				function createCover() {
 
-					return Upload.dataUrltoBlob(ctrl.myCroppedImage, ctrl.coverToCrop.name);
+					return Upload.dataUrltoBlob(ctrl.myCroppedImage, ctrl.coverToCropName);
 
 					//return Upload.resize(blob, 740, 395, null, null, null, false).then(function (resizedFile) {
 					//    return resizedFile;
