@@ -609,7 +609,7 @@
 
                 ctrl.getPubLink = function (pubId) {
                     var hashPubId = md5.createHash(pubId + "");
-                    var linkToPublication = "http://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
+                    var linkToPublication = $location.protocol() + "://" + $location.host() + "/p/" + pubId + "/" + hashPubId;
                     ngDialog.open({
                         template: '../app/common/components/publication-list-item/get-link-publication.html',
                         className: 'link-publication ngdialog-theme-default',
