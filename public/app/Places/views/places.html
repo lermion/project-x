@@ -52,6 +52,7 @@
 						 ng-repeat="place in vm.myPlaces | orderBy: ['-is_new_place', '-created_at'] |  limitTo: vm.limitPlace"
 						 ng-click="vm.goPlace(place)">
 						<div class="places-item-photo">
+							<span class="places-item-new-place" ng-if="place.is_new_place">NEW</span>
 							<a class="places-item-photo-link" href>
 								<img class="places-item-photo-img"
 									 ngf-src="place.avatar">
