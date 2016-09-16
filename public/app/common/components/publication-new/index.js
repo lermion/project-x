@@ -171,11 +171,13 @@
 					ctrl.newPublicationForm.$setSubmitted();
 
 					// TODO: fix validation
-					$timeout(function () {
-						ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
-					});
-
-					if (!ctrl.coverToCrop) {
+					if(!ctrl.cover){
+						$timeout(function () {
+							ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
+						});
+					}
+					
+					if (!ctrl.coverToCrop && !ctrl.cover) {
 						return false;
 					}
 
@@ -212,7 +214,10 @@
 						}
 					});
 
-					ctrl.cover = createCover();
+					if(!ctrl.cover){
+						ctrl.cover = createCover();
+					}
+					
 					
 						if (!ctrl.cover) {
 							// если нет видеофайлов, обложка = фото

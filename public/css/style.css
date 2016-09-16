@@ -1518,8 +1518,8 @@ body.public.user {
 .my-profile-item .counts,
 .my-profile-item .comunications {
 	display: flex;
-	justify-content: center;
-	align-items:center;
+		justify-content: center;
+		align-items:center;
 }
 .my-profile-item .counts.another-user {
 	justify-content: flex-start;
