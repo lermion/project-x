@@ -188,34 +188,37 @@
 					getBlobFromUrl(ctrl.files[index].original_img_url, function(value){
 						var blob = new Blob([value], {type: value.type});
 						blob.name = 'image';
-						ctrl.coverToCrop = blob;
+						var reader = new FileReader();
+						reader.onload = function(event){
+							$scope.$apply(function($scope){
+								ctrl.coverToCrop = event.target.result;
+							});
+						};
+						reader.readAsDataURL(blob);
 					});
-					// prom.push(getBlobFromUrl(item, function (value) {
-					// 	arr.push(value);
-					// }));
-					// angular.forEach(ctrl.newFiles, function (item) {
-					// 	if (item.isCover) {
-					// 		item.isCover = false;
-					// 	}
-					// });
-					// angular.forEach(ctrl.files, function (item) {
-					// 	item.pivot.is_cover = false;
-					// 	item.isCover = false;
-					// });
+					angular.forEach(ctrl.newFiles, function (item) {
+						if (item.isCover) {
+							item.isCover = false;
+						}
+					});
+					angular.forEach(ctrl.files, function (item) {
+						item.pivot.is_cover = false;
+						item.isCover = false;
+					});
 
-					// if (isNewFile) {
-					// 	ctrl.newFiles[index].isCover = true;
-					// 	ctrl.cover = ctrl.newFiles[index];
-					// } else {
-					// 	ctrl.files[index].isCover = true;
-					// 	ctrl.files[index].pivot.is_cover = true;
-					// 	if (ctrl.files[index].pivot.image_id) {
-					// 		ctrl.pub.cover_image_id = ctrl.files[index].id;
-					// 	} else {
-					// 		ctrl.pub.cover_video_id = ctrl.files[index].id;
-					// 	}
-					// 	ctrl.pub.cover = null;
-					// }
+					if (isNewFile) {
+						ctrl.newFiles[index].isCover = true;
+						ctrl.cover = ctrl.newFiles[index];
+					} else {
+						ctrl.files[index].isCover = true;
+						ctrl.files[index].pivot.is_cover = true;
+						if (ctrl.files[index].pivot.image_id) {
+							ctrl.pub.cover_image_id = ctrl.files[index].id;
+						} else {
+							ctrl.pub.cover_video_id = ctrl.files[index].id;
+						}
+						ctrl.pub.cover = null;
+					}
 				};
 
 				ctrl.updatePub = function () {
