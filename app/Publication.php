@@ -131,7 +131,8 @@ class Publication extends Model
                         $publications[] = $one;
                     }
                 }
-                return $publications;
+                $result = array_unique($publications);
+                return $result;
             }
         } else {
             $user = User::find(Auth::id());
@@ -206,6 +207,8 @@ class Publication extends Model
                         $publications[] = $one;
                     }
                 }
+                $result = array_unique($publications);
+                return $result;
             }
         }
 //            ->where(function($query){
@@ -316,6 +319,8 @@ class Publication extends Model
                     $publications[] = $one;
                 }
             }
+            $result = array_unique($publications);
+            return $result;
         }
         foreach ($publications as &$publication) {
             $publication_comments = $publication->comments()

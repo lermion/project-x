@@ -126,7 +126,8 @@ class GroupController extends Controller
                     $group[] = $one;
                 }
             }
-            return $group;
+            $result = array_unique($group);
+            return $result;
         }
     }
 

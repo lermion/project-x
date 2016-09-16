@@ -406,7 +406,7 @@ class OptionTableSeeder extends Seeder
     public function run()
     {
         DB::table('options')->delete();
-        Option::create(array('contacts'=>'Контакты', 'terms_of_use'=>'Соглашение пользователя', 'privacy_policy' => 'Политика конфиденциальности', 'copyright' => 'Авторские права', 'copyright_link' => 'Авторские права (ссылка)', 'mail' => 'mail@mail.ru', 'time_chat_message' => 30, 'users_chat_message' => 60, 'user_foto_bloc' => false, 'moderate_publication' => false, 'closed_registration' => false ));
+        Option::create(array('contacts'=>'Контакты', 'terms_of_use'=>'Соглашение пользователя', 'privacy_policy' => 'Политика конфиденциальности', 'copyright' => 'Авторские права', 'copyright_link' => 'Авторские права (ссылка)', 'mail' => 'mail@mail.ru', 'time_chat_message' => 30, 'users_chat_message' => 60, 'user_foto_bloc' => false, 'moderate_publication' => false, 'closed_registration' => false, 'inspection_moderator' => 30));
     }
 }
 

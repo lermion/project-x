@@ -93,13 +93,14 @@ class PlaceController extends Controller
                 }
                 $all[]=$places;
             }
-            $group = [];
+            $place = [];
             foreach ($all as $array) {
                 foreach ($array as $one) {
-                    $group[] = $one;
+                    $place[] = $one;
                 }
             }
-            return $group;
+            $result = array_unique($place);
+            return $result;
         }
     }
 

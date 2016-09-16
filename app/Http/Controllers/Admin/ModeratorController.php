@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Moderator;
+use App\Option;
 use App\WorkingHoursModerator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -19,9 +20,10 @@ class ModeratorController extends Controller
      */
     public function index()
     {
+        $option = Option::first();
         $moderators = Moderator::where('is_stop',false)->get();
         $working_hours = WorkingHoursModerator::all();
-        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'New']);
+        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours, 'option'=>$option, 'url'=>'New']);
     }
 
     /**
@@ -489,6 +491,14 @@ class ModeratorController extends Controller
         $moderators = Moderator::find($id);
         $moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id)->get();
         return view('admin.moderator.update')->with('moderators', $moderators);
+    }
+
+    public function update_inspection(Request $request)
+    {
+        $option = Option::first();
+        $option->inspection_moderator = $request->input('inspection_moderator');
+        $option->save();
+        return redirect('/admin/moderator/')->with('message', 'Время измененно');
     }
 
     public function destroy($id)

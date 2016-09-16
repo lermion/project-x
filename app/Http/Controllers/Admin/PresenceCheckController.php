@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Option;
 use App\WorkingHoursModerator;
 use App\CreateCheckingModerator;
 use Carbon\Carbon;
@@ -14,6 +15,7 @@ class PresenceCheckController extends Controller
 {
     public function getCheckTime(Request $request)
     {
+        $option = Option::first()->pluck('inspection_moderator');
         $admin = $request->session()->get('moderator');
         $time = Carbon::now();
         $weekday = $time->dayOfWeek;
@@ -35,7 +37,7 @@ class PresenceCheckController extends Controller
             if ($timestamp > $working_time) {
                 $time_inspection = $this->inspection($working_time);
             } else {
-                $interval = 30 * 60;
+                $interval = $option[0] * 60;
                 $time_inspection = Carbon::createFromTimestamp($working_time + $interval)->toTimeString();
             }
             return response()->json(["status" => true, "time" => $time_inspection, "moderator_id" => $admin['id']]);
@@ -47,18 +49,19 @@ class PresenceCheckController extends Controller
     }
     public function Confirmation($id)
     {
+        $option = Option::first()->pluck('inspection_moderator');
         $data['moderator_id'] = $id;
         $time = Carbon::now();
         $time_working = $time->toDateString();
 
         $moderator_working = CreateCheckingModerator::where('moderator_id',$id)->where('created_at', 'like', $time_working.'%')->first();
         if ($moderator_working) {
-            $moderator_working->hours_worked += 30;
+            $moderator_working->hours_worked += $option[0];
             $moderator_working->save();
         } else{
             CreateCheckingModerator::create($data);
             $moderator_working = CreateCheckingModerator::where('moderator_id',$id)->where('created_at', 'like', $time_working.'%')->first();
-            $moderator_working->hours_worked += 30;
+            $moderator_working->hours_worked += $option[0];
             $moderator_working->save();
         }
         return response()->json(["status" => true]);
@@ -66,8 +69,9 @@ class PresenceCheckController extends Controller
 
     private function inspection(&$working_time)
     {
+        $option = Option::first()->pluck('inspection_moderator');
         $p = null;
-        $interval = 30 * 60;
+        $interval = $option[0] * 60;
         $time = Carbon::now();
         $timestamp = $time->timestamp;
         $working_time = $working_time + $interval;

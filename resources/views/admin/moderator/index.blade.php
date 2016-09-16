@@ -169,10 +169,11 @@
             </tbody>
         </table>
 
+        <form action="{{ action('Admin\ModeratorController@update_inspection') }}" method="post">
         <h4 style="margin-top:30px;">Настройки модерации</h4>
-        <p>Проверка активности модератора - каждые <input class="miniText form-control" type="text" placeholder="30"> мин.</p>
-        <p><button type="button" class="btn btn-success save">Сохранить</button></p>
-
+        <p>Проверка активности модератора - каждые <input class="miniText form-control" type="number" name="inspection_moderator" value="{{$option->inspection_moderator}}"> мин.</p>
+        <p><input class="btn btn-success save" type="submit" value="Сохранить"></p>
+        </form>
 
     </div>
 
