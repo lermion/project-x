@@ -17,6 +17,7 @@
 				ctrl.newFiles = [];
 				ctrl.checkedAreas = [];
 				ctrl.originalFiles = [];
+				ctrl.checkedLimit = 3;
 				ctrl.newPub = {
 					deleteImages: [],
 					deleteVideos: []
@@ -142,6 +143,7 @@
 
 				function getScopes(){
 					PublicationService.getScopes().then(function(data){
+						ctrl.checkedAreas = [];
 						ctrl.scopes = data;
 						ctrl.scopes.forEach(function(value){
 							if(value.signed){
@@ -155,15 +157,46 @@
 					});
 				}
 
-				ctrl.checkedScope = function(active, scope){
-					if(active){
-						if(ctrl.checkedAreas.length < 3){
+				ctrl.checkedScope = function (active, scope) {
+					if(scope.name === "Все" && active){
+						ctrl.checkAll(true);
+						ctrl.checkedAreas = [];
+						ctrl.checkedAreas[0] = scope.id;
+					}else if(scope.name === "Все" && !active){
+						ctrl.checkAll(false);
+						ctrl.checkedAreas = [];
+						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
+					}else{
+						if(ctrl.checkedAreas[0] === 1){
+							ctrl.checkedAreas.splice(0, 1);
+						}
+						ctrl.scopes.forEach(function(value){
+							if(value.name === "Все"){
+								value.active = false;
+								value.signed = false;
+							}
+						});
+					}
+					if (active) {
+						if (ctrl.checkedAreas.length < 3) {
 							ctrl.checkedAreas.push(scope.id);
 						}
-					}else{
+					} else {
 						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
 					}
-				}
+				};
+
+				ctrl.checkAll = function(param){
+					ctrl.scopes.forEach(function(value){
+						if(value.name === "Все"){
+							value.active = param;
+						}else{
+							value.active = false;
+							value.signed = false;
+						}
+						ctrl.checkedAreas = [];
+					});
+				};
 
 				getScopes();
 

@@ -18,9 +18,9 @@
 				ctrl.pub = {};
 				ctrl.files = [];
 				ctrl.originalFiles = [];
-				ctrl.checkedAreas = [];
 				ctrl.subForm = false;
 				ctrl.isAnonym = false;
+				ctrl.checkedLimit = 3;
 
 				// Current user
 				var storage = storageService.getStorage();
@@ -291,6 +291,7 @@
 				function getScopes() {
 					if (ctrl.group) {
 						groupsService.getGroupScopes(ctrl.group.id).then(function (data) {
+								ctrl.checkedAreas = [];
 								ctrl.scopes = data;
 								ctrl.scopes.forEach(function (value) {
 									if (value.signed) {
@@ -304,6 +305,7 @@
 							});
 					} else if (ctrl.place) {
 						placesService.getPlaceScopes(ctrl.place.id).then(function (data) {
+								ctrl.checkedAreas = [];
 								ctrl.scopes = data;
 								ctrl.scopes.forEach(function (value) {
 									if (value.signed) {
@@ -317,6 +319,7 @@
 							});
 					} else {
 						PublicationService.getScopes().then(function (data) {
+								ctrl.checkedAreas = [];
 								ctrl.scopes = data;
 								ctrl.scopes.forEach(function (value) {
 									if (value.signed) {
@@ -332,6 +335,25 @@
 				}
 
 				ctrl.checkedScope = function (active, scope) {
+					if(scope.name === "Все" && active){
+						ctrl.checkAll(true);
+						ctrl.checkedAreas = [];
+						ctrl.checkedAreas[0] = scope.id;
+					}else if(scope.name === "Все" && !active){
+						ctrl.checkAll(false);
+						ctrl.checkedAreas = [];
+						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
+					}else{
+						if(ctrl.checkedAreas[0] === 1){
+							ctrl.checkedAreas.splice(0, 1);
+						}
+						ctrl.scopes.forEach(function(value){
+							if(value.name === "Все"){
+								value.active = false;
+								value.signed = false;
+							}
+						});
+					}
 					if (active) {
 						if (ctrl.checkedAreas.length < 3) {
 							ctrl.checkedAreas.push(scope.id);
@@ -339,7 +361,19 @@
 					} else {
 						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
 					}
-				}
+				};
+
+				ctrl.checkAll = function(param){
+					ctrl.scopes.forEach(function(value){
+						if(value.name === "Все"){
+							value.active = param;
+						}else{
+							value.active = false;
+							value.signed = false;
+						}
+						ctrl.checkedAreas = [];
+					});
+				};
 
 				getScopes();
 
