@@ -49,8 +49,8 @@
 		<div ng-show="showAreasBlock" class="settings-select-region">
 			<p>Области видимости</p>
 			<ul class="settings-regions-list">
-				<li ng-show="scope.signed" ng-repeat="scope in $ctrl.scopes">
-					<input ng-change="$ctrl.checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+				<li ng-repeat="scope in $ctrl.scopes">
+					<input ng-disabled="$ctrl.checkedAreas.length === $ctrl.checkedLimit && !scope.active && scope.name !== 'Все'" ng-change="$ctrl.checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
 					<label for="{{scope.id}}">{{scope.name}}</label>
 				</li>
 			</ul>
@@ -59,7 +59,7 @@
 			<div ng-message="required">Вы не заполнили текст публикации</div>
 		</div>
 		<div class="pub__crop-area" ng-if="$ctrl.coverToCrop">
-			<img-crop image="$ctrl.coverToCrop" result-image="$ctrl.myCroppedImage" chargement="'Загрузка'" area-type="rectangle" area-min-relative-size="{w: 700, h: 395}" result-image-size="{w: 700, h: 395}"></img-crop>
+			<img-crop image="$ctrl.coverToCrop" result-image="$ctrl.myCroppedImage" chargement="'Загрузка'" area-type="rectangle" aspect-ratio="1.77" area-min-relative-size="{w: 700, h: 395}" result-image-size="{w: 700, h: 395}"></img-crop>
 		</div>
 		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
 			 style="max-height: 250px; overflow:hidden; position:relative;">

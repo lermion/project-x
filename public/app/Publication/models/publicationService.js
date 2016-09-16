@@ -228,6 +228,12 @@ angular.module('placePeopleApp')
 				data.append('scopes[]', scope);
 			});
 
+			if (pub.originalImages.length > 0) {
+				pub.originalImages.forEach(function (img) {
+					data.append('original_images[]', img, img.name);
+				});
+			}
+
 			if (pub.images.length > 0) {
 				pub.images.forEach(function (img) {
 					data.append('images[]', img, img.name);

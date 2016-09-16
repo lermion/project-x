@@ -2,7 +2,7 @@
 <html lang="en" ng-app="placePeopleApp">
 <head>
 	<meta charset="UTF-8">
-	<title>Place People</title>
+	<title>Ludi Gor</title>
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="description" content="">
 	<link href="../../css/style.css" rel="stylesheet">
@@ -43,7 +43,7 @@
 				<a class="profile" ui-sref="user({username: $root.user.username})">Мой профиль <span class="places-count-span" ng-if="counters.subscribersNew > 0">@{{counters.subscribersNew}}</span></a>
 				<a class="places" ui-sref="places">Места <span class="places-count-span" ng-if="counters.placesNew > 0">@{{counters.placesNew}}</span></a>
 				<a class="main-header-group" ui-sref="groups">Группы <span class="places-count-span" ng-if="counters.groupsNew > 0">@{{counters.groupsNew}}</span></a>
-				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0" class="places-count-span">@{{countChatMessages}}</span></a>
+				<a class="chat" ui-sref="chat.list"> Чаты <span ng-if="countChatMessages > 0 && currentPath !== '/chat/list'" class="places-count-span">@{{countChatMessages}}</span></a>
 				<a class="settings" ui-sref="settings">Настройки</a>
 			</div>
 			</div>

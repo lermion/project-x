@@ -18,9 +18,9 @@
 				ctrl.pub = {};
 				ctrl.files = [];
 				ctrl.originalFiles = [];
-				ctrl.checkedAreas = [];
 				ctrl.subForm = false;
 				ctrl.isAnonym = false;
+				ctrl.checkedLimit = 3;
 
 				// Current user
 				var storage = storageService.getStorage();
@@ -94,6 +94,7 @@
 				 * @param event
 				 */
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+					ctrl.isFilesAdded = true;
 					var defer = $q.defer();
 					var prom = [];
 					newFiles.forEach(function (image) {
@@ -103,6 +104,7 @@
 					$q.all(prom).then(function (data) {
 						angular.forEach(data, function (item, index, array) {
 							ctrl.files.push(item);
+							ctrl.isFilesAdded = false;
 						});
 						if (!ctrl.coverToCrop) {
 							var file = newFiles[0];
@@ -169,11 +171,13 @@
 					ctrl.newPublicationForm.$setSubmitted();
 
 					// TODO: fix validation
-					$timeout(function () {
-						ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
-					});
-
-					if (!ctrl.coverToCrop) {
+					if(!ctrl.cover){
+						$timeout(function () {
+							ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
+						});
+					}
+					
+					if (!ctrl.coverToCrop && !ctrl.cover) {
 						return false;
 					}
 
@@ -210,7 +214,10 @@
 						}
 					});
 
-					ctrl.cover = createCover();
+					if(!ctrl.cover){
+						ctrl.cover = createCover();
+					}
+					
 					
 						if (!ctrl.cover) {
 							// если нет видеофайлов, обложка = фото
@@ -289,6 +296,7 @@
 				function getScopes() {
 					if (ctrl.group) {
 						groupsService.getGroupScopes(ctrl.group.id).then(function (data) {
+								ctrl.checkedAreas = [];
 								ctrl.scopes = data;
 								ctrl.scopes.forEach(function (value) {
 									if (value.signed) {
@@ -302,6 +310,7 @@
 							});
 					} else if (ctrl.place) {
 						placesService.getPlaceScopes(ctrl.place.id).then(function (data) {
+								ctrl.checkedAreas = [];
 								ctrl.scopes = data;
 								ctrl.scopes.forEach(function (value) {
 									if (value.signed) {
@@ -315,6 +324,7 @@
 							});
 					} else {
 						PublicationService.getScopes().then(function (data) {
+								ctrl.checkedAreas = [];
 								ctrl.scopes = data;
 								ctrl.scopes.forEach(function (value) {
 									if (value.signed) {
@@ -330,6 +340,25 @@
 				}
 
 				ctrl.checkedScope = function (active, scope) {
+					if(scope.name === "Все" && active){
+						ctrl.checkAll(true);
+						ctrl.checkedAreas = [];
+						ctrl.checkedAreas[0] = scope.id;
+					}else if(scope.name === "Все" && !active){
+						ctrl.checkAll(false);
+						ctrl.checkedAreas = [];
+						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
+					}else{
+						if(ctrl.checkedAreas[0] === 1){
+							ctrl.checkedAreas.splice(0, 1);
+						}
+						ctrl.scopes.forEach(function(value){
+							if(value.name === "Все"){
+								value.active = false;
+								value.signed = false;
+							}
+						});
+					}
 					if (active) {
 						if (ctrl.checkedAreas.length < 3) {
 							ctrl.checkedAreas.push(scope.id);
@@ -337,7 +366,19 @@
 					} else {
 						ctrl.checkedAreas.splice(ctrl.checkedAreas.indexOf(scope.id), 1);
 					}
-				}
+				};
+
+				ctrl.checkAll = function(param){
+					ctrl.scopes.forEach(function(value){
+						if(value.name === "Все"){
+							value.active = param;
+						}else{
+							value.active = false;
+							value.signed = false;
+						}
+						ctrl.checkedAreas = [];
+					});
+				};
 
 				getScopes();
 
