@@ -18,8 +18,13 @@ function HiddenPubContoller($scope, $state, md5, ngDialog, PublicationService, a
 		PublicationService.getHiddenPublication(pubId).then(function(response){
 			$scope.limit = 7;
 			$scope.singlePublication = response;
-			if(response.images[0] !== undefined){
-				$scope.mainImage = response.images[0].url;
+			if(response.images.length > 0){
+				var imgCover = response.images.filter(function(file, index, images){
+					return file.pivot.is_cover == true;
+				});
+				if(imgCover[0]){
+					$scope.mainImage = imgCover[0].original_img_url;
+				}
 			}
 		},
 		function (error) {
