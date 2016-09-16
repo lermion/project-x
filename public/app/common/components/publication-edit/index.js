@@ -9,7 +9,7 @@
 				pubData: '<'
 			},
 			templateUrl: '../app/common/components/publication-edit/publication-edit.html',
-			controller: function ($rootScope, $scope, $q, $state, $filter, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, Upload) {
+			controller: function ($rootScope, $scope, $q, $state, $filter, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, Upload, $http) {
 				var ctrl = this;
 
 				ctrl.pub = {};
@@ -174,31 +174,48 @@
 					ctrl.newPub.cover = ctrl.files[index];
 				};
 
+				function getBlobFromUrl(url, callback){
+					return $http({
+						url: url,
+						method: "GET",
+						responseType: "blob"
+					}).success(function (value) {
+						return callback(value);
+					});
+				}
+
 				ctrl.setNewMainPubPhoto = function (index, isNewFile) {
-
-					angular.forEach(ctrl.newFiles, function (item) {
-						if (item.isCover) {
-							item.isCover = false;
-						}
+					getBlobFromUrl(ctrl.files[index].original_img_url, function(value){
+						var blob = new Blob([value], {type: value.type});
+						blob.name = 'image';
+						ctrl.coverToCrop = blob;
 					});
-					angular.forEach(ctrl.files, function (item) {
-						item.pivot.is_cover = false;
-						item.isCover = false;
-					});
+					// prom.push(getBlobFromUrl(item, function (value) {
+					// 	arr.push(value);
+					// }));
+					// angular.forEach(ctrl.newFiles, function (item) {
+					// 	if (item.isCover) {
+					// 		item.isCover = false;
+					// 	}
+					// });
+					// angular.forEach(ctrl.files, function (item) {
+					// 	item.pivot.is_cover = false;
+					// 	item.isCover = false;
+					// });
 
-					if (isNewFile) {
-						ctrl.newFiles[index].isCover = true;
-						ctrl.cover = ctrl.newFiles[index];
-					} else {
-						ctrl.files[index].isCover = true;
-						ctrl.files[index].pivot.is_cover = true;
-						if (ctrl.files[index].pivot.image_id) {
-							ctrl.pub.cover_image_id = ctrl.files[index].id;
-						} else {
-							ctrl.pub.cover_video_id = ctrl.files[index].id;
-						}
-						ctrl.pub.cover = null;
-					}
+					// if (isNewFile) {
+					// 	ctrl.newFiles[index].isCover = true;
+					// 	ctrl.cover = ctrl.newFiles[index];
+					// } else {
+					// 	ctrl.files[index].isCover = true;
+					// 	ctrl.files[index].pivot.is_cover = true;
+					// 	if (ctrl.files[index].pivot.image_id) {
+					// 		ctrl.pub.cover_image_id = ctrl.files[index].id;
+					// 	} else {
+					// 		ctrl.pub.cover_video_id = ctrl.files[index].id;
+					// 	}
+					// 	ctrl.pub.cover = null;
+					// }
 				};
 
 				ctrl.updatePub = function () {
