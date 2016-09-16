@@ -982,12 +982,12 @@ body.public.user {
 .public header span.beta {
 	color: white;
 	position: absolute;
-	top: -7px;
-	right: -12px;
+	top: -6px;
+	right: 12px;
 }
 .public header .logo.logo-in-menu span.beta {
-    top: -8px;
-    right: 25px;
+    top: -7px;
+    right: 54px;
     line-height: 20px;
     font-family: "SFUIDisplayLight";
 }
@@ -1233,7 +1233,7 @@ body.public.user {
 	}
 }
 .public header .header.header-user .logo.logo-in-menu {
-	background-image: url(../images/logotip-mobile.png);
+	background-image: url(../images/logotip.png);
 	background-repeat: no-repeat;
 	background-size: 163px 25px;
 	background-position: left center;
