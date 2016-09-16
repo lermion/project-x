@@ -192,6 +192,7 @@
 						reader.onload = function(event){
 							$scope.$apply(function($scope){
 								ctrl.coverToCrop = event.target.result;
+								ctrl.coverToCropName = blob.name;
 							});
 						};
 						reader.readAsDataURL(blob);
@@ -221,8 +222,11 @@
 					}
 				};
 
-				ctrl.updatePub = function () {
+				function createCover() {
+					return Upload.dataUrltoBlob(ctrl.myCroppedImage, ctrl.coverToCropName);
+				}
 
+				ctrl.updatePub = function () {
 					if (ctrl.subForm) {
 						return false;
 					}
@@ -271,7 +275,7 @@
 							oldVideos.push(file);
 						}
 					});
-
+					ctrl.cover = createCover();
 					// если новая обложка не выбрана, а текущая обложка отсутствует (при редактировании удалили файл), то
 					// обложка устанавливается автоматически
 					if (!ctrl.cover && !ctrl.pub.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {
