@@ -7207,7 +7207,7 @@ button.settings-btn {
 	.user-publication-header .user-menu {
 		display: flex;
 		align-self: flex-end;
-		height: 10px;
+		height: 15px;
 	}
 	.group-chat .user-publication-header .user-menu {
 		align-self: center;
@@ -7285,18 +7285,24 @@ button.settings-btn {
 	margin: 0px 0px 15px 21px;
 }
 @media (min-width: 768px) {
+	.ngdialog.view-publication.ngdialog-theme-default.ng-scope {
+		display: flex;
+		justify-content: center;
+		padding-top: 30px;
+	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
 		background: transparent;
-		width: 90%;
-		padding: 50px 0;
-		margin-left: 0;
+		max-width: 90%;
+		width: auto;
+		padding: 0;
+		margin: auto !important;
 		height: auto;
-		top: 0;
-		margin-top: 0;
-		left: 5%;
-		right: 0;
-		bottom: 0;
+		top: auto;
+		left: auto;
+		right: auto;
+		bottom: auto;
 		box-sizing: border-box;
+		position: relative;
 	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
 		width: 100%;
@@ -7307,11 +7313,12 @@ button.settings-btn {
 	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .ngdialog-close {
 		right: 0;
-		top: 50px;
+		top: 0;
 		margin-right: 20px;
 	}
 	.view-publication.ngdialog-theme-default .user-publication-content .publication-ava {
-		height: 62vh;
+		max-height: 75vh;
+		height: auto;
 	}
 	.view-publication.ngdialog-theme-default .comment .comment-pic .comment-pic-item {
 		width: 15%;
