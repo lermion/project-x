@@ -874,6 +874,7 @@
 
 
 				ctrl.openPreviousInfo = function () {
+					console.log("start!");
 					$timeout(function () {
 						var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
 						if (element.length > 1)
@@ -910,6 +911,7 @@
 					}
 				};
 				function showNextInfo() {
+					console.log("start!");
 					if (ctrl.pub.files.length >= 1) {
 						if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
 							ctrl.indexCurrentImage++;
