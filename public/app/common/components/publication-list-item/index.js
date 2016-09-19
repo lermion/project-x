@@ -864,14 +864,12 @@
 					});
 				}
 
-
 				// Carousel
 				ctrl.indexCurrentImage = 0;
 
 				ctrl.mainImageChanged = function(){
 					console.log("end!");
-				}
-
+				};
 
 				ctrl.openPreviousInfo = function () {
 					console.log("start!");
