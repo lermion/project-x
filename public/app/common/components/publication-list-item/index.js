@@ -927,7 +927,9 @@
 								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
 							} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-								console.log(ctrl.pub.files[ctrl.indexCurrentImage].url);
+								$http.get('chat/get_video/' + file.id).then(function (resp) {
+									ctrl.showVideo = !!resp.data.is_coded;
+								});
 								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
 								ctrl.mainImage = null;
 							}
