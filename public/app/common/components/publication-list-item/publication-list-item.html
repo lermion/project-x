@@ -50,7 +50,7 @@
 
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
-            <div class="publication-preloader"></div>
+            <div class="publication-preloader" ng-show="$ctrl.showImagePreloader"></div>
 
             <div ng-if="!$ctrl.isModal && $ctrl.mainVideo && !$ctrl.showVideo">
                 <h4>Видео еще загружается. Попробуйте позжe</h4>

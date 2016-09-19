@@ -2860,7 +2860,6 @@ pub-list-item .publication-footer-button {
 	position: absolute;
 	background: url(/images/loading-main.gif) no-repeat center;
 	background-size: 50px;
-	display: none;
 }
 .view-publication .user-publication-content .publication-ava video {
 	max-height: 80vh;
