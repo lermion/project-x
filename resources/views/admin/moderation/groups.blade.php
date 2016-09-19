@@ -36,7 +36,7 @@
                 <tbody>
                 @foreach($groups as $group)
                   <tr>
-                    <td><a href="/group/{{$group->url_name}}">{{$group->id}}</a></td>
+                    <td><a target="_blank" href="/group/{{$group->url_name}}">{{$group->id}}</a></td>
                     <td>{{$group->name}}</td>
                     <td class="img-center">
                         <img src="{{$group->avatar}}" alt="{{$group->avatar}}">

@@ -2689,10 +2689,10 @@ pub-list-item .publication-footer-button {
 	box-sizing: border-box;
 }*/
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
-	line-height: 40px;
-	height: 30px;
+	line-height: 15px;
+	height: 15px;
 	width: 60px;
-	margin: 10px; 
+	margin: 0; 
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:before {
 	content: 'Закрыть'; 
@@ -2700,10 +2700,10 @@ pub-list-item .publication-footer-button {
 		font-size: 14.6px;
 		font-family: "SFUIDisplayMedium"; 
 		width: 60px;
-		height: 30px;
+		height: 15px;
 		right: 0;
 		top: 0;
-		line-height: 30px;
+		line-height: 15px;
 		transition: all .1s ease-in-out .1s;
 }
 #wrapper .user-publication-header {
@@ -2825,14 +2825,13 @@ pub-list-item .publication-footer-button {
 }
 .user-publication-content .publication-ava {
 	width: 100%;
-	background-color: rgba(0,0,0,.2);
-	height: 395px;
-	display: flex;
+	background-color: rgba(0,0,0,.2);	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
 	font-family: "SFUIDisplayLight", Arial, sans-serif;
 	position: relative;
+	min-height: 300px;
 }
 
 .user-publication-content .publication-ava h4 {
@@ -2846,7 +2845,7 @@ pub-list-item .publication-footer-button {
 	width: auto;
 }
 .view-publication .user-publication-content .publication-ava img {
-	max-height: 80vh;
+	max-height: 90vh;
 }
 .user-publication-content .publication-ava video {
 	max-height: 100%;
@@ -3470,7 +3469,7 @@ pub-list-item .publication-footer-button {
 		display: block;
 	}
 	.user-publication-content .publication-ava {
-		height: 300px;
+		min-height: 300px;
 	}
 	.publication-images .images-item {
 		width: 14%;
@@ -3596,7 +3595,7 @@ pub-list-item .publication-footer-button {
 		margin: 0 auto;
 	}
 	.user-publication-content .publication-ava {
-		height: 200px;
+		min-height: 200px;
 	}
 	.publication-images .images-item {
 		margin: 0 1px 1px 0;
@@ -4382,6 +4381,8 @@ body.ngdialog-open {
 	position: fixed;
 	overflow-y: auto;
 	overflow-x: hidden;
+	display: flex;
+    justify-content: center;
 }
 .ngdialog.view-publication.ngdialog-theme-default::-webkit-scrollbar,
 .ngdialog.user-publication.ngdialog-theme-default::-webkit-scrollbar {
