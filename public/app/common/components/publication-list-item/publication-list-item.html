@@ -61,9 +61,8 @@
 
             <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo && !$ctrl.isMobileView" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
             <img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
-
-            <video ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
-            <video ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
+            <video imageonload="$ctrl.mainImageChanged()" ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
+            <video imageonload="$ctrl.mainImageChanged()" ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
 
         </div>
         <div class="publication-images" ng-scrollbar rebuild-on="loadPubFiles"
