@@ -896,7 +896,7 @@
 								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
 							} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
+								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
 								ctrl.mainImage = null;
 							}
 						} else {
@@ -910,7 +910,7 @@
 									ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 									ctrl.mainVideo = null;
 								} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-									ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
+									ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
 									ctrl.mainImage = null;
 								}
 								ctrl.indexCurrentImage = imagesLength - 1;
@@ -927,7 +927,7 @@
 								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
 							} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
+								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
 								ctrl.mainImage = null;
 							}
 						} else {
@@ -940,7 +940,7 @@
 										ctrl.mainImage = ctrl.pub.files[0].original_img_url;
 										ctrl.mainVideo = null;
 									} else if (ctrl.pub.files[0].pivot.video_id) {
-										ctrl.mainVideo = ctrl.pub.files[0].original_img_url;
+										ctrl.mainVideo = ctrl.pub.files[0].url;
 										ctrl.mainImage = null;
 									}
 									ctrl.indexCurrentImage = 0;
