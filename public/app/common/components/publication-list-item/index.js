@@ -931,6 +931,7 @@
 									ctrl.showVideo = !!resp.data.is_coded;
 									ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
 									ctrl.mainImage = null;
+									ctrl.showImagePreloader = false;
 								});
 							}
 						} else {
@@ -943,8 +944,12 @@
 										ctrl.mainImage = ctrl.pub.files[0].original_img_url;
 										ctrl.mainVideo = null;
 									} else if (ctrl.pub.files[0].pivot.video_id) {
-										ctrl.mainVideo = ctrl.pub.files[0].url;
-										ctrl.mainImage = null;
+										$http.get('chat/get_video/' + ctrl.pub.files[0].pivot.video_id).then(function (resp) {
+											ctrl.showVideo = !!resp.data.is_coded;
+											ctrl.mainVideo = ctrl.pub.files[0].url;
+											ctrl.mainImage = null;
+											ctrl.showImagePreloader = false;
+										});
 									}
 									ctrl.indexCurrentImage = 0;
 								}
