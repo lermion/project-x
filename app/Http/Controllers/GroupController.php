@@ -30,11 +30,11 @@ class GroupController extends Controller
     {
         $user = User::find(Auth::id());
         $scopes = $user->scopes()->pluck('scopes.id');
-        $all_scope = 0;
+        $all_scope = false;
         foreach ($scopes as $scope) {
-            if ($scope == 1)$all_scope++;
+            if ($scope == 1)$all_scope = true;
         }
-        if ($all_scope == 1) {
+        if ($all_scope == true) {
                 $groups = Group::select('groups.id', 'groups.is_open', 'groups.name', 'groups.url_name', 'groups.description', 'groups.avatar', 'groups.card_avatar', 'groups.created_at', 'groups.room_id')
                     ->where('groups.is_open', true)
                     ->orWhere(function ($query) {
@@ -72,20 +72,21 @@ class GroupController extends Controller
                         $group->is_new_group = false;
                     }
                 }
-            $result = array_unique($groups);
-            return array_values($result);
+            return $groups;
         } else {
-            $all = [];
-            foreach ($scopes as $scope) {
+//            $all = [];
+//            foreach ($scopes as $scope) {
                 $groups = Group::select('groups.id', 'groups.is_open', 'groups.name', 'groups.url_name', 'groups.description', 'groups.avatar', 'groups.card_avatar', 'groups.created_at', 'groups.room_id', 'scope_groups.scope_id')
                     ->join('scope_groups', 'groups.id', '=', 'scope_groups.group_id')
-                    ->where(function ($query) use ($scope) {
+                    ->where(function ($query) use ($scopes) {
                         $query->where('groups.is_open', true)
-                            ->where('scope_groups.scope_id', $scope)
-                        ->orWhere('scope_groups.scope_id', 1);
+                            ->whereIn('scope_groups.scope_id', $scopes)
+                            ->orWhere('scope_groups.scope_id', 1);
                     })
-                    ->orWhere(function ($query) {
-                        $query->where('groups.is_open', false);
+                    ->orWhere(function ($query) use ($scopes) {
+                        $query->where('groups.is_open', false)
+                            ->whereIn('scope_groups.scope_id', $scopes)
+                            ->orWhere('scope_groups.scope_id', 1);
                         $query->whereExists(function ($query) {
                             $query->select(DB::raw('id'))
                                 ->from('group_users')
@@ -93,6 +94,7 @@ class GroupController extends Controller
                                 ->whereRaw('group_users.group_id = groups.id');
                         });
                     })
+                    ->groupBy('groups.id')
                     ->get();
                 foreach ($groups as $group) {
                     $group->count_chat_message = UserRoomsMessage::where('room_id', $group->room_id)->count();
@@ -119,16 +121,17 @@ class GroupController extends Controller
                         $group->is_new_group = false;
                     }
                 }
-                $all[] = $groups;
-            }
-            $group = [];
-            foreach ($all as $array) {
-                foreach ($array as $one) {
-                    $group[] = $one;
-                }
-            }
-            $result = array_unique($group);
-            return array_values($result);
+//                $all[] = $groups;
+//            }
+//            $group = [];
+//            foreach ($all as $array) {
+//                foreach ($array as $one) {
+//                    $group[] = $one;
+//                }
+//            }
+//            $result = array_unique($group);
+//            return array_values($groups);
+            return $groups;
         }
     }
 
@@ -551,7 +554,24 @@ class GroupController extends Controller
 
     public function counter_new_group ()
     {
-        return NewGroup::where(['user_id' => Auth::id()])->count();
+        $user = User::find(Auth::id());
+        $scopes = $user->scopes()->pluck('scopes.id');
+        $all_scope = false;
+        foreach ($scopes as $scope) {
+            if ($scope == 1)$all_scope = true;
+        }
+        if ($all_scope == true) {
+            return NewGroup::where(['user_id' => Auth::id()])->count();
+        } else {
+            return NewGroup::where(['user_id' => Auth::id()])
+                ->join('groups', 'new_groups.group_id', '=', 'groups.id')
+                ->join('scope_groups', 'groups.id', '=', 'scope_groups.group_id')
+                ->where(function ($query) use ($scopes) {
+                    $query->whereIn('scope_groups.scope_id', $scopes)
+                        ->orWhere('scope_groups.scope_id', 1);
+                })
+                ->count();
+        }
     }
 
     public function getGroupScopes($id)

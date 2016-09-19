@@ -67,11 +67,11 @@ class Publication extends Model
         if ($moderate_publication[0] == 1) {
             $user = User::find(Auth::id());
             $scopes = $user->scopes()->pluck('scopes.id');
-            $all_scope = 0;
+            $all_scope = false;
             foreach ($scopes as $scope) {
-                if ($scope == 1) $all_scope++;
+                if ($scope == 1) $all_scope = true;
             }
-            if ($all_scope == 1) {
+            if ($all_scope == true) {
                 $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
                     ->where(['is_topic' => true])
                     ->orWhere(function ($query) use ($userId) {
@@ -93,9 +93,7 @@ class Publication extends Model
                     })
                     ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
             } else {
-                $all = [];
-                foreach ($scopes as $scope) {
-                    $publication = Publication::with(['user', 'videos', 'images', 'group', 'place', 'scopes'])
+                $publications = Publication::with(['user', 'videos', 'images', 'group', 'place', 'scopes'])
                         ->where(function ($query) use ($userId) {
                             $query->where(['is_topic' => true])
                                 ->orWhere(function ($query) use ($userId) {
@@ -115,33 +113,27 @@ class Publication extends Model
                                             });
                                         });
                                 });
-                        })->where(function ($query) use ($scope) {
-                            $query->whereHas('scopes', function ($query) use ($scope) {
-                                $query->where('scopes.id', $scope);
-                            })->orWhereHas('scopes', function ($query) use ($scope) {
+                        })->where(function ($query) use ($scopes) {
+                            $query->whereHas('scopes', function ($query) use ($scopes) {
+                                $query->whereIn('scopes.id', $scopes);
+                            })->orWhereHas('scopes', function ($query) {
                                 $query->where('scopes.id', 1);
                             });
                         })
-                        ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
-                    $all[] = $publication;
-                }
-                $publications = [];
-                foreach ($all as $array) {
-                    foreach ($array as $one) {
-                        $publications[] = $one;
-                    }
-                }
-                $result = array_unique($publications);
-                return $result;
+                        ->orderBy('id', 'desc')
+                        ->groupBy('id')
+                        ->skip($offset)
+                        ->take($limit)
+                        ->get();
             }
         } else {
             $user = User::find(Auth::id());
             $scopes = $user->scopes()->pluck('scopes.id');
-            $all_scope = 0;
+            $all_scope = false;
             foreach ($scopes as $scope) {
-                if ($scope == 1) $all_scope++;
+                if ($scope == 1) $all_scope = true;
             }
-            if ($all_scope == 1) {
+            if ($all_scope == true) {
                 $publications = Publication::with(['user', 'videos', 'images', 'group', 'place'])
                     ->where(['is_topic' => true])
                     ->orWhere(function ($query) use ($userId) {
@@ -164,11 +156,12 @@ class Publication extends Model
                                 });
                             });
                     })
-                    ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
-            } else{
-                $all = [];
-                foreach ($scopes as $scope) {
-                    $publication = Publication::with(['user', 'videos', 'images', 'group', 'place','scopes'])
+                    ->orderBy('id', 'desc')
+                    ->skip($offset)
+                    ->take($limit)
+                    ->get();
+            } else {
+                $publications = Publication::with(['user', 'videos', 'images', 'group', 'place','scopes'])
                         ->where(function ($query) use ($userId) {
                             $query->where(['is_topic' => true])
                                 ->orWhere(function ($query) use ($userId) {
@@ -191,24 +184,18 @@ class Publication extends Model
                                             });
                                         });
                                 });
-                        })->where(function ($query) use ($scope) {
-                            $query->whereHas('scopes', function ($query) use ($scope) {
-                                $query->where('scopes.id', $scope);
-                            })->orWhereHas('scopes', function ($query) use ($scope) {
+                        })->where(function ($query) use ($scopes) {
+                            $query->whereHas('scopes', function ($query) use ($scopes) {
+                                $query->whereIn('scopes.id', $scopes);
+                            })->orWhereHas('scopes', function ($query) {
                                 $query->where('scopes.id', 1);
                             });
                         })
-                        ->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
-                    $all[] = $publication;
-                }
-                $publications = [];
-                foreach ($all as $array) {
-                    foreach ($array as $one) {
-                        $publications[] = $one;
-                    }
-                }
-                $result = array_unique($publications);
-                return $result;
+                        ->orderBy('id', 'desc')
+                        ->groupBy('id')
+                        ->skip($offset)
+                        ->take($limit)
+                        ->get();
             }
         }
 //            ->where(function($query){
@@ -250,11 +237,11 @@ class Publication extends Model
     {
         $user = User::find(Auth::id());
         $scopes = $user->scopes()->pluck('scopes.id');
-        $all_scope = 0;
+        $all_scope = false;
         foreach ($scopes as $scope) {
-            if ($scope == 1) $all_scope++;
+            if ($scope == 1) $all_scope = true;
         }
-        if ($all_scope == 1) {
+        if ($all_scope == true) {
             $publications = Publication::with(['videos', 'images', 'user', 'scopes'])
                 ->where('publications.user_id', $userId)
                 //->where('publications.is_main', false)
@@ -277,15 +264,15 @@ class Publication extends Model
                             ->whereRaw('group_publications.publication_id = publications.id');
                     });
                 })->orderBy('id', 'desc')
-                ->skip($offset)->take($limit)->get();
+                ->skip($offset)
+                ->take($limit)
+                ->get();
         } else {
-            $all = [];
-            foreach ($scopes as $scope) {
-                $publication = Publication::with(['videos', 'images', 'user', 'scopes'])
-                    ->where(function ($query) use ($scope) {
-                        $query->whereHas('scopes', function ($query) use ($scope) {
-                            $query->where('scopes.id', $scope);
-                        })->orWhereHas('scopes', function ($query) use ($scope) {
+            $publications = Publication::with(['videos', 'images', 'user', 'scopes'])
+                    ->where(function ($query) use ($scopes) {
+                        $query->whereHas('scopes', function ($query) use ($scopes) {
+                            $query->whereIn('scopes.id', $scopes);
+                        })->orWhereHas('scopes', function ($query){
                             $query->where('scopes.id', 1);
                         });
                     })
@@ -309,18 +296,12 @@ class Publication extends Model
                                 ->from('group_publications')
                                 ->whereRaw('group_publications.publication_id = publications.id');
                         });
-                    })->orderBy('id', 'desc')
-                    ->skip($offset)->take($limit)->get();
-                $all[] = $publication;
-            }
-            $publications = [];
-            foreach ($all as $array) {
-                foreach ($array as $one) {
-                    $publications[] = $one;
-                }
-            }
-            $result = array_unique($publications);
-            return $result;
+                    })
+                    ->orderBy('id', 'desc')
+                    ->groupBy('id')
+                    ->skip($offset)
+                    ->take($limit)
+                    ->get();
         }
         foreach ($publications as &$publication) {
             $publication_comments = $publication->comments()

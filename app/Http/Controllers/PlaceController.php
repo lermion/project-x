@@ -27,11 +27,11 @@ class PlaceController extends Controller
     {
         $user = User::find(Auth::id());
         $scopes = $user->scopes()->pluck('scopes.id');
-        $all_scope = 0;
+        $all_scope = false;
         foreach ($scopes as $scope) {
-            if ($scope == 1)$all_scope++;
+            if ($scope == 1)$all_scope = true;
         }
-        if ($all_scope == 1) {
+        if ($all_scope == true) {
             $places = Place::all();
             foreach ($places as &$place) {
                 $place->count_chat_message = UserRoomsMessage::where('room_id', $place->room_id)->count();
@@ -56,18 +56,17 @@ class PlaceController extends Controller
             }
             return $places;
         } else {
-            $all=[];
-            foreach ($scopes as $scope) {
                 $places = Place::has('creator')->with(['creator','scopes'])
                     ->whereHas('creator',function($query){
                         $query->where('users.id',Auth::id());
                     })
-                    ->orWhereHas('scopes',function($query) use ($scope){
-                        $query->where('scopes.id',$scope);
+                    ->orWhereHas('scopes',function($query) use ($scopes){
+                        $query->whereIn('scopes.id',$scopes);
                     })
-                    ->orWhereHas('scopes',function($query) use ($scope){
+                    ->orWhereHas('scopes',function($query) {
                         $query->where('scopes.id',1);
                     })
+                    ->groupBy('id')
                     ->get();
                 foreach ($places as &$place) {
                     $place->count_chat_message = UserRoomsMessage::where('room_id', $place->room_id)->count();
@@ -89,18 +88,8 @@ class PlaceController extends Controller
                         $place->is_new_place = false;
                     }
                     $place->city_name = City::where(['id' => $place->city_id])->pluck('name');
-
                 }
-                $all[]=$places;
-            }
-            $place = [];
-            foreach ($all as $array) {
-                foreach ($array as $one) {
-                    $place[] = $one;
-                }
-            }
-            $result = array_unique($place);
-            return array_values($result);
+            return $places;
         }
     }
 
@@ -539,7 +528,24 @@ class PlaceController extends Controller
 
     public function counter_new_place ()
     {
-        return NewPlace::where(['user_id' => Auth::id()])->count();
+        $user = User::find(Auth::id());
+        $scopes = $user->scopes()->pluck('scopes.id');
+        $all_scope = false;
+        foreach ($scopes as $scope) {
+            if ($scope == 1)$all_scope = true;
+        }
+        if ($all_scope == true) {
+            return NewPlace::where(['user_id' => Auth::id()])->count();
+        } else {
+            return NewPlace::where(['user_id' => Auth::id()])
+                ->join('places', 'new_places.place_id', '=', 'places.id')
+                ->join('scope_places', 'places.id', '=', 'scope_places.place_id')
+                ->where(function ($query) use ($scopes) {
+                    $query->whereIn('scope_places.scope_id', $scopes)
+                        ->orWhere('scope_places.scope_id', 1);
+                })
+                ->count();
+        }
     }
 
     public function add_city(Request $request)
