@@ -7288,7 +7288,7 @@ button.settings-btn {
 	.ngdialog.view-publication.ngdialog-theme-default.ng-scope {
 		display: flex;
 		justify-content: center;
-		padding-top: 30px;
+		padding-top: 0;
 	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content {
 		background: transparent;
@@ -7303,6 +7303,7 @@ button.settings-btn {
 		bottom: auto;
 		box-sizing: border-box;
 		position: relative;
+		min-width: 700px;
 	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
 		width: 100%;
@@ -7317,7 +7318,7 @@ button.settings-btn {
 		margin-right: 20px;
 	}
 	.view-publication.ngdialog-theme-default .user-publication-content .publication-ava {
-		max-height: 80vh;
+		max-height: 90vh;
 		height: auto;
 	}
 	.view-publication.ngdialog-theme-default .comment .comment-pic .comment-pic-item {
