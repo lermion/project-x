@@ -170,6 +170,7 @@ class PlaceController extends Controller
         $place = Place::create($placeData);
         $scopes = $request->input('scopes');
         $place->scopes()->attach($scopes);
+        NewPlace::create(['user_id' => Auth::id(), 'place_id' => $place->id,]);
         PlaceUser::create(['user_id' => Auth::id(), 'place_id' => $place->id, 'is_admin' => true, 'is_creator' => true]);
         return response()->json(["status" => true, 'place' => $place]);
     }
@@ -544,6 +545,8 @@ class PlaceController extends Controller
                     $query->whereIn('scope_places.scope_id', $scopes)
                         ->orWhere('scope_places.scope_id', 1);
                 })
+                ->groupBy('new_places.place_id')
+                ->get()
                 ->count();
         }
     }
