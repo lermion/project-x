@@ -193,12 +193,6 @@
 					return screenWidth < 768;
 				}
 
-				if(isMobile()){
-					ctrl.isMobileView = true;
-				}else{
-					ctrl.isMobileView = false;
-				}
-
 				ctrl.keyPress = function (event) {
 					if (ctrl.isModal) {
 						if (event.keyCode === 39) {
