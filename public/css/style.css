@@ -2845,11 +2845,17 @@ pub-list-item .publication-footer-button {
 	height: auto;
 	width: auto;
 }
+.view-publication .user-publication-content .publication-ava img {
+	max-height: 80vh;
+}
 .user-publication-content .publication-ava video {
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
 	width: 100%;
+}
+.view-publication .user-publication-content .publication-ava video {
+	max-height: 80vh;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:hover:before {
 	color: #333;
