@@ -570,6 +570,8 @@ class GroupController extends Controller
                     $query->whereIn('scope_groups.scope_id', $scopes)
                         ->orWhere('scope_groups.scope_id', 1);
                 })
+                ->groupBy('new_groups.group_id')
+                ->get()
                 ->count();
         }
     }

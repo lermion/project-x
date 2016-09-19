@@ -50,7 +50,7 @@
 
     <div class="user-publication-content">
         <div class="publication-ava hover--pointer" ng-click="$ctrl.clickEvent()">
-            <div class="publication-preloader"></div>
+            <div class="publication-preloader" ng-show="$ctrl.showImagePreloader"></div>
 
             <div ng-if="!$ctrl.isModal && $ctrl.mainVideo && !$ctrl.showVideo">
                 <h4>Видео еще загружается. Попробуйте позжe</h4>
@@ -59,7 +59,7 @@
                 <h4>Видео еще загружается. Попробуйте позже</h4>
             </div>
 
-            <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}">
+            <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
             <img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
 
             <video ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
@@ -71,7 +71,7 @@
              ng-hide="$ctrl.pub.files.length === 1">
 
             <div ng-click="$ctrl.changeMainFile(file, $index)"
-                 ng-repeat="file in $ctrl.pub.files | limitTo: limit as results"
+                 ng-repeat="file in $ctrl.pub.files | limitTo: $ctrl.limit as results"
                  class="images-item">
                 <img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
                 <img ng-src="{{file.img_url}}" ng-if="file.pivot.video_id">
@@ -80,9 +80,9 @@
 
             <div ng-if="!(results.length === ($ctrl.pub.images.length + $ctrl.pub.videos.length))"
                  class="images-item more"
-                 ng-click="loadMorePubFiles(results.length === ($ctrl.pub.images.length + $ctrl.pub.videos.length))">
+                 ng-click="$ctrl.loadMorePubFiles(results.length === ($ctrl.pub.images.length + $ctrl.pub.videos.length))">
                 <p class="counter">Еще<br> {{($ctrl.pub.images.length + $ctrl.pub.videos.length) -
-                    limit}} файлов</p>
+                    $ctrl.limit}} файлов</p>
             </div>
 
         </div>
