@@ -106,7 +106,6 @@
 						ctrl.indexCurrentImage = getIndexCurrentImage();
 						$timeout(function () {
 							var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
-							console.log(element);
 							if (element.length > 1)
 								element[1].focus();
 						});
