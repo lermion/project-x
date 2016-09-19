@@ -57,7 +57,7 @@ class ModeratorController extends Controller
         $moderator = Moderator::create($data);
         $from_time = $data['from_time'];
         $to_time = $data['to_time'];
-        if(!isset($data['weekday'])) {
+        if(isset($data['weekday'])) {
             $weekday = $data['weekday'];
         }
         if (isset ($weekday[1]) && $weekday[1]=='on'){

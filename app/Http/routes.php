@@ -239,6 +239,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('show/{id}', 'PublicationController@show')->middleware(['auth']);
         Route::get('like/{id}', 'PublicationController@like')->middleware(['auth']);
         Route::get('destroy/{id}', 'PublicationController@destroy')->middleware(['auth']);
+        Route::get('get_scopes/{id}', 'PublicationController@getScopes')->middleware(['auth']);
         Route::post('complaint', 'PublicationController@complaint')->middleware(['auth']);
         Route::group(['prefix' => 'comment'], function () {
             Route::get('/{id}', 'PublicationCommentController@index');
@@ -324,7 +325,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/admin/option/generate_codes\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/publication/get_scopes/94\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='order' ><br>

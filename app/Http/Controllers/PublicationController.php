@@ -6,6 +6,7 @@ use App\ComplaintPublication;
 use App\Image;
 use App\Publication;
 use App\PublicationVideo;
+use App\Scope;
 use App\ScopePublication;
 use App\User;
 use App\Video;
@@ -269,7 +270,7 @@ class PublicationController extends Controller
         }
         $responseData = [
             "status" => true,
-            "publication" => Publication::with('videos', 'images', 'user')->find($publication->id)
+            "publication" => Publication::with('videos', 'images', 'user', 'scopes')->find($publication->id)
         ];
 
         return response()->json($responseData);
@@ -596,6 +597,23 @@ class PublicationController extends Controller
             ];
             return response()->json($responseData);
         }
+    }
+
+    public function getScopes($id)
+    {
+        $publication = Publication::find($id);
+        $scopes_publications = $publication->scopes()->pluck('scopes.id');
+        $scopes = Scope::orderBy('order')->get();
+        $data_scope = [];
+        foreach ($scopes as $scope) {
+            foreach ($scopes_publications as $scopes_publication) {
+                if ($scope['id'] == $scopes_publication) {
+                    $scope['signed'] = true;
+                }
+            }
+            $data_scope[] = $scope;
+        }
+        return $data_scope;
     }
 
     public function complaint(Request $request)
