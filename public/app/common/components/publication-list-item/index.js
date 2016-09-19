@@ -188,6 +188,11 @@
 					}
 				};
 
+				function isMobile() {
+					var screenWidth = $window.innerWidth;
+					return screenWidth < 768;
+				}
+
 				ctrl.keyPress = function (event) {
 					if (ctrl.isModal) {
 						if (event.keyCode === 39) {
