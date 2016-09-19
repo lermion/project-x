@@ -164,7 +164,7 @@
 		<div class="footer">
 			<div class="footer-item">
 				<div class="footer-place">
-					<a ui-sref="auth">Place People </a>
+					<a ui-sref="auth">Ludi Gor</a>
 					<span>© 2016</span>
 				</div>
 				<!-- <div class="payment">
