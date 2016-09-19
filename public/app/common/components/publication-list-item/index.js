@@ -167,6 +167,7 @@
 
 
 				ctrl.changeMainFile = function (file, index) {
+					console.log("start!");
 					if (file.pivot.video_id) {
 						ctrl.mainImage = null;
 						ctrl.mainVideo = file.url;
@@ -867,6 +868,10 @@
 
 				// Carousel
 				ctrl.indexCurrentImage = 0;
+
+				ctrl.mainImageChanged = function(){
+					console.log("end!");
+				}
 
 
 				ctrl.openPreviousInfo = function () {
