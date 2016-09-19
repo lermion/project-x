@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Place People. Панель управления.</title>
+	<title>Ludi Gor. Панель управления.</title>
 
 	<!-- Bootstrap core CSS -->
 
@@ -68,7 +68,7 @@
 	<div class="main_container">
 		<div class="col-md-3 left_col">
 			<div class="left_col scroll-view">
-				<div class="navbar nav_title" style="border: 0;"> <a href="index.php" class="site_title"><img src="/img/pr/logo.png" height="25" /> <span>Place People</span></a> </div>
+				<div class="navbar nav_title" style="border: 0;"> <a href="index.php" class="site_title"><img src="/img/pr/logo.png" height="25" /> <span>Ludi Gor</span></a> </div>
 				<div class="clearfix"></div>
 				<br />
 
