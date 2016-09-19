@@ -2689,10 +2689,10 @@ pub-list-item .publication-footer-button {
 	box-sizing: border-box;
 }*/
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
-	line-height: 40px;
-	height: 30px;
+	line-height: 15px;
+	height: 15px;
 	width: 60px;
-	margin: 10px; 
+	margin: 0; 
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:before {
 	content: 'Закрыть'; 
@@ -2700,10 +2700,10 @@ pub-list-item .publication-footer-button {
 		font-size: 14.6px;
 		font-family: "SFUIDisplayMedium"; 
 		width: 60px;
-		height: 30px;
+		height: 15px;
 		right: 0;
 		top: 0;
-		line-height: 30px;
+		line-height: 15px;
 		transition: all .1s ease-in-out .1s;
 }
 #wrapper .user-publication-header {
@@ -2825,9 +2825,7 @@ pub-list-item .publication-footer-button {
 }
 .user-publication-content .publication-ava {
 	width: 100%;
-	background-color: rgba(0,0,0,.2);
-	height: 395px;
-	display: flex;
+	background-color: rgba(0,0,0,.2);	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
@@ -4382,6 +4380,8 @@ body.ngdialog-open {
 	position: fixed;
 	overflow-y: auto;
 	overflow-x: hidden;
+	display: flex;
+    justify-content: center;
 }
 .ngdialog.view-publication.ngdialog-theme-default::-webkit-scrollbar,
 .ngdialog.user-publication.ngdialog-theme-default::-webkit-scrollbar {
