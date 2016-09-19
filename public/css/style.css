@@ -2831,6 +2831,7 @@ pub-list-item .publication-footer-button {
 	overflow: hidden;
 	font-family: "SFUIDisplayLight", Arial, sans-serif;
 	position: relative;
+	min-height: 300px;
 }
 
 .user-publication-content .publication-ava h4 {
@@ -3468,7 +3469,7 @@ pub-list-item .publication-footer-button {
 		display: block;
 	}
 	.user-publication-content .publication-ava {
-		height: 300px;
+		min-height: 300px;
 	}
 	.publication-images .images-item {
 		width: 14%;
@@ -3594,7 +3595,7 @@ pub-list-item .publication-footer-button {
 		margin: 0 auto;
 	}
 	.user-publication-content .publication-ava {
-		height: 200px;
+		min-height: 200px;
 	}
 	.publication-images .images-item {
 		margin: 0 1px 1px 0;
