@@ -66,6 +66,7 @@
 					ctrl.pub = angular.copy(ctrl.pubData);
 
 					ctrl.avatar = getAvatarPath();
+					getScopes();
 					ctrl.authorName = getAuthorName();
 					ctrl.isFeed = $state.is('feed');
 					ctrl.files = ctrl.pub.images.concat(ctrl.pub.videos);
@@ -197,8 +198,6 @@
 						ctrl.checkedAreas = [];
 					});
 				};
-
-				getScopes();
 
 				ctrl.setMainPubPhoto = function (index) {
 					angular.forEach(ctrl.files, function (item) {
