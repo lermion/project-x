@@ -145,13 +145,14 @@
 				 * Sets the main image of publication
 				 * @param index
 				 */
+				ctrl.setMainPubPhotoKey = false;
 				ctrl.setMainPubPhoto = function (index) {
 					var file = ctrl.files[index];
 
 					angular.forEach(ctrl.files, function (item) {
 						item.isCover = false;
 					});
-
+					ctrl.setMainPubPhotoKey = true;
 					file.isCover = true;
 
 					ctrl.cover = file;
@@ -215,10 +216,9 @@
 						}
 					});
 
-					if(!ctrl.cover){
+					if(!ctrl.cover || ctrl.setMainPubPhotoKey){
 						ctrl.cover = createCover();
 					}
-					
 					
 						if (!ctrl.cover) {
 							// если нет видеофайлов, обложка = фото
