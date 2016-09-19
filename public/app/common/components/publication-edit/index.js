@@ -268,7 +268,6 @@
 						ctrl.pub.cover = null;
 					}
 				};
-
 				function createCover() {
 					return Upload.dataUrltoBlob(ctrl.myCroppedImage, ctrl.coverToCropName);
 				}
@@ -330,7 +329,9 @@
 							originalImages.push(file);
 						}
 					});
-					ctrl.cover = createCover();
+					if(ctrl.myCroppedImage !== undefined){
+						ctrl.cover = createCover();
+					}
 					// если новая обложка не выбрана, а текущая обложка отсутствует (при редактировании удалили файл), то
 					// обложка устанавливается автоматически
 					if (!ctrl.cover && !ctrl.pub.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {
