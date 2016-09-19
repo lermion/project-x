@@ -45,7 +45,7 @@
                 <p class="user-name">{{$ctrl.pub.place[0].name}}</p>
             </a>
         </div>
-        <a href ng-if="$ctrl.prevState" ng-click="$ctrl.goPrevState()" class="return">Назад</a>
+        <a href ng-if="$ctrl.prevState" ng-click="$ctrl.goPrevState()" class="return"></a>
     </div>
 
     <div class="user-publication-content">
@@ -59,7 +59,7 @@
             </div>
 
             <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}">
-            <img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}">
+            <img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
 
             <video ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
             <video ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>

@@ -982,8 +982,8 @@ body.public.user {
 .public header span.beta {
 	color: white;
 	position: absolute;
-	top: -6px;
-	right: 12px;
+	top: -4px;
+	right: 19px;
 }
 .public header .logo.logo-in-menu span.beta {
     top: -7px;
@@ -2675,7 +2675,7 @@ pub-list-item .publication-footer-button {
 }
 /* */
 
-.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content{
+/*.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content{
 	background: transparent;
 	width: 700px;
 	padding:  50px 0;
@@ -2687,7 +2687,7 @@ pub-list-item .publication-footer-button {
 	right: 0;
 	bottom: 0;
 	box-sizing: border-box;
-}
+}*/
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close {
 	line-height: 40px;
 	height: 30px;
@@ -2706,12 +2706,14 @@ pub-list-item .publication-footer-button {
 		line-height: 30px;
 		transition: all .1s ease-in-out .1s;
 }
-.ngdialog.view-publication.ngdialog-theme-default .user-publication-header,
 #wrapper .user-publication-header {
 	background: #f5f5f5;
 		border-bottom: 1px solid #e0e2e5;
 		box-sizing: border-box;
 		padding: 10px;
+}
+.ngdialog.view-publication.ngdialog-theme-default .user-publication-header {
+	padding: 0 10px;
 }
 #wrapper .user-publication {
 	background: #fff;
@@ -2747,14 +2749,17 @@ pub-list-item .publication-footer-button {
 .user-publication-header .return {
 	cursor: pointer;
 	position: absolute;
-	margin: 5px 10px 0 0;
+	margin: 0;
 	color: #4678b1;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	width: auto;
 	height: 20px;
-	right: 0;
-	top: 0;
+	width: 20px;
+	background: url(/images/left-arrow-hover.png) no-repeat left center;
+	background-size: 20px;
+	right: 15px;
+	top: 10px;
 	line-height: 20px;
 	transition: all .1s ease-in-out .1s;
 	text-decoration: none;
@@ -2840,11 +2845,17 @@ pub-list-item .publication-footer-button {
 	height: auto;
 	width: auto;
 }
+.view-publication .user-publication-content .publication-ava img {
+	max-height: 80vh;
+}
 .user-publication-content .publication-ava video {
 	max-height: 100%;
 	max-width: 100%;
 	height: auto;
 	width: 100%;
+}
+.view-publication .user-publication-content .publication-ava video {
+	max-height: 80vh;
 }
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-close:hover:before {
 	color: #333;
@@ -3779,14 +3790,14 @@ body.public.user #wrapper {
 	right: 50%;
 	z-index: -1;
 }
-.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
+/*.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
 	width: 700px;
 	background: #fff;
 	margin-left: -350px;
 	left: 50%;
 	position: absolute;
 	margin-bottom: 50px;
-}
+}*/
 .ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
 	right: 50%;
 	top: 50px;

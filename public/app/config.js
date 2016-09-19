@@ -22,7 +22,7 @@ angular.module('placePeopleApp')
                     requireLogin: false
                 })
                 .state('auth', {
-                    url: '/',
+                    url: '/auth',
                     templateUrl: '../../app/Auth/views/auth.html',
                     controller: 'authCtrl',
                     requireLogin: false,
@@ -34,7 +34,7 @@ angular.module('placePeopleApp')
                     }
                 })
                 .state('reg', {
-                    url: '/auth/registration',
+                    url: '/',
                     templateUrl: '../../app/Auth/views/reg.html',
                     controller: 'authCtrl',
                     requireLogin: false,

@@ -343,8 +343,6 @@ angular.module('placePeopleApp')
 							$rootScope.user.userId = res.user_id;
 							$rootScope.user.username = res.login;
 
-							console.log(res);
-
 							//$state.go('user', {username: res.login});
 							$state.go('feed');
 						} else {
