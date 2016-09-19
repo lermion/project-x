@@ -2830,9 +2830,9 @@ pub-list-item .publication-footer-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/*margin-bottom: 5px;*/
 	overflow: hidden;
-	font-family: SFUIDisplayLight, Arial, sans-serif;
+	font-family: "SFUIDisplayLight", Arial, sans-serif;
+	position: relative;
 }
 
 .user-publication-content .publication-ava h4 {
@@ -2853,6 +2853,13 @@ pub-list-item .publication-footer-button {
 	max-width: 100%;
 	height: auto;
 	width: 100%;
+}
+.publication-preloader {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url(/images/loading-main.gif) no-repeat center;
+	background-size: 50px;
 }
 .view-publication .user-publication-content .publication-ava video {
 	max-height: 80vh;

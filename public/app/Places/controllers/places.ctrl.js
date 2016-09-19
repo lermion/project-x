@@ -684,9 +684,7 @@
 				vm.myCoords = result.geoObjects.position;
 				placesService.getPlaceNearMe(vm.myCoords[0], vm.myCoords[1])
 					.then(function (data) {
-						console.log(data);
 						vm.nearPlaces = data;
-
 					});
 				//$scope.$digest();
 			});

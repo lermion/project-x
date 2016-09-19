@@ -166,7 +166,7 @@
 
 
 				ctrl.changeMainFile = function (file, index) {
-					console.log("start!");
+					ctrl.showImagePreloader = true;
 					if (file.pivot.video_id) {
 						ctrl.mainImage = null;
 						ctrl.mainVideo = file.url;
@@ -864,17 +864,15 @@
 					});
 				}
 
-
 				// Carousel
 				ctrl.indexCurrentImage = 0;
 
 				ctrl.mainImageChanged = function(){
-					console.log("end!");
-				}
-
+					ctrl.showImagePreloader = false;
+				};
 
 				ctrl.openPreviousInfo = function () {
-					console.log("start!");
+					ctrl.showImagePreloader = true;
 					$timeout(function () {
 						var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
 						if (element.length > 1)
@@ -911,7 +909,7 @@
 					}
 				};
 				function showNextInfo() {
-					console.log("start!");
+					ctrl.showImagePreloader = true;
 					if (ctrl.pub.files.length >= 1) {
 						if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
 							ctrl.indexCurrentImage++;
