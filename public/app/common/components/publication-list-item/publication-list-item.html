@@ -59,7 +59,7 @@
                 <h4>Видео еще загружается. Попробуйте позже</h4>
             </div>
 
-            <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}">
+            <img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
             <img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
 
             <video ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
