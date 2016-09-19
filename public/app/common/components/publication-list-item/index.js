@@ -188,11 +188,6 @@
 					}
 				};
 
-				function isMobile() {
-					var screenWidth = $window.innerWidth;
-					return screenWidth < 768;
-				}
-
 				ctrl.keyPress = function (event) {
 					if (ctrl.isModal) {
 						if (event.keyCode === 39) {
@@ -898,10 +893,10 @@
 						if (ctrl.pub.files[ctrl.indexCurrentImage - 1] !== undefined) {
 							ctrl.indexCurrentImage--;
 							if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
-								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
 							} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainImage = null;
 							}
 						} else {
@@ -912,10 +907,10 @@
 								imagesLength = ctrl.pub.files.length;
 								ctrl.indexCurrentImage = ctrl.pub.files.length - 1;
 								if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
-									ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+									ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 									ctrl.mainVideo = null;
 								} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-									ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+									ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 									ctrl.mainImage = null;
 								}
 								ctrl.indexCurrentImage = imagesLength - 1;
@@ -929,10 +924,10 @@
 						if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
 							ctrl.indexCurrentImage++;
 							if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
-								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].url;
+								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
 							} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainImage = null;
 							}
 						} else {
@@ -942,10 +937,10 @@
 								ctrl.pub = nextPub;
 								if (ctrl.pub.files[0] !== undefined) {
 									if (ctrl.pub.files[0].pivot.image_id) {
-										ctrl.mainImage = ctrl.pub.files[0].url;
+										ctrl.mainImage = ctrl.pub.files[0].original_img_url;
 										ctrl.mainVideo = null;
 									} else if (ctrl.pub.files[0].pivot.video_id) {
-										ctrl.mainVideo = ctrl.pub.files[0].url;
+										ctrl.mainVideo = ctrl.pub.files[0].original_img_url;
 										ctrl.mainImage = null;
 									}
 									ctrl.indexCurrentImage = 0;
