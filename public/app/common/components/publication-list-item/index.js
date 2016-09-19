@@ -648,7 +648,7 @@
 							pub: ctrl.pub
 						},
 						preCloseCallback: function () {
-
+							
 						}
 					});
 				};

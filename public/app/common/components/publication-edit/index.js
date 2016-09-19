@@ -142,7 +142,7 @@
 				};
 
 				function getScopes(){
-					PublicationService.getScopes().then(function(data){
+					PublicationService.getPublicationScopes(ctrl.pub.id).then(function(data){
 						ctrl.checkedAreas = [];
 						ctrl.scopes = data;
 						ctrl.scopes.forEach(function(value){
