@@ -21,6 +21,7 @@
 				ctrl.subForm = false;
 				ctrl.isAnonym = false;
 				ctrl.checkedLimit = 3;
+				ctrl.tooManyFiles = false;
 
 				// Current user
 				var storage = storageService.getStorage();
@@ -264,12 +265,17 @@
 				};
 
 				function submitProfileOrFeedPublication(pub) {
-					PublicationService.createPublication(pub).then(function (data) {
-						$rootScope.$broadcast('publication:add', {
-							publication: data.publication
-						});
+					PublicationService.createPublication(pub).then(function(data){
 						ctrl.subForm = false;
-						ngDialog.closeAll();
+						if(!data.status && parseInt(data.error.code) === 1){
+							ctrl.tooManyFiles = true;
+						}else if(data.status){
+							ctrl.tooManyFiles = false;
+							$rootScope.$broadcast('publication:add', {
+								publication: data.publication
+							});
+							ngDialog.closeAll();
+						}
 					});
 				}
 

@@ -126,6 +126,7 @@
 					<div ng-message="coverRequired">Вы не выбрали обложку</div>
 					<div ng-message="pattern">Выбранный файл не является фото или видео</div>
 				</div>
+				<div class="error-too-many-files" ng-show="$ctrl.tooManyFiles">Вы не можете выбрать более 20 файлов</div>
 			</div>
 			<div class="publication-footer-button">
 				<a href="javascript:void(0);" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
