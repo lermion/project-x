@@ -7317,6 +7317,7 @@ button.settings-btn {
 	.view-publication.ngdialog-theme-default .user-publication-content .publication-ava {
 		max-height: 90vh;
 		height: auto;
+		min-height: 30vh;
 	}
 	.view-publication.ngdialog-theme-default .comment .comment-pic .comment-pic-item {
 		width: 15%;
