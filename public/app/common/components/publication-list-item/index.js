@@ -927,11 +927,11 @@
 								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
 							} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-								$http.get('chat/get_video/' + file.id).then(function (resp) {
+								$http.get('chat/get_video/' + ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id).then(function (resp) {
 									ctrl.showVideo = !!resp.data.is_coded;
+									ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+									ctrl.mainImage = null;
 								});
-								ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
-								ctrl.mainImage = null;
 							}
 						} else {
 							var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
