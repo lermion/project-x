@@ -131,8 +131,8 @@ class PublicationController extends Controller
                 'is_main' => 'boolean',
                 'in_profile' => 'boolean',
                 'videos' => 'array',
-                'images' => 'array',
-                'original_images' => 'array',
+                'images' => 'array|max:20',
+                'original_images' => 'array|max:20',
                 'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
@@ -163,15 +163,15 @@ class PublicationController extends Controller
         }
         if ($request->hasFile('original_images')) {
             $validator = Validator::make($request->file('original_images'), [
-                'image'
+                'image|max:2500'
             ]);
 
             if ($validator->fails()) {
                 $result = [
                     "status" => false,
                     "error" => [
-                        'message' => 'Bad image',
-                        'code' => '1'
+                        'message' => 'Bad image or big size',
+                        'code' => '2'
                     ]
                 ];
                 return response()->json($result);
