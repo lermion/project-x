@@ -175,8 +175,8 @@
 										contentType: 'application/json',
 										success: function(data) {
 											inProgress = false;
-											getCheckTimeModerator();
 											$moderatorModal.modal('hide');
+											getCheckTimeModerator();
 										},
 										error: function() {
 											queue = queue.concat(messages);
