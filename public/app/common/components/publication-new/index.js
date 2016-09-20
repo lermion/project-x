@@ -234,11 +234,12 @@
 						}
 					}
 					var newImagesArray = [];
+					var newOriginalImagesArray = [];
 					var newPublication = {
 						text: ctrl.emojiMessage.messagetext,
 						cover: ctrl.cover,
 						images: images.length < 20 ? images : newImagesArray = images.splice(0, 20),
-						originalImages: originalImages.length < 20 ? originalImages : newImagesArray = originalImages.splice(0, 20),
+						originalImages: originalImages.length < 20 ? originalImages : originalImages.splice(0, 20),
 						videos: videos,
 						isAnonym: ctrl.isAnonym,
 						isMain: isMain,
