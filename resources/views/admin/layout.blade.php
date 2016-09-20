@@ -143,7 +143,7 @@
 											var time = data.time.split(/\:|\-/g);
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
-											date.setSeconds(time[2]);
+											date.setSeconds(new Date().getTime() / 1000);
 											var delay = date.getTime() - Date.now();
 											console.log(delay);
 											console.log(new Date());
