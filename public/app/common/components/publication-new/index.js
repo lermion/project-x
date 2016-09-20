@@ -234,7 +234,6 @@
 						}
 					}
 					var newImagesArray = [];
-					var newOriginalImagesArray = [];
 					var newPublication = {
 						text: ctrl.emojiMessage.messagetext,
 						cover: ctrl.cover,
