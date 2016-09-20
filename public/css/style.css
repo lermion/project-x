@@ -2845,7 +2845,7 @@ pub-list-item .publication-footer-button {
 	width: auto;
 }
 .view-publication .user-publication-content .publication-ava img {
-	max-height: 90vh;
+	max-height: 85vh;
 }
 .user-publication-content .publication-ava video {
 	max-height: 100%;
