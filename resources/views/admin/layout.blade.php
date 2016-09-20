@@ -123,9 +123,6 @@
 								};
 
 								function getCheckTimeModerator() {
-									console.log("getCheckTimeModerator!!");
-									console.log(inProgress);
-
 									if (inProgress) {
 										return;
 									}
