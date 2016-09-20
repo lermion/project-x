@@ -156,6 +156,7 @@
 					file.isCover = true;
 
 					ctrl.cover = file;
+					ctrl.coverToCropName = file.name;
 
 					if (isImage(file)) {
 						ctrl.coverToCrop = ctrl.originalFiles[index];
@@ -219,6 +220,7 @@
 					if(!ctrl.cover || ctrl.setMainPubPhotoKey){
 						ctrl.cover = createCover();
 					}
+					console.log(ctrl.cover);
 					
 						if (!ctrl.cover) {
 							// если нет видеофайлов, обложка = фото
