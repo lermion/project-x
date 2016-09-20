@@ -123,6 +123,8 @@
 								};
 
 								function getCheckTimeModerator() {
+									console.log("getCheckTimeModerator!!");
+									console.log(inProgress);
 
 									if (inProgress) {
 										return;
@@ -173,7 +175,6 @@
 										contentType: 'application/json',
 										success: function(data) {
 											getCheckTimeModerator();
-											console.log("ggewge!!");
 											$moderatorModal.modal('hide');
 											inProgress = false;
 										},
