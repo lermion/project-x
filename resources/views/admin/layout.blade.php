@@ -99,6 +99,7 @@
 								}
 
 								$moderatorModal.on('shown.bs.modal', function (e) {
+									console.log("show modal!!");
 									setTimeout(function() {
 										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
