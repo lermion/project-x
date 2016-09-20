@@ -306,8 +306,8 @@ class PublicationController extends Controller
                         'is_main' => 'boolean',
                         'in_profile' => 'boolean',
                         'videos' => 'array',
-                        'images' => 'array',
-                        'original_images' => 'array',
+                        'images' => 'array|max:20',
+                        'original_images' => 'array|max:20',
                         'delete_videos' => 'array',
                         'delete_images' => 'array',
                         'scopes' => 'required|array|max:3'
@@ -321,6 +321,21 @@ class PublicationController extends Controller
                         ]
                     ];
                     return response()->json($result);
+                }
+                if ($request->hasFile('original_images')) {
+                    $validator = Validator::make($request->file('original_images'), [
+                        'image|max:2500'
+                    ]);
+                    if ($validator->fails()) {
+                        $result = [
+                            "status" => false,
+                            "error" => [
+                                'message' => 'Bad image or big size',
+                                'code' => '2'
+                            ]
+                        ];
+                        return response()->json($result);
+                    }
                 }
                 $publicationData = $request->all();
                 if ($publication->is_main == true or $publicationData['is_main'] == true){

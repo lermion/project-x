@@ -59,8 +59,8 @@ class GroupPublicationController extends Controller
                 'cover' => 'file',
                 'original_cover' => 'file',
                 'videos' => 'array',
-                'images' => 'array',
-                'original_images' => 'array',
+                'images' => 'array|max:20',
+                'original_images' => 'array|max:20',
                 'scopes' => 'required|array|max:3'
             ]);
         } catch (\Exception $ex) {
@@ -73,6 +73,58 @@ class GroupPublicationController extends Controller
             ];
             return response()->json($result);
         }
+
+        if ($request->hasFile('images')) {
+            $validator = Validator::make($request->file('images'), [
+                'image'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad image',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+
+        if ($request->hasFile('original_images')) {
+            $validator = Validator::make($request->file('original_images'), [
+                'image|max:2500'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad image or big size',
+                        'code' => '2'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+
+        if ($request->hasFile('videos')) {
+            $validator = Validator::make($request->file('videos'), [
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
+            ]);
+
+            if ($validator->fails()) {
+                $result = [
+                    "status" => false,
+                    "error" => [
+                        'message' => 'Bad video',
+                        'code' => '1'
+                    ]
+                ];
+                return response()->json($result);
+            }
+        }
+
         $publicationData = $request->all();
         $publicationData['user_id'] = Auth::id();
         $group = Group::find($id);
