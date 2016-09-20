@@ -19,8 +19,21 @@ angular.module('placePeopleApp')
 			getSubscription: getSubscription,
 			complaintCommentAuthor: complaintCommentAuthor,
 			complaintPubAuthor: complaintPubAuthor,
-			getScopes: getScopes
+			getScopes: getScopes,
+			getPublicationScopes: getPublicationScopes
 
+		}
+
+		function getPublicationScopes(publicationId) {
+			var defer = $q.defer();
+			$http.get("publication/get_scopes/" + publicationId)
+				.success(function (response) {
+					defer.resolve(response);
+				})
+				.error(function (error) {
+					defer.reject(error);
+				});
+			return defer.promise;
 		}
 
 		function getScopes() {

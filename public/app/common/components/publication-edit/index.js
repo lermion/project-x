@@ -66,6 +66,7 @@
 					ctrl.pub = angular.copy(ctrl.pubData);
 
 					ctrl.avatar = getAvatarPath();
+					getScopes();
 					ctrl.authorName = getAuthorName();
 					ctrl.isFeed = $state.is('feed');
 					ctrl.files = ctrl.pub.images.concat(ctrl.pub.videos);
@@ -142,7 +143,7 @@
 				};
 
 				function getScopes(){
-					PublicationService.getScopes().then(function(data){
+					PublicationService.getPublicationScopes(ctrl.pub.id).then(function(data){
 						ctrl.checkedAreas = [];
 						ctrl.scopes = data;
 						ctrl.scopes.forEach(function(value){
@@ -197,8 +198,6 @@
 						ctrl.checkedAreas = [];
 					});
 				};
-
-				getScopes();
 
 				ctrl.setMainPubPhoto = function (index) {
 					angular.forEach(ctrl.files, function (item) {
@@ -269,7 +268,6 @@
 						ctrl.pub.cover = null;
 					}
 				};
-
 				function createCover() {
 					return Upload.dataUrltoBlob(ctrl.myCroppedImage, ctrl.coverToCropName);
 				}
@@ -331,7 +329,9 @@
 							originalImages.push(file);
 						}
 					});
-					ctrl.cover = createCover();
+					if(ctrl.myCroppedImage !== undefined){
+						ctrl.cover = createCover();
+					}
 					// если новая обложка не выбрана, а текущая обложка отсутствует (при редактировании удалили файл), то
 					// обложка устанавливается автоматически
 					if (!ctrl.cover && !ctrl.pub.cover && !ctrl.pub.cover_image_id && !ctrl.pub.cover_video_id) {

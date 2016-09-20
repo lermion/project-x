@@ -4210,6 +4210,25 @@ span.users-today-time-time.early {
 	font-size: 12px;
 	line-height: normal;
 }
+div.error-too-many-files{
+	display: inline-flex;
+	background: #f44336;
+	color: #FFFFFF;
+	padding: 5px;
+	margin: 10px 0 15px;
+	position: relative;
+	font-size: 12px;
+	line-height: normal;
+}
+div.error-too-many-files:after{
+	position: absolute;
+	top: -11px;
+	content: "";
+	left: 20px;
+	border-style: solid;
+	border-color: transparent transparent #f44336;
+	border-width: 6px;
+}
 .error-messages.ng-active:after {
 	position: absolute;
 	top: -11px;
