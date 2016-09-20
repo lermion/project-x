@@ -7313,7 +7313,7 @@ button.settings-btn {
 		padding: 0;
 		margin: auto !important;
 		height: auto;
-		top: auto;
+		top: 22px;
 		left: auto;
 		right: auto;
 		bottom: auto;
@@ -7334,7 +7334,7 @@ button.settings-btn {
 		margin-right: 0;
 	}
 	.view-publication.ngdialog-theme-default .user-publication-content .publication-ava {
-		max-height: 90vh;
+		max-height: 85vh;
 		height: auto;
 		min-height: 30vh;
 	}
