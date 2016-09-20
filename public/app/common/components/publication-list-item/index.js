@@ -882,7 +882,6 @@
 				};
 
 				ctrl.openPreviousInfo = function () {
-					ctrl.showImagePreloader = true;
 					$timeout(function () {
 						var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
 						if (element.length > 1)
@@ -891,6 +890,7 @@
 					var imagesLength = ctrl.pub.files.length;
 					if (imagesLength >= 1) {
 						if (ctrl.pub.files[ctrl.indexCurrentImage - 1] !== undefined) {
+							ctrl.showImagePreloader = true;
 							ctrl.indexCurrentImage--;
 							if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
 								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
@@ -927,10 +927,10 @@
 					}
 				};
 				function showNextInfo() {
-					ctrl.showImagePreloader = true;
 					if (ctrl.pub.files.length >= 1) {
 						if (ctrl.pub.files[ctrl.indexCurrentImage + 1] !== undefined) {
 							ctrl.indexCurrentImage++;
+							ctrl.showImagePreloader = true;
 							if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
 								ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
 								ctrl.mainVideo = null;
