@@ -110,6 +110,13 @@
 							ctrl.files.push(item);
 							ctrl.isFilesAdded = false;
 						});
+						if(ctrl.files.length > 20){
+							ctrl.files = ctrl.files.splice(0, 20);
+							ctrl.progressFilesLoading = false;
+							ctrl.tooManyFilesRemove = true;
+						}else{
+							ctrl.tooManyFilesRemove = false;
+						}
 						if (!ctrl.coverToCrop) {
 							var file = newFiles[0];
 							if (isImage(file)) {
