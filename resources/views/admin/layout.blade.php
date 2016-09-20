@@ -145,10 +145,11 @@
 											date.setSeconds(time[2]);
 											var delay = date.getTime() - Date.now();
 											console.log(delay);
-											setTimeout(function() {
+											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
 												});
+												delay = 0;	
 											}, delay);
 											inProgress = false;
 										},
