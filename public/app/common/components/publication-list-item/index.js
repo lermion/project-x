@@ -168,6 +168,7 @@
 				ctrl.changeMainFile = function (file, index) {
 					ctrl.showImagePreloader = true;
 					if (file.pivot.video_id) {
+						ctrl.showImagePreloader = false;
 						ctrl.mainImage = null;
 						ctrl.mainVideo = file.url;
 
