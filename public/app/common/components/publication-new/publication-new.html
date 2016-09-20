@@ -79,7 +79,7 @@
 		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
 			 style="max-height: 250px; overflow:hidden; position:relative;">
 
-			<div class="new-img" ng-repeat="file in $ctrl.files" repeat-done="$ctrl.filesRendered()">
+			<div class="new-img" ng-repeat="file in $ctrl.files" ng-cloak repeat-done="$ctrl.filesRendered()">
 				<div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
 					<div class="close" ng-click="$ctrl.removeFile($index)">
 						<div class="close-inner">
