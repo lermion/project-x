@@ -220,7 +220,6 @@
 					if(!ctrl.cover || ctrl.setMainPubPhotoKey){
 						ctrl.cover = createCover();
 					}
-					console.log(ctrl.cover);
 					
 						if (!ctrl.cover) {
 							// если нет видеофайлов, обложка = фото
