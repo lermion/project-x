@@ -137,6 +137,7 @@
 										data: null,
 										contentType: 'application/json',
 										success: function(data) {
+											console.log(data);
 											moderatorId = data.moderator_id;
 											var date = new Date();
 											var time = data.time.split(/\:|\-/g);
@@ -149,7 +150,6 @@
 												$moderatorModal.modal({
 													keyboard: false
 												});
-												delay = 0;	
 											}, delay);
 											inProgress = false;
 										},
