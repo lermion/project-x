@@ -144,9 +144,8 @@
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
 											date.setSeconds(time[2]);
-											var delay = date.getTime() - Date.now();
+											var delay = date.getTime() - Date.now() + 1000;
 											console.log(delay);
-											console.log(new Date());
 											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
