@@ -5016,3 +5016,6 @@ a.who-can-see-publication{
 a.who-can-see-publication:hover{
 	color: #999;
 }
+div.progress-files-loading{
+	margin-left: 33px;
+}

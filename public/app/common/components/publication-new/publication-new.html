@@ -79,7 +79,7 @@
 		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
 			 style="max-height: 250px; overflow:hidden; position:relative;">
 
-			<div class="new-img" ng-repeat="file in $ctrl.files">
+			<div class="new-img" ng-repeat="file in $ctrl.files" repeat-done="$ctrl.filesRendered()">
 				<div class="inner" ng-mouseenter="file.showIsCover=true" ng-mouseleave="file.showIsCover=false">
 					<div class="close" ng-click="$ctrl.removeFile($index)">
 						<div class="close-inner">
@@ -119,7 +119,10 @@
 					<span class="add"></span>
 					Добавить фото или видео *
 				</label>
-
+				<div ng-show="$ctrl.progressFilesLoading" class="progress-files-loading">
+					<img src="images/processing_bar.gif">
+				</div>
+				
 				<div class="error-messages" ng-messages="$ctrl.newPublicationForm.files1.$error"
 					 ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
 					<div ng-message="required">Вы не выбрали медиафайл</div>

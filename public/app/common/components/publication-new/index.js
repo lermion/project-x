@@ -23,6 +23,7 @@
 				ctrl.checkedLimit = 3;
 				ctrl.tooManyFiles = false;
 				ctrl.tooManyFilesRemove = false;
+				ctrl.progressFilesLoading = false;
 
 				// Current user
 				var storage = storageService.getStorage();
@@ -96,6 +97,7 @@
 				 * @param event
 				 */
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+					ctrl.progressFilesLoading = true;
 					ctrl.isFilesAdded = true;
 					var defer = $q.defer();
 					var prom = [];
@@ -128,6 +130,10 @@
 						$scope.$broadcast('rebuild:me');
 					});
 				};
+
+				ctrl.filesRendered = function(){
+					ctrl.progressFilesLoading = false;
+				}
 
 				/**
 				 * Removes files (originals and thumbnails) of publication
