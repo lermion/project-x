@@ -105,12 +105,12 @@
 										getCheckTimeModerator();
 									}, 60000);
 								});
-								$moderatorModal.on('show.bs.modal', function (e) {
-									$(".modal-content").css({
-										"left": getRandomInt(1, 300) + "px",
-										"top": getRandomInt(1, 300) + "px"
-									});
-								});
+								// $moderatorModal.on('show.bs.modal', function (e) {
+								// 	$(".modal-content").css({
+								// 		"left": getRandomInt(1, 300) + "px",
+								// 		"top": getRandomInt(1, 300) + "px"
+								// 	});
+								// });
 
 								$.fastPoll = $.fastPoll || {};
 
