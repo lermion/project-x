@@ -166,13 +166,10 @@
 				};
 
 				ctrl.submitNewPublication = function () {
-
 					if (ctrl.subForm) {
 						return false;
 					}
-
 					ctrl.newPublicationForm.$setSubmitted();
-
 					// TODO: fix validation
 					if(!ctrl.cover){
 						$timeout(function () {
@@ -221,51 +218,45 @@
 						ctrl.cover = createCover();
 					}
 					
-						if (!ctrl.cover) {
-							// если нет видеофайлов, обложка = фото
-							if (videos.length === 0) {
+					if (!ctrl.cover) {
+						// если нет видеофайлов, обложка = фото
+						if (videos.length === 0) {
+							ctrl.cover = images[0];
+						} else {
+							// если есть и видео и фото, то обложка = фото
+							if (images.length > 0) {
 								ctrl.cover = images[0];
 							} else {
-								// если есть и видео и фото, то обложка = фото
-								if (images.length > 0) {
-									ctrl.cover = images[0];
-								} else {
-									// если есть только видео, то обложка = видео
-									ctrl.cover = videos[0];
-								}
+								// если есть только видео, то обложка = видео
+								ctrl.cover = videos[0];
 							}
 						}
+					}
+					var newPublication = {
+						text: ctrl.emojiMessage.messagetext,
+						cover: ctrl.cover,
+						images: images,
+						originalImages: originalImages,
+						videos: videos,
+						isAnonym: ctrl.isAnonym,
+						isMain: isMain,
+						inProfile: $state.is('user'),
+						scopes: ctrl.checkedAreas,
+						groupId: ctrl.group ? ctrl.group.id : null,
+						placeId: ctrl.place ? ctrl.place.id : null
+					};
 
-
-						var newPublication = {
-							text: ctrl.emojiMessage.messagetext,
-							cover: ctrl.cover,
-							images: images,
-							originalImages: originalImages,
-							videos: videos,
-							isAnonym: ctrl.isAnonym,
-							isMain: isMain,
-							inProfile: $state.is('user'),
-							scopes: ctrl.checkedAreas,
-
-							groupId: ctrl.group ? ctrl.group.id : null,
-							placeId: ctrl.place ? ctrl.place.id : null
-
-						};
-
-						// в зависимости от того где создается публикация используется свой сервис
-						if (ctrl.group) {
-							submitGroupPublication(newPublication);
-						} else if (ctrl.place) {
-							submitPlacePublication(newPublication);
-						} else {
-							submitProfileOrFeedPublication(newPublication);
-						}
-
-
+					// в зависимости от того где создается публикация используется свой сервис
+					if (ctrl.group) {
+						submitGroupPublication(newPublication);
+					} else if (ctrl.place) {
+						submitPlacePublication(newPublication);
+					} else {
+						submitProfileOrFeedPublication(newPublication);
+					}
 				};
 
-				function submitProfileOrFeedPublication(pub) {
+				function submitProfileOrFeedPublication(pub){
 					PublicationService.createPublication(pub).then(function(data){
 						ctrl.subForm = false;
 						if(!data.status && parseInt(data.error.code) === 1){
