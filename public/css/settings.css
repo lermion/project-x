@@ -5888,6 +5888,7 @@ input.cmn-toggle-round:checked + label:after {
 	max-height: 100%;
 }
 .chat-main-user-sender-name {
+	text-decoration: none;
 	width: 100%;
 	color: rgb(81,98,127);
 	font-family: "SFUIDisplayMedium";
