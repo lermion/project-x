@@ -143,10 +143,11 @@
 											var time = data.time.split(/\:|\-/g);
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
-											date.setSeconds(time[2]);
-											var delay = date.getTime() - Date.now();
+											// date.setSeconds(time[2]);
 											console.log(date);
-											console.log(new Date());
+											var delay = date.getTime() - Date.now();
+											// console.log(date);
+											// console.log(new Date());
 											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
