@@ -5170,6 +5170,7 @@ input.cmn-toggle-round:checked + label:after {
 	border-bottom: 1px solid rgb(224, 226, 229);
 	box-sizing: border-box;
 	background-color: #e3e3e3;
+	overflow: hidden;
 }
 .places-item-new-place,
 .groups-item-new-group {
@@ -5555,6 +5556,13 @@ input.cmn-toggle-round:checked + label:after {
 	.places-item-photo {
 		height: 220px;
 	}
+	.places-item-photo-img,
+	.groups-content .group-cover .group-ava img {
+	    max-width: 200%;
+	    max-height: 100%;
+	    width: auto;
+	    height: 100%;
+	}
 }
 @media (max-width: 600px) {
 	.places-item-photo {
@@ -5567,12 +5575,43 @@ input.cmn-toggle-round:checked + label:after {
 		width: 49%;
 		margin-right: 0px;
 	}
+	.places-item-photo-img,
+	.groups-content .group-cover .group-ava img {
+	    max-width: 200%;
+	    max-height: 200%;
+	    width: 100%;
+	    height: auto;
+	}
+}
+@media (max-width: 480px) {
+	.places-item-photo-img,
+	.groups-content .group-cover .group-ava img {
+	    max-width: 200%;
+	    max-height: 200%;
+	    width: auto;
+	    height: 100%;
+	}
+}
+@media (max-width: 420px) {
+	.groups-content .group-cover .group-ava img {
+	    max-width: 200%;
+	    max-height: 200%;
+	    width: 100%;
+	    height: auto;
+	}
 }
 @media (max-width: 400px) {
 	.places-category-item {
 		width: 100%;
 	}
- }
+	.places-item-photo-img,
+	.groups-content .group-cover .group-ava img {
+	    max-width: 200%;
+	    max-height: 200%;
+	    width: 100%;
+	    height: auto;
+	}
+}
 @media (max-width: 420px) {
 	.places-item-photo {
 		height: 220px;
@@ -5888,6 +5927,7 @@ input.cmn-toggle-round:checked + label:after {
 	max-height: 100%;
 }
 .chat-main-user-sender-name {
+	text-decoration: none;
 	width: 100%;
 	color: rgb(81,98,127);
 	font-family: "SFUIDisplayMedium";
@@ -7340,5 +7380,40 @@ button.settings-btn {
 	}
 	.view-publication.ngdialog-theme-default .comment .comment-pic .comment-pic-item {
 		width: 15%;
+	}
+}
+@media (min-height: 650px) {
+	.group-chat-inner {
+	    min-height: 36vh;
+	}
+}
+@media (min-height: 700px) {
+	.group-chat-inner {
+	    min-height: 39vh;
+	}
+}
+@media (min-height: 740px) {
+	.group-chat-inner {
+	    min-height: 42vh;
+	}
+}
+@media (min-height: 800px) {
+	.group-chat-inner {
+	    min-height: 47vh;
+	}
+}
+@media (min-height: 850px) {
+	.group-chat-inner {
+	    min-height: 51vh;
+	}
+}
+@media (min-height: 900px) {
+	.group-chat-inner {
+	    min-height: 53vh;
+	}
+}
+@media (min-height: 950px) {
+	.group-chat-inner {
+	    min-height: 56vh;
 	}
 }
