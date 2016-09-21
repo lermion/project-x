@@ -199,6 +199,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('city/{country_id}', 'CityController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
     Route::get('static_page/get/name', 'StaticPageController@getNames');
+    Route::get('vk', 'ParserVkController@index');
 
     Route::group(['prefix' => 'password'], function () {
         Route::post('update', 'PasswordController@update')->middleware(['auth']);
@@ -325,7 +326,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/publication/get_scopes/94\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/vk\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='order' ><br>

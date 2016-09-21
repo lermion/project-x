@@ -32,6 +32,13 @@ class SphinxSearchController extends Controller
             if (!empty($data['usersearch'])) {
                 $query = "SELECT * FROM pp_user WHERE scope IN ($string_scopes) and MATCH($sql)";
                 $r = (sphinx_raw($query));
+//                $user_scope = (sphinx_raw($query));
+//                $query2 = "SELECT * FROM pp_user WHERE MATCH($sql)";
+//                $user_all = (sphinx_raw($query2));
+//                $user_scope = $user_scope->toArray();
+//                $user_all = $user_all->toArray();
+//                $res = array_merge ($user_scope, $user_all);
+//                dd($res);
                 $users = array();
                 if ($r) {
                     foreach ($r as $res) {

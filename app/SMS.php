@@ -17,9 +17,7 @@ class SMS extends Model
         }
 
         curl_close($Curl);
-
         $result = simplexml_load_string($Result)->status;
-        
         return $result;
     }
 
