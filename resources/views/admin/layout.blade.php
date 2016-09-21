@@ -150,7 +150,7 @@
 												$moderatorModal.modal({
 													keyboard: false
 												});
-											}, delay + 3000);
+											}, delay - 1000);
 											inProgress = false;
 										},
 										error: function() {
