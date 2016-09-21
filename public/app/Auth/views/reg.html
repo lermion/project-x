@@ -60,7 +60,7 @@
 									<form>
 										<div class="add-ava" ng-init="showEditAva=true;">
 											<input type="file" id="avatarImg"/>  
-											<label for="avatarImg">                                            
+											<label for="avatarImg">
 												<span class="ava" ng-show="croppedFile">         
 													<img data-ng-src="{{croppedFile}}" style="width:100%;">
 												</span>
@@ -71,29 +71,29 @@
 										</div>                        
 										<div class="name-field">
 													<span class="name"></span>
-													<input type="text" ng-model="newUserName" placeholder="Введите ваше имя..." ng-click="nunErr=false;" ng-change="nunErr=false;">
+													<input type="text" ng-model="newUserName" placeholder="Имя" ng-click="nunErr=false;" ng-change="nunErr=false;">
 										</div>
 										<p ng-show="nunErr" class="capcha-name">{{nunErr}}</p>
 										<div class="lastname-field">
 													<span class="lastname"></span>
-													<input type="text" ng-model="newUserLastName" placeholder="Введите вашу фамилию..." ng-click="nusErr=false;" ng-change="nusErr=false;">
+													<input type="text" ng-model="newUserLastName" placeholder="Фамилия" ng-click="nusErr=false;" ng-change="nusErr=false;">
 										</div>
 										<p ng-show="nusErr" class="capcha-name">{{nusErr}}</p>
 										<div class="user-field">                                        
 													<span class="user"></span>
-													<input type="text" ng-model="newUserLogin" placeholder="Введите ваш логин..." ng-click="nulErr=false;" ng-change="nulErr=false;">
+													<input type="text" ng-model="newUserLogin" placeholder="Придумайте логин" ng-click="nulErr=false;" ng-change="nulErr=false;">
 										</div> 
 										<p ng-show="nulErr" class="capcha-user">{{nulErr}}</p>
 										<div class="sex-field">
 											<span class="sex"></span>
 											<select ng-model="newUserGender" ng-options="gender.sign as gender.title for gender in [{sign:1, title:'Мужской'}, {sign:0, title:'Женский'}]" ng-click="nugErr=false;" ng-change="nugErr=false;" required>
-											<option value="">Выберите пол...</option>
+											<option value="">Пол</option>
 											</select>    
 										</div>                              
 										<p ng-show="nugErr" class="capcha-user">{{nugErr}}</p>
 										<div class="password-field">
 													<span class="password"></span>
-													<input type="password"  ng-model="newUserPassword" placeholder="Введите ваш пароль..." ng-click="nupErr=false;" ng-change="nupErr=false;">
+													<input type="password"  ng-model="newUserPassword" placeholder="Придумайте пароль" ng-click="nupErr=false;" ng-change="nupErr=false;">
 										</div>
 										<p ng-show="nupErr" class="capcha-password">{{nupErr}}</p>
 									</form>

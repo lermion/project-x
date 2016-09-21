@@ -10,6 +10,7 @@
 		.directive('focusMe', focusMe, ['$timeout', '$parse'])
 		.directive('clickOutside', ['$document', '$parse', '$timeout', clickOutside])
 		.directive('schrollBottom', schrollBottom)
+		.directive('repeatDone', repeatDone)
 		.directive('imageonload', imageonload)
 		.directive('eatClickIf', eatClickIf, ['$parse', '$rootScope'])
 		.directive("scroll", function ($window) {
@@ -45,6 +46,14 @@
 						$(element).scrollTop($(element)[0].scrollHeight);
 					}
 				});
+			}
+		}
+	}
+
+	function repeatDone(){
+		return function(scope, element, attrs){
+			if(scope.$last){
+				scope.$eval(attrs.repeatDone);
 			}
 		}
 	}

@@ -97,19 +97,20 @@
 								var getRandomInt = function(min, max){
 									return Math.floor(Math.random() * (max - min + 1)) + min;
 								}
-
+								var clearTimeoutModal;
 								$moderatorModal.on('shown.bs.modal', function (e) {
-									setTimeout(function() {
+									clearTimeoutModal = setTimeout(function() {
+										console.log("inside setTimeout");
 										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
 									}, 60000);
 								});
-								$moderatorModal.on('show.bs.modal', function (e) {
-									$(".modal-content").css({
-										"left": getRandomInt(1, 300) + "px",
-										"top": getRandomInt(1, 300) + "px"
-									});
-								});
+								// $moderatorModal.on('show.bs.modal', function (e) {
+								// 	$(".modal-content").css({
+								// 		"left": getRandomInt(1, 300) + "px",
+								// 		"top": getRandomInt(1, 300) + "px"
+								// 	});
+								// });
 
 								$.fastPoll = $.fastPoll || {};
 
@@ -123,7 +124,6 @@
 								};
 
 								function getCheckTimeModerator() {
-
 									if (inProgress) {
 										return;
 									}
@@ -137,7 +137,6 @@
 										data: null,
 										contentType: 'application/json',
 										success: function(data) {
-											console.log(data);
 											moderatorId = data.moderator_id;
 											var date = new Date();
 											var time = data.time.split(/\:|\-/g);
@@ -145,7 +144,7 @@
 											date.setMinutes(time[1]);
 											date.setSeconds(time[2]);
 											var delay = date.getTime() - Date.now();
-											setTimeout(function() {
+											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
 												});
@@ -173,9 +172,10 @@
 										data: null,
 										contentType: 'application/json',
 										success: function(data) {
-											getCheckTimeModerator();
-											$moderatorModal.modal('hide');
 											inProgress = false;
+											clearTimeout(clearTimeoutModal);
+											$moderatorModal.modal('hide');
+											getCheckTimeModerator();
 										},
 										error: function() {
 											queue = queue.concat(messages);

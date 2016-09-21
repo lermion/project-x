@@ -22,6 +22,8 @@
 				ctrl.isAnonym = false;
 				ctrl.checkedLimit = 3;
 				ctrl.tooManyFiles = false;
+				ctrl.tooManyFilesRemove = false;
+				ctrl.progressFilesLoading = false;
 
 				// Current user
 				var storage = storageService.getStorage();
@@ -95,6 +97,7 @@
 				 * @param event
 				 */
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
+					ctrl.progressFilesLoading = true;
 					ctrl.isFilesAdded = true;
 					var defer = $q.defer();
 					var prom = [];
@@ -107,6 +110,13 @@
 							ctrl.files.push(item);
 							ctrl.isFilesAdded = false;
 						});
+						if(ctrl.files.length > 20){
+							ctrl.files = ctrl.files.splice(0, 20);
+							ctrl.progressFilesLoading = false;
+							ctrl.tooManyFilesRemove = true;
+						}else{
+							ctrl.tooManyFilesRemove = false;
+						}
 						if (!ctrl.coverToCrop) {
 							var file = newFiles[0];
 							if (isImage(file)) {
@@ -127,6 +137,10 @@
 						$scope.$broadcast('rebuild:me');
 					});
 				};
+
+				ctrl.filesRendered = function(){
+					ctrl.progressFilesLoading = false;
+				}
 
 				/**
 				 * Removes files (originals and thumbnails) of publication
@@ -232,11 +246,12 @@
 							}
 						}
 					}
+					var newImagesArray = [];
 					var newPublication = {
 						text: ctrl.emojiMessage.messagetext,
 						cover: ctrl.cover,
-						images: images,
-						originalImages: originalImages,
+						images: images.length < 20 ? images : newImagesArray = images.splice(0, 20),
+						originalImages: originalImages.length < 20 ? originalImages : originalImages.splice(0, 20),
 						videos: videos,
 						isAnonym: ctrl.isAnonym,
 						isMain: isMain,
@@ -246,13 +261,21 @@
 						placeId: ctrl.place ? ctrl.place.id : null
 					};
 
-					// в зависимости от того где создается публикация используется свой сервис
+					//в зависимости от того где создается публикация используется свой сервис
 					if (ctrl.group) {
 						submitGroupPublication(newPublication);
 					} else if (ctrl.place) {
 						submitPlacePublication(newPublication);
 					} else {
-						submitProfileOrFeedPublication(newPublication);
+						if(newImagesArray.length > 0){
+							ctrl.tooManyFilesRemove = true;
+							setTimeout(function(){
+								submitProfileOrFeedPublication(newPublication);
+							}, 1000);
+						}else{
+							submitProfileOrFeedPublication(newPublication);
+							ctrl.tooManyFilesRemove = false;
+						}
 					}
 				};
 

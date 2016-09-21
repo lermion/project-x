@@ -242,6 +242,11 @@ body.main-page {
 	transition: all .1s ease-in-out .2s; 
 	min-width: 250px;
 }
+input[type="tel"]:focus,
+input[type="tel"]:focus + span.phone,
+.form-item form select:focus {
+	color: #000;
+}
 .check-in.recovery .tel-field {
 	box-sizing: border-box;
 	position: relative;
@@ -2845,7 +2850,7 @@ pub-list-item .publication-footer-button {
 	width: auto;
 }
 .view-publication .user-publication-content .publication-ava img {
-	max-height: 90vh;
+	max-height: 85vh;
 }
 .user-publication-content .publication-ava video {
 	max-height: 100%;
@@ -4087,7 +4092,7 @@ body.ngdialog-open {
 }
 .group-content-container-wrap1,
 .place-content-container-wrap2 {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 .group-page .group-ava {
 	height: 240px;
@@ -4169,7 +4174,7 @@ body.ngdialog-open {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 auto 10px;
+	margin: 0 auto 2px;
 	position: relative;
 }
 .group-page button {
@@ -4234,12 +4239,15 @@ body.ngdialog-open {
 }
 .group-header {
 	z-index: -1;
-	box-shadow: 0 0 6px 1px rgba(0,0,0,.2);
+	box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
 	width: 100%;
 }
 @media (max-width: 720px) {
 	.group-page {
 		width: 100%;
+	}
+	.group-content-container-wrap1, .place-content-container-wrap2 {
+	    margin-bottom: 0;
 	}
 	.group-menu-item .counts .counter {
 		width: 18%;
@@ -4408,7 +4416,7 @@ body.ngdialog-open {
 	width: 100%;
 	box-sizing: border-box;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 }
 .group-chat-inner {
 	padding: 5px 10px;
@@ -5015,4 +5023,7 @@ a.who-can-see-publication{
 }
 a.who-can-see-publication:hover{
 	color: #999;
+}
+div.progress-files-loading{
+	margin-left: 33px;
 }
