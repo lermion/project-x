@@ -143,9 +143,8 @@
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
 											date.setSeconds(time[2]);
-											var delay = date.getTime() - new Date().setSeconds(00).getTime();
-											console.log(new Date().setSeconds(00).getTime());
-											console.log("delay", delay);
+											var delay = date.getTime() - new Date().setSeconds(00);
+											console.log(new Date().setSeconds(00));
 											console.log("delay", delay);
 											setTimeout(function(){
 												$moderatorModal.modal({
