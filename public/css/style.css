@@ -4246,6 +4246,9 @@ body.ngdialog-open {
 	.group-page {
 		width: 100%;
 	}
+	.group-content-container-wrap1, .place-content-container-wrap2 {
+	    margin-bottom: 0;
+	}
 	.group-menu-item .counts .counter {
 		width: 18%;
 	}
