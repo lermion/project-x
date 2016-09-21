@@ -100,10 +100,9 @@
 
 								$moderatorModal.on('shown.bs.modal', function (e) {
 									console.log("show modal!!");
-									setInterval(function() {
-										console.log("show modal in timeout 60 sec!!");
-										getCheckTimeModerator();
+									setTimeout(function() {
 										$moderatorModal.modal('hide');
+										getCheckTimeModerator();
 									}, 60000);
 								});
 								// $moderatorModal.on('show.bs.modal', function (e) {
@@ -138,7 +137,6 @@
 										data: null,
 										contentType: 'application/json',
 										success: function(data) {
-											console.log(data);
 											moderatorId = data.moderator_id;
 											var date = new Date();
 											var time = data.time.split(/\:|\-/g);
@@ -146,7 +144,6 @@
 											date.setMinutes(time[1]);
 											date.setSeconds(time[2]);
 											var delay = date.getTime() - Date.now();
-											console.log(new Date());
 											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
