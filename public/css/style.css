@@ -1903,6 +1903,11 @@ body.public.user {
 		height: 164px;
 		margin: 0 1px 1px 0;
 	}
+	#user-page .my-photos .photo.thumbnail {
+		width: 163.6px;
+		height: 163.6px;
+		margin: 0 1px 1px 0;
+	}
 	#user-page .photo:nth-child(3n),
 	.group-publication .photo:nth-child(3n) {
 			margin: 0 0 1px 0;
