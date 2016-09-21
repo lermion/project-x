@@ -19,9 +19,9 @@
 												<select ng-change="changeTopic(selectedOption)" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.id"></select>
 												<span class="city-inner"></span>
 										</div>
-										<div ng-show="showAnotherTopic" class="phone-field">
+										<div ng-show="showAnotherTopic" class="phone-field theme">
 											<span class="region"></span>
-											<input type="text" placeholder="Напишите другую тему..." required style="padding-left:{{calcPadding()}}px;">
+											<input type="text" placeholder="Напишите другую тему..." required>
 										</div> 
 										<div class="city-field">
 												<span class="city"></span>                                                

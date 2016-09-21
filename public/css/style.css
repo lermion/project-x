@@ -309,6 +309,9 @@ input[type="tel"]:focus + span.phone,
 	padding: 0 0;
 	transition: none;
 }
+.form-item form .phone-field.theme input {
+    padding-left: 27px;
+}
 .text-field,
 .password-field-first,
 .password-field-second {
