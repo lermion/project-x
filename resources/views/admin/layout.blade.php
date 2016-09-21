@@ -137,14 +137,14 @@
 										data: null,
 										contentType: 'application/json',
 										success: function(data) {
+											console.log(data);
 											moderatorId = data.moderator_id;
 											var date = new Date();
 											var time = data.time.split(/\:|\-/g);
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
-											// date.setSeconds(time[2]);
+											date.setSeconds(time[2]);
 											var delay = date.getTime() - Date.now();
-											console.log("delay", delay);
 											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
