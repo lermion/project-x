@@ -120,7 +120,7 @@ angular.module('placePeopleApp')
 				var countryId = parseInt($scope.newUserCountryId);
 				$scope.countries.forEach(function (country) {
 					if (country.id === countryId) {
-						$scope.phoneCode = country.code;
+						$scope.phoneCode = "+" + country.code;
 					}
 				});
 			};
