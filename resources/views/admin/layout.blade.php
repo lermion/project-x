@@ -97,10 +97,10 @@
 								var getRandomInt = function(min, max){
 									return Math.floor(Math.random() * (max - min + 1)) + min;
 								}
-
+								var showModalTimeout;
 								$moderatorModal.on('shown.bs.modal', function (e) {
 									console.log("show modal!!");
-									setTimeout(function() {
+									showModalTimeout = setTimeout(function() {
 										console.log("show modal in timeout 60 sec!!");
 										getCheckTimeModerator();
 										$moderatorModal.modal('hide');
@@ -162,6 +162,7 @@
 								}
 
 								function confirmTimeModerator() {
+									showModalTimeout.clearTimeout();
 									if (inProgress) {
 										return;
 									}
