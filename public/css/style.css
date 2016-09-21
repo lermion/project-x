@@ -567,6 +567,9 @@ input[type="tel"]:focus + span.phone,
 	border-radius: 3px; 
 	position: relative;
 }
+.registration .add-ava {
+	background: transparent;
+}
 .add-ava #avatarImg,
 .publication-footer #add-object{
 	width: 100%;
@@ -738,9 +741,9 @@ footer {
 }
 .registration .form-item form input, 
 .registration .form-item form select {
-	line-height: 35px;
-		height: 35px;
-		margin-bottom: 4px;
+	line-height: 30px;
+	height: 30px;
+	margin-bottom: 7px;
 }
 .registration .city-field span,
 .registration  .phone-field span,
