@@ -27,6 +27,7 @@ class PresenceCheckController extends Controller
         $hour = $from_time[0];
         $min = $from_time[1];
         $sec = $from_time[2];
+        dd($from_time);
         $working_time = Carbon::create(null, null, null, $hour, $min, $sec, NULL)->timestamp;
         $to_time = explode(":", $working_hours->to_time);
         $to_hour = $to_time[0];
