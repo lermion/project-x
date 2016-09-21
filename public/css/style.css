@@ -4442,7 +4442,7 @@ body.ngdialog-open {
 	padding: 5px 10px;
 	overflow-x: auto;
 	max-height: 60vh;
-	min-height: 29vh;
+	min-height: 31vh;
 	height: auto;
 	background: url(../images/chat-bg.png) repeat;
 }

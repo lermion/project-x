@@ -7384,36 +7384,36 @@ button.settings-btn {
 }
 @media (min-height: 650px) {
 	.group-chat-inner {
-	    min-height: 32vh;
+	    min-height: 36vh;
 	}
 }
 @media (min-height: 700px) {
 	.group-chat-inner {
-	    min-height: 37vh;
+	    min-height: 39vh;
 	}
 }
 @media (min-height: 740px) {
 	.group-chat-inner {
-	    min-height: 40vh;
+	    min-height: 42vh;
 	}
 }
 @media (min-height: 800px) {
 	.group-chat-inner {
-	    min-height: 45vh;
+	    min-height: 47vh;
 	}
 }
 @media (min-height: 850px) {
 	.group-chat-inner {
-	    min-height: 49vh;
+	    min-height: 51vh;
 	}
 }
 @media (min-height: 900px) {
 	.group-chat-inner {
-	    min-height: 51vh;
+	    min-height: 53vh;
 	}
 }
 @media (min-height: 950px) {
 	.group-chat-inner {
-	    min-height: 54vh;
+	    min-height: 56vh;
 	}
 }
