@@ -97,10 +97,10 @@
 								var getRandomInt = function(min, max){
 									return Math.floor(Math.random() * (max - min + 1)) + min;
 								}
-
+								var clearTimeoutModal;
 								$moderatorModal.on('shown.bs.modal', function (e) {
-									console.log("show modal!!");
-									setTimeout(function() {
+									clearTimeoutModal = setTimeout(function() {
+										console.log("inside setTimeout");
 										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
 									}, 60000);
@@ -143,11 +143,7 @@
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
 											date.setSeconds(time[2]);
-											var d = new Date();
-    										d.setSeconds(00);
-    										console.log("data", data);
-    										console.log("d", d);
-											var delay = date.getTime() - d.getTime();
+											var delay = date.getTime() - Date.now();
 											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
@@ -177,6 +173,7 @@
 										contentType: 'application/json',
 										success: function(data) {
 											inProgress = false;
+											clearTimeout(clearTimeoutModal);
 											$moderatorModal.modal('hide');
 											getCheckTimeModerator();
 										},
