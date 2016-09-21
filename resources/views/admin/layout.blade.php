@@ -100,6 +100,7 @@
 
 								$moderatorModal.on('shown.bs.modal', function (e) {
 									setTimeout(function() {
+										console.log("inside setTimeout");
 										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
 									}, 60000);
