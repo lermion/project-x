@@ -56,6 +56,7 @@
 				ctrl.groupsChatArray = [];
 				ctrl.subscribersArray = [];
 				ctrl.subscriptionsArray = [];
+				ctrl.sharePubPopup = null;
 
 				ctrl.active = false;
 
@@ -395,8 +396,8 @@
 					}
 				};
 
-				ctrl.sharePub = function (pubId) {
-					ngDialog.open({
+				ctrl.sharePub = function(pubId){
+					ctrl.sharePubPopup = ngDialog.open({
 						template: '../app/common/components/publication-list-item/share-publication.html',
 						className: 'share-publication ngdialog-theme-default',
 						scope: $scope,
@@ -405,6 +406,10 @@
 						}
 					});
 					loadUserContacts();
+				};
+
+				ctrl.closeSharePopup = function(){
+					ctrl.sharePubPopup.close();
 				};
 
 				ctrl.sendSharePublication = function (pubId) {
