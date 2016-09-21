@@ -244,10 +244,14 @@ angular.module('placePeopleApp')
 				function getCounters() {
 					//Header counters
 					groupsService.getCounterNewGroups().then(function (data) {
-						$rootScope.counters.groupsNew = data;
+						if(data){
+							$rootScope.counters.groupsNew = data;
+						}
 					});
 					placesService.getCounterNewPlaces().then(function (data) {
-						$rootScope.counters.placesNew = data;
+						if(data){
+							$rootScope.counters.placesNew = data;
+						}
 					});
 					UserService.getCounterNewSubscribers().then(function (data) {
 						if(data){
