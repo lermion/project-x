@@ -250,7 +250,9 @@ angular.module('placePeopleApp')
 						$rootScope.counters.placesNew = data;
 					});
 					UserService.getCounterNewSubscribers().then(function (data) {
-						$rootScope.counters.subscribersNew = data.confirmed;
+						if(data){
+							$rootScope.counters.subscribersNew = data.confirmed;
+						}
 					});
 
 					if (toState.name !== 'search' &&
