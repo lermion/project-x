@@ -4092,7 +4092,7 @@ body.ngdialog-open {
 }
 .group-content-container-wrap1,
 .place-content-container-wrap2 {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 .group-page .group-ava {
 	height: 240px;
@@ -4174,7 +4174,7 @@ body.ngdialog-open {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 auto 10px;
+	margin: 0 auto 2px;
 	position: relative;
 }
 .group-page button {
@@ -4413,7 +4413,7 @@ body.ngdialog-open {
 	width: 100%;
 	box-sizing: border-box;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1);
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 }
 .group-chat-inner {
 	padding: 5px 10px;
