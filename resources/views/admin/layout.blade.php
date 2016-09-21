@@ -144,13 +144,13 @@
 											date.setHours(time[0]);
 											date.setMinutes(time[1]);
 											date.setSeconds(time[2]);
+											console.log(date);
 											var delay = date.getTime() - Date.now();
-											console.log(delay);
 											setTimeout(function(){
 												$moderatorModal.modal({
 													keyboard: false
 												});
-											}, delay - 1000);
+											}, delay);
 											inProgress = false;
 										},
 										error: function() {
