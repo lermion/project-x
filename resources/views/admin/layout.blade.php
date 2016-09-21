@@ -101,6 +101,7 @@
 								$moderatorModal.on('shown.bs.modal', function (e) {
 									console.log("show modal!!");
 									setTimeout(function() {
+										console.log("show modal in timeout 60 sec!!");
 										getCheckTimeModerator();
 										$moderatorModal.modal('hide');
 									}, 60000);
