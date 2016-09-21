@@ -97,9 +97,9 @@
 								var getRandomInt = function(min, max){
 									return Math.floor(Math.random() * (max - min + 1)) + min;
 								}
-
+								var clearTimeoutModal;
 								$moderatorModal.on('shown.bs.modal', function (e) {
-									setTimeout(function() {
+									clearTimeoutModal = setTimeout(function() {
 										console.log("inside setTimeout");
 										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
@@ -173,6 +173,7 @@
 										contentType: 'application/json',
 										success: function(data) {
 											inProgress = false;
+											clearTimeout(clearTimeoutModal);
 											$moderatorModal.modal('hide');
 											getCheckTimeModerator();
 										},
