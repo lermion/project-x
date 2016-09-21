@@ -5686,7 +5686,7 @@ input.cmn-toggle-round:checked + label:after {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 auto 10px;
+	margin: 0 auto 2px;
 	position: relative;
 }
 .place-menu-wrap .group-menu .group-menu-item {
@@ -5733,9 +5733,9 @@ input.cmn-toggle-round:checked + label:after {
 .place-menu-wrap .group-menu-item .counts .counter.active {
 	border-bottom: 2px solid #495b79;
 }
-.place-menu-wrap {
-	/*border-bottom: 2px solid rgb(224, 225, 228)*/
-}
+/*.place-menu-wrap {
+	border-bottom: 2px solid rgb(224, 225, 228)
+}*/
 .places-place-menu-avatar {
 	position: absolute;
 	width: 160px;
