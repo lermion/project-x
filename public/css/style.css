@@ -4521,6 +4521,7 @@ body.ngdialog-open {
 	left: auto;
 }
 .group-chat .user-messege .user-name {
+	text-decoration: none;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	color: #495b79;
