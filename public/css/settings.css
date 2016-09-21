@@ -7382,3 +7382,38 @@ button.settings-btn {
 		width: 15%;
 	}
 }
+@media (min-height: 650px) {
+	.group-chat-inner {
+	    min-height: 32vh;
+	}
+}
+@media (min-height: 700px) {
+	.group-chat-inner {
+	    min-height: 37vh;
+	}
+}
+@media (min-height: 740px) {
+	.group-chat-inner {
+	    min-height: 40vh;
+	}
+}
+@media (min-height: 800px) {
+	.group-chat-inner {
+	    min-height: 45vh;
+	}
+}
+@media (min-height: 850px) {
+	.group-chat-inner {
+	    min-height: 49vh;
+	}
+}
+@media (min-height: 900px) {
+	.group-chat-inner {
+	    min-height: 51vh;
+	}
+}
+@media (min-height: 950px) {
+	.group-chat-inner {
+	    min-height: 54vh;
+	}
+}
