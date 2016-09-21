@@ -26,7 +26,6 @@ class PresenceCheckController extends Controller
         $from_time = explode(":", $working_hours->from_time);
         $hour = $from_time[0];
         $min = $from_time[1];
-        dd($from_time);
         $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
         $to_time = explode(":", $working_hours->to_time);
         $to_hour = $to_time[0];
@@ -40,6 +39,7 @@ class PresenceCheckController extends Controller
             } else {
                 $interval = $option[0] * 60;
                 $time_inspection = Carbon::createFromTimestamp($working_time + $interval)->toTimeString();
+                dd($time_inspection);
             }
             return response()->json(["status" => true, "time" => $time_inspection, "moderator_id" => $admin['id']]);
         }
