@@ -101,8 +101,8 @@
 								$moderatorModal.on('shown.bs.modal', function (e) {
 									console.log("show modal!!");
 									setTimeout(function() {
-										$moderatorModal.modal('hide');
 										getCheckTimeModerator();
+										$moderatorModal.modal('hide');
 									}, 60000);
 								});
 								// $moderatorModal.on('show.bs.modal', function (e) {
