@@ -309,6 +309,9 @@ input[type="tel"]:focus + span.phone,
 	padding: 0 0;
 	transition: none;
 }
+.form-item form .phone-field.theme input {
+    padding-left: 27px;
+}
 .text-field,
 .password-field-first,
 .password-field-second {
@@ -1503,11 +1506,14 @@ body.public.user {
 	border: 1px solid #e5e7e9;
 	font-size: 13px;
 	color: #999;
-	background: transparent;
+	background: #fff;
 	padding: 5px;
 	box-sizing: border-box;
 	font-family: "SFUIDisplayLight";
 	margin-bottom: 7px;
+}
+#user-page input.status-correct:focus {
+	color: #000;
 }
 .my-profile-item textarea.error-status {
 	border: 1px solid #ec6045;
@@ -1897,6 +1903,11 @@ body.public.user {
 		height: 164px;
 		margin: 0 1px 1px 0;
 	}
+	#user-page .my-photos .photo.thumbnail {
+		width: 163.6px;
+		height: 163.6px;
+		margin: 0 1px 1px 0;
+	}
 	#user-page .photo:nth-child(3n),
 	.group-publication .photo:nth-child(3n) {
 			margin: 0 0 1px 0;
@@ -1988,7 +1999,7 @@ body.public.user {
 	.comunications.adaptiv .rewrite {
 		font-size: 13.6px;
 		font-family: "SFUIDisplayMedium";
-		padding: 0 10px;
+		padding: 0 10px 0 0;
 		margin: 0;
 		line-height: 27px;
 		color: #495b79;
@@ -2003,8 +2014,9 @@ body.public.user {
 		color: #666;
 	}
 	#user-page .status-correct.adaptiv {
-		margin: 20px;
-		width: 92%;
+		margin: 0;
+	    padding: 0 20px;
+	    width: 100%;
 	}
 }
 @media (max-width: 450px) {
@@ -2033,8 +2045,9 @@ body.public.user {
 		padding: 5px 10px 0 10px;	
 	}
 	#user-page .status-correct.adaptiv {
-		margin: 5px;
-			width: 97%;
+		margin: 0;
+		width: 100%;
+		padding: 5px 10px;
 	}
 }
 
