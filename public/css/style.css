@@ -2628,6 +2628,9 @@ pub-list-item .publication-footer-button {
 	 align-items: center; 
 	 flex-wrap: wrap; 
 }
+.ngdialog.view-publication .scroll-container {
+    justify-content: center;
+}
 .publication .new-add .inner .close:hover .close-inner,
 .publication .new-add .inner .check:hover .check-inner,
 .publication .new-add .inner:hover .close, 
