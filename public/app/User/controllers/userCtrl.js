@@ -1158,7 +1158,6 @@ angular.module('placePeopleApp')
 					});
 
 				} else {
-					console.info('PubID: ' + pub.id);
 					ngDialog.open({
 						templateUrl: '../app/common/views/pub-item-modal.html',
 						name: 'modal-publication-group',
