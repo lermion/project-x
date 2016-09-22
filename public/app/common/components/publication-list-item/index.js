@@ -95,7 +95,6 @@
 
 				// Lifecycle hooks
 				ctrl.$onInit = function (args) {
-					$scope.$broadcast('rebuild:me');
 					ctrl.pub = ctrl.pubData;
 					ctrl.avatar = getAvatarPath();
 					ctrl.authorName = getAuthorName();
@@ -152,6 +151,7 @@
 
 
 					ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
+					$scope.$broadcast('rebuild:me');
 				};
 
 				ctrl.$onChanges = function (args) {
