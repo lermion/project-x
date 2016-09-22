@@ -506,6 +506,7 @@ angular.module('placePeopleApp')
 						files.length = 0;
 					}
 					$scope.emojiMessage.rawhtml = "";
+					$(".emoji-wysiwyg-editor").html("");
 					data.message = "";
 					imagesObj = {
 						imageName: [],
