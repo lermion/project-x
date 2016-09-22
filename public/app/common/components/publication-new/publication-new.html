@@ -106,9 +106,11 @@
 					   type="file"
 					   ngf-select
 					   ngf-accept="'image/*,video/*'"
+					   ngf-max-width="3000"
 					   ngf-pattern="'image/*,video/*'"
 					   ng-model="$ctrl.filesPreview"
 					   ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+					   ngf-model-options="{allowInvalid: true}"
 					   ngf-multiple="true"
 					   ngf-keep="true"
 					   required>
@@ -128,6 +130,7 @@
 					<div ng-message="required">Вы не выбрали медиафайл</div>
 					<div ng-message="coverRequired">Вы не выбрали обложку</div>
 					<div ng-message="pattern">Выбранный файл не является фото или видео</div>
+					<div ng-message="maxWidth">Ширина картинки должна быть не больше 3000 пикселей</div>
 				</div>
 				<div class="error-too-many-files" ng-show="$ctrl.tooManyFiles">Вы не можете выбрать более 20 файлов</div>
 				<div class="error-too-many-files" ng-show="$ctrl.tooManyFilesRemove">Вы не можете выбрать более 20 файлов, добавлены были только первые 20</div>
