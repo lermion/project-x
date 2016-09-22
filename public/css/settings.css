@@ -1293,6 +1293,7 @@ label span.add {
 	color: #333;
 	padding: 0 !important;
 	margin-bottom: 20px;
+	z-index: 10;
 }
 .ngdialog.place-map.ngdialog-theme-default .ngdialog-content {
 	top: 5%;
