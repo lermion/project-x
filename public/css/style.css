@@ -2893,8 +2893,12 @@ pub-list-item .publication-footer-button {
 }
 .user-publication-content .publication-images  {
 	display: flex;
-		flex-wrap: wrap;
-		margin-top: 5px;
+	flex-wrap: wrap;
+	margin-top: 5px;
+}
+.user-publication-content .publication-images.is-popup{
+	width: 603px;
+	margin: 0 auto;
 }
 .user-publication-content .publication-images .ngsb-wrap {
 	width: 100%;
