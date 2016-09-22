@@ -199,7 +199,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('city/{country_id}', 'CityController@index');
     Route::get('static_page/{name}', 'StaticPageController@show');
     Route::get('static_page/get/name', 'StaticPageController@getNames');
-    Route::get('vk', 'ParserVkController@index');
 
     Route::group(['prefix' => 'password'], function () {
         Route::post('update', 'PasswordController@update')->middleware(['auth']);
@@ -267,6 +266,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('subscription/{id}', 'PlaceController@subscription');
         Route::post('delete_subscription/{id}', 'PlaceController@admin_subscription_delete');
         Route::post('invite/{place_id}', 'PlaceController@invite');
+        Route::post('get_cities', 'PlaceController@getCities');
         Route::group(['prefix' => '{placeId}/publication'], function () {
             Route::get('/', 'PlacePublicationController@index');
             Route::post('store', 'PlacePublicationController@store');
@@ -326,10 +326,11 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/vk\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/place/get_cities\" method=\"post\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
-             <input type='number' name='order' ><br>
+             <input type='number' name='country_id' ><br>
+             <input type='text' name='name' ><br>
              <input type='file' name='img'><br>
              <input type=\"submit\">
               </form>";
