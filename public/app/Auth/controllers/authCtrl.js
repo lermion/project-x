@@ -318,8 +318,9 @@ angular.module('placePeopleApp')
 			$scope.login = function(login, pwd){
 				if(login.indexOf("+") !== -1){
 					login = login.replace("+", "");
-				}else if(login.indexOf(8) !== -1){
-					login = login.replace(8, "");
+				}
+				if(login[0] === "8"){
+					login = login.replace(login[0], "");
 				}
 				$scope.loginLoader = true;
 				if (!login && !pwd) {
