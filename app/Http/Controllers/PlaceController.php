@@ -562,6 +562,29 @@ class PlaceController extends Controller
         }
     }
 
+    public function getCities(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'country_id' => 'required|numeric',
+                'name' => 'required'
+            ]);
+        } catch (\Exception $ex) {
+            $result = [
+                "status" => false,
+                "error" => [
+                    'message' => $ex->validator->errors(),
+                    'code' => '1'
+                ]
+            ];
+            return response()->json($result);
+        }
+        $id = $request->input('country_id');
+        $search = $request->input('name');
+        $cities = City::where('country_id',$id)->where('name', 'LIKE', '%'.$search.'%')->get();
+        return response()->json($cities);
+    }
+
     public function getPlaceScopes($id)
     {
         $place = Place::find($id);
