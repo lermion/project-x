@@ -48,10 +48,6 @@ angular.module('placePeopleApp')
 				$state.go("chat.list");
 			}
 
-			$scope.messagesRendered = function(){
-				$scope.scrollToMessage = $scope.firstMessageId;
-			}
-
 			$scope.refTo = function(stateName, opponent){
 				$scope.Model.openSettings(opponent);
 				if($window.innerWidth <= 768){
@@ -233,13 +229,17 @@ angular.module('placePeopleApp')
 						itemsProcessed++;
 						if(itemsProcessed === response.messages.length) {
 							setTimeout(function(){
-								$scope.scrollToMessage = response.messages[0].id;
+								returnToBackCB(response.messages[0].id);
 							}, 50);
       					}
 					});
 					$scope.counter += 10;
 				}
 			});
+
+			function returnToBackCB(lastMessageId){
+				$scope.returnToBack(lastMessageId);
+			}
 
 			function loadUserContacts(){
 				PublicationService.getSubscribers($scope.loggedUserId).then(function(response){
@@ -590,6 +590,9 @@ angular.module('placePeopleApp')
 			$scope.isSelected = function (roomId) {
 				return roomId === $scope.currentRoomId;
 			};
+			$scope.returnToBack = function(messageId){
+				$location.hash(messageId + "");
+			}
 			socket.on("done message", function(data){
 				if(data.doneMessage){
 					if($scope.Model.Chat !== undefined){
@@ -612,7 +615,6 @@ angular.module('placePeopleApp')
 							return chat.countMessages = 0;
 						}
 					};
-					$scope.firstMessageId = data.messages[0].id;
 					$scope.Model.Chat = data.messages.reverse();
 					$scope.isNeededScroll = function(){
 						return $scope.Model.Chat;
