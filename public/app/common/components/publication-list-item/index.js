@@ -877,13 +877,13 @@
 					ctrl.showImagePreloader = false;
 				};
 
-				ctrl.limit = 5;
+				ctrl.limit = 6;
 
 				ctrl.loadMorePubFiles = function(key){
 					if(key === false){
 						ctrl.limit = ctrl.pub.images.length + ctrl.pub.videos.length;
 					}else{
-						ctrl.limit = 5;
+						ctrl.limit = 6;
 					}
 				};
 
