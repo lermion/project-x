@@ -151,7 +151,6 @@
 
 
 					ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
-					$scope.$broadcast('rebuild:me');
 				};
 
 				ctrl.$onChanges = function (args) {
