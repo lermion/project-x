@@ -3018,7 +3018,7 @@ pub-list-item .publication-footer-button {
 	background-image: url(../images/like.png);
 	background-position: left 5px center;
 	background-repeat: no-repeat;
-	background-size: 20%;
+	background-size: 18px;
 	font-size: 14px;
 	font-family: Tahoma;
 	font-weight: bold;
@@ -3991,7 +3991,7 @@ body.ngdialog-open {
 	padding-left: 25px;
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
-	background-size: 30%;
+	background-size: 16px;
 	background-repeat: no-repeat;
 }
 .group-likes .group-like:hover {
@@ -4190,7 +4190,7 @@ body.ngdialog-open {
 	background-image: url(../images/like-hover.png);
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 12%;
+	background-size: 16px;
 	transition: all .1s ease-in-out .1s;
 		cursor: default;
 }
