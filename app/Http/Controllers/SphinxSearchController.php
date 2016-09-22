@@ -30,15 +30,13 @@ class SphinxSearchController extends Controller
             $result[2] = [];
             $result[3] = [];
             if (!empty($data['usersearch'])) {
-                $query = "SELECT * FROM pp_user WHERE scope IN ($string_scopes) and MATCH($sql)";
-                $r = (sphinx_raw($query));
-//                $user_scope = (sphinx_raw($query));
-//                $query2 = "SELECT * FROM pp_user WHERE MATCH($sql)";
-//                $user_all = (sphinx_raw($query2));
-//                $user_scope = $user_scope->toArray();
-//                $user_all = $user_all->toArray();
-//                $res = array_merge ($user_scope, $user_all);
-//                dd($res);
+                $query = "SELECT * FROM pp_user WHERE scope IN ($string_scopes) and MATCH($sql)ORDER BY id DESC";
+                $user_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_user WHERE scope NOT IN ($string_scopes) and MATCH($sql)ORDER BY id DESC";
+                $user_all = (sphinx_raw($query2));
+                $user_scope = $user_scope->toArray();
+                $user_all = $user_all->toArray();
+                $r = array_merge ($user_scope, $user_all);
                 $users = array();
                 if ($r) {
                     foreach ($r as $res) {
@@ -47,37 +45,48 @@ class SphinxSearchController extends Controller
                     }
                 }
                 $result[0] = $users;
-//            $query = "SELECT id FROM pp_user WHERE MATCH($sql)";
-//            $r=(sphinx_raw($query));
-//            $d = array();
-//            foreach ($r as $re){
-//                foreach ($re as $red){
-//                    $d[] =$red;
-//                }
-//            }
-//            $users = User::with('scopes')->whereIn('id',$d)->get();
-//            dd($users);
             }
 
             if (!empty($data['publicationsearch'])) {
-                $query = "SELECT * FROM pp_publication WHERE scope IN ($string_scopes) and MATCH($sql)";
-                $result[1] = (sphinx_raw($query));
+                $query = "SELECT * FROM pp_publication WHERE scope IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $publication_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_publication WHERE scope NOT IN ($string_scopes) and MATCH($sql)ORDER BY id DESC";
+                $publication_all = (sphinx_raw($query2));
+                $publication_scope = $publication_scope->toArray();
+                $publication_all = $publication_all->toArray();
+                $result[1] = array_merge ($publication_scope, $publication_all);
+
             }
             if (!empty($data['groupsearch'])) {
-                $query = "SELECT * FROM pp_group_publication WHERE scope IN ($string_scopes) and MATCH($sql)";
-                $result[2] = (sphinx_raw($query));
+                $query = "SELECT * FROM pp_group_publication WHERE scope IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $group_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_group_publication WHERE scope NOT IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $group_all = (sphinx_raw($query2));
+                $group_scope = $group_scope->toArray();
+                $group_all = $group_all->toArray();
+                $result[2] = array_merge ($group_scope, $group_all);
 
             }
             if (!empty($data['placesearch'])) {
-                $query = "SELECT * FROM pp_place_publication WHERE scope IN ($string_scopes) and MATCH($sql)";
-                $result[3] = (sphinx_raw($query));
+                $query = "SELECT * FROM pp_place_publication WHERE scope IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $place_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_place_publication WHERE scope NOT IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $place_all = (sphinx_raw($query2));
+                $place_scope = $place_scope->toArray();
+                $place_all = $place_all->toArray();
+                $result[3] = array_merge ($place_scope, $place_all);
             }
 
             if ((empty($data['usersearch'])) && (empty($data['publicationsearch'])) &&
                 (empty($data['groupsearch'])) && (empty($data['placesearch']))
             ) {
-                $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
-                $r = (sphinx_raw($query));
+                $query = "SELECT * FROM pp_user WHERE scope IN ($string_scopes) and MATCH($sql)ORDER BY id DESC";
+                $user_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_user WHERE scope NOT IN ($string_scopes) and MATCH($sql)ORDER BY id DESC";
+                $user_all = (sphinx_raw($query2));
+                $user_scope = $user_scope->toArray();
+                $user_all = $user_all->toArray();
+                $r = array_merge ($user_scope, $user_all);
                 $user = array();
                 if ($r) {
                     foreach ($r as $res) {
@@ -86,12 +95,30 @@ class SphinxSearchController extends Controller
                     }
                 }
                 $result[0] = $user;
-                $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
-                $result[1] = (sphinx_raw($query));
-                $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
-                $result[2] = (sphinx_raw($query));
-                $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql)";
-                $result[3] = (sphinx_raw($query));
+
+                $query = "SELECT * FROM pp_publication WHERE scope IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $publication_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_user WHERE scope NOT IN ($string_scopes) and MATCH($sql)ORDER BY id DESC";
+                $publication_all = (sphinx_raw($query2));
+                $publication_scope = $publication_scope->toArray();
+                $publication_all = $publication_all->toArray();
+                $result[1] = array_merge ($publication_scope, $publication_all);
+
+                $query = "SELECT * FROM pp_group_publication WHERE scope IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $group_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_group_publication WHERE scope NOT IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $group_all = (sphinx_raw($query2));
+                $group_scope = $group_scope->toArray();
+                $group_all = $group_all->toArray();
+                $result[2] = array_merge ($group_scope, $group_all);
+
+                $query = "SELECT * FROM pp_place_publication WHERE scope IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $place_scope = (sphinx_raw($query));
+                $query2 = "SELECT * FROM pp_place_publication WHERE scope NOT IN ($string_scopes) and MATCH($sql) ORDER BY id DESC";
+                $place_all = (sphinx_raw($query2));
+                $place_scope = $place_scope->toArray();
+                $place_all = $place_all->toArray();
+                $result[3] = array_merge ($place_scope, $place_all);
 
             }
         } else {
@@ -117,23 +144,23 @@ class SphinxSearchController extends Controller
             }
 
             if (!empty($Data['publicationsearch'])) {
-                $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_publication WHERE MATCH($sql) ORDER BY id DESC";
                 $result[1] = (sphinx_raw($query));
             }
             if (!empty($Data['placesearch'])) {
-                $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql) ORDER BY id DESC";
                 $result[2] = (sphinx_raw($query));
 
             }
             if (!empty($Data['groupsearch'])) {
-                $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql) ORDER BY id DESC";
                 $result[3] = (sphinx_raw($query));
             }
 
             if ((empty($Data['usersearch'])) && (empty($Data['publicationsearch'])) &&
                 (empty($Data['groupsearch'])) && (empty($Data['placesearch']))
             ) {
-                $query = "SELECT * FROM pp_user WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_user WHERE MATCH($sql) ORDER BY id DESC";
                 $r = (sphinx_raw($query));
                 $user = array();
                 if ($r) {
@@ -143,11 +170,11 @@ class SphinxSearchController extends Controller
                     }
                 }
                 $result[0] = $user;
-                $query = "SELECT * FROM pp_publication WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_publication WHERE MATCH($sql) ORDER BY id DESC";
                 $result[1] = (sphinx_raw($query));
-                $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_group_publication WHERE MATCH($sql) ORDER BY id DESC";
                 $result[2] = (sphinx_raw($query));
-                $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql)";
+                $query = "SELECT * FROM pp_place_publication WHERE MATCH($sql) ORDER BY id DESC";
                 $result[3] = (sphinx_raw($query));
 
             }
