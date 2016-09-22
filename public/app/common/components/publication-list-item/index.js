@@ -882,6 +882,7 @@
 				ctrl.loadMorePubFiles = function(key){
 					if(key === false){
 						ctrl.limit = ctrl.pub.images.length + ctrl.pub.videos.length;
+						$scope.$broadcast('rebuild:me');
 					}else{
 						ctrl.limit = 6;
 					}
