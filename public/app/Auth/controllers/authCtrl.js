@@ -315,9 +315,11 @@ angular.module('placePeopleApp')
 			};
 
 			/*LOGIN PAGE*/
-			$scope.login = function (login, pwd) {
+			$scope.login = function(login, pwd){
 				if(login.indexOf("+") !== -1){
 					login = login.replace("+", "");
+				}else if(login.indexOf(8) !== -1){
+					login = login.replace(8, "");
 				}
 				$scope.loginLoader = true;
 				if (!login && !pwd) {
@@ -332,27 +334,24 @@ angular.module('placePeopleApp')
 					$scope.loginLoader = false;
 					return;
 				}
-				AuthService.userLogIn(login, pwd)
-					.then(function (res) {
-						if (res.status) {
-							storageService.setStorageItem('username', res.login);
-							storageService.setStorageItem('userId', res.user_id);
+				AuthService.userLogIn(login, pwd).then(function(res){
+					if(res.status){
+						storageService.setStorageItem('username', res.login);
+						storageService.setStorageItem('userId', res.user_id);
+						$rootScope.isAuthorized = true;
+						$rootScope.user.userId = res.user_id;
+						$rootScope.user.username = res.login;
+						//$state.go('user', {username: res.login});
+						$state.go('feed');
+					}else{
+						$scope.loginError = 'Неверный логин или пароль';
+					}
+					$scope.loginLoader = false;
 
-							$rootScope.isAuthorized = true;
-
-							$rootScope.user.userId = res.user_id;
-							$rootScope.user.username = res.login;
-
-							//$state.go('user', {username: res.login});
-							$state.go('feed');
-						} else {
-							$scope.loginError = 'Неверный логин или пароль';
-						}
-						$scope.loginLoader = false;
-
-					}, function (err) {
-						console.log(err);
-					});
+				},
+				function (error){
+					console.log(error);
+				});
 			};
 
 			$scope.keyPress = function (event, login, password) {
