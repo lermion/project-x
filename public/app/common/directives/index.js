@@ -12,7 +12,6 @@
 		.directive('schrollBottom', schrollBottom)
 		.directive('repeatDone', repeatDone)
 		.directive('imageonload', imageonload)
-		.directive('scrollIf', scrollIf)
 		.directive('eatClickIf', eatClickIf, ['$parse', '$rootScope'])
 		.directive("scroll", function ($window) {
 			return function (scope, element, attrs) {
@@ -49,20 +48,6 @@
 				});
 			}
 		}
-	}
-
-	function scrollIf(){
-		return function(scope, element, attrs) {
-		    scope.$watch(attrs.scrollIf, function(value) {
-		      if (value) {
-		        // Scroll to ad.
-		        var pos = $(element).position().top + $(element).parent().scrollTop();
-		        $(element).parent().animate({
-		            scrollTop : pos
-		        }, 500);
-		      }
-		    });
-  		}
 	}
 
 	function repeatDone(){
