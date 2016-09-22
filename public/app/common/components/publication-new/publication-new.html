@@ -110,6 +110,7 @@
 					   ngf-pattern="'image/*,video/*'"
 					   ng-model="$ctrl.filesPreview"
 					   ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
+					   ngf-model-options="{allowInvalid: true}"
 					   ngf-multiple="true"
 					   ngf-keep="true"
 					   required>
