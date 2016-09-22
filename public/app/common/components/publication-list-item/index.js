@@ -388,6 +388,7 @@
 				};
 
 				ctrl.clickEvent = function () {
+					$scope.$broadcast('rebuild:me');
 					if (ctrl.toClick && !ctrl.isModal) {
 						ctrl.showAddComment = false;
 						ctrl.toClick(ctrl.pub, ctrl.index);
