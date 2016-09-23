@@ -118,19 +118,19 @@
 								return file.pivot.is_cover == true;
 							});
 
-							if (videoCover[0]) {
-								if (ctrl.pub.mainVideoModal) {
-									var file = ctrl.pub.mainVideoModal;
-									ctrl.mainVideo = file.url;
-									videoIsCoded = !!file.is_coded;
-									if (!videoIsCoded) {
-										$http.get('chat/get_video/' + file.id).then(function (resp) {
-											ctrl.showVideo = !!resp.data.is_coded;
-										});
-									} else {
-										ctrl.showVideo = true;
-									}
+							if (ctrl.pub.mainVideoModal) {
+								var file = ctrl.pub.mainVideoModal;
+								ctrl.mainVideo = file.url;
+								videoIsCoded = !!file.is_coded;
+								if (!videoIsCoded) {
+									$http.get('chat/get_video/' + file.id).then(function (resp) {
+										ctrl.showVideo = !!resp.data.is_coded;
+									});
 								} else {
+									ctrl.showVideo = true;
+								}
+							} else {
+								if (videoCover[0]) {
 									ctrl.mainVideo = videoCover[0].url;
 									videoIsCoded = !!videoCover[0].is_coded;
 									if (!videoIsCoded) {
@@ -140,11 +140,13 @@
 									} else {
 										ctrl.showVideo = true;
 									}
-								}
 
-							} else {
-								ctrl.mainVideo = false;
+								} else {
+									ctrl.mainVideo = false;
+								}
 							}
+
+
 						}
 
 						if (ctrl.pub.images.length > 0) {
@@ -152,13 +154,12 @@
 								return file.pivot.is_cover == true;
 							});
 
-							if (imgCover[0]) {
-								if (ctrl.pub.mainImageModal) {
-									ctrl.mainImage = ctrl.pub.mainImageModal;
-								} else {
+							if (trl.pub.mainImageModal) {
+								ctrl.mainImage = ctrl.pub.mainImageModal;
+							} else {
+								if (imgCover[0]) {
 									ctrl.mainImage = imgCover[0].original_img_url;
 								}
-
 							}
 						}
 
