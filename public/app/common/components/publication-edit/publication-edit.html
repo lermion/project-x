@@ -59,7 +59,7 @@
 			<div ng-message="required">Вы не заполнили текст публикации</div>
 		</div>
 		<div class="pub__crop-area" ng-if="$ctrl.coverToCrop">
-			<img-crop image="$ctrl.coverToCrop" result-image="$ctrl.myCroppedImage" chargement="'Загрузка'" area-type="rectangle" aspect-ratio="1.77" area-min-relative-size="{w: 700, h: 395}" result-image-size="{w: 700, h: 395}"></img-crop>
+			<img-crop image="$ctrl.coverToCrop" result-image="$ctrl.myCroppedImage" chargement="'Загрузка'" area-type="rectangle" aspect-ratio="1.77" area-min-relative-size="{w: 1000, h: 695}" result-image-size="{w: 700, h: 395}"></img-crop>
 		</div>
 		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
 			 style="max-height: 250px; overflow:hidden; position:relative;">
@@ -131,7 +131,7 @@
 					 ng-if="$ctrl.newPublicationForm.$invalid && $ctrl.newPublicationForm.$submitted">
 					<div ng-message="required">Вы не выбрали медиафайл</div>
 					<div ng-message="pattern">Выбранный файл не является фото или видео</div>
-					<div ng-message="maxWidth">Ширина картинки должна быть не больше 3000 пикселей</div>
+					<div ng-message="minWidth">Минимальная ширина картинки 700 пикселей</div>
 				</div>
 			</div>
 			<div class="publication-footer-button">
