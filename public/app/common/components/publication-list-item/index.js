@@ -46,7 +46,7 @@
 
 				ctrl.pub = {};
 				ctrl.showPubMenu = false;
-				ctrl.mainImage = null;
+				ctrl.mainImage = ctrl.mainImage || null;
 				ctrl.mainVideo = null;
 				ctrl.emojiMessage = {};
 				ctrl.subForm = false;
@@ -111,7 +111,6 @@
 								element[1].focus();
 						});
 
-
 						// если в публикации есть видеофайлы, то проверим не является ли один из них обложкой
 						if (ctrl.pub.videos.length > 0) {
 							var videoIsCoded = false;
@@ -140,7 +139,12 @@
 							});
 
 							if (imgCover[0]) {
-								ctrl.mainImage = imgCover[0].original_img_url;
+								if (ctrl.pub.mainImageModal) {
+									ctrl.mainImage = ctrl.pub.mainImageModal;
+								} else {
+									ctrl.mainImage = imgCover[0].original_img_url;
+								}
+
 							}
 						}
 
@@ -167,7 +171,6 @@
 
 
 				ctrl.changeMainFile = function (file, index) {
-					ctrl.showImagePreloader = true;
 					if (file.pivot.video_id) {
 						ctrl.showImagePreloader = false;
 						ctrl.mainImage = null;
@@ -181,8 +184,16 @@
 							ctrl.indexCurrentImage = index;
 						}
 					} else if (file.pivot.image_id) {
+						if (ctrl.isModal) {
+							ctrl.showImagePreloader = ctrl.mainImage !== file.original_img_url;
+						} else {
+							ctrl.showImagePreloader = ctrl.mainImage !== file.url;
+						}
+
 						ctrl.mainVideo = null;
 						ctrl.mainImage = file.url;
+						ctrl.mainImageOriginal = file.original_img_url;
+						ctrl.mainImageOriginalIndex = index;
 						if (ctrl.isModal) {
 							ctrl.indexCurrentImage = index;
 							ctrl.mainImage = file.original_img_url;
@@ -390,6 +401,8 @@
 				ctrl.clickEvent = function () {
 					if (ctrl.toClick && !ctrl.isModal) {
 						ctrl.showAddComment = false;
+						ctrl.pub.mainImageModal = ctrl.mainImageOriginal || null;
+						ctrl.pub.mainImageIndexModal = ctrl.mainImageOriginalIndex || null;
 						ctrl.toClick(ctrl.pub, ctrl.index);
 					} else {
 						showNextInfo();
@@ -976,11 +989,16 @@
 				function getIndexCurrentImage() {
 					var index;
 					if(ctrl.pub.files !== undefined){
-						ctrl.pub.files.forEach(function (file, i, files) {
-							if (file.pivot.is_cover) {
-								index = i;
-							}
-						});
+						if (ctrl.pub.mainImageIndexModal) {
+							index = ctrl.pub.mainImageIndexModal;
+						} else {
+							ctrl.pub.files.forEach(function (file, i, files) {
+								if (file.pivot.is_cover) {
+									index = i;
+								}
+							});
+						}
+
 						return index;
 					}
 				}
