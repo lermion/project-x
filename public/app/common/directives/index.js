@@ -9,7 +9,7 @@
 		.directive('scrollBottomOn', scrollBottomOn, ["$timeout"])
 		.directive('focusMe', focusMe, ['$timeout', '$parse'])
 		.directive('clickOutside', ['$document', '$parse', '$timeout', clickOutside])
-		.directive('schrollBottom', schrollBottom)
+		.directive('ngScrollBottom', ngScrollBottom, ['$timeout'])
 		.directive('repeatDone', repeatDone)
 		.directive('imageonload', imageonload)
 		.directive('eatClickIf', eatClickIf, ['$parse', '$rootScope'])
@@ -35,15 +35,17 @@
 			};
 		});
 
-	function schrollBottom() {
+	function ngScrollBottom($timeout) {
 		return {
 			scope: {
-				schrollBottom: "="
+			  ngScrollBottom: "="
 			},
-			link: function (scope, element) {
-				scope.$watchCollection('schrollBottom', function (newValue) {
+			link: function ($scope, $element) {
+				$scope.$watchCollection('ngScrollBottom', function (newValue) {
 					if (newValue) {
-						$(element).scrollTop($(element)[0].scrollHeight);
+						$timeout(function(){
+							$element.scrollTop($element[0].scrollHeight);
+						}, 0);
 					}
 				});
 			}
