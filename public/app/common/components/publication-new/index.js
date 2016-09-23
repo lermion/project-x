@@ -291,12 +291,12 @@
 						if(!data.status && parseInt(data.error.code) === 1){
 							ctrl.tooManyFiles = true;
 						}else if(data.status){
+							ngDialog.closeAll();
 							ctrl.addNewPublication = false;
 							ctrl.tooManyFiles = false;
 							$rootScope.$broadcast('publication:add', {
 								publication: data.publication
 							});
-							ngDialog.closeAll();
 						}
 					});
 				}
