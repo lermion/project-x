@@ -160,6 +160,24 @@
 				}
 			};
 
+			vm.searchCountries = function(str){
+				var deferred = $q.defer();
+				var matches = [];
+				vm.countries.forEach(function(country){
+					if((country.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)){
+						matches.push(country);
+					}
+				});
+				if(matches.length > 0){
+					deferred.resolve(matches);
+				}
+				return deferred.promise;
+			};
+
+			vm.countrySelected = function(country){
+				console.log(country);
+			}
+
 			var w = angular.element($window);
 			$scope.$watch(
 				function () {
