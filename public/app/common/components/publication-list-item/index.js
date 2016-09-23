@@ -119,15 +119,29 @@
 							});
 
 							if (videoCover[0]) {
-								ctrl.mainVideo = videoCover[0].url;
-								videoIsCoded = !!videoCover[0].is_coded;
-								if (!videoIsCoded) {
-									$http.get('chat/get_video/' + videoCover[0].id).then(function (resp) {
-										ctrl.showVideo = !!resp.data.is_coded;
-									});
+								if (ctrl.pub.mainVideoModal) {
+									var file = ctrl.pub.mainVideoModal;
+									ctrl.mainVideo = file.url;
+									videoIsCoded = !!file.is_coded;
+									if (!videoIsCoded) {
+										$http.get('chat/get_video/' + file.id).then(function (resp) {
+											ctrl.showVideo = !!resp.data.is_coded;
+										});
+									} else {
+										ctrl.showVideo = true;
+									}
 								} else {
-									ctrl.showVideo = true;
+									ctrl.mainVideo = videoCover[0].url;
+									videoIsCoded = !!videoCover[0].is_coded;
+									if (!videoIsCoded) {
+										$http.get('chat/get_video/' + videoCover[0].id).then(function (resp) {
+											ctrl.showVideo = !!resp.data.is_coded;
+										});
+									} else {
+										ctrl.showVideo = true;
+									}
 								}
+
 							} else {
 								ctrl.mainVideo = false;
 							}
@@ -175,6 +189,7 @@
 						ctrl.showImagePreloader = false;
 						ctrl.mainImage = null;
 						ctrl.mainVideo = file.url;
+						ctrl.mainVideoFile = file;
 
 						$http.get('chat/get_video/' + file.id).then(function (resp) {
 							ctrl.showVideo = !!resp.data.is_coded;
@@ -403,6 +418,7 @@
 						ctrl.showAddComment = false;
 						ctrl.pub.mainImageModal = ctrl.mainImageOriginal || null;
 						ctrl.pub.mainImageIndexModal = ctrl.mainImageOriginalIndex || null;
+						ctrl.pub.mainVideoModal = ctrl.mainVideoFile || null;
 						ctrl.toClick(ctrl.pub, ctrl.index);
 					} else {
 						showNextInfo();
