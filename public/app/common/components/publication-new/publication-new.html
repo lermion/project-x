@@ -137,7 +137,7 @@
 			</div>
 			<div class="publication-footer-button">
 				<a href="javascript:void(0);" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-				<button ng-disabled="$ctrl.isFilesAdded" type="submit" class="publication-button" ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
+				<button ng-disabled="$ctrl.isFilesAdded || $ctrl.addNewPublication" type="submit" class="publication-button" ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
 			</div>
 		</div>
 
