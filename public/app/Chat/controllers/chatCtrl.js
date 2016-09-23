@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload', '$q', '$timeout', '$location', '$anchorScroll',
+		'PublicationService', 'Upload', '$q', '$timeout', '$location', '$anchorScroll', '$document',
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload, $q, $timeout, $location, $anchorScroll){
+			PublicationService, Upload, $q, $timeout, $location, $anchorScroll, $document){
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
@@ -218,20 +218,21 @@ angular.module('placePeopleApp')
 			};
 
 			socket.on("load more messages", function(response){
+				var deferred = $q.defer();
 				if(response.messages.length === 0){
 					$scope.statusLoading = false;
 					$scope.counter = 0;
 				}else{
 					$scope.busyMessages = false;
-					var itemsProcessed = 0;
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
-						itemsProcessed++;
-						if(itemsProcessed === response.messages.length) {
-							setTimeout(function(){
-								returnToBackCB(response.messages[0].id);
-							}, 50);
-      					}
+					});
+					$q.all($scope.Model.Chat).then(function(){
+						$timeout(function(){
+							var firstMessageId = angular.element(document.getElementById(response.messages[0].id + ""));
+							var chatBlock = $("div.chat-right-chat-inner");
+							chatBlock.scrollToElement(firstMessageId);
+						}, 0);
 					});
 					$scope.counter += 10;
 				}
@@ -592,8 +593,8 @@ angular.module('placePeopleApp')
 				return roomId === $scope.currentRoomId;
 			};
 			$scope.returnToBack = function(messageId){
-				$location.hash(messageId + "");
-			}
+				
+			};
 			socket.on("done message", function(data){
 				if(data.doneMessage){
 					if($scope.Model.Chat !== undefined){
