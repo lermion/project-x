@@ -296,9 +296,11 @@
 							ctrl.tooManyFiles = true;
 						}else if(data.status){
 							ngDialog.closeAll();
+							setTimeout(function(){
+								ctrl.addNewPublication = false;
+							}, 10000);
 							ctrl.tooManyFiles = false;
 							$rootScope.$broadcast('publication:add', {
-								ctrl.addNewPublication = false;
 								publication: data.publication
 							});
 						}
