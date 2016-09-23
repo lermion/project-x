@@ -2,9 +2,12 @@
 @section('content')
     <div style="width:100%; height:auto;">
 
-        <h3>Редактирование модератора</h3>
-        <form action="{{ action('Admin\ModeratorController@updateSave') }}" method="post" enctype="multipart/form-data">
+        <h3>Редактирование модератора
+            @if (session()->has('message'))
+                <br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
+            @endif</h3>
 
+        <form action="{{ action('Admin\ModeratorController@updateSave') }}" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-3 admin-moderator-avatar">
                     <div>
@@ -45,14 +48,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[1]">Понедельник</label></td>
-                            <td class="text-center"><input id="fgewgewghewge" class="timepicker" type="text" name="from_time[1]" id="from_time[1]"
+                            <td class="text-center"><input id="fgewgewghewge" class="timepicker" type="time" name="from_time[1]" id="from_time[1]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 1)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[1]" id="to_time[1]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[1]" id="to_time[1]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 1)
                                         {{$working_hour->to_time}}
@@ -69,14 +72,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[2]">Вторник</label></td>
-                            <td class="text-center"><input class="timepicker" type="text" name="from_time[2]" id="from_time[2]"
+                            <td class="text-center"><input class="timepicker" type="time" name="from_time[2]" id="from_time[2]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 2)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[2]" id="to_time[2]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[2]" id="to_time[2]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 2)
                                         {{$working_hour->to_time}}
@@ -93,14 +96,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[3]">Среда</label></td>
-                            <td class="text-center"><input class="timepicker" type="text" name="from_time[3]" id="from_time[3]"
+                            <td class="text-center"><input class="timepicker" type="time" name="from_time[3]" id="from_time[3]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 3)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[3]" id="to_time[3]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[3]" id="to_time[3]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 3)
                                         {{$working_hour->to_time}}
@@ -117,14 +120,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[4]">Четверг</label></td>
-                            <td class="text-center"><input class="timepicker" type="text" name="from_time[4]" id="from_time[4]"
+                            <td class="text-center"><input class="timepicker" type="time" name="from_time[4]" id="from_time[4]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 4)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[4]" id="to_time[4]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[4]" id="to_time[4]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 4)
                                         {{$working_hour->to_time}}
@@ -141,14 +144,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[5]">Пятница</label></td>
-                            <td class="text-center"><input class="timepicker" type="text" name="from_time[5]" id="from_time[5]"
+                            <td class="text-center"><input class="timepicker" type="time" name="from_time[5]" id="from_time[5]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 5)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[5]" id="to_time[5]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[5]" id="to_time[5]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 5)
                                         {{$working_hour->to_time}}
@@ -165,14 +168,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[6]">Суббота</label></td>
-                            <td class="text-center"><input class="timepicker" type="text" name="from_time[6]" id="from_time[6]"
+                            <td class="text-center"><input class="timepicker" type="time" name="from_time[6]" id="from_time[6]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 6)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[6]" id="to_time[6]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[6]" id="to_time[6]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 6)
                                         {{$working_hour->to_time}}
@@ -189,14 +192,14 @@
                                         @endforeach>
                             </td>
                             <td><label for="weekday[0]">Воскресенье</label></td>
-                            <td class="text-center"><input class="timepicker" type="text" name="from_time[0]" id="from_time[0]"
+                            <td class="text-center"><input class="timepicker" type="time" name="from_time[0]" id="from_time[0]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 0)
                                         {{$working_hour->from_time}}
                                             @endif
                                         @endforeach>
                             </td>
-                            <td class="text-center"><input class="timepicker" type="text" name="to_time[0]" id="to_time[0]"
+                            <td class="text-center"><input class="timepicker" type="time" name="to_time[0]" id="to_time[0]"
                             value=@foreach($moderators['working_hours'] as $working_hour)
                                     @if ($working_hour->weekday == 0)
                                         {{$working_hour->to_time}}
@@ -216,6 +219,35 @@
     </div>
 
     <script>
+//        $(document).ready(function(){
+//            $("input[name^='to_time'], input[name^='weekday']").attr("disabled","disabled")
+//
+//            $.each($("input[name^='from_time']"), function(index,val){
+//                if($(val).val() != "") {
+//                    $(val).parent().next().find('input').removeAttr("disabled")
+//                }
+//            })
+//
+//            $.each($("input[name^='to_time']"), function(index,val){
+//                if($(val).val() != "") {
+//                    $(val).parent().prev().prev().prev().find('input').prop("checked",true);
+//                }
+//            })
+//
+//
+//
+//            $("input[name^='from_time']").on("change", function(){
+//                if($(this).val() != "") {
+//                    $(this).parent().next().find('input').removeAttr("disabled")
+//                }
+//            })
+//            $("input[name^='to_time']").on("change", function(){
+//                if($(this).val() != "") {
+//                    $(this).parent().prev().prev().prev().find('input').prop("checked",true);
+//                }
+//            })
+//
+//        })
         $("input.timepicker").timepicker({
             'timeFormat': 'H:i'
         });

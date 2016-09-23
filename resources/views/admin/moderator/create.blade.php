@@ -2,7 +2,10 @@
 @section('content')
     <div style="width:100%; height:auto;">
 
-        <h3>Добавление модератора</h3>
+        <h3>Добавление модератора
+        @if (session()->has('message'))
+            <br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
+        @endif</h3>
         @if(isset($error))
             {{ $error }}
         @endif
