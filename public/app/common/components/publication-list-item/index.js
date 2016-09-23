@@ -186,6 +186,11 @@
 
 
 				ctrl.changeMainFile = function (file, index) {
+					ctrl.mainVideoFile = file;
+					ctrl.mainVideoIndex = index;
+					ctrl.mainImageOriginal = file.original_img_url;
+					ctrl.mainImageOriginalIndex = index;
+
 					if (file.pivot.video_id) {
 						ctrl.showImagePreloader = false;
 						ctrl.mainImage = null;
@@ -1008,8 +1013,8 @@
 				function getIndexCurrentImage() {
 					var index;
 					if(ctrl.pub.files !== undefined){
-						if (ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndex) {
-							index = ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndex;
+						if (ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndexModal) {
+							index = ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndexModal;
 						} else {
 							ctrl.pub.files.forEach(function (file, i, files) {
 								if (file.pivot.is_cover) {
