@@ -9,7 +9,11 @@
             </ul>
             <a href="{{action('Admin\ModeratorController@create')}}" type="button" class="btn btn-primary add-admin-button">Добавить</a>
         </div>
-
+        @if (session()->has('message'))
+            @foreach(session()->pull('message') as $message)
+            <br><h5 style="color: red;"> {!!$message !!}</h5>
+            @endforeach
+        @endif
         <table class="table table-bordered admin-moderators">
             <thead>
             <tr>
