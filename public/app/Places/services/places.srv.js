@@ -255,21 +255,24 @@
 
 		}
 
-		function getCities(countryId) {
+		function getCities(countryObj) {
+			var fd = new FormData();
+			fd.append('country_id', countryObj.id);
+			fd.append('name', countryObj.name);
 
 			return $http({
-				method: 'GET',
-				url: 'city/' + countryId,
+				method: "POST",
+				url: "place/get_cities",
 				headers: {'Content-Type': undefined},
 				transformRequest: angular.identity,
-				data: null
+				data: fd
 			})
 				.then(getCitiesComplete)
 				.catch(getCitiesFailed);
 
 			function getCitiesComplete(response) {
-				countries = response.data;
-				return countries;
+				var cities = response.data;
+				return cities;
 			}
 
 			function getCitiesFailed(error) {
