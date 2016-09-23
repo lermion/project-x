@@ -69,7 +69,7 @@
 			 style="max-height:175px; overflow:hidden; position:relative;"
 			 ng-hide="$ctrl.pub.files.length === 1">
 
-			<div ng-click="$ctrl.changeMainFile(file, $index)" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
+			<div ng-click="$ctrl.changeMainFile(file, $index)"
 				 ng-repeat="file in $ctrl.pub.files | limitTo: $ctrl.isModal ? $ctrl.pub.files.length : $ctrl.limit as results"
 				 class="images-item">
 				<img ng-src="{{file.url}}" ng-if="file.pivot.image_id">
