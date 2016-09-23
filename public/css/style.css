@@ -595,6 +595,9 @@ input[type="tel"]:focus + span.phone,
 	position: relative;
 	cursor: pointer;
 }
+.popup-add-group .add-ava label {
+	margin-top: 0;
+}
 // .add-ava #avatarImg + label {
 // 	display: inline-block;
 // }
