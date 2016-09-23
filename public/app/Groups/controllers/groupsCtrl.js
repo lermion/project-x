@@ -291,7 +291,7 @@ angular.module('app.groups')
 
 				var blob = Upload.dataUrltoBlob(croppedDataURL, $scope.myImageName);
 
-				Upload.resize(blob, 218, 220, 1, null, null, true).then(function (resizedFile) {
+				Upload.resize(blob, 450, 450, 1, null, null, true).then(function (resizedFile) {
 					$scope.newGroup.avatarCard = resizedFile;
 				});
 

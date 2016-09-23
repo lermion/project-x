@@ -248,7 +248,7 @@
 }
 .popup-invite-place-people-name1 .user-info {
 	max-width: 73%;
-	margin-left: 5px;
+	margin-left: 10px;
 }
 
 
@@ -5591,14 +5591,6 @@ input.cmn-toggle-round:checked + label:after {
 	    max-height: 200%;
 	    width: auto;
 	    height: 100%;
-	}
-}
-@media (max-width: 420px) {
-	.groups-content .group-cover .group-ava img {
-	    max-width: 200%;
-	    max-height: 200%;
-	    width: 100%;
-	    height: auto;
 	}
 }
 @media (max-width: 400px) {
