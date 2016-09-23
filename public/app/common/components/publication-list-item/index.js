@@ -177,7 +177,6 @@
 				};
 
 				ctrl.$onDestroy = function (args) {
-					//console.log('OnDestroy');
 				};
 
 				ctrl.$postLink = function (args) {
@@ -186,10 +185,10 @@
 
 
 				ctrl.changeMainFile = function (file, index) {
-					ctrl.mainVideoFile = file;
-					ctrl.mainVideoIndex = index;
-					ctrl.mainImageOriginal = file.original_img_url;
-					ctrl.mainImageOriginalIndex = index;
+					ctrl.mainVideoFile = null;
+					ctrl.mainVideoIndex = null;
+					ctrl.mainImageOriginal = null;
+					ctrl.mainImageOriginalIndex = null;
 
 					if (file.pivot.video_id) {
 						ctrl.showImagePreloader = false;
