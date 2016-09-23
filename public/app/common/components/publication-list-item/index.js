@@ -191,6 +191,7 @@
 						ctrl.mainImage = null;
 						ctrl.mainVideo = file.url;
 						ctrl.mainVideoFile = file;
+						ctrl.mainVideoIndex = index;
 
 						$http.get('chat/get_video/' + file.id).then(function (resp) {
 							ctrl.showVideo = !!resp.data.is_coded;
@@ -420,6 +421,7 @@
 						ctrl.pub.mainImageModal = ctrl.mainImageOriginal || null;
 						ctrl.pub.mainImageIndexModal = ctrl.mainImageOriginalIndex || null;
 						ctrl.pub.mainVideoModal = ctrl.mainVideoFile || null;
+						ctrl.pub.mainVideoIndexModal = ctrl.mainVideoIndex || null;
 						ctrl.toClick(ctrl.pub, ctrl.index);
 					} else {
 						showNextInfo();
@@ -1006,8 +1008,8 @@
 				function getIndexCurrentImage() {
 					var index;
 					if(ctrl.pub.files !== undefined){
-						if (ctrl.pub.mainImageIndexModal) {
-							index = ctrl.pub.mainImageIndexModal;
+						if (ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndex) {
+							index = ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndex;
 						} else {
 							ctrl.pub.files.forEach(function (file, i, files) {
 								if (file.pivot.is_cover) {
