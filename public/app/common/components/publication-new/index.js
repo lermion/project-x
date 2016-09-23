@@ -184,7 +184,9 @@
 				};
 
 				ctrl.submitNewPublication = function () {
+					ctrl.addNewPublication = true;
 					if (ctrl.subForm) {
+						ctrl.addNewPublication = false;
 						return false;
 					}
 					ctrl.newPublicationForm.$setSubmitted();
@@ -196,15 +198,16 @@
 					}
 					
 					if (!ctrl.coverToCrop && !ctrl.cover) {
+						ctrl.addNewPublication = false;
 						return false;
 					}
 
 					if (ctrl.newPublicationForm.$invalid) {
+						ctrl.addNewPublication = false;
 						return false;
 					}
 
-					ctrl.addNewPublication = true;
-
+					
 					ctrl.subForm = true;
 
 					var images = [],
