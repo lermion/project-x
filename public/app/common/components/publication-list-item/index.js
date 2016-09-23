@@ -154,7 +154,7 @@
 								return file.pivot.is_cover == true;
 							});
 
-							if (trl.pub.mainImageModal) {
+							if (ctrl.pub.mainImageModal) {
 								ctrl.mainImage = ctrl.pub.mainImageModal;
 							} else {
 								if (imgCover[0]) {
