@@ -289,6 +289,7 @@
 				};
 
 				function submitProfileOrFeedPublication(pub){
+					console.log("gegew!!!");
 					PublicationService.createPublication(pub).then(function(data){
 						ctrl.subForm = false;
 						if(!data.status && parseInt(data.error.code) === 1){
