@@ -1,10 +1,10 @@
 angular.module('placePeopleApp')
 	.controller('chatCtrl', ['$scope', '$state', '$stateParams', 'StaticService', 'AuthService', 'UserService', 
 		'$window', '$http', 'storageService', 'ngDialog', 'ChatService', '$rootScope', 'socket', 'amMoment',
-		'PublicationService', 'Upload', '$q', '$timeout', '$location', '$anchorScroll',
+		'PublicationService', 'Upload', '$q', '$timeout', '$location', '$anchorScroll', '$document',
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, 
 			$window, $http, storageService, ngDialog, ChatService, $rootScope, socket, amMoment, 
-			PublicationService, Upload, $q, $timeout, $location, $anchorScroll){
+			PublicationService, Upload, $q, $timeout, $location, $anchorScroll, $document){
 			$scope.$emit('userPoint', 'user');
 			amMoment.changeLocale('ru');
 			var storage = storageService.getStorage();
@@ -231,7 +231,7 @@ angular.module('placePeopleApp')
 							setTimeout(function(){
 								returnToBackCB(response.messages[0].id);
 							}, 50);
-      					}
+						}
 					});
 					$scope.counter += 10;
 				}
@@ -592,8 +592,10 @@ angular.module('placePeopleApp')
 				return roomId === $scope.currentRoomId;
 			};
 			$scope.returnToBack = function(messageId){
-				$location.hash(messageId + "");
-			}
+				var firstMessageId = angular.element(document.getElementById(messageId + ""));
+				var chatBlock = $("div.chat-right-chat-inner");
+				chatBlock.scrollToElementAnimated(firstMessageId);
+			};
 			socket.on("done message", function(data){
 				if(data.doneMessage){
 					if($scope.Model.Chat !== undefined){
