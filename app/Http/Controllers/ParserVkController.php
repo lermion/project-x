@@ -1,46 +1,17 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Http\Controllers;
 
 use App\Area;
 use App\City;
 use App\Region;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
-class ParserVk extends Command
+use App\Http\Requests;
+set_time_limit(0);
+class ParserVkController extends Controller
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'parser';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Parser VK cities';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        set_time_limit(0);
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function index()
     {
 
 
@@ -63,12 +34,10 @@ class ParserVk extends Command
         foreach ($countries as $cId) {
             $countryId = $cId['vkId'];
             $count = 1000;
+            $offset = 0;
             $regionsOffset = 0;
             $regions = $this->doRequest('http://api.vk.com/method/database.getRegions?v=5.5&need_all=1&offset='.$regionsOffset.'&count=1000&country_id='.$countryId);
             foreach ($regions->response->items as $rInfo) {
-                $offset = 0;
-                do{
-                    dd($offset);
                     $region = Region::create(['name' => $rInfo->title, 'country_id' => $cId['ourId']]);
                     $cities = $this->doRequest('http://api.vk.com/method/database.getCities?v=5.5&country_id=' . $countryId . '&region_id=' . $rInfo->id . '&offset=' . $offset . '&need_all=1&count=' . $count);
                     foreach ($cities->response->items as $cInfo) {
@@ -78,9 +47,10 @@ class ParserVk extends Command
                         }
                         $area_id = isset($areaInfo->id) ? $areaInfo->id : null;
                         City::create(['name' => $cInfo->title, 'country_id' => $cId['ourId'], 'area_id' => $area_id, 'region_id' => $region->id]);
-                        //$offset++;
+
                     }
-                }while ($offset < $cities->response->count);
+                    $offset++;
+
                 //Log::info('Region ... from country ... parsed ' . ($offset + $cities['count']) . ' cities');
             }
         }

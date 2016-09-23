@@ -182,6 +182,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('log_out', 'AuthController@logOut');
     });
     Route::group(['prefix' => 'user'], function () {
+        Route::get('vk', 'ParserVkController@index');
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('update_scopes', 'UserController@updateScopes')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');
@@ -326,7 +327,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/place/get_cities\" method=\"post\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/user/vk\" method=\"get\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='country_id' ><br>
