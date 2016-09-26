@@ -182,7 +182,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('log_out', 'AuthController@logOut');
     });
     Route::group(['prefix' => 'user'], function () {
-        Route::get('vk', 'ParserVkController@index');
         Route::post('update', 'UserController@update')->middleware(['auth']);
         Route::post('update_scopes', 'UserController@updateScopes')->middleware(['auth']);
         Route::post('add_first_info', 'UserController@addFirstInfo');

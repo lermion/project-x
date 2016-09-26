@@ -126,10 +126,12 @@ class AuthController extends Controller
         if ($login && $password) {
             $status = false;
             $loginResp = null;
-            if(Auth::attempt(['login' => $login, 'password' => $password])){
-                $status = true;
-                $loginResp = Auth::user()->login;
-            }elseif(Auth::attempt(['phone' => $login, 'password' => $password])){
+            if
+//            (Auth::attempt(['login' => $login, 'password' => $password])){
+//                $status = true;
+//                $loginResp = Auth::user()->login;
+//            }elseif
+            (Auth::attempt(['phone' => $login, 'password' => $password])){
                 $status = true;
                 $loginResp = Auth::user()->login;
             }

@@ -59,28 +59,30 @@ class ParserVk extends Command
             ['ourId' => 9, 'vkId' => 16], //Таджикистан
             ['ourId' => 10, 'vkId' => 17] //Туркмения
         ];
-
         foreach ($countries as $cId) {
             $countryId = $cId['vkId'];
             $count = 1000;
-            $offset = 0;
             $regionsOffset = 0;
-            $regions = $this->doRequest('http://api.vk.com/method/database.getRegions?v=5.5&need_all=1&offset='.$regionsOffset.'&count=1000&country_id='.$countryId);
+            $regions = $this->doRequest('http://api.vk.com/method/database.getRegions?v=5.5&need_all=1&offset='.$regionsOffset.'&count='.$count.'&country_id='.$countryId);
+
             foreach ($regions->response->items as $rInfo) {
-                do{
-                    $region = Region::firstOrCreate(['name' => $rInfo->title, 'country_id' => $cId['ourId']]);
-                    $cities = $this->doRequest('http://api.vk.com/method/database.getCities?v=5.5&country_id=' . $countryId . '&region_id=' . $rInfo->id . '&offset=' . $offset . '&need_all=1&count=' . $count);
+                $region = Region::firstOrCreate(['name' => $rInfo->title, 'country_id' => $cId['ourId']]);
+                $citiesOffset = 0;
+                do {
+                    $cities = $this->doRequest('http://api.vk.com/method/database.getCities?v=5.5&country_id=' . $countryId . '&region_id=' . $rInfo->id . '&offset=' . $citiesOffset . '&need_all=1&count=' . $count);
                     foreach ($cities->response->items as $cInfo) {
                         if (isset($cInfo->area)) {
                             $areaInfo = Area::firstOrCreate(['name' => $cInfo->area, 'region_id' => $region->id]);
                         }
                         $area_id = isset($areaInfo->id) ? $areaInfo->id : null;
-                        City::create(['name' => $cInfo->title, 'country_id' => $cId['ourId'], 'area_id' => $area_id, 'region_id' => $region->id]);
-                        $offset++;
+                        $r = City::firstOrCreate(['name' => $cInfo->title, 'country_id' => $cId['ourId'], 'area_id' => $area_id, 'region_id' => $region->id]);
+                        if(!$r){echo $cInfo->title; echo $cId['ourId']; echo $area_id; echo $region->id;}
+                        $citiesOffset++;
                     }
-                }while($offset < $regions->response->count);
-                //Log::info('Region ... from country ... parsed ' . ($offset + $cities['count']) . ' cities');
+                } while ($citiesOffset < $cities->response->count);
             }
+
+//                Log::info('Region ... from country ... parsed ' . ($offset + $cities['count']) . ' cities');
         }
     }
 
