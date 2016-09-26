@@ -184,7 +184,9 @@
 				};
 
 				ctrl.submitNewPublication = function () {
+					ctrl.addNewPublication = true;
 					if (ctrl.subForm) {
+						ctrl.addNewPublication = false;
 						return false;
 					}
 					ctrl.newPublicationForm.$setSubmitted();
@@ -196,13 +198,16 @@
 					}
 					
 					if (!ctrl.coverToCrop && !ctrl.cover) {
+						ctrl.addNewPublication = false;
 						return false;
 					}
 
 					if (ctrl.newPublicationForm.$invalid) {
+						ctrl.addNewPublication = false;
 						return false;
 					}
 
+					
 					ctrl.subForm = true;
 
 					var images = [],
@@ -289,11 +294,14 @@
 						if(!data.status && parseInt(data.error.code) === 1){
 							ctrl.tooManyFiles = true;
 						}else if(data.status){
+							ngDialog.closeAll();
+							setTimeout(function(){
+								ctrl.addNewPublication = false;
+							}, 10000);
 							ctrl.tooManyFiles = false;
 							$rootScope.$broadcast('publication:add', {
 								publication: data.publication
 							});
-							ngDialog.closeAll();
 						}
 					});
 				}

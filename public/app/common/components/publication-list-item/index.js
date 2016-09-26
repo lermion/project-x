@@ -118,19 +118,35 @@
 								return file.pivot.is_cover == true;
 							});
 
-							if (videoCover[0]) {
-								ctrl.mainVideo = videoCover[0].url;
-								videoIsCoded = !!videoCover[0].is_coded;
+							if (ctrl.pub.mainVideoModal) {
+								var file = ctrl.pub.mainVideoModal;
+								ctrl.mainVideo = file.url;
+								videoIsCoded = !!file.is_coded;
 								if (!videoIsCoded) {
-									$http.get('chat/get_video/' + videoCover[0].id).then(function (resp) {
+									$http.get('chat/get_video/' + file.id).then(function (resp) {
 										ctrl.showVideo = !!resp.data.is_coded;
 									});
 								} else {
 									ctrl.showVideo = true;
 								}
 							} else {
-								ctrl.mainVideo = false;
+								if (videoCover[0]) {
+									ctrl.mainVideo = videoCover[0].url;
+									videoIsCoded = !!videoCover[0].is_coded;
+									if (!videoIsCoded) {
+										$http.get('chat/get_video/' + videoCover[0].id).then(function (resp) {
+											ctrl.showVideo = !!resp.data.is_coded;
+										});
+									} else {
+										ctrl.showVideo = true;
+									}
+
+								} else {
+									ctrl.mainVideo = false;
+								}
 							}
+
+
 						}
 
 						if (ctrl.pub.images.length > 0) {
@@ -138,13 +154,12 @@
 								return file.pivot.is_cover == true;
 							});
 
-							if (imgCover[0]) {
-								if (ctrl.pub.mainImageModal) {
-									ctrl.mainImage = ctrl.pub.mainImageModal;
-								} else {
+							if (ctrl.pub.mainImageModal) {
+								ctrl.mainImage = ctrl.pub.mainImageModal;
+							} else {
+								if (imgCover[0]) {
 									ctrl.mainImage = imgCover[0].original_img_url;
 								}
-
 							}
 						}
 
@@ -162,7 +177,6 @@
 				};
 
 				ctrl.$onDestroy = function (args) {
-					//console.log('OnDestroy');
 				};
 
 				ctrl.$postLink = function (args) {
@@ -171,10 +185,17 @@
 
 
 				ctrl.changeMainFile = function (file, index) {
+					ctrl.mainVideoFile = null;
+					ctrl.mainVideoIndex = null;
+					ctrl.mainImageOriginal = null;
+					ctrl.mainImageOriginalIndex = null;
+
 					if (file.pivot.video_id) {
 						ctrl.showImagePreloader = false;
 						ctrl.mainImage = null;
 						ctrl.mainVideo = file.url;
+						ctrl.mainVideoFile = file;
+						ctrl.mainVideoIndex = index;
 
 						$http.get('chat/get_video/' + file.id).then(function (resp) {
 							ctrl.showVideo = !!resp.data.is_coded;
@@ -403,6 +424,8 @@
 						ctrl.showAddComment = false;
 						ctrl.pub.mainImageModal = ctrl.mainImageOriginal || null;
 						ctrl.pub.mainImageIndexModal = ctrl.mainImageOriginalIndex || null;
+						ctrl.pub.mainVideoModal = ctrl.mainVideoFile || null;
+						ctrl.pub.mainVideoIndexModal = ctrl.mainVideoIndex || null;
 						ctrl.toClick(ctrl.pub, ctrl.index);
 					} else {
 						showNextInfo();
@@ -989,8 +1012,8 @@
 				function getIndexCurrentImage() {
 					var index;
 					if(ctrl.pub.files !== undefined){
-						if (ctrl.pub.mainImageIndexModal) {
-							index = ctrl.pub.mainImageIndexModal;
+						if (ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndexModal) {
+							index = ctrl.pub.mainImageIndexModal || ctrl.pub.mainVideoIndexModal;
 						} else {
 							ctrl.pub.files.forEach(function (file, i, files) {
 								if (file.pivot.is_cover) {

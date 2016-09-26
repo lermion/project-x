@@ -72,7 +72,7 @@
 					  chargement="'Загрузка'"
 					  area-type="rectangle"
 					  aspect-ratio="1.77"
-					  area-min-relative-size="{w: 1000, h: 695}"
+					  area-min-relative-size="{w: 700, h: 395}"
 					  result-image-size="{w: 700, h: 395}"></img-crop>
 		</div>
 
@@ -137,7 +137,7 @@
 			</div>
 			<div class="publication-footer-button">
 				<a href="javascript:void(0);" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-				<button ng-disabled="$ctrl.isFilesAdded" type="submit" class="publication-button" ladda="$ctrl.subForm" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
+				<button class="add-new-publication-button" ng-disabled="$ctrl.isFilesAdded || $ctrl.addNewPublication" type="submit" class="publication-button" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
 			</div>
 		</div>
 

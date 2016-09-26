@@ -5068,3 +5068,22 @@ span.select-avatar-notice{
 	font-weight: 100;
 	opacity: 0.8;
 }
+button.add-new-publication-button{
+	text-decoration: none;
+    font-size: 14.6px;
+    font-family: "SFUIDisplayMedium";
+    line-height: 30px !important;
+    padding: 0 10px;
+    transition: all .1s ease-in-out .1s!important;
+    color: #fff;
+    background-color: #495b79 !important;
+    border-radius: 3px !important;
+    border: 1px solid #495b79 !important;
+    outline: none;
+    cursor: pointer;
+    width: auto;
+}
+button.add-new-publication-button:hover{
+	background-color: #fff !important;
+    color: #495b79 !important;
+}

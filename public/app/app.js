@@ -23,6 +23,7 @@
         'btford.socket-io',
         'angular-md5',
         'yandex-metrika',
+        'duScroll',
 
 
         'app.feed',
