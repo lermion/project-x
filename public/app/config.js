@@ -387,6 +387,8 @@ angular.module('placePeopleApp')
 
                 $rootScope.countryName = metaData.GeocoderMetaData.AddressDetails.Country.CountryName;
 
+                $rootScope.$broadcast('location:ready');
+
                 //$scope.countries.forEach(function (elem) {
                 //    if (elem.name === countryName) {
                 //        $scope.newUserCountryId = +elem.id;
