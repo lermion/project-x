@@ -18,9 +18,12 @@ angular.module('placePeopleApp')
 			//////////////////////////////////////////
 
 			function init() {
-
-
-
+				if( $state.is('reg') ) {
+					$timeout(function() {
+						setUserCountry();
+						setCountryCode();
+					}, 0);
+				}
 			}
 
 
@@ -82,9 +85,7 @@ angular.module('placePeopleApp')
 						setUserCountry();
 						setCountryCode();
 					}, 0);
-
 				}
-
 			});
 
 			$scope.loginPage = function () {
