@@ -478,7 +478,9 @@
 													room_id: value.room_id,
 													message: $location.absUrl() + "/publication/" + pubId
 												};
-												socket.emit('send message', data);
+												socket.emit('send message', data, function() {
+													resetSharePublicationForm();
+												});
 											});
 										}
 									} else {
@@ -499,6 +501,7 @@
 													ngDialog.closeAll();
 												}, 2000);
 											}
+											resetSharePublicationForm();
 										});
 									}
 								});
@@ -520,6 +523,7 @@
 											ngDialog.closeAll();
 										}, 2000);
 									}
+									resetSharePublicationForm();
 								});
 							}
 						});
@@ -1037,6 +1041,21 @@
 
 						return index;
 					}
+				}
+
+				/**
+				 * Reset share modal window: active tab, checkboxes etc.
+				 */
+				function resetSharePublicationForm() {
+					ctrl.currentIndex = 0;
+
+					ctrl.groupsChecked = [];
+					ctrl.placesChecked = [];
+					ctrl.groupsChatArray = [];
+					ctrl.subscribersArray = [];
+					ctrl.subscriptionsArray = [];
+
+					ctrl.changeMenu('members', 0);
 				}
 			}
 		});
