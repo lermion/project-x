@@ -31,8 +31,8 @@
 												<span class="city-inner"></span>
 										</div>
 										<div class="phone-field">
-											<span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
 											<input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="nupnErr=false;" ng-change="nupnErr=false;" required style="padding-left:{{calcPadding()}}px;">
+											<span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
 										</div>
 										<p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
 									</form>
