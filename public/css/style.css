@@ -839,7 +839,7 @@ footer {
 @media (max-width: 1024px) {
 	body.main-page {
 		overflow: visible;
-		padding-bottom: 100%;
+		/*padding-bottom: 100%;*/
 		min-height: 100vh;
 	}
 }
