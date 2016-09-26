@@ -972,6 +972,9 @@
 									});
 								}
 								ctrl.indexCurrentImage = imagesLength - 1;
+                                $timeout(function() {
+                                    $scope.$broadcast("scroll:rebuild:pub");
+                                }, 0);
 							}
 						}
 					}
@@ -1013,7 +1016,7 @@
 								}
 								$timeout(function() {
 									$scope.$broadcast("scroll:rebuild:pub");
-								});
+								}, 0);
 							}
 						}
 					}
