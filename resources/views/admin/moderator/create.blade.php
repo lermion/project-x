@@ -90,4 +90,36 @@
             <a href="/admin/moderator" class="btn btn-default">Отменить</a>
         </form>
     </div>
+    <script>
+        $(document).ready(function(){
+            $("input[name^='to_time'], input[name^='weekday']").attr("disabled","disabled");
+
+            $.each($("input[name^='from_time']"), function(index,val){
+                if($(val).val() != "") {
+                    $(val).parent().next().find('input').removeAttr("disabled");
+                }
+            });
+
+            $.each($("input[name^='to_time']"), function(index,val){
+                if($(val).val() != "") {
+                    $(val).parent().prev().prev().prev().find('input').prop("checked",true);
+                }
+            });
+
+            $("input[name^='from_time']").on("change", function(){
+                if($(this).val() != "") {
+                    $(this).parent().next().find('input').removeAttr("disabled")
+                } else {
+                    $(this).parent().next().find('input').attr("disabled","disabled").val("")
+                    $(this).parent().prev().prev().find('input').prop("checked",false);
+                }
+            })
+            $("input[name^='to_time']").on("change", function(){
+                if($(this).val() != "") {
+                    $(this).parent().prev().prev().prev().find('input').prop("checked",true);
+                } else {$(this).parent().prev().prev().prev().find('input').prop("checked",false);}
+            })
+
+        });
+    </script>
 @stop
