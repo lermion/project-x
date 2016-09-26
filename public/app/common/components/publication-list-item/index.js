@@ -758,7 +758,8 @@
 						$state.go('search', {
 							'searchObj': angular.copy(search),
 							'restoreSearchResult': false,
-							'setActiveTab': true
+							'setActiveTab': true,
+							'params': search.str
 						});
 					}
 				};

@@ -137,7 +137,7 @@
 					   ng-if="comment.user.id == $ctrl.myId"></a>
 				</div>
 				<p class="comment-item"
-				   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck">
+				   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck" ng-click="$ctrl.goToSearch(comment.text)">
 					{{comment.text}}</p>
 				<a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);"
 				   ng-click="$ctrl.showFullComment(comment)"
