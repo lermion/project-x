@@ -1,12 +1,12 @@
 <div class="group-chat">
-	<div ng-scroll-bottom="messages" ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
+	<div ng-scroll-bottom="isNeededScroll()" ng-class="{'stop-scrolling': vm.group.is_sub === false}" when-scrolled="loadMoreMessages()" class="group-chat-inner">
 		<!-- <div class="date-messeges">
 			<p class="date">Вчера</p>
 		</div> -->
 		<div ng-hide="message.text == '' && message.images.length === 0 && message.videos.length === 0" ng-init="checkMessageType(message)" ng-repeat="message in messages" ng-class="message.login === $root.user.username ? 'my-messege' : 'users-messege'">
 			<div class="user-ava">
 				<a ui-sref="user({username: message.login})" class="ava">
-					<img ng-src="{{message.avatar_path}}" alt="">
+					<img ng-src="{{message.avatar_path ? message.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
 				</a>
 			</div>
 			<div class="user-messeges">

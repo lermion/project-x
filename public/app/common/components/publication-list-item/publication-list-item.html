@@ -65,7 +65,7 @@
 			<video ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
 
 		</div>
-		<div ng-class="{'is-popup': $ctrl.isModal}" class="publication-images" ng-scrollbar="scrollbar{{$ctrl.isModal ? 1 : 2}}" rebuild-on="rebuild:me"
+		<div ng-class="{'is-popup': $ctrl.isModal}" class="publication-images" ng-scrollbar rebuild-on="scroll:rebuild:pub"
 			 style="max-height:175px; overflow:hidden; position:relative;"
 			 ng-hide="$ctrl.pub.files.length === 1">
 
@@ -137,7 +137,7 @@
 					   ng-if="comment.user.id == $ctrl.myId"></a>
 				</div>
 				<p class="comment-item"
-				   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck">
+				   ng-bind-html="comment.text.length > comment.commentLength ? (comment.text | limitTo: 250) + '...' : comment.text | colonToSmiley | linkCheck" ng-click="$ctrl.goToSearch(comment.text)">
 					{{comment.text}}</p>
 				<a class="link-at-hashtag" style="font-size: 14.6px;" href="javascript:void(0);"
 				   ng-click="$ctrl.showFullComment(comment)"

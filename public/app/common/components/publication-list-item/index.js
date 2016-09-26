@@ -170,6 +170,10 @@
 
 
 					ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
+
+					$timeout(function() {
+						$scope.$broadcast('scroll:rebuild:pub');
+					}, 0);
 				};
 
 				ctrl.$onChanges = function (args) {
@@ -474,7 +478,9 @@
 													room_id: value.room_id,
 													message: $location.absUrl() + "/publication/" + pubId
 												};
-												socket.emit('send message', data);
+												socket.emit('send message', data, function() {
+													resetSharePublicationForm();
+												});
 											});
 										}
 									} else {
@@ -495,6 +501,7 @@
 													ngDialog.closeAll();
 												}, 2000);
 											}
+											resetSharePublicationForm();
 										});
 									}
 								});
@@ -516,6 +523,7 @@
 											ngDialog.closeAll();
 										}, 2000);
 									}
+									resetSharePublicationForm();
 								});
 							}
 						});
@@ -754,7 +762,8 @@
 						$state.go('search', {
 							'searchObj': angular.copy(search),
 							'restoreSearchResult': false,
-							'setActiveTab': true
+							'setActiveTab': true,
+							'params': search.str
 						});
 					}
 				};
@@ -918,7 +927,9 @@
 				ctrl.loadMorePubFiles = function(key){
 					if(key === false){
 						ctrl.limit = ctrl.pub.images.length + ctrl.pub.videos.length;
-						$scope.$broadcast('rebuild:me');
+						$timeout(function() {
+							$scope.$broadcast('scroll:rebuild:pub');
+						});
 					}else{
 						ctrl.limit = 6;
 					}
@@ -965,6 +976,9 @@
 									});
 								}
 								ctrl.indexCurrentImage = imagesLength - 1;
+                                $timeout(function() {
+                                    $scope.$broadcast("scroll:rebuild:pub");
+                                }, 0);
 							}
 						}
 					}
@@ -1004,6 +1018,9 @@
 									}
 									ctrl.indexCurrentImage = 0;
 								}
+								$timeout(function() {
+									$scope.$broadcast("scroll:rebuild:pub");
+								}, 0);
 							}
 						}
 					}
@@ -1024,6 +1041,21 @@
 
 						return index;
 					}
+				}
+
+				/**
+				 * Reset share modal window: active tab, checkboxes etc.
+				 */
+				function resetSharePublicationForm() {
+					ctrl.currentIndex = 0;
+
+					ctrl.groupsChecked = [];
+					ctrl.placesChecked = [];
+					ctrl.groupsChatArray = [];
+					ctrl.subscribersArray = [];
+					ctrl.subscriptionsArray = [];
+
+					ctrl.changeMenu('members', 0);
 				}
 			}
 		});

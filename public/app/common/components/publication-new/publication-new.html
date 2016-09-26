@@ -72,7 +72,6 @@
 					  chargement="'Загрузка'"
 					  area-type="rectangle"
 					  aspect-ratio="1.77"
-					  area-min-relative-size="{w: 700, h: 395}"
 					  result-image-size="{w: 700, h: 395}"></img-crop>
 		</div>
 
@@ -107,6 +106,7 @@
 					   ngf-select
 					   ngf-accept="'image/*,video/*'"
 					   ngf-min-width="700"
+					   ngf-max-width="3000"
 					   ngf-pattern="'image/*,video/*'"
 					   ng-model="$ctrl.filesPreview"
 					   ngf-change="$ctrl.attachFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
@@ -131,13 +131,14 @@
 					<div ng-message="coverRequired">Вы не выбрали обложку</div>
 					<div ng-message="pattern">Выбранный файл не является фото или видео</div>
 					<div ng-message="minWidth">Минимальная ширина картинки 700 пикселей</div>
+					<div ng-message="maxWidth">Максимальная ширина картинки 3000 пикселей</div>
 				</div>
 				<div class="error-too-many-files" ng-show="$ctrl.tooManyFiles">Вы не можете выбрать более 20 файлов</div>
 				<div class="error-too-many-files" ng-show="$ctrl.tooManyFilesRemove">Вы не можете выбрать более 20 файлов, добавлены были только первые 20</div>
 			</div>
 			<div class="publication-footer-button">
 				<a href="javascript:void(0);" class="cansel" ng-click="$ctrl.ngDialog.close()">Отменить</a>
-				<button class="add-new-publication-button" ng-disabled="$ctrl.isFilesAdded || $ctrl.addNewPublication" type="submit" class="publication-button" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
+				<button class="add-new-publication-button" ng-disabled="$ctrl.isFilesAdded || $ctrl.addNewPublication" type="submit" ladda="$ctrl.subForm" class="publication-button" ng-click="$ctrl.submitNewPublication()">Опубликовать</button>
 			</div>
 		</div>
 

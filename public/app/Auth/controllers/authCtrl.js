@@ -6,6 +6,8 @@ angular.module('placePeopleApp')
 
 			$scope.countries = countries ? countries : [];
 
+			$scope.createAccountForm = {};
+
 			init();
 
 			//////////////////////////////////////////
@@ -268,6 +270,8 @@ angular.module('placePeopleApp')
 			$scope.userRegisterS3 = function (firstName, lastName, gender, login, pwd, countryId, uId) {
 
 				$scope.regLoader = true;
+
+				//TODO: replace to ng-messages validation
 				var errors = 0;
 				if (!firstName) {
 					$scope.nunErr = 'Введите имя';
@@ -289,10 +293,18 @@ angular.module('placePeopleApp')
 					$scope.nupErr = 'Длина пароля должна быть не меньше 6 знаков';
 					errors++;
 				}
+
+				$scope.createAccountForm.$setSubmitted();
+
 				if (errors > 0) {
 					$scope.regLoader = false;
 					return;
 				}
+
+				if ($scope.createAccountForm.$invalid) {
+					return false;
+				}
+
 				AuthService.registerUser(firstName, lastName, gender, login, pwd, countryId, $scope.croppedImg, uId, $scope.originalImageBlobFile, $scope.checkedAreas)
 					.then(function (res) {
 						if (res.status) {
@@ -438,6 +450,10 @@ angular.module('placePeopleApp')
 						console.log(err);
 					});
 			};
+
+			$scope.changeStateTo = function(stateName) {
+			    $state.go(stateName);
+            };
 
 			/**
 			 * Set user country for registration select element

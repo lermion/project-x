@@ -9,7 +9,7 @@
 								<a ng-class="{active:isSelected($index)}" ng-click="selectArea($index, area.id)" href="javascript:void(0);">{{area.name}}</a>
 							</div>
 						</div>
-						<div class="logo"></div>
+						<div class="logo hover--pointer" ng-click="changeStateTo('auth')"></div>
 						<h1>С теми, кто в теме</h1>
 						<div class="form-item" ng-hide="regStep1">
 									<h5>Регистрация</h5>
@@ -22,18 +22,18 @@
 										<div ng-show="showAnotherTopic" class="phone-field theme">
 											<span class="region"></span>
 											<input type="text" placeholder="Напишите другую тему..." required>
-										</div> 
+										</div>
 										<div class="city-field">
-												<span class="city"></span>                                                
+												<span class="city"></span>
 												<select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" ng-click="nupnErr=false;" ng-change="nupnErr=false;" required>
 												<option value="">Выберите страну...</option>
 												</select>
 												<span class="city-inner"></span>
-										</div>                                        
+										</div>
 										<div class="phone-field">
-											<span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
 											<input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="nupnErr=false;" ng-change="nupnErr=false;" required style="padding-left:{{calcPadding()}}px;">
-										</div>                                        
+											<span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
+										</div>
 										<p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
 									</form>
 									<button class="check-in-button" ng-click="userRegisterS1();" ladda="codeSendLoader">Зарегистрироваться</button>
@@ -51,13 +51,13 @@
 									<button class="check-in-button" ng-click="userRegisterS2()" ladda="smsConfirmLoader">Зарегистрироваться</button>
 						</div>
 				</div>
-		</div> 
+		</div>
 		<div class="check-in registration" ng-show="regConfirmed && !userRegistred">
 			   <div class="form">
 						<div class="logo"></div>
 						<h1>С теми, кто в теме</h1>                          
 						<div class="form-item ">
-									<form>
+									<form name="createAccountForm" novalidate>
 										<div class="add-ava" ng-init="showEditAva=true;">
 											<span ng-hide="croppedFile" class="select-avatar-notice">Выберите аватар</span>
 											<input type="file" id="avatarImg"/>  
@@ -69,22 +69,26 @@
 													<span class="add-photo" ng-show="!croppedFile || showEditAva"></span>
 												</span>
 											</label>                                         
-										</div>                        
+										</div>
+
 										<div class="name-field">
 													<span class="name"></span>
 													<input type="text" ng-model="newUserName" placeholder="Имя" ng-click="nunErr=false;" ng-change="nunErr=false;">
 										</div>
 										<p ng-show="nunErr" class="capcha-name">{{nunErr}}</p>
+
 										<div class="lastname-field">
 													<span class="lastname"></span>
 													<input type="text" ng-model="newUserLastName" placeholder="Фамилия" ng-click="nusErr=false;" ng-change="nusErr=false;">
 										</div>
 										<p ng-show="nusErr" class="capcha-name">{{nusErr}}</p>
+
 										<div class="user-field">                                        
 													<span class="user"></span>
 													<input type="text" ng-model="newUserLogin" placeholder="Придумайте логин" ng-click="nulErr=false;" ng-change="nulErr=false;">
 										</div> 
 										<p ng-show="nulErr" class="capcha-user">{{nulErr}}</p>
+
 										<div class="sex-field">
 											<span class="sex"></span>
 											<select ng-model="newUserGender" ng-options="gender.sign as gender.title for gender in [{sign:1, title:'Мужской'}, {sign:0, title:'Женский'}]" ng-click="nugErr=false;" ng-change="nugErr=false;" required>
@@ -92,11 +96,36 @@
 											</select>    
 										</div>                              
 										<p ng-show="nugErr" class="capcha-user">{{nugErr}}</p>
+
 										<div class="password-field">
 													<span class="password"></span>
-													<input type="password"  ng-model="newUserPassword" placeholder="Придумайте пароль" ng-click="nupErr=false;" ng-change="nupErr=false;">
+													<input type="password"
+														   name="password"
+														   ng-model="newUserPassword"
+														   placeholder="Придумайте пароль"
+														   ng-click="nupErr=false;"
+														   ng-change="nupErr=false;"
+														   required>
 										</div>
 										<p ng-show="nupErr" class="capcha-password">{{nupErr}}</p>
+
+										<div class="password-field">
+											<span class="password"></span>
+											<input type="password"
+												   name="passwordAgain"
+												   ng-model="newUserConfirmPassword"
+												   compare-to="newUserPassword"
+												   placeholder="Повторите пароль"
+												   ng-click="nupErr=false;"
+												   ng-change="nupErr=false;"
+												   required>
+										</div>
+										<div ng-messages="createAccountForm.passwordAgain.$error"
+											 ng-if="createAccountForm.$invalid && createAccountForm.$submitted">
+											<p ng-message="required">Это поле должно быть заполнено</p>
+											<p ng-message="compareTo">Пароли не совпадают. Повторите попытку</p>
+										</div>
+
 									</form>
 									<button class="check-in-button" ng-click="userRegisterS3(newUserName, newUserLastName, newUserGender, newUserLogin, newUserPassword, newUserCountryId, newUserId)" ladda="regLoader">Готово</button>
 						</div>
