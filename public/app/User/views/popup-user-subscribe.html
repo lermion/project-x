@@ -5,7 +5,7 @@
         <div class="subscriber-item">
             <div class="user-ava">
                 <a class="ava" ui-sref="user({username: subscription.login})" ng-click="closePopup()">
-                    <img ng-src="{{subscription.avatar_path}}" alt="">
+                    <img ng-src="{{subscription.avatar_path ? subscription.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                 </a>
             </div>
             <div class="user-info">
