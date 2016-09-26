@@ -200,7 +200,7 @@ angular.module('placePeopleApp')
 
 						// если авторизированы и переходим на страницы авторизации, то перенаправляем на Главную
 						// в других случаях - переход на state без ограничений
-						if (toState.name === 'login' || toState.name === 'auth') {
+						if (toState.name === 'login' || toState.name === 'auth' || toState.name === 'reg') {
 							$state.go('feed');
 						} else {
 							$state.go(toState.name, params);
