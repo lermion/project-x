@@ -544,7 +544,7 @@ input[type="tel"]:focus + span.phone,
 	line-height: 40px;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button {
-	margin-top: 8px;
+	margin-top: 0;
 	transition: none;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
@@ -2434,12 +2434,13 @@ body.public.user {
 }
 .publication-footer .add-objects label {
 	color: #495b79;
-	font-size: 14px;
+	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	margin: 0;
 	display: flex;
-		align-items: center;
-		cursor: pointer;
+	align-items: center;
+	cursor: pointer;
+	line-height: 30px;
 }
 .publication-footer .add-objects label span {
 	display: block;
@@ -2447,9 +2448,9 @@ body.public.user {
 	transition: all .1s ease-in-out .1s;
 	background-position: left center;
 	background-repeat: no-repeat;
-	background-size: 65%;
-	width: 35px;
-	height: 35px;
+	background-size: 80%;
+	width: 25px;
+	height: 30px;
 }
 .publication-footer .add-objects label:hover span {
 	background-image: url(../images/camera-hover.png);
@@ -2472,8 +2473,8 @@ pub-list-item .publication-footer-button {
 	text-decoration: none;
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
-	line-height: 30px;
-	padding: 0 10px;
+	line-height: 32px;
+	padding: 0 5px;
 	transition: all .1s ease-in-out .1s;
 }
 .publication-footer-button .publication-button {
@@ -2496,7 +2497,7 @@ pub-list-item .publication-footer-button {
 }
 .publication-footer-button .cansel {
 	color: #495b79;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 .publication-footer-button .cansel:hover  {
 	color: #999;
@@ -3484,9 +3485,8 @@ pub-list-item .publication-footer-button {
 		margin-left: -225px;
 	}
 	.publication-footer-button a {
-		font-size: 13px;
-		line-height: 25px;
-		margin-top: 5px;
+		line-height: 32px;
+		margin-top: 0;
 	}
 	.contacts-off-container {
 		width: 100%;
@@ -3596,9 +3596,9 @@ pub-list-item .publication-footer-button {
 		margin-top: 0;
 		top: 0;
 	}
-	.user-publication.ngdialog-theme-default .publication .text-field {
+/*	.user-publication.ngdialog-theme-default .publication .text-field {
 		height: 30vh;
-	}
+	}*/
 	.user-publication.ngdialog-theme-default .publication-item,
 	.user-publication.ngdialog-theme-default .publication-item .user,
 	.user-publication .publication .publication-footer  {
@@ -3614,7 +3614,7 @@ pub-list-item .publication-footer-button {
 			margin-top: 20px;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button {
-		margin-top: 8px;
+		margin-top: 0;
 	}
 	.ngdialog.ngdialog-theme-default .ngdialog-content div button.ladda-button {
 		margin-bottom: 0;
@@ -5079,6 +5079,7 @@ button.add-new-publication-button{
     outline: none;
     cursor: pointer;
     width: auto;
+    box-sizing: border-box;
 }
 button.add-new-publication-button:hover{
 	background-color: #fff !important;
