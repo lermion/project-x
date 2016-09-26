@@ -1480,6 +1480,9 @@
 		$scope.statusLoading = true;
 		$scope.busyMessages = false;
 		$scope.loadMoreMessages = function () {
+			$scope.isNeededScroll = function(){
+				return false;
+			};
 			var deferred = $q.defer();
 			var members = [];
 			members[0] = vm.myId;
@@ -1503,10 +1506,13 @@
 				$scope.counter = 0;
 			} else {
 				$scope.busyMessages = false;
-				response.messages.forEach(function (value) {
+				var mesId = $scope.messages[$scope.messages.length - 1].id;
+				var elemContainer = angular.element(document).find('.group-chat-inner')[0];
+				var elem = angular.element(document).find('#' + mesId)[0];
+				response.messages.forEach(function(value){
 					$scope.messages.unshift(value);
 				});
-				$scope.returnToBack(response.messages[0].id);
+				angular.element(elemContainer)[0].scrollTop = ($scope.messages.length - 1) * elem.offsetHeight;
 				$scope.counter += 10;
 			}
 		});
@@ -1530,6 +1536,9 @@
 		socket.forward('get group chat dialogue', $scope);
 		$scope.$on("socket:get group chat dialogue", function(event, response){
 			$scope.messages = response.messages.reverse();
+			$scope.isNeededScroll = function(){
+				return $scope.messages;
+			}
 		});
 		socket.forward('updatechat', $scope);
 		$scope.$on('socket:updatechat', function (event, data) {
@@ -1559,6 +1568,9 @@
 								});
 							}
 							$scope.messages.push(data);
+							$scope.isNeededScroll = function(){
+								return $scope.messages;
+							};
 							if (data.images.length > 0) {
 								vm.group.count_chat_files += data.images.length;
 							}
@@ -1578,6 +1590,9 @@
 						});
 					}
 					$scope.messages.push(data);
+					$scope.isNeededScroll = function(){
+						return $scope.messages;
+					};
 					if (data.images.length > 0) {
 						vm.group.count_chat_files += data.images.length;
 					}

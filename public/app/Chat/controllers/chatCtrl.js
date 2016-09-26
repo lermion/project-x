@@ -224,16 +224,13 @@ angular.module('placePeopleApp')
 					$scope.counter = 0;
 				}else{
 					$scope.busyMessages = false;
+					var mesId = $scope.Model.Chat[$scope.Model.Chat.length - 1].id;
+					var elemContainer = angular.element(document).find('.chat-right-chat-inner')[0];
+					var elem = angular.element(document).find('#' + mesId)[0];
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});
-					$q.all($scope.Model.Chat).then(function(){
-						$timeout(function(){
-							var firstMessageId = angular.element(document.getElementById(response.messages[0].id + ""));
-							var chatBlock = $("div.chat-right-chat-inner");
-							chatBlock.scrollToElement(firstMessageId);
-						}, 0);
-					});
+					angular.element(elemContainer)[0].scrollTop = ($scope.Model.Chat.length - 1) * elem.offsetHeight;
 					$scope.counter += 10;
 				}
 			});

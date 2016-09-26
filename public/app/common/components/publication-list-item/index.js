@@ -170,6 +170,10 @@
 
 
 					ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
+
+					$timeout(function() {
+						$scope.$broadcast('scroll:rebuild:pub');
+					}, 0);
 				};
 
 				ctrl.$onChanges = function (args) {
@@ -919,7 +923,9 @@
 				ctrl.loadMorePubFiles = function(key){
 					if(key === false){
 						ctrl.limit = ctrl.pub.images.length + ctrl.pub.videos.length;
-						$scope.$broadcast('rebuild:me');
+						$timeout(function() {
+							$scope.$broadcast('scroll:rebuild:pub');
+						});
 					}else{
 						ctrl.limit = 6;
 					}
@@ -966,6 +972,9 @@
 									});
 								}
 								ctrl.indexCurrentImage = imagesLength - 1;
+                                $timeout(function() {
+                                    $scope.$broadcast("scroll:rebuild:pub");
+                                }, 0);
 							}
 						}
 					}
@@ -1005,6 +1014,9 @@
 									}
 									ctrl.indexCurrentImage = 0;
 								}
+								$timeout(function() {
+									$scope.$broadcast("scroll:rebuild:pub");
+								}, 0);
 							}
 						}
 					}
