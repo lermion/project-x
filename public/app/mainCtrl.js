@@ -347,7 +347,7 @@ angular.module('placePeopleApp')
 				$rootScope.user.firstName = storage.firstName || '';
 				$rootScope.user.lastName = storage.lastName || '';
 				$rootScope.user.fullName = (storage.firstName || '') + ' ' + (storage.lastName || '');
-				$rootScope.user.loggedUserAva = storage.loggedUserAva || '';
+				$rootScope.user.loggedUserAva = storage.loggedUserAva !== '' ? storage.loggedUserAva : '/upload/preview-chat-no-avatar.png';
 				$rootScope.user.userId = +storage.userId || '';
 				$rootScope.user.pubView = storage.pubView || '';
 
