@@ -65,7 +65,7 @@
 			<video ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
 
 		</div>
-		<div ng-class="{'is-popup': $ctrl.isModal}" class="publication-images" ng-scrollbar="scrollbar{{$ctrl.isModal ? 1 : 2}}" rebuild-on="rebuild:me"
+		<div ng-class="{'is-popup': $ctrl.isModal}" class="publication-images" ng-scrollbar rebuild-on="scroll:rebuild:pub"
 			 style="max-height:175px; overflow:hidden; position:relative;"
 			 ng-hide="$ctrl.pub.files.length === 1">
 
