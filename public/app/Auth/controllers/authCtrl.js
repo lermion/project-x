@@ -451,6 +451,10 @@ angular.module('placePeopleApp')
 					});
 			};
 
+			$scope.changeStateTo = function(stateName) {
+			    $state.go(stateName);
+            };
+
 			/**
 			 * Set user country for registration select element
 			 */
