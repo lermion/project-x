@@ -23,7 +23,7 @@
 			<a class="user" ng-if="$ctrl.profile" ui-sref="user({username: $ctrl.profile.username})"
 			   ng-click="closeThisDialog()">
 				<span class="ava">
-					<img ng-src="{{::$ctrl.avatar}}">
+					<img ng-src="{{$ctrl.avatar !== 'null' ? $ctrl.avatar : '/upload/preview-chat-no-avatar.png'}}">
 				</span>
 
 				<p class="user-name">{{::$ctrl.authorName}}</p>

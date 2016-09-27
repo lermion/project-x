@@ -8,7 +8,7 @@
 		<div class="user-function" ng-class="{'pub-modal': $ctrl.isModal}">
 			<a href class="user" ui-sref="user({username: $ctrl.pub.user.login})" ng-click="closeThisDialog()">
 				<span class="ava">
-					<img ng-src="{{$ctrl.avatar}}" alt="">
+					<img ng-src="{{$ctrl.avatar ? $ctrl.avatar : '/upload/preview-chat-no-avatar.png'}}" alt="">
 				</span>
 				<span class="block-info">
 								<p class="user-name">{{::$ctrl.authorName}}</p>
@@ -53,10 +53,10 @@
 			<div class="publication-preloader" ng-show="$ctrl.showImagePreloader"></div>
 
 			<div ng-if="!$ctrl.isModal && $ctrl.mainVideo && !$ctrl.showVideo">
-				<h4>Видео еще загружается. Попробуйте позжe</h4>
+				<h4>Видео загружено. Идет обработка.</h4>
 			</div>
 			<div ng-if="$ctrl.isModal && $ctrl.mainVideo && !$ctrl.showVideo">
-				<h4>Видео еще загружается. Попробуйте позже</h4>
+				<h4>Видео загружено. Идет обработка.</h4>
 			</div>
 
 			<img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
