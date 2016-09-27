@@ -35,6 +35,11 @@
 											<span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
 										</div>
 										<p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
+
+										<div class="checkbox_group">
+											<input type="checkbox" id="arr1" ng-model="isAcceptRules">
+											<label for="arr1">Я принимаю &nbsp;<a ng-click="transitionToRules('rules')">условия регистрации</a></label>
+										</div>
 									</form>
 									<button class="check-in-button" ng-click="userRegisterS1();" ladda="codeSendLoader">Зарегистрироваться</button>
 						</div>

@@ -677,7 +677,13 @@ footer {
 	text-decoration: none;
 	transition: all .1s ease-in-out .1s; 
 }
-.footer-item a:hover {
+.check-in a {
+	color: #fff;
+	text-decoration: none;
+	transition: all .1s ease-in-out .1s;
+}
+.footer-item a:hover,
+.check-in a:hover {
 	color: #999;
 	transition: all .1s ease-in-out .1s; 
 }
@@ -4263,6 +4269,9 @@ body.ngdialog-open {
 	width: 700px;
 	margin: 0 auto 20px auto;
 	z-index: 1;
+}
+.group-page .group-publication .content-item:first-child {
+	margin-top: 30px;
 }
 .group-page .group-publication .user-publication {
 	margin-bottom: 20px;
