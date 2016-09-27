@@ -79,8 +79,11 @@ angular.module('placePeopleApp')
                     requireLogin: false,
                     showHeader: true,
                     resolve: {
-                        countries: function () {
-                            return [];
+                        countries: function ($rootScope, AuthService) {
+                            return AuthService.getCountries()
+                                .then(function (countries) {
+                                    return countries;
+                                });
                         }
                     }
                 })
@@ -386,6 +389,8 @@ angular.module('placePeopleApp')
                 var metaData = result.geoObjects.get(0).properties.get('metaDataProperty');
 
                 $rootScope.countryName = metaData.GeocoderMetaData.AddressDetails.Country.CountryName;
+
+                console.log('Country name - ' + $rootScope.countryName);
 
                 $rootScope.$broadcast('location:ready');
 
