@@ -180,7 +180,7 @@ class PublicationController extends Controller
         }
         if ($request->hasFile('videos')) {
             $validator = Validator::make($request->file('videos'), [
-                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv,wmv'
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv,wmv,asf'
             ]);
 
             if ($validator->fails()) {
