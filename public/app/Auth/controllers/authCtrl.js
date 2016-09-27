@@ -8,17 +8,22 @@ angular.module('placePeopleApp')
 
 			$scope.createAccountForm = {};
 
+			$scope.newUserCountryId = null;
+
+			$scope.phoneCode = null;
+
+
 			init();
 
 			//////////////////////////////////////////
 
 			function init() {
-
 				if( $state.is('reg') ) {
-					setUserCountry();
-					setCountryCode();
+					$timeout(function() {
+						setUserCountry();
+						setCountryCode();
+					}, 0);
 				}
-
 			}
 
 
@@ -72,6 +77,15 @@ angular.module('placePeopleApp')
 			);
 			w.bind('resize', function () {
 				$scope.$apply();
+			});
+
+			$scope.$on('location:ready', function() {
+				if( $state.is('reg') ) {
+					$timeout(function() {
+						setUserCountry();
+						setCountryCode();
+					}, 0);
+				}
 			});
 
 			$scope.loginPage = function () {
@@ -454,6 +468,8 @@ angular.module('placePeopleApp')
 			$scope.changeStateTo = function(stateName) {
 			    $state.go(stateName);
             };
+
+
 
 			/**
 			 * Set user country for registration select element

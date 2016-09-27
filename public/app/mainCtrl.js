@@ -200,7 +200,7 @@ angular.module('placePeopleApp')
 
 						// если авторизированы и переходим на страницы авторизации, то перенаправляем на Главную
 						// в других случаях - переход на state без ограничений
-						if (toState.name === 'login' || toState.name === 'auth') {
+						if (toState.name === 'login' || toState.name === 'auth' || toState.name === 'reg') {
 							$state.go('feed');
 						} else {
 							$state.go(toState.name, params);
@@ -347,7 +347,7 @@ angular.module('placePeopleApp')
 				$rootScope.user.firstName = storage.firstName || '';
 				$rootScope.user.lastName = storage.lastName || '';
 				$rootScope.user.fullName = (storage.firstName || '') + ' ' + (storage.lastName || '');
-				$rootScope.user.loggedUserAva = storage.loggedUserAva || '';
+				$rootScope.user.loggedUserAva = storage.loggedUserAva !== '' ? storage.loggedUserAva : '/upload/preview-chat-no-avatar.png';
 				$rootScope.user.userId = +storage.userId || '';
 				$rootScope.user.pubView = storage.pubView || '';
 
