@@ -171,11 +171,10 @@ class PlacePublicationController extends Controller
         if ($request->hasFile('videos')) {
             $cover = $request->file('cover');
             $cover_name = $cover->getClientOriginalName();
-
             foreach ($request->file('videos') as $video) {
                 $video_name = $video->getClientOriginalName();
                 if ($video_name == $cover_name) {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = $video->uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
@@ -194,7 +193,7 @@ class PlacePublicationController extends Controller
                         'img_url' => $new_fname . '.jpg',
                     ], ['is_cover' => true]);
                 } else {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = $video->uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
