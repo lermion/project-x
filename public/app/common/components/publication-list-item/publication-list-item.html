@@ -8,7 +8,7 @@
 		<div class="user-function" ng-class="{'pub-modal': $ctrl.isModal}">
 			<a href class="user" ui-sref="user({username: $ctrl.pub.user.login})" ng-click="closeThisDialog()">
 				<span class="ava">
-					<img ng-src="{{$ctrl.avatar}}" alt="">
+					<img ng-src="{{$ctrl.avatar ? $ctrl.avatar : '/upload/preview-chat-no-avatar.png'}}" alt="">
 				</span>
 				<span class="block-info">
 								<p class="user-name">{{::$ctrl.authorName}}</p>
