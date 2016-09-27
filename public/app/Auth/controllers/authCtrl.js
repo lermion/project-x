@@ -367,6 +367,7 @@ angular.module('placePeopleApp')
 				var result = regexp.test(login);
 
 				if (!result) {
+					$scope.loginError = 'Авторизируйтесь через номер телефона';
 					return false;
 				}
 
