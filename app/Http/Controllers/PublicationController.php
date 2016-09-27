@@ -146,8 +146,6 @@ class PublicationController extends Controller
             ];
             return response()->json($result);
         }
-        foreach ($request->file('videos') as $video) {
-            dd($video->getClientOriginalExtension());}
         if ($request->hasFile('images')) {
             $validator = Validator::make($request->file('images'), [
                 'image'
