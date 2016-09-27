@@ -110,7 +110,7 @@ class GroupPublicationController extends Controller
 
         if ($request->hasFile('videos')) {
             $validator = Validator::make($request->file('videos'), [
-                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv'
+                'mimes:mp4,3gp,WMV,avi,mkv,mov,wma,flv,wmv'
             ]);
 
             if ($validator->fails()) {
