@@ -125,7 +125,6 @@ class PublicationController extends Controller
     public function store(Request $request)
     {
         try {
-            dd($request->all());
             $this->validate($request, [
                 'text' => 'min:1',
                 'cover' => 'file',
