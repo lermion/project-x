@@ -163,7 +163,7 @@ class GroupPublicationController extends Controller
             foreach ($request->file('videos') as $video) {
                 $video_name = $video->getClientOriginalName();
                 if ($video_name == $cover_name) {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
@@ -182,7 +182,7 @@ class GroupPublicationController extends Controller
                         'img_url' => $new_fname . '.jpg',
                     ], ['is_cover' => true]);
                 } else {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();

@@ -230,10 +230,10 @@ class PublicationController extends Controller
             foreach ($request->file('videos') as $video) {
                 $video_name = $video->getClientOriginalName();
                 if ($video_name == $cover_name) {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
-                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    $new_fname = 'upload/publication/videos/'.uniqid();
                     Video::makeFrame($f_name, $f_path, $new_fname);
                     //Video::makeVideo($f_name, $f_path, $new_fname);
                     $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
@@ -249,7 +249,7 @@ class PublicationController extends Controller
                         'img_url' => $new_fname . '.jpg',
                     ], ['is_cover' => true]);
                 } else {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
                     $new_fname = 'upload/publication/videos/' . uniqid();
@@ -441,7 +441,7 @@ class PublicationController extends Controller
                                     $video_avatar->is_cover = false;
                                     $video_avatar->save();
                                 }
-                                $f_name = $video->getClientOriginalName();;
+                                $f_name = uniqid();
                                 $f_path = storage_path('tmp/video/');
                                 $video->move($f_path, $f_name);
                                 $new_fname = 'upload/publication/videos/' . uniqid();
@@ -460,7 +460,7 @@ class PublicationController extends Controller
                                     'img_url' => $new_fname . '.jpg',
                                 ], ['is_cover' => true]);
                             } else {
-                                $f_name = $video->getClientOriginalName();
+                                $f_name = uniqid();
                                 $f_path = storage_path('tmp/video/');
                                 $video->move($f_path, $f_name);
                                 $new_fname = 'upload/publication/videos/' . uniqid();
@@ -478,7 +478,7 @@ class PublicationController extends Controller
                                 ]);
                             }
                         } else {
-                            $f_name = $video->getClientOriginalName();
+                            $f_name = uniqid();
                             $f_path = storage_path('tmp/video/');
                             $video->move($f_path, $f_name);
                             $new_fname = 'upload/publication/videos/' . uniqid();
