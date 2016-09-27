@@ -125,6 +125,7 @@ class PublicationController extends Controller
     public function store(Request $request)
     {
         try {
+            dd($request->all());
             $this->validate($request, [
                 'text' => 'min:1',
                 'cover' => 'file',
@@ -230,10 +231,10 @@ class PublicationController extends Controller
             foreach ($request->file('videos') as $video) {
                 $video_name = $video->getClientOriginalName();
                 if ($video_name == $cover_name) {
-                    $f_name = $video->getClientOriginalName();
+                    $f_name = uniqid();
                     $f_path = storage_path('tmp/video/');
                     $video->move($f_path, $f_name);
-                    $new_fname = 'upload/publication/videos/' . uniqid();
+                    $new_fname = 'upload/publication/videos/'.uniqid();
                     Video::makeFrame($f_name, $f_path, $new_fname);
                     //Video::makeVideo($f_name, $f_path, $new_fname);
                     $cmd = 'php ' . base_path() . '/artisan video:make "' . $f_name . '" ' . $f_path . ' ' . $new_fname;
