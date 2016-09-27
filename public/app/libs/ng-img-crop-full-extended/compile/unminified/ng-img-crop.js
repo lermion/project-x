@@ -963,6 +963,10 @@ crop.factory('cropArea', ['cropCanvas', function (CropCanvas) {
         else {
             newSize.y = size.y;
         }
+        if(newSize.w === 141.6){
+            newSize.w = 112;
+            newSize.x = 0;
+        }
         return newSize;
     };
 
@@ -1082,7 +1086,10 @@ crop.factory('cropArea', ['cropCanvas', function (CropCanvas) {
                 newSize.x = canvasW - newSize.w;
             }
         }
-
+        if(newSize.w === 141.6){
+            newSize.w = 112;
+            newSize.x = 0;
+        }
         return newSize;
     };
 
