@@ -342,12 +342,46 @@ angular.module('placePeopleApp')
 
 			/*LOGIN PAGE*/
 			$scope.login = function(login, pwd){
-				if(login.indexOf("+") !== -1){
-					login = login.replace("+", "");
+
+				var number = '',
+					isInternationalPhoneCode = false;
+
+				var phoneCode = getPhoneCodeByCountryName($rootScope.countryName);
+
+				// console.log('Login - ' + login);
+				// console.log(phoneCode);
+
+				var firstChar = login.charAt(0);
+
+				// удалим пробельные символы в начале и в конце логина
+				login = login.trim();
+
+				// удалим символ '+'
+				if (firstChar === '+') {
+					login = login.substr(1);
 				}
-				if(login[0] === "8"){
-					login = login.replace(login[0], "");
+
+
+				// логин для авторизации не должен содержать ничего кроме цифр
+				var regexp = /^\d+$/;
+				var result = regexp.test(login);
+
+				if (!result) {
+					return false;
 				}
+
+				// если РФ
+				if (phoneCode === '7') {
+					// если начинается с 8ки - 8ку заменяем 7кой
+					if (firstChar === '8') {
+						login = '7' + login.slice(1);
+					}
+				// если не РФ, то номер должен быть в международном формате
+				} else {
+					isInternationalPhoneCode = true;
+				}
+
+
 				$scope.loginLoader = true;
 				if (!login && !pwd) {
 					$scope.loginError = 'Введите логин и пароль';
@@ -361,6 +395,7 @@ angular.module('placePeopleApp')
 					$scope.loginLoader = false;
 					return;
 				}
+
 				AuthService.userLogIn(login, pwd).then(function(res){
 					if(res.status){
 						storageService.setStorageItem('username', res.login);
@@ -371,7 +406,7 @@ angular.module('placePeopleApp')
 						//$state.go('user', {username: res.login});
 						$state.go('feed');
 					}else{
-						$scope.loginError = 'Неверный логин или пароль';
+						$scope.loginError = 'Неверный номер телефона или пароль';
 					}
 					$scope.loginLoader = false;
 
@@ -489,6 +524,24 @@ angular.module('placePeopleApp')
 						$scope.phoneCode = country.code;
 					}
 				});
+			}
+
+			/**
+			 * Get prefix phone code by name of country
+			 * @param countryName
+			 */
+			function getPhoneCodeByCountryName(countryName) {
+
+				var code = '';
+
+				$scope.countries.forEach(function (country) {
+					if (country.name === countryName) {
+						code = country.code;
+					}
+				});
+
+				return code;
+
 			}
 
 

@@ -1,7 +1,7 @@
 <div class="check-in recovery">
 	<div class="form">
 		<div class="logo hover--pointer" ng-click="changeStateTo('reg')"></div>
-		<input class="password-field-first" type="text" name="userLogin" placeholder="Логин или номер телефона..." ng-model="userLogin" ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode, userLogin, userPassword)">
+		<input class="password-field-first" type="text" name="userLogin" placeholder="Номер телефона..." ng-model="userLogin" ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode, userLogin, userPassword)">
 		<input class="password-field-second" type="password" name="userPassword" placeholder="Пароль..." ng-model="userPassword" ng-click="loginError=false;" ng-change="loginError=false;" ng-keypress="keyPress($event.keyCode, userLogin, userPassword)">
 		<p class="capcha" ng-show="loginError">{{loginError}}</p>
 		<button class="check-in-button" ng-click="login(userLogin, userPassword);" ladda="loginLoader">Войти</button>
