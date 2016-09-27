@@ -4264,6 +4264,9 @@ body.ngdialog-open {
 	margin: 0 auto 20px auto;
 	z-index: 1;
 }
+.group-page .group-publication .content-item:first-child {
+	margin-top: 30px;
+}
 .group-page .group-publication .user-publication {
 	margin-bottom: 20px;
 }
