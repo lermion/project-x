@@ -318,7 +318,7 @@ angular.module('placePeopleApp')
                 })
                 .state('mobile-pub-view-test', {
                     url: '/m/publication/:id',
-                    templateUrl: '../../app/common/views/pub-list-item.html',
+                    templateUrl: '../../app/common/views/pub-mobile.html',
                     showHeader: true,
                     requireLogin: true,
                     params: {
