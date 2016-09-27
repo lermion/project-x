@@ -12,6 +12,8 @@ angular.module('placePeopleApp')
 
 			$scope.phoneCode = null;
 
+			$scope.isAcceptRules = false;
+
 
 			init();
 
@@ -158,6 +160,11 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.userRegisterS1 = function () {
+
+				if (!$scope.isAcceptRules) {
+					return false;
+				}
+
 				if($scope.checkedAreas.length === 0){
 					$scope.nupnErr = "Вы не выбрали область видимости";
 					return;
@@ -505,6 +512,17 @@ angular.module('placePeopleApp')
 			    $state.go(stateName);
             };
 
+            $scope.transitionToRules = function(rulesPageName) {
+				var state = $scope.$parent.staticPages
+					.filter(function(item) {
+						return item.name === rulesPageName;
+					});
+				if (state.length > 0) {
+					$state.go('static', {pageName: rulesPageName});
+				} else {
+					return false;
+				}
+			};
 
 
 			/**

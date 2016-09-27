@@ -677,7 +677,13 @@ footer {
 	text-decoration: none;
 	transition: all .1s ease-in-out .1s; 
 }
-.footer-item a:hover {
+.check-in a {
+	color: #fff;
+	text-decoration: none;
+	transition: all .1s ease-in-out .1s;
+}
+.footer-item a:hover,
+.check-in a:hover {
 	color: #999;
 	transition: all .1s ease-in-out .1s; 
 }

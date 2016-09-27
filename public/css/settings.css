@@ -1500,20 +1500,31 @@ label span.add {
 	width: 100%;
 	align-items: center;
 }
-.popup-add-group .checkbox_group {
+.popup-add-group .checkbox_group,
+.check-in .checkbox_group {
 	width: 145px;
 	height: 20px;
 	font-size: 14px;
 	color: #b0b1b3;
 }
-.popup-add-group input[type="checkbox"] + label {
+.check-in .checkbox_group {
+	color: #FFFFFF;
+	margin-bottom: 10px;
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.popup-add-group input[type="checkbox"] + label,
+.check-in input[type="checkbox"] + label {
 	line-height: 20px;
 	vertical-align: top;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 }
-.popup-add-group input[type="checkbox"] + label::before {
+.popup-add-group input[type="checkbox"] + label::before,
+.check-in input[type="checkbox"] + label::before {
 	content: "";
 	display: inline-block;
 	height: 18px;
@@ -1521,7 +1532,8 @@ label span.add {
 	margin: 0 5px 0 0;
 	background-color: #ec6045;
 }
-.popup-add-group input[type="checkbox"]:checked + label::before {
+.popup-add-group input[type="checkbox"]:checked + label::before,
+.check-in input[type="checkbox"]:checked + label::before {
 	background-image: url(/images/checkbox_group.png);
 	background-size: 85% 75%;
 	background-position: 70% 50%;
