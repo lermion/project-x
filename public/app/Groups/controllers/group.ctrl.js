@@ -1093,10 +1093,10 @@
 		vm.pubViewStyleChange = function (flag) {
 			if (flag) {
 				vm.photosGrid = true;
-				storageService.setStorageItem('groupPubView', 'greed');
+				storageService.setStorageItem('pubView', 'greed');
 			} else {
 				vm.photosGrid = false;
-				storageService.setStorageItem('groupPubView', 'list');
+				storageService.setStorageItem('pubView', 'list');
 			}
 		};
 
@@ -1351,13 +1351,13 @@
 		}
 
 		function checkPublicationsView() {
-			if (!storage.groupPubView) {
-				storageService.setStorageItem('groupPubView', 'greed');
+			if (!storage.pubView) {
+				storageService.setStorageItem('pubView', 'greed');
 				storage = storageService.getStorage();
 			} else {
-				if (storage.groupPubView === 'greed') {
+				if (storage.pubView === 'greed') {
 					vm.photosGrid = true;
-				} else if (storage.groupPubView === 'list') {
+				} else if (storage.pubView === 'list') {
 					vm.photosGrid = false;
 				}
 			}
