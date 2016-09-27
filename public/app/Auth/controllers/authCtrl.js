@@ -346,8 +346,7 @@ angular.module('placePeopleApp')
 				var number = '',
 					isInternationalPhoneCode = false;
 
-				// var phoneCode = getPhoneCodeByCountryName($rootScope.countryName);
-				var phoneCode = '7';
+				var phoneCode = getPhoneCodeByCountryName($rootScope.countryName);
 
 				// console.log('Login - ' + login);
 				// console.log(phoneCode);
