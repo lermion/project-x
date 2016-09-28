@@ -6629,6 +6629,8 @@ input.cmn-toggle-round:checked + label:after {
 	*/
 	margin-top: -6px;
 	background-color: #ffffff;
+	max-height: 163px;
+    overflow-y: auto;
 }
 
 .angucomplete-searching {
@@ -7036,6 +7038,7 @@ textarea[type="text"]:focus,
 		right: 0;
 		bottom: 0;
 		position: relative;
+		background-color: transparent;
 	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
 		width: 100%;
@@ -7345,7 +7348,7 @@ button.settings-btn {
 .settings-reg-keys h4 {
 	margin: 0px 0px 15px 21px;
 }
-@media (min-width: 768px) {
+@media (min-width: 721px) {
 	.ngdialog.view-publication.ngdialog-theme-default.ng-scope {
 		display: flex;
 		justify-content: center;

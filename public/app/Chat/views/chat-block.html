@@ -73,8 +73,8 @@
 		<!-- <div class="chat-message-date">
 			<span>Вчера</span>
 		</div> -->
-		<div ng-hide="message.text == '' && message.images.length === 0 && message.videos.length === 0" ng-repeat="message in Model.Chat" ng-init="checkMessageType(message)">
-		<div ng-class="message.login ===$root.user.username ? 'my-msg-wrap' : 'to-my-msg-wrap'" ng-hide="message.type==='pub'">
+		<div ng-hide="message.text == '' && message.type === 'pub' && message.images.length === 0 && message.videos.length === 0" ng-repeat="message in Model.Chat" ng-init="checkMessageType(message)">
+		<div ng-class="message.login ===$root.user.username ? 'my-msg-wrap' : 'to-my-msg-wrap'"">
 			<div class="chat-main-user-sender-ava">
 				<a ui-sref="user({username: message.login})">
 					<img ng-src="{{message.avatar_path ? message.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">

@@ -721,7 +721,7 @@
 			if (city) {
 				console.log(city);
 				var cityObj = {
-					countryId: vm.placeNew.country.originalObject.id,
+					countryId: vm.placeNew.country.originalObject ? vm.placeNew.country.originalObject.id : vm.placeNew.country.id,
 					name: city.title
 				};
 				placesService.addCity(cityObj).then(function (data) {
@@ -786,7 +786,7 @@
 			var deferred = $q.defer();
 			if(str){
 				var countryObj = {
-					id: vm.placeNew.country.originalObject.id,
+					id: vm.placeNew.country.originalObject ? vm.placeNew.country.originalObject : vm.placeNew.country.id,
 					name: str
 				};
 				placesService.getCities(countryObj).then(function(data){
