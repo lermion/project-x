@@ -528,10 +528,10 @@ class ModeratorController extends Controller
 //        $moderators = Moderator::where('is_stop',false)->get();
 //        $working_hours = WorkingHoursModerator::all();
 //        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'New']);
-
+        $option = Option::first();
         $moderators = Moderator::where('is_stop',true)->get();
         $working_hours = WorkingHoursModerator::all();
-        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'Stopped']);
+        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'Stopped','option'=>$option]);
     }
 
     /**
