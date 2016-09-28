@@ -97,10 +97,6 @@
 				 * @param event
 				 */
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-					ctrl.newPublicationForm.$setSubmitted();
-					if(ctrl.newPublicationForm.$invalid){
-						return false;
-					}
 					ctrl.progressFilesLoading = true;
 					ctrl.isFilesAdded = true;
 					var defer = $q.defer();
@@ -127,10 +123,21 @@
 								var file = event.currentTarget.files[0];
 								var reader = new FileReader();
 								reader.onload = function (event) {
-									$scope.$apply(function ($scope) {
-										ctrl.coverToCrop = event.target.result;
-										ctrl.coverToCropName = file.name;
-									});
+									var image = new Image();
+									image.src = event.target.result;
+									image.onload = function(){
+										if(this.height > this.width){
+											ctrl.aspectRatio = 1.4;
+										}else if(this.width === 1366 && this.height === 768){
+											ctrl.aspectRatio = 2.5;
+										}else{
+											ctrl.aspectRatio = 1.7;
+										}
+										$scope.$apply(function($scope){
+											ctrl.coverToCrop = event.target.result;
+											ctrl.coverToCropName = file.name;
+										});
+									};
 								};
 								reader.readAsDataURL(file);
 							} else {
