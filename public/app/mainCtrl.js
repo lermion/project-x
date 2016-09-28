@@ -62,7 +62,7 @@ angular.module('placePeopleApp')
 
 			function setStaticPages() {
 				$http.get('/static_page/get/name').success(function (response) {
-					$scope.staticPages = response;
+					$scope.footerData = response;
 				}).error(function (error) {
 					console.log(error);
 				});

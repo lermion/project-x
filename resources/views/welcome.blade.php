@@ -166,8 +166,7 @@
 		<div class="footer">
 			<div class="footer-item">
 				<div class="footer-place">
-					<a ui-sref="auth">Ludi Gor</a>
-					<span>© 2016</span>
+					<span>@{{footerData.copyright[0].copyright}}</span>
 				</div>
 				<!-- <div class="payment">
 					<a class="mastercard" href="javascript:void(0)"></a>
@@ -179,7 +178,7 @@
 				<a class="drop-menu" href="javascript:void(0)"></a>
 
 				<div class="menu-item">
-				<a ng-repeat="staticPage in staticPages" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">@{{staticPage.description}}</a>
+				<a ng-repeat="staticPage in footerData.static_page" ui-sref="static({ pageName: staticPage.name})" ng-click="closePopup()">@{{staticPage.description}}</a>
 				</div>
 			</div>
 		</div>
