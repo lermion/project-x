@@ -796,9 +796,9 @@
 					name: str
 				};
 				placesService.getCities(countryObj).then(function (data) {
-					if (data.status) {
+					if (data.length > 0) {
 						vm.cities = data;
-						def.resolve(data.cities);
+						def.resolve(vm.cities);
 					} else {
 						getCity(str)
 							.then(function (data) {
@@ -825,6 +825,8 @@
 							})
 					}
 				});
+			} else {
+				def.reject();
 			}
 			return def.promise;
 		};
