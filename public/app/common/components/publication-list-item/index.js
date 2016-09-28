@@ -29,7 +29,10 @@
 				isGrid: '<',
 
 				// "На модерации"
-				showModerate: "<"
+				showModerate: "<",
+
+				// for publication with MD5 hash
+				isAuth: '<'
 			},
 			templateUrl: '../app/common/components/publication-list-item/publication-list-item.html',
 			controller: function ($rootScope, $scope, $state, $location, $timeout, PublicationService, groupsService, placesService, storageService, ngDialog, amMoment,
@@ -64,7 +67,7 @@
 				var storage = storageService.getStorage();
 				ctrl.firstName = storage.firstName;
 				ctrl.lastName = storage.lastName;
-				ctrl.myAvatar = storage.loggedUserAva;
+				ctrl.myAvatar = storage.loggedUserAva || '/upload/preview-chat-no-avatar.png';
 				ctrl.myId = storage.userId;
 				ctrl.userName = storage.username;
 
@@ -95,13 +98,22 @@
 
 				// Lifecycle hooks
 				ctrl.$onInit = function (args) {
+					console.log(1);
 					ctrl.pub = ctrl.pubData;
 					ctrl.avatar = getAvatarPath();
 					ctrl.authorName = getAuthorName();
+
+					if (ctrl.isAuth === undefined) {
+						ctrl.isAuth = true;
+					} else {
+						ctrl.isAuth = ctrl.isAuth === true;
+					}
+
 					if (ctrl.pubList) {
 						ctrl.pubList = $filter('orderBy')(ctrl.pubList, '-created_at');
 					}
 
+					ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
 
 					if (ctrl.isModal) {
 						ctrl.indexCurrentImage = getIndexCurrentImage();
@@ -169,7 +181,7 @@
 
 
 
-					ctrl.pub.files = ctrl.pub.images.concat(ctrl.pub.videos);
+
 
 					$timeout(function() {
 						$scope.$broadcast('scroll:rebuild:pub');
@@ -237,6 +249,9 @@
 				};
 
 				ctrl.addPublicationLike = function () {
+					if (!ctrl.isAuth) {
+						return false;
+					}
 					ctrl.pub.user_like = !ctrl.pub.user_like;
 					ctrl.pub.like_count = ctrl.pub.user_like ? ++ctrl.pub.like_count : --ctrl.pub.like_count;
 					PublicationService.addPublicationLike(ctrl.pub.id).then(function (response) {
@@ -958,27 +973,29 @@
 								});
 							}
 						} else {
-							var prevPub = ctrl.pubList[ctrl.pubIndex - 1];
-							if (prevPub) {
-								ctrl.pubIndex--;
-								ctrl.pub = prevPub;
-								imagesLength = ctrl.pub.files.length;
-								ctrl.indexCurrentImage = ctrl.pub.files.length - 1;
-								if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
-									ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
-									ctrl.mainVideo = null;
-								} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
-									$http.get('chat/get_video/' + ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id).then(function(resp){
-										ctrl.showVideo = !!resp.data.is_coded;
-										ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
-										ctrl.mainImage = null;
-										ctrl.showImagePreloader = false;
-									});
+							if (ctrl.pubList) {
+								var prevPub = ctrl.pubList[ctrl.pubIndex - 1];
+								if (prevPub) {
+									ctrl.pubIndex--;
+									ctrl.pub = prevPub;
+									imagesLength = ctrl.pub.files.length;
+									ctrl.indexCurrentImage = ctrl.pub.files.length - 1;
+									if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.image_id) {
+										ctrl.mainImage = ctrl.pub.files[ctrl.indexCurrentImage].original_img_url;
+										ctrl.mainVideo = null;
+									} else if (ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id) {
+										$http.get('chat/get_video/' + ctrl.pub.files[ctrl.indexCurrentImage].pivot.video_id).then(function(resp){
+											ctrl.showVideo = !!resp.data.is_coded;
+											ctrl.mainVideo = ctrl.pub.files[ctrl.indexCurrentImage].url;
+											ctrl.mainImage = null;
+											ctrl.showImagePreloader = false;
+										});
+									}
+									ctrl.indexCurrentImage = imagesLength - 1;
+									$timeout(function() {
+										$scope.$broadcast("scroll:rebuild:pub");
+									}, 0);
 								}
-								ctrl.indexCurrentImage = imagesLength - 1;
-                                $timeout(function() {
-                                    $scope.$broadcast("scroll:rebuild:pub");
-                                }, 0);
 							}
 						}
 					}
@@ -1000,28 +1017,31 @@
 								});
 							}
 						} else {
-							var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
-							if (nextPub) {
-								ctrl.pubIndex++;
-								ctrl.pub = nextPub;
-								if (ctrl.pub.files[0] !== undefined) {
-									if (ctrl.pub.files[0].pivot.image_id) {
-										ctrl.mainImage = ctrl.pub.files[0].original_img_url;
-										ctrl.mainVideo = null;
-									} else if (ctrl.pub.files[0].pivot.video_id) {
-										$http.get('chat/get_video/' + ctrl.pub.files[0].pivot.video_id).then(function (resp) {
-											ctrl.showVideo = !!resp.data.is_coded;
-											ctrl.mainVideo = ctrl.pub.files[0].url;
-											ctrl.mainImage = null;
-											ctrl.showImagePreloader = false;
-										});
+							if (ctrl.pubList) {
+								var nextPub = ctrl.pubList[ctrl.pubIndex + 1];
+								if (nextPub) {
+									ctrl.pubIndex++;
+									ctrl.pub = nextPub;
+									if (ctrl.pub.files[0] !== undefined) {
+										if (ctrl.pub.files[0].pivot.image_id) {
+											ctrl.mainImage = ctrl.pub.files[0].original_img_url;
+											ctrl.mainVideo = null;
+										} else if (ctrl.pub.files[0].pivot.video_id) {
+											$http.get('chat/get_video/' + ctrl.pub.files[0].pivot.video_id).then(function (resp) {
+												ctrl.showVideo = !!resp.data.is_coded;
+												ctrl.mainVideo = ctrl.pub.files[0].url;
+												ctrl.mainImage = null;
+												ctrl.showImagePreloader = false;
+											});
+										}
+										ctrl.indexCurrentImage = 0;
 									}
-									ctrl.indexCurrentImage = 0;
+									$timeout(function() {
+										$scope.$broadcast("scroll:rebuild:pub");
+									}, 0);
 								}
-								$timeout(function() {
-									$scope.$broadcast("scroll:rebuild:pub");
-								}, 0);
 							}
+
 						}
 					}
 				}
