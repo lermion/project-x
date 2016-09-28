@@ -326,7 +326,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/static_page/get/name\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/place/get_cities\" method=\"post\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='country_id' ><br>

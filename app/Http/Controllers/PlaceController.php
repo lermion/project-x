@@ -581,7 +581,11 @@ class PlaceController extends Controller
         }
         $id = $request->input('country_id');
         $search = $request->input('name');
-        $cities = City::where('country_id',$id)->where('name', 'LIKE', '%'.$search.'%')->get();
+        $cities = City::join('areas', 'areas.id', '=', 'cities.area_id')
+            ->join('regions', 'regions.id', '=', 'cities.region_id')
+            ->select ('cities.name as name','areas.name as area','regions.name as region')
+            ->where('cities.country_id',$id)->where('cities.name', 'LIKE', '%'.$search.'%')
+            ->get();
         return response()->json($cities);
     }
 
