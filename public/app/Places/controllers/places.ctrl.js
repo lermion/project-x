@@ -721,7 +721,7 @@
 			if (city) {
 				console.log(city);
 				var cityObj = {
-					countryId: vm.placeNew.country.originalObject.id,
+					countryId: vm.placeNew.country.originalObject ? vm.placeNew.country.originalObject.id : vm.placeNew.country.id,
 					name: city.title
 				};
 				placesService.addCity(cityObj).then(function (data) {

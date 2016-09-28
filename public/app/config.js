@@ -161,13 +161,63 @@ angular.module('placePeopleApp')
                 })
 
 
+                // .state('p', {
+                //     url: '/p/:pubId/:hash',
+                //     templateUrl: '../../app/hidden-publication.html',
+                //     controller: 'HiddenPubContoller',
+                //     showHeader: true,
+                //     requireLogin: false
+                // })
                 .state('p', {
                     url: '/p/:pubId/:hash',
-                    templateUrl: '../../app/hidden-publication.html',
-                    controller: 'HiddenPubContoller',
+                    templateUrl: '../../app/common/views/pub-hidden-mobile.html',
+                    controller: function ($scope, $window, publication, ngDialog) {
+
+                        var screenWidth = $window.innerWidth;
+
+                        if (screenWidth < 768) {
+                            this.isMobile = true;
+                            this.publication = publication;
+                        } else {
+                            ngDialog.open({
+                                template: '../../app/common/views/pub-hidden.html',
+                                name: 'modal-publication-group',
+                                className: 'view-publication ngdialog-theme-default',
+                                data: {
+                                    pub: publication
+                                }
+                            });
+                        }
+
+                        $scope.$emit('userPoint', 'user');
+                    },
+                    controllerAs: 'vm',
+                    resolve: {
+                        publication: function ($q, $stateParams, PublicationService, md5, $state) {
+
+                            var defer = $q.defer();
+
+                            var hashPubId = md5.createHash($stateParams.pubId);
+
+                            if (hashPubId === $stateParams.hash) {
+                                PublicationService.getHiddenPublication($stateParams.pubId)
+                                    .then(function (response) {
+                                        defer.resolve(response);
+                                    }, function (error) {
+                                        console.log(error);
+                                        defer.reject();
+                                    });
+                            } else {
+                                $state.go("login");
+                            }
+
+                            return defer.promise;
+                        }
+                    },
                     showHeader: true,
                     requireLogin: false
                 })
+
                 // .state('feed-mobile', {
                 //   url: 'feed/:pubId',
                 //   templateUrl: '../../app/Feed/views/view-publication.html',
