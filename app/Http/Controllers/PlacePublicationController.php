@@ -93,7 +93,7 @@ class PlacePublicationController extends Controller
 
         if ($request->hasFile('original_images')) {
             $validator = Validator::make($request->file('original_images'), [
-                'image|max:2500'
+                'image|max:4000'
             ]);
 
             if ($validator->fails()) {

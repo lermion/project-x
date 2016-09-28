@@ -9,7 +9,7 @@ use App\ComplaintCategory;
 use App\TypePlace;
 use App\Scope;
 use App\Option;
-
+use App\Moderator;
 
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
          $this->call(TypePlaceTableSeeder::class);
          $this->call(ScopeTableSeeder::class);
          $this->call(OptionTableSeeder::class);
+         $this->call(AdminTableSeeder::class);
     }
 }
 
@@ -421,5 +422,15 @@ class ScopeTableSeeder extends Seeder
         Scope::create(array('id' => 3, 'name'=>'Москва', 'img'=>'пусто', 'order' => 3, 'is_protected' => false ));
         Scope::create(array('id' => 4, 'name'=>'Санкт-Петербург', 'img'=>'пусто', 'order' => 4, 'is_protected' => false ));
         Scope::create(array('id' => 5, 'name'=>'Днепр', 'img'=>'пусто', 'order' => 5, 'is_protected' => false ));
+    }
+}
+
+class AdminTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        DB::table('moderators')->delete();
+        Moderator::create(array('id' => 1, 'email' => 'user@mail.ru', 'password' => '$2y$10$n4XlCrmGW7jZWdIC.UYbFuf8f//AeHW3dTaxX.rCLx6GCyLfp6wQW', 'first_name' => 'admin', 'last_name' => 'admin', 'is_admin' => 1));
     }
 }
