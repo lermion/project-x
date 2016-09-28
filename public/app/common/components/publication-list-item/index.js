@@ -176,7 +176,29 @@
 						}
 
 					} else {
-						ctrl.mainImage = ctrl.pub.cover;
+						// если в публикации есть видеофайлы, то проверим не является ли один из них обложкой
+						if (!ctrl.isAuth && ctrl.pub.videos.length > 0) {
+							var videoIsCoded = false;
+							var videoCover = ctrl.pub.videos.filter(function (file, index, videos) {
+								return file.pivot.is_cover == true;
+							});
+							if (videoCover[0]) {
+								ctrl.mainVideo = videoCover[0].url;
+								videoIsCoded = !!videoCover[0].is_coded;
+								if (!videoIsCoded) {
+									$http.get('chat/get_video/' + videoCover[0].id).then(function (resp) {
+										ctrl.showVideo = !!resp.data.is_coded;
+									});
+								} else {
+									ctrl.showVideo = true;
+								}
+
+							} else {
+								ctrl.mainVideo = false;
+							}
+						} else {
+							ctrl.mainImage = ctrl.pub.cover;
+						}
 					}
 
 
