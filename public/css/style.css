@@ -2174,7 +2174,7 @@ body.public.user {
 .visible-comments .user-comment .ava:hover,
 .user-publication .add-comment .ava:hover {
 	opacity: .8;
-	transition: all .1s ease-in-out .1s;
+	/*transition: all .1s ease-in-out .1s;*/
 }
 .user-publication.ngdialog-theme-default .publication-item .user .ava,
 .user-function .user .ava,
