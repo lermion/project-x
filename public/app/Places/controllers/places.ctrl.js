@@ -788,7 +788,7 @@
 		vm.searchCity = function (str) {
 			vm.cities = [];
 
-			var deferred = $q.defer();
+			var def = $q.defer();
 
 			if (str) {
 				var countryObj = {
@@ -798,7 +798,7 @@
 				placesService.getCities(countryObj).then(function (data) {
 					if (data.status) {
 						vm.cities = data;
-						deferred.resolve(data.cities);
+						def.resolve(data.cities);
 					} else {
 						getCity(str)
 							.then(function (data) {
@@ -826,7 +826,7 @@
 					}
 				});
 			}
-			return deffered.promise;
+			return def.promise;
 		};
 
 
