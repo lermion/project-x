@@ -6629,6 +6629,8 @@ input.cmn-toggle-round:checked + label:after {
 	*/
 	margin-top: -6px;
 	background-color: #ffffff;
+	max-height: 163px;
+    overflow-y: auto;
 }
 
 .angucomplete-searching {
