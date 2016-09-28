@@ -271,8 +271,7 @@
 				.catch(getCitiesFailed);
 
 			function getCitiesComplete(response) {
-				var cities = response.data;
-				return cities;
+				return response.data;
 			}
 
 			function getCitiesFailed(error) {
