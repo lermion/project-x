@@ -97,10 +97,6 @@
 				 * @param event
 				 */
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-					ctrl.newPublicationForm.$setSubmitted();
-					if(ctrl.newPublicationForm.$invalid){
-						return false;
-					}
 					ctrl.progressFilesLoading = true;
 					ctrl.isFilesAdded = true;
 					var defer = $q.defer();

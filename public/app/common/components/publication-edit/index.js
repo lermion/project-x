@@ -102,10 +102,6 @@
 
 
 				ctrl.attachFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
-					ctrl.newPublicationForm.$setSubmitted();
-					if(ctrl.newPublicationForm.$invalid){
-						return false;
-					}
 					var defer = $q.defer();
 					var prom = [];
 					newFiles.forEach(function (image) {
