@@ -21,7 +21,7 @@
                 <th class="text-center photo">Фото</th>
                 <th class="name">Имя</th>
                 <th class="time">Время работы</th>
-                <th class="process">Процесс</th>
+                {{--<th class="process">Процесс</th>--}}
                 <th class="do">Действия</th>
             </tr>
             </thead>
@@ -154,18 +154,22 @@
                         </div>
                         </div>
                     </td>
-                    <td class="moderators-process">
-                        <p>Модераций: <b>173</b></p>
-                        <p>Долгое ожидание: <b>45 мин.</b></p>
-                        <p>Присутствие: <b>17/19</b></p>
-                    </td>
+                    {{--<td class="moderators-process">--}}
+                        {{--<p>Модераций: <b>173</b></p>--}}
+                        {{--<p>Долгое ожидание: <b>45 мин.</b></p>--}}
+                        {{--<p>Присутствие: <b>17/19</b></p>--}}
+                    {{--</td>--}}
                     <td>
                         <p class="text-center" style="margin-top:10px;">
+                            @if ($mod->id != 1)
                             <a href="/admin/moderator/stop/{{$mod->id}}">
                                 <button type="button" class="btn btn-warning btn-xs"> @if ($mod->is_stop == false) Остановить  @else   Восстановить @endif </button>
                             </a>
+                            @endif
                             <a class="btn btn-info btn-xs" href="/admin/moderator/update/{{$mod->id}}">Изменить</a>
+                                @if ($mod->id != 1)
                             <a class="btn btn-danger btn-xs deleteConfirm-mod" href="/admin/moderator/destroy/{{$mod->id}}">Удалить</a>
+                                @endif
                         </p>
                     </td>
                 </tr>
