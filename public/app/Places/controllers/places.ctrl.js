@@ -821,7 +821,7 @@
 									}
 								});
 
-								def.resolve(matches);
+								def.resolve(vm.cities);
 							})
 					}
 				});
