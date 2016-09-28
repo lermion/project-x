@@ -8,12 +8,12 @@
 	PlacesCtrl.$inject = ['$rootScope', '$scope', '$http', '$window', '$state', '$stateParams', '$filter', '$timeout', '$location',
 		'$anchorScroll', 'AuthService', 'storageService',
 		'placesService', 'countries', 'places', 'typeStatic', 'typeDynamic', 'ngDialog', 'PublicationService',
-		'UserService', 'Upload', '$q'];
+		'UserService', 'Upload', '$q', 'orderByFilter'];
 
 	function PlacesCtrl($rootScope, $scope, $http, $window, $state, $stateParams, $filter, $timeout, $location,
 						$anchorScroll, AuthService, storageService,
 						placesService, countries, places, typeStatic, typeDynamic, ngDialog, PublicationService,
-						UserService, Upload, $q) {
+						UserService, Upload, $q, orderBy) {
 
 		var LIMIT_PLACE = 3;
 
@@ -797,7 +797,7 @@
 				};
 				placesService.getCities(countryObj).then(function (data) {
 					if (data.length > 0) {
-						vm.cities = data;
+						vm.cities = orderBy(data, '+name');
 						def.resolve(vm.cities);
 					} else {
 						getCity(str)
@@ -818,6 +818,7 @@
 										vm.cities.push({
 											name: cityName
 										});
+										vm.cities = orderBy(vm.cities, '+name');
 									}
 								});
 
