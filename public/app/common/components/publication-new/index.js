@@ -117,15 +117,18 @@
 						}else{
 							ctrl.tooManyFilesRemove = false;
 						}
-						if (!ctrl.coverToCrop) {
-							var file = newFiles[0];
+						var file = newFiles[0];
 							if (isImage(file)) {
-								var file = event.currentTarget.files[0];
 								var reader = new FileReader();
 								reader.onload = function (event) {
 									var image = new Image();
 									image.src = event.target.result;
 									image.onload = function(){
+										if(this.width < 700){
+											ctrl.newPublicationForm.files1.$setValidity('minWidth', false);
+										}else{
+											ctrl.newPublicationForm.files1.$setValidity('minWidth', true);
+										}
 										if(this.height > this.width){
 											ctrl.aspectRatio = 1.4;
 										}else if(this.width === 1366 && this.height === 768){
@@ -144,7 +147,6 @@
 								ctrl.cover = file;
 							}
 							ctrl.files[0].isCover = true;
-						}
 						$scope.$broadcast('rebuild:me');
 					});
 				};
