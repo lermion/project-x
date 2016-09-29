@@ -247,6 +247,7 @@ input[type="tel"]:focus + span.phone,
 .form-item form select:focus {
 	color: #000;
 }
+form input.color--black,
 .form-item form input.color--black,
 .form-item form select.color--black,
 .form-item form span.phone.color--black {
