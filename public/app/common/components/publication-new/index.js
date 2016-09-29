@@ -133,7 +133,7 @@
 										if(this.height > this.width){
 											ctrl.aspectRatio = 1.4;
 										}else{
-											ctrl.aspectRatio = 4;
+											ctrl.aspectRatio = this.width / this.height;
 										}
 										console.log(ctrl.aspectRatio);
 										$scope.$apply(function($scope){
