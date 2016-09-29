@@ -134,7 +134,7 @@
 										}else if(this.width === 1366 && this.height === 768){
 											ctrl.aspectRatio = 2.5;
 										}else{
-											ctrl.aspectRatio = 3;
+											ctrl.aspectRatio = 1.7;
 										}
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
@@ -202,7 +202,7 @@
 								}else if(this.width === 1366 && this.height === 768){
 									ctrl.aspectRatio = 2.5;
 								}else{
-									ctrl.aspectRatio = 3;
+									ctrl.aspectRatio = 1.7;
 								}
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;
