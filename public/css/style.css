@@ -247,6 +247,11 @@ input[type="tel"]:focus + span.phone,
 .form-item form select:focus {
 	color: #000;
 }
+.form-item form input.color--black,
+.form-item form select.color--black,
+.form-item form span.phone.color--black {
+	color: #000000;
+}
 .check-in.recovery .tel-field {
 	box-sizing: border-box;
 	position: relative;

@@ -98,10 +98,6 @@ angular.module('placePeopleApp')
 				AuthService.getAreas().then(function(response){
 					$scope.areas = response;
 					$scope.topics = angular.copy(response);
-					$scope.topics.unshift({
-						name: "Выберите тему..."
-					});
-					$scope.selectedOption = $scope.topics[0];
 				},
 				function(error){
 					console.log(error);

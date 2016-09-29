@@ -16,23 +16,25 @@
 									<form>
 										<div class="city-field">
 												<span class="city"></span>
-												<select ng-change="changeTopic(selectedOption)" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.id"></select>
+												<select ng-change="changeTopic(selectedOption)" ng-class="{'color--black': selectedOption}" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.id">
+													<option value="" disabled hidden>Выберите тему ...</option>
+												</select>
 												<span class="city-inner"></span>
 										</div>
 										<div ng-show="showAnotherTopic" class="phone-field theme">
 											<span class="region"></span>
-											<input type="text" placeholder="Напишите другую тему..." required>
+											<input type="text" class="color--black" placeholder="Напишите другую тему..." required>
 										</div>
 										<div class="city-field">
 												<span class="city"></span>
-												<select ng-model="newUserCountryId" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" ng-click="nupnErr=false;" ng-change="nupnErr=false;" required>
-												<option value="">Выберите страну...</option>
+												<select ng-model="newUserCountryId" ng-class="{'color--black': newUserCountryId}" ng-options="country.id as country.name for country in countries" ng-change="setCoutryCode(country)" ng-click="nupnErr=false;" ng-change="nupnErr=false;" required>
+												    <option value="" disabled hidden>Выберите страну...</option>
 												</select>
 												<span class="city-inner"></span>
 										</div>
 										<div class="phone-field">
-											<input id="phone-input" type="tel" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="nupnErr=false;" ng-change="nupnErr=false;" required style="padding-left:{{calcPadding()}}px;">
-											<span id="phone" class="phone">{{newUserCountryId ? phoneCode : ''}}</span>
+											<input id="phone-input" type="tel"  class="color--black" ng-model="newUserPhoneNumber" ng-pattern="phoneRegExp" placeholder="Введите номер телефона..." ng-click="nupnErr=false;" ng-change="nupnErr=false;" required style="padding-left:{{calcPadding()}}px;">
+											<span id="phone" class="phone" ng-class="{'color--black': newUserPhoneNumber}">{{newUserCountryId ? phoneCode : ''}}</span>
 										</div>
 										<p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
 
