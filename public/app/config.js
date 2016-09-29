@@ -440,7 +440,7 @@ angular.module('placePeopleApp')
 
                 $rootScope.countryName = metaData.GeocoderMetaData.AddressDetails.Country.CountryName;
 
-                console.log('Country name - ' + $rootScope.countryName);
+                // console.log('Country name - ' + $rootScope.countryName);
 
                 $rootScope.$broadcast('location:ready');
 

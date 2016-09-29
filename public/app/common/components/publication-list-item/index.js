@@ -98,7 +98,6 @@
 
 				// Lifecycle hooks
 				ctrl.$onInit = function (args) {
-					console.log(1);
 					ctrl.pub = ctrl.pubData;
 					ctrl.avatar = getAvatarPath();
 					ctrl.authorName = getAuthorName();

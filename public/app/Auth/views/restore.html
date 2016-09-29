@@ -1,7 +1,7 @@
 <div>  
 	<div class="check-in recovery" ng-show="!smsSend">
 				 <div class="form">
-									<div class="logo"></div>
+									<div class="logo hover--pointer" ng-click="changeStateTo('reg')"></div>
 									<div class="tel-field">
 															<span class="plus">+</span>
 															<input class="text-field" type="text" name="" placeholder="Ваш номер телефона..." ng-model="restoreUserPhone" ng-pattern="phoneRegExp" ng-click="ruphErr=false;" ng-change="ruphErr=false;">
