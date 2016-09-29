@@ -21,8 +21,6 @@
 				ctrl.subForm = false;
 				ctrl.isAnonym = false;
 				ctrl.checkedLimit = 3;
-				ctrl.tooManyFiles = false;
-				ctrl.tooManyFilesRemove = false;
 				ctrl.progressFilesLoading = false;
 
 				// Current user
@@ -60,6 +58,8 @@
 
 				// Lifecycle hooks
 				ctrl.$onInit = function (args) {
+					ctrl.tooManyFilesRemove = false;
+					ctrl.tooManyFiles = false;
 					ctrl.avatar = getAvatarPath();
 					ctrl.authorName = getAuthorName();
 					ctrl.isFeed = $state.is('feed');
@@ -117,8 +117,9 @@
 						}else{
 							ctrl.tooManyFilesRemove = false;
 						}
-						var file = newFiles[0];
-							if (isImage(file)) {
+						var file = event.currentTarget.files[0];
+
+							if (isImage(file) && ctrl.originalFiles.length === 1) {
 								var reader = new FileReader();
 								reader.onload = function (event) {
 									var image = new Image();
@@ -131,11 +132,10 @@
 										}
 										if(this.height > this.width){
 											ctrl.aspectRatio = 1.4;
-										}else if(this.width === 1366 && this.height === 768){
-											ctrl.aspectRatio = 2.5;
 										}else{
-											ctrl.aspectRatio = 1.7;
+											ctrl.aspectRatio = 4;
 										}
+										console.log(ctrl.aspectRatio);
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
 											ctrl.coverToCropName = file.name;
@@ -143,10 +143,9 @@
 									};
 								};
 								reader.readAsDataURL(file);
-							} else {
-								ctrl.cover = file;
+							}else{
+								ctrl.newPublicationForm.files1.$setValidity('minWidth', false);
 							}
-							ctrl.files[0].isCover = true;
 						$scope.$broadcast('rebuild:me');
 					});
 				};
@@ -199,10 +198,8 @@
 								}
 								if(this.height > this.width){
 									ctrl.aspectRatio = 1.4;
-								}else if(this.width === 1366 && this.height === 768){
-									ctrl.aspectRatio = 2.5;
 								}else{
-									ctrl.aspectRatio = 1.7;
+									ctrl.aspectRatio = 4;
 								}
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;

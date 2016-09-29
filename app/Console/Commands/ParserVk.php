@@ -71,8 +71,8 @@ class ParserVk extends Command
                             $area = Area::firstOrCreate(['name' => $cInfo->area, 'region_id' => $region->id]);
                         }
                     }
-                    $area_id = (isset($area->id)) ? $area->id : null;
-                    $region_id = (isset($region->id)) ? $region->id : null;
+                    $area_id = isset($area->id) ? $area->id : null;
+                    $region_id = isset($region->id) ? $region->id : null;
                     City::firstOrCreate(['name' => $cInfo->title, 'country_id' => $cId['ourId'], 'area_id' => $area_id, 'region_id' => $region_id]);
                     $offset++;
                     $area = null;
@@ -81,4 +81,5 @@ class ParserVk extends Command
             } while ($offset < $cities->response->count);
         }
     }
+    //Не хватает столиц:
 }

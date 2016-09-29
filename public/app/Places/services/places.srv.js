@@ -21,6 +21,7 @@
 			getCounterNewPlaces: getCounterNewPlaces,
 			getCountries: getCountries,
 			getCities: getCities,
+			getCitiesFromYandexMaps: getCitiesFromYandexMaps,
 			addCity: addCity,
 			inviteUsers: inviteUsers,
 			setAdmin: setAdmin,
@@ -255,10 +256,10 @@
 
 		}
 
-		function getCities(countryObj) {
+		function getCities(countryId, cityName) {
 			var fd = new FormData();
-			fd.append('country_id', countryObj.id);
-			fd.append('name', countryObj.name);
+			fd.append('country_id', countryId);
+			fd.append('name', cityName);
 
 			return $http({
 				method: "POST",
@@ -282,6 +283,34 @@
 		}
 
 		/**
+		 * Returns a list of cities found through Yandex Maps API
+		 * @param countryName
+		 * @param cityName
+		 * @returns {*}
+		 */
+		function getCitiesFromYandexMaps(countryName, cityName) {
+
+			return $http({
+				method: 'GET',
+				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + countryName + ', ' + cityName,
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: null
+			})
+				.then(getCitiesFromYandexMapsComplete)
+				.catch(getCitiesFromYandexMapsFailed);
+
+			function getCitiesFromYandexMapsComplete(response) {
+				return response.data;
+			}
+
+			function getCitiesFromYandexMapsFailed(error) {
+				console.error('XHR Failed for getPublications. ' + error.data);
+			}
+
+		}
+
+		/**
 		 * Returns the identifier of the city. If the city is not in the database, then create a new.
 		 * @param cityObj
 		 * @returns {*}
@@ -291,7 +320,9 @@
 			var fd = new FormData();
 
 			fd.append('country_id', cityObj.countryId);
-			fd.append('name', cityObj.name);
+			fd.append('city_name', cityObj.name);
+			fd.append('region_name', cityObj.region);
+			fd.append('area_name', cityObj.area);
 
 
 			return $http({

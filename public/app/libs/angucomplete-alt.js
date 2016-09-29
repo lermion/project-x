@@ -606,7 +606,7 @@
 
             if (scope.matchClass) {
               formattedText = findMatchString(text, str);
-              formattedDesc = findMatchString(description, str);
+              // formattedDesc = findMatchString(description, str);
             }
 
             scope.results[scope.results.length] = {
