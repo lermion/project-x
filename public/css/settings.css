@@ -1531,6 +1531,7 @@ label span.add {
 	width: 18px;
 	margin: 0 5px 0 0;
 	background-color: #ec6045;
+	border-radius: 2px;
 }
 .popup-add-group input[type="checkbox"]:checked + label::before,
 .check-in input[type="checkbox"]:checked + label::before {
