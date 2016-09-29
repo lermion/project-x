@@ -320,7 +320,9 @@
 			var fd = new FormData();
 
 			fd.append('country_id', cityObj.countryId);
-			fd.append('name', cityObj.name);
+			fd.append('city_name', cityObj.name);
+			fd.append('region_name', cityObj.region);
+			fd.append('area_name', cityObj.area);
 
 
 			return $http({
