@@ -7266,6 +7266,7 @@ button.settings-btn {
 @media (max-width: 767px) {
 	.user-publication-header .return {
 		font-size: 13.6px;
+		display: block;
 	}
 	.user-publication-header .user-menu {
 		display: flex;
