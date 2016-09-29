@@ -1,5 +1,5 @@
 <div>
-		<div class="check-in" ng-hide="true || regConfirmed">
+		<div class="check-in" ng-hide="regConfirmed">
 			   <div class="form">
 						<div class="reg-regions-list">
 							<div class="region-name" ng-repeat="area in areas">
@@ -59,7 +59,7 @@
 						</div>
 				</div>
 		</div>
-		<div class="check-in registration" ng-show="true ||     regConfirmed && !userRegistred">
+		<div class="check-in registration" ng-show="regConfirmed && !userRegistred">
 			   <div class="form">
 						<div class="logo"></div>
 						<h1>С теми, кто в теме</h1>                          
