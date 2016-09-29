@@ -1531,6 +1531,7 @@ label span.add {
 	width: 18px;
 	margin: 0 5px 0 0;
 	background-color: #ec6045;
+	border-radius: 2px;
 }
 .popup-add-group input[type="checkbox"]:checked + label::before,
 .check-in input[type="checkbox"]:checked + label::before {
@@ -1740,6 +1741,9 @@ div.my_profilll.photo-list div:last-child {
 	height: 100px;
 }
 @media only screen and (max-width: 620px) {
+	.user-publication-content .publication-images.is-popup {
+	    width: 100%;
+	}
 	.set_1 .add-ava label {
 		width: 230px;
 		height: 230px;
@@ -7266,6 +7270,7 @@ button.settings-btn {
 @media (max-width: 767px) {
 	.user-publication-header .return {
 		font-size: 13.6px;
+		display: block;
 	}
 	.user-publication-header .user-menu {
 		display: flex;
