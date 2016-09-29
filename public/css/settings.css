@@ -2359,14 +2359,14 @@ div.my_profilll.photo-list div:last-child {
 	}
 	.item1.add-people li span.add-people-delete {
 		background: #ec6045;
-		border-radius: 50%;
-		color: #bbb;
-		height: 10px;
-		line-height: 10px;
-		left: 29px;
-		top: 5px;
-		width: 10px;
-		font-size: .5em;
+	    border-radius: 50%;
+	    color: #bbb;
+	    height: 15px;
+	    line-height: 15px;
+	    left: 40px;
+	    top: 0px;
+	    width: 15px;
+	    font-size: .5em;
 	}
 	.popup-add-group .fifth_item .item1 li img {
 		margin-right: 8px;
@@ -4763,7 +4763,7 @@ form.add-files-in-chat .error-messages.ng-active:after{
 	border-radius: 50%;
 	width: 50px;
 	height: 50px;
-	margin-right: 15px;
+	margin-right: 5px;
 }
 .popup-group-chat .fifth_item .item2 {
 	margin-top: 22px;
