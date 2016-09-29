@@ -763,74 +763,171 @@
 
 		};
 
-		function getCity(str) {
-			return $http({
-				method: 'GET',
-				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + vm.placeNew.country.originalObject.name + ', ' + str,
-				headers: {'Content-Type': undefined},
-				transformRequest: angular.identity,
-				data: null,
-				timeout: 1000
-			})
-				.then(getPublicationsComplete)
-				.catch(getPublicationsFailed);
 
-			function getPublicationsComplete(response) {
-				return response.data;
-			}
-
-			function getPublicationsFailed(error) {
-				console.error('XHR Failed for getPublications. ' + error.data);
-			}
+		function getCitiesFromDatabase(countryId, cityName) {
+			return placesService.getCities(countryId, cityName)
+				.then(function(data) {
+					return data;
+				});
 		}
 
+		function getCitiesFromYandexMaps(countryName, cityName) {
+			return placesService.getCitiesFromYandexMaps(countryName, cityName)
+				.then(function(data) {
+					return data;
+				});
+		}
 
-		vm.searchCity = function (str) {
+		function getCitiesYandex(data) {
+			var arr = data.response.GeoObjectCollection.featureMember;
+
+
+			arr.forEach(function (item) {
+				var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+				var subArea = null;
+				var cityName = null,
+					region = null,
+					area = null;
+
+				if (data.kind === 'locality') {
+					subArea = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea;
+
+					if (subArea) {
+						cityName = subArea.Locality.LocalityName;
+						region = data.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName;
+						area = subArea.SubAdministrativeAreaName;
+					} else {
+						subArea = data.AddressDetails.Country.AdministrativeArea;
+						cityName = subArea.Locality.LocalityName;
+						region = '';
+						area = '';
+					}
+
+					vm.cities.push({
+						region: region,
+						name: cityName,
+						area: area
+					});
+
+				}
+			});
+			// vm.cities = orderBy(vm.cities, '+name');
+			return vm.cities;
+		}
+
+		vm.searchCity = function (cityName) {
 			vm.cities = [];
 
 			var def = $q.defer();
 
-			if (str) {
-				var countryObj = {
-					id: vm.placeNew.country.originalObject.id,
-					name: str
-				};
-				placesService.getCities(countryObj).then(function (data) {
-					if (data.length > 0) {
-						vm.cities = orderBy(data, '+name');
-						def.resolve(vm.cities);
-					} else {
-						getCity(str)
-							.then(function (data) {
 
-								var arr = data.response.GeoObjectCollection.featureMember;
+			$q.all([
+				getCitiesFromDatabase(vm.placeNew.country.originalObject.id, cityName),
+				getCitiesFromYandexMaps(vm.placeNew.country.originalObject.name, cityName)
+			]).then(function(cities) {
+				console.log(cities);
 
-								arr.forEach(function (item) {
-									var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
-									if (data.kind === 'locality') {
-										var cityName = null;
-										if (data.AddressDetails.Country.AddressLine) {
-											cityName = data.AddressDetails.Country.AddressLine;
-										} else {
-											cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
-										}
+				var citiesDatabase = cities[0];
+				var citiesYandex = getCitiesYandex(cities[1]);
+				console.log(citiesYandex);
 
-										vm.cities.push({
-											name: cityName
-										});
-										vm.cities = orderBy(vm.cities, '+name');
-									}
-								});
+				var newArr = citiesDatabase.concat(citiesYandex);
+				console.log(newArr);
+				def.resolve(newArr);
+			});
 
-								def.resolve(vm.cities);
-							})
-					}
-				});
-			} else {
-				def.reject();
-			}
+			// if (str) {
+			// 	var countryObj = {
+			// 		id: vm.placeNew.country.originalObject.id,
+			// 		name: str
+			// 	};
+            //
+			// 	getCitiesFromDatabase();
+			// 	getCitiesFromYandexMaps();
+            //
+			// 	placesService.getCities(countryObj).then(function (data) {
+			// 		if (data.length > 0) {
+			// 			vm.cities = orderBy(data, '+name');
+			// 			def.resolve(vm.cities);
+			// 		} else {
+			// 			getCity(str)
+			// 				.then(function (data) {
+            //
+			// 					var arr = data.response.GeoObjectCollection.featureMember;
+            //
+			// 					arr.forEach(function (item) {
+			// 						var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+			// 						if (data.kind === 'locality') {
+			// 							var cityName = null;
+			// 							if (data.AddressDetails.Country.AddressLine) {
+			// 								cityName = data.AddressDetails.Country.AddressLine;
+			// 							} else {
+			// 								cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
+			// 							}
+            //
+			// 							vm.cities.push({
+			// 								name: cityName
+			// 							});
+			// 							vm.cities = orderBy(vm.cities, '+name');
+			// 						}
+			// 					});
+            //
+			// 					def.resolve(vm.cities);
+			// 				})
+			// 		}
+			// 	});
+			// } else {
+			// 	def.reject();
+			// }
 			return def.promise;
 		};
+
+		// vm.searchCity = function (str) {
+		// 	vm.cities = [];
+        //
+		// 	var def = $q.defer();
+        //
+		// 	if (str) {
+		// 		var countryObj = {
+		// 			id: vm.placeNew.country.originalObject.id,
+		// 			name: str
+		// 		};
+		// 		placesService.getCities(countryObj).then(function (data) {
+		// 			if (data.length > 0) {
+		// 				vm.cities = orderBy(data, '+name');
+		// 				def.resolve(vm.cities);
+		// 			} else {
+		// 				getCity(str)
+		// 					.then(function (data) {
+        //
+		// 						var arr = data.response.GeoObjectCollection.featureMember;
+        //
+		// 						arr.forEach(function (item) {
+		// 							var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+		// 							if (data.kind === 'locality') {
+		// 								var cityName = null;
+		// 								if (data.AddressDetails.Country.AddressLine) {
+		// 									cityName = data.AddressDetails.Country.AddressLine;
+		// 								} else {
+		// 									cityName = data.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
+		// 								}
+        //
+		// 								vm.cities.push({
+		// 									name: cityName
+		// 								});
+		// 								vm.cities = orderBy(vm.cities, '+name');
+		// 							}
+		// 						});
+        //
+		// 						def.resolve(vm.cities);
+		// 					})
+		// 			}
+		// 		});
+		// 	} else {
+		// 		def.reject();
+		// 	}
+		// 	return def.promise;
+		// };
 
 
 	}
