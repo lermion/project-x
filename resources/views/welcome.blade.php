@@ -116,7 +116,8 @@
 	<script src="../../app/libs/emoji-picker.js"></script>
 	<script src="../../app/libs/angular-backtop.min.js"></script>
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>
-	<script src="../../app/libs/angucomplete-alt.min.js"></script>
+	<!--<script src="../../app/libs/angucomplete-alt.min.js"></script>-->
+	<script src="../../app/libs/angucomplete-alt.js"></script>
 	<script src="../../app/libs/socket.min.js"></script>
 	<script src="../../app/libs/metrika.js"></script>
 	<script type="text/javascript" src="../../app/libs/emoji/config.js"></script>
