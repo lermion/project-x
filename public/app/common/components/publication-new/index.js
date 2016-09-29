@@ -21,8 +21,6 @@
 				ctrl.subForm = false;
 				ctrl.isAnonym = false;
 				ctrl.checkedLimit = 3;
-				ctrl.tooManyFiles = false;
-				ctrl.tooManyFilesRemove = false;
 				ctrl.progressFilesLoading = false;
 
 				// Current user
@@ -60,6 +58,8 @@
 
 				// Lifecycle hooks
 				ctrl.$onInit = function (args) {
+					ctrl.tooManyFilesRemove = false;
+					ctrl.tooManyFiles = false;
 					ctrl.avatar = getAvatarPath();
 					ctrl.authorName = getAuthorName();
 					ctrl.isFeed = $state.is('feed');
