@@ -9,6 +9,7 @@ angular.module('placePeopleApp')
 			$scope.createAccountForm = {};
 
 			$scope.newUserCountryId = null;
+            $scope.newUserConfirmPassword = null;
 
 			$scope.phoneCode = null;
 
