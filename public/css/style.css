@@ -604,7 +604,8 @@ form input.color--black,
 	position: relative;
 	cursor: pointer;
 }
-.popup-add-group .add-ava label {
+.popup-add-group .add-ava label,
+.popup-group-chat .add-ava label{
 	margin-top: 0;
 }
 // .add-ava #avatarImg + label {
