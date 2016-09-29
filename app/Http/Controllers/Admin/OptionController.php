@@ -136,15 +136,6 @@ class OptionController extends Controller
         return redirect('admin/option/')->with('message', 'Сохраненно');
     }
 
-    public function generateCodes()
-    {
-        if(AccessCode::generateCodes()) {
-            return redirect('admin/option/')->with('message', 'Коды сгенерированны');
-        } else {
-            return redirect('admin/option/')->with('message', 'Ошибка!!! Коды не сгенерированны');
-        }
-    }
-
     public function create(Request $request)
     {
         try {
