@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\ChatRoom;
 use App\Place;
 use App\NewPlace;
+use App\Region;
 use App\Scope;
 use App\ScopePlace;
 use App\TypePlace;
@@ -553,13 +555,21 @@ class PlaceController extends Controller
 
     public function add_city(Request $request)
     {
-        if ($city = City::where(['country_id'=>$request->input('country_id'), 'name'=>$request->input('name')])->first()){
-            return response()->json(['status' => true, 'city_id' => $city->id]);
-        } else {
-            $data = $request->all();
-            $city = City::create($data);
-            return response()->json(['status' => true, 'city_id' => $city->id]);
+        $country_id = $request->input('country_id');
+        $city_name = $request->input('city_name');
+        $region_name = $request->input('region_name');
+        $area_name = $request->input('area_name');
+        if (isset($region_name)) {
+            $region = Region::firstOrCreate(['name' => $region_name, 'country_id' => $country_id]);
+            if (isset($area_name)) {
+                $area = Area::firstOrCreate(['name' => $area_name, 'region_id' => $region->id]);
+            }
         }
+        $area_id = (isset($area->id)) ? $area->id : null;
+        $region_id = (isset($region->id)) ? $region->id : null;
+        $city = City::firstOrCreate(['country_id'=>$country_id, 'name'=>$city_name, 'region_id'=>$region_id, 'area_id'=>$area_id])->first();
+        return response()->json(['status' => true, 'city_id' => $city->id]);
+
     }
 
     public function getCities(Request $request)
