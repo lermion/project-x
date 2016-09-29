@@ -199,7 +199,7 @@
 								if(this.height > this.width){
 									ctrl.aspectRatio = 1.4;
 								}else{
-									ctrl.aspectRatio = 4;
+									ctrl.aspectRatio = this.width / this.height;
 								}
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;
