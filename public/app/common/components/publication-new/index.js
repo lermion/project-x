@@ -190,6 +190,11 @@
 							var image = new Image();
 							image.src = event.target.result;
 							image.onload = function(){
+								if(this.width < 700){
+									ctrl.newPublicationForm.files1.$setValidity('minWidth', false);
+								}else{
+									ctrl.newPublicationForm.files1.$setValidity('minWidth', true);
+								}
 								if(this.height > this.width){
 									ctrl.aspectRatio = 1.4;
 								}else if(this.width === 1366 && this.height === 768){
