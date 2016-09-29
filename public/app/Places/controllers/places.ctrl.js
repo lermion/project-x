@@ -49,7 +49,9 @@
 		vm.placeNew = {
 			category: null,
 
-			country: null,
+			country: {
+				originalObject: {}
+			},
 			city: null,
 			address: null,
 
@@ -285,13 +287,13 @@
 				vm.togglePlaceView(+newVal);
 			}
 		});
-		$scope.$watch(angular.bind(vm, function () {
-			return vm.placeNew.country;
-		}), function (newVal, oldVal) {
-			if (newVal !== oldVal && newVal !== null) {
-				getCities(newVal);
-			}
-		});
+		// $scope.$watch(angular.bind(vm, function () {
+		// 	return vm.placeNew.country;
+		// }), function (newVal, oldVal) {
+		// 	if (newVal !== oldVal && newVal !== null) {
+		// 		getCities(newVal);
+		// 	}
+		// });
 		$scope.$watch(function () {
 			return $state.params;
 		}, function (p) {

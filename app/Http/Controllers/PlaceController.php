@@ -567,7 +567,7 @@ class PlaceController extends Controller
         }
         $area_id = (isset($area->id)) ? $area->id : null;
         $region_id = (isset($region->id)) ? $region->id : null;
-        $city = City::firstOrCreate(['country_id'=>$country_id, 'name'=>$city_name, 'region_id'=>$region_id, 'area_id'=>$area_id])->first();
+        $city = City::firstOrCreate(['country_id'=>$country_id, 'name'=>$city_name, 'region_id'=>$region_id, 'area_id'=>$area_id]);
         return response()->json(['status' => true, 'city_id' => $city->id]);
 
     }
