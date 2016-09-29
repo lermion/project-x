@@ -93,4 +93,5 @@ class ParserVk extends Command
         //isset($result['response']) ? $result = $result['response']: $result = null;
         return $result;
     }
+    //Не хватает столиц: Москва, Астана, Киев, Баку, Тбилиси, Кутаиси, Батуми, Рустави, Зугдиди, Кишинёв, Санкт-Петербург
 }

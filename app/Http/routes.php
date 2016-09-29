@@ -72,7 +72,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/', 'Admin\OptionController@index');
                 Route::post('create', 'Admin\OptionController@create');
                 Route::post('main_picture', 'Admin\OptionController@mainPicture');
-                Route::get('generate_codes', 'Admin\OptionController@generateCodes');
                 Route::get('create_scope', 'Admin\OptionController@create_scope');
                 Route::get('update_scope/{id}', 'Admin\OptionController@update_scope');
                 Route::get('delete_scope/{id}', 'Admin\OptionController@delete_scope');
@@ -326,7 +325,7 @@ Route::group(['middleware' => ['web']], function () {
              </form>";
     });
     Route::get('test', function () {
-        echo "<form action=\"http://pp.dev/static_page/get/name\" method=\"get\" enctype=\"multipart/form-data\">
+        echo "<form action=\"http://pp.dev/place/get_cities\" method=\"post\" enctype=\"multipart/form-data\">
              <input type='text' name='scopes[]' ><br>
              <input type='text' name='scopes[]' ><br>
              <input type='number' name='country_id' ><br>

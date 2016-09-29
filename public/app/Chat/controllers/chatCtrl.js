@@ -224,9 +224,10 @@ angular.module('placePeopleApp')
 					$scope.counter = 0;
 				}else{
 					$scope.busyMessages = false;
-					var mesId = $scope.Model.Chat[$scope.Model.Chat.length - 1].id;
+					var mesId = $scope.Model.Chat[0].id;
 					var elemContainer = angular.element(document).find('.chat-right-chat-inner')[0];
 					var elem = angular.element(document).find('#' + mesId)[0];
+					console.log(elem);
 					response.messages.forEach(function(value){
 						$scope.Model.Chat.unshift(value);
 					});

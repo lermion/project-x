@@ -34,8 +34,8 @@ angular.module('placePeopleApp')
 			}
 			return null;
 		}
-	}).filter('linkCheck',['$filter',
-		function($filter) {
+	}).filter('linkCheck',['$filter', '$location',
+		function($filter, $location) {
 			return function(text, target) {
 				if (!text) return text;
 
@@ -47,12 +47,12 @@ angular.module('placePeopleApp')
 				}
 
 				// replace #hashtags and send them to twitter
-				var replacePattern1 = /(^|\s)#(\w*[a-zA-Z_]+\w*)/gim;
+				var replacePattern1 = /(^|\s)#(\w*[a-zA-Z_А-ЯЁа-яё]+\w*)/gim;
 				replacedText = text.replace(replacePattern1, "$1<a href='javascript:void(0);' class='link-at-hashtag'" + targetAttr + ">#$2</a>");
-
 				// replace @mentions but keep them to our site
 				var replacePattern2 = /(^|\s)\@(\w*[a-zA-Z_]+\w*)/gim;
-				replacedText = replacedText.replace(replacePattern2, '$1<a href="$2" class="link-at-hashtag"' + targetAttr + '>@$2</a>');
+				var href = "/" + RegExp.$2 === $location.path() ? "javascript:window.location.reload();" : RegExp.$2;
+				replacedText = replacedText.replace(replacePattern2, '$1<a href="' + href + '" class="link-at-hashtag"' + targetAttr + '>@$2</a>');
 
 				return replacedText;
 			};

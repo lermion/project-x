@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         // Commands\Inspire::class,
         Commands\MakeVideo::class,
         Commands\ParserVk::class,
+        Commands\GeneratorCodes::class,
     ];
 
     /**
