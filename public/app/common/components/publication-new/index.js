@@ -132,11 +132,10 @@
 										}
 										if(this.height > this.width){
 											ctrl.aspectRatio = 1.4;
-										}else if(this.width === 1366 && this.height === 768){
-											ctrl.aspectRatio = 2.5;
 										}else{
-											ctrl.aspectRatio = 1.7;
+											ctrl.aspectRatio = 4;
 										}
+										console.log(ctrl.aspectRatio);
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
 											ctrl.coverToCropName = file.name;
@@ -199,10 +198,8 @@
 								}
 								if(this.height > this.width){
 									ctrl.aspectRatio = 1.4;
-								}else if(this.width === 1366 && this.height === 768){
-									ctrl.aspectRatio = 2.5;
 								}else{
-									ctrl.aspectRatio = 1.7;
+									ctrl.aspectRatio = 4;
 								}
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;
