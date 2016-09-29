@@ -1740,6 +1740,9 @@ div.my_profilll.photo-list div:last-child {
 	height: 100px;
 }
 @media only screen and (max-width: 620px) {
+	.user-publication-content .publication-images.is-popup {
+	    width: 100%;
+	}
 	.set_1 .add-ava label {
 		width: 230px;
 		height: 230px;
