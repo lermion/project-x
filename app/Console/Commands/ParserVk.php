@@ -44,54 +44,40 @@ class ParserVk extends Command
     {
 
 
-
         $countries = [
             ['ourId' => 8, 'vkId' => 1], // Россия
             ['ourId' => 12, 'vkId' => 2], // Украина
             ['ourId' => 3, 'vkId' => 3], // Белоруссия
             ['ourId' => 5, 'vkId' => 4], // Казахстан
             ['ourId' => 1, 'vkId' => 5], // Азербайджан
-            ['ourId' => 4, 'vkId' => 6], // Грузия
-            ['ourId' => 11, 'vkId' => 8], // Узбекистан
+            ['ourId' => 4, 'vkId' => 7], // Грузия
+            ['ourId' => 11, 'vkId' => 18], // Узбекистан
             ['ourId' => 7, 'vkId' => 15], // Молдавия
-            ['ourId' => 6, 'vkId' => 13], // Киргизия
-            //['ourId' => 2, 'vkId' => 13], //Армения
+            ['ourId' => 6, 'vkId' => 11], // Киргизия
+            ['ourId' => 2, 'vkId' => 6], //Армения
             ['ourId' => 9, 'vkId' => 16], //Таджикистан
             ['ourId' => 10, 'vkId' => 17] //Туркмения
         ];
         foreach ($countries as $cId) {
             $countryId = $cId['vkId'];
-            $count = 1000;
-            $regionsOffset = 0;
-            $regions = $this->doRequest('http://api.vk.com/method/database.getRegions?v=5.5&need_all=1&offset='.$regionsOffset.'&count='.$count.'&country_id='.$countryId);
-
-            foreach ($regions->response->items as $rInfo) {
-                $region = Region::firstOrCreate(['name' => $rInfo->title, 'country_id' => $cId['ourId']]);
-                $citiesOffset = 0;
-                do {
-                    $cities = $this->doRequest('http://api.vk.com/method/database.getCities?v=5.5&country_id=' . $countryId . '&region_id=' . $rInfo->id . '&offset=' . $citiesOffset . '&need_all=1&count=' . $count);
-                    foreach ($cities->response->items as $cInfo) {
+            $offset = 0;
+            do {
+                $result = file_get_contents('http://api.vk.com/method/database.getCities?v=5.6&country_id='.$countryId.'&region_id=0&offset='.$offset.'&need_all=1&count=1000&lang=0');
+                $cities = json_decode($result);
+                foreach ($cities->response->items as $cInfo) {
+                    if (isset($cInfo->region)) {
+                        $region = Region::firstOrCreate(['name' => $cInfo->region, 'country_id' => $cId['ourId']]);
                         if (isset($cInfo->area)) {
-                            $areaInfo = Area::firstOrCreate(['name' => $cInfo->area, 'region_id' => $region->id]);
+                            $area = Area::firstOrCreate(['name' => $cInfo->area, 'region_id' => $region->id]);
                         }
-                        $area_id = isset($areaInfo->id) ? $areaInfo->id : null;
-                        $r = City::firstOrCreate(['name' => $cInfo->title, 'country_id' => $cId['ourId'], 'area_id' => $area_id, 'region_id' => $region->id]);
-                        if(!$r){echo $cInfo->title; echo $cId['ourId']; echo $area_id; echo $region->id;}
-                        $citiesOffset++;
                     }
-                } while ($citiesOffset < $cities->response->count);
-            }
-
-//                Log::info('Region ... from country ... parsed ' . ($offset + $cities['count']) . ' cities');
+                    $area_id = isset($area->id) ? $area->id : null;
+                    $region_id = isset($region->id) ? $region->id : null;
+                    City::firstOrCreate(['name' => $cInfo->title, 'country_id' => $cId['ourId'], 'area_id' => $area_id, 'region_id' => $region_id]);
+                    $offset++;
+                }
+            } while ($offset < $cities->response->count);
         }
     }
-
-
-    private function doRequest($url) {
-        $result = file_get_contents($url);
-        $result = json_decode($result);
-        //isset($result['response']) ? $result = $result['response']: $result = null;
-        return $result;
-    }
-    //Не хватает столиц: Москва, Астана, Киев, Баку, Тбилиси, Кутаиси, Батуми, Рустави, Зугдиди, Кишинёв, Санкт-Петербург
+    //Не хватает столиц:
 }

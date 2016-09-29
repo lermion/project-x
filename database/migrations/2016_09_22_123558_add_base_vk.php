@@ -13,10 +13,10 @@ class AddBaseVk extends Migration
      */
     public function up()
     {
-        DB::unprepared(File::get(database_path() . '/countries.sql'));
-        DB::unprepared(File::get(database_path() . '/regions.sql'));
-        DB::unprepared(File::get(database_path() . '/areas.sql'));
-        //DB::unprepared(File::get(database_path() . '/cities.sql'));
+//        DB::unprepared(File::get(database_path() . '/countries.sql'));
+//        DB::unprepared(File::get(database_path() . '/regions.sql'));
+//        DB::unprepared(File::get(database_path() . '/areas.sql'));
+//        //DB::unprepared(File::get(database_path() . '/cities.sql'));
 
     }
 
@@ -27,11 +27,11 @@ class AddBaseVk extends Migration
      */
     public function down()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('countries')->truncate();
-        DB::table('regions')->truncate();
-        DB::table('areas')->truncate();
-        //DB::table('cities')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+//        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+//        DB::table('countries')->truncate();
+//        DB::table('regions')->truncate();
+//        DB::table('areas')->truncate();
+//        //DB::table('cities')->truncate();
+//        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
