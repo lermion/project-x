@@ -229,6 +229,7 @@
 									if(this.height > this.width){
 										ctrl.aspectRatio = 1.4;
 									}else{
+										this.height -= 200;
 										ctrl.aspectRatio = this.width / this.height;
 									}
 								};
@@ -250,6 +251,7 @@
 									if(this.height > this.width){
 										ctrl.aspectRatio = 1.4;
 									}else{
+										this.height -= 200;
 										ctrl.aspectRatio = this.width / this.height;
 									}
 								};
