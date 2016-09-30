@@ -81,5 +81,4 @@ class ParserVk extends Command
             } while ($offset < $cities->response->count);
         }
     }
-    //Не хватает столиц:
 }
