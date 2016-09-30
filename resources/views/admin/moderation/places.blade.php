@@ -84,11 +84,7 @@
 					</td>
 					<td>
 						<span>
-							@foreach($cities as $city)
-							@if ($city->id == $place->city_id)
-							{{$city->name}}
-							@endif
-							@endforeach
+							{{$place->city->name}}
 						</span>
 					</td>
 				  </tr>
