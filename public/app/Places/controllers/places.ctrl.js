@@ -601,8 +601,8 @@
 
 
 		vm.beforeInitMapForNewPlace = function () {
-			if (vm.placeNew.country && vm.placeNew.city) {
-				var addressStr = vm.placeNew.country.name + ' ' + vm.placeNew.city.name;
+			if (vm.placeNew.country.originalObject && vm.placeNew.city) {
+				var addressStr = vm.placeNew.country.originalObject.name + ' ' + vm.placeNew.city.name;
 				ymaps.geocode(addressStr, {format: 'json', results: 1}).then(function (res) {
 					// Выбираем первый результат геокодирования.
 					var firstGeoObject = res.geoObjects.get(0);
