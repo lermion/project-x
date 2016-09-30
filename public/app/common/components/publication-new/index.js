@@ -119,7 +119,7 @@
 						}
 						var file = event.currentTarget.files[0];
 
-							if (isImage(file) && ctrl.originalFiles.length === 1) {
+							if (isImage(file)) {
 								var reader = new FileReader();
 								reader.onload = function (event) {
 									var image = new Image();
@@ -133,9 +133,8 @@
 										if(this.height > this.width){
 											ctrl.aspectRatio = 1.4;
 										}else{
-											ctrl.aspectRatio = 4;
+											ctrl.aspectRatio = this.width / this.height;
 										}
-										console.log(ctrl.aspectRatio);
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
 											ctrl.coverToCropName = file.name;
@@ -199,7 +198,7 @@
 								if(this.height > this.width){
 									ctrl.aspectRatio = 1.4;
 								}else{
-									ctrl.aspectRatio = 4;
+									ctrl.aspectRatio = this.width / this.height;
 								}
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;

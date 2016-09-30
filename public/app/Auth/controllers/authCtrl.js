@@ -7,6 +7,7 @@ angular.module('placePeopleApp')
 			$scope.countries = countries ? countries : [];
 
 			$scope.createAccountForm = {};
+			$scope.createAccountFirstStepForm = {};
 
 			$scope.newUserCountryId = null;
             $scope.newUserConfirmPassword = null;
@@ -157,6 +158,10 @@ angular.module('placePeopleApp')
 			};
 
 			$scope.userRegisterS1 = function () {
+
+				$scope.createAccountFirstStepForm.$setSubmitted();
+
+				if ($scope.createAccountFirstStepForm.$invalid) return false;
 
 				if (!$scope.isAcceptRules) {
 					return false;

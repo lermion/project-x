@@ -13,7 +13,7 @@
 						<h1>С теми, кто в теме</h1>
 						<div class="form-item" ng-hide="regStep1">
 									<h5>Регистрация</h5>
-									<form>
+									<form name="createAccountFirstStepForm" novalidate>
 										<div class="city-field">
 												<span class="city"></span>
 												<select ng-change="changeTopic(selectedOption)" ng-class="{'color--black': selectedOption}" ng-model="selectedOption" ng-options="topic.name for topic in topics track by topic.id">
@@ -39,8 +39,15 @@
 										<p ng-show="nupnErr" class="capcha-tel">{{nupnErr}}</p>
 
 										<div class="checkbox_group">
-											<input type="checkbox" id="arr1" ng-model="isAcceptRules">
+											<input type="checkbox" id="arr1"
+												   name="acceptRules"
+												   ng-model="isAcceptRules"
+												   required>
 											<label for="arr1">Я принимаю &nbsp;<a ng-click="transitionToRules('rules')">условия регистрации</a></label>
+										</div>
+										<div class="flex-row--center" ng-messages="createAccountFirstStepForm.acceptRules.$error"
+											 ng-if="createAccountFirstStepForm.$invalid && createAccountFirstStepForm.$submitted">
+											<p ng-message="required">Вы должны принять условия регистрации</p>
 										</div>
 									</form>
 									<button class="check-in-button" ng-click="userRegisterS1();" ladda="codeSendLoader">Зарегистрироваться</button>
