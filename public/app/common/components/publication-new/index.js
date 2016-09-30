@@ -136,7 +136,6 @@
 											this.height -= 200;
 											ctrl.aspectRatio = this.width / this.height;
 										}
-										console.log(ctrl.aspectRatio);
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
 											ctrl.coverToCropName = file.name;
@@ -200,6 +199,7 @@
 								if(this.height > this.width){
 									ctrl.aspectRatio = 1.4;
 								}else{
+									this.height -= 200;
 									ctrl.aspectRatio = this.width / this.height;
 								}
 								$scope.$apply(function($scope){
