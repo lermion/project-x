@@ -350,6 +350,7 @@ angular.module('placePeopleApp')
 				$rootScope.user.loggedUserAva = storage.loggedUserAva !== '' ? storage.loggedUserAva : '/upload/preview-chat-no-avatar.png';
 				$rootScope.user.userId = +storage.userId || '';
 				$rootScope.user.pubView = storage.pubView || '';
+				$rootScope.user.countryId = +storage.countryId;
 
 				// TODO: заменить во всех представлениях
 				$scope.loggedUserId = $rootScope.user.userId;

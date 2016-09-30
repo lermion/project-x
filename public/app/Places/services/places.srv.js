@@ -322,7 +322,7 @@
 
 			return $http({
 				method: 'GET',
-				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + countryName + ', ' + cityName + ', ' + addressStr,
+				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=5&geocode=' + countryName + ', ' + cityName + ', ' + addressStr,
 				headers: {'Content-Type': undefined},
 				transformRequest: angular.identity,
 				data: null
