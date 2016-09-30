@@ -7204,6 +7204,23 @@ textarea[type="text"]:focus,
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content  .ngdialog-close {
 		top: 25px;
 	}
+	.ngdialog.user-publication.ngdialog-theme-default.ng-scope {
+		display: flex;
+	    justify-content: center;
+	    align-items: flex-start;
+	    z-index: 10;
+	}
+	.ngdialog.user-publication.ngdialog-theme-default.ng-scope .ngdialog-overlay {
+		z-index: 15;
+	}
+	.ngdialog.user-publication.ngdialog-theme-default .ngdialog-content {
+	    padding: 0!important;
+	    width: 310px;
+	    margin: 0;
+	    left: auto;
+	    right: auto;
+	    z-index: 20;
+	}
  }
  @media (max-width: 430px) {
 	.view-publication .user-publication .user-function .user .user-name {
