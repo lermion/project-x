@@ -836,3 +836,6 @@ table.admin-users .col-do {
 .moderator-content-table.groups input[type=checkbox] {
 	margin: 0;
 }
+.remodal {
+	height: 170px;
+}

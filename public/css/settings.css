@@ -6640,7 +6640,7 @@ input.cmn-toggle-round:checked + label:after {
 	*/
 	margin-top: -6px;
 	background-color: #ffffff;
-	max-height: 163px;
+	max-height: 340px;
     overflow-y: auto;
 }
 
@@ -7402,37 +7402,79 @@ button.settings-btn {
 	}
 }
 @media (min-height: 650px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 33vh;
+	}
 	.group-chat-inner {
 	    min-height: 36vh;
 	}
 }
 @media (min-height: 700px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 35vh;
+	}
 	.group-chat-inner {
 	    min-height: 39vh;
 	}
 }
 @media (min-height: 740px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 37vh;
+	}
 	.group-chat-inner {
 	    min-height: 42vh;
 	}
 }
 @media (min-height: 800px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 42vh;
+	}
 	.group-chat-inner {
 	    min-height: 47vh;
 	}
 }
 @media (min-height: 850px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 44vh;
+	}
+	.group-chat-inner {
+	    min-height: 48vh;
+	}
+}
+@media (min-height: 900px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 46vh;
+	}
 	.group-chat-inner {
 	    min-height: 51vh;
 	}
 }
-@media (min-height: 900px) {
+@media (min-height: 930px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 47vh;
+	}
 	.group-chat-inner {
 	    min-height: 53vh;
 	}
 }
-@media (min-height: 950px) {
+@media (min-height: 945px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 49vh;
+	}
+}
+@media (min-height: 1000px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 52vh;
+	}
 	.group-chat-inner {
 	    min-height: 56vh;
+	}
+}
+@media (min-height: 1100px) {
+	.place-content-container-wrap2 .group-chat-inner {
+	    min-height: 55vh;
+	}
+	.group-chat-inner {
+	    min-height: 59vh;
 	}
 }
