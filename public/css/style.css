@@ -2152,10 +2152,13 @@ body.public.user {
 }
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content .pub__crop-area {
 	background: transparent;
-	overflow: hidden;
-	height: 200px;
-	width: 100%;
-	margin: 0 0 15px 0;
+    overflow: hidden;
+    height: 150px;
+    width: 100%;
+    margin: 0 0 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content .ngdialog-close:active:before,
 .ngdialog.user-publication.ngdialog-theme-default .ngdialog-content .ngdialog-close:hover:before{
