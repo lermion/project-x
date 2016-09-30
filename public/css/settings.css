@@ -273,6 +273,10 @@
 .hover--pointer {
 	cursor: pointer;
 }
+.flex-row--center {
+	display: flex;
+	justify-content: center;
+}
 
 /*******************************
 			Alerts
