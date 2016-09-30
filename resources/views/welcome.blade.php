@@ -114,6 +114,7 @@
 	<script src="../../app/libs/util.js"></script>
 	<script src="../../app/libs/jquery.emojiarea.js"></script>
 	<script src="../../app/libs/angular-md5.min.js"></script>
+	<script src="../../app/libs/angular-img-cropper.min.js"></script>
 	<script src="../../app/libs/emoji-picker.js"></script>
 	<script src="../../app/libs/angular-backtop.min.js"></script>
 	<script src="../../app/libs/ya-map-2.1.min.js"></script>

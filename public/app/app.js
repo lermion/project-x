@@ -15,6 +15,7 @@
         'emojiApp',
         'app.search',
         'infinite-scroll',
+        'angular-img-cropper',
         'ngMessages',
         'ngAnimate',
         'luegg.directives',

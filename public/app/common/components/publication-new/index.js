@@ -130,11 +130,30 @@
 										}else{
 											ctrl.newPublicationForm.files1.$setValidity('minWidth', true);
 										}
-										if(this.height > this.width){
-											ctrl.aspectRatio = 1.4;
+										if(this.width / this.height >= 700/359){
+
+											ctrl.ratio = 700/359;
+
+											console.log("more");
+											ctrl.areaWidth = this.height * 1.7;
+											ctrl.areaHeight = this.height;
+											ctrl.areaCoordY = (this.width - ctrl.areaWidth) / 2;
+											ctrl.areaCoordX = 0;
 										}else{
-											ctrl.aspectRatio = this.width / this.height;
+
+											ctrl.ratio = 700/359;
+
+											console.log("less");
+											ctrl.areaWidth = this.width;
+											ctrl.areaHeight = this.width / 1.7;
+											ctrl.areaCoordY = 0;
+											ctrl.areaCoordX = (this.width - ctrl.areaWidth) / 2;
 										}
+										// if(this.height > this.width){
+										// 	ctrl.aspectRatio = 1.4;
+										// }else{
+										// 	ctrl.aspectRatio = this.width / this.height;
+										// }
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
 											ctrl.coverToCropName = file.name;
@@ -200,6 +219,7 @@
 								}else{
 									ctrl.aspectRatio = this.width / this.height;
 								}
+								ctrl.ratio = 700/359;
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;
 									ctrl.coverToCropName = file.name;

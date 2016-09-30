@@ -67,12 +67,26 @@
 			<div ng-message="required">Вы не заполнили текст публикации</div>
 		</div>
 		<div class="pub__crop-area" ng-if="$ctrl.coverToCrop">
-			<img-crop image="$ctrl.coverToCrop"
+			<!-- <img-crop image="$ctrl.coverToCrop"
 					  result-image="$ctrl.myCroppedImage"
 					  chargement="'Загрузка'"
 					  area-type="rectangle"
-					  aspect-ratio="$ctrl.aspectRatio"
-					  result-image-size="{w: 700, h: 395}"></img-crop>
+					  aspect-ratio="$ctrl.ratio"
+					  area-init-coords="{w:0,h:0}"
+					  init-max-area="true"></img-crop> -->
+			<canvas
+				id="canvas"
+				image-cropper
+				image="$ctrl.coverToCrop"
+				cropped-image="$ctrl.myCroppedImage"
+				crop-width="400"
+				crop-height="200"
+				keep-aspect="true"
+				touch-radius="30"
+				min-width="700"
+				min-height="395"
+				crop-area-bounds="bounds"
+			></canvas>		  
 		</div>
 
 		<div class="new-add" ng-scrollbar rebuild-on="rebuild:me" bottom rebuild-on-resize
