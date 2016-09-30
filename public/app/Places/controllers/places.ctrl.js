@@ -116,6 +116,8 @@
 
 		vm.cities = [];
 
+		vm.streets = [];
+
 		activate();
 
 		/////////////////////////////////////////////////
@@ -453,17 +455,17 @@
 			var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
 			if (isCoverCrop) {
-				Upload.imageDimensions(blob).then(function (dimensions) {
-					console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-				});
+				// Upload.imageDimensions(blob).then(function (dimensions) {
+				// 	console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+				// });
 				vm.placeNew.cover = blob;
 				vm.placeNew.coverPreview = vm.placeNew.coverPreviewToShow;
 				vm.form.placeNew.cover.$setValidity('required', true);
 				vm.form.placeNew.cover.$valid = true;
 			} else {
-				Upload.imageDimensions(blob).then(function (dimensions) {
-					console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
-				});
+				// Upload.imageDimensions(blob).then(function (dimensions) {
+				// 	console.info('Place: dimension ' + 'w - ' + dimensions.width + ', h - ' + dimensions.height);
+				// });
 				vm.placeNew.logo = blob;
 				vm.form.placeNew.logo.$setValidity('required', true);
 				vm.form.placeNew.logo.$valid = true;
@@ -712,72 +714,13 @@
 			});
 		};
 
-		vm.addressSelected = function (selected) {
-			if (selected) {
-				var posStr = selected.originalObject.GeoObject.Point.pos;
-				var posArr = posStr.split(' ');
-				vm.placeNew.coordinates_x = +posArr[1];
-				vm.placeNew.coordinates_y = +posArr[0];
-				vm.placeNew.address = selected.title;
-			}
-		};
 
-		vm.citySelected = function (item) {
-
-			var city = item.originalObject;
-
-			console.log(city);
-
-			if (city.id) {
-				vm.placeNew.city = {};
-				vm.placeNew.city.id = +city.id;
-				vm.placeNew.city.name = city.name;
-			} else {
-				var cityObj = {
-					countryId: vm.placeNew.country.originalObject.id,
-					name: city.name,
-					region: city.region,
-					area: city.area
-				};
-				placesService.addCity(cityObj)
-					.then(function (data) {
-							if (data.status) {
-								vm.placeNew.city = {};
-								vm.placeNew.city.id = +data.city_id;
-								vm.placeNew.city.name = city.name;
-							}
-						},
-						function (error) {
-							console.log(error);
-						});
-			}
-		};
-
-		vm.searchAPI = function (inputStr, timeoutPromise) {
-
-			return $http({
-				method: 'GET',
-				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + vm.placeNew.country.originalObject.name + ', ' + vm.placeNew.city.name + ', ' + inputStr,
-				headers: {'Content-Type': undefined},
-				transformRequest: angular.identity,
-				data: null,
-				timeout: 1000
-			})
-				.then(getPublicationsComplete)
-				.catch(getPublicationsFailed);
-
-			function getPublicationsComplete(resp) {
-				// return only first found address
-				return resp.data.response.GeoObjectCollection.featureMember;
-			}
-
-			function getPublicationsFailed(error) {
-				console.error('XHR Failed for getPublications. ' + error.data);
-			}
-
-		};
-
-
+		/**
+		 *
+		 * @param countryId
+		 * @param cityName
+		 * @returns {*}
+		 */
 		function getCitiesFromDatabase(countryId, cityName) {
 			return placesService.getCities(countryId, cityName)
 				.then(function(data) {
@@ -785,13 +728,18 @@
 				});
 		}
 
+		/**
+		 *
+		 * @param countryName
+		 * @param cityName
+		 * @returns {*}
+		 */
 		function getCitiesFromYandexMaps(countryName, cityName) {
 			return placesService.getCitiesFromYandexMaps(countryName, cityName)
 				.then(function(data) {
 					return data;
 				});
 		}
-
 
 		/**
 		 * Returns array of cities
@@ -835,7 +783,6 @@
 			return vm.cities;
 		}
 
-
 		/**
 		 * Remove duplicates by cities name and region
 		 * @param data
@@ -852,6 +799,32 @@
 			});
 		}
 
+		function getAddressYandex(data) {
+			var arr = data;
+
+			vm.streets = [];
+
+			arr.forEach(function (item) {
+				var data = item.GeoObject.metaDataProperty.GeocoderMetaData;
+				var address = {},
+					arr = [];
+
+				if (data.kind === 'street' || data.kind === 'house') {
+					address.street = data.AddressDetails.Country.AddressLine;
+
+					address.street = address.street.split(', ').splice(1).join(', ');
+					address.coordinates = item.GeoObject.Point;
+
+					vm.streets.push({
+						address: address.street,
+						coordinates: address.coordinates
+					});
+
+				}
+			});
+			return vm.streets;
+		}
+
 		vm.searchCity = function (cityName) {
 			vm.cities = [];
 
@@ -862,22 +835,70 @@
 				getCitiesFromDatabase(vm.placeNew.country.originalObject.id, cityName),
 				getCitiesFromYandexMaps(vm.placeNew.country.originalObject.name, cityName)
 			]).then(function(cities) {
-				console.log(cities);
+				// console.log(cities);
 
 				var citiesDatabase = cities[0];
 				var citiesYandex = getCitiesYandex(cities[1]);
-				console.log(citiesYandex);
+				// console.log(citiesYandex);
 
 				var newArr = citiesDatabase.concat(citiesYandex);
 				var filteredArr = getCitiesWithoutDuplicates(newArr);
-				console.log('Before filter', newArr);
-				console.log('-------------');
-				console.log('After filter', filteredArr);
+				// console.log('Before filter', newArr);
+				// console.log('-------------');
+				// console.log('After filter', filteredArr);
 				filteredArr = orderBy(filteredArr, '+name');
 				def.resolve(filteredArr);
 			});
 
 			return def.promise;
+		};
+
+		vm.searchAddress = function (str) {
+			return placesService.getAddressFromYandexMaps(vm.placeNew.country.originalObject.name, vm.placeNew.city.name, str)
+				.then(function(data) {
+					return getAddressYandex(data);
+				})
+		};
+
+		vm.addressSelected = function (selected) {
+			if (selected) {
+				var posStr = selected.originalObject.coordinates.pos;
+				var posArr = posStr.split(' ');
+				vm.placeNew.coordinates_x = +posArr[1];
+				vm.placeNew.coordinates_y = +posArr[0];
+				vm.placeNew.address = selected.title;
+			}
+		};
+
+		vm.citySelected = function (item) {
+
+			var city = item.originalObject;
+
+			console.log(city);
+
+			if (city.id) {
+				vm.placeNew.city = {};
+				vm.placeNew.city.id = +city.id;
+				vm.placeNew.city.name = city.name;
+			} else {
+				var cityObj = {
+					countryId: vm.placeNew.country.originalObject.id,
+					name: city.name,
+					region: city.region,
+					area: city.area
+				};
+				placesService.addCity(cityObj)
+					.then(function (data) {
+							if (data.status) {
+								vm.placeNew.city = {};
+								vm.placeNew.city.id = +data.city_id;
+								vm.placeNew.city.name = city.name;
+							}
+						},
+						function (error) {
+							console.log(error);
+						});
+			}
 		};
 	}
 

@@ -22,6 +22,7 @@
 			getCountries: getCountries,
 			getCities: getCities,
 			getCitiesFromYandexMaps: getCitiesFromYandexMaps,
+			getAddressFromYandexMaps: getAddressFromYandexMaps,
 			addCity: addCity,
 			inviteUsers: inviteUsers,
 			setAdmin: setAdmin,
@@ -306,6 +307,36 @@
 
 			function getCitiesFromYandexMapsFailed(error) {
 				console.error('XHR Failed for getPublications. ' + error.data);
+			}
+
+		}
+
+		/**
+		 * Returns address found through Yandex Maps API
+		 * @param countryName
+		 * @param cityName
+		 * @param addressStr
+		 * @returns {*}
+		 */
+		function getAddressFromYandexMaps(countryName, cityName, addressStr) {
+
+			return $http({
+				method: 'GET',
+				url: 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=' + countryName + ', ' + cityName + ', ' + addressStr,
+				headers: {'Content-Type': undefined},
+				transformRequest: angular.identity,
+				data: null
+			})
+				.then(getAddressFromYandexMapsComplete)
+				.catch(getAddressFromYandexMapsFailed);
+
+			function getAddressFromYandexMapsComplete(resp) {
+				// return only first found address
+				return resp.data.response.GeoObjectCollection.featureMember;
+			}
+
+			function getAddressFromYandexMapsFailed(error) {
+				console.error('XHR Failed for getAddressFromYandexMaps. ' + error.data);
 			}
 
 		}
