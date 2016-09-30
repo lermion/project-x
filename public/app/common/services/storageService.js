@@ -33,6 +33,7 @@ angular.module('placePeopleApp')
 			$window.localStorage.removeItem("userId");
 			$window.localStorage.removeItem("username");
 			$window.localStorage.removeItem("pubView");
+			$window.localStorage.removeItem("countryId");
 
 			$rootScope.$broadcast('storage:delete');
 			console.info('localStorage deleted');

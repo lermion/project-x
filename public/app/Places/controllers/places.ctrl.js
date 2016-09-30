@@ -76,7 +76,7 @@
 		};
 
 		vm.placeNew.country = vm.countries.filter(function(item) {
-			return item.name === $rootScope.countryName;
+			return item.id === $rootScope.user.countryId;
 		})[0] || null;
 		var originalPlaceNew = angular.copy(vm.placeNew);
 

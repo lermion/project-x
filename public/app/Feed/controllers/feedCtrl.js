@@ -772,6 +772,7 @@
             storageService.setStorageItem('loggedUserAva', profile.avatar_path);
             storageService.setStorageItem('firstName', profile.first_name);
             storageService.setStorageItem('lastName', profile.last_name);
+            storageService.setStorageItem('countryId', +profile.country_id);
         }
     }
 
