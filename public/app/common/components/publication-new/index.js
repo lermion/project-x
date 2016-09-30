@@ -119,7 +119,7 @@
 						}
 						var file = event.currentTarget.files[0];
 
-							if (isImage(file) && ctrl.originalFiles.length === 1) {
+							if (isImage(file)) {
 								var reader = new FileReader();
 								reader.onload = function (event) {
 									var image = new Image();
