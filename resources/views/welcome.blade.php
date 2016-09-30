@@ -7,6 +7,7 @@
 	<meta name="description" content="">
 	<link href="../../css/style.css" rel="stylesheet">
 	<link href="../../css/settings.css" rel="stylesheet">
+	<link rel="shortcut icon" href="../../img/lg.ico" type="image/x-icon">
 	<base href="/">
 	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
