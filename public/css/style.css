@@ -1457,6 +1457,10 @@ body.public.user {
 	border-radius: 2px;
 	box-shadow: 0 0 6px 1px rgba(0,0,0,.1); 
 }
+.content-user #user-page h4.text-center {
+	margin: 0;
+	padding: 15px 0;
+}
 #user-page .my-profile {
 	display: flex;
 	padding: 15px 20px;

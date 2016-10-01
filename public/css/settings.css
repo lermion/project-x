@@ -1620,6 +1620,11 @@ label span.add {
 	align-items: center;
 }
 @media (max-width: 720px) {
+	.content-user .list-style h4.text-center {
+		background-color: #fff;
+		margin: 0;
+		padding: 15px 0;
+	}
 	.popup-add-group .first_item {
 		display: flex;
 		flex-wrap: wrap;
