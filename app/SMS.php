@@ -32,8 +32,8 @@ class SMS extends Model
                 <password>'.env('SMS_PASSWORD').'</password>
                 </authentification>
                 <message>
-                <sender>PlacePeople</sender>
-                <text>'.$message.'</text>
+                <sender>LudiGor</sender>
+                <text>Код для регистрации в LudiGor.com ' .$message.'</text>
                 </message>
                 <numbers>
                 <number messageID="msg11">'.$phone.'</number>
