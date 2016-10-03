@@ -131,19 +131,13 @@
 											ctrl.newPublicationForm.files1.$setValidity('minWidth', true);
 										}
 										if(this.width / this.height >= 700/359){
-
 											ctrl.ratio = 700/359;
-
-											console.log("more");
 											ctrl.areaWidth = this.height * 1.7;
 											ctrl.areaHeight = this.height;
 											ctrl.areaCoordY = (this.width - ctrl.areaWidth) / 2;
 											ctrl.areaCoordX = 0;
 										}else{
-
 											ctrl.ratio = 700/359;
-
-											console.log("less");
 											ctrl.areaWidth = this.width;
 											ctrl.areaHeight = this.width / 1.7;
 											ctrl.areaCoordY = 0;
