@@ -43,7 +43,7 @@ angular.module('placePeopleApp')
 
 			$http.get('/static_page/get/name')
 				.success(function (res) {
-					$scope.staticPages = res;
+					$scope.staticPages = res.static_page;
 				})
 				.error(function (err) {
 					console.log(err);
@@ -515,7 +515,7 @@ angular.module('placePeopleApp')
             };
 
             $scope.transitionToRules = function(rulesPageName) {
-				var state = $scope.$parent.staticPages
+				var state = $scope.staticPages
 					.filter(function(item) {
 						return item.name === rulesPageName;
 					});
