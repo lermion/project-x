@@ -1,7 +1,9 @@
 @extends('admin.layout')
 
 @section('content')
-
+	@if (session()->has('message'))
+		<br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
+	@endif
 <form action="{{ action('Admin\OptionController@delete_scope_save') }}" method="get">
 	<div id="settings-tab-areas">
 		<table id="datatable" class="table table-bordered admin-users">

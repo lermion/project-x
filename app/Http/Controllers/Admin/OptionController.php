@@ -119,13 +119,17 @@ class OptionController extends Controller
     public function delete_scope_save(Request $request)
     {
         $delete_id = $request->input('delete_id');
-
-        $id = $request->input('radiobutton');
-
+        if($request->input('radiobutton')) {
+            $id = $request->input('radiobutton');
+        } else {
+            session()->put('message', 'Выберете область видимости в которую перенести пользователей');
+            return redirect()->back();
+        }
         $scopes = Scope::find($delete_id);
 
         if ($scopes->is_protected != 0) {
-            return redirect('admin/option/')->with('message', 'Ошибка!!! Удаление не возможно');
+            session()->put('message', 'Ошибка!!! Удаление не возможно');
+            return redirect()->back();
         }
 
         $scope_users = ScopeUser::where('scope_id',$delete_id)->get();//->update($id);
