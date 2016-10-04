@@ -36,14 +36,8 @@ class OptionController extends Controller
                 'order' => 'required|integer|unique:scopes,order'
             ]);
         } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return redirect('admin/option/')->with('message', 'Ошибка!!! Не сохраненно');
+            session()->put('message', 'Ошибка!!! Выберите иконку');
+            return redirect()->back();
         }
         $data = $request->all();
         $img = $request->file('img');

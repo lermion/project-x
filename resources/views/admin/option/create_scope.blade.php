@@ -1,7 +1,9 @@
 @extends('admin.layout')
 
 @section('content')
-
+	@if (session()->has('message'))
+		<br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
+	@endif
 <form action="{{ action('Admin\OptionController@create_scope_save') }}" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-2">
@@ -17,7 +19,7 @@
 		</div>
 		<div class="col-md-3">
 			<label style="cursor: pointer;" class="line-h" for="addIcon"><img style="margin-top: 5px;" class="previewIcon" src="/images/name.png"></label>
-			<input id="addIcon" onchange="readURL(this);" style="display: none;" type="file" name="img" required>
+			<input id="addIcon" onchange="readURL(this);" style="display: none;" type="file" name="img">
 		</div>
 	</div>
 	<div class="row">
