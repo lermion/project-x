@@ -137,7 +137,7 @@
 									};
 								};
 								reader.readAsDataURL(file);
-							}else{
+							}else if(!isVideo(file)){
 								ctrl.newPublicationForm.files1.$setValidity('minWidth', false);
 							}
 						$scope.$broadcast('rebuild:me');
@@ -165,14 +165,12 @@
 				 * Sets the main image of publication
 				 * @param index
 				 */
-				ctrl.setMainPubPhotoKey = false;
 				ctrl.setMainPubPhoto = function (index) {
 					var file = ctrl.files[index];
 
 					angular.forEach(ctrl.files, function (item) {
 						item.isCover = false;
 					});
-					ctrl.setMainPubPhotoKey = true;
 					file.isCover = true;
 
 					ctrl.cover = file;
@@ -210,16 +208,11 @@
 					}
 					ctrl.newPublicationForm.$setSubmitted();
 					// TODO: fix validation
-					if(!ctrl.cover){
-						$timeout(function () {
-							ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
-						});
-					}
-					
-					if (!ctrl.coverToCrop && !ctrl.cover) {
-						ctrl.addNewPublication = false;
-						return false;
-					}
+					// if(!ctrl.cover){
+					// 	$timeout(function () {
+					// 		ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
+					// 	});
+					// }
 
 					if (ctrl.newPublicationForm.$invalid) {
 						ctrl.addNewPublication = false;
@@ -255,10 +248,6 @@
 							originalImages.push(file);
 						}
 					});
-
-					if(!ctrl.cover || ctrl.setMainPubPhotoKey){
-						ctrl.cover = createCover();
-					}
 					
 					if (!ctrl.cover) {
 						// если нет видеофайлов, обложка = фото
@@ -273,6 +262,13 @@
 								ctrl.cover = videos[0];
 							}
 						}
+					}
+					if(!ctrl.cover){
+						ctrl.cover = createCover();
+					}
+					if (!ctrl.coverToCrop && !ctrl.cover) {
+						ctrl.addNewPublication = false;
+						return false;
 					}
 					var newImagesArray = [];
 					var newPublication = {
