@@ -385,6 +385,10 @@
 								$(".emoji-wysiwyg-editor").html("");
 								if (flag === "feedPage") {
 									ctrl.newComment = angular.copy(originalNewComment);
+									if(pub.comments === undefined && pub.comment_count === undefined){
+										pub.comments = [];
+										pub.comment_count = 0;
+									}
 									pub.comments.push(response.data.comment);
 									pub.comment_count++;
 								}
