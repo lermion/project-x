@@ -398,6 +398,7 @@ class TypePlaceTableSeeder extends Seeder
         TypePlace::create(array('id' => 7, 'name' => 'Ярмарка', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
         TypePlace::create(array('id' => 8, 'name' => 'Самолет', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
         TypePlace::create(array('id' => 9, 'name' => 'Пароход', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто', 'is_dynamic' => true));
+        TypePlace::create(array('id' => 10, 'name' => 'Адрес', 'description' => 'Здесь должно быть описание места', 'avatar'=>'пусто'));
     }
 }
 
