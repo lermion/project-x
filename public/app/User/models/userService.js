@@ -150,11 +150,12 @@ angular.module('placePeopleApp')
 
 		function updateAvatar(avatar, originalAvatar){
 			var data = new FormData();
-			data.append('avatar', avatar);
-			data.append('original_avatar', originalAvatar);
+			data.append('avatar', avatar, avatar.filename);
+			data.append('original_avatar', originalAvatar, originalAvatar.filename);
+			data.append('is_avatar', 1);
 			var config = {
 					headers: {
-						'Content-Type': undefined,                        
+						'Content-Type': undefined
 					},
 					transformRequest: angular.identity
 				},            

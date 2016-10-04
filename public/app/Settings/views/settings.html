@@ -20,15 +20,14 @@
 
 			</div> -->
 
-			<div class="add-ava" ng-init="showEditAva=true;">
+			<div class="add-ava" ng-init="showEditAva=false;">
 				<input type="file" id="avatarImg"/>  
 				<label for="avatarImg">
 					<span class="ava">         
-						<img ng-src="{{userData.avatar_path}}"  ng-hide="croppedFile" ng-show="userData.is_avatar" style="width:100%;">
-						<img ng-show="userData.is_avatar &&  croppedFile" style="width:100%;"  data-ng-src="{{croppedFile}}">
+						<img ng-src="{{$root.user.loggedUserAva}}" style="width:100%;">
 					</span>
 					<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
-						<span class="add-photo"  ng-show="!croppedFile || showEditAva"></span>
+						<span class="add-photo"  ng-show="showEditAva"></span>
 					</span>
 				</label>
 			</div>     

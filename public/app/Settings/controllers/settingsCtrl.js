@@ -3,56 +3,7 @@ angular.module('placePeopleApp')
 		function($scope, $state, $stateParams, StaticService, AuthService, UserService, $window, $http, storageService, ngDialog){
 		$scope.$emit('userPoint', 'user');    	
 		var storage = storageService.getStorage();
-		$scope.loggedUserId = storage.userId;
-		//$scope.loggedUser = storage.username;
 
-		$http.get('/static_page/get/name')
-					.success(function (response){            	
-						$scope.staticPages = response;
-					})
-					.error(function (error){
-						console.log(error);
-					});
-
-		$scope.openMenu = function(){
-			if ($window.innerWidth <= 800) {    			
-				 $scope.showMenu =! $scope.showMenu;
-			} else{
-				$scope.showMenu = true;    			
-			}
-		};
-
-		$scope.openBottomMenu = function(){
-			if ($window.innerWidth <= 650) {
-				$scope.showBottomMenu = !$scope.showBottomMenu;
-			} else {
-				$scope.showBottomMenu = false;
-			}
-		};
-
-		var w = angular.element($window);
-		$scope.$watch(
-		  function () {
-			return $window.innerWidth;
-		  },
-		  function (value) {
-			  if (value <= 800) {
-				$scope.showMenu = false;
-			  } else {
-				$scope.showMenu = true;
-			  }
-
-			  if (value <= 650) {
-				$scope.showBottomMenu = false;
-			  } else {
-				$scope.showBottomMenu = true;
-			  }			  
-		  },
-		  true
-		);
-		w.bind('resize', function(){
-		  $scope.$apply();
-		});
 
 	/*Page code*/	
 	function blobToFile(dataURI){
@@ -237,7 +188,6 @@ angular.module('placePeopleApp')
 		$scope.showEditAva = false;
 
 		UserService.updateAvatar(blobFile, $scope.originalImageBlobFile).then(function(res){
-			$scope.consoleLog = res;
 			if(res.status){
 				$scope.subForm = false;
 				ngDialog.closeAll();
