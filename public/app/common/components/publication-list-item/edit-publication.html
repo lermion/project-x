@@ -3,7 +3,7 @@
     <div class="publication-item">
         <a class="user" ui-sref="user({username: $root.user.username})" ng-click="$ctrl.closePopup()">
 			<span class="ava">
-				<img ng-src="{{$ctrl.pub.user.avatar_path}}" alt="">
+				<img ng-src="{{$ctrl.pub.user.avatar_path ? $ctrl.pub.user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
 			</span>
 
             <p class="user-name">{{$ctrl.pub.user.first_name}} {{$ctrl.pub.user.last_name}}</p>

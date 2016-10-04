@@ -15,7 +15,7 @@
             <div class="share-publication-search-data-info">
                 <div class="share-publication-search-data-ava">
                     <a ui-sref="user({username: subscription.login})" href="javascript:void(0);">
-                        <img ng-src="{{subscription.avatar_path}}" alt="">
+                        <img ng-src="{{subscription.avatar_path ? subscription.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                     </a>
                 </div>
                 <span class="share-publication-search-data-name">{{subscription.first_name}} {{subscription.last_name}}</span>
@@ -27,7 +27,7 @@
             <div class="share-publication-search-data-info">
                 <div class="share-publication-search-data-ava">
                     <a ui-sref="user({username: subscriber.login})" href="javascript:void(0);">
-                        <img ng-src="{{subscriber.avatar_path}}" alt="">
+                        <img ng-src="{{subscriber.avatar_path ? subscriber.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                     </a>
                 </div>
                 <span class="share-publication-search-data-name">{{subscriber.first_name}} {{subscriber.last_name}}</span>

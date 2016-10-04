@@ -16,7 +16,7 @@
 							<div class="user-function">
 								<a class="user" ui-sref="user({username: message.pub.user.login})">
 									<span class="ava">
-										<img ng-src="{{message.pub.user.avatar_path}}" alt="">
+										<img ng-src="{{message.pub.user.avatar_path ? message.pub.user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
 									</span>
 									<span class="block-info">
 										<p class="user-name">{{message.pub.user.first_name}} {{pub.user.last_name}}</p>

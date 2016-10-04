@@ -81,7 +81,7 @@
         <div ng-repeat="comment in vm.activePublication.comments | orderBy: 'comment.created_at'" class="user-comment" ng-init="comment.commentLength = 250;">
             <div class="user-ava">
                 <a href class="ava" ui-sref="user({username: comment.user.login})" ng-click="closePopup()">
-                    <img ng-src="{{comment.user.avatar_path}}" alt="">
+                    <img ng-src="{{comment.user.avatar_path ? comment.user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                 </a>
             </div>
             <div class="comment">
@@ -120,7 +120,7 @@
         <form class="popup-place-view-publication-form" name="vm.commentForm" novalidate>
             <div class="user-ava">
                 <a href class="ava" ui-sref="user({username: vm.userName})" ng-click="closePopup()">
-                    <img ng-src="{{::vm.myAvatar}}">
+                    <img ng-src="{{vm.myAvatar ? vm.myAvatar : '/upload/preview-chat-no-avatar.png'}}">
                 </a>
             </div>
             <div flow-init style="position:relative;" class="add">

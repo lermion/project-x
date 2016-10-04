@@ -82,7 +82,7 @@
         <div ng-repeat="comment in $ctrl.pub.comments | orderBy: 'comment.created_at'" class="user-comment">
             <div class="user-ava">
                 <a href class="ava" ui-sref="user({username: comment.user.login})" ng-click="$ctrl.closeModal()">
-                    <img ng-src="{{comment.user.avatar_path}}" alt="">
+                    <img ng-src="{{comment.user.avatar_path ? comment.user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="">
                 </a>
             </div>
             <div class="comment">
