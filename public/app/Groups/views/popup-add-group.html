@@ -89,7 +89,7 @@
 						class="user_block">
 						<div class="popup-invite-place-people-name1 user-block">
 							<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-								<img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+								<img ng-src="{{user.avatar_path ? user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" class="contacts_photo_img">
 							</a>
 
 							<div class="user-info">
@@ -109,7 +109,7 @@
 						class="user_block">
 						<div class="popup-invite-place-people-name1 user-block">
 							<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
-								<img ng-src="{{user.avatar_path}}" class="contacts_photo_img">
+								<img ng-src="{{user.avatar_path ? user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" class="contacts_photo_img">
 							</a>
 
 							<div class="user-info">
@@ -136,7 +136,7 @@
 							<div class="popup-invite-place-people-name1 user-block">
 								<a ui-sref="user({username: user.login})" ng-click="$event.stopPropagation()">
 									<span class="items-selected__item-delete" ng-click="removeUser(user)">&#10006;</span>
-									<img ng-src="{{user.avatar}}" class="contacts_photo_img">
+									<img ng-src="{{user.avatar ? user.avatar : '/upload/preview-chat-no-avatar.png'}}" class="contacts_photo_img">
 								</a>
 
 								<div class="user-info">

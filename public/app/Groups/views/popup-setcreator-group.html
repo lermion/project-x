@@ -6,7 +6,7 @@
         <ul>
             <li ng-repeat="user in vm.adminsList | searchFor:searchString"
                 ng-click="vm.onItemSelected(user)">
-                    <img ng-src="{{user.avatar_path}}">
+                    <img ng-src="{{user.avatar_path ? user.avatar_path : '/upload/preview-chat-no-avatar.png'}}">
 
                     <p>{{::user.first_name}} {{::user.last_name}}</p>
                 <div class="set-creator__checkbox">
