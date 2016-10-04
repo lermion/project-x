@@ -155,8 +155,6 @@
 									};
 								};
 								reader.readAsDataURL(file);
-							}else{
-								ctrl.newPublicationForm.files1.$setValidity('minWidth', false);
 							}
 						$scope.$broadcast('rebuild:me');
 					});
@@ -208,12 +206,6 @@
 								}else{
 									ctrl.newPublicationForm.files1.$setValidity('minWidth', true);
 								}
-								if(this.height > this.width){
-									ctrl.aspectRatio = 1.4;
-								}else{
-									ctrl.aspectRatio = this.width / this.height;
-								}
-								ctrl.ratio = 700/359;
 								$scope.$apply(function($scope){
 									ctrl.coverToCrop = event.target.result;
 									ctrl.coverToCropName = file.name;
@@ -234,17 +226,13 @@
 					}
 					ctrl.newPublicationForm.$setSubmitted();
 					// TODO: fix validation
-					if(!ctrl.cover){
-						$timeout(function () {
-							ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
-						});
-					}
+					// if(!ctrl.cover){
+					// 	$timeout(function () {
+					// 		ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
+					// 	});
+					// }
 					
-					if (!ctrl.coverToCrop && !ctrl.cover) {
-						ctrl.addNewPublication = false;
-						return false;
-					}
-
+					
 					if (ctrl.newPublicationForm.$invalid) {
 						ctrl.addNewPublication = false;
 						return false;
@@ -297,6 +285,10 @@
 								ctrl.cover = videos[0];
 							}
 						}
+					}
+					if (!ctrl.coverToCrop && !ctrl.cover) {
+						ctrl.addNewPublication = false;
+						return false;
 					}
 					var newImagesArray = [];
 					var newPublication = {
