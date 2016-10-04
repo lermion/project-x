@@ -33,7 +33,7 @@
 			</tbody>
 		</table>
 	</div>
-	<class="mg-l"><input class="btn btn-danger deleteConfirm-mod" type="submit" value="Сохранить">
+	<input class="btn btn-success deleteConfirm-mod" type="submit" value="Сохранить">
 	<a href="/admin/option" class="btn btn-default">Отменить</a>
 </form>
 			<script>

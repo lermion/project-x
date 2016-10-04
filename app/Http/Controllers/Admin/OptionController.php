@@ -36,14 +36,8 @@ class OptionController extends Controller
                 'order' => 'required|integer|unique:scopes,order'
             ]);
         } catch (\Exception $ex) {
-            $result = [
-                "status" => false,
-                "error" => [
-                    'message' => $ex->validator->errors(),
-                    'code' => '1'
-                ]
-            ];
-            return redirect('admin/option/')->with('message', 'Ошибка!!! Не сохраненно');
+            session()->put('message', 'Ошибка!!! Выберите иконку');
+            return redirect()->back();
         }
         $data = $request->all();
         $img = $request->file('img');
@@ -70,12 +64,18 @@ class OptionController extends Controller
 
     public function delete_scope($id)
     {
-        $scopes = Scope::where('id','!=',$id)->get();
-        $counters = [];
-        foreach ($scopes as $scope) {
-            $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
+        $scope_user = ScopeUser::where('scope_id', $id)->count();
+        if($scope_user == 0){
+            Scope::where('id',$id)->delete();
+            return redirect()->back();
+        } else {
+            $scopes = Scope::where('id', '!=', $id)->get();
+            $counters = [];
+            foreach ($scopes as $scope) {
+                $counters[$scope->id] = ScopeUser::where('scope_id', $scope->id)->count();
+            }
+            return view('admin.option.delete_scope', ['scopes' => $scopes, 'counters' => $counters, 'delete_id' => $id]);
         }
-        return view('admin.option.delete_scope',['scopes'=>$scopes,'counters'=>$counters,'delete_id'=>$id]);
     }
 
     public function update_scope_save(Request $request)
@@ -126,7 +126,6 @@ class OptionController extends Controller
             return redirect()->back();
         }
         $scopes = Scope::find($delete_id);
-
         if ($scopes->is_protected != 0) {
             session()->put('message', 'Ошибка!!! Удаление не возможно');
             return redirect()->back();
