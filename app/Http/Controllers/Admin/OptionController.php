@@ -122,7 +122,7 @@ class OptionController extends Controller
         if($request->input('radiobutton')) {
             $id = $request->input('radiobutton');
         } else {
-            session()->put('message', 'Выберете область видимости в которую перенести пользователей');
+//            session()->put('message', 'Выберете область видимости в которую перенести пользователей');
             return redirect()->back();
         }
         $scopes = Scope::find($delete_id);

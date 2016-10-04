@@ -1,9 +1,9 @@
 @extends('admin.layout')
 
 @section('content')
-	@if (session()->has('message'))
-		<br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
-	@endif
+	<div class="x_content">
+		<h3>Выберете область видимости в которую перенести пользователей</h3>
+		<div class="daosn3">
 <form action="{{ action('Admin\OptionController@delete_scope_save') }}" method="get">
 	<div id="settings-tab-areas">
 		<table id="datatable" class="table table-bordered admin-users">
@@ -33,7 +33,17 @@
 			</tbody>
 		</table>
 	</div>
-	<p class="mg-l"><input class="btn btn-primary" type="submit" value="Сохранить"></p>
+	<class="mg-l"><input class="btn btn-danger deleteConfirm-mod" type="submit" value="Сохранить">
+	<a href="/admin/option" class="btn btn-default">Отменить</a>
 </form>
-
+			<script>
+			$(".deleteConfirm-mod").click(function(event) {
+			var c = confirm("Вы действительно хотите удалить?");
+			console.log(c);
+			if(!c) {
+			event.preventDefault();
+			return false;
+			}
+			})
+			</script>
 @stop
