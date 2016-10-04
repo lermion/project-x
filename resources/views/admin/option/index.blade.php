@@ -90,7 +90,11 @@
 								<td class="text-center">
 									<a type="button" class="btn btn-success btn-xs" href="/admin/option/update_scope/{{$scope->id}}">Редактировать</a>
 									@if ($scope->is_protected != true)
-									<a type="button" class="btn btn-danger btn-xs" href="/admin/option/delete_scope/{{$scope->id}}">Удалить</a>
+										@if ($counters[$scope->id] == 0)
+											    <a type="button" class="btn btn-danger btn-xs deleteConfirm-mod" href="/admin/option/delete_scope/{{$scope->id}}">Удалить</a>
+											@else
+									            <a type="button" class="btn btn-danger btn-xs" href="/admin/option/delete_scope/{{$scope->id}}">Удалить</a>
+											@endif
 									@endif
 								</td>
 							</tr>
@@ -165,6 +169,16 @@
 					localStorage.setItem("currentMenu", 3);
 				}
 			});
+
+
+			$(".deleteConfirm-mod").click(function(event) {
+				var c = confirm("Вы действительно хотите удалить?");
+				console.log(c);
+				if(!c) {
+					event.preventDefault();
+					return false;
+				}
+			})
 	</script>
 		
 @stop

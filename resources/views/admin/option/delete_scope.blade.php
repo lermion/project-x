@@ -36,14 +36,4 @@
 	<input class="btn btn-success deleteConfirm-mod" type="submit" value="Сохранить">
 	<a href="/admin/option" class="btn btn-default">Отменить</a>
 </form>
-			<script>
-			$(".deleteConfirm-mod").click(function(event) {
-			var c = confirm("Вы действительно хотите удалить?");
-			console.log(c);
-			if(!c) {
-			event.preventDefault();
-			return false;
-			}
-			})
-			</script>
 @stop
