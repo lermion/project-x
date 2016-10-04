@@ -6699,7 +6699,7 @@ input.cmn-toggle-round:checked + label:after {
 	header {
 		position: fixed;
 		top: 0;
-		z-index: 99999;
+		z-index: 50;
 	}
 	body.public.user #wrapper {
 		padding-top: 45px;
@@ -7384,6 +7384,7 @@ button.settings-btn {
 		box-sizing: border-box;
 		position: relative;
 		min-width: 700px;
+		z-index: 200;
 	}
 	.ngdialog.view-publication.ngdialog-theme-default .ngdialog-content .user-publication {
 		width: 100%;
