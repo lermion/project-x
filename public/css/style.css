@@ -50,7 +50,7 @@ body.main-page {
 	right: 0;
 	background-color: rgba(0, 0, 0, .3);
 	box-sizing: border-box;
-	z-index: 9999999999;
+	z-index: 1000;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -148,7 +148,7 @@ body.main-page {
 	right: 0;
 	background-color: rgba(0, 0, 0, .3);
 	box-sizing: border-box;
-	z-index: 9999999;
+	z-index: 1000;
  }
 @media (max-width: 900px) {
 	.main-up-button {
@@ -1372,7 +1372,7 @@ body.public.user {
 		width: 220px;
 		height: 100vh;
 		box-sizing: border-box;
-		z-index: 9999999999;
+		z-index: 1050;
 		position: fixed;
 		top: 0;
 	}
@@ -2850,7 +2850,7 @@ pub-list-item .publication-footer-button {
 	right: 0;
 	margin-left: -78px;
 	padding-top: 20px;
-	z-index: 99999991;
+	z-index: 20;
 }
 // .user-publication-header .user-menu:hover  .menu-item {
 // 	display: block;

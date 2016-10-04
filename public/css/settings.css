@@ -4271,17 +4271,17 @@ div.error-too-many-files:after{
 
 form.add-files-in-group-chat .error-messages.ng-active {
 	margin: -17px -168px -27px;
-	z-index: 999999;
+	z-index: 9999;
 }
 
 form.add-files-in-place-chat .error-messages.ng-active {
 	margin: -17px -168px -27px;
-	z-index: 999999;
+	z-index: 9999;
 }
 
 form.add-files-in-chat .error-messages.ng-active {
 	margin: 37px -264px 15px;
-	z-index: 999999;
+	z-index: 9999;
 }
 
 form.add-files-in-chat .error-messages.ng-active:after{
@@ -6370,7 +6370,7 @@ input.cmn-toggle-round:checked + label:after {
 	right: 0;
 	background-color: rgba(0, 0, 0, .3);
 	box-sizing: border-box;
-	z-index: 9999999;
+	z-index: 9999;
 }
 .ngdialog.share-publication.ngdialog-theme-default .ngdialog-content {
 	background: #fff;
