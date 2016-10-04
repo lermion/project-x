@@ -130,24 +130,6 @@
 										}else{
 											ctrl.newPublicationForm.files1.$setValidity('minWidth', true);
 										}
-										if(this.width / this.height >= 700/359){
-											ctrl.ratio = 700/359;
-											ctrl.areaWidth = this.height * 1.7;
-											ctrl.areaHeight = this.height;
-											ctrl.areaCoordY = (this.width - ctrl.areaWidth) / 2;
-											ctrl.areaCoordX = 0;
-										}else{
-											ctrl.ratio = 700/359;
-											ctrl.areaWidth = this.width;
-											ctrl.areaHeight = this.width / 1.7;
-											ctrl.areaCoordY = 0;
-											ctrl.areaCoordX = (this.width - ctrl.areaWidth) / 2;
-										}
-										// if(this.height > this.width){
-										// 	ctrl.aspectRatio = 1.4;
-										// }else{
-										// 	ctrl.aspectRatio = this.width / this.height;
-										// }
 										$scope.$apply(function($scope){
 											ctrl.coverToCrop = event.target.result;
 											ctrl.coverToCropName = file.name;
@@ -155,6 +137,8 @@
 									};
 								};
 								reader.readAsDataURL(file);
+							}else{
+								ctrl.newPublicationForm.files1.$setValidity('minWidth', false);
 							}
 						$scope.$broadcast('rebuild:me');
 					});
@@ -226,13 +210,17 @@
 					}
 					ctrl.newPublicationForm.$setSubmitted();
 					// TODO: fix validation
-					// if(!ctrl.cover){
-					// 	$timeout(function () {
-					// 		ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
-					// 	});
-					// }
+					if(!ctrl.cover){
+						$timeout(function () {
+							ctrl.newPublicationForm.files1.$setValidity('coverRequired', ctrl.coverToCrop ? true : false);
+						});
+					}
 					
-					
+					if (!ctrl.coverToCrop && !ctrl.cover) {
+						ctrl.addNewPublication = false;
+						return false;
+					}
+
 					if (ctrl.newPublicationForm.$invalid) {
 						ctrl.addNewPublication = false;
 						return false;
@@ -285,10 +273,6 @@
 								ctrl.cover = videos[0];
 							}
 						}
-					}
-					if (!ctrl.coverToCrop && !ctrl.cover) {
-						ctrl.addNewPublication = false;
-						return false;
 					}
 					var newImagesArray = [];
 					var newPublication = {
