@@ -168,7 +168,7 @@
 		<form class="popup-place-view-publication-form" name="$ctrl.commentForm" novalidate>
 			<div class="user-ava">
 				<a href class="ava" ui-sref="user({username: $ctrl.userName})" ng-click="$ctrl.closeModal()">
-					<img ng-src="{{$ctrl.myAvatar ? $ctrl.myAvatar : '/upload/preview-chat-no-avatar.png'}}" alt="My Avatar">
+					<img ng-src="{{$ctrl.myAvatar !== 'null' ? $ctrl.myAvatar : '/upload/preview-chat-no-avatar.png'}}" alt="My Avatar">
 				</a>
 			</div>
 			<div flow-init style="position:relative;" class="add">
