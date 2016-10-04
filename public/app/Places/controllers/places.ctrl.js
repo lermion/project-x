@@ -272,8 +272,7 @@
 			});
 
 			vm.addressPlaces = array.filter(function (place) {
-				// all places
-				return true;
+				return place.type_place_id === 10;
 			});
 
 
