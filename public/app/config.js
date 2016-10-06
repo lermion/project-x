@@ -433,6 +433,12 @@ angular.module('placePeopleApp')
         ymaps.ready(getUserGeolocation);
 
         function getUserGeolocation() {
+
+            var isGeolocation = storageService.getStorage().geolocation;
+
+            if (isGeolocation) {
+                return false;
+            }
             ymaps.geolocation.get({
                 provider: 'auto'
             }).then(function (result) {
@@ -444,12 +450,8 @@ angular.module('placePeopleApp')
 
                 $rootScope.$broadcast('location:ready');
 
-                //$scope.countries.forEach(function (elem) {
-                //    if (elem.name === countryName) {
-                //        $scope.newUserCountryId = +elem.id;
-                //        console.log($scope.newUserCountryId);
-                //    }
-                //});
+                // set geolocation flag to prevent re-positioning
+                storageService.setStorageItem('geolocation', true);
             });
         }
     }]);
