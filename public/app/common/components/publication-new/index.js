@@ -262,6 +262,7 @@
 							if (images.length > 0) {
 								ctrl.cover = images[0];
 							} else {
+								ctrl.cover = createCover();
 								// если есть только видео, то обложка = видео
 								ctrl.cover = videos[0];
 							}
