@@ -31,7 +31,7 @@
 						<a href ng-if="$ctrl.pub.user.id === $root.user.userId" ng-click="$ctrl.openModalEditPub()">Редактировать</a>
 						<a href ng-click="$ctrl.sharePub($ctrl.pub)">Переслать</a>
 						<a href ng-click="$ctrl.getPubLink($ctrl.pub.id)">Получить ссылку</a>
-						<a href ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
+						<a href ng-if="$ctrl.pub.user.id !== $root.user.userId"  ng-click="$ctrl.openPubComplainBlock($ctrl.pub.id)">Пожаловаться</a>
 						<a href ng-if="$ctrl.pub.user.id === $root.user.userId" ng-click="$ctrl.openModalDeletePub()">Удалить</a>
 					</div>
 				</div>
@@ -63,8 +63,8 @@
 
 			<img ng-if="!$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
 			<img ng-if="$ctrl.isModal && !$ctrl.mainVideo" ng-src="{{$ctrl.mainImage}}" imageonload="$ctrl.mainImageChanged()">
-			<video ng-show="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ng-src="{{$ctrl.mainVideo}}"></video>
-			<video ng-show="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ng-src="{{$ctrl.mainVideo}}"></video>
+			<video ng-if="$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
+			<video ng-if="!$ctrl.isModal && $ctrl.mainVideo && $ctrl.showVideo" width="700" controls ngf-src="$ctrl.mainVideo"></video>
 
 		</div>
 		<div ng-class="{'is-popup': $ctrl.isModal}" class="publication-images" ng-scrollbar rebuild-on="scroll:rebuild:pub"

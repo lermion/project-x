@@ -5,7 +5,7 @@
             <div class="peoples-inner-item-data">
                 <div class="peoples-item-photo">
                     <a ui-sref="user({username: user.login})">
-                        <img ng-src="{{::user.avatar_path}}" alt="User avatar">
+                        <img ng-src="{{user.avatar_path ? user.avatar_path : '/upload/preview-chat-no-avatar.png'}}" alt="User avatar">
                     </a>
                 </div>
                 <div class="peoples-item-name-content">

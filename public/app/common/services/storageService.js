@@ -34,6 +34,7 @@ angular.module('placePeopleApp')
 			$window.localStorage.removeItem("username");
 			$window.localStorage.removeItem("pubView");
 			$window.localStorage.removeItem("countryId");
+			$window.localStorage.removeItem("geolocation");
 
 			$rootScope.$broadcast('storage:delete');
 			console.info('localStorage deleted');

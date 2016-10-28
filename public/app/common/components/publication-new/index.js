@@ -248,6 +248,10 @@
 							originalImages.push(file);
 						}
 					});
+
+					if(!ctrl.cover && videos.length === 0){
+						ctrl.cover = createCover();
+					}
 					
 					if (!ctrl.cover) {
 						// если нет видеофайлов, обложка = фото
@@ -262,9 +266,6 @@
 								ctrl.cover = videos[0];
 							}
 						}
-					}
-					if(!ctrl.cover){
-						ctrl.cover = createCover();
 					}
 					if (!ctrl.coverToCrop && !ctrl.cover) {
 						ctrl.addNewPublication = false;
