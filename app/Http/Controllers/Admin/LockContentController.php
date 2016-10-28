@@ -122,9 +122,11 @@ class LockContentController extends Controller
     {
         $user = User::find($id);
         //dd($user);
-        $timestamp = strtotime('+' . $month . ' month');
-        $date = date('Y:m:d', $timestamp);
-        BlackList::create(['phone' => $user->phone, 'date' => $date]);
+        if($month != 0) {
+            $timestamp = strtotime('+' . $month . ' month');
+            $date = date('Y:m:d', $timestamp);
+            BlackList::create(['phone' => $user->phone, 'date' => $date]);
+        }
 //        $user->first_name = 'Пользователь';
 //        $user->last_name = 'удален';
 //        //$user->login = str_random(8);

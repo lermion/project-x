@@ -37,12 +37,12 @@ class MailController extends Controller
             'email' => $request->input('email'),
             'text' => $request->input('text')
         ]);
-        $user_mail->mail = ['artur@gmail.com','shishkin.artur@gmail.com'];
-        Mail::send('welcome', ['user_mail' => '$user_mail->text'], function ($message) use ($user_mail) {
-            $message->subject($user_mail->email)
-                ->from($user_mail->email)
-                ->to($user_mail->mail);
+        $user_mail->mail = 'shishkin.artur@gmail.com';
+        Mail::send('welcome', ['user_mail' => $user_mail], function ($message) use ($user_mail) {
+            $message->from($user_mail->mail)
+                ->to($user_mail->email, $user_mail->name)->subject($user_mail->text);
         });
+
         $result = [
             "status" => true];
         return response()->json($result);

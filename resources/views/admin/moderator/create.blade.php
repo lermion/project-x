@@ -92,6 +92,9 @@
     </div>
     <script>
         $(document).ready(function(){
+            $("input[type='submit']").on("click", function () {
+                $("input[type='checkbox']").removeAttr("disabled");
+            })
             $("input[name^='to_time'], input[name^='weekday']").attr("disabled","disabled");
 
             $.each($("input[name^='from_time']"), function(index,val){
