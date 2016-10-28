@@ -2798,6 +2798,12 @@ pub-list-item .publication-footer-button {
 .user-publication-header .user-function.pub-modal {
 	width: 52.5%;
 }
+.ngdialog.view-publication.ngdialog-theme-default .user-publication-header .user-function {
+	width: 52.5%;
+}
+.ngdialog.view-publication.ngdialog-theme-default .user-publication-header .user-function .user {
+	min-height: 45px;
+}
 .user-publication-header .return {
 	cursor: pointer;
 	position: absolute;
