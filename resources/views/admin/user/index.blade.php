@@ -175,17 +175,13 @@
 			deletePeriodBnt.on('click',function(e){
 				e.preventDefault();
 				var userId = $('#deleteModal').find("input").attr("value");
-				if(parseInt($(this).attr('period')) === 0){
-					deleteModal.close();
-				}else{
-					getUsers(null);
-					deleteModal.close();
-					$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
-						if(response.status){
-							getUsers(null);
-						}
-					});
-				}
+				getUsers(null);
+				deleteModal.close();
+				$.get("lock/delete_user/" + userId + "/" + $(this).attr('period'), function(response){
+					if(response.status){
+						getUsers(null);
+					}
+				});
 			});
 		});
 		TableManageButtons.init();
