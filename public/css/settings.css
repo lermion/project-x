@@ -6708,12 +6708,16 @@ input.cmn-toggle-round:checked + label:after {
 		padding-top: 45px;
 	}
 }
+input[type="text"] {
+	color: #000 !important;
+}
 input[type="text"],
 textarea[type="text"],
 .settingsss .text p textarea,
 .settingsss .text p input[type="text"].last_name_set,
 .settingsss .text p input[type="text"] {
 	font-family: "SFUIDisplayLight";
+	color: #000;
 }
 input[type="text"]:focus,
 textarea[type="text"]:focus,
