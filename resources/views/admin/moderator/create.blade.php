@@ -6,8 +6,14 @@
         @if (session()->has('message'))
             <br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
         @endif</h3>
-        @if(isset($error))
-            {{ $error }}
+        @if(isset($exist_mod))
+            <p style="color: red; font-size: 15px;"> {{ $exist_mod }}</p>
+        @endif
+        @if(session()->has('remember_user'))
+            <?php $user = session()->get('remember_user');
+            session()->forget('remember_user');
+            ?>
+
         @endif
         <form action="{{ action('Admin\ModeratorController@store') }}" method="post" enctype="multipart/form-data">
             <div class="row">
@@ -21,13 +27,13 @@
                 </div>
                 <div class="col-md-3">
                     <label for="email">Email</label><br>
-                    <input class="form-control" type="email" name="email" id="email" required><br>
+                    <input class="form-control" type="email" name="email" id="email" value="@if(isset($user)){{$user['email']}}@endif" required><br>
                     <label for="password">Пароль</label><br>
                     <input class="form-control"  type="password" name="password" id="password" required><br>
                     <label for="first_name">Имя</label><br>
-                    <input class="form-control"  type="text" name="first_name" id="first_name" required><br>
+                    <input class="form-control"  type="text" name="first_name" id="first_name" value="@if(isset($user)){{$user['first_name']}}@endif" required><br>
                     <label for="last_name">Фамилия</label><br>
-                    <input class="form-control"  type="text" name="last_name" id="last_name" required><br>
+                    <input class="form-control"  type="text" name="last_name" id="last_name" value="@if(isset($user)){{$user['last_name']}}@endif" required><br>
                 </div>
                 <div class="col-md-4 col-md-offset-1">
                     <table class="table table-bordered">
@@ -126,3 +132,31 @@
         });
     </script>
 @stop
+@if (\Illuminate\Support\Facades\Session::has('main_error'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('main_error'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('main_error'); ?>
+@endif
+@if (\Illuminate\Support\Facades\Session::has('error'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('error'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('error'); ?>
+@endif
+@if (\Illuminate\Support\Facades\Session::has('message'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('message'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('message'); ?>
+@endif
+@if (\Illuminate\Support\Facades\Session::has('exist_mod'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('exist_mod'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('exist_mod'); ?>
+@endif

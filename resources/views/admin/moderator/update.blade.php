@@ -3,9 +3,10 @@
     <div style="width:100%; height:auto;">
 
         <h3>Редактирование модератора
-            @if (session()->has('message'))
-                <br><h3 style="color: red;"> {{session()->pull('message')}}</h3>
-            @endif</h3>
+            {{--@if (session()->has('message'))--}}
+                {{--<br><h3 style="color: red;"> {{session()->pull('message')}}</h3>--}}
+            {{--@endif--}}
+        </h3>
 
         <form action="{{ action('Admin\ModeratorController@updateSave') }}" method="post" enctype="multipart/form-data">
             <div class="row">
@@ -219,6 +220,7 @@
         </form>
     </div>
 
+
     <script>
         $(document).ready(function(){
             $("input[type='submit']").on("click", function () {
@@ -265,4 +267,28 @@
             }
         })
     </script>
+
+
+
 @stop
+@if (\Illuminate\Support\Facades\Session::has('main_error'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('main_error'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('main_error'); ?>
+@endif
+@if (\Illuminate\Support\Facades\Session::has('error'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('error'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('error'); ?>
+@endif
+@if (\Illuminate\Support\Facades\Session::has('message'))
+    <?php $re = \Illuminate\Support\Facades\Session::get('message'); ?>
+    <script>
+        alert('{{$re}}');
+    </script>
+    <?php \Illuminate\Support\Facades\Session::forget('message'); ?>
+@endif
