@@ -3277,7 +3277,6 @@ pub-list-item .publication-footer-button {
 	font-size: 14.6px;
 	font-family: "SFUIDisplayMedium";
 	line-height: 30px;
-	padding: 0 10px;
 	transition: all .1s ease-in-out .1s!important;
 	color: #fff;
 	background-color: #495b79;
