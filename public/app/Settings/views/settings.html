@@ -24,7 +24,7 @@
 				<input type="file" id="avatarImg"/>  
 				<label for="avatarImg">
 					<span class="ava">         
-						<img ng-src="{{$root.user.loggedUserAva && $root.user.loggedUserAva !== 'null' ? $root.user.loggedUserAva : '/images/user.png'}}" style="width:100%;">
+						<img ng-src="{{$root.user.loggedUserAva && $root.user.loggedUserAva !== 'null' ? $root.user.loggedUserAva : '/upload/preview-chat-no-avatar.png'}}" style="width:100%;">
 					</span>
 					<span class="add"  ng-class="croppedFile ? 'edit-ava' : ''" ng-mouseover="showEditAva=true;" ng-mouseleave="showEditAva=false;" ng-click="showEditAva=!showEditAva">
 						<span class="add-photo"  ng-show="showEditAva"></span>
