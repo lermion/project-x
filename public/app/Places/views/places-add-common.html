@@ -206,7 +206,7 @@
 							 ng-click="cancelNewGroup()"> Открыть место </a>
 						<a href class="create-places-type-btn-invite"
 							 ng-click="vm.submitInviteUsers()"
-							 ladda="vm.subForm" data-style="slide-right"> Пригласить</a>
+							 ladda="vm.subForm" data-style="slide-right" ng-if="(vm.subscribers.length + vm.subscription.length) > 0"> Пригласить</a>
 				</div>
 				<div class="fifth_item contacts_list"
 						 ng-if="vm.inviteNotSend && ((vm.subscribers.length + vm.subscription.length) > 0)">
