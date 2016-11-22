@@ -99,7 +99,7 @@
 		}
 
 		function init() {
-			getScopes();
+			// getScopes();
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
 
