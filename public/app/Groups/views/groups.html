@@ -77,7 +77,7 @@
                     </div>
                     <div class="groups">
                         <div class="group"
-                             ng-repeat="group in publicGroupsFiltered | filter: showMyGroupsFilter | orderBy: ['-is_new_group', '-created_at'] | limitTo: limitAllPublicGroups"
+                             ng-repeat="group in publicGroupsFiltered | filter: {is_open: 1} | orderBy:filterGroups.value | limitTo: limitAllPublicGroups"
                              ng-click="goGroup(group)">
                             <div class="group-cover">
                                 <span class="groups-item-new-group" ng-if="group.is_new_group">NEW</span>
