@@ -223,6 +223,11 @@
 					//console.log('OnLink');
 				};
 
+				ctrl.checkUrl = function(){
+					if($state.current.name === "group.publications"){
+						ngDialog.closeAll();
+					}
+				};
 
 				ctrl.changeMainFile = function (file, index) {
 					ctrl.mainVideoFile = null;

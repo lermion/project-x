@@ -39,7 +39,7 @@
 		</div>
 		<div class="user-function">
 			<a class="user" ng-if="$ctrl.pub.group.length > 0"
-			   ui-sref="group.publications">
+			   ui-sref="group.publications" ng-click="$ctrl.checkUrl()">
 				<p class="user-name">{{$ctrl.pub.group[0].name}}</p>
 			</a>
 			<a class="user" ng-if="$ctrl.pub.place.length > 0"
