@@ -3,7 +3,7 @@
 	<div class="add_newgroup">
 		<div class="first_item">
 			<div class="ava_group">
-				<img ng-src="{{$root.user.loggedUserAva ? $root.user.loggedUserAva : '/images/user.png'}}" class="img_ava">
+				<img ng-src="{{$root.user.loggedUserAva && $root.user.loggedUserAva !== 'null' ? $root.user.loggedUserAva : '/images/user.png'}}" class="img_ava">
 				<a class="img_name">{{::myName}}</a>
 			</div>
 			<div class="checkbox_group">
