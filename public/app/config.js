@@ -320,6 +320,7 @@ angular.module('placePeopleApp')
                                             deferred.resolve(res.publications);
                                         } else {
                                             if (res.error.code === "8") {
+                                                deferred.resolve();
 
                                             } else if (res.error.code === "15") {
                                                 $stateParams.needToLogin = true;
