@@ -1,60 +1,70 @@
 <form name="vm.forms.editGroup" novalidate>
-    <div class="new_group">Редактирование группы</div>
-    <div class="add_newgroup add_newgroup--edit">
-        <div class="first_item">
-            <div class="checkbox_group">
-                <input type="checkbox" id="arr1" ng-model="vm.groupEdited.is_open"/>
-                <label for="arr1">Публичная группа</label>
-            </div>
-        </div>
+	<div class="new_group">Редактирование группы</div>
+	<div class="add_newgroup add_newgroup--edit">
+		<div class="first_item">
+			<div class="checkbox_group">
+				<input type="checkbox" id="arr1" ng-model="vm.groupEdited.is_open"/>
+				<label for="arr1">Публичная группа</label>
+			</div>
+		</div>
 
-        <div class="second_item">
-            <div class="add-ava" ng-class="(vm.forms.editGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
-                <input type="file" name="avatar" id="avatarImg" class="js-group-avatar"
-                       ng-model="vm.groupCoverFile"
-                       ngf-select
-                       ngf-accept="'image/*'"
-                       ngf-pattern="'image/*'"
-                       ngf-min-height="240"
-                       ngf-min-width="700"
-                       ngf-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
-                <label for="avatarImg">
-                    <img class="avatar__card" ngf-src="vm.groupEdited.card_avatar" ngf-no-object-url="true">
-                </label>
-            </div>
-            <span class="add_ava_grp"> Добавить обложку группе </span>
-        </div>
-        <div class="error-messages" ng-messages="vm.forms.editGroup.avatar.$error"
-             ng-if="vm.forms.editGroup.$invalid && vm.forms.editGroup.$submitted || vm.forms.editGroup.$dirty">
-            <div ng-message="pattern">Выбранный файл не является изображением</div>
-            <div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
-            <div ng-message="required">Вы не выбрали обложку для группы</div>
-            <div ng-message="minHeight">Минимальная высота 240 пикселей</div>
-        </div>
+		<div class="second_item">
+			<div class="add-ava" ng-class="(vm.forms.editGroup.avatar.$invalid && submFormGroup) ? 'has-error' : ''">
+				<input type="file" name="avatar" id="avatarImg" class="js-group-avatar"
+					   ng-model="vm.groupCoverFile"
+					   ngf-select
+					   ngf-accept="'image/*'"
+					   ngf-pattern="'image/*'"
+					   ngf-min-height="240"
+					   ngf-min-width="700"
+					   ngf-change="vm.changeGroupCoverFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+				<label for="avatarImg">
+					<img class="avatar__card" ngf-src="vm.groupEdited.card_avatar" ngf-no-object-url="true">
+				</label>
+			</div>
+			<span class="add_ava_grp"> Добавить обложку группе </span>
+		</div>
+		<div class="error-messages" ng-messages="vm.forms.editGroup.avatar.$error"
+			 ng-if="vm.forms.editGroup.$invalid && vm.forms.editGroup.$submitted || vm.forms.editGroup.$dirty">
+			<div ng-message="pattern">Выбранный файл не является изображением</div>
+			<div ng-message="minWidth">Минимальная ширина 700 пикселей</div>
+			<div ng-message="required">Вы не выбрали обложку для группы</div>
+			<div ng-message="minHeight">Минимальная высота 240 пикселей</div>
+		</div>
 
 
-        <input type="text"
-               ng-model="vm.groupEdited.name"
-               name="name"
-               placeholder="Название">
+		<input type="text"
+			   ng-model="vm.groupEdited.name"
+			   name="name"
+			   placeholder="Название">
 
-        <div class="text-field">
-            <div emoji-form emoji-message="vm.emoji.emojiMessage">
-                <textarea id="messageInput" name="description"
-                          ng-model="vm.emoji.emojiMessage.messagetext" required></textarea>
-                <a href="javascript:void(0);" class="emoji-button" id="emojibtn">
-                    <i class="icon icon-emoji"></i>
-                </a>
-            </div>
-        </div>
-        <div class="error-messages" ng-messages="vm.forms.editGroup.description.$error"
-             ng-if="vm.forms.editGroup.$invalid && vm.forms.editGroup.$submitted">
-            <div ng-message="required">Вы не указали описание группы</div>
-        </div>
+		<div class="text-field">
+			<div emoji-form emoji-message="vm.emoji.emojiMessage">
+				<textarea id="messageInput" name="description"
+						  ng-model="vm.emoji.emojiMessage.messagetext" required></textarea>
+				<a href="javascript:void(0);" class="emoji-button" id="emojibtn">
+					<i class="icon icon-emoji"></i>
+				</a>
+			</div>
+		</div>
+		<a ng-click="showAreasBlock = !showAreasBlock" class="who-can-see-publication" href="javascript:void(0);">Кто будет видеть публикацию</a>
+		<div ng-show="showAreasBlock" class="settings-select-region">
+			<p>Области видимости</p>
+			<ul class="settings-regions-list">
+				<li ng-repeat="scope in vm.scopes">
+				  <input ng-disabled="vm.checkedAreas.length === vm.checkedLimit && !scope.active && scope.name !== 'Все'" ng-change="vm.checkedScope(scope.active, scope)" ng-checked="scope.active" ng-model="scope.active" type="checkbox" id="{{scope.id}}">
+				  <label for="{{scope.id}}">{{scope.name}}</label>
+				</li>
+			</ul>
+		</div>
+		<div class="error-messages" ng-messages="vm.forms.editGroup.description.$error"
+			 ng-if="vm.forms.editGroup.$invalid && vm.forms.editGroup.$submitted">
+			<div ng-message="required">Вы не указали описание группы</div>
+		</div>
 
-        <div class="button">
-            <a href="" class="cansel" ng-click="closeThisDialog()">Отменить</a>
-            <a href="" class="create" ng-click="vm.updateGroup()">Сохранить</a>
-        </div>
-    </div>
+		<div class="button">
+			<a href="" class="cansel" ng-click="closeThisDialog()">Отменить</a>
+			<a href="" class="create" ng-click="vm.updateGroup()">Сохранить</a>
+		</div>
+	</div>
 </form>
