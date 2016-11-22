@@ -197,22 +197,22 @@
 			vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
 		});
 
-		function getScopes(){
-			PublicationService.getPublicationScopes(pub.id).then(function(data){
-				console.log(data);
-				vm.checkedAreas = [];
-				vm.scopes = data;
-				vm.scopes.forEach(function(value){
-					if(value.signed){
-						vm.checkedAreas.push(value.id);
-						value.active = true;
-					}
-				});
-			},
-			function(error){
-				console.log(error);
-			});
-		}
+		// function getScopes(){
+		// 	PublicationService.getPublicationScopes(pub.id).then(function(data){
+		// 		console.log(data);
+		// 		vm.checkedAreas = [];
+		// 		vm.scopes = data;
+		// 		vm.scopes.forEach(function(value){
+		// 			if(value.signed){
+		// 				vm.checkedAreas.push(value.id);
+		// 				value.active = true;
+		// 			}
+		// 		});
+		// 	},
+		// 	function(error){
+		// 		console.log(error);
+		// 	});
+		// }
 
 		$scope.$on('ngDialog.opened', function (e, $dialog) {
 		    //if ($dialog.name === "modal-publication-group") {
