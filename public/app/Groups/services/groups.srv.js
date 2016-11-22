@@ -238,6 +238,10 @@
 				fd.append('card_avatar', group.card_avatar, group.card_avatar.name);
 			}
 
+			group.scopes.forEach(function(scope){
+				fd.append('scopes[]', scope);
+			});
+
 			// required fields
 			fd.append('is_open', +group.is_open);
 			fd.append('description', group.description);

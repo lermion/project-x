@@ -21,6 +21,7 @@
 		var firstName = storage.firstName;
 		var lastName = storage.lastName;
 		var login = storage.username;
+		vm.checkedAreas = [];
 		$scope.messageVideos = [];
 
 		var modalEditGroup, modalDeleteGroup, modalInviteUsers,
@@ -99,7 +100,7 @@
 		}
 
 		function init() {
-			// getScopes();
+			getScopes();
 			$scope.$emit('userPoint', 'user');
 			var storage = storageService.getStorage();
 
@@ -197,22 +198,51 @@
 			vm.showPubSwitch = (state === 'place.publications' || state === 'group.publications');
 		});
 
-		// function getScopes(){
-		// 	PublicationService.getPublicationScopes(pub.id).then(function(data){
-		// 		console.log(data);
-		// 		vm.checkedAreas = [];
-		// 		vm.scopes = data;
-		// 		vm.scopes.forEach(function(value){
-		// 			if(value.signed){
-		// 				vm.checkedAreas.push(value.id);
-		// 				value.active = true;
-		// 			}
-		// 		});
-		// 	},
-		// 	function(error){
-		// 		console.log(error);
-		// 	});
-		// }
+		function getScopes(){
+			PublicationService.getPublicationScopes(vm.group.id).then(function(data){
+				console.log(data);
+				vm.checkedAreas = [];
+				vm.scopes = data;
+				vm.scopes.forEach(function(value){
+					if(value.signed){
+						vm.checkedAreas.push(value.id);
+						value.active = true;
+					}
+				});
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+
+		vm.checkedScope = function(active, scope){
+			if(scope.name === "Все" && active){
+				vm.checkAll(true);
+				vm.checkedAreas = [];
+				vm.checkedAreas[0] = scope.id;
+			}else if(scope.name === "Все" && !active){
+				vm.checkAll(false);
+				vm.checkedAreas = [];
+				vm.checkedAreas.splice(vm.checkedAreas.indexOf(scope.id), 1);
+			}else{
+				if(vm.checkedAreas[0] === 1){
+					vm.checkedAreas.splice(0, 1);
+				}
+				vm.scopes.forEach(function(value){
+					if(value.name === "Все"){
+						value.active = false;
+						value.signed = false;
+					}
+				});
+			}
+			if (active) {
+				if (vm.checkedAreas.length < 3) {
+					vm.checkedAreas.push(scope.id);
+				}
+			} else {
+				vm.checkedAreas.splice(vm.checkedAreas.indexOf(scope.id), 1);
+			}
+		};
 
 		$scope.$on('ngDialog.opened', function (e, $dialog) {
 		    //if ($dialog.name === "modal-publication-group") {
@@ -808,6 +838,8 @@
 			if (vm.forms.editGroup.$invalid) {
 				return false;
 			}
+
+			vm.groupEdited.scopes = vm.checkedAreas;
 
 			if (vm.group.name === vm.groupEdited.name) {
 				vm.groupEdited.name = null;
