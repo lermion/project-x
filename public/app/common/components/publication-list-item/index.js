@@ -118,8 +118,11 @@
 						ctrl.indexCurrentImage = getIndexCurrentImage();
 						$timeout(function () {
 							var element = $window.document.querySelectorAll('#pub' + ctrl.pub.id);
-							if (element.length > 1)
+							if (element.length > 1){
 								element[1].focus();
+							}else if(element.length === 1){
+								element[0].focus();
+							}
 						});
 
 						// если в публикации есть видеофайлы, то проверим не является ли один из них обложкой

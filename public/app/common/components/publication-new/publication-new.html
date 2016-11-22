@@ -12,7 +12,7 @@
 
 				<p class="user-name">{{::$ctrl.authorName}}</p>
 			</a>
-			<a class="user" ng-if="$ctrl.place" ui-sref="place({placeName: $ctrl.place.url_name})"
+			<a class="user" ng-if="$ctrl.place"
 			   ng-click="closeThisDialog()">
 				<span class="ava">
 					<img ng-src="{{::$ctrl.avatar}}">
