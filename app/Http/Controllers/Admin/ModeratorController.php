@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\Job;
 use App\Moderator;
 use App\Option;
 use App\WorkingHoursModerator;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ModeratorController extends Controller
 {
@@ -45,9 +47,11 @@ class ModeratorController extends Controller
     public function store(Request $request)
     {
         if (Moderator::where('email',$request->input('email'))->first()){
-            return view('admin.moderator.create',['error'=>'Email уже используется другим модератором']);
-        }
+//            Session::put('main_error', 'Email уже используется другим модератором!');
+            return view('admin.moderator.create',['exist_mod'=>'Email уже используется другим модератором']);
+    }
         $data = $request->all();
+//        dd($data);
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $path = $this->getAvatarPath($photo);
@@ -65,194 +69,82 @@ class ModeratorController extends Controller
             if (isset($data['weekday'])) {
                 $weekday = $data['weekday'];
             }
-            if (isset ($weekday[1]) && $weekday[1] == 'on') {
-                $from_times = explode(":", $from_time[1]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[1]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 1)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 1, 'from_time' => $from_time[1],
-                                'to_time' => $to_time[1],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.1', 'Время работы модератор в <span style="color: green; font-size: 20px;">понедельник</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.1', 'Время работы модератор в <span style="color: green; font-size: 20px;">понедельник</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            };
 
-            if (isset ($weekday[2]) && $weekday[2] == 'on') {
-                $from_times = explode(":", $from_time[2]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[2]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 2)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 2, 'from_time' => $from_time[2],
-                                'to_time' => $to_time[2],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.2', 'Время работы модератор во <span style="color: green; font-size: 20px;">вторник</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.2', 'Время работы модератор во <span style="color: green; font-size: 20px;">вторник</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
+            for ($i = 0; $i < 7; $i++) {
+                switch ($i) {
+                    case 0:
+                        $day = 'воскресенье';
+                        break;
+                    case 1:
+                        $day = 'понедельник';
+                        break;
+                    case 2:
+                        $day = 'вторник';
+                        break;
+                    case 3:
+                        $day = 'среда';
+                        break;
+                    case 4:
+                        $day = 'четверг';
+                        break;
+                    case 5:
+                        $day = 'пятница';
+                        break;
+                    case 6:
+                        $day = 'суббота';
+                        break;
                 }
-            };
+                if (isset ($weekday[$i]) && $weekday[$i] == 'on' && $from_time != '' && $to_time != '') {
+                    $from_times = explode(":", $from_time[$i]);
+                    $hour = $from_times[0];
+                    $min = $from_times[1];
+                    $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
+                    $to_times = explode(":", $to_time[$i]);
+                    $to_hour = $to_times[0];
+                    $to_min = $to_times[1];
+                    $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
+                    Session::put('remember_user', $data);
+                    if ($working_time < $to_working_time) {
+                        $working_hours = WorkingHoursModerator::where('weekday', $i)->get();
+                        for($j = 0; $j < count($working_hours); $j++) {
 
-            if (isset ($weekday[3]) && $weekday[3] == 'on') {
-                $from_times = explode(":", $from_time[3]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[3]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 3)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 3, 'from_time' => $from_time[3],
-                                'to_time' => $to_time[3],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.3', 'Время работы модератор в <span style="color: green; font-size: 20px;">среду</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.3', 'Время работы модератор в <span style="color: green; font-size: 20px;">среду</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            };
+                            if ($to_time[$i] > $working_hours[$j]->from_time &&
+                                $to_time[$i] < $working_hours[$j]->to_time ||
+                                $from_time[$i] > $working_hours[$j]->from_time &&
+                                $from_time[$i] < $working_hours[$j]->to_time
+                            ) {
+                                $moderator_info = Moderator::find($working_hours[$j]->moderator_id);
+                                $error = 'Время работы модераторa в '. $day . ' не было добавлено поскольку выбранный период ('. $from_time[$i] .' - '. $to_time[$i] .') совпадает с существующим рабочим временем ('. $working_hours[$j]->from_time .' - '. $working_hours[$j]->to_time .') модератора ' . $moderator_info->last_name . ' ' . $moderator_info->first_name;
 
-            if (isset ($weekday[4]) && $weekday[4] == 'on') {
-                $from_times = explode(":", $from_time[4]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[4]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 4)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 4, 'from_time' => $from_time[4],
-                                'to_time' => $to_time[4],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.4', 'Время работы модератор в <span style="color: green; font-size: 20px;">четверг</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.4', 'Время работы модератор в <span style="color: green; font-size: 20px;">четверг</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            };
+                                Session::put('main_error', $error);
+                                return view('admin.moderator.create');
+                            } else {
+                                $start_time = $from_time[$i];
+                                $end_time = $to_time[$i];
+                            }
 
-            if (isset ($weekday[5]) && $weekday[5] == 'on') {
-                $from_times = explode(":", $from_time[5]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[5]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 5)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 5, 'from_time' => $from_time[5],
-                                'to_time' => $to_time[5],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.5', 'Время работы модератор в <span style="color: green; font-size: 20px;">пятницу</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.5', 'Время работы модератор в <span style="color: green; font-size: 20px;">пятницу</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            };
+                        }
+                        WorkingHoursModerator::create([
+                            'weekday' => $i,
+                            'from_time' => $start_time,
+                            'to_time' => $end_time,
+                            'moderator_id' => $moderator->id
+                        ]);
 
-            if (isset ($weekday[6]) && $weekday[6] == 'on') {
-                $from_times = explode(":", $from_time[6]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[6]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 6)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 6, 'from_time' => $from_time[6],
-                                'to_time' => $to_time[6],
-                                'moderator_id' => $moderator['id']
-                            ]);
                     } else {
-                        session()->put('message.6', 'Время работы модератор в <span style="color: green; font-size: 20px;">субботу</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
+                        $second_error = 'Время работы модераторa в ' . $day . ' не было добавлено поскольку время начала работы ('. $from_time[$i] .') должно быть меньше времени окончания ('. $to_time[$i] .')';
+                        session()->put('error', $second_error);
+                        return view('admin.moderator.create');
                     }
-                } else {
-                    session()->put('message.6', 'Время работы модератор в <span style="color: green; font-size: 20px;">субботу</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
                 }
-            };
-
-            if (isset ($weekday[0]) && $weekday[0] == 'on') {
-                $from_times = explode(":", $from_time[0]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[0]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 0)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 0, 'from_time' => $from_time[0],
-                                'to_time' => $to_time[0],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.7', 'Время работы модератор в <span style="color: green; font-size: 20px;">воскресенье</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.7', 'Время работы модератор в <span style="color: green; font-size: 20px;">воскресенье</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            };
+            }
         }
         catch (\Exception $ex) {
-            session()->put('message', 'Ошибка !!! Модератор не добавленн');
-            return redirect()->back();
+            session()->put('message', 'Ошибка!!! Модератор не изменен');
+            return view('admin.moderator.create');
         }
 
-        return redirect('admin/moderator/');//->with('message', 'Модератор добавленн');
+        return redirect('admin/moderator/');
     }
 
     public function updateSave(Request $request)
@@ -280,214 +172,96 @@ class ModeratorController extends Controller
             $weekday = $data['weekday'];
         }
         try {
-            if (isset ($weekday[1]) && $weekday[1] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 1, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[1]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[1]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 1)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 1, 'from_time' => $from_time[1],
-                                'to_time' => $to_time[1],
+            for ($i = 0; $i < 7; $i++) {
+                switch ($i) {
+                    case 0:
+                        $day = 'воскресенье';
+                        break;
+                    case 1:
+                        $day = 'понедельник';
+                        break;
+                    case 2:
+                        $day = 'вторник';
+                        break;
+                    case 3:
+                        $day = 'среда';
+                        break;
+                    case 4:
+                        $day = 'четверг';
+                        break;
+                    case 5:
+                        $day = 'пятница';
+                        break;
+                    case 6:
+                        $day = 'суббота';
+                        break;
+                }
+
+                if (isset ($weekday[$i]) && $weekday[$i] == 'on') {
+                    $moderator_date = WorkingHoursModerator::where(['weekday' => $i, 'moderator_id' => $moderator['id']])->first();
+
+                    WorkingHoursModerator::where(['weekday' => $i, 'moderator_id' => $moderator['id']])->delete();
+                    $from_times = explode(":", $from_time[$i]);
+                    $hour = $from_times[0];
+                    $min = $from_times[1];
+                    $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
+                    $to_times = explode(":", $to_time[$i]);
+                    $to_hour = $to_times[0];
+                    $to_min = $to_times[1];
+                    $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
+                    if ($working_time < $to_working_time) {
+                        $working_hours = WorkingHoursModerator::where('weekday', $i)->get();
+                        for($j = 0; $j < count($working_hours); $j++) {
+
+                            if ($to_time[$i] > $working_hours[$j]->from_time &&
+                                $to_time[$i] < $working_hours[$j]->to_time ||
+                                $from_time[$i] > $working_hours[$j]->from_time &&
+                                $from_time[$i] < $working_hours[$j]->to_time
+                            ) {
+                                $moderator_info = Moderator::find($working_hours[$j]->moderator_id);
+                                $error = 'Время работы модераторa в '. $day . ' не было добавлено поскольку выбранный период ('. $from_time[$i] .' - '. $to_time[$i] .') совпадает с существующим рабочим временем ('. $working_hours[$j]->from_time .' - '. $working_hours[$j]->to_time .') модератора ' . $moderator_info->last_name . ' ' . $moderator_info->first_name;
+
+                                Session::put('main_error', $error);
+                                WorkingHoursModerator::create([
+                                    'weekday' => $moderator_date['weekday'],
+                                    'from_time' => $moderator_date['from_time'],
+                                    'to_time' => $moderator_date['to_time'],
+                                    'moderator_id' => $moderator_date['moderator_id']
+                                ]);
+                                return redirect()->back();
+                            } else {
+                                $start_time = $from_time[$i];
+                                $end_time = $to_time[$i];
+                            }
+                        }
+                        $period = WorkingHoursModerator::where(['weekday' => $i, 'moderator_id' => $moderator['id']])->first();
+                        if (isset($period)) {
+                            $period->from_time = $start_time;
+                            $period->to_time = $end_time;
+                            $period->save();
+                        } else {
+                            WorkingHoursModerator::create([
+                                'weekday' => $i,
+                                'from_time' => $from_time[$i],
+                                'to_time' => $to_time[$i],
                                 'moderator_id' => $moderator['id']
                             ]);
+                        }
                     } else {
-                        session()->put('message.1', 'Время работы модератор в <span style="color: green; font-size: 20px;">понедельник</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
+                        WorkingHoursModerator::create([
+                            'weekday' => $moderator_date['weekday'],
+                            'from_time' => $moderator_date['from_time'],
+                            'to_time' => $moderator_date['to_time'],
+                            'moderator_id' => $moderator_date['moderator_id']
+                        ]);
+                        $second_error = 'Время работы модераторa в ' . $day . ' не было добавлено поскольку время начала работы ('. $from_time[$i] .') должно быть меньше времени окончания ('. $to_time[$i] .')';
+                        session()->put('error', $second_error);
+                        return redirect()->back();
                     }
                 } else {
-                    session()->put('message.1', 'Время работы модератор в <span style="color: green; font-size: 20px;">понедельник</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 1, 'moderator_id' => $moderator['id']])->delete();
-            };
-
-            if (isset ($weekday[2]) && $weekday[2] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 2, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[2]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[2]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 2)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 2, 'from_time' => $from_time[2],
-                                'to_time' => $to_time[2],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.2', 'Время работы модератор во <span style="color: green; font-size: 20px;">вторник</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.2', 'Время работы модератор во <span style="color: green; font-size: 20px;">вторник</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 2, 'moderator_id' => $moderator['id']])->delete();
-            };
-
-
-            if (isset ($weekday[3]) && $weekday[3] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 3, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[3]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[3]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 3)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 3, 'from_time' => $from_time[3],
-                                'to_time' => $to_time[3],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.3', 'Время работы модератор в <span style="color: green; font-size: 20px;">среду</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.3', 'Время работы модератор в <span style="color: green; font-size: 20px;">среду</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 3, 'moderator_id' => $moderator['id']])->delete();
-            };
-
-
-            if (isset ($weekday[4]) && $weekday[4] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 4, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[4]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[4]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 4)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 4, 'from_time' => $from_time[4],
-                                'to_time' => $to_time[4],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.4', 'Время работы модератор в <span style="color: green; font-size: 20px;">четверг</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.4', 'Время работы модератор в <span style="color: green; font-size: 20px;">четверг</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 4, 'moderator_id' => $moderator['id']])->delete();
-            };
-
-
-            if (isset ($weekday[5]) && $weekday[5] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 5, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[5]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[5]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 5)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 5, 'from_time' => $from_time[5],
-                                'to_time' => $to_time[5],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.5', 'Время работы модератор в <span style="color: green; font-size: 20px;">пятницу</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.5', 'Время работы модератор в <span style="color: green; font-size: 20px;">пятницу</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 5, 'moderator_id' => $moderator['id']])->delete();
-            };
-
-
-            if (isset ($weekday[6]) && $weekday[6] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 6, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[6]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[6]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 6)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 6, 'from_time' => $from_time[6],
-                                'to_time' => $to_time[6],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.6', 'Время работы модератор в <span style="color: green; font-size: 20px;">субботу</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.6', 'Время работы модератор в <span style="color: green; font-size: 20px;">субботу</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 6, 'moderator_id' => $moderator['id']])->delete();
-            };
-
-
-            if (isset ($weekday[0]) && $weekday[0] == 'on') {
-                WorkingHoursModerator::where(['weekday' => 0, 'moderator_id' => $moderator['id']])->delete();
-                $from_times = explode(":", $from_time[0]);
-                $hour = $from_times[0];
-                $min = $from_times[1];
-                $working_time = Carbon::create(null, null, null, $hour, $min, 0, NULL)->timestamp;
-                $to_times = explode(":", $to_time[0]);
-                $to_hour = $to_times[0];
-                $to_min = $to_times[1];
-                $to_working_time = Carbon::create(null, null, null, $to_hour, $to_min, 0, NULL)->timestamp;
-                if ($working_time < $to_working_time) {
-                    $working_hours = WorkingHoursModerator::where('weekday', 0)->get();
-                    $valid = $this->valid($working_hours, $to_working_time, $working_time);
-                    if ($valid == 0) {
-                        WorkingHoursModerator::create(
-                            ['weekday' => 0, 'from_time' => $from_time[0],
-                                'to_time' => $to_time[0],
-                                'moderator_id' => $moderator['id']
-                            ]);
-                    } else {
-                        session()->put('message.7', 'Время работы модератор в <span style="color: green; font-size: 20px;">воскресенье</span> не было добавлено поскольку было указанно не коректно либо совпадает с временем работы другого модератора');
-                    }
-                } else {
-                    session()->put('message.7', 'Время работы модератор в <span style="color: green; font-size: 20px;">воскресенье</span> не было добавлено поскольку время начала работы должно быть меньше времени окончания');
-                }
-            } else {
-                WorkingHoursModerator::where(['weekday' => 0, 'moderator_id' => $moderator['id']])->delete();
-            };
-
+                    WorkingHoursModerator::where(['weekday' => $i, 'moderator_id' => $moderator['id']])->delete();
+                };
+            }
         }
         catch (\Exception $ex) {
             session()->put('message', 'Ошибка!!! Модератор не изменен');
@@ -495,8 +269,7 @@ class ModeratorController extends Controller
         }
         $moderator->save();
 
-        //$moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id);
-        return redirect('/admin/moderator/');//->with('message', 'Модератор изменен');
+        return redirect('/admin/moderator/');
     }
 
     private function getAvatarPath($photo)
@@ -525,9 +298,6 @@ class ModeratorController extends Controller
 
     public function stopped()
     {
-//        $moderators = Moderator::where('is_stop',false)->get();
-//        $working_hours = WorkingHoursModerator::all();
-//        return view('admin.moderator.index',['moderators'=>$moderators,'working_hours'=>$working_hours,'url'=>'New']);
         $option = Option::first();
         $moderators = Moderator::where('is_stop',true)->get();
         $working_hours = WorkingHoursModerator::all();
@@ -562,11 +332,6 @@ class ModeratorController extends Controller
             } else {
                 $i += 0;
             }
-//            if ($working_time != $working_time1 and $to_working_time != $to_working_time1) {
-//                $i += 0;
-//            } else {
-//                $i += 1;
-//            }
             if ($to_working_time <= $working_time1 or $to_working_time >= $to_working_time1) {
                 $i += 0;
             } else {
@@ -587,7 +352,7 @@ class ModeratorController extends Controller
     {
         $moderators = Moderator::find($id);
         $moderators['working_hours'] = WorkingHoursModerator::where('moderator_id',$id)->get();
-        return view('admin.moderator.update')->with('moderators', $moderators);
+        return view('/admin/moderator/update')->with('moderators', $moderators);
     }
 
     public function update_inspection(Request $request)
