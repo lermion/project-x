@@ -199,7 +199,7 @@
 		});
 
 		function getScopes(){
-			PublicationService.getPublicationScopes(vm.group.id).then(function(data){
+			PublicationService.getGroupScopes(vm.group.id).then(function(data){
 				console.log(data);
 				vm.checkedAreas = [];
 				vm.scopes = data;

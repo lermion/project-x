@@ -20,13 +20,26 @@ angular.module('placePeopleApp')
 			complaintCommentAuthor: complaintCommentAuthor,
 			complaintPubAuthor: complaintPubAuthor,
 			getScopes: getScopes,
-			getPublicationScopes: getPublicationScopes
+			getPublicationScopes: getPublicationScopes,
+			getGroupScopes: getGroupScopes
 
 		}
 
 		function getPublicationScopes(publicationId) {
 			var defer = $q.defer();
 			$http.get("publication/get_scopes/" + publicationId)
+				.success(function (response) {
+					defer.resolve(response);
+				})
+				.error(function (error) {
+					defer.reject(error);
+				});
+			return defer.promise;
+		}
+
+		function getGroupScopes(groupId){
+			var defer = $q.defer();
+			$http.get("group/get_group_scopes/" + groupId)
 				.success(function (response) {
 					defer.resolve(response);
 				})
