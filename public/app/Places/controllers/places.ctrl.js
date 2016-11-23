@@ -577,6 +577,7 @@
 		}
 
 		function openModalCropLogoImage(fileName, e, isCoverMode) {
+			console.log(isCoverMode);
 			var file = e.currentTarget.files[0];
 			if (file) {
 				var reader = new FileReader();
