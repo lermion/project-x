@@ -311,11 +311,14 @@ class GroupController extends Controller
             $path = Image::getCardGroupPath($card_avatar);
             $groupData['card_avatar'] = $path;
         }
+
+
         $group = Group::find($id);
-        ScopeGroup::where('publication_id',$group->id)->delete();
+        ScopeGroup::where('group_id',$group->id)->delete();
         $scopes = $request->input('scopes');
         $group->scopes()->attach($scopes);
         $group->update($groupData);
+        dd($groupData);
         return response()->json(["status" => true, "groupData" => $groupData]);
     }
 

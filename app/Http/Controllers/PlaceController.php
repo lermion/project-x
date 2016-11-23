@@ -104,7 +104,7 @@ class PlaceController extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:places',
+//                'name' => 'required|unique:places',
                 'description' => 'required',
                 'city_id' =>'required',
                 'address' => 'required',
@@ -587,7 +587,7 @@ class PlaceController extends Controller
                     'code' => '1'
                 ]
             ];
-            return response()->json($result);
+            return $result;
         }
         $id = $request->input('country_id');
         $search = $request->input('name');
@@ -596,7 +596,7 @@ class PlaceController extends Controller
             ->select ('cities.id as id','cities.name as name','areas.name as area','regions.name as region')
             ->where('cities.country_id',$id)->where('cities.name', 'LIKE', $search.'%')
             ->get();
-        return response()->json($cities);
+        return $cities;
     }
 
     public function getPlaceScopes($id)
