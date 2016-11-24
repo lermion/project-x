@@ -43,6 +43,15 @@
 		vm.countries = [];
 		vm.cities = [];
 
+		vm.openModalDeletePlace = function(){
+			modalDeletePlace = ngDialog.open({
+				template: '../app/Places/views/popup-delete-place.html',
+				name: 'modal-edit-group',
+				className: 'popup-add-group popup-edit-place ngdialog-theme-default',
+				scope: $scope
+			});
+		};
+
 
 		vm.place = place;
 		vm.placeEdited = angular.copy(vm.place);
