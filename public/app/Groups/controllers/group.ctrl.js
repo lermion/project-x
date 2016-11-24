@@ -200,7 +200,6 @@
 
 		function getScopes(){
 			PublicationService.getGroupScopes(vm.group.id).then(function(data){
-				console.log(data);
 				vm.checkedAreas = [];
 				vm.scopes = data;
 				vm.scopes.forEach(function(value){
@@ -214,6 +213,18 @@
 				console.log(error);
 			});
 		}
+
+		vm.checkAll = function(param){
+			vm.scopes.forEach(function(value){
+				if(value.name === "Все"){
+					value.active = param;
+				}else{
+					value.active = false;
+					value.signed = false;
+				}
+				vm.checkedAreas = [];
+			});
+		};
 
 		vm.checkedScope = function(active, scope){
 			if(scope.name === "Все" && active){
@@ -825,6 +836,7 @@
 		};
 
 		vm.updateGroup = function () {
+			console.log();
 			if (vm.subForm) {
 				return false;
 			}
@@ -852,7 +864,7 @@
 				.then(function (data) {
 					if (data.status) {
 						vm.group.name = data.groupData.name || vm.group.name;
-						vm.group.description = data.groupData.description || vm.group.description;
+						vm.group.description = vm.emoji.emojiMessage.messagetext;
 						vm.group.is_open = data.groupData.is_open == true;
 						vm.group.avatar = data.groupData.avatar || vm.group.avatar;
 						vm.group.card_avatar = data.groupData.card_avatar || vm.group.card_avatar;
