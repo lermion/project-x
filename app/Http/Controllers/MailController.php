@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\UserMail;
-use Mail;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class MailController extends Controller
@@ -42,9 +42,10 @@ class MailController extends Controller
             'user_email' => $request->input('email'),
             'user_comment' => $request->input('text')
         ];
-        Mail::send('support', $data, function ($message) use ($user_mail) {
-            $message->from($user_mail->mail)->subject($user_mail->text);
-//                $message->to($user_mail->email, $user_mail->name)
+        Mail::send('support', $data, function ($message) use ($data) {
+            $message->from($data['user_email'], $data['user_name']);
+            $message->to(config('mail.from')['address'], config('mail.from')['name'])
+                ->subject('Support');
         });
 
         $result = [
