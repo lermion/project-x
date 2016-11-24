@@ -507,6 +507,10 @@
 				fd.append('avatar', place.avatar);
 			}
 
+			place.scopes.forEach(function(scope){
+				fd.append('scopes[]', scope);
+			});
+
 			if (place.is_dynamic) {
 				fd.append('expired_date', place.expired_date);
 			}

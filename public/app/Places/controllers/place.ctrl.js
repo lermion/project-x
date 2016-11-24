@@ -315,7 +315,7 @@
 
 			var placeEdited = angular.copy(vm.placeEdited);
 			place = angular.copy(vm.placeEdited);
-
+			console.log(vm.placeEditedForm.logo);
 			if (!vm.placeEditedForm.logo.$dirty) {
 				placeEdited.avatar = null;
 			}
@@ -329,6 +329,8 @@
 			if (placeEdited.expired_date) {
 				placeEdited.expired_date = moment(placeEdited.expired_date).format('YYYY-MM-DD');
 			}
+
+			placeEdited.scopes = vm.checkedAreas;
 
 			placesService.updatePlace(placeEdited)
 				.then(function (data) {
@@ -732,6 +734,24 @@
 			$state.go('place', {'placeName': vm.place.url_name});
 		};
 
+		function getScopes(){
+			placesService.getPlaceScopes(vm.place.id).then(function(data){
+				vm.checkedAreas = [];
+				vm.scopes = data;
+				vm.scopes.forEach(function(value){
+					if(value.signed){
+						vm.checkedAreas.push(value.id);
+						value.active = true;
+					}
+				});
+			},
+			function(error){
+				console.log(error);
+			});
+		}
+
+		getScopes();
+
 		vm.openModalMap = function () {
 			modalMap = ngDialog.open({
 				template: '../app/Places/views/popup-map.html',
@@ -920,13 +940,13 @@
 		vm.changePlaceAvatarFile = function (files, file, newFiles, duplicateFiles, invalidFiles, event) {
 			if (file) {
 				var isCoverCropMode = false;
-
 				openModalCropAvatarImage(file.name, event, isCoverCropMode);
 			}
 
 		};
 
 		vm.saveCropp = function (croppedDataURL, isCoverCrop) {
+			console.log(isCoverCrop);
 			var blob = Upload.dataUrltoBlob(croppedDataURL, vm.selectedLogoImageName);
 
 			if (isCoverCrop) {
@@ -1353,7 +1373,7 @@
 			return filesByType;
 		}
 
-		function openModalCropAvatarImage(fileName, e) {
+		function openModalCropAvatarImage(fileName, e, isCover) {
 			var file = e.currentTarget.files[0];
 			if (file) {
 				var reader = new FileReader();
@@ -1365,7 +1385,8 @@
 						modalCropLogoImage = ngDialog.open({
 							template: '../app/Places/views/popup-crop-image.html',
 							className: 'settings-add-ava ngdialog-theme-default',
-							scope: $scope
+							scope: $scope,
+							data: {isCover: isCover}
 						});
 					});
 				};

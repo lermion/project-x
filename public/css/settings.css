@@ -166,11 +166,11 @@
 }
 .settingsss .text p textarea::-webkit-input-placeholder {
 	color: #7e7b7b;
-	padding-left: 10px;
+	padding-left: 0;
 }
 .settingsss .text p input[type="text"]::-webkit-input-placeholder {
 	color: #7e7b7b;
-	padding-left: 10px;
+	padding-left: 0;
 }
 
 /*******************************
