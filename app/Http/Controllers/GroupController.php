@@ -318,7 +318,7 @@ class GroupController extends Controller
         $scopes = $request->input('scopes');
         $group->scopes()->attach($scopes);
         $group->update($groupData);
-        dd($groupData);
+//        dd($groupData);
         return response()->json(["status" => true, "groupData" => $groupData]);
     }
 
