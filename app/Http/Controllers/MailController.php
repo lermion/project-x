@@ -42,7 +42,7 @@ class MailController extends Controller
             'user_email' => $request->input('email'),
             'user_comment' => $request->input('text')
         ];
-        Mail::send('support.mail', $data, function ($message) use ($user_mail) {
+        Mail::send('support', $data, function ($message) use ($user_mail) {
             $message->from($user_mail->mail)->subject($user_mail->text);
 //                $message->to($user_mail->email, $user_mail->name)
         });
