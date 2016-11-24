@@ -882,6 +882,15 @@
 			modalDeleteGroup.close();
 		};
 
+		vm.openModalDeleteGroup = function(){
+			modalDeleteGroup = ngDialog.open({
+				template: '../app/Groups/views/popup-delete-group.html',
+				name: 'modal-edit-group',
+				className: 'popup-add-group popup-edit-group ngdialog-theme-default',
+				scope: $scope
+			});
+		};
+
 		vm.subscribe = function () {
 			if (group.is_creator) {
 				openModalSetCreator();
