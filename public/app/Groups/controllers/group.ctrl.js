@@ -200,7 +200,6 @@
 
 		function getScopes(){
 			PublicationService.getGroupScopes(vm.group.id).then(function(data){
-				console.log(data);
 				vm.checkedAreas = [];
 				vm.scopes = data;
 				vm.scopes.forEach(function(value){
