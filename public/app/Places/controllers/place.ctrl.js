@@ -12,6 +12,7 @@
 					   $http, $window, Upload, amMoment, socket, $location, groupsService, md5, ChatService) {
 
 		var vm = this;
+		vm.checkedLimit = 3;
 		var storage = storageService.getStorage();
 
 		var myId = +storage.userId;
