@@ -458,7 +458,7 @@ class GroupController extends Controller
                     }
                 }
                 return response()->json(['status' => true]);
-            } elseif (!$groupUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
+            } elseif (!$groupdestroyUser = GroupUser::where(['user_id' => Auth::id(), 'group_id' => $groupId, 'is_admin' => true])->first()) {
                 $responseData = [
                     "status" => false,
                     "error" => [
@@ -584,31 +584,16 @@ class GroupController extends Controller
         $group = Group::find($id);
         $scopes_groups = $group->scopes()->pluck('scopes.id');
         $scopes = Scope::all();
-        $all = false;
-        foreach ($scopes_groups as $scopes_group){
-            if ($scopes_group == 1){
-                $all = true;
-            }
-        }
-        if ($all == true) {
-            $data_scope = [];
+        foreach ($scopes_groups as $scopes_group) {
             foreach ($scopes as $scope) {
-                $scope['signed'] = true;
-                $data_scope[] = $scope;
-            }
-            return $data_scope;
-        } else {
-            $data_scope = [];
-            foreach ($scopes as $scope) {
-                foreach ($scopes_groups as $scopes_group) {
-                    if ($scope['id'] == $scopes_group) {
-                        $scope['signed'] = true;
-                    }
+                if($scope['id'] == $scopes_group) {
+                    $scope['signed'] = true;
+                } else {
+                    $scope['signed'] = false;
                 }
-                $data_scope[] = $scope;
             }
-            return $data_scope;
         }
+        return $scopes;
     }
 
     function transliterate($input)
