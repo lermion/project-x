@@ -15,7 +15,7 @@
 
 		var vm = this;
 		var storage = storageService.getStorage();
-
+		vm.checkedLimit = 3;
 		var myId = +storage.userId;
 		var myAvatar = storage.loggedUserAva;
 		var firstName = storage.firstName;
