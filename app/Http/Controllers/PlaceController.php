@@ -604,32 +604,18 @@ class PlaceController extends Controller
         $place = Place::find($id);
         $scopes_places = $place->scopes()->pluck('scopes.id');
         $scopes = Scope::all();
-        $all = false;
-        foreach ($scopes_places as $scopes_place){
-            if ($scopes_place == 1){
-                $all = true;
-            }
-        }
-        if ($all == true) {
-            $data_scope = [];
+        foreach ($scopes_places as $scopes_place) {
             foreach ($scopes as $scope) {
-                $scope['signed'] = true;
-                $data_scope[] = $scope;
-            }
-            return $data_scope;
-        } else {
-            $data_scope = [];
-            foreach ($scopes as $scope) {
-                foreach ($scopes_places as $scopes_place){
-                    if ($scope['id'] == $scopes_place) {
-                        $scope['signed'] = true;
-                    }
+                if($scope['id'] == $scopes_place) {
+                    $scope['signed'] = true;
+                } else {
+                    $scope['signed'] = false;
                 }
-                $data_scope[] = $scope;
             }
-            return $data_scope;
         }
+            return $scopes;
     }
+
 
     function transliterate($input)
     {
