@@ -494,6 +494,47 @@
 			});
 		};
 
+		vm.checkAll = function(param){
+			vm.scopes.forEach(function(value){
+				if(value.name === "Все"){
+					value.active = param;
+				}else{
+					value.active = false;
+					value.signed = false;
+				}
+				vm.checkedAreas = [];
+			});
+		};
+
+		vm.checkedScope = function(active, scope){
+			if(scope.name === "Все" && active){
+				vm.checkAll(true);
+				vm.checkedAreas = [];
+				vm.checkedAreas[0] = scope.id;
+			}else if(scope.name === "Все" && !active){
+				vm.checkAll(false);
+				vm.checkedAreas = [];
+				vm.checkedAreas.splice(vm.checkedAreas.indexOf(scope.id), 1);
+			}else{
+				if(vm.checkedAreas[0] === 1){
+					vm.checkedAreas.splice(0, 1);
+				}
+				vm.scopes.forEach(function(value){
+					if(value.name === "Все"){
+						value.active = false;
+						value.signed = false;
+					}
+				});
+			}
+			if (active) {
+				if (vm.checkedAreas.length < 3) {
+					vm.checkedAreas.push(scope.id);
+				}
+			} else {
+				vm.checkedAreas.splice(vm.checkedAreas.indexOf(scope.id), 1);
+			}
+		};
+
 		vm.showMoreImages = function (images, currImg) {
 			if (currImg != null) {
 				vm.mainImageInPopup = currImg.url;
