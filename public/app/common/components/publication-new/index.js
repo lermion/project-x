@@ -334,6 +334,8 @@
 
 				function submitPlacePublication(pub) {
 					placesService.addPublication(pub).then(function (data) {
+						data.publication.place = [];
+						data.publication.place[0] = ctrl.place;
 						$rootScope.$broadcast('publication:add', {
 							publication: data.publication
 						});

@@ -223,8 +223,14 @@
 					//console.log('OnLink');
 				};
 
-				ctrl.checkUrl = function(){
+				ctrl.checkGroup = function(){
 					if($state.current.name === "group.publications"){
+						ngDialog.closeAll();
+					}
+				};
+
+				ctrl.checkPlace = function(){
+					if($state.current.name === "place.publications"){
 						ngDialog.closeAll();
 					}
 				};
